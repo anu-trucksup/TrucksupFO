@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:cardCornerRadius="@dimen/_6sdp"
+    app:cardElevation="0dp">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_margin="@dimen/_16sdp"
+        android:background="@color/white"
+        android:clickable="true"
+        app:cardCornerRadius="@dimen/_6sdp"
+        app:cardElevation="0dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+
+            <LinearLayout
+                android:id="@+id/gallery"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_50sdp"
+                android:layout_margin="@dimen/_16sdp"
+                android:clickable="true"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="match_parent"
+                    android:background="#00ffffff"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_gallery_icon"
+                    android:tint="@color/blue"
+                    tools:ignore="UseAppTint" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/_50sdp"
+                    android:fontFamily="@font/bai_jamjuree_medium"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/_15sdp"
+                    android:text="@string/gallery"
+                    android:textColor="@color/blue"
+                    android:textSize="@dimen/_15sdp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/camra"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_50sdp"
+                android:layout_below="@id/gallery"
+                android:layout_marginLeft="@dimen/_16sdp"
+                android:layout_marginRight="@dimen/_16sdp"
+                android:layout_marginBottom="@dimen/_16sdp"
+                android:clickable="true"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="match_parent"
+                    android:background="#00ffffff"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_camera_icon"
+                    android:tint="@color/blue"
+                    tools:ignore="UseAppTint" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/_50sdp"
+                    android:fontFamily="@font/bai_jamjuree_medium"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/_15sdp"
+                    android:text="@string/camera"
+                    android:textColor="@color/blue"
+                    android:textSize="@dimen/_15sdp" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

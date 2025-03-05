@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "766936303776",
+    "project_id": "shineapp-cf303",
+    "storage_bucket": "shineapp-cf303.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:766936303776:android:067f4e54791f472c1861c5",
+        "android_client_info": {
+          "package_name": "com.trucksup.field_officer"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxPsDyRXphKtYVAJxh6lKo4mqHwhoRSiE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

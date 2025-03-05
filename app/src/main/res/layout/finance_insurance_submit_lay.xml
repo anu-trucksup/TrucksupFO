@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/alart_box_bg"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:paddingHorizontal="@dimen/_20sdp"
+    android:paddingVertical="@dimen/_12sdp">
+
+    <TextView
+        android:id="@+id/message1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:fontFamily="@font/bai_jamjuree_semi_bold"
+        android:gravity="center"
+        android:lines="1"
+        tools:text="Thank you for contacting us!"
+        android:textColor="@color/blue"
+        android:textSize="@dimen/_12ssp" />
+
+    <ImageView
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:src="@drawable/submit_finance_insurance"
+        android:layout_marginVertical="@dimen/_12sdp"/>
+
+    <TextView
+        android:id="@+id/message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/bai_jamjuree_medium"
+        android:gravity="center"
+        tools:text="Your request has been sent to our executive.You’ll recieve a call shortly."
+        android:textColor="@color/primery_text"
+        android:textSize="@dimen/_12ssp" />
+
+    <TextView
+        android:id="@+id/ok"
+        android:layout_width="@dimen/_70sdp"
+        android:layout_height="@dimen/_35sdp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/_25sdp"
+        android:background="@drawable/finance_sub_dialog_background"
+        android:fontFamily="@font/bai_jamjuree_semi_bold"
+        android:gravity="center"
+        android:text="@string/ok"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_14ssp" />
+
+</LinearLayout>

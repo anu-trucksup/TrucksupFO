@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@color/appbg"
+    android:paddingBottom="@dimen/_12sdp"
+    android:visibility="gone"
+    tools:viewBindingIgnore="true"
+
+    android:layout_margin="@dimen/_16sdp"
+    android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/primery_text"
+        android:fontFamily="@font/bai_jamjuree_bold"
+        android:textSize="@dimen/_16ssp"
+        android:gravity="center_vertical"
+        android:text="@string/vehicleDetails"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/primery_text"
+        android:fontFamily="@font/bai_jamjuree_medium"
+        android:textSize="@dimen/_11ssp"
+        android:gravity="center_vertical"
+        android:text="@string/insu_Detail_msg"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:textColor="@color/primery_text"
+        android:fontFamily="@font/bai_jamjuree_medium"
+        android:textSize="@dimen/_14ssp"
+        android:gravity="center_vertical"
+        android:text="@string/insu_has_policy_exp"/>
+<RadioGroup
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/radio_group"
+    android:orientation="horizontal">
+    <RadioButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:buttonTint="@color/blue"
+        android:text="@string/insu_Not_Expired"
+        android:id="@+id/ins_no_expired"
+        android:fontFamily="@font/bai_jamjuree_medium"
+        android:textColor="@color/primery_text"
+        android:layout_weight="1"/>
+    <RadioButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:buttonTint="@color/blue"
+        android:text="@string/insu_Expired"
+        android:id="@+id/ins_expired"
+        android:fontFamily="@font/bai_jamjuree_medium"
+        android:textColor="@color/primery_text"
+        android:layout_weight="1"/>
+</RadioGroup>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:textColor="@color/primery_text"
+            android:fontFamily="@font/bai_jamjuree_medium"
+            android:textSize="@dimen/_14ssp"
+            android:gravity="center_vertical"
+            android:text="@string/insu_Policy_Expiry_Date"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:background="@drawable/insurance_gray_box"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/primery_text"
+                android:fontFamily="@font/bai_jamjuree_medium"
+                android:layout_gravity="center_horizontal"
+                android:textSize="@dimen/_10ssp"
+                android:gravity="center_vertical"
+                android:text="@string/insu_Before"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/primery_text"
+                android:fontFamily="@font/bai_jamjuree_semi_bold"
+                android:layout_gravity="center_horizontal"
+                android:textSize="@dimen/_10ssp"
+                android:layout_marginBottom="@dimen/_2sdp"
+                android:gravity="center_vertical"
+                android:text="20/09/2024"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:background="@drawable/insurance_gray_box"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/primery_text"
+                android:fontFamily="@font/bai_jamjuree_medium"
+                android:layout_gravity="center_horizontal"
+                android:textSize="@dimen/_10ssp"
+                android:gravity="center_vertical"
+                android:text="@string/insu_Between"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/primery_text"
+                android:fontFamily="@font/bai_jamjuree_semi_bold"
+                android:layout_gravity="center_horizontal"
+                android:textSize="@dimen/_10ssp"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="@dimen/_2sdp"
+                android:text="1st May 202323 to 15th June, 2023"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:background="@drawable/insurance_gray_box"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/primery_text"
+                android:fontFamily="@font/bai_jamjuree_medium"
+                android:layout_gravity="center_horizontal"
+                android:textSize="@dimen/_10ssp"
+                android:gravity="center_vertical"
+                android:text="@string/insu_After"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/primery_text"
+                android:fontFamily="@font/bai_jamjuree_semi_bold"
+                android:layout_gravity="center_horizontal"
+                android:textSize="@dimen/_10ssp"
+                android:gravity="center_vertical"
+                android:text="15th June, 2023 "/>
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/sub"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:background="@drawable/blue_button"
+        android:fontFamily="@font/roboto_medium"
+        android:gravity="center"
+        android:text="@string/continu_main"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_14ssp" />
+
+</LinearLayout>
+</layout>

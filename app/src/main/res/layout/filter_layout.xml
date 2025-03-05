@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/top_corners"
+    android:padding="@dimen/_10sdp">
+
+    <View
+        android:id="@+id/v1"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_2sdp"
+        android:background="#B33E2089"
+        android:layout_gravity="center"/>
+
+    <ImageView
+        android:id="@+id/btnCancel"
+        android:layout_width="@dimen/_20sdp"
+        android:layout_height="@dimen/_20sdp"
+        android:src="@drawable/cancel_icon"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_gravity="end"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Please select filter"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_14ssp"
+        android:maxLines="1"
+        android:fontFamily="@font/bai_jamjuree_medium"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:background="#333E2089"
+        android:layout_marginVertical="@dimen/_4sdp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="KYC"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:textSize="@dimen/_11ssp"
+        android:fontFamily="@font/bai_jamjuree_medium"
+        android:textColor="#B33E2089"
+        android:lines="1"/>
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:background="@drawable/filter_spiner_background"
+        android:orientation="horizontal">
+
+        <Spinner
+            android:id="@+id/kycSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:entries="@array/body_type"
+            android:fontFamily="@font/bai_jamjuree_medium"
+            android:paddingHorizontal="@dimen/_3sdp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvSP"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Subscription Plan"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:textSize="@dimen/_11ssp"
+        android:fontFamily="@font/bai_jamjuree_medium"
+        android:textColor="#B33E2089"
+        android:lines="1"/>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:background="@drawable/filter_spiner_background"
+        android:orientation="horizontal">
+
+        <Spinner
+            android:id="@+id/subscriptionPlanSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:entries="@array/body_type"
+            android:fontFamily="@font/bai_jamjuree_medium"
+            android:paddingHorizontal="@dimen/_3sdp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Visit"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:textSize="@dimen/_11ssp"
+        android:fontFamily="@font/bai_jamjuree_medium"
+        android:textColor="#B33E2089"
+        android:lines="1"/>
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:background="@drawable/filter_spiner_background"
+        android:orientation="horizontal">
+
+        <Spinner
+            android:id="@+id/visitSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:entries="@array/body_type"
+            android:fontFamily="@font/bai_jamjuree_medium"
+            android:paddingHorizontal="@dimen/_3sdp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvED"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Expiry Date"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:textSize="@dimen/_11ssp"
+        android:fontFamily="@font/bai_jamjuree_medium"
+        android:textColor="#B33E2089"
+        android:lines="1"/>
+
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:background="@drawable/filter_spiner_background"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/expirySpinner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Select Date"
+            android:lines="1"
+            android:textColorHint="#B6B3B1"
+            android:textSize="@dimen/_12ssp"
+            android:fontFamily="@font/bai_jamjuree_medium"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="@dimen/_10sdp"
+            android:textColor="@color/black"
+            android:drawableEnd="@drawable/calender_icon"
+            android:drawableTint="@color/black"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/submitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_12ssp"
+        android:layout_gravity="center_horizontal"
+        android:paddingHorizontal="@dimen/_30sdp"
+        android:fontFamily="@font/bai_jamjuree_medium"
+        android:background="@drawable/background_1_1"
+        android:paddingVertical="@dimen/_2sdp"
+        android:layout_marginVertical="@dimen/_15sdp"
+        />
+
+</LinearLayout>

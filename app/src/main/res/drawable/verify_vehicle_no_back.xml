@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<item android:state_checked="true"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <layer-list>
+        <item android:left="10dp" android:right="10dp">
+            <shape android:shape="rectangle">
+                <corners android:radius="8dp" />
+                <solid android:color="@color/white"/>
+                                    <gradient
+                                        android:angle="45"
+                                        android:endColor="#008000"
+                                        android:startColor="#008000" />
+            </shape>
+        </item>
+    </layer-list>
+</item>
+
+    <!--</layer-list>-->
+
+    <!--    border: 2px solid;-->
+
+    <!--    border-image-source: linear-gradient(90deg, #3C2088 0%, #B33B9B 100%);-->

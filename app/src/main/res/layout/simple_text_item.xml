@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/textView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fontFamily="@font/bai_jamjuree_medium"
+    android:paddingHorizontal="@dimen/_5sdp"
+    android:text="hello"
+    android:textColor="@color/black"
+    android:textSize="@dimen/_10ssp"
+    android:paddingVertical="@dimen/_5sdp"/>

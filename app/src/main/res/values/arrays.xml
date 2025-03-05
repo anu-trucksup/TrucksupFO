@@ -1,0 +1,666 @@
+<resources>
+
+    <string-array name="budget">
+        <item>Select</item>
+        <item>5 Lacs</item>
+        <item>10 Lacs</item>
+        <item>15 Lacs</item>
+        <item>20 Lacs</item>
+        <item>25 Lacs</item>
+    </string-array>
+
+    <string-array name="budgetint">
+        <item>Select</item>
+        <item>500000</item>
+        <item>1000000</item>
+        <item>1500000</item>
+        <item>2000000</item>
+        <item>2500000</item>
+    </string-array>
+
+
+    <string-array name="Bedrooms">
+        <item>Select</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+
+    <string-array name="Property_Type">
+        <item>Select</item>
+        <item>Residential</item>
+        <item>Commercial</item>
+        <item>Flat/Apartment</item>
+        <item>Independent House/Villa</item>
+        <item>Service Apartment</item>
+        <item>Farm House</item>
+    </string-array>
+
+    <string-array name="state">
+        <item>Select</item>
+        <item>Uttar Pradesh</item>
+        <item>Delhi</item>
+        <item>Haryana</item>
+        <item>Rajasthan</item>
+        <item>Andhra Pradesh</item>
+        <item>Madhya Pradesh</item>
+        <item>Punjab</item>
+        <item>Karnataka</item>
+        <item>Tamil Nadu</item>
+        <item>Maharashtra</item>
+        <item>West Bengal</item>
+        <item>Gujarat</item>
+        <item>Kerala</item>
+        <item>Bihar</item>
+        <item>Odisha</item>
+        <item>Jharkhand</item>
+        <item>Assam</item>
+        <item>Chhattisgarh</item>
+        <item>Goa</item>
+        <item>Tripura</item>
+        <item>Meghalaya</item>
+        <item>Manipur</item>
+        <item>Mizoram</item>
+        <item>Nagaland</item>
+        <item>Sikkim</item>
+        <item>Arunachal Pradesh</item>
+        <item>Dadra and Nagar Haveli</item>
+        <item>Daman and Diu</item>
+        <item>Puducherry</item>
+        <item>Chandigarh</item>
+        <item>Himachal Pradesh</item>
+        <item>Andaman and Nicobar Islands</item>
+        <item>Lakshadweep</item>
+        <item>Pondicherry</item>
+        <item>Telangana</item>
+        <item>Uttarakhand</item>
+        <item>Himachal Pradesh</item>
+        <item>Andaman and Nicobar Islands</item>
+        <item>Jammu and Kashmir</item>
+        <item>Ladakh</item>
+    </string-array>
+
+    <string-array name="city">
+        <item>Select</item>
+        <item>Delhi</item>
+        <item>Gurugram</item>
+        <item>Agra</item>
+        <item>Kanpur</item>
+        <item>Bengaluru</item>
+        <item>Hyderabad</item>
+        <item>Mumbai</item>
+        <item>Chennai</item>
+        <item>Kolkata</item>
+        <item>Ahmedabad</item>
+        <item>Pune</item>
+        <item>Jaipur</item>
+        <item>Chandigarh</item>
+        <item>Ahmedabad</item>
+        <item>Pune</item>
+        <item>Jaipur</item>
+        <item>Chandigarh</item>
+        <item>Noida</item>
+    </string-array>
+
+    <string-array name="numbers">
+        <item>Select</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>5+</item>
+
+    </string-array>
+
+    <string-array name="total_floors">
+        <item>Select</item>
+        <item>Basement</item>
+        <item>Ground</item>
+        <item>Lower Ground</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>20+</item>
+
+    </string-array>
+
+    <string-array name="over_looking">
+        <item>Select</item>
+        <item>Main Road</item>
+        <item>Park/Garden</item>
+        <item>Hospital</item>
+        <item>Mall</item>
+        <item>School</item>
+        <item>Railway Station</item>
+    </string-array>
+
+    <string-array name="property_age">
+        <item>Select</item>
+        <item>0-1 years</item>
+        <item>1-5 years</item>
+        <item>5-10 years</item>
+        <item>10+ years</item>
+    </string-array>
+
+    <string-array name="transaction_type">
+        <item>Select</item>
+        <item>Resale</item>
+        <item>New Booking</item>
+    </string-array>
+
+    <string-array name="property_ownership">
+        <item>Select</item>
+        <item>Freehold</item>
+        <item>Leasehold</item>
+        <item>Co-operative society</item>
+        <item>Power of Attorney</item>
+    </string-array>
+
+    <string-array name="furnishing">
+        <item>Select</item>
+        <item>Furnished</item>
+        <item>Semi-Furnished</item>
+        <item>Un-Furnished</item>
+    </string-array>
+
+    <string-array name="width_Unit">
+        <item>Select</item>
+        <item>Meter</item>
+        <item>Foot</item>
+        <item>Sqm</item>
+    </string-array>
+
+    <string-array name="water_source">
+        <item>Select</item>
+        <item>Municipal corporation,24*7 Water</item>
+    </string-array>
+
+    <string-array name="power_backup">
+        <item>Select</item>
+        <item>Generator</item>
+        <item>Solar</item>
+        <item>Inverter</item>
+    </string-array>
+
+    <string-array name="direction">
+        <item>Select</item>
+        <item>East-Facing</item>
+        <item>West-Facing</item>
+        <item>North-Facing</item>
+        <item>South-Facing</item>
+    </string-array>
+
+    <string-array name="loan">
+        <item>Select</item>
+        <item>Bank</item>
+        <item>Private</item>
+    </string-array>
+
+    <string-array name="buildup_area">
+        <item>Select</item>
+        <item>Carpet Area</item>
+        <item>Corridors</item>
+        <item>Lobbies</item>
+    </string-array>
+
+    <string-array name="buildup_unit">
+        <item>Select</item>
+        <item>Square Meter</item>
+        <item>Square Foot</item>
+        <item>Acre</item>
+        <item>Square Yard</item>
+        <item>Killa</item>
+    </string-array>
+
+    <string-array name="availiblity_status">
+        <item>Select</item>
+        <item>Ready To Move</item>
+        <item>Under Construction</item>
+    </string-array>
+
+    <string-array name="asking_unit">
+        <item>Select</item>
+        <item>Lac</item>
+        <item>Crore</item>
+    </string-array>
+
+    <string-array name="negotiable">
+        <item>Select</item>
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+
+    <string-array name="rera_approved">
+        <item>Select</item>
+        <item>Approved</item>
+        <item>Pending</item>
+        <item>Rejected</item>
+        <item>Not Applicable</item>
+    </string-array>
+
+    <string-array name="inventory_type">
+        <item>Select</item>
+        <item>Plots</item>
+        <item>Flats</item>
+        <item>Villas</item>
+        <item>Commercials</item>
+        <item>Offices</item>
+        <item>Mansions</item>
+    </string-array>
+
+    <string-array name="inventoryType">
+        <item>Select</item>
+        <item>Plots</item>
+        <item>Flats</item>
+        <item>Villas</item>
+        <item>Commercials</item>
+        <item>Offices</item>
+        <item>Mansions</item>
+    </string-array>
+
+    <string-array name="status">
+        <item>Select</item>
+        <item>Active</item>
+        <item>Inactive</item>
+    </string-array>
+
+    <string-array name="connectivity">
+        <item>Select</item>
+        <item>Wi-Fi</item>
+        <item>Ethernet</item>
+        <item>Mobile Data</item>
+        <item>Bluetooth</item>
+        <item>VPN</item>
+        <item>Satellite</item>
+        <item>Other</item>
+        <item>None</item>
+    </string-array>
+
+    <string-array name="yesNo">
+        <item>Select</item>
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+
+    <string-array name="accessbility">
+
+        <item>Select</item>
+        <item>Wheelchair Accessible</item>
+        <item>Elevator</item>
+        <item>Ramps</item>
+        <item>Braille Signage</item>
+        <item>Accessible Restrooms</item>
+        <item>Hearing Assistance</item>
+        <item>Accessible Parking</item>
+        <item>Guide Dogs Allowed</item>
+        <item>Sign Language Interpreters</item>
+        <item>Accessible Entrances</item>
+    </string-array>
+    <string-array name="YesNo">
+        <item>Select</item>
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+
+    <string-array name="occupancy">
+        <item>Select</item>
+        <item>Issued</item>
+        <item>Pending</item>
+        <item>Not Applied</item>
+        <item>Exempt</item>
+        <item>Under Review</item>
+    </string-array>
+
+
+    <string-array name="kitchens">
+        <item>Select</item>
+        <item>Luxury</item>
+        <item>Deluxe</item>
+        <item>Elite</item>
+    </string-array>
+
+    <string-array name="flatPurchaseChecklist">
+        <item>Select</item>
+        <item>Property Inspection</item>
+        <item>Loan Approval</item>
+        <item>Legal Documentation</item>
+        <item>Down Payment</item>
+        <item>Home Insurance</item>
+        <item>Final Walkthrough</item>
+        <item>Closing Costs</item>
+        <item>Title Search</item>
+        <item>Utility Setup</item>
+        <item>Move-In Date</item>
+    </string-array>
+
+    <string-array name="investmentPerspective">
+        <item>Select</item>
+        <item>Risk Assessment</item>
+        <item>Return On Investment (ROI)</item>
+        <item>Market Trends</item>
+        <item>Investment Horizon</item>
+        <item>Diversification Strategy</item>
+        <item>Asset Allocation</item>
+        <item>Liquidity Needs</item>
+        <item>Tax Implications</item>
+        <item>Economic Indicators</item>
+        <item>Investment Goals</item>
+    </string-array>
+
+    <string-array name="villaInvestmentPerspective">
+        <item>Select</item>
+        <item>High</item>
+        <item>Medium</item>
+        <item>Low</item>
+        <item>Not Sure</item>
+    </string-array>
+
+    <string-array name="smartHomes">
+        <item>Select</item>
+        <item>Basic</item>
+        <item>Advanced</item>
+        <item>Premium</item>
+    </string-array>
+
+
+    <string-array name="landDocuments">
+        <item>Select</item>
+        <item>Title Deed</item>
+        <item>Sale Deed</item>
+        <item>Land Use Certificate</item>
+        <item>Encumbrance Certificate</item>
+    </string-array>
+
+    <string-array name="outdoorsAmenities">
+        <item>Select</item>
+        <item>Swimming Pool</item>
+        <item>Gym</item>
+        <item>Garden</item>
+        <item>Playground</item>
+        <item>BBQ Area</item>
+    </string-array>
+
+
+    <string-array name="villaModernFeatures">
+        <item>Select</item>
+        <item>Swimming Pool</item>
+        <item>Gym</item>
+        <item>Home Theater</item>
+        <item>Smart Home System</item>
+        <item>Jacuzzi</item>
+    </string-array>
+
+    <string-array name="pricing">
+        <item>Select</item>
+        <item>Below 1000k</item>
+        <item>1000k - 3000k</item>
+        <item>3000k - 5000k</item>
+        <item>Above 5000k</item>
+    </string-array>
+
+    <string-array name="privacy">
+        <item>Select</item>
+        <item>Low</item>
+        <item>Medium</item>
+        <item>High</item>
+    </string-array>
+
+    <string-array name="comerPropertyType">
+        <item>Select</item>
+        <item>Office</item>
+        <item>Retail</item>
+        <item>Industrial</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="taxPayStatus">
+        <item>Select</item>
+        <item>Paid</item>
+        <item>Pending</item>
+        <item>Overdue</item>
+        <item>Exempt</item>
+        <item>Not Applicable</item>
+    </string-array>
+
+    <string-array name="riskReturn">
+        <item>Select</item>
+        <item>Low</item>
+        <item>Medium</item>
+        <item>High</item>
+        <item>very High</item>
+    </string-array>
+
+    <string-array name="accessTo">
+        <item>Select</item>
+        <item>Public Assess</item>
+        <item>Restricted Assess</item>
+        <item>Admin Access</item>
+        <item>User Access</item>
+        <item>Guest Access</item>
+        <item>Read-Only Access</item>
+        <item>Full Access</item>
+        <item>Limited Access</item>
+        <item>Temporary Access</item>
+        <item>No Access</item>
+    </string-array>
+
+    <string-array name="zoningRisks">
+        <item>Select</item>
+        <item>Regulatory Changes</item>
+        <item>Environmental Restrictions</item>
+        <item>Land Use Conflicts</item>
+        <item>Zoning Violations</item>
+        <item>Market Demand Fluctuations</item>
+        <item>Infrastructure Limitations</item>
+        <item>Community Opposition</item>
+        <item>Property Value Impact</item>
+        <item>Development Delays</item>
+        <item>Compliance Costs</item>
+    </string-array>
+
+    <string-array name="modernFeatures">
+        <item>Select</item>
+        <item>Smart Home Technology</item>
+        <item>Energy-Efficient Appliances</item>
+        <item>Open Floor Plan</item>
+        <item>Sustainable Materials</item>
+        <item>Home Automation Systems</item>
+        <item>High-Speed Internet Connectivity</item>
+        <item>Smart Security Systems</item>
+        <item>Green Roofs</item>
+        <item>Solar Panels</item>
+        <item>Integrated Smart Lighting</item>
+    </string-array>
+
+    <string-array name="marketResearch">
+        <item>Select</item>
+        <item>Surveys</item>
+        <item>Focus Groups</item>
+        <item>Observational Research</item>
+        <item>Market Analysis</item>
+        <item>Competitor Analysis</item>
+        <item>Consumer Behavior Studies</item>
+        <item>Product Testing</item>
+        <item>Trend Analysis</item>
+        <item>Data Analytics</item>
+    </string-array>
+
+    <string-array name="uniformity">
+        <item>Select</item>
+        <item>High Uniformity</item>
+        <item>Medium Uniformity</item>
+        <item>Low Uniformity</item>
+        <item>Varied Uniformity</item>
+    </string-array>
+
+    <string-array name="soilQuality">
+        <item>Select</item>
+        <item>Excellent</item>
+        <item>Good</item>
+        <item>Average</item>
+        <item>Poor</item>
+    </string-array>
+
+    <string-array name="accessPlot">
+        <item>Select</item>
+        <item>Easy Access</item>
+        <item>Moderate Access</item>
+        <item>Difficult Access</item>
+        <item>No Access</item>
+    </string-array>
+
+    <string-array name="connection">
+        <item>Select</item>
+        <item>Excellent</item>
+        <item>Good</item>
+        <item>Average</item>
+        <item>Poor</item>
+        <item>None</item>
+    </string-array>
+
+    <string-array name="constructionApprovals">
+        <item>Select</item>
+        <item>Approved</item>
+        <item>Pending</item>
+        <item>Not Applicable</item>
+        <item>Denied</item>
+    </string-array>
+
+    <string-array name="flatChecklist">
+        <item>Select</item>
+        <item>Documents</item>
+        <item>Inspection</item>
+        <item>Payment</item>
+        <item>Agreement</item>
+        <item>Registration</item>
+    </string-array>
+
+    <string-array name="Plotinvestment">
+        <item>Select</item>
+        <item>High Return</item>
+        <item>Moderate Return</item>
+        <item>Low Return</item>
+        <item>Risk</item>
+        <item>Safe</item>
+    </string-array>
+
+    <string-array name="naOrder">
+        <item>Select</item>
+        <item>Pending</item>
+        <item>Completed</item>
+        <item>Canceled</item>
+        <item>In Progress</item>
+    </string-array>
+
+    <string-array name="powerAttorney">
+        <item>Select</item>
+        <item>Full</item>
+        <item>Limited</item>
+        <item>Special</item>
+        <item>None</item>
+    </string-array>
+
+    <string-array name="security">
+        <item>Select</item>
+        <item>High</item>
+        <item>Medium</item>
+        <item>Low</item>
+        <item>None</item>
+    </string-array>
+
+    <string-array name="waterElecSupply">
+        <item>Select</item>
+        <item>Available</item>
+        <item>Not Available</item>
+        <item>Partially Available</item>
+        <item>Pending</item>
+    </string-array>
+
+    <string-array name="zonRisks">
+        <item>Select</item>
+        <item>High</item>
+        <item>Medium</item>
+        <item>Low</item>
+        <item>None</item>
+    </string-array>
+
+    <string-array name="approvalss">
+        <item>Select</item>
+        <item>Approved</item>
+        <item>Pending</item>
+        <item>Rejected</item>
+        <item>In Process</item>
+        <item>Not Required</item>
+    </string-array>
+
+    <string-array name="dueDiligence">
+        <item>Select</item>
+        <item>Completed</item>
+        <item>In Progress</item>
+        <item>Pending</item>
+        <item>Not Required</item>
+    </string-array>
+
+    <string-array name="constructionQuality">
+        <item>Select</item>
+        <item>Excellent</item>
+        <item>Good</item>
+        <item>Average</item>
+        <item>Poor</item>
+        <item>Needs Improvement</item>
+    </string-array>
+
+    <string-array name="encumbrance">
+        <item>Select</item>
+        <item>Clear</item>
+        <item>Pending</item>
+        <item>Encumbered</item>
+        <item>Unknown</item>
+    </string-array>
+
+    <string-array name="history">
+        <item>Select</item>
+        <item>Recent</item>]
+        <item>Old</item>
+        <item>Unknown</item>
+        <item>Inherited</item>
+    </string-array>
+
+    <string-array name="saleAgreement">
+        <item>Select</item>
+        <item>Signed</item>]
+        <item>Pending</item>
+        <item>Not Applicable</item>
+    </string-array>
+
+    <string-array name="reracompliance">
+        <item>Select</item>
+        <item>Compliant</item>
+        <item>Pending</item>
+        <item>Exempt</item>
+        <item>Under Review</item>
+        <item>Not Compliant</item>
+    </string-array>
+
+
+</resources>

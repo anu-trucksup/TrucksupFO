@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/vehicleDetailConfirmationFragment">
+    <fragment
+        android:id="@+id/vehicleDetailConfirmationFragment"
+        android:name="com.trucksup.field_officer.presenter.view.fragment.insurance.VehicleDetailConfirmationFragment"
+        android:label="fragment_vehicle_detail_confirmation"
+        tools:layout="@layout/fragment_vehicle_detail_confirmation" >
+        <action
+            android:id="@+id/action_vehicleDetailConfirmationFragment_to_insuranceExpiryConfirmationFragment"
+            app:destination="@id/insuranceExpiryConfirmationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/insuranceExpiryConfirmationFragment"
+        android:name="com.trucksup.field_officer.presenter.view.fragment.insurance.InsuranceExpiryConfirmationFragment"
+        android:label="fragment_insurance_expiry_confirmation"
+        tools:layout="@layout/fragment_insurance_expiry_confirmation" >
+        <action
+            android:id="@+id/action_insuranceExpiryConfirmationFragment_to_insuranceLoadingFragment"
+            app:destination="@id/insuranceLoadingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/insuranceLoadingFragment"
+        android:name="com.trucksup.field_officer.presenter.view.fragment.insurance.InsuranceLoadingFragment"
+        android:label="InsuranceLoadingFragment" >
+        <action
+            android:id="@+id/action_insuranceLoadingFragment_to_insuranceQuotationsFragment"
+            app:destination="@id/insuranceQuotationsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/insuranceQuotationsFragment"
+        android:name="com.trucksup.field_officer.presenter.view.fragment.insurance.InsuranceQuotationsFragment"
+        android:label="fragment_insurance_quotations"
+        tools:layout="@layout/fragment_insurance_quotations" />
+</navigation>

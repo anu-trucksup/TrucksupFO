@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.trucksup.field_officer">
+
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <application
+        android:name=".presenter.utils.CommonApplication"
+        android:allowBackup="false"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:hardwareAccelerated="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:requestLegacyExternalStorage="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:theme="@style/Base.Theme.FieldOfficer"
+        android:usesCleartextTraffic="true"
+        tools:replace="android:allowBackup,android:icon"
+        tools:targetApi="31">
+        <activity
+            android:name=".presenter.view.activity.truck_owner.TruckSupplierDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presenter.view.activity.profile.TotalAddLoadScreen"
+            android:exported="false" />
+        <activity
+            android:name=".presenter.view.activity.other.NewOnboardingSelection"
+            android:exported="false" />
+        <activity
+            android:name=".presenter.view.activity.other.FollowUpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presenter.view.activity.other.WelcomeLocationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presenter.view.activity.other.DashboardActivity"
+            android:exported="false"
+            android:theme="@style/Base.Theme.FieldOfficer" />
+        <activity
+            android:name=".presenter.view.activity.auth.forget_pass.ResetPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presenter.view.activity.auth.signup.SignUpActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".presenter.view.activity.profile.MyEarningActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presenter.view.activity.profile.EditProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presenter.view.activity.auth.login.LoginActivity"
+            android:exported="true"
+            android:theme="@style/Base.Theme.FieldOfficer">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".presenter.view.activity.auth.forget_pass.CreatePasswordActivity"
+            android:exported="true"
+            android:theme="@style/Base.Theme.FieldOfficer" />
+        <activity
+            android:name=".presenter.view.activity.other.MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presenter.view.activity.business_associate.BAFollowupActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presenter.view.activity.truck_owner.TSFollowupActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presenter.view.activity.growth_partner.GPFollowupActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presenter.view.activity.other.HomeActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".presenter.view.activity.financeInsurance.FinanceActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".presenter.view.activity.financeInsurance.FinanceHistoryActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".presenter.view.activity.financeInsurance.InsuranceActivity"
+            android:exported="false" />
+
+        <service
+            android:name=".presenter.utils.MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+    </application>
+
+</manifest>

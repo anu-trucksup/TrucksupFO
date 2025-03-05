@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/materialCardView"
+        android:layout_width="@dimen/_60sdp"
+        android:layout_height="@dimen/_60sdp"
+        android:layout_margin="@dimen/_4sdp"
+        app:cardBackgroundColor="@color/white"
+        android:background="@color/blue_9"
+        app:cardCornerRadius="@dimen/_62sdp"
+        app:cardElevation="@dimen/_4sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/service_img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/blue_9"
+            android:layout_gravity="center|center_horizontal|center_vertical"
+            android:padding="@dimen/_8sdp"
+            android:src="@drawable/img_kawach" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <TextView
+        android:id="@+id/service_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:fontFamily="@font/bai_jamjuree_semi_bold"
+        android:gravity="center"
+        android:maxLength="15"
+        android:ellipsize="end"
+        android:text="TU Kawach"
+        android:textColor="@color/blue"
+        android:textSize="@dimen/_10ssp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
+
+
+    <LinearLayout
+        android:layout_width="@dimen/_25sdp"
+        android:layout_height="@dimen/_25sdp"
+        android:layout_marginBottom="-16dp"
+        android:background="@drawable/blue_circle"
+        android:orientation="vertical"
+        android:elevation="@dimen/_4sdp"
+        app:layout_constraintBottom_toTopOf="@+id/materialCardView"
+        app:layout_constraintEnd_toEndOf="@+id/materialCardView">
+
+        <TextView
+            android:id="@+id/tvCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/bai_jamjuree_medium"
+            android:gravity="center"
+            android:padding="@dimen/_4sdp"
+            android:singleLine="true"
+            android:text="10"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/_10ssp"
+            android:textAlignment="center"
+            android:layout_gravity="center|center_vertical|center_horizontal"/>
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+

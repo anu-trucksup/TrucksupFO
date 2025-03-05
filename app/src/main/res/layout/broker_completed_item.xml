@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_8sdp"
+    android:background="@drawable/background3">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/notHighLightView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="@dimen/_1sdp"
+        android:layout_marginTop="@dimen/_1sdp"
+        android:background="@drawable/background2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/highLightView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/_2sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <!--            <TextView-->
+                <!--                android:layout_width="match_parent"-->
+                <!--                android:layout_height="wrap_content"-->
+                <!--                android:layout_marginStart="@dimen/_3sdp"-->
+                <!--                android:layout_marginTop="@dimen/_3sdp"-->
+                <!--                android:layout_marginEnd="@dimen/_3sdp"-->
+                <!--                android:drawablePadding="@dimen/_3sdp"-->
+                <!--                android:fontFamily="@font/bai_jamjuree_medium"-->
+                <!--                android:maxLines="1"-->
+                <!--                android:text="12-11-2024 10:53:00"-->
+                <!--                android:textColor="@color/blue"-->
+                <!--                android:textSize="@dimen/_11ssp"-->
+                <!--                app:drawableStartCompat="@drawable/timetable" />-->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_3sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:layout_marginEnd="@dimen/_3sdp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/_10sdp"
+                        android:layout_height="@dimen/_10sdp"
+                        android:src="@drawable/timetable_icon" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_2sdp"
+                        android:fontFamily="@font/bai_jamjuree_medium"
+                        android:maxLines="1"
+                        android:text="12-11-2024 10:53:00"
+                        android:textColor="@color/blue"
+                        android:textSize="@dimen/_11ssp" />
+
+                </LinearLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_3sdp">
+
+                    <TextView
+                        android:id="@+id/name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_3sdp"
+                        android:fontFamily="@font/bai_jamjuree_bold"
+                        android:maxLines="1"
+                        android:text="Yash"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_11ssp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_3sdp"
+                    android:layout_marginEnd="@dimen/_3sdp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/_10sdp"
+                        android:layout_height="@dimen/_10sdp"
+                        android:src="@drawable/pin_icon" />
+
+                    <TextView
+                        android:id="@+id/address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_2sdp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/bai_jamjuree_medium"
+                        android:text="Gurugram"
+                        android:textColor="@color/text_grey"
+                        android:textSize="@dimen/_11ssp" />
+
+                </LinearLayout>
+
+                <!--            <TextView-->
+                <!--                android:layout_width="match_parent"-->
+                <!--                android:layout_height="wrap_content"-->
+                <!--                android:text="Remark: test"-->
+                <!--                android:textColor="@color/text_grey"-->
+                <!--                android:fontFamily="@font/bai_jamjuree_semi_bold"-->
+                <!--                android:layout_marginHorizontal="@dimen/_3sdp"-->
+                <!--                android:textSize="@dimen/_11ssp"-->
+                <!--                android:layout_marginTop="@dimen/_3sdp"-->
+                <!--                android:maxLines="1"/>-->
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_3sdp"
+                    android:layout_marginTop="@dimen/_5sdp">
+
+                    <ImageView
+                        android:id="@+id/statusImage"
+                        android:layout_width="@dimen/_15sdp"
+                        android:layout_height="@dimen/_15sdp"
+                        android:layout_marginEnd="@dimen/_3sdp"
+                        android:src="@drawable/checkmark_icon"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/tvStatus"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/green" />
+
+                    <TextView
+                        android:id="@+id/tvStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_3sdp"
+                        android:fontFamily="@font/bai_jamjuree_medium"
+                        android:text="Completed"
+                        android:textColor="@color/green"
+                        android:textSize="@dimen/_10ssp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_25sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:background="@drawable/background4"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1.4"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="@dimen/_3sdp"
+                            android:src="@drawable/kyc_done_icon_svg" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:drawablePadding="@dimen/_4sdp"
+                            android:fontFamily="@font/bai_jamjuree_semi_bold"
+                            android:paddingStart="@dimen/_6sdp"
+                            android:paddingTop="@dimen/_1sdp"
+                            android:paddingEnd="@dimen/_6sdp"
+                            android:paddingBottom="@dimen/_1sdp"
+                            android:text="KYC"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_9ssp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/_18sdp"
+                            android:layout_height="@dimen/_18sdp"
+                            android:layout_gravity="center_vertical"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/load_box" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1.5"
+                            android:fontFamily="@font/bai_jamjuree_semi_bold"
+                            android:maxLines="1"
+                            android:paddingStart="@dimen/_5sdp"
+                            android:paddingTop="@dimen/_1sdp"
+                            android:paddingEnd="@dimen/_3sdp"
+                            android:paddingBottom="@dimen/_1sdp"
+                            android:text="No. of Loads Added : 5"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_9ssp" />
+
+                    </LinearLayout>
+
+                    <!--                <LinearLayout-->
+                    <!--                    android:layout_width="match_parent"-->
+                    <!--                    android:layout_height="wrap_content"-->
+                    <!--                    android:layout_gravity="center_vertical"-->
+                    <!--                    android:layout_weight="1"-->
+                    <!--                    android:orientation="horizontal">-->
+
+                    <!--                    <TextView-->
+                    <!--                        android:layout_width="wrap_content"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:layout_gravity="center_vertical"-->
+                    <!--                        android:layout_weight="1"-->
+                    <!--                        android:fontFamily="@font/bai_jamjuree_bold"-->
+                    <!--                        android:maxLines="1"-->
+                    <!--                        android:paddingStart="@dimen/_3sdp"-->
+                    <!--                        android:paddingTop="@dimen/_1sdp"-->
+                    <!--                        android:paddingEnd="@dimen/_3sdp"-->
+                    <!--                        android:paddingBottom="@dimen/_1sdp"-->
+                    <!--                        android:textColor="@color/black"-->
+                    <!--                        android:text="Load added - NA days ago"-->
+                    <!--                        android:textSize="@dimen/_9ssp" />-->
+
+                    <!--                </LinearLayout>-->
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

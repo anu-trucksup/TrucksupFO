@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment.BrokerFragment">
+
+    <LinearLayout
+        android:id="@+id/l1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginHorizontal="@dimen/_8sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/btnFind"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Find"
+                android:gravity="center"
+                android:maxLines="1"
+                android:textColor="@color/black"
+                android:paddingVertical="@dimen/_5sdp"
+                android:fontFamily="@font/bai_jamjuree_medium"
+                android:textSize="@dimen/_12ssp"/>
+
+            <View
+                android:id="@+id/vLine1"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_2sdp"
+                android:background="@color/blue"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btnScheduled"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Scheduled"
+                android:gravity="center"
+                android:maxLines="1"
+                android:paddingVertical="@dimen/_5sdp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/bai_jamjuree_medium"
+                android:textSize="@dimen/_12ssp"/>
+
+            <View
+                android:id="@+id/vLine2"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_2sdp"
+                android:background="@color/unselect_tab"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btnCompleted"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Completed"
+                android:gravity="center"
+                android:maxLines="1"
+                android:paddingVertical="@dimen/_5sdp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/bai_jamjuree_medium"
+                android:textSize="@dimen/_12ssp"/>
+
+            <View
+                android:id="@+id/vLine3"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_2sdp"
+                android:background="@color/unselect_tab"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/l1"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

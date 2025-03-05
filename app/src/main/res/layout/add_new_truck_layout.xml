@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="@dimen/_8sdp"
+    app:strokeWidth="0dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#123E2089"
+        android:padding="@dimen/_10sdp">
+
+        <TextView
+            android:id="@+id/tvTruckNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/bai_jamjuree_medium"
+            android:lines="1"
+            android:text="Truck Number *"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/_10ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/etTruckNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:background="@drawable/editbox_outborder"
+            android:fontFamily="@font/bai_jamjuree_medium"
+            android:hint="Commercial truck number"
+            android:lines="1"
+            android:paddingHorizontal="@dimen/_8sdp"
+            android:paddingVertical="@dimen/_5sdp"
+            android:textColorHint="#B34D4D4D"
+            android:textSize="@dimen/_11ssp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTruckNumber" />
+
+        <LinearLayout
+            android:id="@+id/l1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/etTruckNumber"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/bai_jamjuree_medium"
+                android:lines="1"
+                android:text="Body Type *"
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_10ssp"
+                android:layout_marginEnd="@dimen/_5sdp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/bai_jamjuree_medium"
+                android:lines="1"
+                android:text="Tyre *"
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_10ssp"
+                android:layout_marginStart="@dimen/_5sdp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/l2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/l1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/l3"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_weight="1"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:background="@drawable/filter_spiner_background"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/bodyTypeSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:entries="@array/body_type"
+                    android:fontFamily="@font/bai_jamjuree_medium"
+                    android:paddingHorizontal="@dimen/_3sdp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_weight="1"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:background="@drawable/filter_spiner_background"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/tyreSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:entries="@array/body_type"
+                    android:fontFamily="@font/bai_jamjuree_medium"
+                    android:paddingHorizontal="@dimen/_3sdp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/l5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/l2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/bai_jamjuree_medium"
+                android:lines="1"
+                android:text="Capacity *"
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_10ssp"
+                android:layout_marginEnd="@dimen/_5sdp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/bai_jamjuree_medium"
+                android:lines="1"
+                android:text="Vehicle Size *"
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_10ssp"
+                android:layout_marginStart="@dimen/_5sdp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/l6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/l5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/l7"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_weight="1"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:background="@drawable/filter_spiner_background"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/capacitySpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:entries="@array/body_type"
+                    android:fontFamily="@font/bai_jamjuree_medium"
+                    android:paddingHorizontal="@dimen/_3sdp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/l8"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_weight="1"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:background="@drawable/filter_spiner_background"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/vehicleSizeSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:entries="@array/body_type"
+                    android:fontFamily="@font/bai_jamjuree_medium"
+                    android:paddingHorizontal="@dimen/_3sdp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/l6">
+
+            <TextView
+                android:id="@+id/btnAddTruck"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_1_1"
+                android:fontFamily="@font/bai_jamjuree_medium"
+                android:paddingHorizontal="@dimen/_25sdp"
+                android:paddingVertical="@dimen/_3sdp"
+                android:text="Add Truck"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12ssp" />
+
+            <TextView
+                android:id="@+id/btnCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:fontFamily="@font/bai_jamjuree_medium"
+                android:paddingHorizontal="@dimen/_14sdp"
+                android:paddingVertical="@dimen/_2sdp"
+                android:text="@string/cancel"
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_14ssp" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:orientation="vertical"
+            android:background="@color/white">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:layout_marginTop="@dimen/_7sdp"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Add Schedule"
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_15sdp" />
+
+            <TextView
+                android:id="@+id/userName"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_30sdp"
+                android:layout_marginEnd="@dimen/_16sdp"
+                android:background="@drawable/edit_box"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center_vertical"
+                android:hint=""
+                android:paddingStart="@dimen/_8sdp"
+                android:textColor="@color/primery_text"
+                android:textColorHint="@color/primery_text"
+                android:textSize="@dimen/_12sdp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:fontFamily="@font/roboto_medium"
+                android:text="Select Time"
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_14sdp" />
+
+            <TimePicker
+                android:id="@+id/timePicker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:theme="@style/timePickerOrange"
+                android:timePickerMode="spinner" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:fontFamily="@font/roboto_medium"
+                android:text="Select Date"
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_14sdp" />
+
+            <DatePicker
+                android:id="@+id/datePicker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:calendarViewShown="false"
+                android:datePickerMode="spinner"
+                android:theme="@style/timePickerOrange" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginHorizontal="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_16sdp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/btnSubmit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Submit"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_14ssp"
+                    android:paddingHorizontal="@dimen/_14sdp"
+                    android:fontFamily="@font/bai_jamjuree_medium"
+                    android:background="@drawable/background_1_1"
+                    android:paddingVertical="@dimen/_2sdp"
+                    />
+
+                <TextView
+                    android:id="@+id/btnCancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cancel"
+                    android:textColor="@color/blue"
+                    android:textSize="@dimen/_14ssp"
+                    android:paddingHorizontal="@dimen/_14sdp"
+                    android:fontFamily="@font/bai_jamjuree_medium"
+                    android:paddingVertical="@dimen/_2sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    />
+
+            </LinearLayout>
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="@dimen/_16sdp"-->
+<!--                android:layout_marginTop="@dimen/_20sdp"-->
+<!--                android:layout_marginEnd="@dimen/_16sdp"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:paddingBottom="@dimen/_18sdp">-->
+
+<!--                <RelativeLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="1">-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/btnCancel"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="@dimen/_30sdp"-->
+<!--                        android:layout_centerInParent="true"-->
+<!--                        android:layout_marginEnd="@dimen/_5sdp"-->
+<!--                        android:background="@drawable/outline_brown_lable"-->
+<!--                        android:fontFamily="@font/roboto_medium"-->
+<!--                        android:gravity="center"-->
+<!--                        android:paddingStart="@dimen/_22sdp"-->
+<!--                        android:paddingEnd="@dimen/_22sdp"-->
+<!--                        android:text="Cancel"-->
+<!--                        android:textColor="@color/red"-->
+<!--                        android:textSize="@dimen/_14sdp" />-->
+<!--                </RelativeLayout>-->
+
+<!--                <RelativeLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="1">-->
+
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/btnSubmit"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="@dimen/_30sdp"-->
+<!--                        android:layout_centerInParent="true"-->
+<!--                        android:layout_marginStart="@dimen/_16sdp"-->
+<!--                        android:background="@drawable/blue_lable_box"-->
+<!--                        android:drawableTint="@color/white"-->
+<!--                        android:fontFamily="@font/roboto_medium"-->
+<!--                        android:gravity="center"-->
+<!--                        android:paddingStart="@dimen/_18sdp"-->
+<!--                        android:paddingEnd="@dimen/_18sdp"-->
+<!--                        android:text="Submit"-->
+<!--                        android:textColor="@color/white"-->
+<!--                        android:textSize="@dimen/_14sdp" />-->
+<!--                </RelativeLayout>-->
+<!--            </LinearLayout>-->
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

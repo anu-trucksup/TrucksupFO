@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/_8sdp"
+        app:strokeWidth="0dp"
+        android:layout_margin="@dimen/_10sdp"
+        app:cardBackgroundColor="@color/white"
+        app:cardElevation="@dimen/_4sdp"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cardBack"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/_10sdp"
+            android:background="@color/white">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/imgCard"
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="@dimen/_35sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:strokeWidth="0dp"
+                app:cardCornerRadius="@dimen/_20sdp">
+
+                <ImageView
+                    android:id="@+id/img"
+                    android:layout_width="@dimen/_35sdp"
+                    android:layout_height="@dimen/_35sdp"
+                    android:src="@drawable/report_icon2"
+                    android:padding="@dimen/_7sdp"
+                    android:background="#EEECEC"
+                    />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@+id/imgCard"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:fontFamily="@font/bai_jamjuree_semi_bold"
+                android:text="Report"
+                android:textSize="@dimen/_12ssp"
+                android:lines="1"
+                android:textColor="@color/blue"
+                android:layout_marginStart="@dimen/_10sdp"/>
+
+            <TextView
+                android:id="@+id/subtitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@+id/imgCard"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title"
+                android:text="To view the targets update."
+                android:textColor="#989898"
+                android:fontFamily="@font/bai_jamjuree_medium"
+                android:textSize="@dimen/_10ssp"
+                android:layout_marginStart="@dimen/_10sdp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+<!--    <View-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="@dimen/_1sdp"-->
+<!--        android:background="#8C99A8"-->
+<!--        android:layout_marginHorizontal="@dimen/_10sdp"-->
+<!--        android:layout_marginVertical="@dimen/_5sdp"-->
+<!--        />-->
+
+</LinearLayout>

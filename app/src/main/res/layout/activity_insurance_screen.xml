@@ -1,0 +1,708 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/blue"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical"
+        tools:context=".activities.Finance.InsuranceScreen">
+
+        <LinearLayout
+            android:id="@+id/tp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50sdp"
+            android:background="@drawable/rect_header_profile"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/_16sdp"
+            android:paddingVertical="@dimen/_12sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="@dimen/_27sdp"
+                android:layout_height="@dimen/_27sdp"
+                android:background="@drawable/circal_weight"
+                android:onClick="backScreen"
+                android:src="@drawable/back_icon" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="@dimen/_12sdp"
+                android:layout_weight="1"
+                android:fontFamily="@font/bai_jamjuree_semi_bold"
+                android:gravity="center"
+                android:text="@string/insurance_"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_17ssp" />
+
+            <ImageView
+                android:id="@+id/btnTransactionHis"
+                android:layout_width="@dimen/_27sdp"
+                android:layout_height="@dimen/_27sdp"
+                android:src="@drawable/transaction_his_icon"
+                android:visibility="invisible" />
+
+        </LinearLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/addload_bg"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="@dimen/_10sdp">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/btnViewPreviousInquery"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="viewPreviousEnquery"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="@dimen/_8sdp"
+                    app:cardElevation="@dimen/_2sdp"
+                    app:cardUseCompatPadding="true"
+                    app:strokeWidth="0dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginHorizontal="@dimen/_10sdp"
+                        android:layout_marginVertical="@dimen/_10sdp"
+                        android:background="@drawable/vehicle_edit_back"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="1.5dp"
+                            android:background="@drawable/sub_unslect_card"
+                            android:fontFamily="@font/bai_jamjuree_bold"
+                            android:gravity="center"
+                            android:lines="1"
+                            android:paddingVertical="@dimen/_2sdp"
+                            android:text="@string/view_previous_inquiry"
+                            android:textColor="@color/blue"
+                            android:textSize="@dimen/_14ssp" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/bai_jamjuree_semi_bold"
+                    android:maxLines="1"
+                    android:text="@string/thanksForContactingUs"
+                    android:textColor="#3E2089"
+                    android:textSize="@dimen/_15ssp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginHorizontal="@dimen/_2sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/bai_jamjuree_medium"
+                    android:text="@string/insurance_msg2"
+                    android:textColor="#892078"
+                    android:textSize="@dimen/_12ssp"
+                    android:textStyle="italic"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/bai_jamjuree_semi_bold"
+                    android:text="@string/finace_msg"
+                    android:textColor="@color/secondry_text"
+                    android:textSize="@dimen/_10ssp"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:visibility="gone"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/btnSelf"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:layout_weight="1"
+                        app:cardBackgroundColor="@color/blue"
+                        app:cardCornerRadius="6.32dp"
+                        app:strokeColor="@color/blue"
+                        app:strokeWidth="1dp">
+
+                        <TextView
+                            android:id="@+id/tvSelf"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/bai_jamjuree_semi_bold"
+                            android:gravity="center"
+                            android:paddingVertical="@dimen/_3sdp"
+                            android:text="@string/self"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_11ssp" />
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/btnOther"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_weight="1"
+                        app:cardBackgroundColor="@color/chipColor"
+                        app:cardCornerRadius="6.32dp"
+                        app:strokeColor="@color/border_color"
+                        app:strokeWidth="@dimen/_1sdp">
+
+                        <TextView
+                            android:id="@+id/tvOther"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/bai_jamjuree_semi_bold"
+                            android:gravity="center"
+                            android:paddingVertical="@dimen/_3sdp"
+                            android:text="@string/other"
+                            android:textColor="@color/secondry_text"
+                            android:textSize="@dimen/_11ssp"
+                            android:textStyle="bold" />
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_3sdp"
+                    android:layout_marginTop="@dimen/_18sdp"
+                    android:fontFamily="@font/bai_jamjuree_semi_bold"
+                    android:maxLines="1"
+                    android:text="@string/insurance_fullName"
+                    android:textColor="@color/secondry_text"
+                    android:textSize="@dimen/_11ssp" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="@dimen/_4sdp"
+                    app:cardElevation="0dp"
+                    app:strokeColor="#D9D9D9"
+                    app:strokeWidth="@dimen/_1sdp">
+
+                    <EditText
+                        android:id="@+id/etFullName"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:clickable="false"
+                        android:editable="false"
+                        android:focusable="false"
+                        android:fontFamily="@font/bai_jamjuree_medium"
+                        android:inputType="textPersonName"
+                        android:lines="1"
+                        android:maxLines="1"
+                        android:paddingStart="@dimen/_10sdp"
+                        android:textColor="@color/primery_text"
+                        android:textColorHint="#cccccc"
+                        android:textSize="@dimen/_12ssp" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_3sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/bai_jamjuree_semi_bold"
+                        android:maxLines="1"
+                        android:text="@string/insurance_mobileNo"
+                        android:textColor="@color/secondry_text"
+                        android:textSize="@dimen/_11ssp" />
+
+                    <ImageButton
+                        android:id="@+id/info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_4sdp"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:layout_marginEnd="@dimen/_3sdp"
+                        android:layout_toRightOf="@id/planName"
+                        android:background="@color/transparent"
+                        android:onClick="mobileInfo"
+                        android:src="@drawable/info_information_icon_16"
+                        android:tint="@color/black"
+                        tools:ignore="UseAppTint" />
+                </LinearLayout>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="@dimen/_4sdp"
+                    app:cardElevation="0dp"
+                    app:strokeColor="#D9D9D9"
+                    app:strokeWidth="@dimen/_1sdp">
+
+                    <EditText
+                        android:id="@+id/etMobile"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:digits="1234567890"
+                        android:focusable="true"
+                        android:fontFamily="@font/bai_jamjuree_medium"
+                        android:inputType="phone"
+                        android:maxLength="10"
+                        android:maxLines="1"
+                        android:paddingStart="@dimen/_10sdp"
+                        android:textColor="@color/primery_text"
+                        android:textColorHint="#cccccc"
+                        android:textSize="@dimen/_12ssp" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_3sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_3sdp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/bai_jamjuree_semi_bold"
+                        android:maxLines="1"
+                        android:text="@string/vehicle_details"
+                        android:textColor="@color/secondry_text"
+                        android:textSize="@dimen/_11ssp" />
+
+                    <ImageView
+                        android:id="@+id/btnAddImage"
+                        android:layout_width="@dimen/_18sdp"
+                        android:layout_height="@dimen/_18sdp"
+                        android:layout_toRightOf="@id/planName"
+                        android:background="@color/transparent"
+                        android:visibility="gone"
+                        android:src="@drawable/add_image"
+                        tools:ignore="UseAppTint" />
+
+                </LinearLayout>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/vehicleDetailsCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="@dimen/_8sdp"
+                    app:cardElevation="0dp"
+                    app:strokeColor="#B6B3B1"
+                    app:strokeWidth="@dimen/_1sdp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="@dimen/_8sdp">
+
+                        <ImageView
+                            android:id="@+id/btnCut"
+                            android:layout_width="@dimen/_18sdp"
+                            android:layout_height="@dimen/_18sdp"
+                            android:layout_gravity="end"
+                            android:src="@drawable/cut_icon" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginEnd="@dimen/_5sdp"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/_3sdp"
+                                    android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                    android:maxLines="1"
+                                    android:text="@string/insurance_vehicle_no"
+                                    android:textColor="@color/secondry_text"
+                                    android:textSize="@dimen/_11ssp" />
+
+                                <com.google.android.material.card.MaterialCardView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_30sdp"
+                                    android:layout_marginTop="@dimen/_5sdp"
+                                    app:cardBackgroundColor="@color/white"
+                                    app:cardCornerRadius="@dimen/_4sdp"
+                                    app:cardElevation="0dp"
+                                    app:strokeColor="#D9D9D9"
+                                    app:strokeWidth="@dimen/_1sdp">
+
+                                    <EditText
+                                        android:id="@+id/etVehicleNo"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:background="@null"
+                                        android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
+                                        android:focusable="true"
+                                        android:fontFamily="@font/bai_jamjuree_medium"
+                                        android:inputType="textCapCharacters"
+                                        android:maxLines="1"
+                                        android:paddingStart="@dimen/_10sdp"
+                                        android:textColor="@color/primery_text"
+                                        android:textColorHint="#cccccc"
+                                        android:textSize="@dimen/_12ssp" />
+
+                                </com.google.android.material.card.MaterialCardView>
+
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="@dimen/_5sdp"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/_3sdp"
+                                    android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                    android:maxLines="1"
+                                    android:text="@string/insurance_validity"
+                                    android:textColor="@color/secondry_text"
+                                    android:textSize="@dimen/_11ssp" />
+
+                                <com.google.android.material.card.MaterialCardView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_30sdp"
+                                    android:layout_marginTop="@dimen/_5sdp"
+                                    app:cardBackgroundColor="@color/white"
+                                    app:cardCornerRadius="@dimen/_4sdp"
+                                    app:cardElevation="0dp"
+                                    app:strokeColor="#D9D9D9"
+                                    app:strokeWidth="@dimen/_1sdp">
+
+                                    <androidx.constraintlayout.widget.ConstraintLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent">
+
+                                        <TextView
+                                            android:id="@+id/etInsValidity"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:drawableEnd="@drawable/insorance_clander_16"
+                                            android:drawablePadding="@dimen/_3sdp"
+                                            android:fontFamily="@font/bai_jamjuree_medium"
+                                            android:gravity="center_vertical"
+                                            android:hint="dd-MM-yyyy"
+                                            android:maxLines="1"
+                                            android:paddingStart="@dimen/_10sdp"
+                                            android:paddingEnd="@dimen/_3sdp"
+                                            android:textColor="@color/primery_text"
+                                            android:textColorHint="#cccccc"
+                                            android:textSize="@dimen/_12ssp"
+                                            app:layout_constraintBottom_toBottomOf="parent"
+                                            app:layout_constraintStart_toStartOf="parent"
+                                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                                </com.google.android.material.card.MaterialCardView>
+
+                            </LinearLayout>
+
+                            <!--                            <LinearLayout-->
+                            <!--                                android:id="@+id/btnAdd"-->
+                            <!--                                android:layout_width="wrap_content"-->
+                            <!--                                android:layout_height="match_parent"-->
+                            <!--                                android:layout_marginStart="@dimen/_5sdp"-->
+                            <!--                                android:layout_marginTop="@dimen/_25sdp"-->
+                            <!--                                android:gravity="center"-->
+                            <!--                                android:orientation="vertical">-->
+
+                            <!--                                <ImageView-->
+                            <!--                                    android:layout_width="@dimen/_18sdp"-->
+                            <!--                                    android:layout_height="@dimen/_18sdp"-->
+                            <!--                                    android:src="@drawable/add_image" />-->
+
+                            <!--                            </LinearLayout>-->
+
+                        </LinearLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:orientation="horizontal">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/lRcFrontImage"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                android:layout_marginEnd="@dimen/_5sdp"
+                                app:layout_constraintEnd_toStartOf="@+id/lRcBackImage">
+
+                                <TextView
+                                    android:id="@+id/tvRcFrontImg"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                    android:maxLines="1"
+                                    android:text="@string/rc_front_image"
+                                    android:textColor="@color/secondry_text"
+                                    android:textSize="@dimen/_11ssp"
+                                    android:layout_marginStart="@dimen/_3sdp"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"/>
+
+                                <com.google.android.material.card.MaterialCardView
+                                    android:layout_width="@dimen/_40sdp"
+                                    android:layout_height="@dimen/_40sdp"
+                                    app:layout_constraintTop_toBottomOf="@+id/tvRcFrontImg"
+                                    app:layout_constraintStart_toStartOf="@+id/tvRcFrontImg"
+                                    app:cardCornerRadius="@dimen/_4sdp"
+                                    app:cardBackgroundColor="@color/white"
+                                    app:strokeWidth="@dimen/_1sdp"
+                                    app:strokeColor="#8A73C2"
+                                    android:layout_marginStart="@dimen/_25sdp"
+                                    android:layout_marginTop="@dimen/_5sdp">
+
+                                    <ImageView
+                                        android:id="@+id/imgFrontCamera"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:src="@drawable/camera_new"
+                                        android:scaleType="fitXY"/>
+
+                                </com.google.android.material.card.MaterialCardView>
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/lRcBackImage"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_5sdp"
+                                app:layout_constraintStart_toEndOf="@+id/lRcFrontImage"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent">
+
+                                <TextView
+                                    android:id="@+id/tvRcBackImg"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                    android:maxLines="1"
+                                    android:text="@string/rc_back_image"
+                                    android:textColor="@color/secondry_text"
+                                    android:textSize="@dimen/_11ssp"
+                                    android:layout_marginStart="@dimen/_3sdp"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"/>
+
+                                <com.google.android.material.card.MaterialCardView
+                                    android:layout_width="@dimen/_40sdp"
+                                    android:layout_height="@dimen/_40sdp"
+                                    app:layout_constraintTop_toBottomOf="@+id/tvRcBackImg"
+                                    app:layout_constraintStart_toStartOf="@+id/tvRcBackImg"
+                                    app:layout_constraintEnd_toEndOf="@+id/tvRcBackImg"
+                                    app:cardCornerRadius="@dimen/_4sdp"
+                                    app:cardBackgroundColor="@color/white"
+                                    app:strokeWidth="@dimen/_1sdp"
+                                    app:strokeColor="#8A73C2"
+                                    android:layout_marginTop="@dimen/_5sdp">
+
+                                    <ImageView
+                                        android:id="@+id/imgBackCamera"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:scaleType="fitXY"
+                                        android:src="@drawable/camera_new"/>
+
+                                </com.google.android.material.card.MaterialCardView>
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/lPrevPolicyDocImg"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10sdp">
+
+                            <TextView
+                                android:id="@+id/tvPrevPolicyDocImg"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                android:maxLines="1"
+                                android:text="@string/previous_policy_document"
+                                android:textColor="@color/secondry_text"
+                                android:textSize="@dimen/_11ssp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"/>
+
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="@dimen/_40sdp"
+                                android:layout_height="@dimen/_40sdp"
+                                app:layout_constraintTop_toBottomOf="@+id/tvPrevPolicyDocImg"
+                                app:layout_constraintStart_toStartOf="@+id/tvPrevPolicyDocImg"
+                                app:cardCornerRadius="@dimen/_4sdp"
+                                app:cardBackgroundColor="@color/white"
+                                app:strokeWidth="@dimen/_1sdp"
+                                app:strokeColor="#8A73C2"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:layout_marginStart="@dimen/_25sdp">
+
+                                <ImageView
+                                    android:id="@+id/imgPrevPolicyDoc"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:src="@drawable/camera_new"
+                                    android:scaleType="fitXY"/>
+
+                            </com.google.android.material.card.MaterialCardView>
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <TextView
+                            android:id="@+id/btnAdd"
+                            android:layout_width="@dimen/_80sdp"
+                            android:layout_height="@dimen/_30sdp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:background="@drawable/finance_submit_background"
+                            android:fontFamily="@font/bai_jamjuree_semi_bold"
+                            android:gravity="center"
+                            android:text="@string/add"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_11ssp" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvInsList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    tools:itemCount="2"
+                    tools:listitem="@layout/ins_list_item" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_3sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/bai_jamjuree_semi_bold"
+                    android:maxLines="1"
+                    android:text="@string/Referral_Code"
+                    android:textColor="@color/secondry_text"
+                    android:textSize="@dimen/_11ssp" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="@dimen/_4sdp"
+                    app:cardElevation="0dp"
+                    app:strokeColor="#D9D9D9"
+                    app:strokeWidth="@dimen/_1sdp">
+
+                    <EditText
+                        android:id="@+id/etReferralCode"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:clickable="false"
+                        android:digits="1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                        android:editable="false"
+                        android:focusable="false"
+                        android:fontFamily="@font/bai_jamjuree_medium"
+                        android:imeOptions="actionDone"
+                        android:lines="1"
+                        android:maxLength="6"
+                        android:maxLines="1"
+                        android:paddingStart="@dimen/_10sdp"
+                        android:textColor="@color/primery_text"
+                        android:textColorHint="#cccccc"
+                        android:textSize="@dimen/_12ssp" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <TextView
+                    android:id="@+id/btnSumbit"
+                    android:layout_width="@dimen/_120sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginBottom="@dimen/_18sdp"
+                    android:background="@drawable/finance_submit_background"
+                    android:fontFamily="@font/bai_jamjuree_semi_bold"
+                    android:gravity="center"
+                    android:text="@string/submit"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_11ssp" />
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

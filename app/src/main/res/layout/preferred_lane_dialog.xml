@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="@dimen/_8sdp"
+    app:cardBackgroundColor="@color/white"
+    app:strokeWidth="0dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/_10sdp"
+        android:background="#123E2089">
+
+        <LinearLayout
+            android:id="@+id/l1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="From"
+                android:layout_weight="1"
+                android:fontFamily="@font/bai_jamjuree_medium"
+                android:textColor="@color/black"
+                android:lines="1"
+                android:textSize="@dimen/_10ssp"
+                android:layout_marginEnd="@dimen/_10sdp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="To"
+                android:layout_weight="1"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:fontFamily="@font/bai_jamjuree_medium"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_10ssp"
+                android:lines="1"/>
+
+
+        </LinearLayout>
+        
+        <LinearLayout
+            android:id="@+id/l2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="@dimen/_5sdp"
+            app:layout_constraintTop_toBottomOf="@+id/l1">
+            
+            <EditText
+                android:id="@+id/etFrom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Select city"
+                android:fontFamily="@font/bai_jamjuree_medium"
+                android:textSize="@dimen/_11ssp"
+                android:layout_weight="1"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:background="@drawable/editbox_outborder"
+                android:paddingHorizontal="@dimen/_8sdp"
+                android:paddingVertical="@dimen/_5sdp"
+                android:textColorHint="#B34D4D4D"
+                android:lines="1"/>
+
+            <EditText
+                android:id="@+id/etTo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Select city"
+                android:fontFamily="@font/bai_jamjuree_medium"
+                android:textSize="@dimen/_11ssp"
+                android:layout_weight="1"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:background="@drawable/editbox_outborder"
+                android:paddingHorizontal="@dimen/_8sdp"
+                android:paddingVertical="@dimen/_5sdp"
+                android:textColorHint="#B34D4D4D"
+                android:lines="1"/>
+            
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/l2">
+
+            <TextView
+                android:id="@+id/btnSubmit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_1_1"
+                android:fontFamily="@font/bai_jamjuree_medium"
+                android:paddingHorizontal="@dimen/_25sdp"
+                android:paddingVertical="@dimen/_3sdp"
+                android:text="Submit"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12ssp" />
+
+            <TextView
+                android:id="@+id/btnCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:fontFamily="@font/bai_jamjuree_medium"
+                android:paddingHorizontal="@dimen/_14sdp"
+                android:paddingVertical="@dimen/_2sdp"
+                android:text="@string/cancel"
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_14ssp" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="page_title" parent="Base.Theme.FieldOfficer">
+        <item name="android:textSize">@dimen/sp21</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/bai_jamjuree_bold</item>
+    </style>
+
+    <style name="item_light_text" parent="Base.Theme.FieldOfficer">
+        <item name="android:textSize">@dimen/sp14</item>
+        <item name="android:textColor">@color/text_light</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">@font/bai_jamjuree_regular</item>
+    </style>
+
+    <style name="label_15" parent="Base.Theme.FieldOfficer">
+        <item name="android:textSize">@dimen/sp15</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/bai_jamjuree_bold</item>
+    </style>
+
+    <style name="title_semi_25" parent="Base.Theme.FieldOfficer">
+        <item name="android:textSize">@dimen/sp25</item>
+        <item name="android:textColor">@color/blue</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/bai_jamjuree_semi_bold</item>
+    </style>
+
+    <style name="text_light_15" parent="Base.Theme.FieldOfficer">
+        <item name="android:textSize">@dimen/sp15</item>
+        <item name="android:textColor">@color/blue</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">@font/bai_jamjuree_regular</item>
+    </style>
+
+    <style name="text_light" parent="Base.Theme.FieldOfficer">
+        <item name="android:textSize">@dimen/sp15</item>
+        <item name="android:textColor">@color/blue</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">@font/bai_jamjuree_regular</item>
+    </style>
+
+    <style name="text_16" parent="Base.Theme.FieldOfficer">
+        <item name="android:textSize">@dimen/_12ssp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">@font/bai_jamjuree_regular</item>
+    </style>
+
+    <style name="edit_text_m" parent="Base.Theme.FieldOfficer">
+        <item name="android:textSize">@dimen/_12ssp</item>
+        <item name="android:textColor">@color/secondry_text</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">@font/bai_jamjuree_medium</item>
+    </style>
+
+    <style name="title_basicreg_18" parent="Base.Theme.FieldOfficer">
+        <item name="android:textSize">@dimen/_18ssp</item>
+        <item name="android:textColor">@color/blue</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">@font/basic_regular</item>
+    </style>
+
+    <style name="text_label" parent="Base.Theme.FieldOfficer">
+        <item name="android:textSize">@dimen/_11ssp</item>
+        <item name="android:textColor">@color/blue</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">@font/bai_jamjuree_medium</item>
+    </style>
+
+    <style name="My_Widget.MaterialComponents.Chip.Choice" parent="Widget.MaterialComponents.Chip.Choice">
+        <!-- Chip background color selector -->
+        <item name="chipBackgroundColor">@color/chipColor</item>
+        <!-- Border color -->
+        <item name="chipStrokeColor">@color/blue</item>
+
+        <!-- Chip text color selector -->
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/bai_jamjuree_semi_bold</item>
+        <item name="closeIconTint">@color/transparent</item>
+        <item name="checkedIconEnabled">true</item>
+        <item name="checkedIcon">@drawable/check_complete_done_icon_16</item>
+
+    </style>
+
+    <style name="spinnerItemStyle" parent="android:Widget.TextView.SpinnerItem"></style>
+
+    <style name="spinnerDropDownItemStyle" parent="android:TextAppearance.Widget.TextView.SpinnerItem"></style>
+
+</resources>

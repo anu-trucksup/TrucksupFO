@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/_8sdp"
+    app:strokeWidth="@dimen/_1sdp"
+    app:strokeColor="#B6B3B1"
+    app:cardElevation="0dp"
+    android:id="@+id/card"
+    app:cardBackgroundColor="@color/white"
+    android:layout_marginHorizontal="@dimen/_10sdp"
+    android:layout_marginTop="@dimen/_10sdp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:paddingVertical="@dimen/_5sdp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/l1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/image"
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="@dimen/_35sdp"
+                android:src="@mipmap/user_profile"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:fontFamily="@font/bai_jamjuree_semi_bold"
+                android:lines="1"
+                android:maxWidth="@dimen/_125sdp"
+                tools:text="Supriya Tripathi"
+                android:textColor="#4D4D4D"
+                android:textSize="@dimen/_11ssp"
+                app:layout_constraintEnd_toStartOf="@+id/tvClose"
+                app:layout_constraintStart_toEndOf="@+id/image"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvClose"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_5sdp"
+                android:fontFamily="@font/bai_jamjuree_medium"
+                android:lines="1"
+                android:gravity="end"
+                tools:text="[Closed]"
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_9ssp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvName"
+                app:layout_constraintEnd_toStartOf="@+id/cardSelfOther"
+                app:layout_constraintStart_toEndOf="@+id/tvName"
+                app:layout_constraintTop_toTopOf="@+id/tvName" />
+
+            <!--        #36A9E1 blue, #F45D1C orange-->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardSelfOther"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/ins_self"
+                app:cardCornerRadius="@dimen/_4sdp"
+                app:cardElevation="0dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvName"
+                app:strokeWidth="0dp">
+
+                <TextView
+                    android:id="@+id/tvSelfOther"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/bai_jamjuree_medium"
+                    android:paddingHorizontal="@dimen/_6sdp"
+                    tools:text="Self"
+                    android:lines="1"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_9ssp" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:id="@+id/tvMobileNo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:fontFamily="@font/bai_jamjuree_medium"
+                tools:text="Mobile No: 9876543215"
+                android:textColor="#4D4D4D"
+                android:textSize="@dimen/_9ssp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/image"
+                app:layout_constraintTop_toBottomOf="@+id/tvName" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardTrackStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_2sdp"
+                app:cardBackgroundColor="@color/blue"
+                app:cardCornerRadius="@dimen/_4sdp"
+                app:cardElevation="0dp"
+                app:layout_constraintStart_toEndOf="@+id/image"
+                app:layout_constraintTop_toBottomOf="@+id/tvMobileNo">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/bai_jamjuree_medium"
+                    android:lines="1"
+                    android:paddingHorizontal="@dimen/_5sdp"
+                    android:paddingVertical="@dimen/_1sdp"
+                    android:text="@string/track_status"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_9ssp" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:id="@+id/refId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/bai_jamjuree_medium"
+                tools:text="Ref. ID #FIN37-142848PB"
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_9ssp"
+                app:layout_constraintBottom_toBottomOf="@+id/cardTrackStatus"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/cardTrackStatus" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/l2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/l1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:fontFamily="@font/bai_jamjuree_semi_bold"
+                android:lines="1"
+                android:text="@string/current_status"
+                android:textColor="#585858"
+                android:textSize="@dimen/_11ssp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvCurrentStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                tools:listitem="@layout/current_status_item" />
+
+        </LinearLayout>
+
+        <!--    <View-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        android:layout_height="@dimen/_1sdp"-->
+        <!--        android:background="#4D3E2089"-->
+        <!--        app:layout_constraintStart_toStartOf="parent"-->
+        <!--        app:layout_constraintEnd_toEndOf="parent"-->
+        <!--        app:layout_constraintTop_toBottomOf="@+id/l2"-->
+        <!--        android:layout_marginTop="@dimen/_6sdp"/>-->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

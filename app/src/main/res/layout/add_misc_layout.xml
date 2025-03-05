@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/top_corners"
+    android:paddingHorizontal="@dimen/_10sdp">
+
+    <View
+        android:id="@+id/v1"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_2sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:background="#B33E2089"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:fontFamily="@font/bai_jamjuree_bold"
+        android:maxLines="1"
+        android:text="Add Misc"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_14ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/v1" />
+
+    <LinearLayout
+        android:id="@+id/l1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="@dimen/_2sdp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/bai_jamjuree_medium"
+                android:maxLines="1"
+                android:text="Catagory"
+                android:textColor="#4D4D4D"
+                android:textSize="@dimen/_11ssp" />
+
+
+            <!--            <EditText-->
+            <!--                android:id="@+id/etCategory"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_weight="1"-->
+            <!--                android:background="@drawable/grey_edit_background"-->
+            <!--                android:fontFamily="@font/bai_jamjuree_medium"-->
+            <!--                android:maxLines="1"-->
+            <!--                android:paddingHorizontal="@dimen/_12sdp"-->
+            <!--                android:paddingVertical="@dimen/_6sdp"-->
+            <!--                android:textColor="#4D4D4D"-->
+            <!--                android:textColorHint="#4D4D4D"-->
+            <!--                android:textSize="@dimen/_10ssp" />-->
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/grey_edit_background"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/categorySpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingHorizontal="@dimen/_5sdp"
+                     />
+<!--                android:paddingVertical="@dimen/_6sdp"-->
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/_2sdp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/bai_jamjuree_medium"
+                android:maxLines="1"
+                android:text="Business Name"
+                android:textColor="#4D4D4D"
+                android:textSize="@dimen/_11ssp" />
+
+            <EditText
+                android:id="@+id/etBN"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/grey_edit_background"
+                android:fontFamily="@font/bai_jamjuree_medium"
+                android:hint="Type here.."
+                android:maxLines="1"
+                android:paddingHorizontal="@dimen/_12sdp"
+                android:paddingVertical="@dimen/_6sdp"
+                android:textColor="#4D4D4D"
+                android:textColorHint="#4D4D4D"
+                android:textSize="@dimen/_10ssp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/l2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/l1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="@dimen/_2sdp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/bai_jamjuree_medium"
+                android:maxLines="1"
+                android:text="Mobile Number"
+                android:textColor="#4D4D4D"
+                android:textSize="@dimen/_11ssp" />
+
+            <EditText
+                android:id="@+id/etMobileNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/grey_edit_background"
+                android:fontFamily="@font/bai_jamjuree_medium"
+                android:hint="Type here.."
+                android:maxLines="1"
+                android:paddingHorizontal="@dimen/_12sdp"
+                android:paddingVertical="@dimen/_6sdp"
+                android:textColor="#4D4D4D"
+                android:textColorHint="#4D4D4D"
+                android:textSize="@dimen/_10ssp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/_2sdp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/bai_jamjuree_medium"
+                android:maxLines="1"
+                android:text="Name"
+                android:textColor="#4D4D4D"
+                android:textSize="@dimen/_11ssp" />
+
+            <EditText
+                android:id="@+id/etName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/grey_edit_background"
+                android:fontFamily="@font/bai_jamjuree_medium"
+                android:hint="Type here.."
+                android:maxLines="1"
+                android:paddingHorizontal="@dimen/_12sdp"
+                android:paddingVertical="@dimen/_6sdp"
+                android:textColor="#4D4D4D"
+                android:textColorHint="#4D4D4D"
+                android:textSize="@dimen/_10ssp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvUploadImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:fontFamily="@font/bai_jamjuree_medium"
+        android:maxLines="1"
+        android:text="Upload Truck Image"
+        android:textColor="#4D4D4D"
+        android:textSize="@dimen/_11ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/l2" />
+
+    <LinearLayout
+        android:id="@+id/l3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvUploadImage">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/btnAddImage"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:orientation="vertical"
+            app:cardBackgroundColor="#F0EDEDED"
+            app:cardCornerRadius="@dimen/_6sdp"
+            app:cardUseCompatPadding="true"
+            app:strokeWidth="0dp">
+
+            <ImageView
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_gravity="center"
+                android:src="@drawable/add_icon" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/misc_image_item" />
+
+        <LinearLayout
+            android:id="@+id/placeHolderImages"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
+                android:orientation="vertical"
+                app:cardBackgroundColor="#F0EDEDED"
+                app:cardCornerRadius="@dimen/_6sdp"
+                app:cardUseCompatPadding="true"
+                app:strokeWidth="0dp">
+
+                <ImageView
+                    android:id="@+id/image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:scaleType="centerCrop" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
+                android:orientation="vertical"
+                app:cardBackgroundColor="#F0EDEDED"
+                app:cardCornerRadius="@dimen/_6sdp"
+                app:cardUseCompatPadding="true"
+                app:strokeWidth="0dp">
+
+                <ImageView
+                    android:id="@+id/image2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:scaleType="centerCrop" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/l3"
+        android:layout_marginVertical="@dimen/_20sdp">
+
+        <RelativeLayout
+            android:id="@+id/btnSubmit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_1_1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:text="Submit"
+                android:lines="1"
+                android:textSize="@dimen/_11ssp"
+                android:layout_margin="@dimen/_1sdp"
+                android:background="@drawable/sub_back_border"
+                android:fontFamily="@font/bai_jamjuree_medium"
+                android:paddingHorizontal="@dimen/_15sdp"
+                android:paddingVertical="@dimen/_2sdp"
+                />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/btnSaveAsDraft"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/background_1_1"
+            android:fontFamily="@font/bai_jamjuree_medium"
+            android:paddingHorizontal="@dimen/_15sdp"
+            android:paddingVertical="@dimen/_2sdp"
+            android:text="Save as draft"
+            android:lines="1"
+            android:visibility="visible"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_11ssp"
+            android:layout_marginStart="@dimen/_10sdp"
+            />
+        
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/btnSubmit2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/_20sdp"
+        android:background="@drawable/background_1_1"
+        android:fontFamily="@font/bai_jamjuree_medium"
+        android:paddingHorizontal="@dimen/_30sdp"
+        android:paddingVertical="@dimen/_3sdp"
+        android:text="Submit"
+        android:lines="1"
+        android:visibility="gone"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_11ssp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/l3" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
