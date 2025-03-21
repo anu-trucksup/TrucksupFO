@@ -2,14 +2,18 @@ package com.trucksup.field_officer.presenter.common
 
 import android.app.Dialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Build
+import android.provider.Settings
 import android.view.Gravity
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.ColorUtils
@@ -17,6 +21,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.presenter.view.activity.auth.login.LoginActivity
 import java.text.SimpleDateFormat
@@ -25,6 +30,39 @@ import java.util.TimeZone
 
 object Utils {
     var strManualInstallation: String = ""
+
+    fun appSettingOpen(context: Context) {
+        Toast.makeText(
+            context,
+            "Go to Setting and Enable All Permission",
+            Toast.LENGTH_LONG
+        ).show()
+
+        val settingIntent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+        settingIntent.data = Uri.parse("package:${context.packageName}")
+        context.startActivity(settingIntent)
+    }
+
+    fun warningPermissionDialog(context: Context, listener: DialogInterface.OnClickListener) {
+        MaterialAlertDialogBuilder(context)
+            .setMessage("All Permission are Required for this app")
+            .setCancelable(false)
+            .setPositiveButton("Ok", listener)
+            .create()
+            .show()
+    }
+
+    fun View.visible() {
+        visibility = View.VISIBLE
+    }
+
+    fun View.gone() {
+        visibility = View.GONE
+    }
+
+    const val ORIENT_PORTRAIT = 0
+    const val ORIENT_LANDSCAPE_LEFT = 1
+    const val ORIENT_LANDSCAPE_RIGHT = 2
 
     fun showToastDialogLogin(msg: String?, context: Context) {
         val deleteDialog = Dialog(context)

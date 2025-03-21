@@ -12,8 +12,7 @@ import com.trucksup.field_officer.databinding.FRHistoryItemBinding
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.TrackStatusAdap
 
 class FinanceHisAdap(
-    var context: Context,
-    var list: ArrayList<InquiryHistoryResponse.InquiryHistory>
+    var context: Context, var list: ArrayList<InquiryHistoryResponse.InquiryHistory>
 ) : RecyclerView.Adapter<FinanceHisAdap.ViewHolder>() {
 
     inner class ViewHolder(var binding: FRHistoryItemBinding) :

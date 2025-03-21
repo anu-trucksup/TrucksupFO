@@ -5,26 +5,20 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.trucksup.field_officer.R
-import com.trucksup.field_officer.data.model.insurance.FinanceHisAdap
-import com.trucksup.field_officer.data.model.insurance.InquiryHistoryResponse
 import com.trucksup.field_officer.databinding.ActivityFinanceHistoryBinding
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
-import com.trucksup.field_officer.presenter.view.fragment.ba.ActiveBAFragment
 import com.trucksup.fieldofficer.adapter.FragmentAdapter
 
-class FinanceHistoryActivity : BaseActivity(), EnquiryHistoryController {
+class FinanceHistoryActivity : BaseActivity()/*, EnquiryHistoryController*/ {
 
     private lateinit var binding: ActivityFinanceHistoryBinding
     private var historyType: String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-       //enableEdgeToEdge()
+        //enableEdgeToEdge()
         adjustFontScale(getResources().configuration, 1.0f);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_finance_history)
 
@@ -61,9 +55,9 @@ class FinanceHistoryActivity : BaseActivity(), EnquiryHistoryController {
             binding.viewPager2.setCurrentItem(1, true)
         }
 
-        //completed button
+        //reject button
         binding.tabRejected.setOnClickListener {
-            binding.viewPager2.setCurrentItem(1, true)
+            binding.viewPager2.setCurrentItem(2, true)
         }
     }
 
@@ -71,10 +65,12 @@ class FinanceHistoryActivity : BaseActivity(), EnquiryHistoryController {
 
         try {
             val adapter = FragmentAdapter(this)
-            val fragment1 = ActiveBAFragment()
-            val fragment2 = ActiveBAFragment()
+            val fragment1 = HistoryFnIsFragment()
+            val fragment2 = HistoryFnIsFragment()
+            val fragment3 = HistoryFnIsFragment()
             adapter.addFragment(fragment1)
             adapter.addFragment(fragment2)
+            adapter.addFragment(fragment3)
             binding.viewPager2.adapter = adapter
             binding.viewPager2.isSaveEnabled = false
 
@@ -83,64 +79,73 @@ class FinanceHistoryActivity : BaseActivity(), EnquiryHistoryController {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
                     if (position == 0) {
-                        binding.tabActiveBA.setBackgroundDrawable(
+                        binding.tabActive.setBackgroundDrawable(
                             ContextCompat.getDrawable(
-                                this@BusinessAssociatesNewActivity,
+                                this@FinanceHistoryActivity,
                                 R.drawable.ba_tab_unselected_background
                             )
                         );
-                        binding.tabInActiveBA.setBackgroundDrawable(
+                        binding.tabCompleted.setBackgroundDrawable(
                             ContextCompat.getDrawable(
-                                this@BusinessAssociatesNewActivity,
+                                this@FinanceHistoryActivity,
                                 R.drawable.tab_selected_background
                             )
                         );
-                        binding.txtActiveBA.setTextColor(resources.getColor(R.color.white))
-                        binding.txtInActiveBA.setTextColor(resources.getColor(R.color.blue))
+                        binding.tabRejected.setBackgroundDrawable(
+                            ContextCompat.getDrawable(
+                                this@FinanceHistoryActivity,
+                                R.drawable.tab_selected_background
+                            )
+                        )
+                        binding.txtActive.setTextColor(resources.getColor(R.color.white))
+                        binding.txtCompleted.setTextColor(resources.getColor(R.color.blue))
+                        binding.txtRejected.setTextColor(resources.getColor(R.color.blue))
 
-
-                        /*binding.vLine1.setBackgroundColor(resources.getColor(R.color.blue))
-                        binding.vLine2.setBackgroundColor(resources.getColor(R.color.unselect_tab))*/
-                        //binding.vLine3.setBackgroundColor(resources.getColor(R.color.unselect_tab))
                     } else if (position == 1) {
 
-                        binding.tabInActiveBA.setBackgroundDrawable(
+                        binding.tabActive.setBackgroundDrawable(
                             ContextCompat.getDrawable(
-                                this@BusinessAssociatesNewActivity,
+                                this@FinanceHistoryActivity,
+                                R.drawable.tab_selected_background
+                            )
+                        );
+                        binding.tabCompleted.setBackgroundDrawable(
+                            ContextCompat.getDrawable(
+                                this@FinanceHistoryActivity,
                                 R.drawable.ba_tab_unselected_background
                             )
-                        );
-                        binding.tabActiveBA.setBackgroundDrawable(
+                        )
+                        binding.tabRejected.setBackgroundDrawable(
                             ContextCompat.getDrawable(
-                                this@BusinessAssociatesNewActivity,
+                                this@FinanceHistoryActivity,
                                 R.drawable.tab_selected_background
                             )
-                        );
-                        binding.txtActiveBA.setTextColor(resources.getColor(R.color.blue))
-                        binding.txtInActiveBA.setTextColor(resources.getColor(R.color.white))
-
-
-                        /*binding.vLine1.setBackgroundColor(resources.getColor(R.color.unselect_tab))
-                        binding.vLine2.setBackgroundColor(resources.getColor(R.color.blue))*/
-                    } else {
-                        binding.tabInActiveBA.setBackgroundDrawable(
+                        )
+                        binding.txtActive.setTextColor(resources.getColor(R.color.blue))
+                        binding.txtCompleted.setTextColor(resources.getColor(R.color.white))
+                        binding.txtRejected.setTextColor(resources.getColor(R.color.blue))
+                    } else if (position == 2) {
+                        binding.tabActive.setBackgroundDrawable(
                             ContextCompat.getDrawable(
-                                this@BusinessAssociatesNewActivity,
+                                this@FinanceHistoryActivity,
                                 R.drawable.tab_selected_background
                             )
-                        );
-                        binding.tabActiveBA.setBackgroundDrawable(
+                        )
+                        binding.tabCompleted.setBackgroundDrawable(
                             ContextCompat.getDrawable(
-                                this@BusinessAssociatesNewActivity,
+                                this@FinanceHistoryActivity,
+                                R.drawable.tab_selected_background
+                            )
+                        )
+                        binding.tabRejected.setBackgroundDrawable(
+                            ContextCompat.getDrawable(
+                                this@FinanceHistoryActivity,
                                 R.drawable.tab_unselected_background
                             )
-                        );
-                        binding.txtActiveBA.setTextColor(resources.getColor(R.color.white))
-                        binding.txtInActiveBA.setTextColor(resources.getColor(R.color.blue))
-
-
-                        /*binding.vLine1.setBackgroundColor(resources.getColor(R.color.unselect_tab))
-                        binding.vLine2.setBackgroundColor(resources.getColor(R.color.unselect_tab))*/
+                        )
+                        binding.txtActive.setTextColor(resources.getColor(R.color.blue))
+                        binding.txtCompleted.setTextColor(resources.getColor(R.color.blue))
+                        binding.txtRejected.setTextColor(resources.getColor(R.color.white))
                     }
                 }
             })
@@ -150,14 +155,6 @@ class FinanceHistoryActivity : BaseActivity(), EnquiryHistoryController {
 
     }
 
-    private fun setRvList(list2: ArrayList<InquiryHistoryResponse.InquiryHistory>) {
-        binding.rv.apply {
-            layoutManager =
-                LinearLayoutManager(this@FinanceHistoryActivity, RecyclerView.VERTICAL, false)
-            adapter = FinanceHisAdap(this@FinanceHistoryActivity, list2)
-            hasFixedSize()
-        }
-    }
 
     fun addNewEnquery(view: View) {
         if (historyType == "Finance") {
@@ -183,7 +180,7 @@ class FinanceHistoryActivity : BaseActivity(), EnquiryHistoryController {
          MyResponse().inquiryHistory(request, this, this)*/
     }
 
-    override fun inquiryHistorySuccess(inquiryHistoryResponse: InquiryHistoryResponse) {
+   /* override fun inquiryHistorySuccess(inquiryHistoryResponse: InquiryHistoryResponse) {
         dismissProgressDialog()
         if (inquiryHistoryResponse.inquiryHistory.isNullOrEmpty()) {
             binding.rv.visibility = View.GONE
@@ -197,6 +194,6 @@ class FinanceHistoryActivity : BaseActivity(), EnquiryHistoryController {
 
     override fun inquiryHistoryFailure(msg: String) {
         dismissProgressDialog()
-    }
+    }*/
 
 }

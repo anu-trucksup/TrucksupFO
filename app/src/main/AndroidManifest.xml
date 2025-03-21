@@ -110,6 +110,46 @@
             android:name=".presenter.view.activity.financeInsurance.InsuranceActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".presenter.view.activity.profile.MyTeamScreen"
+            android:exported="false" />
+
+        <activity
+            android:name=".presenter.view.activity.profile.MyTargetScreen"
+            android:exported="false" />
+
+
+        <activity
+            android:name=".presenter.view.activity.business_associate.MyBATeamOnBActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".presenter.view.activity.truck_owner.MyTSTeamOnBActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".presenter.view.activity.growth_partner.MyGPTeamOnBActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".presenter.view.activity.business_associate.BAStartTripActivity"
+            android:exported="false" />
+
+
+
+        <activity
+            android:name=".presenter.view.activity.business_associate.BAScheduledMeetingActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".presenter.view.activity.truck_owner.TSScheduledMeetingActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".presenter.common.yCamera.CameraXActivity"
+            android:exported="false" />
+
+
         <service
             android:name=".presenter.utils.MyFirebaseMessagingService"
             android:exported="false">

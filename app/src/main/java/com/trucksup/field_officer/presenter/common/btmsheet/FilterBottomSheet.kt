@@ -233,9 +233,9 @@ class FilterBottomSheet : BottomSheetDialogFragment(), View.OnClickListener {
 
         */
 /**
-         * Another way of handling the listener,
-         * without interface.
-         *//*
+ * Another way of handling the listener,
+ * without interface.
+ *//*
 
 
         adapter!!.setOnItemClickLitener(object : PropertyTypeAdapter.OnItemClickListener {
@@ -264,9 +264,9 @@ class FilterBottomSheet : BottomSheetDialogFragment(), View.OnClickListener {
 
         */
 /**
-         * Another way of handling the listener,
-         * without interface.
-         *//*
+ * Another way of handling the listener,
+ * without interface.
+ *//*
 
 
         adapter!!.setOnItemClickLitener(object : PropertyTypeAdapter.OnItemClickListener {
@@ -377,11 +377,11 @@ class FilterBottomSheet : BottomSheetDialogFragment(), View.OnClickListener {
 
         */
 /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @return A new instance of fragment LogoutBottomSheet.
-         *//*
+ * Use this factory method to create a new instance of
+ * this fragment using the provided parameters.
+ *
+ * @return A new instance of fragment LogoutBottomSheet.
+ *//*
 
         // TODO: Rename and change types and number of parameters
         fun newInstance(

@@ -33,7 +33,7 @@
                 app:cardCornerRadius="@dimen/_20sdp">
 
                 <ImageView
-                    android:id="@+id/img"
+                    android:id="@+id/nav_icon"
                     android:layout_width="@dimen/_35sdp"
                     android:layout_height="@dimen/_35sdp"
                     android:src="@drawable/report_icon2"

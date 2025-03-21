@@ -332,13 +332,13 @@
     <string name="enterRightCommercialVehical">Please enter valid commercial truck number.</string>
     <string name="enterCommercialVehical">Please enter valid commercial vehicle number.</string>
 
-    <string name="view_previous_inquiry">View Previous Inquiry</string>
+    <string name="view_previous_inquiry">View Previous Enquiry</string>
     <string name="alt_mobile_info">*To change your mobile number, please enter the alternate number in the mobile no. field.</string>
     <string name="current_status">Current Status</string>
     <string name="track_status">Track status >></string>
     <string name="finance_previous_enquiry">Finance Previous Enquiry</string>
     <string name="insurance_previous_enquiry">Insurance Previous Enquiry</string>
-    <string name="finance_msg2">Create a new finance inquiry with the following details.</string>
+    <string name="finance_msg2">Create a new finance enquiry with the following details.</string>
     <string name="insurance_msg2">Create a new insurance enquiry with the following details.</string>
     <string name="mobile_no_colon">Mobile No.:</string>
     <string name="ref_id">Ref. ID</string>
@@ -509,6 +509,37 @@
     <string name="add">Add</string>
     <string name="add_new_finance">Add New Finance Enquiry</string>
     <string name="add_new_insurance">Add New Insurance Enquiry</string>
+    <string name="previous_enquiries">Previous Enquiries</string>
+    <string name="business_name">Business Name</string>
+    <string name="phone_no">Phone No</string>
+    <string name="scheduled_meeting">Scheduled Meeting</string>
+    <string name="owner_type">Owner Type</string>
+    <string name="preferred_lane">Preferred Lane</string>
+    <string name="selfie_with_your_face">Selfie with your face</string>
+    <string name="owner_office_photo">Owner office photo</string>
+    <string name="gps">GPS</string>
+    <string name="buy_amp_sell_trucks"><![CDATA[Buy & Sell Trucks]]></string>
+    <string name="subscription_plan">Subscription Plan</string>
+    <string name="remarks">Remarks*</string>
+    <string name="select_follow_up_date">Select Follow-up date</string>
+    <string name="truck_no">Truck No</string>
+    <string name="owned_truck">Owned</string>
 
+    <string name="device_permissions">Device Permissions</string>
+    <string name="camara">Camara</string>
+    <string name="camara_hint">TrucksUp uses this information to help you do things such as Upload Photos</string>
+    <string name="location">Location</string>
+    <string name="location_hint">TrucksUp uses this information to help you do things such as Use GPS , and update vehical Location</string>
+    <string name="microphone">Microphone</string>
+    <string name="microphone_hint">TrucksUp uses this information to help you do things such as Search City by Voice</string>
+    <string name="phone">Phone</string>
+    <string name="phone_hint">TrucksUp uses this information to help you do things such as App access device modle no for fixed app bugs</string>
+
+    <string name="notification_hint">TrucksUp uses this information to help you do things such as Receveing Push Notification of new load available</string>
+    <string name="allowed">Allowed</string>
+    <string name="not_allowed">Not Allowed</string>
+    <string name="update_device_settings">Update device settings</string>
+    <string name="see_more">See More</string>
+    <string name="contact_for_loan">Contact For Loan</string>
 
 </resources>

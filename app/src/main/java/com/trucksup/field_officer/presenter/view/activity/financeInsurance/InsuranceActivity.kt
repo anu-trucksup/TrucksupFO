@@ -56,7 +56,7 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage {
     private var imageT: Int = 0//0 default,1 front image,2 back image,3 previous policy docs image
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adjustFontScale(getResources().getConfiguration(), 1.0f);
+        adjustFontScale(getResources().configuration, 1.0f);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_insurance_screen)
 
         //binding.etFullName.setText(PreferenceManager.getUserData(this)?.profileName)
@@ -1059,8 +1059,8 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage {
     }
 
     fun mobileInfo(v: View) {
-       /* val menu = TruckMenu
-        menu.aboutPlan(this, binding.info, "", resources.getString(R.string.alt_mobile_info))*/
+        /* val menu = TruckMenu
+         menu.aboutPlan(this, binding.info, "", resources.getString(R.string.alt_mobile_info))*/
     }
 
     private fun isValidPhoneNumber(phone: String): Boolean {
@@ -1396,13 +1396,13 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage {
         }
 
         binding.imgPrevPolicyDoc.setOnClickListener {
-           /* val intent = Intent(this, ViewPdfScreen::class.java)
-            intent.putExtra(
-                "pdf",
-                data.policyDocUrl
-            )
-            intent.putExtra("button", "n")
-            startActivity(intent)*/
+            /* val intent = Intent(this, ViewPdfScreen::class.java)
+             intent.putExtra(
+                 "pdf",
+                 data.policyDocUrl
+             )
+             intent.putExtra("button", "n")
+             startActivity(intent)*/
         }
 
         //ok button

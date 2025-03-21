@@ -18,9 +18,12 @@ class NewOnboardingSelection : BaseActivity() {
         adjustFontScale(resources.configuration, 1.0f);
         setContentView(binding.root)
 
-    }
-    fun onBack(view: View) {
-        finish()
+        //back button
+        binding.ivBack.setOnClickListener {
+           onBackPressed()
+        }
+
+
     }
 
     fun truck_supplier(view: View) {

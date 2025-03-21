@@ -7,6 +7,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.util.Log
+import android.util.Patterns
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.trucksup.field_officer.presenter.common.dialog.ProgressDialog
@@ -71,5 +72,8 @@ open class BaseActivity : AppCompatActivity() {
         wm.defaultDisplay.getMetrics(metrics)
         metrics.scaledDensity = configuration.fontScale * metrics.density
         baseContext.resources.updateConfiguration(configuration, metrics)
+    }
+    fun isValidMobile(phone: String): Boolean {
+        return Patterns.PHONE.matcher(phone).matches() && phone.length == 10
     }
 }

@@ -24,9 +24,8 @@ class EditProfileActivity : AppCompatActivity() {
     private fun setListener() {
         //back button
         binding.ivBack.setOnClickListener {
-            finish()
+            onBackPressed()
         }
-
         //submit button
         binding.btnSubmit.setOnClickListener {
             finish()

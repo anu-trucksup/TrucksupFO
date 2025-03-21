@@ -6,6 +6,8 @@ import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.ImageDecoder
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
@@ -18,6 +20,7 @@ import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -32,6 +35,7 @@ import com.trucksup.field_officer.databinding.ActivitySignUpBinding
 import com.trucksup.field_officer.presenter.common.Utils
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
+import com.trucksup.field_officer.presenter.common.yCamera.CameraXActivity
 import com.trucksup.field_officer.presenter.utils.FileHelper
 import com.trucksup.field_officer.presenter.view.activity.auth.login.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -176,13 +180,8 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
     }
 
 
-    private fun isValidMobile(phone: String): Boolean {
-        return Patterns.PHONE.matcher(phone).matches()
-    }
-
     private fun setupObserver() {
-        signupViewModel!!.resultSendOTPLD.observe(
-            this@SignUpActivity
+        signupViewModel?.resultSendOTPLD?.observe(this@SignUpActivity
         ) { responseModel: ResponseModel<Response<String>> ->                   // send otp observer
             if (responseModel.networkError != null) {
                 dismissProgressDialog()
@@ -198,7 +197,7 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
             }
         }
 
-        signupViewModel!!.verifyOTPResultLD.observe(this@SignUpActivity) { responseModel ->                // verify otp observer
+        signupViewModel?.verifyOTPResultLD?.observe(this@SignUpActivity) { responseModel ->                // verify otp observer
             if (responseModel.networkError != null) {
                 dismissProgressDialog()
 
@@ -335,11 +334,7 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
 
     override fun onClick(view: View) {
         if (view.id == R.id.iv_back) {
-            /* val loginInntent = Intent(this@SignUpActivity, MainActivity::class.java)
-             loginInntent.putExtra("status", 0)
-             loginInntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
-             startActivity(loginInntent)
-             finish()*/
+           onBackPressed()
         } else if (view.id == R.id.login_txt) {
             val signInIntent = Intent(this@SignUpActivity, LoginActivity::class.java)
             startActivity(signInIntent)
@@ -458,20 +453,32 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
 
 
         } else {
-            val camera_intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            // Start the activity with camera_intent, and request pic id
-            // Start the activity with camera_intent, and request pic id
-            camera_intent.putExtra("android.intent.extras.CAMERA_FACING", 1); // Front Camera
-            camera_intent.putExtra("android.intent.extras.LENS_FACING_FRONT", 1);
-            camera_intent.putExtra("android.intent.extra.USE_FRONT_CAMERA", true);
-
-            // Extras for displaying the front camera on Samsung
-            camera_intent.putExtra("camerafacing", "front")
-            camera_intent.putExtra("previous_mode", "Selfie")
-
-            startActivityForResult(camera_intent, 11)
+            var intent=Intent(this, CameraXActivity::class.java)
+            intent.putExtra("FRONT","y")
+            intent.putExtra("BACK","n")
+            startForResult.launch(intent)
         }
     }
+
+    val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+        if (result.resultCode == 100) {
+
+            if (Uri.parse(result.data?.getStringExtra("image"))!=null) {
+
+                val bitmap = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                    ImageDecoder.decodeBitmap(ImageDecoder.createSource(contentResolver, Uri.parse(result.data?.getStringExtra("image"))))
+                } else {
+                    MediaStore.Images.Media.getBitmap(contentResolver, Uri.parse(result.data?.getStringExtra("image")))
+                }
+                mSignUpBinding?.profileImage?.setImageURI(result.data?.data)
+               /* var newBitmap: Bitmap = FileHelp().resizeImage(bitmap, 500, 500)!!
+                var newFile: File = FileHelp().bitmapTofile(newBitmap, this)!!
+
+                uploadImage(newFile, "")*/
+            }
+        }
+    }
+
 
     private fun checkLocationPermission() {
 

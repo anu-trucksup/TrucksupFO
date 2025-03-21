@@ -284,19 +284,19 @@ class FinanceActivity : BaseActivity(), ChipCantroler {
          MyResponse().submitFinanceData(request, this, this)*/
     }
 
-    fun validation(): Boolean {
+    private fun validation(): Boolean {
         if (TextUtils.isEmpty(binding.name.text)) {
             LoggerMessage.onSNACK(
-                binding.state!!,
+                binding.state,
                 resources.getString(R.string.enterYourName),
                 this
             )
             return false
         }
         if (loanFor == "other") {
-            if (getSpecialCharacterCount(binding.name?.text.toString()) == 0) {
+            if (getSpecialCharacterCount(binding.name.text.toString()) == 0) {
                 LoggerMessage.onSNACK(
-                    binding.name!!,
+                    binding.name,
                     resources.getString(R.string.enterYourrightName),
                     this
                 )
@@ -305,7 +305,7 @@ class FinanceActivity : BaseActivity(), ChipCantroler {
         }
         if (TextUtils.isEmpty(binding.mobileNumber.text)) {
             LoggerMessage.onSNACK(
-                binding.state!!,
+                binding.state,
                 resources.getString(R.string.enter_mobile_no),
                 this
             )
@@ -314,13 +314,13 @@ class FinanceActivity : BaseActivity(), ChipCantroler {
 
         if (binding.mobileNumber.text.length < 10) {
             LoggerMessage.onSNACK(
-                binding.state!!,
+                binding.state,
                 resources.getString(R.string.enter_right_number_v),
                 this
             )
             return false
         }
-        if (isValidPhoneNumber(binding.mobileNumber?.text.toString()) == false) {
+        if (!isValidPhoneNumber(binding.mobileNumber.text.toString())) {
             LoggerMessage.onSNACK(
                 binding.state,
                 resources.getString(R.string.enter_right_number_v),
@@ -355,6 +355,14 @@ class FinanceActivity : BaseActivity(), ChipCantroler {
 
     fun backScreen(v: View) {
         finish()
+    }
+
+
+    fun viewPreviousEnquery(v: View) {
+        //finance
+        val intent = Intent(this, FinanceHistoryActivity::class.java)
+        intent.putExtra("HISTORY_TYPE", "Insurance")
+        startActivity(intent)
     }
 
 

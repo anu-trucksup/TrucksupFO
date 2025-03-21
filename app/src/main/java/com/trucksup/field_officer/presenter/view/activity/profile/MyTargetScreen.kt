@@ -15,5 +15,10 @@ class MyTargetScreen : BaseActivity() {
         adjustFontScale(resources.configuration, 1.0f);
         setContentView(binding.root)
 
+        //back button
+        binding.ivBack.setOnClickListener {
+            onBackPressed()
+        }
+
     }
 }

@@ -17,6 +17,7 @@
             android:layout_height="@dimen/_56sdp">
 
             <ImageView
+                android:id="@+id/iv_back"
                 android:layout_width="@dimen/_30sdp"
                 android:layout_height="@dimen/_30sdp"
                 android:background="@drawable/circal_weight"
@@ -75,7 +76,7 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:background="@drawable/tru_hub_menu_bg"
+                                android:background="@drawable/feature_selection_bg"
                                 android:orientation="vertical">
 
 
@@ -83,8 +84,7 @@
                                     android:id="@+id/owner"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:clickable="true"
-                                    android:onClick="slectOwner"
+                                    android:onClick="clickOnTS"
                                     android:orientation="horizontal">
 
                                     <LinearLayout
@@ -150,7 +150,7 @@
 
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:background="@drawable/tru_hub_menu_bg"
+                                android:background="@drawable/feature_selection_bg"
                                 android:clickable="true"
                                 android:onClick="slectBroker"
                                 android:orientation="vertical">
@@ -162,7 +162,7 @@
                                     android:layout_height="wrap_content"
                                     android:clickable="true"
                                     android:focusable="true"
-                                    android:onClick="slectBroker"
+                                    android:onClick="clickOnBA"
                                     android:orientation="horizontal">
 
                                     <LinearLayout
@@ -237,9 +237,8 @@
                                     android:id="@+id/buyerSellor"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:background="@drawable/tru_hub_menu_bg"
-                                    android:clickable="true"
-                                    android:onClick="slectBuyerSellor"
+                                    android:background="@drawable/feature_selection_bg"
+                                    android:onClick="clickOnGP"
                                     android:orientation="horizontal">
 
                                     <LinearLayout

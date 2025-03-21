@@ -57,7 +57,7 @@ class MiscFragment : Fragment(), AddMiscInterface {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentMiscBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -100,10 +100,11 @@ class MiscFragment : Fragment(), AddMiscInterface {
         binding.btnAddMisc.setOnClickListener {
             if (NetworkManager.isConnect(aContext!!)) {
                 DialogBoxes.addMiscDisc(aContext!!, this)
-            }
-            else
-            {
-                DialogBoxes.messageDialog(aContext!!,"You are offline . Please check your internet connection")
+            } else {
+                DialogBoxes.messageDialog(
+                    aContext!!,
+                    "You are offline . Please check your internet connection"
+                )
             }
         }
     }

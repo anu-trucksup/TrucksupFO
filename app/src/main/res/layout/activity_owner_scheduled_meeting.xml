@@ -6,13 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".OwnerScheduledMeetingActivity">
+    tools:context=".presenter.view.activity.truck_owner.TSScheduledMeetingActivity">
+
 
     <LinearLayout
         android:id="@+id/appBar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_50sdp"
-        android:background="@color/theme_color"
+        android:background="@drawable/toolbar_grdient"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,14 +29,14 @@
             app:tint="@color/white" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_marginHorizontal="@dimen/_10sdp"
             android:fontFamily="@font/bai_jamjuree_medium"
             android:gravity="center"
             android:lines="1"
-            android:text="Scheduled Meeting"
+            android:text="@string/truckSupplierfollow"
             android:textColor="@color/white"
             android:textSize="@dimen/_14ssp" />
 
@@ -57,20 +58,24 @@
             android:paddingHorizontal="@dimen/_10sdp"
             android:paddingTop="@dimen/_10sdp">
 
+            <TextView
+                style="@style/label_blue"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:text="@string/scheduled_meeting" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <TextView
+                    style="@style/text12"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.5"
-                    android:fontFamily="@font/bai_jamjuree_medium"
-                    android:lines="1"
-                    android:text="Business Name"
-                    android:textColor="@color/primery_text"
-                    android:textSize="@dimen/_11sdp" />
+                    android:text="@string/business_name" />
 
                 <TextView
                     android:id="@+id/firm_name"
@@ -92,14 +97,11 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    style="@style/text12"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.5"
-                    android:fontFamily="@font/bai_jamjuree_medium"
-                    android:lines="1"
-                    android:text="Phone No"
-                    android:textColor="@color/primery_text"
-                    android:textSize="@dimen/_11sdp" />
+                    android:text="@string/phone_no" />
 
                 <TextView
                     android:id="@+id/mobile"
@@ -121,12 +123,10 @@
                 android:background="#333E2089" />
 
             <TextView
+                style="@style/text12"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/bai_jamjuree_medium"
-                android:lines="1"
-                android:text="Owner Type"
-                android:textSize="@dimen/_11ssp" />
+                android:text="@string/owner_type" />
 
             <!--            <com.google.android.material.card.MaterialCardView-->
             <!--                android:layout_width="match_parent"-->
@@ -170,15 +170,13 @@
 
             <TextView
                 android:id="@+id/btnPreferredLane"
+                style="@style/text12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:drawableEnd="@drawable/add_round"
                 android:drawablePadding="@dimen/_6sdp"
-                android:fontFamily="@font/bai_jamjuree_medium"
-                android:lines="1"
-                android:text="Preferred Lane"
-                android:textSize="@dimen/_11ssp" />
+                android:text="@string/preferred_lane" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvPreferredLane"
@@ -190,15 +188,13 @@
 
             <TextView
                 android:id="@+id/btnTrucksDetails"
+                style="@style/text12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:drawableEnd="@drawable/add_round"
                 android:drawablePadding="@dimen/_6sdp"
-                android:fontFamily="@font/bai_jamjuree_medium"
-                android:lines="1"
-                android:text="Truck Details"
-                android:textSize="@dimen/_11ssp" />
+                android:text="@string/truck_details" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvTrucksDetails"
@@ -206,7 +202,7 @@
                 android:layout_height="wrap_content"
                 android:visibility="visible"
                 tools:itemCount="1"
-                tools:listitem="@layout/preferred_lane_item" />
+                tools:listitem="@layout/prefferd_truck_list_items" />
 
             <View
                 android:layout_width="match_parent"
@@ -217,6 +213,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                tools:visibility="visible"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -226,13 +223,11 @@
                     android:orientation="vertical">
 
                     <TextView
+                        style="@style/text12"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1.5"
-                        android:fontFamily="@font/bai_jamjuree_medium"
-                        android:text="Selfie with your face"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_11sdp" />
+                        android:text="@string/selfie_with_your_face" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="@dimen/_110sdp"
@@ -274,12 +269,11 @@
 
                     <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="0dp"
                         android:layout_weight="1.5"
-                        android:fontFamily="@font/bai_jamjuree_medium"
-                        android:text="Owner office photo"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_11sdp" />
+                        style="@style/text12"
+                        android:text="@string/owner_office_photo"
+                         />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="@dimen/_110sdp"
@@ -331,7 +325,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/bai_jamjuree_semi_bold"
-                        android:text="GPS"
+                        android:text="@string/gps"
                         android:textColor="@color/blue"
                         android:textSize="@dimen/_11ssp"
                         app:buttonTint="@color/theme_color" />
@@ -397,7 +391,7 @@
                 android:layout_width="@dimen/_minus5sdp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/bai_jamjuree_semi_bold"
-                android:text="Subscription Plan"
+                android:text="@string/subscription_plan"
                 android:textColor="@color/blue"
                 android:textSize="@dimen/_11ssp"
                 app:buttonTint="@color/theme_color" />
@@ -407,7 +401,7 @@
                 android:layout_width="@dimen/_minus5sdp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/bai_jamjuree_semi_bold"
-                android:text="Buy &amp; Sell Trucks"
+                android:text="@string/buy_amp_sell_trucks"
                 android:textColor="@color/blue"
                 android:textSize="@dimen/_11ssp"
                 app:buttonTint="@color/theme_color" />
@@ -426,10 +420,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:fontFamily="@font/bai_jamjuree_medium"
-                android:text="Remarks*"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_11ssp" />
+                style="@style/text12"
+                android:text="@string/remarks"/>
 
             <EditText
                 android:id="@+id/remark"
@@ -440,18 +432,17 @@
                 android:fontFamily="@font/bai_jamjuree_medium"
                 android:paddingHorizontal="@dimen/_12sdp"
                 android:paddingVertical="@dimen/_5sdp"
-                android:textColorHint="@color/grey"
                 android:textColor="@color/black"
+                android:textColorHint="@color/grey"
                 android:textSize="@dimen/_11ssp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:fontFamily="@font/bai_jamjuree_medium"
+                style="@style/text12"
                 android:text="Follow Up*"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_11ssp" />
+                />
 
             <TextView
                 android:id="@+id/followUp"
@@ -459,13 +450,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:background="@drawable/editbox_outborder"
-                android:fontFamily="@font/bai_jamjuree_medium"
-                android:hint="Select Follow-up date"
-                android:paddingHorizontal="@dimen/_12sdp"
                 android:drawableEnd="@drawable/calender_icon"
+                android:fontFamily="@font/bai_jamjuree_medium"
+                android:hint="@string/select_follow_up_date"
+                android:paddingHorizontal="@dimen/_12sdp"
                 android:paddingVertical="@dimen/_5sdp"
-                android:textColorHint="@color/grey"
                 android:textColor="@color/black"
+                android:textColorHint="@color/grey"
                 android:textSize="@dimen/_11ssp" />
 
             <androidx.cardview.widget.CardView

@@ -17,8 +17,26 @@ import com.trucksup.field_officer.presenter.view.activity.truck_owner.TruckSuppl
 class HomeFeaturesAdapter(var context: Context?, var list: ArrayList<String>) :
     RecyclerView.Adapter<HomeFeaturesAdapter.ViewHolder>() {
 
-    val serviceList = arrayListOf("Truck Supplier","Business Associates","Channel Partners","Finance", "Insurance", "Smart Fuel", "GPS", "Fast Tag")
-    val imageList = arrayListOf(R.drawable.truck_img,R.drawable.ba_ic,R.drawable.growth_part,R.drawable.ic_finanace, R.drawable.ic_insurance, R.drawable.ic_smart_fuel, R.drawable.ic_gps, R.drawable.ic_fasttag)
+    val serviceList = arrayListOf(
+        "Truck Supplier",
+        "Business Associates",
+        "Channel Partners",
+        "Finance",
+        "Insurance",
+        "Smart Fuel",
+        "GPS",
+        "Fast Tag"
+    )
+    val imageList = arrayListOf(
+        R.drawable.truck_img,
+        R.drawable.ba_ic,
+        R.drawable.growth_part,
+        R.drawable.ic_finanace,
+        R.drawable.ic_insurance,
+        R.drawable.ic_smart_fuel,
+        R.drawable.ic_gps,
+        R.drawable.ic_fasttag
+    )
 
     inner class ViewHolder(var binding: ItemFeaturesBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -34,13 +52,13 @@ class HomeFeaturesAdapter(var context: Context?, var list: ArrayList<String>) :
 
         holder.binding.root.setOnClickListener {
 
-            if(position == 0){
+            if (position == 0) {
                 val intent = Intent(context, TSFollowupActivity::class.java)
                 context?.startActivity(intent)
-            }else if(position == 1){
+            } else if (position == 1) {
                 val intent = Intent(context, BAFollowupActivity::class.java)
                 context?.startActivity(intent)
-            }else if(position == 2){
+            } else if (position == 2) {
                 val intent = Intent(context, GPFollowupActivity::class.java)
                 context?.startActivity(intent)
             }

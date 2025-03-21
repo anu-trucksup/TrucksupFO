@@ -18,19 +18,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_7sdp"
-            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_3sdp"
             android:layout_marginEnd="@dimen/_10sdp"
-            android:layout_marginBottom="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_3sdp"
             android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_3sdp"
-                android:layout_marginBottom="@dimen/_4sdp"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="@dimen/_3sdp"
-                app:cardElevation="@dimen/_3sdp">
+                >
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -41,19 +37,20 @@
 
                     <ImageView
                         android:id="@+id/iv_image"
-                        android:layout_width="@dimen/_37sdp"
-                        android:layout_height="@dimen/_37sdp"
+                        android:layout_width="@dimen/_45sdp"
+                        android:layout_height="@dimen/_45sdp"
                         android:src="@drawable/vec_tra_img" />
 
                     <TextView
                         android:id="@+id/tv_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/bai_jamjuree_bold"
+                        style="@style/label_semi"
                         android:textAlignment="center"
-                        android:text="Vehicle Tracking"
-                        android:textColor="@color/blue"
-                        android:textSize="@dimen/_12sdp" />
+                        android:gravity="center"
+                        android:maxLines="2"
+                        android:minLines="2"
+                        android:text="Vehicle Tracking" />
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>

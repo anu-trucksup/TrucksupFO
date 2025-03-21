@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -13,9 +13,9 @@
         tools:context=".activities.Finance.InsuranceScreen">
 
         <LinearLayout
-            android:id="@+id/tp"
+            android:id="@+id/header"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_50sdp"
+            android:layout_height="@dimen/_80sdp"
             android:background="@drawable/rect_header_profile"
             android:orientation="horizontal"
             android:paddingHorizontal="@dimen/_16sdp"
@@ -33,8 +33,8 @@
                 android:src="@drawable/back_icon" />
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_12sdp"
                 android:layout_weight="1"
                 android:fontFamily="@font/bai_jamjuree_semi_bold"
@@ -54,7 +54,8 @@
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/_50sdp"
             android:background="@drawable/addload_bg"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -140,8 +141,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_15sdp"
-                    android:visibility="gone"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/btnSelf"
@@ -317,8 +318,8 @@
                         android:layout_height="@dimen/_18sdp"
                         android:layout_toRightOf="@id/planName"
                         android:background="@color/transparent"
-                        android:visibility="gone"
                         android:src="@drawable/add_image"
+                        android:visibility="gone"
                         tools:ignore="UseAppTint" />
 
                 </LinearLayout>
@@ -485,42 +486,42 @@
                                 android:id="@+id/lRcFrontImage"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
                                 android:layout_marginEnd="@dimen/_5sdp"
-                                app:layout_constraintEnd_toStartOf="@+id/lRcBackImage">
+                                app:layout_constraintEnd_toStartOf="@+id/lRcBackImage"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
 
                                 <TextView
                                     android:id="@+id/tvRcFrontImg"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/_3sdp"
                                     android:fontFamily="@font/bai_jamjuree_semi_bold"
                                     android:maxLines="1"
                                     android:text="@string/rc_front_image"
                                     android:textColor="@color/secondry_text"
                                     android:textSize="@dimen/_11ssp"
-                                    android:layout_marginStart="@dimen/_3sdp"
                                     app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent"/>
+                                    app:layout_constraintTop_toTopOf="parent" />
 
                                 <com.google.android.material.card.MaterialCardView
                                     android:layout_width="@dimen/_40sdp"
                                     android:layout_height="@dimen/_40sdp"
-                                    app:layout_constraintTop_toBottomOf="@+id/tvRcFrontImg"
-                                    app:layout_constraintStart_toStartOf="@+id/tvRcFrontImg"
-                                    app:cardCornerRadius="@dimen/_4sdp"
-                                    app:cardBackgroundColor="@color/white"
-                                    app:strokeWidth="@dimen/_1sdp"
-                                    app:strokeColor="#8A73C2"
                                     android:layout_marginStart="@dimen/_25sdp"
-                                    android:layout_marginTop="@dimen/_5sdp">
+                                    android:layout_marginTop="@dimen/_5sdp"
+                                    app:cardBackgroundColor="@color/white"
+                                    app:cardCornerRadius="@dimen/_4sdp"
+                                    app:layout_constraintStart_toStartOf="@+id/tvRcFrontImg"
+                                    app:layout_constraintTop_toBottomOf="@+id/tvRcFrontImg"
+                                    app:strokeColor="#8A73C2"
+                                    app:strokeWidth="@dimen/_1sdp">
 
                                     <ImageView
                                         android:id="@+id/imgFrontCamera"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
-                                        android:src="@drawable/camera_new"
-                                        android:scaleType="fitXY"/>
+                                        android:scaleType="fitXY"
+                                        android:src="@drawable/camera_new" />
 
                                 </com.google.android.material.card.MaterialCardView>
 
@@ -531,41 +532,41 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/_5sdp"
+                                app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toEndOf="@+id/lRcFrontImage"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent">
+                                app:layout_constraintTop_toTopOf="parent">
 
                                 <TextView
                                     android:id="@+id/tvRcBackImg"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/_3sdp"
                                     android:fontFamily="@font/bai_jamjuree_semi_bold"
                                     android:maxLines="1"
                                     android:text="@string/rc_back_image"
                                     android:textColor="@color/secondry_text"
                                     android:textSize="@dimen/_11ssp"
-                                    android:layout_marginStart="@dimen/_3sdp"
                                     app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent"/>
+                                    app:layout_constraintTop_toTopOf="parent" />
 
                                 <com.google.android.material.card.MaterialCardView
                                     android:layout_width="@dimen/_40sdp"
                                     android:layout_height="@dimen/_40sdp"
-                                    app:layout_constraintTop_toBottomOf="@+id/tvRcBackImg"
-                                    app:layout_constraintStart_toStartOf="@+id/tvRcBackImg"
-                                    app:layout_constraintEnd_toEndOf="@+id/tvRcBackImg"
-                                    app:cardCornerRadius="@dimen/_4sdp"
+                                    android:layout_marginTop="@dimen/_5sdp"
                                     app:cardBackgroundColor="@color/white"
-                                    app:strokeWidth="@dimen/_1sdp"
+                                    app:cardCornerRadius="@dimen/_4sdp"
+                                    app:layout_constraintEnd_toEndOf="@+id/tvRcBackImg"
+                                    app:layout_constraintStart_toStartOf="@+id/tvRcBackImg"
+                                    app:layout_constraintTop_toBottomOf="@+id/tvRcBackImg"
                                     app:strokeColor="#8A73C2"
-                                    android:layout_marginTop="@dimen/_5sdp">
+                                    app:strokeWidth="@dimen/_1sdp">
 
                                     <ImageView
                                         android:id="@+id/imgBackCamera"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:scaleType="fitXY"
-                                        android:src="@drawable/camera_new"/>
+                                        android:src="@drawable/camera_new" />
 
                                 </com.google.android.material.card.MaterialCardView>
 
@@ -589,26 +590,26 @@
                                 android:textColor="@color/secondry_text"
                                 android:textSize="@dimen/_11ssp"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"/>
+                                app:layout_constraintTop_toTopOf="parent" />
 
                             <com.google.android.material.card.MaterialCardView
                                 android:layout_width="@dimen/_40sdp"
                                 android:layout_height="@dimen/_40sdp"
-                                app:layout_constraintTop_toBottomOf="@+id/tvPrevPolicyDocImg"
-                                app:layout_constraintStart_toStartOf="@+id/tvPrevPolicyDocImg"
-                                app:cardCornerRadius="@dimen/_4sdp"
-                                app:cardBackgroundColor="@color/white"
-                                app:strokeWidth="@dimen/_1sdp"
-                                app:strokeColor="#8A73C2"
+                                android:layout_marginStart="@dimen/_25sdp"
                                 android:layout_marginTop="@dimen/_5sdp"
-                                android:layout_marginStart="@dimen/_25sdp">
+                                app:cardBackgroundColor="@color/white"
+                                app:cardCornerRadius="@dimen/_4sdp"
+                                app:layout_constraintStart_toStartOf="@+id/tvPrevPolicyDocImg"
+                                app:layout_constraintTop_toBottomOf="@+id/tvPrevPolicyDocImg"
+                                app:strokeColor="#8A73C2"
+                                app:strokeWidth="@dimen/_1sdp">
 
                                 <ImageView
                                     android:id="@+id/imgPrevPolicyDoc"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:src="@drawable/camera_new"
-                                    android:scaleType="fitXY"/>
+                                    android:scaleType="fitXY"
+                                    android:src="@drawable/camera_new" />
 
                             </com.google.android.material.card.MaterialCardView>
 
@@ -703,6 +704,6 @@
 
         </androidx.core.widget.NestedScrollView>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
 
 </layout>

@@ -6,14 +6,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.trucksup.field_officer.databinding.ItemActiveBaBinding
 
-class ActiveBAAdapter(var context: Context?, var list:ArrayList<String>):RecyclerView.Adapter<ActiveBAAdapter.ViewHolder>() {
+class ActiveBAAdapter(var context: Context?, var list: ArrayList<String>) :
+    RecyclerView.Adapter<ActiveBAAdapter.ViewHolder>() {
 
-    private var controllerListener: ControllerListener?=null
+    private var controllerListener: ControllerListener? = null
 
-    inner class ViewHolder(var binding: ItemActiveBaBinding):RecyclerView.ViewHolder(binding.root)
+    inner class ViewHolder(var binding: ItemActiveBaBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        var v=ItemActiveBaBinding.inflate(LayoutInflater.from(context),parent,false)
+        var v = ItemActiveBaBinding.inflate(LayoutInflater.from(context), parent, false)
         return ViewHolder(v)
     }
 
@@ -34,14 +35,12 @@ class ActiveBAAdapter(var context: Context?, var list:ArrayList<String>):Recycle
         return list.size
     }
 
-    fun setOnControllerListener(controllerListener: ControllerListener)
-    {
-        this.controllerListener=controllerListener
+    fun setOnControllerListener(controllerListener: ControllerListener) {
+        this.controllerListener = controllerListener
     }
 
-    interface ControllerListener
-    {
-        fun onOpenLocation(location:String)
+    interface ControllerListener {
+        fun onOpenLocation(location: String)
         fun onDateTime()
     }
 

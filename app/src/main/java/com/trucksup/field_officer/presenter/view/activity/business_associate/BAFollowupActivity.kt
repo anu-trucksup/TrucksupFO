@@ -1,6 +1,5 @@
 package com.trucksup.field_officer.presenter.view.activity.business_associate
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
@@ -21,9 +20,8 @@ import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ActivityFollowupTsBinding
-import com.trucksup.field_officer.presenter.view.fragment.ts.TruckOwnerFragment
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
-import com.trucksup.field_officer.presenter.view.fragment.ba.BrokerFragment
+import com.trucksup.field_officer.presenter.view.fragment.ba.BusAssociateFragment
 import java.util.Locale
 
 class BAFollowupActivity : BaseActivity() {
@@ -47,7 +45,12 @@ class BAFollowupActivity : BaseActivity() {
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
-        switchFragment(BrokerFragment())
+        //back button
+        binding.ivBack.setOnClickListener {
+            onBackPressed()
+        }
+
+        switchFragment(BusAssociateFragment())
 
     }
 

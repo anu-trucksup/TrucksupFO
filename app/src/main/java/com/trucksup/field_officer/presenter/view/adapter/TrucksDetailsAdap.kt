@@ -19,7 +19,7 @@ class TrucksDetailsAdap(
         parent: ViewGroup,
         viewType: Int
     ): ViewHolder {
-        var v = PreferredLaneItemBinding.inflate(LayoutInflater.from(context), parent, false)
+        val v = PreferredLaneItemBinding.inflate(LayoutInflater.from(context), parent, false)
         return ViewHolder(v)
     }
 

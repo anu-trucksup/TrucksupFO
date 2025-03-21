@@ -84,8 +84,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:fontFamily="@font/bai_jamjuree_medium"
-                android:text="Address"
+                style="@style/text_medium"
+                android:text="@string/address"
                 android:textColor="@color/blue"
                 android:textSize="@dimen/_12ssp" />
 
@@ -195,7 +195,7 @@
                     android:lines="1"
                     android:paddingHorizontal="@dimen/_25sdp"
                     android:paddingVertical="@dimen/_2sdp"
-                    android:text="Start Trip"
+                    android:text="@string/start_trip"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_14ssp" />
 

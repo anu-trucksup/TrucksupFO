@@ -46,6 +46,11 @@ class GPFollowupActivity : BaseActivity() {
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
+        //back button
+        binding.ivBack.setOnClickListener {
+            onBackPressed()
+        }
+
         switchFragment(TruckOwnerFragment())
 
     }

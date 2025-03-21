@@ -15,6 +15,11 @@ class TruckSupplierDetailActivity : BaseActivity() {
         setContentView(binding.root)
 
         //populateAdapterWithInfo()
+
+        //back button
+        binding.ivBack.setOnClickListener {
+            onBackPressed()
+        }
     }
 
 }

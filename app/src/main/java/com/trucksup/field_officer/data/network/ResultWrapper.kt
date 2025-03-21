@@ -16,10 +16,7 @@ sealed class ResultWrapper<out T> {
     data class NetworkError(val error: String) : ResultWrapper<Nothing>()
 }
 
-class ServerException constructor(
-    var status: String? = null,
-    var messageLabel: String? = null
-) : Exception()
+class ServerException constructor( var status: String? = null, var messageLabel: String? = null) : Exception()
 
 suspend fun <T> safeApiCall(
     dispatcher: CoroutineDispatcher,

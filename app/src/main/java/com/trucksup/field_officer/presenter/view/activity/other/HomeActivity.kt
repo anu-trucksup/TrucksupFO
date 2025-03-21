@@ -39,7 +39,7 @@ import com.trucksup.field_officer.presenter.view.adapter.HomeFeaturesAdapter
 import com.trucksup.field_officer.presenter.view.adapter.ServicesMainAdapter
 import com.trucksup.field_officer.presenter.view.adapter.OnItemClickListner
 import com.trucksup.field_officer.presenter.view.adapter.TUKawachDialogAdapter
-import com.trucksup.fieldofficer.adapter.NavigationMenuItem
+import com.trucksup.field_officer.presenter.view.adapter.NavigationMenuItem
 import java.util.Locale
 
 
@@ -172,7 +172,7 @@ class HomeActivity : BaseActivity(), OnItemClickListner {
         }
     }
 
-    private fun setSelectionNav(s: String) {
+    private fun setSelectionNav(str: String) {
         binding.homeCard.setCardBackgroundColor(resources.getColor(R.color.blue))
         binding.ivHome.setColorFilter(resources.getColor(R.color.white))
         //binding.llHome.setBackgroundColor(resources.getColor(R.color.blue));
@@ -250,11 +250,10 @@ class HomeActivity : BaseActivity(), OnItemClickListner {
     }
 
     private fun setNavigationMenu() {
-        val list = ArrayList<String>()
-        list.add("")
-        list.add("")
-        list.add("")
-        list.add("")
+        val list = ArrayList<NavItems>()
+        list.add(NavItems(R.drawable.nav_my_business,"My Business","To view the details of my onboarded team."))
+        list.add(NavItems(R.drawable.nav_targets,"Targets","To view my daily targets."))
+
         binding.listSlidermenu.apply {
             layoutManager = LinearLayoutManager(this@HomeActivity, RecyclerView.VERTICAL, false)
             adapter = NavigationMenuItem(this@HomeActivity, list)

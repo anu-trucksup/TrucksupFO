@@ -6,7 +6,7 @@ plugins {
 
     // Add the Google services Gradle plugin
     id("com.google.gms.google-services")
-  }
+}
 
 android {
     namespace = "com.trucksup.field_officer"
@@ -97,25 +97,25 @@ dependencies {
     implementation(libs.converter.gson)
     implementation(libs.coil.compose.v222)
 
-    implementation (libs.pinview)
+    implementation(libs.pinview)
 
     // sdp and ssp
-    implementation (libs.ssp.android)
-    implementation (libs.sdp.android)
+    implementation(libs.ssp.android)
+    implementation(libs.sdp.android)
 
     implementation(libs.play.services.location)
     implementation(libs.androidx.activity.compose.v180)
     implementation(libs.firebase.messaging)
 
     //glide
-    implementation (libs.glide)
-    annotationProcessor (libs.compiler)
+    implementation(libs.glide)
+    annotationProcessor(libs.compiler)
 
     //circle image view
     implementation(libs.circleimageview)
 
     //lottie
-    implementation (libs.lottie)
+    implementation(libs.lottie)
 
     //dexter permission
     implementation(libs.dexter)
@@ -124,6 +124,16 @@ dependencies {
     implementation(libs.shimmer)
 
     // Kotlin
-    implementation (libs.androidx.navigation.fragment.ktx)
-    implementation (libs.androidx.navigation.ui.ktx)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
+
+    // The following line is optional, as the core library is included indirectly by camera-camera2
+    implementation(libs.androidx.camera.core)
+    implementation(libs.androidx.camera.camera2)
+
+    implementation(libs.androidx.camera.lifecycle)
+
+    // If you want to additionally use the CameraX View class
+    implementation(libs.androidx.camera.view)
+    implementation (libs.play.services.mlkit.face.detection)
 }

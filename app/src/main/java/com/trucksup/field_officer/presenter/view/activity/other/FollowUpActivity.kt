@@ -30,7 +30,6 @@ class FollowUpActivity : BaseActivity() {
         list.add("")
         list.add("")
         binding.rvSecondServices.apply {
-
             layoutManager = GridLayoutManager(this@FollowUpActivity, 3)
             adapter = HomeFeaturesAdapter(this@FollowUpActivity, list)
             hasFixedSize()

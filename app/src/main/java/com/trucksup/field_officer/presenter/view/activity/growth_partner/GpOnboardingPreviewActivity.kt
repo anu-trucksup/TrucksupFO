@@ -25,8 +25,8 @@ class GpOnboardingPreviewActivity : AppCompatActivity(), View.OnClickListener {
     }
 
      fun launchNextScreen(activity: Activity){
-        var GetIntent= Intent(this, activity::class.java)
-        startActivity(GetIntent)
+        val getIntent= Intent(this, activity::class.java)
+        startActivity(getIntent)
     }
 
     private fun setOnClicks() {

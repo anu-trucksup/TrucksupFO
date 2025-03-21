@@ -1,9 +1,15 @@
 package com.trucksup.field_officer.presenter.view.activity.profile
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import com.trucksup.field_officer.databinding.ActivityMyTeamsBinding
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
+import com.trucksup.field_officer.presenter.view.activity.business_associate.MyBATeamOnBActivity
+import com.trucksup.field_officer.presenter.view.activity.growth_partner.MyGPTeamOnBActivity
+import com.trucksup.field_officer.presenter.view.activity.truck_owner.MyTSTeamOnBActivity
+import com.trucksup.field_officer.presenter.view.activity.truck_owner.TruckSupplierDetailActivity
 
 class MyTeamScreen : BaseActivity() {
     private lateinit var binding: ActivityMyTeamsBinding
@@ -15,5 +21,22 @@ class MyTeamScreen : BaseActivity() {
         adjustFontScale(resources.configuration, 1.0f);
         setContentView(binding.root)
 
+        //back button
+        binding.ivBack.setOnClickListener {
+            onBackPressed()
+        }
+
+    }
+
+    fun clickOnTS(view: View) {
+        startActivity(Intent(this, MyTSTeamOnBActivity::class.java))
+    }
+
+    fun clickOnBA(view: View) {
+        startActivity(Intent(this, MyBATeamOnBActivity::class.java))
+    }
+
+    fun clickOnGP(view: View) {
+        startActivity(Intent(this, MyGPTeamOnBActivity::class.java))
     }
 }

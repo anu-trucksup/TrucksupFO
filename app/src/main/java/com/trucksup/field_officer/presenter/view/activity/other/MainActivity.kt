@@ -15,8 +15,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
@@ -28,12 +26,11 @@ import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ActivityMainBinding
-import com.trucksup.field_officer.presenter.view.fragment.ba.BrokerFragment
 import com.trucksup.field_officer.presenter.view.fragment.ms.MiscFragment
 import com.trucksup.field_officer.presenter.view.fragment.ts.TruckOwnerFragment
-import com.trucksup.fieldofficer.adapter.NavigationMenuItem
 import com.trucksup.field_officer.presenter.common.dialog.DialogBoxes
 import com.trucksup.field_officer.presenter.view.activity.profile.EditProfileActivity
+import com.trucksup.field_officer.presenter.view.fragment.ba.BusAssociateFragment
 import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
@@ -134,7 +131,7 @@ class MainActivity : AppCompatActivity() {
 
         when (tabId) {
             R.id.tab_owner -> switchFragment(TruckOwnerFragment())
-            R.id.tab_broker -> switchFragment(BrokerFragment())
+            R.id.tab_broker -> switchFragment(BusAssociateFragment())
             R.id.tab_misc -> switchFragment(MiscFragment())
         }
     }
@@ -220,7 +217,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setNavigationMenu() {
-        var list = ArrayList<String>()
+       /* var list = ArrayList<String>()
         list.add("")
         list.add("")
         list.add("")
@@ -229,7 +226,7 @@ class MainActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(this@MainActivity, RecyclerView.VERTICAL, false)
             adapter = NavigationMenuItem(this@MainActivity, list)
             hasFixedSize()
-        }
+        }*/
     }
 
 }
