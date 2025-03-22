@@ -200,4 +200,14 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
+    // Function to validate password
+    private fun isValidPassword(password: String): Boolean {
+        // Regular expression for password validation
+        val passwordPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$"
+        return password.matches(passwordPattern.toRegex())
+
+      //  tvPasswordError.text = "Password must be at least 8 characters, include a digit, an uppercase letter, and a special character."
+
+    }
+
 }

@@ -21,9 +21,11 @@ import android.util.Patterns
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -32,6 +34,7 @@ import com.trucksup.field_officer.data.model.NewResisterRequest
 import com.trucksup.field_officer.data.model.Response
 import com.trucksup.field_officer.data.network.ResponseModel
 import com.trucksup.field_officer.databinding.ActivitySignUpBinding
+import com.trucksup.field_officer.presenter.common.CameraActivity
 import com.trucksup.field_officer.presenter.common.Utils
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
@@ -47,6 +50,7 @@ import java.util.regex.Pattern
 @AndroidEntryPoint
 class SignUpActivity : BaseActivity(), View.OnClickListener {
 
+    private var startForResult: ActivityResultLauncher<Intent>? = null
     private var mSignUpBinding: ActivitySignUpBinding? = null
     private var passwordDialog: Dialog? = null
     private var signupViewModel: SignupViewModel? = null
@@ -74,106 +78,78 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
         )
         mSignUpBinding!!.setViewModel(signupViewModel)
 
-        mSignUpBinding!!.confirmPasswordTxt.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-            }
+        cameraListner()
 
-            override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-            }
+        /* mSignUpBinding!!.confirmPasswordTxt.addTextChangedListener(object : TextWatcher {
+             override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
+             }
 
-            override fun afterTextChanged(editable: Editable) {
-                val password: String = mSignUpBinding!!.passwordTxt.getText().toString()
-                if (editable.length > 0 && password.length > 0) {
-                    if (!editable.toString().equals(password)) {
-                        val customErrorDrawable = resources.getDrawable(R.drawable.error_warn)
-                        customErrorDrawable.setBounds(
-                            0,
-                            0,
-                            customErrorDrawable.intrinsicWidth,
-                            customErrorDrawable.intrinsicHeight
-                        )
+             override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
+             }
 
-                        mSignUpBinding!!.confirmPasswordTxt.setError(
-                            "Password and Confirm Password should be same.",
-                            customErrorDrawable
-                        )
+             override fun afterTextChanged(editable: Editable) {
+                 val password: String = mSignUpBinding!!.passwordTxt.getText().toString()
+                 if (editable.length > 0 && password.length > 0) {
+                     if (!editable.toString().equals(password)) {
+                         val customErrorDrawable = resources.getDrawable(R.drawable.error_warn)
+                         customErrorDrawable.setBounds(
+                             0,
+                             0,
+                             customErrorDrawable.intrinsicWidth,
+                             customErrorDrawable.intrinsicHeight
+                         )
 
-                        // give an error that password and confirm password not match
-                    } else {
-                        val customErrorDrawable = resources.getDrawable(R.drawable.error_confirm)
-                        customErrorDrawable.setBounds(
-                            0,
-                            0,
-                            customErrorDrawable.intrinsicWidth,
-                            customErrorDrawable.intrinsicHeight
-                        )
-                        mSignUpBinding!!.confirmPasswordTxt.setError("", customErrorDrawable)
-                    }
-                }
-            }
-        })
+                         mSignUpBinding!!.confirmPasswordTxt.setError(
+                             "Password and Confirm Password should be same.",
+                             customErrorDrawable
+                         )
 
-        /*  mSignUpBinding!!.phoneNoTxt.onFocusChangeListener =
-              OnFocusChangeListener { view, hasFocus ->
-                  if (hasFocus) {
-                      if (mSignUpBinding!!.emailTxt.text.isNotEmpty() && isValidEmail(mSignUpBinding!!.emailTxt.text)) {
-                          if (!isOTPDialogVerified) {
-                              sendOTP()
-                          }
+                         // give an error that password and confirm password not match
+                     } else {
+                         val customErrorDrawable = resources.getDrawable(R.drawable.error_confirm)
+                         customErrorDrawable.setBounds(
+                             0,
+                             0,
+                             customErrorDrawable.intrinsicWidth,
+                             customErrorDrawable.intrinsicHeight
+                         )
+                         mSignUpBinding!!.confirmPasswordTxt.setError("", customErrorDrawable)
+                     }
+                 }
+             }
+         })*/
 
-                          if (mSignUpBinding!!.firstNameTxt.text.toString().isEmpty()) {
-                              mSignUpBinding!!.firstNameError.visibility = View.VISIBLE
-                              mSignUpBinding!!.firstNameTxt.background =
-                                  getDrawable(R.drawable.error_red_background_view)
-                          } else {
-                              mSignUpBinding!!.firstNameError.visibility = View.GONE
-                              mSignUpBinding!!.firstNameTxt.background =
-                                  getDrawable(R.drawable.edit_text_background_view)
-                          }
-                      } else {
-                          if (mSignUpBinding!!.firstNameTxt.text.toString().isEmpty()) {
-                              mSignUpBinding!!.firstNameError.visibility = View.VISIBLE
-                              mSignUpBinding!!.firstNameTxt.background =
-                                  getDrawable(R.drawable.error_red_background_view)
-                          } else {
-                              mSignUpBinding!!.firstNameError.visibility = View.GONE
-                              mSignUpBinding!!.firstNameTxt.background =
-                                  getDrawable(R.drawable.edit_text_background_view)
-                          }
-                      }
+
+        /*  mSignUpBinding!!.otpTxt.addTextChangedListener(object : TextWatcher {
+              override fun afterTextChanged(s: Editable) {
+                  mSignUpBinding!!.otpErrorText.visibility = View.GONE
+                  mSignUpBinding!!.otpTxt.background =
+                      getDrawable(R.drawable.edit_text_background_view)
+              }
+
+              override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+              }
+
+              override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+              }
+          })
+
+          mSignUpBinding!!.phoneNoTxt.addTextChangedListener(object : TextWatcher {
+              override fun afterTextChanged(s: Editable) {
+
+              }
+
+              override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+              }
+
+              override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                  if (mSignUpBinding!!.retryTextView.visibility == View.VISIBLE) {
+                      mSignUpBinding!!.otpTxt.setText("")
+                      // mSignUpBinding!!.otpTxt.setFocusable(false);
+                      mSignUpBinding!!.retryTextView.visibility = View.GONE
                   }
-              }*/
-
-        mSignUpBinding!!.otpTxt.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable) {
-                mSignUpBinding!!.otpErrorText.visibility = View.GONE
-                mSignUpBinding!!.otpTxt.background =
-                    getDrawable(R.drawable.edit_text_background_view)
-            }
-
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-            }
-        })
-
-        mSignUpBinding!!.phoneNoTxt.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable) {
-
-            }
-
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                if (mSignUpBinding!!.retryTextView.visibility == View.VISIBLE) {
-                    mSignUpBinding!!.otpTxt.setText("")
-                    // mSignUpBinding!!.otpTxt.setFocusable(false);
-                    mSignUpBinding!!.retryTextView.visibility = View.GONE
-                }
-            }
-        })
+              }
+          })*/
 
         setupObserver()
 
@@ -181,7 +157,8 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
 
 
     private fun setupObserver() {
-        signupViewModel?.resultSendOTPLD?.observe(this@SignUpActivity
+        signupViewModel?.resultSendOTPLD?.observe(
+            this@SignUpActivity
         ) { responseModel: ResponseModel<Response<String>> ->                   // send otp observer
             if (responseModel.networkError != null) {
                 dismissProgressDialog()
@@ -259,82 +236,12 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
             }
         }
 
-
-        /*  signupViewModel!!.checkUserProfileLD.observe(this@SignUpActivity) { responseModel: ResponseModel<CheckUserProfileResponse> ->                 // check userprofile observer
-              if (responseModel.networkError != null) {
-                  dismissProgressDialog()
-                  Utils.showToastDialog(
-                      AppConstant.AppLabelName.networkError,
-                      this,
-                      "Ok"
-                  )
-              } else if (responseModel.serverResponseError != null) {
-                  dismissProgressDialog()
-                  Utils.showToastDialog(
-                      responseModel.serverResponseError,
-                      this,
-                      "Ok"
-                  )
-              } else if (responseModel.genericError != null) {
-                  dismissProgressDialog()
-                  Utils.showToastDialog(
-                      AppConstant.AppLabelName.genericError,
-                      this,
-                      "Ok"
-                  )
-              } else {
-                  dismissProgressDialog()
-                  if (responseModel.success!!.payload != null) {
-                      if (mSignUpBinding!!.emailTxt.text.toString() != null && mSignUpBinding!!.emailTxt.text.toString().length > 0) {
-                          dismissProgressDialog()
-                          Utils.showToastDialog(
-                              "com.skiptq.backend.user.exist.with.same.email",
-                              this,
-                              "Ok"
-                          )
-                      } else {
-                          Utils.showToastDialog(
-                              "com.skiptq.backend.user.exist.with.same.mobile",
-                              this,
-                              "Ok"
-                          )
-                      }
-                  } else {
-                      sendOTP() // send otp fun call
-                  }
-              }
-          }*/
-
-        mSignUpBinding!!.retryTextView.visibility = View.INVISIBLE
-
-        textWatcher();
     }
 
-    private fun textWatcher() {
-
-        mSignUpBinding!!.phoneNoTxt.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-            }
-
-            override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-            }
-
-            override fun afterTextChanged(editable: Editable) {
-                if (isValidMobile(mSignUpBinding!!.phoneNoTxt.text.toString())) {
-                    // mSignUpBinding!!.mobileErrorText.visibility = View.GONE
-                } else {
-                    val em = "Not a valid mobile no"
-                    LoggerMessage.onSNACK(mSignUpBinding!!.phoneNoTxt, em, applicationContext)
-
-                }
-            }
-        })
-
-    }
 
     override fun onClick(view: View) {
         if (view.id == R.id.iv_back) {
-           onBackPressed()
+            onBackPressed()
         } else if (view.id == R.id.login_txt) {
             val signInIntent = Intent(this@SignUpActivity, LoginActivity::class.java)
             startActivity(signInIntent)
@@ -343,16 +250,18 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
         } else if (view.id == R.id.sign_up_btn) {
             if (isOnline(this)) {
 
+
                 if (TextUtils.isEmpty(mSignUpBinding?.profileName?.text.toString().trim())) {
-                    mSignUpBinding?.profileName?.setError("Enter Name")
+                    mSignUpBinding?.profileName?.error = "Enter Profile Name"
+                    mSignUpBinding?.profileName?.requestFocus()
                     return
                 }
                 if (isValidName(mSignUpBinding?.profileName?.text.toString().trim())) {
-                    mSignUpBinding?.profileName?.setError("Enter Right Name")
+                    mSignUpBinding?.profileName?.error = "Enter Right Name"
                     return
                 }
                 if (getSpecialCharacterCount(mSignUpBinding?.profileName?.text.toString()) == 0) {
-                    mSignUpBinding?.profileName?.setError("Enter Right Name")
+                    mSignUpBinding?.profileName?.error = "Enter Right Name"
                     return
                 }
 
@@ -362,62 +271,108 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
                     return
                 }
 
-                if (mSignUpBinding?.profileName?.text.toString().isNotEmpty()
+                if (TextUtils.isEmpty(mSignUpBinding?.phoneNoTxt?.text.toString().trim())) {
+                    mSignUpBinding?.phoneNoTxt?.error = "Enter Mobile Number"
+                    mSignUpBinding?.phoneNoTxt?.requestFocus()
+                    return
+                }
+                if (mSignUpBinding!!.passwordTxt.text.toString().isEmpty()) {
+
+                    LoggerMessage.onSNACK(
+                        mSignUpBinding!!.passwordTxt,
+                        "Please Enter Password.",
+                        applicationContext
+                    )
+
+                    return
+
+                }
+
+                if (mSignUpBinding!!.confirmPasswordTxt.text.toString().isEmpty()) {
+
+                    LoggerMessage.onSNACK(
+                        mSignUpBinding!!.confirmPasswordTxt,
+                        "Please Enter Confirm Password.",
+                        applicationContext
+                    )
+
+                    return
+
+                }
+
+                val password: String = mSignUpBinding!!.passwordTxt.getText().toString()
+                val confirmpassword: String = mSignUpBinding!!.confirmPasswordTxt.getText().toString()
+
+                if (confirmpassword.length > 0 && password.length > 0) {
+                    if (!confirmpassword.equals(password)) {
+                        val customErrorDrawable = resources.getDrawable(R.drawable.error_warn)
+                        customErrorDrawable.setBounds(
+                            0,
+                            0,
+                            customErrorDrawable.intrinsicWidth,
+                            customErrorDrawable.intrinsicHeight
+                        )
+
+                        mSignUpBinding!!.confirmPasswordTxt.setError(
+                            "Password and Confirm Password should be same.",
+                            customErrorDrawable
+                        )
+
+                        //  mSignUpBinding!!.confirmPasswordTxt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.error_confirm, 0);
+
+                        return
+                    } else {
+
+                        val customErrorDrawable = resources.getDrawable(R.drawable.error_confirm)
+                        customErrorDrawable.setBounds(
+                            0,
+                            0,
+                            customErrorDrawable.intrinsicWidth,
+                            customErrorDrawable.intrinsicHeight
+                        )
+
+                        mSignUpBinding!!.confirmPasswordTxt.setError(
+                            "Both Password are same.",
+                            customErrorDrawable
+                        )
+
+                        return
+                    }
+                }
+
+                if (mSignUpBinding?.phoneNoTxt?.text.toString().isNotEmpty()
                     && mSignUpBinding?.passwordTxt?.text.toString().isNotEmpty()
                 ) {
                     if (isValidMobile(mSignUpBinding?.phoneNoTxt?.text.toString())) {
 
-                            showProgressDialog()
+                        showProgressDialog(this,false)
 
-                            val request = NewResisterRequest(
-                                "",
-                                "",
-                                mSignUpBinding!!.phoneNoTxt.text.toString(),
-                                mSignUpBinding!!.passwordTxt.text.toString()
-                            )
+                        val request = NewResisterRequest(
+                            "",
+                            "",
+                            mSignUpBinding!!.phoneNoTxt.text.toString(),
+                            mSignUpBinding!!.passwordTxt.text.toString()
+                        )
 
-                            signupViewModel!!.signUp(request)
+                        //signupViewModel!!.signUp(request)
 
                     } else {
-                        Utils.showToastDialog(
-                            "Enter valid Email",
-                            this,
-                            "Ok"
+
+                        LoggerMessage.onSNACK(
+                            mSignUpBinding!!.phoneNoTxt,
+                            "Enter valid mobile number.",
+                            applicationContext
                         )
                     }
 
 
                 } else {
+                    LoggerMessage.onSNACK(
+                        mSignUpBinding!!.phoneNoTxt,
+                        "Enter valid mobile number.",
+                        applicationContext
+                    )
 
-                    /* mSignUpBinding!!.firstNameTxt.setBackgroundResource(
-                         if (mSignUpBinding!!.firstNameTxt.text.toString()
-                                 .isEmpty()
-                         ) R.drawable.error_red_background_view else R.drawable.edit_text_background_view
-                     )*/
-                    //  mSignUpBinding!!.lastNameTxt.setBackgroundResource(mSignUpBinding!!.lastNameTxt.getText().toString().isEmpty() ? R.drawable.error_red_background_view : R.drawable.edit_text_background_view);
-                    /* if (mSignUpBinding!!.firstNameTxt.text.toString().isEmpty()) {
-                         mSignUpBinding!!.firstNameError.visibility = View.VISIBLE
-                     } else {
-                         mSignUpBinding!!.firstNameError.visibility = View.GONE
-                     }*/
-
-                    if (mSignUpBinding!!.phoneNoTxt.text.toString().isEmpty()) {
-
-                        LoggerMessage.onSNACK(
-                            mSignUpBinding!!.phoneNoTxt,
-                            "Enter Mobile number.",
-                            applicationContext
-                        )
-
-                    } else {
-
-                        LoggerMessage.onSNACK(
-                            mSignUpBinding!!.phoneNoTxt,
-                            "Not a valid mobile number.",
-                            applicationContext
-                        )
-
-                    }
                     /* Utils.showToastDialog(
                          "Fill Your Details",
                          this,
@@ -433,6 +388,10 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
                 )
             }
         }
+    }
+
+    private fun isSignupValidatation(): Boolean {
+        TODO("Not yet implemented")
     }
 
     fun getProfileImage(v: View) {
@@ -453,28 +412,61 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
 
 
         } else {
-            var intent=Intent(this, CameraXActivity::class.java)
-            intent.putExtra("FRONT","y")
-            intent.putExtra("BACK","n")
-            startForResult.launch(intent)
+            val intent = Intent(this, CameraActivity::class.java)
+            startForResult?.launch(intent)
         }
     }
 
-    val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
-        if (result.resultCode == 100) {
+    fun cameraListner() {
+        startForResult = registerForActivityResult<Intent, ActivityResult>(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result: ActivityResult ->
+            if (result.resultCode == RESULT_OK) {
+                val data = result.data
+                //var mainBitmap: Bitmap = data?.extras?.get("data") as Bitmap
+                //userImage?.setImageBitmap(mainBitmap)
+                //   ImageCompresser().CompressWithBitmap(mainBitmap,this)
 
-            if (Uri.parse(result.data?.getStringExtra("image"))!=null) {
+                try {
+                    mSignUpBinding?.profileImage?.let {
 
-                val bitmap = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                    ImageDecoder.decodeBitmap(ImageDecoder.createSource(contentResolver, Uri.parse(result.data?.getStringExtra("image"))))
-                } else {
-                    MediaStore.Images.Media.getBitmap(contentResolver, Uri.parse(result.data?.getStringExtra("image")))
+                        it.tag = "y"
+                        Glide.with(applicationContext)
+                            .load(data!!.getStringExtra("result")?.toUri())
+                            .into(it)
+                    }
+                    //profileImage?.setRotation(270F)
+                    /* var orFile: File =
+                         FileHelp().getFile(this, data!!.getStringExtra("result")?.toUri())!!
+                     var newBitmap: Bitmap = FileHelp().FileToBitmap(orFile)
+
+
+                     val name = "trucksUp_image" + System.currentTimeMillis() + ".jpg"
+                     val pt = Environment.DIRECTORY_PICTURES //+  "/trucksUp";
+                     val MEDIA_PATH = Environment.getExternalStorageDirectory().absolutePath + "/" + pt + "/"
+
+                     val filesDir: File = getFilesDir()
+                     val imageFile = File(filesDir, name)
+
+                     val os: OutputStream
+                     os = FileOutputStream(imageFile)
+                     newBitmap.compress(Bitmap.CompressFormat.JPEG, 99, os)
+                     os.flush()
+                     os.close()
+
+                     LoadingUtils?.showDialog(this, false)
+                     LoadingUtils.showDialog(this, false)
+                     MyResponse()?.uploadImage(
+                         "jpg",
+                         "DOC" + PreferenceManager.getRequestNo(),
+                         "" + PreferenceManager.getPhoneNo(this),
+                         PreferenceManager.prepareFilePart(imageFile!!),
+                         this,
+                         this
+                     )*/
+                } catch (ex: Exception) {
+                    ex.printStackTrace()
                 }
-                mSignUpBinding?.profileImage?.setImageURI(result.data?.data)
-               /* var newBitmap: Bitmap = FileHelp().resizeImage(bitmap, 500, 500)!!
-                var newFile: File = FileHelp().bitmapTofile(newBitmap, this)!!
-
-                uploadImage(newFile, "")*/
             }
         }
     }
@@ -607,12 +599,6 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
         LoadingUtils?.hideDialog()
     }*/
 
-
-    companion object {
-        fun isValidEmail(target: CharSequence?): Boolean {
-            return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches())
-        }
-    }
 
     private fun isValidName(phone: String): Boolean {
 

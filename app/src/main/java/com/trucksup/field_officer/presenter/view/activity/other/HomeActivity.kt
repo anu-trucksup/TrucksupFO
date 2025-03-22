@@ -253,6 +253,7 @@ class HomeActivity : BaseActivity(), OnItemClickListner {
         val list = ArrayList<NavItems>()
         list.add(NavItems(R.drawable.nav_my_business,"My Business","To view the details of my onboarded team."))
         list.add(NavItems(R.drawable.nav_targets,"Targets","To view my daily targets."))
+        list.add(NavItems(R.drawable.travel_exp,"Travel Expenses","To request for travel expenses."))
 
         binding.listSlidermenu.apply {
             layoutManager = LinearLayoutManager(this@HomeActivity, RecyclerView.VERTICAL, false)
@@ -263,14 +264,18 @@ class HomeActivity : BaseActivity(), OnItemClickListner {
 
     override fun onItemClick(pos : Int) {
 
-        if(pos == 0){
-            openFeatureDialog(this)
-        }else if (pos == 1){
-            val intent = Intent(this, FinanceActivity::class.java)
-             startActivity(intent)
-        }else if (pos == 2){
-            val intent = Intent(this, InsuranceActivity::class.java)
-            startActivity(intent)
+        when (pos) {
+            0 -> {
+                openFeatureDialog(this)
+            }
+            1 -> {
+                val intent = Intent(this, FinanceActivity::class.java)
+                startActivity(intent)
+            }
+            2 -> {
+                val intent = Intent(this, InsuranceActivity::class.java)
+                startActivity(intent)
+            }
         }
     }
 }

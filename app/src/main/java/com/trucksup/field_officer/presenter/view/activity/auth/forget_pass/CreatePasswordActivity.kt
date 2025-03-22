@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
+import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
@@ -13,6 +14,7 @@ import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ActivityCreatePasswordBinding
 import com.trucksup.field_officer.presenter.common.Utils
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
+import com.trucksup.field_officer.presenter.utils.LoggerMessage
 import com.trucksup.field_officer.presenter.view.activity.other.DashboardActivity
 import com.trucksup.field_officer.presenter.view.activity.other.WelcomeLocationActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,58 +37,58 @@ class CreatePasswordActivity : BaseActivity(), View.OnClickListener {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_create_password)
         //click Listener
         Utils.setStatusBarColorAndIcons(this)
-        mBinding?.topView?.ivBack?.setOnClickListener(this)
-        mBinding?.updatepassBtn?.setOnClickListener(this)
 
         // mBinding.retryTextView.setOnClickListener(this);
         mViewModel = ViewModelProvider(this).get(
             ForgetPasswordViewModel::class.java
         )
 
+        mBinding?.topView?.ivBack?.setOnClickListener(this)
+        mBinding?.updatepassBtn?.setOnClickListener(this)
         setupObserver()
         isValidateQuestion = intent.extras!!.getBoolean("isValidateQuestion", false)
         email = intent.extras!!.getString("email", "")
         phoneNo = intent.extras!!.getString("phoneNo", "")
         countryCode = intent.extras!!.getString("countryCode", "")
 
-        mBinding!!.confirmPasswordTxt.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-            }
+        /* mBinding!!.confirmPasswordTxt.addTextChangedListener(object : TextWatcher {
+             override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
+             }
 
-            override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-            }
+             override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
+             }
 
-            override fun afterTextChanged(editable: Editable) {
-                val password: String = mBinding!!.passwordTxt.getText().toString()
-                if (editable.length > 0 && password.length > 0) {
-                    if (!editable.toString().equals(password)) {
-                        val customErrorDrawable = resources.getDrawable(R.drawable.error_warn)
-                        customErrorDrawable.setBounds(
-                            0,
-                            0,
-                            customErrorDrawable.intrinsicWidth,
-                            customErrorDrawable.intrinsicHeight
-                        )
+             override fun afterTextChanged(editable: Editable) {
+                 val password: String = mBinding!!.passwordTxt.getText().toString()
+                 if (editable.length > 0 && password.length > 0) {
+                     if (!editable.toString().equals(password)) {
+                         val customErrorDrawable = resources.getDrawable(R.drawable.error_warn)
+                         customErrorDrawable.setBounds(
+                             0,
+                             0,
+                             customErrorDrawable.intrinsicWidth,
+                             customErrorDrawable.intrinsicHeight
+                         )
 
-                        mBinding?.confirmPasswordTxt?.setError(
-                            "Password and Confirm Password should be same.",
-                            customErrorDrawable
-                        )
+                         mBinding?.confirmPasswordTxt?.setError(
+                             "Password and Confirm Password should be same.",
+                             customErrorDrawable
+                         )
 
-                        // give an error that password and confirm password not match
-                    } else {
-                        val customErrorDrawable = resources.getDrawable(R.drawable.error_confirm)
-                        customErrorDrawable.setBounds(
-                            0,
-                            0,
-                            customErrorDrawable.intrinsicWidth,
-                            customErrorDrawable.intrinsicHeight
-                        )
-                        mBinding?.confirmPasswordTxt?.setError("", customErrorDrawable)
-                    }
-                }
-            }
-        })
+                         // give an error that password and confirm password not match
+                     } else {
+                         val customErrorDrawable = resources.getDrawable(R.drawable.error_confirm)
+                         customErrorDrawable.setBounds(
+                             0,
+                             0,
+                             customErrorDrawable.intrinsicWidth,
+                             customErrorDrawable.intrinsicHeight
+                         )
+                         mBinding?.confirmPasswordTxt?.setError("", customErrorDrawable)
+                     }
+                 }
+             }
+         })*/
     }
 
 
@@ -233,91 +235,97 @@ class CreatePasswordActivity : BaseActivity(), View.OnClickListener {
     }
 
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        val intent = Intent(
-            this@CreatePasswordActivity,
-            ResetPasswordActivity::class.java
-        )
-        startActivity(intent)
-        //  setResult(Activity.RESULT_OK, getIntent());
-        finish()
-    }
-
     @SuppressLint("UseCompatLoadingForDrawables")
     override fun onClick(view: View) {
         if (view.id == R.id.iv_back) {
             onBackPressed()
         } else if (view.id == R.id.updatepass_btn) {
-           startActivity(Intent(this, WelcomeLocationActivity::class.java))
 
-            val passwordString = mBinding!!.passwordTxt.text.toString()
-            val otp_txt = mBinding!!.otpTxt.text.toString()
-            // mBinding!!.invalidPassword.visibility = View.GONE
+            if (TextUtils.isEmpty(mBinding?.passwordTxt?.text.toString().trim())) {
+                mBinding?.passwordTxt?.setError("Please Enter Password")
+                mBinding?.passwordTxt?.requestFocus()
+                return
+            }
+
+            val password = mBinding!!.passwordTxt.text.toString()
+            val confirmpassword = mBinding!!.confirmPasswordTxt.text.toString()
             // regex
             val regex = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$"
             val p = Pattern.compile(regex)
-            if (passwordString != mBinding!!.confirmPasswordTxt.text.toString()) {
-                // password not matching
-                /* mBinding!!.invalidPassword.text = "passwoord Not Matching Error"
-                 mBinding!!.invalidPassword.visibility = View.VISIBLE*/
-                mBinding!!.confirmPasswordTxt.background =
-                    getDrawable(R.drawable.error_red_background_view)
-                mBinding!!.confirmPasswordTxt.background =
-                    getDrawable(R.drawable.error_red_background_view)
-                return
-            } else if (passwordString.isEmpty()) {
-                // password should not be blank
-                /* mBinding!!.invalidPassword.text = "passwoord Empty Error"
-                 mBinding!!.invalidPassword.visibility = View.VISIBLE
-                 mBinding!!.answerErrorText.visibility = View.VISIBLE
-                 mBinding!!.question.background = getDrawable(R.drawable.error_red_background_view)*/
-                mBinding!!.otpTxt.background = getDrawable(R.drawable.error_red_background_view)
-                mBinding!!.otpErrorText.visibility = View.VISIBLE
-                mBinding!!.passwordTxt.background =
-                    getDrawable(R.drawable.error_red_background_view)
-                mBinding!!.confirmPasswordTxt.background =
-                    getDrawable(R.drawable.error_red_background_view)
-                return
-            } else if (otp_txt.isEmpty()) {
-                // otp_txt should not be blank
-                mBinding!!.otpTxt.background = getDrawable(R.drawable.error_red_background_view)
-                mBinding!!.otpErrorText.visibility = View.VISIBLE
 
-                return
-            } else if (!p.matcher(passwordString).matches()) {
-                // invalid
-                /* mBinding!!.invalidPassword.text = "passwoordValidationError"
-                 mBinding!!.invalidPassword.visibility = View.VISIBLE*/
-                mBinding!!.passwordTxt.background =
-                    getDrawable(R.drawable.error_red_background_view)
-                mBinding!!.confirmPasswordTxt.background =
-                    getDrawable(R.drawable.error_red_background_view)
-                return
-            }
-            mBinding!!.otpErrorText.visibility = View.GONE
-            mBinding!!.otpTxt.background = getDrawable(R.drawable.rounded_corner_edit_view)
-
-            mBinding!!.passwordTxt.background = getDrawable(R.drawable.rounded_corner_edit_view)
-            mBinding!!.confirmPasswordTxt.background =
-                getDrawable(R.drawable.rounded_corner_edit_view)
-            if (validateOTPFields()) {
-                if (validatePasswordFields()) {
-                    showProgressDialog()
-                    passWord = mBinding!!.confirmPasswordTxt.text.toString()
-                    mViewModel!!.resetPassword(
-                        email!!,
-                        phoneNo!!,
-                        countryCode!!,
-                        mBinding!!.confirmPasswordTxt.text.toString(),
-                        mBinding!!.otpTxt.text.toString(),
-                        ""
+            if (confirmpassword.length > 0 && password.length > 0) {
+                if (!confirmpassword.equals(password)) {
+                    val customErrorDrawable = resources.getDrawable(R.drawable.error_warn)
+                    customErrorDrawable.setBounds(
+                        0,
+                        0,
+                        customErrorDrawable.intrinsicWidth,
+                        customErrorDrawable.intrinsicHeight
                     )
+
+                    mBinding?.confirmPasswordTxt?.setError(
+                        "Password and Confirm Password should be same.",
+                        customErrorDrawable
+                    )
+
+                    //  mSignUpBinding!!.confirmPasswordTxt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.error_confirm, 0);
+
+                    return
+                } else {
+
+                    val customErrorDrawable = resources.getDrawable(R.drawable.error_confirm)
+                    customErrorDrawable.setBounds(
+                        0,
+                        0,
+                        customErrorDrawable.intrinsicWidth,
+                        customErrorDrawable.intrinsicHeight
+                    )
+
+                    mBinding!!.confirmPasswordTxt.setError(
+                        "Both Password are same.",
+                        customErrorDrawable
+                    )
+
+
+                    startActivity(Intent(this, WelcomeLocationActivity::class.java))
+                   /* // Set drawables for left, top, right, and bottom - send 0 for nothing
+                    mBinding!!.confirmPasswordTxt.setCompoundDrawablesWithIntrinsicBounds(R.drawable.locked,
+                        0, R.drawable.error_confirm, 0 )
+
+                    LoggerMessage.onSNACK(
+                        mBinding!!.updatepassBtn,
+                        "Password match.",
+                        applicationContext
+                    )*/
+
+                    //mSignUpBinding!!.confirmPasswordTxt.setdrawa("", customErrorDrawable)
+
+                    //return
                 }
+
             }
-        } else if (view.id == R.id.retry_text_view) {
-            if (mViewModel!!.disableCounterLD.value!! <= 0) {
-                sendOTP()
+            else if (!p.matcher(password).matches()) {
+
+                if (validateOTPFields()) {
+                    if (validatePasswordFields()) {
+                        showProgressDialog(this,false)
+                        passWord = mBinding!!.confirmPasswordTxt.text.toString()
+                        mViewModel!!.resetPassword(
+                            email!!,
+                            phoneNo!!,
+                            countryCode!!,
+                            mBinding!!.confirmPasswordTxt.text.toString(),
+                            mBinding!!.otpTxt.text.toString(),
+                            ""
+                        )
+                    }
+                }
+            }else{
+                LoggerMessage.onSNACK(
+                    mBinding!!.updatepassBtn,
+                    "Enter a valid password format.",
+                    applicationContext
+                )
             }
         }
     }
@@ -352,10 +360,10 @@ class CreatePasswordActivity : BaseActivity(), View.OnClickListener {
 
     private fun sendOTP() {
         if (isEmailType) {
-            showProgressDialog()
+            showProgressDialog(this,false)
             mViewModel!!.sendOTP(email!!, "", "")
         } else if (!isEmailType && isResendEnabled) {
-            showProgressDialog()
+            showProgressDialog(this,false)
             mViewModel!!.sendOTP("", phoneNo!!, countryCode!!)
         }
     }

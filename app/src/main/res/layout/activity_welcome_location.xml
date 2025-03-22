@@ -43,7 +43,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:padding="@dimen/_16sdp">
+        android:layout_marginTop="@dimen/_2sdp"
+        android:paddingHorizontal="@dimen/_16sdp">
 
 
         <LinearLayout

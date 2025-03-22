@@ -16,6 +16,7 @@
         android:layout_height="match_parent"
         android:background="@color/white"
         android:orientation="vertical"
+        android:fitsSystemWindows="true"
         tools:context=".view.signup.SignUpActivity"
         tools:ignore="ExtraText">
 
@@ -110,7 +111,7 @@
                                 android:fontFamily="@font/bai_jamjuree_medium"
                                 android:hint="@string/type"
                                 android:inputType="textCapWords"
-                                android:paddingLeft="@dimen/_10sdp"
+                                android:paddingHorizontal="@dimen/_10sdp"
                                 android:textColor="@color/secondry_text"
                                 android:textColorHint="@color/secondry_text"
                                 android:textSize="@dimen/_12sdp" />
@@ -209,8 +210,9 @@
                                 android:background="@drawable/edit_box"
                                 android:fontFamily="@font/bai_jamjuree_medium"
                                 android:hint="@string/mobile_number"
-                                android:inputType="textCapWords"
-                                android:paddingLeft="@dimen/_10sdp"
+                                android:inputType="phone"
+                                android:maxLength="10"
+                                android:paddingHorizontal="@dimen/_10sdp"
                                 android:textColor="@color/secondry_text"
                                 android:textColorHint="@color/secondry_text"
                                 android:textSize="@dimen/_12sdp" />
@@ -253,7 +255,7 @@
                                 style="@style/edit_text_m"
                                 android:hint="@string/password"
                                 android:drawablePadding="@dimen/_2sdp"
-                                android:padding="@dimen/dp5" />
+                                android:paddingHorizontal="@dimen/_10sdp"/>
                         </com.google.android.material.card.MaterialCardView>
                     </LinearLayout>
 
@@ -288,11 +290,13 @@
                                 android:background="@drawable/edit_box"
                                 android:inputType="textPassword"
                                 android:drawableStart="@drawable/locked"
+                                android:drawableEnd="@drawable/transparent_view"
                                 android:maxLines="1"
                                 style="@style/edit_text_m"
                                 android:hint="@string/confirm_password"
                                 android:drawablePadding="@dimen/_2sdp"
-                                android:padding="@dimen/dp5" />
+                                android:paddingHorizontal="@dimen/_10sdp"
+                                />
                         </com.google.android.material.card.MaterialCardView>
                     </LinearLayout>
 

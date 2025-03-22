@@ -4,13 +4,12 @@ import android.Manifest
 import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.content.res.Configuration
+import android.graphics.SurfaceTexture
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
-import android.view.WindowManager
 import androidx.activity.enableEdgeToEdge
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
@@ -26,6 +25,7 @@ import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ActivityCameraXactivityBinding
 import com.trucksup.field_officer.presenter.common.DevicePermission
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
+
 
 class CameraXActivity : BaseActivity() {
 

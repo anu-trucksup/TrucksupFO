@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ItemFeaturesBinding
@@ -51,7 +52,7 @@ class HomeFeaturesAdapter(var context: Context?, var list: ArrayList<String>) :
         holder.binding.tvName.text = serviceList[position]
 
         holder.binding.root.setOnClickListener {
-
+            Toast.makeText(context,"Under Development", Toast.LENGTH_SHORT).show()
             if (position == 0) {
                 val intent = Intent(context, TSFollowupActivity::class.java)
                 context?.startActivity(intent)

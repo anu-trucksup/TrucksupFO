@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ItemServicesDialogBinding
@@ -35,8 +36,9 @@ class TUKawachDialogAdapter(var context: Context?) :
         holder.binding.ivImage.setImageResource(imageList[position])
         holder.binding.tvTitle.text = serviceList[position]
         holder.binding.root.setOnClickListener {
-            val intent = Intent(context, MainActivity::class.java)
-            context?.startActivity(intent)
+            Toast.makeText(context,"Under Development",Toast.LENGTH_SHORT).show()
+           /* val intent = Intent(context, MainActivity::class.java)
+            context?.startActivity(intent)*/
         }
     }
 

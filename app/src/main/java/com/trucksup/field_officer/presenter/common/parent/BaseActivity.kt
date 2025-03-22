@@ -11,28 +11,46 @@ import android.util.Patterns
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.trucksup.field_officer.presenter.common.dialog.ProgressDialog
+import com.trucksup.field_officer.presenter.common.dialog.ProgressDialogBox
 
 open class BaseActivity : AppCompatActivity() {
-    var dialog: ProgressDialog? = null
-
+    private var jarvisLoader: ProgressDialogBox? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
 
-    fun showProgressDialog() {
-        if (dialog != null) {
-            dialog!!.dismiss()
+
+    fun showProgressDialog(
+        context: Context?,
+        isCancelable: Boolean
+    ) {
+        dismissProgressDialog()
+        if (context != null) {
+            try {
+                jarvisLoader = ProgressDialogBox(context)
+                jarvisLoader?.let { jarvisLoader ->
+                    jarvisLoader.setCanceledOnTouchOutside(true)
+                    jarvisLoader.setCancelable(isCancelable)
+                    jarvisLoader.show()
+                }
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
-        dialog = ProgressDialog.newInstance()
-        dialog!!.show(supportFragmentManager)
-        //        dialog.setCancelable(false);
     }
 
-    @SuppressLint("SuspiciousIndentation")
     fun dismissProgressDialog() {
-        if (dialog != null) dialog!!.dismiss()
-        dialog = null
+        if (jarvisLoader != null && jarvisLoader?.isShowing!!) {
+            jarvisLoader = try {
+                jarvisLoader?.dismiss()
+                null
+            } catch (e: Exception) {
+                null
+            }
+        }
     }
+
 
     fun showInAnimation() {
     }
@@ -73,6 +91,7 @@ open class BaseActivity : AppCompatActivity() {
         metrics.scaledDensity = configuration.fontScale * metrics.density
         baseContext.resources.updateConfiguration(configuration, metrics)
     }
+
     fun isValidMobile(phone: String): Boolean {
         return Patterns.PHONE.matcher(phone).matches() && phone.length == 10
     }

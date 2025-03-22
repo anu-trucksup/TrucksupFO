@@ -46,7 +46,7 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage {
     private var list = ArrayList<VehicleDetail>()
     private var adapter: InsuranceListAdapter? = null
     private val calendar = Calendar.getInstance()
-    var insuFor: String = "self"
+    private var insuFor: String = "self"
     private var rcFrontImgKey: String? = ""
     private var rcFrontImgUrl: String? = ""
     private var rcBackImgKey: String? = ""

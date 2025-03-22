@@ -66,6 +66,7 @@ import com.trucksup.field_officer.presenter.common.camerax.GraphicOverlay
 import com.trucksup.field_officer.presenter.common.dialog.DialogBoxes
 import com.trucksup.field_officer.presenter.common.face_detection.FaceContourDetectionProcessor
 import com.trucksup.field_officer.presenter.common.face_detection.FaceStatus
+import com.trucksup.field_officer.presenter.view.activity.auth.signup.SignUpActivity
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -548,10 +549,15 @@ class CameraActivity : AppCompatActivity() {
                                 return false
                             }
                         }).into(camera_binding.getCaptureImg)
-                    val message = "Photo Capture Succeeded: ${outputFileResults.savedUri}"
+                   /* val message = "Photo Capture Succeeded: ${outputFileResults.savedUri}"
                     Toast.makeText(
                         this@CameraActivity, message, Toast.LENGTH_LONG
-                    ).show()
+                    ).show()*/
+
+                    val intent = Intent(this@CameraActivity, SignUpActivity::class.java)
+                    intent.putExtra("result", savedUri.toString())
+                    setResult(RESULT_OK, intent)
+                    finish()
                 }
 
                 override fun onError(exception: ImageCaptureException) {

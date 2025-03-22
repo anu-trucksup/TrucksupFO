@@ -53,7 +53,7 @@ class FinanceActivity : BaseActivity(), ChipCantroler {
     override fun updateData(chipTextList: ArrayList<chipData>, value: String) {
         loanAmount = value
 
-        LoggerMessage.LogErrorMsg("slect value", "Value===" + value)
+        LoggerMessage.LogErrorMsg("select value", "Value===" + value)
 
         chipAdapter = LoanChipAdapter(this, chipTextList, this)
         chipAdapter.notifyDataSetChanged()
@@ -76,9 +76,8 @@ class FinanceActivity : BaseActivity(), ChipCantroler {
     override fun updateData(message: String, message1: String) {
         dismissProgressDialog()
         dismissProgressDialog()
-        val abx: FinaceSubmitBox =
-            FinaceSubmitBox(this, message, message1, "cl")
-        abx?.show()
+        val abx = FinaceSubmitBox(this, message, message1, "cl")
+        abx.show()
     }
 
     override fun DataList(data: ArrayList<chipData>) {
@@ -89,7 +88,7 @@ class FinanceActivity : BaseActivity(), ChipCantroler {
 
     override fun requestError(error: String) {
         dismissProgressDialog()
-        LoggerMessage?.onSNACK(binding.city, error, this)
+        LoggerMessage.onSNACK(binding.city, error, this)
     }
 
     fun clickSelf(v: View) {
@@ -358,7 +357,7 @@ class FinanceActivity : BaseActivity(), ChipCantroler {
     }
 
 
-    fun viewPreviousEnquery(v: View) {
+    fun viewPreviousEnquiry(v: View) {
         //finance
         val intent = Intent(this, FinanceHistoryActivity::class.java)
         intent.putExtra("HISTORY_TYPE", "Insurance")

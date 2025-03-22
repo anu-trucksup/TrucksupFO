@@ -149,6 +149,10 @@
             android:name=".presenter.common.yCamera.CameraXActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".presenter.common.CameraActivity"
+            android:exported="false" />
+
 
         <service
             android:name=".presenter.utils.MyFirebaseMessagingService"
