@@ -43,8 +43,6 @@ class GPOnboardingActivity : AppCompatActivity(), GetImage, View.OnClickListener
 
         setOnClicks()
 
-
-
         binding.ETUploadPassNOB.setOnClickListener {
             getImage()
         }

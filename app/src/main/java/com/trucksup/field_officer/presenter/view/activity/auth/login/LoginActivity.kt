@@ -7,6 +7,7 @@ import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.widget.CompoundButton
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
@@ -37,6 +38,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         mLoginBinding = DataBindingUtil.setContentView(this, R.layout.activity_login)
         Utils.setStatusBarColorAndIcons(this)
+
 
         Log.e("","date"+System.currentTimeMillis());
         loginPreferences = CommonApplication.getSharedPreferences()
@@ -146,6 +148,11 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                         this
                     )*/
                     return
+                }
+
+                if(mLoginBinding?.phoneTxt?.text.toString().length > 10){
+                    mLoginBinding?.phoneTxt?.error = "Please enter mobile no."
+                    mLoginBinding?.phoneTxt?.requestFocus()
                 }
 
                 if (TextUtils.isEmpty(mLoginBinding?.passwordTxt?.text.toString().trim())) {

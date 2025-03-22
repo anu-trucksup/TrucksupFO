@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:fitsSystemWindows="true"
+    tools:context=".activity.GPOnboardingKYCActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:id="@+id/linear"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <include
+                android:id="@+id/GPOnboardingKYCToolbar"
+                layout="@layout/app_toolbar" />
+
+        </LinearLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linear"
+            tools:context=".activity.BAFollowUpActivity">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/_32sdp"
+                android:orientation="vertical"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginEnd="@dimen/_12sdp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:text="@string/CompleteInstantKYC"
+                    style="@style/text_label_header"/>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/cbSkipKyc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/bai_jamjuree_medium"
+                        app:buttonTint="@color/dark_gray"
+                        android:text="@string/SkipAadhaar"
+                        android:textColor="@color/blue"
+                        android:textSize="@dimen/_12ssp" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10ssp"
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:text="@string/SkipAadhaarItspaperless"
+                    style="@style/text_label_black"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_50sdp"
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:text="@string/EnterAadhaarNumber"
+                    style="@style/text_label" />
+
+
+                <com.chaos.view.PinView
+                    android:id="@+id/pinview"
+                    app:itemCount="12"
+                    app:itemWidth="22dp"
+                    app:itemHeight="22dp"
+                    android:gravity="start"
+                    android:lineSpacingExtra="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:itemBackground="@color/white"
+                    android:layout_gravity="center"
+                    android:inputType="number"
+                    android:cursorVisible="true"
+                    app:hideLineWhenFilled="false"
+                    app:itemRadius="2dp"
+                    app:lineWidth="1dp"
+                    android:textSize="@dimen/_10ssp"
+                    app:lineColor="@color/gray10"
+                    app:itemSpacing="@dimen/_4sdp"
+                    style="@style/PinWidget.PinView"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    ></com.chaos.view.PinView>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="@dimen/_40sdp"
+                    android:layout_marginBottom="@dimen/_20sdp"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txtGVC"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_marginLeft="@dimen/_20sdp"
+                        android:layout_marginRight="@dimen/_20sdp"
+                        android:background="@drawable/button_grdient"
+                        android:fontFamily="@font/bai_jamjuree_medium"
+                        android:gravity="center"
+                        android:text="@string/generate_OTP"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_15ssp" />
+
+                </RelativeLayout>
+
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@color/white">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/_16sdp"
+                            android:drawablePadding="@dimen/_10sdp"
+                            android:gravity="center"
+                            android:fontFamily="@font/bai_jamjuree_semi_bold"
+                            android:text="@string/process_adhar"
+                            android:textColor="@color/blue"
+                            android:textSize="@dimen/_15ssp" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_16sdp"
+                            android:layout_marginRight="@dimen/_16sdp"
+                            android:layout_marginTop="@dimen/_10ssp"
+                            android:fontFamily="@font/bai_jamjuree_regular"
+                            android:text="@string/verify_kyc_hint"
+                            android:id="@+id/otp_message"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_11ssp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="@dimen/_20sdp"
+                            android:layout_marginLeft="@dimen/_16sdp"
+                            android:text="@string/enter_otp"
+                            style="@style/text_label"/>
+
+
+                        <com.chaos.view.PinView
+                            android:id="@+id/pinview_verifycode"
+                            app:itemCount="6"
+                            app:itemWidth="40dp"
+                            app:itemHeight="40dp"
+                            android:gravity="start"
+                            android:layout_marginTop="@dimen/_16sdp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:itemBackground="@color/white"
+                            android:layout_gravity="center"
+                            android:inputType="number"
+                            android:cursorVisible="true"
+                            app:hideLineWhenFilled="false"
+                            app:itemRadius="2dp"
+                            app:lineWidth="1dp"
+                            app:lineColor="@color/gray10"
+                            app:itemSpacing="@dimen/_8sdp"
+                            style="@style/PinWidget.PinView"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            ></com.chaos.view.PinView>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_margin="@dimen/_16sdp">
+
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                >
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/bai_jamjuree_regular"
+                                    android:text="@string/remainingTime"
+                                    android:textColor="@color/primery_text"
+                                    android:textColorLink="@color/red"
+                                    android:textSize="@dimen/_10sdp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:id="@+id/timecounter"
+                                    android:gravity="center"
+                                    android:paddingStart="@dimen/_3sdp"
+                                    android:textSize="@dimen/_10sdp"
+                                    android:fontFamily="@font/roboto_bold"
+                                    android:textColor="@color/blue"
+                                    android:text="0"/>
+
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/resend_verification_code_txt"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_8sdp"
+                                android:fontFamily="@font/bai_jamjuree_medium"
+                                android:text="@string/resand_sms"
+                                android:textColor="@color/primery_text"
+                                android:textColorLink="@color/red"
+                                android:textSize="@dimen/_16sdp"
+                                android:visibility="visible"/>
+
+                        </LinearLayout>
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_40sdp"
+                            android:layout_marginLeft="@dimen/_20sdp"
+                            android:layout_marginTop="@dimen/_50sdp"
+                            android:layout_marginRight="@dimen/_20sdp"
+                            android:layout_marginBottom="@dimen/_20sdp"
+                            android:background="@drawable/button_grdient"
+                            android:fontFamily="@font/bai_jamjuree_medium"
+                            android:gravity="center"
+                            android:text="Verify"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_15ssp" />
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/_40sdp"
+                            android:layout_marginLeft="@dimen/_20sdp"
+                            android:layout_marginTop="@dimen/_50sdp"
+                            android:layout_marginRight="@dimen/_20sdp"
+                            android:layout_marginBottom="@dimen/_20sdp"
+                            android:background="@drawable/button_grdient"
+                            android:fontFamily="@font/bai_jamjuree_medium"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="Continue"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_15ssp"
+                            android:textAlignment="center"
+                            android:padding="@dimen/_8sdp"
+                            android:onClick="growth_proof"/>
+
+                    </LinearLayout>
+
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
