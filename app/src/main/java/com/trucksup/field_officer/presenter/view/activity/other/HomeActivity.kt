@@ -264,13 +264,14 @@ class HomeActivity : BaseActivity(), OnItemClickListner {
     override fun onItemClick(pos : Int) {
 
         if(pos == 0){
-            openFeatureDialog(this)
-        }else if (pos == 1){
+            val intent = Intent(this, NewOnboardingSelection::class.java)
+            startActivity(intent)
+        }/*else if (pos == 1){
             val intent = Intent(this, FinanceActivity::class.java)
              startActivity(intent)
         }else if (pos == 2){
             val intent = Intent(this, InsuranceActivity::class.java)
             startActivity(intent)
-        }
+        }*/
     }
 }

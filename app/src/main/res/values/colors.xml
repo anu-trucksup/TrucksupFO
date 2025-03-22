@@ -88,6 +88,8 @@
     <color name="green_2">#3F954D</color>
     <color name="green_4">#018131</color>
     <color name="red_">#C7FB3E44</color>
+    <color name="ora_light">#FEC7C9</color>
+    <color name="ora_dark">#FB3E44</color>
     <color name="expired_color">#942D0A</color>
     <color name="blue_tr10">#1a3E2089</color>
     <color name="blue_tr90">#e63E2089</color>

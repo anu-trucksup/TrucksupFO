@@ -25,7 +25,7 @@ open class BaseActivity : AppCompatActivity() {
         }
         dialog = ProgressDialog.newInstance()
         dialog!!.show(supportFragmentManager)
-        //        dialog.setCancelable(false);
+        // dialog.setCancelable(false);
     }
 
     @SuppressLint("SuspiciousIndentation")
@@ -76,4 +76,6 @@ open class BaseActivity : AppCompatActivity() {
     fun isValidMobile(phone: String): Boolean {
         return Patterns.PHONE.matcher(phone).matches() && phone.length == 10
     }
+
+
 }

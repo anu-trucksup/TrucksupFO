@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:fitsSystemWindows="true"
-    tools:context=".activity.GPOnboardingActivity">
+    tools:context=".activity.TC_NewOnboardingActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -121,7 +121,8 @@
                     android:paddingHorizontal="@dimen/_10sdp"
                     android:paddingVertical="@dimen/_4sdp"
                     android:text=""
-                    android:textSize="@dimen/_12ssp" />
+                    android:textSize="@dimen/_12ssp"
+                    android:singleLine="true"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -143,10 +144,12 @@
                     android:background="@drawable/grey_edit_background"
                     android:fontFamily="@font/bai_jamjuree_medium"
                     android:lines="1"
+                    android:inputType="phone"
                     android:paddingHorizontal="@dimen/_10sdp"
                     android:paddingVertical="@dimen/_4sdp"
                     android:text=""
-                    android:textSize="@dimen/_12ssp" />
+                    android:textSize="@dimen/_12ssp"
+                    android:maxLength="10"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -160,14 +163,14 @@
                     android:textSize="@dimen/_12ssp" />
 
                 <EditText
-                    android:id="@+id/ETReenterAccountNumber"
+                    android:id="@+id/ETBusinessName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:background="@drawable/grey_edit_background"
                     android:fontFamily="@font/bai_jamjuree_medium"
-                    android:inputType="phone"
+                    android:inputType="text"
                     android:lines="1"
                     android:paddingHorizontal="@dimen/_10sdp"
                     android:paddingVertical="@dimen/_4sdp"
@@ -186,14 +189,14 @@
                     android:textSize="@dimen/_12ssp" />
 
                 <EditText
-                    android:id="@+id/ETBankNameNOB"
+                    android:id="@+id/ETBusinessAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:background="@drawable/grey_edit_background"
                     android:fontFamily="@font/bai_jamjuree_medium"
-                    android:inputType="phone"
+                    android:inputType="text"
                     android:lines="1"
                     android:paddingHorizontal="@dimen/_10sdp"
                     android:paddingVertical="@dimen/_4sdp"
@@ -212,7 +215,7 @@
                     android:textSize="@dimen/_12ssp" />
 
                 <EditText
-                    android:id="@+id/ETIfscCodeNOB"
+                    android:id="@+id/ETPincode"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_10sdp"
@@ -224,7 +227,8 @@
                     android:paddingHorizontal="@dimen/_10sdp"
                     android:paddingVertical="@dimen/_4sdp"
                     android:text=""
-                    android:textSize="@dimen/_12ssp" />
+                    android:textSize="@dimen/_12ssp"
+                    android:maxLength="6"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -238,7 +242,7 @@
                     android:textSize="@dimen/_12ssp" />
 
                 <EditText
-                    android:id="@+id/ETPanNumberNOB"
+                    android:id="@+id/ETcity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_10sdp"
@@ -264,7 +268,7 @@
                     android:textSize="@dimen/_12ssp" />
 
                 <EditText
-                    android:id="@+id/ETUploadPassNOB"
+                    android:id="@+id/ETState"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_10sdp"
@@ -314,7 +318,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView6">
 
                     <TextView
-                        android:id="@+id/btnPreview"
+                        android:id="@+id/btnAdd"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/background_1_1"

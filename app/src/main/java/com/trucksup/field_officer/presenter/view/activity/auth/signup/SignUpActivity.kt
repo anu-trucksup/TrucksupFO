@@ -21,9 +21,11 @@ import android.util.Patterns
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -32,6 +34,9 @@ import com.trucksup.field_officer.data.model.NewResisterRequest
 import com.trucksup.field_officer.data.model.Response
 import com.trucksup.field_officer.data.network.ResponseModel
 import com.trucksup.field_officer.databinding.ActivitySignUpBinding
+import com.trucksup.field_officer.presenter.common.CameraActivity
+import com.trucksup.field_officer.presenter.common.FileHelp
+import com.trucksup.field_officer.presenter.common.LoadingUtils
 import com.trucksup.field_officer.presenter.common.Utils
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
@@ -50,7 +55,7 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
     private var mSignUpBinding: ActivitySignUpBinding? = null
     private var passwordDialog: Dialog? = null
     private var signupViewModel: SignupViewModel? = null
-
+    private var launcher: ActivityResultLauncher<Intent>? = null
 
     //private FirebaseAnalytics mFirebaseAnalytics;
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -176,7 +181,60 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
         })
 
         setupObserver()
+        camera()
 
+    }
+
+    fun camera() {
+        launcher = registerForActivityResult<Intent, ActivityResult>(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result: ActivityResult ->
+            if (result.resultCode == RESULT_OK) {
+                val data = result.data
+                //var mainBitmap: Bitmap = data?.extras?.get("data") as Bitmap
+                //userImage?.setImageBitmap(mainBitmap)
+                //   ImageCompresser().CompressWithBitmap(mainBitmap,this)
+
+                try {
+                    /*profileImage?.let {
+                        Glide.with(getApplicationContext())
+                            .load(data!!.getStringExtra("result")?.toUri())
+                            .into(it)
+                    }*/
+                    //profileImage?.setRotation(270F)
+                    var orFile: File =
+                        FileHelp().getFile(this, data!!.getStringExtra("result")?.toUri())!!
+                    var newBitmap: Bitmap = FileHelp().FileToBitmap(orFile)
+
+
+                    val name = "trucksUp_image" + System.currentTimeMillis() + ".jpg"
+                    val pt = Environment.DIRECTORY_PICTURES //+  "/trucksUp";
+                    val MEDIA_PATH = Environment.getExternalStorageDirectory().absolutePath + "/" + pt + "/"
+
+                    val filesDir: File = getFilesDir()
+                    val imageFile = File(filesDir, name)
+
+                    val os: OutputStream
+                    os = FileOutputStream(imageFile)
+                    newBitmap.compress(Bitmap.CompressFormat.JPEG, 99, os)
+                    os.flush()
+                    os.close()
+
+                    LoadingUtils?.showDialog(this, false)
+                    LoadingUtils.showDialog(this, false)
+                    /*MyResponse()?.uploadImage(
+                        "jpg",
+                        "DOC" + PreferenceManager.getRequestNo(),
+                        "" + PreferenceManager.getPhoneNo(this),
+                        PreferenceManager.prepareFilePart(imageFile!!),
+                        this,
+                        this
+                    )*/
+                } catch (ex: Exception) {
+                    ex.printStackTrace()
+                }
+            }
+        }
     }
 
 
@@ -436,7 +494,7 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
     }
 
     fun getProfileImage(v: View) {
-        if (ActivityCompat.checkSelfPermission(
+        /*if (ActivityCompat.checkSelfPermission(
                 this,
                 Manifest.permission.READ_EXTERNAL_STORAGE
             ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
@@ -457,7 +515,10 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
             intent.putExtra("FRONT","y")
             intent.putExtra("BACK","n")
             startForResult.launch(intent)
-        }
+        }*/
+
+        val intent: Intent = Intent(this, CameraActivity::class.java)
+        launcher!!.launch(intent)
     }
 
     val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
@@ -546,7 +607,7 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
 
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+   /* override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (resultCode == Activity.RESULT_OK && requestCode == 11 && data != null) {
@@ -569,7 +630,7 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
 
                 mSignUpBinding?.profileImage?.tag = "uploaded"
 
-                /* LoadingUtils?.showDialog(this, false)
+                *//* LoadingUtils?.showDialog(this, false)
                  LoadingUtils.showDialog(this, false)
                  MyResponse()?.uploadImage(
                      "jpg",
@@ -578,7 +639,7 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
                      PreferenceManager.prepareFilePart(imageFile!!),
                      this,
                      this
-                 )*/
+                 )*//*
             } catch (e: java.lang.Exception) {
                 Log.e(javaClass.simpleName, "Error writing bitmap", e)
                 LoggerMessage.onSNACK(
@@ -592,7 +653,7 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
         } else {
             LoggerMessage.toastPrint("Request cancelled or something went wrong.", baseContext)
         }
-    }
+    }*/
 
     /*override fun getImage(value: String) {
         LoadingUtils?.hideDialog()
