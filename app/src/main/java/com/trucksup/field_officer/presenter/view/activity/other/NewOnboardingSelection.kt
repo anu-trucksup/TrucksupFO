@@ -35,10 +35,10 @@ class NewOnboardingSelection : BaseActivity() {
     }
 
     fun business_associate(view: View) {
-        startActivity(Intent(this, BA_NewOnboardingActivity::class.java))
+        //startActivity(Intent(this, BA_NewOnboardingActivity::class.java))
     }
 
     fun growth_partner(view: View) {
-        startActivity(Intent(this, GA_NewOnboardingActivity::class.java))
+        //startActivity(Intent(this, GA_NewOnboardingActivity::class.java))
     }
 }

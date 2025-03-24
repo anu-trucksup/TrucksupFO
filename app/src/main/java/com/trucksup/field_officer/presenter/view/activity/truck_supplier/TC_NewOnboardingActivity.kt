@@ -1,47 +1,46 @@
 package com.trucksup.field_officer.presenter.view.activity.truck_supplier
 
 import android.app.AlertDialog
-import android.app.Dialog
-import android.content.Context
-import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.Gravity
+import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ActivityTcNewOnboardingBinding
 import com.trucksup.field_officer.databinding.VerifyOtpDialogBinding
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
-import com.trucksup.field_officer.presenter.view.activity.auth.login.LoginActivity
+import java.util.concurrent.TimeUnit
 
-class TC_NewOnboardingActivity : BaseActivity() {
+class TC_NewOnboardingActivity : BaseActivity(), View.OnClickListener {
     private lateinit var binding: ActivityTcNewOnboardingBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         binding = ActivityTcNewOnboardingBinding.inflate(layoutInflater)
-        adjustFontScale(resources.configuration, 1.0f);
+        adjustFontScale(resources.configuration, 1.0f)
         setContentView(binding.root)
-        //setContentView(R.layout.activity_banew_onboarding)
 
-        binding.btnAdd.setOnClickListener(){
-            CheckValidation()
-        }
+        setOnClicks()
     }
 
-    fun CheckValidation() {
+    private fun setOnClicks() {
+        binding.btnAdd.setOnClickListener(this)
+        binding.btnCancel.setOnClickListener(this)
+        binding.TCBackBtn.IBbackBtn.setOnClickListener(this)
+    }
+
+    private fun CheckValidation() {
         if (binding.ETAccountHolderName.text.isEmpty()) {
             binding.ETAccountHolderName.requestFocus()
             binding.ETAccountHolderName.setError(getString(R.string.PleaseEnterContactName))
         } else if (binding.ETAccountHolderNumber.text.isEmpty()) {
             binding.ETAccountHolderNumber.requestFocus()
             binding.ETAccountHolderNumber.setError(getString(R.string.PleaseEnterContactNumber))
+        }else if (binding.ETAccountHolderNumber.text.length < 10) {
+            binding.ETAccountHolderNumber.requestFocus()
+            binding.ETAccountHolderNumber.setError(getString(R.string.enter_right_number_v))
         } else if (binding.ETBusinessName.text.isEmpty()) {
             binding.ETBusinessName.requestFocus()
             binding.ETBusinessName.setError(getString(R.string.PleaseEnterBusinessName))
@@ -51,35 +50,12 @@ class TC_NewOnboardingActivity : BaseActivity() {
         } else if (binding.ETPincode.text.isEmpty()) {
             binding.ETPincode.requestFocus()
             binding.ETPincode.setError(getString(R.string.PleaseEnterBusinessPincode))
+        }else if (binding.ETPincode.text.length < 6) {
+            binding.ETPincode.requestFocus()
+            binding.ETPincode.setError(getString(R.string.PleaseEnterRightPincode))
         }else{
             setSubmitDialog()
         }
-        /*else if (binding.ETPanNumberNOB.length() == 10) {
-            val s = binding.ETPanNumberNOB.toString() // get your editext value here
-            val pattern: Pattern = Pattern.compile("[A-Z]{5}[0-9]{4}[A-Z]{1}")
-            val matcher: Matcher = pattern.matcher(s)
-            // Check if pattern matches
-            if (matcher.matches()) {
-                panNumber = binding.ETPanNumberNOB.toString()
-            } else {
-                //LoggerMessage.tostPrint("Enter Right PAN No", this)
-                binding.ETPanNumberNOB?.setError("Enter Right PAN Noss")
-                // pan_no?.setText("")
-            }
-        } else {
-            binding.ETPanNumberNOB.requestFocus()
-            *//*val customErrorDrawable = resources.getDrawable(com.trucksup.fieldofficer.R.drawable.ic_phone)
-            customErrorDrawable.setBounds(
-                0,
-                0,
-                customErrorDrawable.intrinsicWidth,
-                customErrorDrawable.intrinsicHeight
-            )
-            binding.ETPanNumberNOB?.setError("Enter Right PAN No" , customErrorDrawable)*//*
-            binding.ETPanNumberNOB?.setError("Enter Right PAN No")
-            binding.ETPanNumberNOB?.setText("")
-        }*/
-
     }
 
     private fun setSubmitDialog() {
@@ -115,10 +91,46 @@ class TC_NewOnboardingActivity : BaseActivity() {
             finish()
         }*/
 
+        //  timer_progress?.setProgressWithAnimation(65f, 1000)
+        object : CountDownTimer(60000, 1000) {
+            override fun onTick(msUntilFinished: Long) {
+                // displayText.setText("remaining sec: " + msUntilFinished / 1000)
+                var tm: Long = msUntilFinished % 1000
+                binding.timecounter?.text = String.format(
+                    "%02d:%02d",
+                    TimeUnit.MILLISECONDS.toMinutes(msUntilFinished),
+                    TimeUnit.MILLISECONDS.toSeconds(msUntilFinished) -
+                            TimeUnit.MINUTES.toSeconds(
+                                TimeUnit.MILLISECONDS.toMinutes(
+                                    msUntilFinished
+                                )
+                            )
+                )
+
+            }
+
+            override fun onFinish() {
+                //goback = true
+                binding.timecounter?.visibility = View.GONE
+                binding.txtHinttimecounter?.visibility = View.GONE
+                binding.resendVerificationCodeTxt?.visibility = View.VISIBLE
+                //cancle?.visibility = View.VISIBLE
+            }
+        }.start()
+
         dialog.show()
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
+    }
+
+    override fun onClick(v: View?) {
+        val item_id = v?.id
+        when (item_id) {
+            R.id.btnAdd -> CheckValidation()
+            R.id.IBbackBtn -> onBackPressed()
+            R.id.btnCancel -> onBackPressed()
+        }
     }
 }

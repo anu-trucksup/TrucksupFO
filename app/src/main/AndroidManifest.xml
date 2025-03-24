@@ -166,6 +166,13 @@
         <activity
             android:name=".presenter.view.activity.growth_partner.GA_NewOnboardingActivity"
             android:exported="false" />
+        <activity
+            android:name=".presenter.view.activity.growth_partner.GP_PersonalDetailUpdateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presenter.view.activity.growth_partner.GPOnboardingKYCActivity"
+            android:exported="false" />
+
 
 
         <service

@@ -190,6 +190,7 @@
     <string name="auto_manual">Enter Code manually</string>
     <string name="submit_main">Submit</string>
     <string name="resand_sms"><u>Resend Verification Code</u></string>
+    <string name="resandCode">Resend Code</string>
 
     <string name="resent_otp">Did not recieve the Sms ?</string>
     <string name="verification_code">Verification code</string>
@@ -258,6 +259,7 @@
     <string name="PleaseEnterBusinessName">Please enter your Business Name</string>
     <string name="PleaseEnterBusinessAddress">Please enter your Business Address</string>
     <string name="PleaseEnterBusinessPincode">Please enter your Pincode</string>
+    <string name="PleaseEnterRightPincode">Please enter 6-digit pincode</string>
     <string name="EnterHappinessCode">Enter Happiness Code</string>
     <string name="hapinessCodeMsg">To onboard the new TS, kindly input the happiness code shared to the Truck Supplier on the registered mobile number.</string>
 
@@ -343,6 +345,7 @@
     <string name="enterState">Please select state</string>
     <string name="enterRightCommercialVehical">Please enter valid commercial truck number.</string>
     <string name="enterCommercialVehical">Please enter valid commercial vehicle number.</string>
+    <string name="SameCurrentLocation">Same as Current Location</string>
 
     <string name="view_previous_inquiry">View Previous Enquiry</string>
     <string name="alt_mobile_info">*To change your mobile number, please enter the alternate number in the mobile no. field.</string>
