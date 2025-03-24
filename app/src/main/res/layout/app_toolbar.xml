@@ -20,7 +20,7 @@
             android:layout_height="?attr/actionBarSize">
 
             <ImageButton
-                android:id="@+id/gp_backBtn"
+                android:id="@+id/IBbackBtn"
                 android:layout_width="@dimen/_28sdp"
                 android:layout_height="@dimen/_28sdp"
                 android:layout_marginStart="16dp"
