@@ -58,7 +58,7 @@ class HomeActivity : BaseActivity(), OnItemClickListner {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        adjustFontScale(getResources().configuration, 1.0f);
+        adjustFontScale(getResources().configuration, 1.0f)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home)
         val view = binding.root
         setContentView(view)
@@ -118,6 +118,11 @@ class HomeActivity : BaseActivity(), OnItemClickListner {
     }
 
     private fun setListener() {
+
+        //close drawer
+        binding.navOpenBtn.setOnClickListener {
+            binding.drawerLay.open()
+        }
 
         binding.OnSwitchBtn.setOnCheckedChangeListener { compoundButton, b ->
             if (b) {

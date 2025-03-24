@@ -33,7 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_1sdp"
-                android:gravity="center_horizontal"
+                android:textAlignment="viewStart"
                 android:maxLines="1"
                 android:text="Truck Suppliers"
                 android:textColor="@color/text_grey" />
@@ -44,8 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_1sdp"
-                android:ellipsize="end"
-                android:gravity="center_horizontal"
+                android:textAlignment="viewStart"
                 android:maxLines="1"
                 android:text="₹ 10"
                 android:textColor="@color/black" />

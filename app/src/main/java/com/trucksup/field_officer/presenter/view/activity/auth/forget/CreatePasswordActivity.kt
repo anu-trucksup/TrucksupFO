@@ -1,11 +1,9 @@
-package com.trucksup.field_officer.presenter.view.activity.auth.forget_pass
+package com.trucksup.field_officer.presenter.view.activity.auth.forget
 
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
 import android.text.TextUtils
-import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil

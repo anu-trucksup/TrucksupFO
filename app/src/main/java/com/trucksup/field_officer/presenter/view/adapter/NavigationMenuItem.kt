@@ -32,14 +32,14 @@ class NavigationMenuItem(var context: Context, var list: ArrayList<NavItems>) :
 
 
         holder.itemView.setOnClickListener {
-            if (position == 0) {
-                val intent = Intent(context, MyTeamScreen::class.java)
+         /*    if (position == 0) {
+                 val intent = Intent(context, MyTeamScreen::class.java)
                 context.startActivity(intent)
 
             } else if (position == 1) {
                 val intent = Intent(context, MyTargetScreen::class.java)
                 context.startActivity(intent)
-            }
+            }*/
         }
 
         /*if (position > 1) {

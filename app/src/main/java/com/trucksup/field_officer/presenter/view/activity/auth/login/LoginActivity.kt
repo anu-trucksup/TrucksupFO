@@ -6,8 +6,6 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
-import android.widget.CompoundButton
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
@@ -18,7 +16,7 @@ import com.trucksup.field_officer.presenter.common.Utils
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.utils.CommonApplication
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
-import com.trucksup.field_officer.presenter.view.activity.auth.forget_pass.ResetPasswordActivity
+import com.trucksup.field_officer.presenter.view.activity.auth.forget.ResetPasswordActivity
 import com.trucksup.field_officer.presenter.view.activity.auth.signup.SignUpActivity
 import com.trucksup.field_officer.presenter.view.activity.other.WelcomeLocationActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -135,7 +133,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
             val resetPassword = Intent(this@LoginActivity, ResetPasswordActivity::class.java)
             // resetPassword.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(resetPassword)
-            finish()
+            //finish()
         } else if (view.id == R.id.login_btn) {
 
             if (isOnline(this)) {

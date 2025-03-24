@@ -634,5 +634,6 @@
     <string name="EnterAadhaarNumber">Enter Aadhaar Number</string>
     <string name="GenerateVerificationCode">Generate Verification Code</string>
     <string name="SkipAadhaarItspaperless">It’s paperless and just takes 2 clicks to complete the KYC.</string>
+    <string name="email_address">Email Address</string>
 
 </resources>

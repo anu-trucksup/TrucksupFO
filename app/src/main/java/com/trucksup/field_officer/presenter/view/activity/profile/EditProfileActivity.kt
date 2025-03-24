@@ -1,11 +1,8 @@
 package com.trucksup.field_officer.presenter.view.activity.profile
 
-import android.content.res.Configuration
 import android.os.Bundle
-import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.trucksup.field_officer.databinding.ActivityEditProfileBinding
 import com.trucksup.field_officer.databinding.ActivityMyProfileBinding
 
 class EditProfileActivity : AppCompatActivity() {
@@ -22,6 +19,9 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
     private fun setListener() {
+
+        binding.version.text = "Version: 1.0.0"
+
         //back button
         binding.ivBack.setOnClickListener {
             onBackPressed()

@@ -29,19 +29,7 @@ class MyEarningAdapter(var context: Context?/*, var list: ArrayList<String>*/) :
         holder.binding.tvTitle.text = serviceList[position]
 
         holder.binding.root.setOnClickListener {
-//            val intent = Intent(Intent.ACTION_DIAL)
-//            intent.data = Uri.parse("tel:" + "9999370747")
-//            context?.startActivity(intent)
-//            DialogBoxes.scheduledMeeting(context!!,object :ScheduledMeeting{
-//                override fun scheduledMeeting(
-//                    dialog: AlertDialog,
-//                    binding: ScheduledMeetingBinding
-//                ) {
-//
-//                }
-//            })
-            val intent = Intent(context, MainActivity::class.java)
-            context?.startActivity(intent)
+
         }
     }
 

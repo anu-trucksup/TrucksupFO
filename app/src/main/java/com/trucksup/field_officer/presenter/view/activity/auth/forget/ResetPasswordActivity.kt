@@ -1,4 +1,4 @@
-package com.trucksup.field_officer.presenter.view.activity.auth.forget_pass
+package com.trucksup.field_officer.presenter.view.activity.auth.forget
 
 import android.content.Intent
 import android.graphics.Color
@@ -8,8 +8,6 @@ import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.trucksup.field_officer.R
-import com.trucksup.field_officer.data.model.CheckUserProfileResponse
-import com.trucksup.field_officer.data.network.ResponseModel
 import com.trucksup.field_officer.databinding.ActivityResetPasswordBinding
 import com.trucksup.field_officer.presenter.common.Utils
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
@@ -20,7 +18,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class ResetPasswordActivity : BaseActivity(), View.OnClickListener {
     var mBinding: ActivityResetPasswordBinding? = null
     private var mViewModel: ResetPasswordViewModel? = null
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

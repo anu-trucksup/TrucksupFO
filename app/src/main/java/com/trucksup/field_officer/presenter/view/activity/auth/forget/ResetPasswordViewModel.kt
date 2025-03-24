@@ -1,4 +1,4 @@
-package com.trucksup.field_officer.presenter.view.activity.auth.forget_pass
+package com.trucksup.field_officer.presenter.view.activity.auth.forget
 
 import android.app.Application
 import android.util.Log

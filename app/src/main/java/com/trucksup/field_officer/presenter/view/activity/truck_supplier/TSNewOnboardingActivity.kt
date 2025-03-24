@@ -1,25 +1,15 @@
 package com.trucksup.field_officer.presenter.view.activity.truck_supplier
 
 import android.app.AlertDialog
-import android.app.Dialog
-import android.content.Context
-import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.Gravity
 import android.view.LayoutInflater
-import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ActivityTcNewOnboardingBinding
 import com.trucksup.field_officer.databinding.VerifyOtpDialogBinding
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
-import com.trucksup.field_officer.presenter.view.activity.auth.login.LoginActivity
 
-class TC_NewOnboardingActivity : BaseActivity() {
+class TSNewOnboardingActivity : BaseActivity() {
     private lateinit var binding: ActivityTcNewOnboardingBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,10 +18,13 @@ class TC_NewOnboardingActivity : BaseActivity() {
         binding = ActivityTcNewOnboardingBinding.inflate(layoutInflater)
         adjustFontScale(resources.configuration, 1.0f);
         setContentView(binding.root)
-        //setContentView(R.layout.activity_banew_onboarding)
 
         binding.btnAdd.setOnClickListener(){
             CheckValidation()
+        }
+
+        binding.btnCancel.setOnClickListener(){
+           finish()
         }
     }
 
@@ -118,7 +111,4 @@ class TC_NewOnboardingActivity : BaseActivity() {
         dialog.show()
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-    }
 }
