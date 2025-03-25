@@ -306,7 +306,7 @@
                                     android:id="@+id/ll_miscelleneous"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:onClick="growth_partner"
+                                    android:onClick="miscell_onboard"
                                     android:padding="@dimen/_6sdp"
                                     android:orientation="horizontal">
 

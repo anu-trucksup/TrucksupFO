@@ -26,7 +26,6 @@ import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ActivityMainBinding
-import com.trucksup.field_officer.presenter.view.fragment.ms.MiscFragment
 import com.trucksup.field_officer.presenter.view.fragment.ts.TruckOwnerFragment
 import com.trucksup.field_officer.presenter.common.dialog.DialogBoxes
 import com.trucksup.field_officer.presenter.view.activity.profile.EditProfileActivity
@@ -132,7 +131,7 @@ class MainActivity : AppCompatActivity() {
         when (tabId) {
             R.id.tab_owner -> switchFragment(TruckOwnerFragment())
             R.id.tab_broker -> switchFragment(BusAssociateFragment())
-            R.id.tab_misc -> switchFragment(MiscFragment())
+            //R.id.tab_misc -> switchFragment(MiscFragment())
         }
     }
 

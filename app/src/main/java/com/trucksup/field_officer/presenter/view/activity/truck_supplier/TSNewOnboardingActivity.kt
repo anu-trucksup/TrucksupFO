@@ -11,8 +11,9 @@ import com.trucksup.field_officer.databinding.ActivityTcNewOnboardingBinding
 import com.trucksup.field_officer.databinding.VerifyOtpDialogBinding
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.view.activity.auth.login.LoginActivity
+import java.util.concurrent.TimeUnit
 
-class TSNewOnboardingActivity : BaseActivity() {
+class TSNewOnboardingActivity : BaseActivity(), View.OnClickListener {
     private lateinit var binding: ActivityTcNewOnboardingBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +40,7 @@ class TSNewOnboardingActivity : BaseActivity() {
         } else if (binding.ETAccountHolderNumber.text.isEmpty()) {
             binding.ETAccountHolderNumber.requestFocus()
             binding.ETAccountHolderNumber.setError(getString(R.string.PleaseEnterContactNumber))
-        }else if (binding.ETAccountHolderNumber.text.length < 10) {
+        } else if (binding.ETAccountHolderNumber.text.length < 10) {
             binding.ETAccountHolderNumber.requestFocus()
             binding.ETAccountHolderNumber.setError(getString(R.string.enter_right_number_v))
         } else if (binding.ETBusinessName.text.isEmpty()) {
@@ -51,10 +52,10 @@ class TSNewOnboardingActivity : BaseActivity() {
         } else if (binding.ETPincode.text.isEmpty()) {
             binding.ETPincode.requestFocus()
             binding.ETPincode.setError(getString(R.string.PleaseEnterBusinessPincode))
-        }else if (binding.ETPincode.text.length < 6) {
+        } else if (binding.ETPincode.text.length < 6) {
             binding.ETPincode.requestFocus()
             binding.ETPincode.setError(getString(R.string.PleaseEnterRightPincode))
-        }else{
+        } else {
             setSubmitDialog()
         }
     }
@@ -67,15 +68,15 @@ class TSNewOnboardingActivity : BaseActivity() {
         dialog.setCancelable(false)
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
 
-        binding.tvVerify.setOnClickListener{
-            if(binding.pvHapinessCodeverify.text?.isEmpty() == true){
+        binding.tvVerify.setOnClickListener {
+            if (binding.pvHapinessCodeverify.text?.isEmpty() == true) {
                 binding.pvHapinessCodeverify.requestFocus()
                 binding.pvHapinessCodeverify.setError(getString(R.string.EnterHappinessCode))
                 //Toast.makeText(this, "",Toast.LENGTH_SHORT).show()
-            }else if(binding.pvHapinessCodeverify.text?.length!! > 6){
+            } else if (binding.pvHapinessCodeverify.text?.length!! > 6) {
                 binding.pvHapinessCodeverify.requestFocus()
                 binding.pvHapinessCodeverify.setError("Wrong")
-            }else{
+            } else {
                 dialog.dismiss()
             }
         }
@@ -122,9 +123,6 @@ class TSNewOnboardingActivity : BaseActivity() {
         dialog.show()
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-    }
 
     override fun onClick(v: View?) {
         val item_id = v?.id

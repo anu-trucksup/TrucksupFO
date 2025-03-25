@@ -1,4 +1,4 @@
-package com.trucksup.field_officer.presenter.view.fragment.ms
+package com.trucksup.field_officer.presenter.view.activity.miscellaneous
 
 import android.app.AlertDialog
 import android.content.Context
@@ -10,11 +10,8 @@ import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.trucksup.field_officer.R
@@ -29,11 +26,12 @@ import com.trucksup.field_officer.presenter.view.adapter.ImageAdapter
 import com.trucksup.field_officer.presenter.view.interfaces.AddMiscInterface
 import com.trucksup.fieldofficer.adapter.IncompleteLead
 import com.trucksup.field_officer.presenter.common.dialog.DialogBoxes
+import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 
-class MiscFragment : Fragment(), AddMiscInterface {
+class MiscActivity : BaseActivity(), AddMiscInterface {
 
     private lateinit var binding: FragmentMiscBinding
     private var aContext: Context? = null
@@ -46,24 +44,12 @@ class MiscFragment : Fragment(), AddMiscInterface {
 //    0=add misc image
 //    1=add incomplete mics image
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is FragmentActivity) {
-            aContext = context
-        }
-    }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentMiscBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = FragmentMiscBinding.inflate(layoutInflater)
+        adjustFontScale(resources.configuration, 1.0f);
+        setContentView(binding.root)
 
         setIncompleteLead()
         setCompleteLead()
@@ -118,7 +104,7 @@ class MiscFragment : Fragment(), AddMiscInterface {
             adapter = IncompleteLead(aContext!!, list).apply {
                 setOnControllerListeners(object : IncompleteLead.OnControllerListeners {
                     override fun incompleteAddImage(incompleteDropItemBinding: IncompleteDropItemBinding) {
-                        this@MiscFragment.incompleteDropItemBinding = incompleteDropItemBinding
+                        this@MiscActivity.incompleteDropItemBinding = incompleteDropItemBinding
                         imageType = 1
                         val camera_intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
                         startForResult.launch(camera_intent)

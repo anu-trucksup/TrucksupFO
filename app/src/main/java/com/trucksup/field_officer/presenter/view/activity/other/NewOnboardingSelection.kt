@@ -8,6 +8,7 @@ import com.trucksup.field_officer.databinding.ActivityNewOnboardingBinding
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.view.activity.business_associate.BA_NewOnboardingActivity
 import com.trucksup.field_officer.presenter.view.activity.growth_partner.GA_NewOnboardingActivity
+import com.trucksup.field_officer.presenter.view.activity.miscellaneous.MiscActivity
 import com.trucksup.field_officer.presenter.view.activity.truck_supplier.TSNewOnboardingActivity
 
 class NewOnboardingSelection : BaseActivity() {
@@ -33,10 +34,15 @@ class NewOnboardingSelection : BaseActivity() {
     }
 
     fun business_associate(view: View) {
-       // startActivity(Intent(this, BA_NewOnboardingActivity::class.java))
+        startActivity(Intent(this, BA_NewOnboardingActivity::class.java))
     }
 
     fun growth_partner(view: View) {
-       // startActivity(Intent(this, GA_NewOnboardingActivity::class.java))
+        startActivity(Intent(this, GA_NewOnboardingActivity::class.java))
     }
+
+    fun miscell_onboard(view: View) {
+        startActivity(Intent(this, MiscActivity::class.java))
+    }
+
 }

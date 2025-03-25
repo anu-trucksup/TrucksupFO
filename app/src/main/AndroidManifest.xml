@@ -171,6 +171,10 @@
             android:name=".presenter.view.activity.growth_partner.GPOnboardingKYCActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".presenter.view.activity.miscellaneous.MiscActivity"
+            android:exported="false" />
+
 
 
         <service
