@@ -9,6 +9,8 @@ import androidx.activity.enableEdgeToEdge
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ActivityTcNewOnboardingBinding
 import com.trucksup.field_officer.databinding.VerifyOtpDialogBinding
+import com.trucksup.field_officer.presenter.common.dialog.FinaceSubmitBox
+import com.trucksup.field_officer.presenter.common.dialog.HappinessCodeBox
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.view.activity.auth.login.LoginActivity
 import java.util.concurrent.TimeUnit
@@ -34,7 +36,11 @@ class TSNewOnboardingActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun CheckValidation() {
-        if (binding.ETAccountHolderName.text.isEmpty()) {
+        val happinessCodeBox = HappinessCodeBox(this, getString(R.string.hapinessCodeMsg),
+            getString(R.string.EnterHappinessCode),
+            getString(R.string.resand_sms))
+        happinessCodeBox.show()
+       /* if (binding.ETAccountHolderName.text.isEmpty()) {
             binding.ETAccountHolderName.requestFocus()
             binding.ETAccountHolderName.setError(getString(R.string.PleaseEnterContactName))
         } else if (binding.ETAccountHolderNumber.text.isEmpty()) {
@@ -56,8 +62,12 @@ class TSNewOnboardingActivity : BaseActivity(), View.OnClickListener {
             binding.ETPincode.requestFocus()
             binding.ETPincode.setError(getString(R.string.PleaseEnterRightPincode))
         } else {
+            val HappinessCodeBox = HappinessCodeBox(this, getString(R.string.hapinessCodeMsg),
+                getString(R.string.EnterHappinessCode),
+                getString(R.string.resand_sms))
+            HappinessCodeBox.show()
             setSubmitDialog()
-        }
+        }*/
     }
 
     private fun setSubmitDialog() {
@@ -80,18 +90,6 @@ class TSNewOnboardingActivity : BaseActivity(), View.OnClickListener {
                 dialog.dismiss()
             }
         }
-
-        /*Glide.with(this)
-            .load(R.drawable.ab_apni_chalao_image)
-            .into(binding.img)
-        binding.msg.text=respnse.message
-        binding.message1.text=respnse.message1
-
-        //ok button
-        binding.btnOk.setOnClickListener {
-            dialog.dismiss()
-            finish()
-        }*/
 
         //  timer_progress?.setProgressWithAnimation(65f, 1000)
         object : CountDownTimer(60000, 1000) {

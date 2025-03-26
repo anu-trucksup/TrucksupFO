@@ -6,10 +6,9 @@ import android.view.View
 import androidx.activity.enableEdgeToEdge
 import com.trucksup.field_officer.databinding.ActivityMyTeamsBinding
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
-import com.trucksup.field_officer.presenter.view.activity.business_associate.MyBATeamOnBActivity
-import com.trucksup.field_officer.presenter.view.activity.growth_partner.MyGPTeamOnBActivity
-import com.trucksup.field_officer.presenter.view.activity.truck_owner.MyTSTeamOnBActivity
-import com.trucksup.field_officer.presenter.view.activity.truck_owner.TruckSupplierDetailActivity
+import com.trucksup.field_officer.presenter.view.activity.business_associate.MyBATeamActivity
+import com.trucksup.field_officer.presenter.view.activity.growth_partner.MyGPTeamActivity
+import com.trucksup.field_officer.presenter.view.activity.truck_owner.MyTSTeamActivity
 
 class MyTeamScreen : BaseActivity() {
     private lateinit var binding: ActivityMyTeamsBinding
@@ -29,14 +28,14 @@ class MyTeamScreen : BaseActivity() {
     }
 
     fun clickOnTS(view: View) {
-        startActivity(Intent(this, MyTSTeamOnBActivity::class.java))
+        startActivity(Intent(this, MyTSTeamActivity::class.java))
     }
 
     fun clickOnBA(view: View) {
-        startActivity(Intent(this, MyBATeamOnBActivity::class.java))
+        startActivity(Intent(this, MyBATeamActivity::class.java))
     }
 
     fun clickOnGP(view: View) {
-        startActivity(Intent(this, MyGPTeamOnBActivity::class.java))
+        startActivity(Intent(this, MyGPTeamActivity::class.java))
     }
 }

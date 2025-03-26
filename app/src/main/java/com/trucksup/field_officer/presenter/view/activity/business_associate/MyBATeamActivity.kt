@@ -1,4 +1,4 @@
-package com.trucksup.field_officer.presenter.view.activity.growth_partner
+package com.trucksup.field_officer.presenter.view.activity.business_associate
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -8,18 +8,18 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.trucksup.field_officer.R
-import com.trucksup.field_officer.databinding.ActivityBusinessAssociatesNewBinding
-import com.trucksup.field_officer.presenter.common.parent.BaseActivity
-import com.trucksup.field_officer.presenter.view.fragment.ba.ActiveBAFragment
+import com.trucksup.field_officer.databinding.ActivityMyTeamBaBinding
+import com.trucksup.field_officer.presenter.view.fragment.ba.MyTeamBAActiveFragment
+import com.trucksup.field_officer.presenter.view.fragment.ba.MyTeamBAInActiveFragment
 import com.trucksup.fieldofficer.adapter.FragmentAdapter
 
-class MyGPTeamOnBActivity : BaseActivity() {
-    private lateinit var binding: ActivityBusinessAssociatesNewBinding
+class MyBATeamActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMyTeamBaBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_business_associates_new)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_my_team_ba)
         val view = binding.root
         setContentView(view)
 
@@ -28,6 +28,12 @@ class MyGPTeamOnBActivity : BaseActivity() {
     }
 
     private fun setListener() {
+        //back button
+        binding.ivBack.setOnClickListener {
+            finish()
+        }
+
+
         //find button
         binding.tabActiveBA.setOnClickListener {
             binding.viewPager2.setCurrentItem(0, true)
@@ -43,8 +49,8 @@ class MyGPTeamOnBActivity : BaseActivity() {
 
         try {
             val adapter = FragmentAdapter(this)
-            val fragment1: Fragment? = ActiveBAFragment()
-            val fragment2: Fragment? = ActiveBAFragment()
+            val fragment1: Fragment? = MyTeamBAActiveFragment()
+            val fragment2: Fragment? = MyTeamBAInActiveFragment()
             adapter.addFragment(fragment1)
             adapter.addFragment(fragment2)
             binding.viewPager2.adapter = adapter
@@ -57,13 +63,13 @@ class MyGPTeamOnBActivity : BaseActivity() {
                     if (position == 0) {
                         binding.tabActiveBA.setBackgroundDrawable(
                             ContextCompat.getDrawable(
-                                this@MyGPTeamOnBActivity,
+                                this@MyBATeamActivity,
                                 R.drawable.ba_tab_unselected_background
                             )
                         );
                         binding.tabInActiveBA.setBackgroundDrawable(
                             ContextCompat.getDrawable(
-                                this@MyGPTeamOnBActivity,
+                                this@MyBATeamActivity,
                                 R.drawable.tab_selected_background
                             )
                         );
@@ -78,13 +84,13 @@ class MyGPTeamOnBActivity : BaseActivity() {
 
                         binding.tabInActiveBA.setBackgroundDrawable(
                             ContextCompat.getDrawable(
-                                this@MyGPTeamOnBActivity,
+                                this@MyBATeamActivity,
                                 R.drawable.ba_tab_unselected_background
                             )
                         );
                         binding.tabActiveBA.setBackgroundDrawable(
                             ContextCompat.getDrawable(
-                                this@MyGPTeamOnBActivity,
+                                this@MyBATeamActivity,
                                 R.drawable.tab_selected_background
                             )
                         );
@@ -97,13 +103,13 @@ class MyGPTeamOnBActivity : BaseActivity() {
                     } else {
                         binding.tabInActiveBA.setBackgroundDrawable(
                             ContextCompat.getDrawable(
-                                this@MyGPTeamOnBActivity,
+                                this@MyBATeamActivity,
                                 R.drawable.tab_selected_background
                             )
                         );
                         binding.tabActiveBA.setBackgroundDrawable(
                             ContextCompat.getDrawable(
-                                this@MyGPTeamOnBActivity,
+                                this@MyBATeamActivity,
                                 R.drawable.tab_unselected_background
                             )
                         );

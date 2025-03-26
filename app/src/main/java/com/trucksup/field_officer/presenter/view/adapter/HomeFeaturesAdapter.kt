@@ -52,8 +52,8 @@ class HomeFeaturesAdapter(var context: Context?, var list: ArrayList<String>) :
         holder.binding.tvName.text = serviceList[position]
 
         holder.binding.root.setOnClickListener {
-            Toast.makeText(context,"Under Development", Toast.LENGTH_SHORT).show()
-           /* if (position == 0) {
+            //Toast.makeText(context,"Under Development", Toast.LENGTH_SHORT).show()
+            if (position == 0) {
                 val intent = Intent(context, TSFollowupActivity::class.java)
                 context?.startActivity(intent)
             } else if (position == 1) {
@@ -62,7 +62,7 @@ class HomeFeaturesAdapter(var context: Context?, var list: ArrayList<String>) :
             } else if (position == 2) {
                 val intent = Intent(context, GPFollowupActivity::class.java)
                 context?.startActivity(intent)
-            }*/
+            }
 
 
         }

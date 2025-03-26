@@ -11,11 +11,7 @@ import android.view.WindowManager
 import android.widget.TextView
 import com.trucksup.field_officer.R
 
-class FinaceSubmitBox(
-    var context: Activity,
-    var message: String,
-    var message1: String,
-    var type: String
+class FinaceSubmitBox(var context: Activity, var message: String, var message1: String, var type: String
 ) : Dialog(context) {
     var meassageTexy: TextView? = null
     var meassageTexy1: TextView? = null
