@@ -111,7 +111,7 @@
                     android:textSize="@dimen/_12ssp" />
 
                 <EditText
-                    android:id="@+id/ETAccountHolderName"
+                    android:id="@+id/etAccountHolderName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_10sdp"

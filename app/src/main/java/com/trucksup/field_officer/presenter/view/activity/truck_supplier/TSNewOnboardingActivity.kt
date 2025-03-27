@@ -36,11 +36,7 @@ class TSNewOnboardingActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun CheckValidation() {
-        val happinessCodeBox = HappinessCodeBox(this, getString(R.string.hapinessCodeMsg),
-            getString(R.string.EnterHappinessCode),
-            getString(R.string.resand_sms))
-        happinessCodeBox.show()
-       /* if (binding.ETAccountHolderName.text.isEmpty()) {
+        if (binding.ETAccountHolderName.text.isEmpty()) {
             binding.ETAccountHolderName.requestFocus()
             binding.ETAccountHolderName.setError(getString(R.string.PleaseEnterContactName))
         } else if (binding.ETAccountHolderNumber.text.isEmpty()) {
@@ -66,8 +62,7 @@ class TSNewOnboardingActivity : BaseActivity(), View.OnClickListener {
                 getString(R.string.EnterHappinessCode),
                 getString(R.string.resand_sms))
             HappinessCodeBox.show()
-            setSubmitDialog()
-        }*/
+        }
     }
 
     private fun setSubmitDialog() {

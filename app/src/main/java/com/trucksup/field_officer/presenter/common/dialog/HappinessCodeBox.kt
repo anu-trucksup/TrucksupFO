@@ -35,7 +35,7 @@ class HappinessCodeBox(
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(binding.root)
         this.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
-        this.setCancelable(false)
+        this.setCancelable(true)
         inst()
     }
 
@@ -53,7 +53,6 @@ class HappinessCodeBox(
         binding.tvVerify.setOnClickListener {
             if (binding.pvHapinessCodeverify.text.toString().isEmpty()
                 || binding.pvHapinessCodeverify.text?.length == 0) {
-                Toast.makeText(context, "Hi"+binding.pvHapinessCodeverify.text?.length,Toast.LENGTH_SHORT).show()
 
                 binding.pvHapinessCodeverify.requestFocus()
                 binding.pvHapinessCodeverify.setError(
@@ -67,7 +66,6 @@ class HappinessCodeBox(
                 binding.pvHapinessCodeverify.requestFocus()
                 binding.pvHapinessCodeverify.setError("Wrong")
             } else {
-                Toast.makeText(context, "Hi"+binding.pvHapinessCodeverify.text,Toast.LENGTH_SHORT).show()
 
                 /*this.dismiss()
                 context.finish()*/

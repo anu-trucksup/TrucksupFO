@@ -67,6 +67,7 @@ import com.trucksup.field_officer.presenter.common.dialog.DialogBoxes
 import com.trucksup.field_officer.presenter.common.face_detection.FaceContourDetectionProcessor
 import com.trucksup.field_officer.presenter.common.face_detection.FaceStatus
 import com.trucksup.field_officer.presenter.view.activity.auth.signup.SignUpActivity
+import com.trucksup.field_officer.presenter.view.activity.other.MainActivity
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -524,6 +525,11 @@ class CameraActivity : AppCompatActivity() {
                     val width = exif.getAttributeInt(ExifInterface.TAG_IMAGE_WIDTH, -1)
                     val height = exif.getAttributeInt(ExifInterface.TAG_IMAGE_LENGTH, -1)
                     Log.e("CameraResolutionsTAG", "ExifInterface width: $width height: $height")
+
+                    val intents = Intent(this@CameraActivity, MainActivity::class.java)
+                    intents.putExtra("result", savedUri.toString())
+                    setResult(RESULT_OK, intents)
+                    finish()
 
 
                     Glide.with(this@CameraActivity).load(savedUri)

@@ -49,21 +49,21 @@ class GPOnboardingActivity : AppCompatActivity(), GetImage, View.OnClickListener
     }
 
     fun CheckValidation() {
-        if (binding.ETAccountHolderName.text.isEmpty()) {
-            binding.ETAccountHolderName.requestFocus()
-            binding.ETAccountHolderName.setError("")
+        if (binding.etAccountHolderName.text.isEmpty()) {
+            binding.etAccountHolderName.requestFocus()
+            binding.etAccountHolderName.setError(getString(R.string.PleaseAccountHolderName))
         } else if (binding.ETAccountHolderNumber.text.isEmpty()) {
-            binding.ETAccountHolderName.requestFocus()
-            binding.ETAccountHolderNumber.setError("")
+            binding.ETAccountHolderNumber.requestFocus()
+            binding.ETAccountHolderNumber.setError(getString(R.string.PleaseAccountNumber))
         } else if (binding.ETReenterAccountNumber.text.isEmpty()) {
             binding.ETReenterAccountNumber.requestFocus()
-            binding.ETReenterAccountNumber.setError("")
+            binding.ETReenterAccountNumber.setError(getString(R.string.PleaseReenterAccountNumber))
         } else if (binding.ETBankNameNOB.text.isEmpty()) {
             binding.ETBankNameNOB.requestFocus()
-            binding.ETBankNameNOB.setError("")
+            binding.ETBankNameNOB.setError(getString(R.string.PleaseBankName))
         } else if (binding.ETIfscCodeNOB.text.isEmpty()) {
             binding.ETIfscCodeNOB.requestFocus()
-            binding.ETIfscCodeNOB.setError("")
+            binding.ETIfscCodeNOB.setError(getString(R.string.PleaseIFSCCode))
         } else if (binding.ETPanNumberNOB.length() == 10) {
             val s = binding.ETPanNumberNOB.toString() // get your editext value here
             val pattern: Pattern = Pattern.compile("[A-Z]{5}[0-9]{4}[A-Z]{1}")
@@ -73,7 +73,7 @@ class GPOnboardingActivity : AppCompatActivity(), GetImage, View.OnClickListener
                 panNumber = binding.ETPanNumberNOB.toString()
             } else {
                 //LoggerMessage.tostPrint("Enter Right PAN No", this)
-                binding.ETPanNumberNOB?.setError("Enter Right PAN Noss")
+                binding.ETPanNumberNOB?.setError(getString(R.string.PleaseEnterRightPincode))
                 // pan_no?.setText("")
             }
         } else {

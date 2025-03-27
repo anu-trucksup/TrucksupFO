@@ -172,11 +172,15 @@
         <activity
             android:name=".presenter.view.activity.growth_partner.GPOnboardingKYCActivity"
             android:exported="false" />
-
+        <activity
+            android:name=".presenter.view.activity.growth_partner.GPOnBoardingStoreOroofActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presenter.view.activity.growth_partner.GPOnboardingActivity"
+            android:exported="false" />
         <activity
             android:name=".presenter.view.activity.miscellaneous.MiscActivity"
             android:exported="false" />
-
 
 
         <service
