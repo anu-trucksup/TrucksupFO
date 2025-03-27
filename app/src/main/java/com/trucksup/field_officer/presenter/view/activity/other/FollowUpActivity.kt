@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.trucksup.field_officer.databinding.ActivityFollowUpBinding
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.view.adapter.FollowupSelectionAdapter
-import com.trucksup.field_officer.presenter.view.adapter.HomeFeaturesAdapter
 
 class FollowUpActivity : BaseActivity() {
     private lateinit var binding: ActivityFollowUpBinding

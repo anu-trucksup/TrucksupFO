@@ -117,15 +117,15 @@
 
 
         <activity
-            android:name=".presenter.view.activity.business_associate.MyBATeamOnBActivity"
+            android:name=".presenter.view.activity.business_associate.MyBATeamActivity"
             android:exported="false" />
 
         <activity
-            android:name=".presenter.view.activity.truck_supplier.MyTSTeamOnBActivity"
+            android:name=".presenter.view.activity.truck_supplier.MyTSTeamActivity"
             android:exported="false" />
 
         <activity
-            android:name=".presenter.view.activity.growth_partner.MyGPTeamOnBActivity"
+            android:name=".presenter.view.activity.growth_partner.MyGPTeamActivity"
             android:exported="false" />
 
         <activity

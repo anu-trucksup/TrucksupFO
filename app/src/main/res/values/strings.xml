@@ -245,6 +245,7 @@
     <string name="BaNewOnboardingSameCl">Same as Current Location</string>
     <string name="BaNewOnboardingSameAdd">Add</string>
     <string name="BaNewOnboardingSameCancel">Cancel</string>
+    <string name="Onboardings">Onboardings</string>
 
     <string name="SalesCode">Sales Code of BO <font color='#FF0000'>*</font></string>
     <string name="GPMobile">GP Mobile Number <font color='#FF0000'>*</font></string>
@@ -711,6 +712,8 @@
     <string name="updateTruckMessage">We have noted the availability of your truck. A notification will be sent to you on the day of your selection.</string>
     <string name="selectCity">Select City</string>
     <string name="clearAll"><u>Clear filter</u></string>
+    <string name="definedtarget">Defined target for the month of March’25.</string>
+    <string name="toaddthe">To add the TS/BA/GP in your team, kindly visit their location and share the happiness share with them.</string>
 
     <string name="please_select_capicity">Please select capacity</string>
     <string name="please_select_size">Please select size</string>
@@ -906,4 +909,8 @@
     <string name="ownedVehicle">Owned Vehicle</string>
     <string name="attached_vehicle">Attached Vehicle</string>
     <string name="truck_number">Truck Number *</string>
+    <string name="body_type">Body Type *</string>
+    <string name="tyre">Tyre *</string>
+    <string name="capacity">Capacity *</string>
+    <string name="vehicle_size">Vehicle Size *</string>
 </resources>

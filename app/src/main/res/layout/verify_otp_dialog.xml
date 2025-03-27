@@ -8,10 +8,7 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="@dimen/_4sdp"
         app:cardElevation="@dimen/_4sdp"
@@ -31,6 +28,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
+                android:id="@+id/txtHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_16sdp"
@@ -56,6 +54,7 @@
                 android:visibility="gone" />
 
             <TextView
+                android:id="@+id/txtSubtittle"
                 style="@style/text_label"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -70,6 +69,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/_16sdp"
+                android:layout_marginRight="@dimen/_16sdp"
                 android:layout_marginTop="@dimen/_16sdp"
                 android:cursorVisible="true"
                 android:gravity="start"

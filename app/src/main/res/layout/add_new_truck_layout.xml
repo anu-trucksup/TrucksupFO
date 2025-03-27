@@ -34,10 +34,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/ownedVehicle"
-                    android:fontFamily="@font/bai_jamjuree_semi_bold"
+                    style="@style/label_semi"
                     android:gravity="center_vertical"
-                    android:textColor="@color/blue"
-                    android:textSize="@dimen/_11ssp" />
+                  />
 
             </LinearLayout>
 
@@ -53,10 +52,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/attached_vehicle"
-                    android:fontFamily="@font/bai_jamjuree_semi_bold"
+                    style="@style/label_semi"
                     android:gravity="center_vertical"
-                    android:textColor="@color/blue"
-                    android:textSize="@dimen/_11ssp" />
+                    />
             </LinearLayout>
         </LinearLayout>
 
@@ -74,11 +72,9 @@
                 android:id="@+id/tvTruckNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/bai_jamjuree_medium"
                 android:lines="1"
                 android:text="@string/truck_number"
-                android:textColor="@color/blue"
-                android:textSize="@dimen/_10ssp" />
+                style="@style/label_semi" />
 
             <EditText
                 android:id="@+id/etTruckNumber"
@@ -113,22 +109,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/bai_jamjuree_medium"
                 android:lines="1"
-                android:text="Body Type *"
-                android:textColor="@color/blue"
-                android:textSize="@dimen/_10ssp"
+                android:text="@string/body_type"
+                style="@style/label_semi"
                 android:layout_marginEnd="@dimen/_5sdp"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/bai_jamjuree_medium"
-                android:lines="1"
-                android:text="Tyre *"
-                android:textColor="@color/blue"
-                android:textSize="@dimen/_10ssp"
+                android:text="@string/tyre"
+                style="@style/label_semi"
                 android:layout_marginStart="@dimen/_5sdp"/>
 
         </LinearLayout>
@@ -197,22 +188,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/bai_jamjuree_medium"
-                android:lines="1"
-                android:text="Capacity *"
-                android:textColor="@color/blue"
-                android:textSize="@dimen/_10ssp"
+                android:text="@string/capacity"
+                style="@style/label_semi"
                 android:layout_marginEnd="@dimen/_5sdp"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:fontFamily="@font/bai_jamjuree_medium"
-                android:lines="1"
-                android:text="Vehicle Size *"
-                android:textColor="@color/blue"
-                android:textSize="@dimen/_10ssp"
+                style="@style/label_semi"
+                android:text="@string/vehicle_size"
                 android:layout_marginStart="@dimen/_5sdp"/>
 
         </LinearLayout>

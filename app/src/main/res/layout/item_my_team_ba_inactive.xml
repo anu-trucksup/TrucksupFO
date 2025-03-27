@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/home_vert_menu_card_bg"
+            android:layout_margin="@dimen/_4sdp"
+            android:orientation="horizontal"
+            android:elevation="@dimen/_4sdp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:layout_marginStart="@dimen/_7sdp"
+                android:orientation="horizontal">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="@dimen/_50sdp">
+
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/profile"
+                        app:civ_border_color="@color/blue"
+                        app:civ_border_width="@dimen/_1sdp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:src="@drawable/approved_badge"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_16sdp"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Rahul Sharma"
+                            android:layout_weight="1"
+                            android:textSize="@dimen/_12sdp"
+                            android:singleLine="true"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/bai_jamjuree_bold"
+                            android:id="@+id/tvBANAmeActive"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="9978034678"
+                            android:layout_weight="1"
+                            android:textSize="@dimen/_10sdp"
+                            android:singleLine="true"
+                            android:textColor="@color/dark_gray"
+                            android:drawableLeft="@drawable/ic_phone"
+                            android:drawableTint="@color/dark_gray"
+                            android:drawablePadding="@dimen/_4sdp"
+                            android:fontFamily="@font/bai_jamjuree_bold"
+                            android:id="@+id/title"/>
+
+                    </LinearLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Panipat, Haryana"
+                        android:textSize="@dimen/_9sdp"
+                        android:singleLine="true"
+                        android:textColor="@color/dark_gray"
+                        android:fontFamily="@font/bai_jamjuree_semi_bold"
+                        android:id="@+id/tvAddressBAActive"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Last load added: 12-Feb-25, 02:30 PM"
+                        android:textSize="@dimen/_9sdp"
+                        android:textColor="@color/dark_gray"
+                        android:singleLine="true"
+                        android:fontFamily="@font/bai_jamjuree_semi_bold"
+                        android:id="@+id/tvLastLoadBAActive"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Inactive since 10-Feb-25"
+                        android:textSize="@dimen/_11sdp"
+                        android:textColor="@color/dark_red"
+                        android:singleLine="true"
+                        android:fontFamily="@font/bai_jamjuree_semi_bold"
+                        android:id="@+id/tvInActive"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+

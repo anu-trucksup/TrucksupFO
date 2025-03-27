@@ -1,12 +1,17 @@
 package com.trucksup.field_officer.presenter.view.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ItemFeaturesBinding
+import com.trucksup.field_officer.presenter.view.activity.business_associate.BAFollowupActivity
+import com.trucksup.field_officer.presenter.view.activity.growth_partner.GPFollowupActivity
+import com.trucksup.field_officer.presenter.view.activity.profile.TotalAddLoadScreen
+import com.trucksup.field_officer.presenter.view.activity.truck_supplier.TSFollowupActivity
 
 
 class HomeFeaturesAdapter(var context: Context?, var list: ArrayList<String>) :
@@ -16,21 +21,23 @@ class HomeFeaturesAdapter(var context: Context?, var list: ArrayList<String>) :
         "Truck Supplier",
         "Business Associates",
         "Growth Partners",
-        "Finance",
-        "Insurance",
-        "Smart Fuel",
-        "GPS",
-        "Fast Tag"
+        "Total Add Loads",
+        "Total downloads",
+        "Subscription Plans",
+        "Finance Leads",
+        "Insurance Leads",
+        "Smart Fuel Leads"
     )
     val imageList = arrayListOf(
         R.drawable.truck_img,
         R.drawable.ba_ic,
         R.drawable.growth_part,
-        R.drawable.ic_finanace,
-        R.drawable.ic_insurance,
-        R.drawable.ic_smart_fuel,
-        R.drawable.ic_gps,
-        R.drawable.ic_fasttag
+        R.drawable.load_feature,
+        R.drawable.down_feature,
+        R.drawable.subscribe_feature,
+        R.drawable.finance_feature,
+        R.drawable.insure_feature,
+        R.drawable.fuel_feature
     )
 
     inner class ViewHolder(var binding: ItemFeaturesBinding) : RecyclerView.ViewHolder(binding.root)
@@ -46,17 +53,29 @@ class HomeFeaturesAdapter(var context: Context?, var list: ArrayList<String>) :
         holder.binding.tvName.text = serviceList[position]
 
         holder.binding.root.setOnClickListener {
-            Toast.makeText(context,"Under Development", Toast.LENGTH_SHORT).show()
-           /* if (position == 0) {
-                val intent = Intent(context, TSFollowupActivity::class.java)
-                context?.startActivity(intent)
-            } else if (position == 1) {
-                val intent = Intent(context, BAFollowupActivity::class.java)
-                context?.startActivity(intent)
-            } else if (position == 2) {
-                val intent = Intent(context, GPFollowupActivity::class.java)
-                context?.startActivity(intent)
-            }*/
+            //Toast.makeText(context,"Under Development", Toast.LENGTH_SHORT).show()
+            when (position) {
+                0 -> {
+                    val intent = Intent(context, TSFollowupActivity::class.java)
+                    context?.startActivity(intent)
+                }
+                1 -> {
+                    val intent = Intent(context, BAFollowupActivity::class.java)
+                    context?.startActivity(intent)
+                }
+                2 -> {
+                    val intent = Intent(context, GPFollowupActivity::class.java)
+                    context?.startActivity(intent)
+                }
+                3 -> {
+                    val intent = Intent(context, TotalAddLoadScreen::class.java)
+                    context?.startActivity(intent)
+                }
+                4 -> {
+                    val intent = Intent(context, GPFollowupActivity::class.java)
+                    context?.startActivity(intent)
+                }
+            }
 
 
         }

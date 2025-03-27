@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ActivityBaMaptripBinding
+import com.trucksup.field_officer.presenter.common.dialog.HappinessCodeBox
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 
 class TSStartTripActivity : BaseActivity() {
@@ -19,6 +20,11 @@ class TSStartTripActivity : BaseActivity() {
         setContentView(binding.root)
 
         binding.btnSubmit.setOnClickListener {
+
+           /* val happinessCodeBox = HappinessCodeBox(this, getString(R.string.hapinessCodeMsg),
+                getString(R.string.EnterHappinessCode),
+                getString(R.string.resand_sms))
+            happinessCodeBox.show()*/
             startActivity(Intent(this, TSScheduledMeetingActivity::class.java))
         }
     }
