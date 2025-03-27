@@ -20,7 +20,7 @@ import com.logistics.trucksup.PreferenceManager.PreferenceManager
 import com.logistics.trucksup.R
 import com.logistics.trucksup.activities.TransactionHistory
 import com.trucksup.field_officer.presenter.view.activity.dl_verification.interface_controller.DlVerifyController
-import com.logistics.trucksup.activities.vehicleVerify.JWTtoken
+import com.trucksup.field_officer.presenter.view.activity.vehicleVerify.JWTtoken
 import com.logistics.trucksup.adaptor.DLHistoryAdapter
 import com.logistics.trucksup.databinding.ActivityDlVhistoryBinding
 import com.logistics.trucksup.modle.GenerateJWTtokenResponse

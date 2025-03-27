@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_margin="@dimen/_8sdp"
+    android:layout_height="wrap_content">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:background="#A7A5AC"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:layout_marginBottom="@dimen/_8sdp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/bai_jamjuree_semi_bold"
+            android:text="Why to buy subscription?"
+            android:textColor="@color/black"
+            android:id="@+id/question"
+            android:textSize="@dimen/_13sdp" />
+        <ImageButton
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="wrap_content"
+            android:id="@+id/openBt"
+            android:background="@color/transparent"
+            android:src="@drawable/spine_down_arrow_icon" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/ansLayout"
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:fontFamily="@font/bai_jamjuree_medium"
+            android:text="* Why to buy subscription?"
+            android:textColor="#555555"
+            android:id="@+id/ans"
+            android:textSize="@dimen/_12sdp" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ansList"/>
+    </LinearLayout>
+</LinearLayout>
+</RelativeLayout>

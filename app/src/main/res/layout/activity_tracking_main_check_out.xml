@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".activities.trackingAndVerification.TrackingMainCheckOut">
+
+    <RelativeLayout
+        android:id="@+id/trangLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/appbg"
+        android:visibility="gone">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/_70sdp">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:id="@+id/success"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/appbg"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_16sdp"
+                            android:layout_marginTop="@dimen/_16sdp"
+                            android:layout_marginEnd="@dimen/_16sdp"
+                            android:fontFamily="@font/bai_jamjuree_bold"
+                            android:gravity="center"
+                            android:text="@string/transactionStatus"
+                            android:textColor="@color/blue"
+                            android:textSize="@dimen/_16ssp" />
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/_16sdp"
+                            app:cardBackgroundColor="#02b981"
+                            app:cardCornerRadius="@dimen/_10sdp"
+                            app:cardElevation="@dimen/_5sdp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                                    android:id="@+id/nav_user_img"
+                                    android:layout_width="@dimen/_60sdp"
+                                    android:layout_height="@dimen/_60sdp"
+                                    android:layout_gravity="center_horizontal"
+                                    android:layout_marginTop="@dimen/_10sdp"
+                                    android:src="@mipmap/trangaction_lg"
+                                    app:civ_border_color="@color/white"
+                                    app:civ_border_width="0dp" />
+
+                                <TextView
+                                    android:id="@+id/amount"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_10sdp"
+                                    android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                    android:gravity="center"
+                                    android:text="500"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/_22ssp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_horizontal"
+                                    android:layout_marginBottom="@dimen/_10sdp"
+                                    android:drawableEnd="@drawable/verified_icon_16"
+                                    android:drawablePadding="@dimen/_8sdp"
+                                    android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                    android:gravity="center"
+                                    android:text="@string/transactionSuccessful"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/_14ssp" />
+
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <TextView
+                            android:id="@+id/date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:fontFamily="@font/bai_jamjuree_medium"
+                            android:gravity="center"
+
+                            android:text="3 JUL 2024 7:30 PM"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_11ssp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:fontFamily="@font/bai_jamjuree_semi_bold"
+                            android:gravity="center"
+                            android:onClick="downloadFile"
+                            android:text="@string/downloadInvoice"
+                            android:textColor="@color/blue"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_16sdp"
+                            android:layout_marginTop="@dimen/_20sdp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/editbox_outborder"
+                                android:drawableStart="@drawable/question_help_16_icon"
+                                android:drawablePadding="@dimen/_5sdp"
+                                android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                android:onClick="dailCall"
+                                android:paddingStart="@dimen/_8sdp"
+                                android:paddingTop="@dimen/_2sdp"
+                                android:paddingEnd="@dimen/_8sdp"
+                                android:paddingBottom="@dimen/_2sdp"
+                                android:text="@string/havingIsssue"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_10ssp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_10ssp"
+                                android:background="@drawable/editbox_outborder"
+                                android:drawableStart="@drawable/share_16_icon"
+                                android:drawablePadding="@dimen/_5sdp"
+                                android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                android:onClick="shareFile"
+                                android:paddingStart="@dimen/_8sdp"
+                                android:paddingTop="@dimen/_2sdp"
+                                android:paddingEnd="@dimen/_8sdp"
+                                android:paddingBottom="@dimen/_2sdp"
+                                android:text="@string/share"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_10ssp" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_16sdp"
+                            android:layout_marginTop="@dimen/_16sdp"
+                            android:fontFamily="@font/bai_jamjuree_bold"
+                            android:text="@string/purchasedPlan"
+                            android:textColor="@color/blue"
+                            android:textSize="@dimen/_16ssp" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/planList"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_8sdp"
+                            android:layout_marginEnd="@dimen/_8sdp" />
+
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/faill"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/appbg"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_16sdp"
+                            android:layout_marginTop="@dimen/_16sdp"
+                            android:layout_marginEnd="@dimen/_16sdp"
+                            android:fontFamily="@font/bai_jamjuree_bold"
+                            android:gravity="center"
+                            android:text="@string/transactionStatus"
+                            android:textColor="@color/blue"
+                            android:textSize="@dimen/_16ssp" />
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/failCard"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/_16sdp"
+                            app:cardBackgroundColor="@color/checkout_red"
+                            app:cardCornerRadius="@dimen/_10sdp"
+                            app:cardElevation="@dimen/_5sdp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                                    android:layout_width="@dimen/_60sdp"
+                                    android:layout_height="@dimen/_60sdp"
+                                    android:layout_gravity="center_horizontal"
+                                    android:layout_marginTop="@dimen/_10sdp"
+                                    android:src="@mipmap/trangaction_lg"
+                                    app:civ_border_color="@color/white"
+                                    app:civ_border_width="0dp" />
+
+                                <TextView
+                                    android:id="@+id/failAmount"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_10sdp"
+                                    android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                    android:gravity="center"
+                                    android:text="500"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/_22ssp" />
+
+                                <TextView
+                                    android:id="@+id/textStutes"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_horizontal"
+                                    android:layout_marginBottom="@dimen/_10sdp"
+                                    android:drawableEnd="@drawable/alert_circle_fail"
+                                    android:drawablePadding="@dimen/_8sdp"
+                                    android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                    android:gravity="center"
+                                    android:text="@string/transactionFailed"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/_14ssp" />
+
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <TextView
+                            android:id="@+id/failDate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:fontFamily="@font/bai_jamjuree_medium"
+                            android:gravity="center"
+
+                            android:text="3 JUL 2024 7:30 PM"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_11ssp" />
+
+                        <TextView
+                            android:id="@+id/tranId"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:fontFamily="@font/bai_jamjuree_semi_bold"
+                            android:gravity="center"
+                            android:text="Transaction ID: TUP_240814101215ST2VZ1"
+                            android:textColor="#444444"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_16sdp"
+                            android:layout_marginTop="@dimen/_20sdp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/editbox_outborder"
+                                android:drawableStart="@drawable/question_help_16_icon"
+                                android:drawablePadding="@dimen/_5sdp"
+                                android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                android:onClick="dailCall"
+                                android:paddingStart="@dimen/_8sdp"
+                                android:paddingTop="@dimen/_2sdp"
+                                android:paddingEnd="@dimen/_8sdp"
+                                android:paddingBottom="@dimen/_2sdp"
+                                android:text="@string/havingIsssue"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_10ssp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_10ssp"
+                                android:background="@drawable/editbox_outborder"
+                                android:drawableStart="@drawable/share_16_icon"
+                                android:drawablePadding="@dimen/_5sdp"
+                                android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                android:onClick="shareFile"
+                                android:paddingStart="@dimen/_8sdp"
+                                android:paddingTop="@dimen/_2sdp"
+                                android:paddingEnd="@dimen/_8sdp"
+                                android:paddingBottom="@dimen/_2sdp"
+                                android:text="@string/share"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/_10ssp" />
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="@dimen/_70sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            app:cardBackgroundColor="@color/appbg"
+            app:cardCornerRadius="@dimen/_16sdp"
+            app:cardElevation="@dimen/_5sdp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/plan_done_bt">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/bai_jamjuree_semi_bold"
+                    android:gravity="center"
+                    android:onClick="closeScreen"
+                    android:text="@string/ok"
+                    android:textColor="@color/blue"
+                    android:textSize="@dimen/_14ssp" />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+    </RelativeLayout>
+</layout>

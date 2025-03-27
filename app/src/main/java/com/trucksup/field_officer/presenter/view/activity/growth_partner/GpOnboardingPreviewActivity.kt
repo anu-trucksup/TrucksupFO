@@ -9,8 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ActivityGpOnboardingPreviewBinding
-import com.trucksup.field_officer.presenter.utils.HF
-import com.trucksup.field_officer.presenter.view.activity.other.PersonalDetailUpdateActivity
 
 class GpOnboardingPreviewActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityGpOnboardingPreviewBinding
@@ -39,9 +37,9 @@ class GpOnboardingPreviewActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         val item_id = v?.id
         when (item_id) {
-            R.id.BankAccountDetailsEdit ->  HF(this).startActivity(GPOnboardingActivity())
-            R.id.personlDetail -> HF(this).startActivity(PersonalDetailUpdateActivity())
-            R.id.StorePhotoLinearEdit ->  HF(this).startActivity(GPOnBoardingStoreOroofActivity())
+            R.id.BankAccountDetailsEdit ->  startActivity(Intent(this,GPOnboardingActivity::class.java))
+            R.id.personlDetail -> startActivity(Intent(this,GPPersonalDetailUpdateActivity::class.java))
+            R.id.StorePhotoLinearEdit ->  startActivity(Intent(this,GPOnBoardingStoreOroofActivity::class.java))
         }
     }
 }

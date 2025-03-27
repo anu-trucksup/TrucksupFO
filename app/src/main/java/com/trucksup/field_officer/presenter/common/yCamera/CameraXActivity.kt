@@ -23,7 +23,6 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ActivityCameraXactivityBinding
-import com.trucksup.field_officer.presenter.common.DevicePermission
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 
 
@@ -373,8 +372,8 @@ class CameraXActivity : BaseActivity() {
     }
 
     private fun divPer() {
-        val intent = Intent(this, DevicePermission::class.java)
-        startActivity(intent)
+       /* val intent = Intent(this, DevicePermission::class.java)
+        startActivity(intent)*/
     }
 
 

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/appbg"
+    tools:context=".activities.VehicalLocation">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tt"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:elevation="@dimen/_5sdp"
+            android:orientation="horizontal">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.2">
+
+                <TextView
+                    android:id="@+id/truck_no"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_16sdp"
+                    android:layout_marginRight="@dimen/_16sdp"
+                    android:drawableStart="@drawable/back_icon"
+                    android:drawablePadding="@dimen/_10sdp"
+                    android:drawableTint="@color/blue"
+                    android:fontFamily="@font/roboto_medium"
+                    android:gravity="center"
+                    android:onClick="back"
+                    android:text=""
+                    android:textColor="@color/blue"
+                    android:textSize="@dimen/_14ssp" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/truck_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/tt"
+                    android:layout_marginBottom="@dimen/_40sdp"
+                    android:layout_marginTop="@dimen/_20sdp" />
+
+
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:id="@+id/noload"
+            android:visibility="gone"
+            android:layout_centerInParent="true"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="@dimen/_180sdp"
+                android:id="@+id/noload1"
+                android:layout_height="@dimen/_180sdp">
+
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/animation_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:lottie_fileName="noload.json"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"/>'
+
+            </RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/noload1"
+                android:text="@string/khata_notfound"
+                android:textSize="@dimen/_11ssp"
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="@color/blue"/>
+        </RelativeLayout>
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

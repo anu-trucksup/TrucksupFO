@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_height="wrap_content">
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_marginStart="@dimen/_9sdp"
+        android:layout_marginEnd="@dimen/_9sdp"
+        android:layout_marginBottom="8dp"
+        app:cardCornerRadius="@dimen/_10sdp"
+        android:layout_height="wrap_content">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/mainCar"
+        android:background="@drawable/subscribation_card_bg"
+        android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/main_cat"
+        android:layout_margin="@dimen/_2sdp"
+        android:background="@drawable/sub_unslect_card"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:layout_centerHorizontal="true"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/blue"
+                    android:id="@+id/planType"
+                    android:gravity="center"
+                    android:layout_marginTop="12dp"
+                    android:textSize="@dimen/_17ssp"
+                    android:text="Premium"
+                    android:fontFamily="@font/bai_jamjuree_semi_bold"/>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:layout_marginTop="12dp"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/blue"
+                            android:gravity="center"
+                            android:id="@+id/amount"
+                            android:textSize="20dp"
+                            android:text="1200"
+                            android:fontFamily="@font/bai_jamjuree_medium"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/blue"
+                            android:visibility="gone"
+                            android:id="@+id/amountDay"
+                            android:textSize="14dp"
+                            android:text="1200"
+                            android:fontFamily="@font/bai_jamjuree_medium"/>
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/blue"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    android:textSize="@dimen/_11ssp"
+                    android:id="@+id/loads"
+                    android:text=""
+                    android:fontFamily="@font/bai_jamjuree_bold"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/blue"
+                    android:gravity="center"
+                    android:id="@+id/days"
+                    android:textSize="@dimen/_12ssp"
+                    android:text="Pay for 30 days"
+                    android:fontFamily="@font/bai_jamjuree_medium"/>
+
+            </LinearLayout>
+        </RelativeLayout>
+
+
+    </LinearLayout>
+    </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+    </RelativeLayout>
+  <RelativeLayout
+      android:layout_width="@dimen/_100sdp"
+      android:background="@drawable/sub_recomanded"
+      android:layout_centerHorizontal="true"
+      android:id="@+id/recomanded"
+      android:layout_height="@dimen/_22sdp">
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_margin="@dimen/_2sdp"
+          android:layout_height="match_parent"
+          android:background="#FCE1FB"
+          android:textColor="@color/blue"
+          android:textSize="12sp"
+          android:visibility="visible"
+          android:gravity="center"
+          android:text="@string/recommended"
+          android:fontFamily="@font/bai_jamjuree_semi_bold"/>
+  </RelativeLayout>
+
+</RelativeLayout>

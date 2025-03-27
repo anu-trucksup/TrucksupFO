@@ -52,7 +52,7 @@
                         android:layout_marginStart="@dimen/_3sdp"
                         android:fontFamily="@font/bai_jamjuree_semi_bold"
                         android:maxLines="1"
-                        android:text="@string/insurance_vehicle_no"
+                        android:text="@string/insurance_vehicle_no_"
                         android:textColor="@color/secondry_text"
                         android:textSize="@dimen/_11ssp" />
 
@@ -100,7 +100,7 @@
                         android:layout_marginStart="@dimen/_3sdp"
                         android:fontFamily="@font/bai_jamjuree_semi_bold"
                         android:maxLines="1"
-                        android:text="@string/insurance_validity"
+                        android:text="@string/insurance_validity_"
                         android:textColor="@color/secondry_text"
                         android:textSize="@dimen/_11ssp" />
 
@@ -181,7 +181,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/bai_jamjuree_semi_bold"
                         android:maxLines="1"
-                        android:text="@string/rc_front_image"
+                        android:text="@string/rc_front_image_"
                         android:textColor="@color/secondry_text"
                         android:textSize="@dimen/_11ssp"
                         android:layout_marginStart="@dimen/_3sdp"
@@ -226,7 +226,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/bai_jamjuree_semi_bold"
                         android:maxLines="1"
-                        android:text="@string/rc_back_image"
+                        android:text="@string/rc_back_image_"
                         android:textColor="@color/secondry_text"
                         android:textSize="@dimen/_11ssp"
                         android:layout_marginStart="@dimen/_3sdp"

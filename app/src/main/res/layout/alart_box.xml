@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@drawable/alart_box_bg"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_60sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:id="@+id/tt"
+        android:orientation="horizontal">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+           <ImageView
+               android:id="@+id/imgLogo"
+               android:layout_width="@dimen/_160sdp"
+               android:layout_height="match_parent"
+               android:src="@drawable/logo_blue"
+               android:layout_centerInParent="true"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+         android:layout_below="@+id/tt"
+        android:layout_margin="@dimen/_12sdp">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:gravity="center"
+            android:id="@+id/verify_message_txt"
+            android:text="@string/process_adhar_verify"
+            android:textSize="@dimen/_14ssp"
+            android:textColor="@color/blue"
+            android:fontFamily="@font/bai_jamjuree_semi_bold"
+            android:visibility="gone"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:gravity="center"
+            android:id="@+id/message"
+            android:text="Your request has been sent to our
+ executive.You’ll recieve a call shortly."
+            android:textSize="@dimen/_12ssp"
+            android:textColor="@color/primery_text"
+            android:fontFamily="@font/poppins_medium"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_marginHorizontal="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_25sdp"
+            android:layout_marginBottom="@dimen/_12sdp"
+            android:gravity="center"
+            android:text="@string/ok"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/ok"
+            android:textSize="@dimen/_12ssp"
+            android:textColor="@color/white"
+            android:background="@drawable/logout_bt_menu"
+            android:fontFamily="@font/poppins_bold"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

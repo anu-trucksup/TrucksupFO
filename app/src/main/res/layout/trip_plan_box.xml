@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@drawable/alart_box_bg"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="@dimen/_12sdp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:id="@+id/tt"
+            android:orientation="horizontal">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="match_parent"
+                    android:src="@mipmap/ic_launcher_round"
+                    android:layout_centerInParent="true"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_12sdp"
+            android:gravity="center"
+            android:id="@+id/message"
+            android:text="@string/kyc_box_text"
+            android:textSize="@dimen/_13ssp"
+            android:textColor="@color/blue"
+            android:fontFamily="@font/bai_jamjuree_semi_bold"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/_25sdp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:gravity="center"
+                android:text="@string/buyTrackingDays"
+                android:layout_weight="1"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/ok"
+                android:textSize="@dimen/_12ssp"
+                android:textColor="@color/white"
+                android:elevation="@dimen/_5sdp"
+                android:layout_margin="@dimen/_5sdp"
+                android:background="@drawable/blue_button"
+                android:fontFamily="@font/poppins_bold"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:gravity="center"
+                android:text="@string/cancel"
+                android:background="@drawable/blue_border_box"
+                android:layout_weight="1.5"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/no"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:textSize="@dimen/_12ssp"
+                android:textColor="@color/blue"
+                android:fontFamily="@font/poppins_bold"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,812 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/blue"
+        tools:context=".activities.vehicleVerify.VehicleDetailsActivity">
+
+        <LinearLayout
+            android:id="@+id/tp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/blue"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/_16sdp"
+            android:paddingVertical="@dimen/_16sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="@dimen/_27sdp"
+                android:layout_height="@dimen/_27sdp"
+                android:background="@drawable/circal_weight"
+                android:onClick="backScreen"
+                android:src="@drawable/back_icon" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="@dimen/_12sdp"
+                android:layout_weight="1"
+                android:fontFamily="@font/bai_jamjuree_semi_bold"
+                android:gravity="center"
+                android:text="@string/vehicle_verification"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_17ssp" />
+
+            <ImageView
+                android:id="@+id/btnTransactionHis"
+                android:layout_width="@dimen/_27sdp"
+                android:layout_height="@dimen/_27sdp"
+                android:src="@drawable/transaction_his_icon" />
+
+        </LinearLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/vehicleImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_45sdp"
+            android:maxLength="1"
+            android:visibility="visible"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="@dimen/_10sdp"
+            app:cardElevation="@dimen/_8sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeWidth="0dp">
+
+            <LinearLayout
+                android:layout_width="@dimen/_200sdp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/_15sdp"
+                android:paddingVertical="@dimen/_5sdp">
+
+                <TextView
+                    android:id="@+id/tvVehicleNo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/bai_jamjuree_semi_bold"
+                    android:text=""
+                    android:textColor="#6A6A6A"
+                    android:textSize="@dimen/_12ssp" />
+
+                <ImageView
+                    android:id="@+id/btnShare"
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:background="@drawable/share_round"
+                    android:padding="@dimen/_4sdp"
+                    android:src="@drawable/share_1" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <RelativeLayout
+            android:id="@+id/sl"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/addload_bg"
+            android:orientation="vertical"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tp">
+
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="@dimen/_20sdp">
+
+                <LinearLayout
+                    android:id="@+id/contentVisibility"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    android:background="@color/white">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/linearVehicleDetail"
+                        android:background="@color/white">
+
+                        <ImageView
+                            android:layout_width="@dimen/_300sdp"
+                            android:layout_height="@dimen/_300sdp"
+                            android:src="@drawable/logo_fad"
+                            android:foreground="#80FFFFFF"
+                            android:layout_centerInParent="true"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:orientation="vertical"
+                            android:paddingHorizontal="@dimen/_10sdp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/titleOwnerName"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                        android:maxLines="1"
+                                        android:text="@string/owner_name1"
+                                        android:textColor="#6A6A6A"
+                                        android:textSize="@dimen/_11ssp" />
+
+                                    <TextView
+                                        android:id="@+id/tvOwnerName"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                        android:maxLines="1"
+                                        android:text=""
+                                        android:textColor="#3E2089"
+                                        android:textSize="@dimen/_10ssp" />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/titleVehicleNumber"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                        android:maxLines="1"
+                                        android:text="@string/vehicle_number"
+                                        android:textColor="#6A6A6A"
+                                        android:textSize="@dimen/_11ssp" />
+
+                                    <TextView
+                                        android:id="@+id/tvVehicleNumber"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                        android:maxLines="1"
+                                        android:text=""
+                                        android:textColor="#3E2089"
+                                        android:textSize="@dimen/_10ssp" />
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_1sdp"
+                                android:layout_marginVertical="@dimen/_4sdp"
+                                android:background="#B6B3B1" />
+
+
+                            <TextView
+                                android:id="@+id/titleChassisNo"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                android:maxLines="1"
+                                android:text="@string/chassis_number1"
+                                android:textColor="#6A6A6A"
+                                android:textSize="@dimen/_11ssp" />
+
+                            <TextView
+                                android:id="@+id/tvChassicNo"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/bai_jamjuree_bold"
+                                android:maxLines="1"
+                                android:text=""
+                                android:textColor="#3C2088"
+                                android:textSize="@dimen/_14ssp" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/for_your_safty"
+                                android:textColor="#870583"
+                                android:textSize="@dimen/_11ssp"
+                                android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                android:layout_marginTop="@dimen/_4sdp"/>
+
+                            <TextView
+                                android:id="@+id/titleEnginNo"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                android:maxLines="1"
+                                android:text="@string/engine_number1"
+                                android:textColor="#6A6A6A"
+                                android:textSize="@dimen/_11ssp" />
+
+                            <TextView
+                                android:id="@+id/tvEngineName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/bai_jamjuree_bold"
+                                android:maxLines="1"
+                                android:text=""
+                                android:textColor="#3C2088"
+                                android:textSize="@dimen/_14ssp" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_1sdp"
+                                android:layout_marginVertical="@dimen/_4sdp"
+                                android:background="#B6B3B1" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="@dimen/_2sdp"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical">
+
+                                    <!--                        <TextView-->
+                                    <!--                            android:id="@+id/titleChassisNo"-->
+                                    <!--                            android:layout_width="match_parent"-->
+                                    <!--                            android:layout_height="wrap_content"-->
+                                    <!--                            android:layout_marginTop="@dimen/_5sdp"-->
+                                    <!--                            android:fontFamily="@font/bai_jamjuree_semi_bold"-->
+                                    <!--                            android:maxLines="1"-->
+                                    <!--                            android:text="@string/chassis_number1"-->
+                                    <!--                            android:textColor="#6A6A6A"-->
+                                    <!--                            android:textSize="@dimen/_11ssp" />-->
+
+                                    <!--                        <TextView-->
+                                    <!--                            android:id="@+id/tvChassicNo"-->
+                                    <!--                            android:layout_width="match_parent"-->
+                                    <!--                            android:layout_height="wrap_content"-->
+                                    <!--                            android:fontFamily="@font/bai_jamjuree_bold"-->
+                                    <!--                            android:maxLines="1"-->
+                                    <!--                            android:text=""-->
+                                    <!--                            android:textColor="#942D0A"-->
+                                    <!--                            android:textSize="@dimen/_12ssp" />-->
+
+                                    <TextView
+                                        android:id="@+id/titleManufacturingDate"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="@dimen/_5sdp"
+                                        android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                        android:maxLines="1"
+                                        android:text="@string/manufacturing_date"
+                                        android:textColor="#6A6A6A"
+                                        android:textSize="@dimen/_11ssp" />
+
+                                    <TextView
+                                        android:id="@+id/tvManufacturingDate"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                        android:maxLines="1"
+                                        android:text=""
+                                        android:textColor="#3E2089"
+                                        android:textSize="@dimen/_9ssp" />
+
+                                    <TextView
+                                        android:id="@+id/titleBodyType"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="@dimen/_5sdp"
+                                        android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                        android:maxLines="1"
+                                        android:text="@string/body_type_name"
+                                        android:textColor="#6A6A6A"
+                                        android:textSize="@dimen/_11ssp" />
+
+                                    <TextView
+                                        android:id="@+id/tvBodyType"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                        android:maxLines="1"
+                                        android:text=""
+                                        android:textColor="#3E2089"
+                                        android:textSize="@dimen/_9ssp" />
+
+                                    <TextView
+                                        android:id="@+id/titleRegistrationDate"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="@dimen/_5sdp"
+                                        android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                        android:maxLines="1"
+                                        android:text="@string/registration_date2"
+                                        android:textColor="#6A6A6A"
+                                        android:textSize="@dimen/_11ssp" />
+
+                                    <TextView
+                                        android:id="@+id/tvRegistrationDate"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                        android:maxLines="1"
+                                        android:text=""
+                                        android:textColor="#3E2089"
+                                        android:textSize="@dimen/_9ssp" />
+
+                                    <TextView
+                                        android:id="@+id/titleNationalPermit1"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="@dimen/_5sdp"
+                                        android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                        android:maxLines="1"
+                                        android:text="@string/national_permit"
+                                        android:textColor="#6A6A6A"
+                                        android:textSize="@dimen/_11ssp" />
+
+                                    <TextView
+                                        android:id="@+id/tvNationalPermit1"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                        android:maxLines="1"
+                                        android:text=""
+                                        android:textColor="#3E2089"
+                                        android:textSize="@dimen/_9ssp" />
+
+                                    <TextView
+                                        android:id="@+id/titlePucUpto"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="@dimen/_5sdp"
+                                        android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                        android:maxLines="1"
+                                        android:text="@string/puc_valid_upto"
+                                        android:textColor="#6A6A6A"
+                                        android:textSize="@dimen/_11ssp" />
+
+                                    <TextView
+                                        android:id="@+id/tvPucUpto"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                        android:maxLines="1"
+                                        android:text=""
+                                        android:textColor="#3E2089"
+                                        android:textSize="@dimen/_9ssp" />
+
+
+                                    <TextView
+                                        android:id="@+id/titleTaxPaidUpto"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="@dimen/_5sdp"
+                                        android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                        android:maxLines="1"
+                                        android:text="@string/tax_paid_upto"
+                                        android:textColor="#6A6A6A"
+                                        android:textSize="@dimen/_11ssp" />
+
+                                    <TextView
+                                        android:id="@+id/tvTaxUpTo"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                        android:maxLines="1"
+                                        android:text=""
+                                        android:textColor="#3E2089"
+                                        android:textSize="@dimen/_9ssp" />
+
+
+
+
+                                    <!--                            <TextView-->
+                                    <!--                                android:id="@+id/titlePucNumber"-->
+                                    <!--                                android:layout_width="match_parent"-->
+                                    <!--                                android:layout_height="wrap_content"-->
+                                    <!--                                android:layout_marginTop="@dimen/_5sdp"-->
+                                    <!--                                android:fontFamily="@font/bai_jamjuree_semi_bold"-->
+                                    <!--                                android:maxLines="1"-->
+                                    <!--                                android:text="@string/puc_number"-->
+                                    <!--                                android:textColor="#6A6A6A"-->
+                                    <!--                                android:textSize="@dimen/_11ssp" />-->
+
+                                    <!--                            <TextView-->
+                                    <!--                                android:id="@+id/tvPucNumber"-->
+                                    <!--                                android:layout_width="match_parent"-->
+                                    <!--                                android:layout_height="wrap_content"-->
+                                    <!--                                android:fontFamily="@font/bai_jamjuree_semi_bold"-->
+                                    <!--                                android:maxLines="1"-->
+                                    <!--                                android:text=""-->
+                                    <!--                                android:textColor="#3E2089"-->
+                                    <!--                                android:textSize="@dimen/_9ssp" />-->
+
+                                    <!--                            <TextView-->
+                                    <!--                                android:id="@+id/titleRegistrationAut"-->
+                                    <!--                                android:layout_width="match_parent"-->
+                                    <!--                                android:layout_height="wrap_content"-->
+                                    <!--                                android:layout_marginTop="@dimen/_5sdp"-->
+                                    <!--                                android:fontFamily="@font/bai_jamjuree_semi_bold"-->
+                                    <!--                                android:maxLines="1"-->
+                                    <!--                                android:text="@string/registration_authority1"-->
+                                    <!--                                android:textColor="#6A6A6A"-->
+                                    <!--                                android:textSize="@dimen/_11ssp" />-->
+
+                                    <!--                            <TextView-->
+                                    <!--                                android:id="@+id/tvRegistrationAut"-->
+                                    <!--                                android:layout_width="match_parent"-->
+                                    <!--                                android:layout_height="wrap_content"-->
+                                    <!--                                android:fontFamily="@font/bai_jamjuree_semi_bold"-->
+                                    <!--                                android:maxLines="1"-->
+                                    <!--                                android:text=""-->
+                                    <!--                                android:textColor="#3E2089"-->
+                                    <!--                                android:textSize="@dimen/_9ssp" />-->
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/_2sdp"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical">
+
+                                    <!--                        <TextView-->
+                                    <!--                            android:id="@+id/titleEnginNo"-->
+                                    <!--                            android:layout_width="match_parent"-->
+                                    <!--                            android:layout_height="wrap_content"-->
+                                    <!--                            android:layout_marginTop="@dimen/_5sdp"-->
+                                    <!--                            android:fontFamily="@font/bai_jamjuree_semi_bold"-->
+                                    <!--                            android:maxLines="1"-->
+                                    <!--                            android:text="@string/engine_number1"-->
+                                    <!--                            android:textColor="#6A6A6A"-->
+                                    <!--                            android:textSize="@dimen/_11ssp" />-->
+
+                                    <!--                        <TextView-->
+                                    <!--                            android:id="@+id/tvEngineName"-->
+                                    <!--                            android:layout_width="match_parent"-->
+                                    <!--                            android:layout_height="wrap_content"-->
+                                    <!--                            android:fontFamily="@font/bai_jamjuree_bold"-->
+                                    <!--                            android:maxLines="1"-->
+                                    <!--                            android:text=""-->
+                                    <!--                            android:textColor="#942D0A"-->
+                                    <!--                            android:textSize="@dimen/_12ssp" />-->
+
+                                    <TextView
+                                        android:id="@+id/titleModel"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="@dimen/_5sdp"
+                                        android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                        android:maxLines="1"
+                                        android:text="@string/model1"
+                                        android:textColor="#6A6A6A"
+                                        android:textSize="@dimen/_11ssp" />
+
+                                    <TextView
+                                        android:id="@+id/tvModel"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                        android:maxLines="1"
+                                        android:text=""
+                                        android:textColor="#3E2089"
+                                        android:textSize="@dimen/_9ssp" />
+
+                                    <TextView
+                                        android:id="@+id/titleRcStatus"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="@dimen/_5sdp"
+                                        android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                        android:maxLines="1"
+                                        android:text="@string/rc_status"
+                                        android:textColor="#6A6A6A"
+                                        android:textSize="@dimen/_11ssp" />
+
+                                    <TextView
+                                        android:id="@+id/tvRcStatus"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                        android:maxLines="1"
+                                        android:text=""
+                                        android:textColor="#3E2089"
+                                        android:textSize="@dimen/_9ssp" />
+
+                                    <!--                            <TextView-->
+                                    <!--                                android:id="@+id/titleRegistrationDate"-->
+                                    <!--                                android:layout_width="match_parent"-->
+                                    <!--                                android:layout_height="wrap_content"-->
+                                    <!--                                android:layout_marginTop="@dimen/_5sdp"-->
+                                    <!--                                android:fontFamily="@font/bai_jamjuree_semi_bold"-->
+                                    <!--                                android:maxLines="1"-->
+                                    <!--                                android:text="@string/registration_date2"-->
+                                    <!--                                android:textColor="#6A6A6A"-->
+                                    <!--                                android:textSize="@dimen/_11ssp" />-->
+
+                                    <!--                            <TextView-->
+                                    <!--                                android:id="@+id/tvRegistrationDate"-->
+                                    <!--                                android:layout_width="match_parent"-->
+                                    <!--                                android:layout_height="wrap_content"-->
+                                    <!--                                android:fontFamily="@font/bai_jamjuree_semi_bold"-->
+                                    <!--                                android:maxLines="1"-->
+                                    <!--                                android:text=""-->
+                                    <!--                                android:textColor="#3E2089"-->
+                                    <!--                                android:textSize="@dimen/_9ssp" />-->
+
+                                    <TextView
+                                        android:id="@+id/titleInsUpto"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="@dimen/_5sdp"
+                                        android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                        android:maxLines="1"
+                                        android:text="@string/insurance_valid_upto"
+                                        android:textColor="#6A6A6A"
+                                        android:textSize="@dimen/_11ssp" />
+
+                                    <TextView
+                                        android:id="@+id/tvInsUpto"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                        android:maxLines="1"
+                                        android:text=""
+                                        android:textColor="#3E2089"
+                                        android:textSize="@dimen/_9ssp" />
+
+                                    <!--                            <TextView-->
+                                    <!--                                android:id="@+id/titlePermitValidUpto"-->
+                                    <!--                                android:layout_width="match_parent"-->
+                                    <!--                                android:layout_height="wrap_content"-->
+                                    <!--                                android:layout_marginTop="@dimen/_5sdp"-->
+                                    <!--                                android:fontFamily="@font/bai_jamjuree_semi_bold"-->
+                                    <!--                                android:maxLines="1"-->
+                                    <!--                                android:text="@string/permit_valid_upto"-->
+                                    <!--                                android:textColor="#6A6A6A"-->
+                                    <!--                                android:textSize="@dimen/_11ssp" />-->
+
+                                    <!--                            <TextView-->
+                                    <!--                                android:id="@+id/tvPermitValidUpto"-->
+                                    <!--                                android:layout_width="match_parent"-->
+                                    <!--                                android:layout_height="wrap_content"-->
+                                    <!--                                android:fontFamily="@font/bai_jamjuree_semi_bold"-->
+                                    <!--                                android:maxLines="1"-->
+                                    <!--                                android:text=""-->
+                                    <!--                                android:textColor="#3E2089"-->
+                                    <!--                                android:textSize="@dimen/_9ssp" />-->
+
+                                    <TextView
+                                        android:id="@+id/titleNationalPermit2"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="@dimen/_5sdp"
+                                        android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                        android:maxLines="1"
+                                        android:text="@string/permit_5_year"
+                                        android:textColor="#6A6A6A"
+                                        android:textSize="@dimen/_11ssp" />
+
+                                    <TextView
+                                        android:id="@+id/tvNationalPermit2"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                        android:maxLines="1"
+                                        android:text=""
+                                        android:textColor="#3E2089"
+                                        android:textSize="@dimen/_9ssp" />
+
+                                    <TextView
+                                        android:id="@+id/titleFitnessUpto"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="@dimen/_5sdp"
+                                        android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                        android:maxLines="1"
+                                        android:text="@string/fitness_valid_upto"
+                                        android:textColor="#6A6A6A"
+                                        android:textSize="@dimen/_11ssp" />
+
+                                    <TextView
+                                        android:id="@+id/tvFitnessUpto"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                        android:maxLines="1"
+                                        android:text=""
+                                        android:textColor="#3E2089"
+                                        android:textSize="@dimen/_9ssp" />
+
+                                    <!--                            <TextView-->
+                                    <!--                                android:id="@+id/titlePucUpto"-->
+                                    <!--                                android:layout_width="match_parent"-->
+                                    <!--                                android:layout_height="wrap_content"-->
+                                    <!--                                android:layout_marginTop="@dimen/_5sdp"-->
+                                    <!--                                android:fontFamily="@font/bai_jamjuree_semi_bold"-->
+                                    <!--                                android:maxLines="1"-->
+                                    <!--                                android:text="@string/puc_valid_upto"-->
+                                    <!--                                android:textColor="#6A6A6A"-->
+                                    <!--                                android:textSize="@dimen/_11ssp" />-->
+
+                                    <!--                            <TextView-->
+                                    <!--                                android:id="@+id/tvPucUpto"-->
+                                    <!--                                android:layout_width="match_parent"-->
+                                    <!--                                android:layout_height="wrap_content"-->
+                                    <!--                                android:fontFamily="@font/bai_jamjuree_semi_bold"-->
+                                    <!--                                android:maxLines="1"-->
+                                    <!--                                android:text=""-->
+                                    <!--                                android:textColor="#3E2089"-->
+                                    <!--                                android:textSize="@dimen/_9ssp" />-->
+
+                                    <TextView
+                                        android:id="@+id/titleFuelType"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="@dimen/_5sdp"
+                                        android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                        android:maxLines="1"
+                                        android:text="@string/fuel_type1"
+                                        android:textColor="#6A6A6A"
+                                        android:textSize="@dimen/_11ssp" />
+
+                                    <TextView
+                                        android:id="@+id/tvFuelType"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                        android:maxLines="1"
+                                        android:text=""
+                                        android:textColor="#3E2089"
+                                        android:textSize="@dimen/_9ssp" />
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/titleRegistrationAut"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                android:maxLines="1"
+                                android:text="@string/registration_authority1"
+                                android:textColor="#6A6A6A"
+                                android:textSize="@dimen/_11ssp" />
+
+                            <TextView
+                                android:id="@+id/tvRegistrationAut"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                android:maxLines="1"
+                                android:text=""
+                                android:textColor="#3E2089"
+                                android:textSize="@dimen/_9ssp" />
+
+                            <TextView
+                                android:id="@+id/titleAddress"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                android:maxLines="1"
+                                android:text="@string/address"
+                                android:textColor="#6A6A6A"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:textSize="@dimen/_11ssp" />
+
+                            <TextView
+                                android:id="@+id/tvAddress"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                android:textColor="#3E2089"
+                                android:textSize="@dimen/_9ssp" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_1sdp"
+                                android:layout_marginTop="@dimen/_10sdp"
+                                android:layout_marginBottom="@dimen/_4sdp"
+                                android:background="#B6B3B1" />
+
+                            <TextView
+                                android:id="@+id/tvVehicleDetailVerified"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_10sdp"
+                                android:fontFamily="@font/bai_jamjuree_medium"
+                                android:textColor="#870583"
+                                android:textSize="@dimen/_14ssp"
+                                android:layout_marginBottom="@dimen/_12sdp"/>
+
+                        </LinearLayout>
+
+
+
+                    </RelativeLayout>
+
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/okLay"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginBottom="@dimen/_20sdp">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/btnOk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:onClick="backScreen"
+                            app:cardBackgroundColor="#5D3BB1"
+                            app:cardCornerRadius="@dimen/_10sdp"
+                            app:cardElevation="@dimen/_4sdp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:strokeColor="#3E2089"
+                            app:strokeWidth="@dimen/_2sdp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="@dimen/_50sdp"
+                                android:layout_marginVertical="@dimen/_5sdp"
+                                android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                android:text="@string/ok"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/_13ssp" />
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
+
+            </ScrollView>
+
+        </RelativeLayout>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

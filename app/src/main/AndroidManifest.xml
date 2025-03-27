@@ -37,7 +37,7 @@
         tools:replace="android:allowBackup,android:icon"
         tools:targetApi="31">
         <activity
-            android:name=".presenter.view.activity.truck_owner.TruckSupplierDetailActivity"
+            android:name=".presenter.view.activity.truck_supplier.TruckSupplierDetailActivity"
             android:exported="false" />
         <activity
             android:name=".presenter.view.activity.profile.TotalAddLoadScreen"
@@ -51,10 +51,7 @@
         <activity
             android:name=".presenter.view.activity.other.WelcomeLocationActivity"
             android:exported="false" />
-        <activity
-            android:name=".presenter.view.activity.other.DashboardActivity"
-            android:exported="false"
-            android:theme="@style/Base.Theme.FieldOfficer" />
+
         <activity
             android:name=".presenter.view.activity.auth.forget.ResetPasswordActivity"
             android:exported="false" />
@@ -89,7 +86,7 @@
             android:name=".presenter.view.activity.business_associate.BAFollowupActivity"
             android:exported="false" />
         <activity
-            android:name=".presenter.view.activity.truck_owner.TSFollowupActivity"
+            android:name=".presenter.view.activity.truck_supplier.TSFollowupActivity"
             android:exported="false" />
         <activity
             android:name=".presenter.view.activity.growth_partner.GPFollowupActivity"
@@ -124,7 +121,7 @@
             android:exported="false" />
 
         <activity
-            android:name=".presenter.view.activity.truck_owner.MyTSTeamOnBActivity"
+            android:name=".presenter.view.activity.truck_supplier.MyTSTeamOnBActivity"
             android:exported="false" />
 
         <activity
@@ -135,14 +132,16 @@
             android:name=".presenter.view.activity.business_associate.BAStartTripActivity"
             android:exported="false" />
 
-
+        <activity
+            android:name=".presenter.view.activity.truck_supplier.TSStartTripActivity"
+            android:exported="false" />
 
         <activity
             android:name=".presenter.view.activity.business_associate.BAScheduledMeetingActivity"
             android:exported="false" />
 
         <activity
-            android:name=".presenter.view.activity.truck_owner.TSScheduledMeetingActivity"
+            android:name=".presenter.view.activity.truck_supplier.TSScheduledMeetingActivity"
             android:exported="false" />
 
         <activity
@@ -158,14 +157,14 @@
             android:exported="false" />
 
         <activity
-            android:name=".presenter.view.activity.business_associate.BA_NewOnboardingActivity"
+            android:name=".presenter.view.activity.business_associate.BAnOnboardingActivity"
             android:exported="false" />
 
         <activity
-            android:name=".presenter.view.activity.growth_partner.GA_NewOnboardingActivity"
+            android:name=".presenter.view.activity.growth_partner.GPOnboardingActivity"
             android:exported="false" />
         <activity
-            android:name=".presenter.view.activity.growth_partner.GP_PersonalDetailUpdateActivity"
+            android:name=".presenter.view.activity.growth_partner.GPPersonalDetailUpdateActivity"
             android:exported="false" />
         <activity
             android:name=".presenter.view.activity.growth_partner.GPOnboardingKYCActivity"
@@ -175,7 +174,9 @@
             android:name=".presenter.view.activity.miscellaneous.MiscActivity"
             android:exported="false" />
 
-
+        <activity
+            android:name=".presenter.view.activity.subscription.SubscriptionActivity"
+            android:exported="false" />
 
         <service
             android:name=".presenter.utils.MyFirebaseMessagingService"

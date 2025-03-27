@@ -109,5 +109,16 @@
     <color name="tr_red">#26C60E15</color>
     <color name="quantum_yellow800">#f9a825</color>
     <color name="blue_tr80">#803E2089</color>
+    <color name="blue76">#C23E2089</color>
+
+
+    <color name="card_dis">#989898</color>
+    <color name="optinal_text_color">#444444</color>
+    <color name="unsellect_text_color">#6A6A6A</color>
+    <color name="active_color">#329217</color>
+    <color name="not_active_color">#3E2089</color>
+    <color name="checkout_red">#F83E3E</color>
+    <color name="disable_text_color">#7F8C8D</color>
+    <color name="text_red">#C60E15</color>
 
 </resources>

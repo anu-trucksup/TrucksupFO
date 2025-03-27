@@ -29,7 +29,6 @@ import com.bumptech.glide.Glide
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.data.model.VehicleDetail
 import com.trucksup.field_officer.databinding.ActivityInsuranceScreenBinding
-import com.trucksup.field_officer.databinding.VehicleDetailsDialogLayoutBinding
 import com.trucksup.field_officer.presenter.common.dialog.FinaceSubmitBox
 import com.trucksup.field_officer.presenter.common.image_picker.GetImage
 import com.trucksup.field_officer.presenter.common.image_picker.ImagePickerDailog
@@ -1334,7 +1333,7 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage {
         startActivityForResult(camera_intent, 11)
     }
 
-    private fun viewVehicleDetails(data: VehicleDetail) {
+   /* private fun viewVehicleDetails(data: VehicleDetail) {
         val builder = AlertDialog.Builder(this@InsuranceActivity)
         val binding =
             VehicleDetailsDialogLayoutBinding.inflate(LayoutInflater.from(this@InsuranceActivity))
@@ -1396,20 +1395,20 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage {
         }
 
         binding.imgPrevPolicyDoc.setOnClickListener {
-            /* val intent = Intent(this, ViewPdfScreen::class.java)
+            *//* val intent = Intent(this, ViewPdfScreen::class.java)
              intent.putExtra(
                  "pdf",
                  data.policyDocUrl
              )
              intent.putExtra("button", "n")
-             startActivity(intent)*/
+             startActivity(intent)*//*
         }
 
         //ok button
         binding.btnOk.setOnClickListener {
             dialog.dismiss()
         }
-    }
+    }*/
 
     private fun getImageToken(file: File) {
         /*  showProgressDialog()

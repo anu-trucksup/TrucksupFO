@@ -20,6 +20,7 @@ import com.trucksup.field_officer.data.model.FromToModel
 import com.trucksup.field_officer.databinding.ActivityOwnerScheduledMeetingBinding
 import com.trucksup.field_officer.databinding.AddNewTruckLayoutBinding
 import com.trucksup.field_officer.databinding.PreferredLaneDialogBinding
+import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.view.adapter.TrucksDetailsAdap
 import com.trucksup.fieldofficer.adapter.PreferredLaneAdap
 import java.io.File
@@ -27,7 +28,7 @@ import java.io.FileOutputStream
 import java.io.IOException
 import kotlin.collections.ArrayList
 
-class BAScheduledMeetingActivity : AppCompatActivity(), PreferredLaneAdap.ControllerListener,
+class BAScheduledMeetingActivity : BaseActivity(), PreferredLaneAdap.ControllerListener,
     TrucksDetailsAdap.ControllerListener {
 
     private lateinit var binding: ActivityOwnerScheduledMeetingBinding
@@ -223,14 +224,7 @@ class BAScheduledMeetingActivity : AppCompatActivity(), PreferredLaneAdap.Contro
         }
     }
 
-    private fun adjustFontScale(configuration: Configuration, scale: Float) {
-        configuration.fontScale = scale
-        val metrics = resources.displayMetrics
-        val wm = getSystemService(WINDOW_SERVICE) as WindowManager
-        wm.defaultDisplay.getMetrics(metrics)
-        metrics.scaledDensity = configuration.fontScale * metrics.density
-        baseContext.resources.updateConfiguration(configuration, metrics)
-    }
+
 
     override fun onDelete(position: Int) {
         preferredLaneList.removeAt(position)

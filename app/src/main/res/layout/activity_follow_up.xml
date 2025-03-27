@@ -91,7 +91,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center"
                                     android:gravity="end"
-                                    android:text="30"
+                                    android:text="35"
                                     android:textColor="@color/black" />
 
 

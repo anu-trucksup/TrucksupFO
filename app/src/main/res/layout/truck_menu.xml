@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:background="@color/white"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/_10sdp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/add"
+            android:drawableStart="@drawable/ic_add_plus_icon"
+            android:drawableTint="@color/black"
+            android:id="@+id/add"
+            android:textColor="@color/black"
+            android:fontFamily="@font/bai_jamjuree_medium"
+            android:textSize="@dimen/_13ssp"
+            android:drawablePadding="@dimen/_10sdp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/remove"
+            android:id="@+id/remove"
+            android:drawableStart="@drawable/ic_delete_icon"
+            android:drawableTint="@color/black"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/bai_jamjuree_medium"
+            android:textSize="@dimen/_13ssp"
+            android:drawablePadding="@dimen/_10sdp"/>
+
+
+
+    </LinearLayout>
+
+</RelativeLayout>

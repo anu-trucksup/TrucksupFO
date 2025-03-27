@@ -42,8 +42,8 @@ class BusinessAssociatesNewActivity : AppCompatActivity() {
 
         try {
             val adapter = FragmentAdapter(this)
-            val fragment1: Fragment? = ActiveBAFragment()
-            val fragment2: Fragment? = ActiveBAFragment()
+            val fragment1: Fragment = ActiveBAFragment()
+            val fragment2: Fragment = ActiveBAFragment()
             adapter.addFragment(fragment1)
             adapter.addFragment(fragment2)
             binding.viewPager2.adapter = adapter

@@ -50,7 +50,6 @@ class WelcomeLocationActivity : BaseActivity() {
 
     }
 
-
     private fun checkPermissions(permissions: ArrayList<String>) {
         binding.addressShimmer.visibility = View.VISIBLE
         binding.addressUpdate.visibility = View.GONE
@@ -125,6 +124,5 @@ class WelcomeLocationActivity : BaseActivity() {
             .setCancelable(false)
             .show()
     }
-
 
 }

@@ -13,42 +13,97 @@
         android:background="#123E2089"
         android:padding="@dimen/_10sdp">
 
-        <TextView
-            android:id="@+id/tvTruckNumber"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/bai_jamjuree_medium"
-            android:lines="1"
-            android:text="Truck Number *"
-            android:textColor="@color/blue"
-            android:textSize="@dimen/_10ssp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/etTruckNumber"
+        <LinearLayout
+            android:id="@+id/ll_type_source"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:layout_weight="1"
-            android:background="@drawable/editbox_outborder"
-            android:fontFamily="@font/bai_jamjuree_medium"
-            android:hint="Commercial truck number"
-            android:lines="1"
-            android:paddingHorizontal="@dimen/_8sdp"
-            android:paddingVertical="@dimen/_5sdp"
-            android:textColorHint="#B34D4D4D"
-            android:textSize="@dimen/_11ssp"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="@dimen/_6sdp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_4sdp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <CheckBox
+                    android:id="@+id/checkboxOwn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ownedVehicle"
+                    android:fontFamily="@font/bai_jamjuree_semi_bold"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/blue"
+                    android:textSize="@dimen/_11ssp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_4sdp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <CheckBox
+                    android:id="@+id/checkboxAttach"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/attached_vehicle"
+                    android:fontFamily="@font/bai_jamjuree_semi_bold"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/blue"
+                    android:textSize="@dimen/_11ssp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_truckno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/_6sdp"
+            app:layout_constraintTop_toBottomOf="@+id/ll_type_source"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvTruckNumber" />
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/tvTruckNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/bai_jamjuree_medium"
+                android:lines="1"
+                android:text="@string/truck_number"
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_10ssp" />
+
+            <EditText
+                android:id="@+id/etTruckNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_weight="1"
+                android:background="@drawable/editbox_outborder"
+                android:fontFamily="@font/bai_jamjuree_medium"
+                android:hint="Commercial truck number"
+                android:lines="1"
+                android:paddingHorizontal="@dimen/_8sdp"
+                android:paddingVertical="@dimen/_5sdp"
+                android:textColorHint="#B34D4D4D"
+                android:textSize="@dimen/_11ssp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTruckNumber" />
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/l1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/etTruckNumber"
+            app:layout_constraintTop_toBottomOf="@+id/ll_truckno"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="@dimen/_10sdp"
@@ -243,7 +298,7 @@
                 android:fontFamily="@font/bai_jamjuree_medium"
                 android:paddingHorizontal="@dimen/_14sdp"
                 android:paddingVertical="@dimen/_2sdp"
-                android:text="@string/cancel"
+                android:text="@string/cancel_u"
                 android:textColor="@color/blue"
                 android:textSize="@dimen/_14ssp" />
 

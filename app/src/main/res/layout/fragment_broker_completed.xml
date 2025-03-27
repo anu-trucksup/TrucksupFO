@@ -139,7 +139,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:visibility="visible"
-        tools:listitem="@layout/owner_completed_item"
+        tools:listitem="@layout/ts_completed_item"
         app:layout_constraintTop_toBottomOf="@+id/l1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

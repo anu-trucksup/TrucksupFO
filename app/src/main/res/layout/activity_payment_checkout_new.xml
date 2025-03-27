@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/blue"
+        tools:context=".activities.vehicleVerify.PaymentCheckoutNewActivity">
+
+        <!--        <androidx.cardview.widget.CardView-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:id="@+id/tt"-->
+        <!--            android:layout_height="@dimen/_34sdp"-->
+        <!--            app:cardBackgroundColor="@color/appbg"-->
+        <!--            app:cardElevation="@dimen/_5sdp">-->
+        <!--            <LinearLayout-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="match_parent"-->
+        <!--                android:orientation="horizontal">-->
+        <!--                <ImageButton-->
+        <!--                    android:layout_width="@dimen/_30sdp"-->
+        <!--                    android:layout_height="match_parent"-->
+        <!--                    android:layout_marginStart="@dimen/_11sdp"-->
+        <!--                    android:src="@drawable/ic_back_icon"-->
+        <!--                    android:onClick="backScreen"-->
+        <!--                    android:background="@color/transparent"/>-->
+        <!--                <TextView-->
+        <!--                    android:layout_width="match_parent"-->
+        <!--                    android:layout_height="match_parent"-->
+        <!--                    android:text="@string/paymentCheckout"-->
+        <!--                    android:gravity="center_vertical"-->
+        <!--                    android:layout_marginStart="@dimen/_20sdp"-->
+        <!--                    android:textSize="@dimen/_14ssp"-->
+        <!--                    android:fontFamily="@font/bai_jamjuree_semi_bold"-->
+        <!--                    android:textColor="@color/blue"/>-->
+        <!--            </LinearLayout>-->
+        <!--        </androidx.cardview.widget.CardView>-->
+
+        <LinearLayout
+            android:id="@+id/tt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/blue"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/_16sdp"
+            android:paddingVertical="@dimen/_16sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="@dimen/_27sdp"
+                android:layout_height="@dimen/_27sdp"
+                android:background="@drawable/circal_weight"
+                android:onClick="backScreen"
+                android:src="@drawable/back_icon" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="@dimen/_12sdp"
+                android:layout_weight="1"
+                android:fontFamily="@font/bai_jamjuree_semi_bold"
+                android:gravity="center"
+                android:text="@string/paymentCheckout"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_17ssp" />
+
+            <ImageView
+                android:id="@+id/btnTransactionHis"
+                android:layout_width="@dimen/_27sdp"
+                android:layout_height="@dimen/_27sdp"
+                android:src="@drawable/transaction_his_icon"
+                android:visibility="invisible" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/payLayout"
+            android:layout_below="@+id/tt">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_4sdp">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cd"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_16sdp"
+                    android:layout_marginVertical="@dimen/_8sdp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="@dimen/_10sdp"
+                    app:cardElevation="@dimen/_8sdp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_8sdp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/planName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:fontFamily="@font/bai_jamjuree_semi_bold"
+                            android:gravity="center_vertical"
+                            android:text=""
+                            android:textColor="@color/blue"
+                            android:textSize="@dimen/_17ssp" />
+
+                        <TextView
+                            android:id="@+id/loadCount"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:fontFamily="@font/bai_jamjuree_medium"
+                            android:gravity="center_vertical"
+                            android:text=""
+                            android:textColor="@color/blue"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <TextView
+                            android:id="@+id/plansDes"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:fontFamily="@font/bai_jamjuree_medium"
+                            android:gravity="center_vertical"
+                            android:text=""
+                            android:textColor="@color/blue"
+                            android:textSize="@dimen/_12ssp" />
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.core.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/cd"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/addload_bg">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="@dimen/_16sdp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                android:gravity="center_vertical"
+                                android:text="@string/paymentDetails"
+                                android:textColor="@color/blue"
+                                android:textSize="@dimen/_14ssp" />
+
+
+                            <LinearLayout
+                                android:id="@+id/newPlanLayout"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_50sdp"
+                                android:layout_marginTop="@dimen/_16sdp"
+                                android:background="@drawable/checkout_gray_outline_box"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginStart="@dimen/_10sdp"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                    android:gravity="center_vertical"
+                                    android:text="@string/totalAmountTaxes"
+                                    android:textColor="#8D8A94"
+                                    android:textSize="@dimen/_11ssp" />
+
+                                <TextView
+                                    android:id="@+id/amount"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="2"
+                                    android:fontFamily="@font/bai_jamjuree_bold"
+                                    android:gravity="center"
+                                    android:text=""
+                                    android:textColor="@color/black"
+                                    android:textSize="@dimen/_14ssp" />
+                            </LinearLayout>
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="@dimen/_16sdp"
+                                android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                android:gravity="center_vertical"
+                                android:text="@string/gstNo"
+                                android:textColor="@color/blue"
+                                android:textSize="@dimen/_14ssp" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_40sdp"
+                                android:layout_marginTop="@dimen/_12sdp"
+                                android:background="@drawable/checkout_gray_outline_box"
+                                android:orientation="horizontal">
+
+                                <EditText
+                                    android:id="@+id/gst"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@color/transparent"
+                                    android:digits="1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                                    android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                    android:hint="@string/gstNohint"
+                                    android:inputType="textCapCharacters"
+                                    android:maxLength="15"
+                                    android:paddingStart="@dimen/_8sdp"
+                                    android:paddingEnd="@dimen/_8sdp"
+                                    android:textColor="@color/secondry_text"
+                                    android:textColorHint="#cccccc"
+                                    android:textSize="@dimen/_13ssp" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/titlePlans"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="@dimen/_20sdp"
+                                android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                android:gravity="center_vertical"
+                                android:text="@string/you_can_buy_vehicle_tracking_service_also"
+                                android:textColor="@color/blue"
+                                android:textSize="@dimen/_14ssp"
+                                android:visibility="visible" />
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/extraPlan"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+                            <!--                        <TextView-->
+                            <!--                            android:layout_width="match_parent"-->
+                            <!--                            android:layout_height="wrap_content"-->
+                            <!--                            android:text=""-->
+                            <!--                            android:gravity="center_vertical"-->
+                            <!--                            android:id="@+id/remaningVehical"-->
+                            <!--                            android:textSize="@dimen/_10ssp"-->
+                            <!--                            android:layout_weight="1"-->
+                            <!--                            android:fontFamily="@font/bai_jamjuree_semi_bold"-->
+                            <!--                            android:textColor="#870583"/>-->
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </androidx.core.widget.NestedScrollView>
+
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/payLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/_5sdp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_weight="1"
+                android:fontFamily="@font/bai_jamjuree_semi_bold"
+                android:gravity="center_vertical"
+                android:text="@string/allPricesInclusiveOfGST"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_10ssp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/btnBuy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/_10sdp"
+                    app:cardCornerRadius="@dimen/_10sdp"
+                    app:cardElevation="@dimen/_4sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/card2"
+                    app:layout_constraintEnd_toEndOf="@+id/card2"
+                    app:layout_constraintStart_toStartOf="@+id/card2"
+                    app:layout_constraintTop_toBottomOf="@+id/card2"
+                    app:strokeColor="@color/white"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/button_background_2"
+                        android:orientation="horizontal"
+                        android:paddingVertical="@dimen/_5sdp"
+                        android:paddingStart="@dimen/_5sdp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_10sdp"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/bai_jamjuree_medium"
+                                android:text="@string/toPay"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/_11ssp" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/_10sdp"
+                                    android:fontFamily="@font/bai_jamjuree_bold"
+                                    android:gravity="center_vertical"
+                                    android:text="@string/rs"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/_13ssp" />
+
+                                <TextView
+                                    android:id="@+id/totleAmount"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/_5sdp"
+                                    android:fontFamily="@font/bai_jamjuree_bold"
+                                    android:gravity="center_vertical"
+                                    android:text=""
+
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/_13ssp" />
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1.5">
+
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                app:cardBackgroundColor="@color/white"
+                                app:cardCornerRadius="@dimen/_15sdp"
+                                app:cardElevation="@dimen/_5sdp"
+                                app:strokeColor="@color/white"
+                                app:strokeWidth="@dimen/_1sdp">
+
+                                <RelativeLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="@color/blue">
+
+                                    <TextView
+                                        android:id="@+id/payNow"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:clickable="true"
+                                        android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                        android:onClick="payAmount"
+                                        android:paddingStart="@dimen/_10sdp"
+                                        android:paddingTop="@dimen/_3sdp"
+                                        android:paddingEnd="@dimen/_10sdp"
+                                        android:paddingBottom="@dimen/_3sdp"
+                                        android:text="@string/pay_now"
+                                        android:textColor="@color/white"
+                                        android:textSize="@dimen/_11ssp" />
+                                </RelativeLayout>
+                            </com.google.android.material.card.MaterialCardView>
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+</layout>

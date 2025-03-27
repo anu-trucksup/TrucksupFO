@@ -38,7 +38,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/bai_jamjuree_bold"
                     android:gravity="center"
-                    android:text="Business Officer"
+                    android:text="@string/field_officer"
                     android:textColor="#2e318a"
                     android:textSize="@dimen/_19sdp" />
 

@@ -1,134 +1,85 @@
 package com.trucksup.field_officer.presenter.view.activity.growth_partner
 
-import android.Manifest
-import android.annotation.SuppressLint
-import android.app.AlertDialog
-import android.content.Intent
-import android.location.Geocoder
-import android.location.Location
 import android.os.Bundle
-import android.provider.Settings
-import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
-import com.google.android.gms.location.Priority
-import com.google.android.gms.tasks.CancellationTokenSource
-import com.karumi.dexter.Dexter
-import com.karumi.dexter.MultiplePermissionsReport
-import com.karumi.dexter.PermissionToken
-import com.karumi.dexter.listener.PermissionRequest
-import com.karumi.dexter.listener.multi.MultiplePermissionsListener
+import androidx.viewpager2.widget.ViewPager2
 import com.trucksup.field_officer.R
-import com.trucksup.field_officer.databinding.ActivityFollowupTsBinding
-import com.trucksup.field_officer.presenter.view.fragment.ts.TruckOwnerFragment
+import com.trucksup.field_officer.databinding.GpFollowupActivityBinding
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
-import java.util.Locale
+import com.trucksup.field_officer.presenter.view.fragment.gp.GPCompletedFragment
+import com.trucksup.field_officer.presenter.view.fragment.gp.GPScheduledFragment
+import com.trucksup.fieldofficer.adapter.FragmentAdapter
 
 class GPFollowupActivity : BaseActivity() {
 
-    private lateinit var binding: ActivityFollowupTsBinding
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var binding: GpFollowupActivityBinding
 
-    override fun onStart() {
-        super.onStart()
-        val permissionList = ArrayList<String>()
-        permissionList.add(Manifest.permission.ACCESS_FINE_LOCATION)
-        permissionList.add(Manifest.permission.ACCESS_COARSE_LOCATION)
-        checkPermissions(permissionList)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityFollowupTsBinding.inflate(layoutInflater)
+        binding = GpFollowupActivityBinding.inflate(layoutInflater)
         adjustFontScale(resources.configuration, 1.0f);
         setContentView(binding.root)
 
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        setupViewPager()
 
-        //back button
-        binding.ivBack.setOnClickListener {
-            onBackPressed()
+        setListener()
+    }
+
+    private fun setListener() {
+       /* //find button
+        binding.btnFind.setOnClickListener {
+            binding.viewPager2.setCurrentItem(0, true)
+        }*/
+
+        //scheduled button
+        binding.tabSchedule.setOnClickListener {
+            binding.viewPager2.setCurrentItem(0, true)
         }
 
-        switchFragment(TruckOwnerFragment())
-
+        //completed button
+        binding.tabCompleted.setOnClickListener {
+            binding.viewPager2.setCurrentItem(1, true)
+        }
     }
 
-    private fun switchFragment(fragment: Fragment) {
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.fragment_container, fragment)
-        transaction.commit()
-    }
+    private fun setupViewPager() {
 
-    private fun checkPermissions(permissions: ArrayList<String>) {
-        Dexter.withContext(this@GPFollowupActivity)
-            .withPermissions(
-                permissions
-            )
-            .withListener(object : MultiplePermissionsListener {
-                @SuppressLint("MissingPermission")
-                override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
-                    report?.let {
-                        if (report.areAllPermissionsGranted()) {
-                            fusedLocationClient.getCurrentLocation(
-                                Priority.PRIORITY_HIGH_ACCURACY,
-                                CancellationTokenSource().token
-                            ).addOnSuccessListener { location: Location? ->
-                                try {
-                                    val geocoder =
-                                        Geocoder(this@GPFollowupActivity, Locale.getDefault())
-                                    val addresses = geocoder.getFromLocation(
-                                        location!!.latitude,
-                                        location!!.longitude,
-                                        1
-                                    )
-                                  /*  binding.addressUpdate.text =
-                                        addresses?.get(0)?.getAddressLine(0)
-                                    binding.addressShimmer.visibility = View.GONE
-                                    binding.addressUpdate.visibility = View.VISIBLE*/
-                                } catch (e: Exception) {
-//                                    val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-//                                    startActivity(intent)
-                                    showLocationDisabledDialog()
-                                }
-                            }
-                        }
+        try {
+            val adapter = FragmentAdapter(this)
+            val fragment1: Fragment = GPScheduledFragment()
+            val fragment2: Fragment = GPCompletedFragment()
+            adapter.addFragment(fragment1)
+            adapter.addFragment(fragment2)
 
-                        if (report.isAnyPermissionPermanentlyDenied) {
-//                            val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-//                            startActivity(intent)
-                            showLocationDisabledDialog()
-                        }
+            binding.viewPager2.adapter = adapter
+            binding.viewPager2.isSaveEnabled = false
+
+            binding.viewPager2.registerOnPageChangeCallback(object :
+                ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    if (position == 0) {
+                        binding.tabSchedule.setBackgroundDrawable(ContextCompat.getDrawable(this@GPFollowupActivity, R.drawable.ba_tab_unselected_background));
+                        binding.tabCompleted.setBackgroundDrawable(ContextCompat.getDrawable(this@GPFollowupActivity, R.drawable.tab_selected_background));
+                        binding.txtSchedule.setTextColor(resources.getColor(R.color.white))
+                        binding.txtComplete.setTextColor(resources.getColor(R.color.blue))
+
+                    } else if (position == 1) {
+
+                        binding.tabCompleted.setBackgroundDrawable(ContextCompat.getDrawable(this@GPFollowupActivity, R.drawable.ba_tab_unselected_background));
+                        binding.tabSchedule.setBackgroundDrawable(ContextCompat.getDrawable(this@GPFollowupActivity, R.drawable.tab_selected_background));
+                        binding.txtSchedule.setTextColor(resources.getColor(R.color.blue))
+                        binding.txtComplete.setTextColor(resources.getColor(R.color.white))
+
                     }
                 }
-
-                override fun onPermissionRationaleShouldBeShown(
-                    permissions: MutableList<PermissionRequest>?,
-                    token: PermissionToken?
-                ) {
-                    // Remember to invoke this method when the custom rationale is closed
-                    // or just by default if you don't want to use any custom rationale.
-                    token?.continuePermissionRequest()
-                }
             })
-            .withErrorListener {
-                Toast.makeText(this, it.name, Toast.LENGTH_SHORT).show()
-            }
-            .check()
-    }
+        } catch (e: Exception) {
 
-    private fun showLocationDisabledDialog() {
-        AlertDialog.Builder(this)
-            .setTitle("Location Services Disabled")
-            .setMessage("Location services are required for this app. Please enable them in the settings.")
-            .setPositiveButton("Open Settings") { _, _ ->
-                val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-                startActivity(intent)
-            }
-            .setCancelable(false)
-            .show()
-    }
+        }
 
+    }
 
 }

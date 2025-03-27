@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_margin="@dimen/_8sdp"
+    android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:fontFamily="@font/bai_jamjuree_medium"
+        android:text="Why to buy subscription"
+        android:textColor="@color/secondry_text"
+        android:id="@+id/ans"
+        android:textSize="@dimen/_11sdp" />
+</RelativeLayout>

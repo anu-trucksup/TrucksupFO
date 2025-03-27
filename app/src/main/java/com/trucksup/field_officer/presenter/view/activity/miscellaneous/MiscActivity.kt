@@ -17,8 +17,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.AddMiscLayoutBinding
 import com.trucksup.field_officer.databinding.DateFilterBinding
-import com.trucksup.field_officer.databinding.FragmentMiscBinding
 import com.trucksup.field_officer.databinding.IncompleteDropItemBinding
+import com.trucksup.field_officer.databinding.MiscActivityBinding
 import com.trucksup.field_officer.presenter.utils.NetworkManager
 import com.trucksup.field_officer.presenter.view.adapter.CompleteLead
 import com.trucksup.field_officer.presenter.view.adapter.ICImageAdapter
@@ -33,8 +33,8 @@ import java.io.IOException
 
 class MiscActivity : BaseActivity(), AddMiscInterface {
 
-    private lateinit var binding: FragmentMiscBinding
-    private var aContext: Context? = null
+    private lateinit var binding: MiscActivityBinding
+
     private lateinit var addMiscLayoutBinding: AddMiscLayoutBinding
     private lateinit var incompleteDropItemBinding: IncompleteDropItemBinding
     private var imageList = ArrayList<Bitmap>()
@@ -47,7 +47,7 @@ class MiscActivity : BaseActivity(), AddMiscInterface {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = FragmentMiscBinding.inflate(layoutInflater)
+        binding = MiscActivityBinding.inflate(layoutInflater)
         adjustFontScale(resources.configuration, 1.0f);
         setContentView(binding.root)
 
@@ -84,11 +84,11 @@ class MiscActivity : BaseActivity(), AddMiscInterface {
         }
 
         binding.btnAddMisc.setOnClickListener {
-            if (NetworkManager.isConnect(aContext!!)) {
-                DialogBoxes.addMiscDisc(aContext!!, this)
+            if (NetworkManager.isConnect(this)) {
+                DialogBoxes.addMiscDisc(this, this)
             } else {
                 DialogBoxes.messageDialog(
-                    aContext!!,
+                    this,
                     "You are offline . Please check your internet connection"
                 )
             }
@@ -96,12 +96,12 @@ class MiscActivity : BaseActivity(), AddMiscInterface {
     }
 
     private fun setIncompleteLead() {
-        var list = ArrayList<String>()
+        val list = ArrayList<String>()
         list.add("")
         list.add("")
         binding.rvd1.apply {
-            layoutManager = LinearLayoutManager(aContext, RecyclerView.VERTICAL, false)
-            adapter = IncompleteLead(aContext!!, list).apply {
+            layoutManager = LinearLayoutManager(this@MiscActivity, RecyclerView.VERTICAL, false)
+            adapter = IncompleteLead(this@MiscActivity, list).apply {
                 setOnControllerListeners(object : IncompleteLead.OnControllerListeners {
                     override fun incompleteAddImage(incompleteDropItemBinding: IncompleteDropItemBinding) {
                         this@MiscActivity.incompleteDropItemBinding = incompleteDropItemBinding
@@ -120,15 +120,15 @@ class MiscActivity : BaseActivity(), AddMiscInterface {
         list.add("")
         list.add("")
         binding.rvd2.apply {
-            layoutManager = LinearLayoutManager(aContext, RecyclerView.VERTICAL, false)
-            adapter = CompleteLead(aContext!!, list)
+            layoutManager = LinearLayoutManager(this@MiscActivity, RecyclerView.VERTICAL, false)
+            adapter = CompleteLead(this@MiscActivity, list)
             hasFixedSize()
         }
     }
 
     private fun dateFilterDialog() {
-        val builder = AlertDialog.Builder(aContext)
-        val binding = DateFilterBinding.inflate(LayoutInflater.from(aContext))
+        val builder = AlertDialog.Builder(this)
+        val binding = DateFilterBinding.inflate(LayoutInflater.from(this))
         builder.setView(binding.root)
         val dialog: AlertDialog = builder.create()
         dialog.show()
@@ -201,8 +201,8 @@ class MiscActivity : BaseActivity(), AddMiscInterface {
 
                     addMiscLayoutBinding.rvImage.apply {
                         layoutManager =
-                            LinearLayoutManager(aContext, RecyclerView.HORIZONTAL, false)
-                        adapter = ImageAdapter(aContext!!, imageList)
+                            LinearLayoutManager(this@MiscActivity, RecyclerView.HORIZONTAL, false)
+                        adapter = ImageAdapter(this@MiscActivity, imageList)
                         hasFixedSize()
                     }
                 }
@@ -232,7 +232,7 @@ class MiscActivity : BaseActivity(), AddMiscInterface {
 
     private fun bitmapToFile(bitmap: Bitmap): File? {
         val file =
-            File(aContext?.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "temp_image.jpg")
+            File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "temp_image.jpg")
         try {
             val outputStream = FileOutputStream(file)
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)

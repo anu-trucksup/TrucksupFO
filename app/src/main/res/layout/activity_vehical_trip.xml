@@ -1,0 +1,488 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/main"
+    android:background="@color/blue"
+    tools:context=".activities.trackingAndVerification.VehicalTrip">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_50sdp"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageButton
+                        android:layout_width="@dimen/_27sdp"
+                        android:layout_height="@dimen/_27sdp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:onClick="onBackTrip"
+                        android:id="@+id/postBack"
+                        android:background="@drawable/circal_weight"
+                        android:src="@drawable/back_icon" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/vehicleTracking"
+                        android:textSize="@dimen/_14ssp"
+
+                        android:fontFamily="@font/bai_jamjuree_semi_bold"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:textColor="@color/white"
+                        android:layout_weight="1"/>
+                    <ImageButton
+                        android:id="@+id/help"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/_16ssp"
+                        android:background="#00ffffff"
+                        android:src="@drawable/tulsi_home_icon"
+                        android:visibility="gone"
+                        tools:ignore="UseAppTint" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@drawable/my_load_wight_bg">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+
+
+
+
+
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_margin="@dimen/_12sdp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/activeLayout"
+                    app:cardElevation="@dimen/_5sdp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="@dimen/_8sdp"
+                    app:strokeWidth="0dp"
+                    app:strokeColor="#B6B3B1">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/_10sdp"
+                            android:orientation="vertical">
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:orientation="horizontal">
+                                    <ImageView
+                                        android:layout_width="@dimen/_25sdp"
+                                        android:layout_height="@dimen/_25sdp"
+                                        android:src="@mipmap/vehical_ic_tracking"/>
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_marginTop="@dimen/_2sdp"
+                                        android:layout_height="wrap_content"
+                                        android:id="@+id/vehicalNo"
+                                        android:gravity="center_vertical"
+                                        android:layout_marginStart="@dimen/_8sdp"
+                                        android:textSize="@dimen/_12ssp"
+                                        android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                        android:text="23456789"
+                                        android:textColor="#585858"
+                                        android:drawableEnd="@drawable/arrow_up_right_icon"/>
+
+                                </LinearLayout>
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="3">
+
+                                       <ImageButton
+                                           android:layout_width="wrap_content"
+                                           android:layout_height="wrap_content"
+                                           android:src="@drawable/whatsapp_share_icon"
+                                           android:layout_alignParentEnd="true"
+                                           android:onClick="shareApp"
+                                           android:background="@color/transparent"
+                                           android:tint="@color/green"
+                                           tools:ignore="UseAppTint" />
+
+                                </RelativeLayout>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+
+                                android:orientation="horizontal">
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1">
+
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="@dimen/_28sdp"
+                                        android:id="@+id/date"
+                                        android:textSize="@dimen/_10ssp"
+                                        android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                        android:text=""
+                                        android:textColor="#585858" />
+
+
+                                </RelativeLayout>
+
+
+                            </LinearLayout>
+                        </LinearLayout>
+                    </RelativeLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:strokeWidth="1dp"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:layout_marginEnd="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:layout_marginBottom="@dimen/_6sdp"
+                    app:strokeColor="@color/border_color"
+                    app:cardElevation="@dimen/_4sdp"
+                    app:cardCornerRadius="@dimen/_6sdp"
+                    app:cardBackgroundColor="@color/white">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_margin="@dimen/_8sdp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/fromToLayout"
+                                android:layout_marginTop="@dimen/_6sdp"
+                                android:orientation="horizontal">
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical">
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/from"
+                                        android:textSize="@dimen/_11ssp"
+                                        android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                        android:paddingStart="@dimen/_5sdp"
+                                        android:gravity="center_vertical"
+                                        android:textColor="@color/secondry_text"/>
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text=""
+                                        android:textSize="@dimen/_11ssp"
+                                        android:id="@+id/from"
+                                        android:lines="1"
+                                        android:maxLines="1"
+                                        android:ellipsize="end"
+                                        android:fontFamily="@font/bai_jamjuree_medium"
+                                        android:paddingStart="@dimen/_5sdp"
+                                        android:textColor="@color/blue"/>
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical">
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:layout_marginStart="@dimen/_8sdp"
+                                        android:orientation="vertical">
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="@string/to"
+                                            android:textSize="@dimen/_11ssp"
+                                            android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                            android:paddingStart="@dimen/_5sdp"
+                                            android:gravity="center_vertical"
+                                            android:textColor="@color/secondry_text"/>
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text=""
+                                            android:textSize="@dimen/_11ssp"
+                                            android:id="@+id/to"
+                                            android:lines="1"
+                                            android:maxLines="1"
+                                            android:ellipsize="end"
+                                            android:fontFamily="@font/bai_jamjuree_medium"
+                                            android:paddingStart="@dimen/_5sdp"
+                                            android:textColor="@color/blue"/>
+                                    </LinearLayout>
+                                </LinearLayout>
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_6sdp"
+                                android:orientation="horizontal">
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_6sdp"
+                                android:orientation="horizontal">
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical">
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/startDate"
+                                        android:textSize="@dimen/_11ssp"
+                                        android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                        android:paddingStart="@dimen/_5sdp"
+                                        android:gravity="center_vertical"
+                                        android:textColor="@color/secondry_text"/>
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text=""
+                                        android:textSize="@dimen/_11ssp"
+                                        android:lines="1"
+                                        android:maxLines="1"
+                                        android:ellipsize="end"
+                                        android:id="@+id/startDate"
+                                        android:fontFamily="@font/bai_jamjuree_medium"
+                                        android:paddingStart="@dimen/_5sdp"
+                                        android:textColor="@color/blue"/>
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical">
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:layout_marginStart="@dimen/_8sdp"
+                                        android:orientation="vertical">
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="@string/endDate"
+                                            android:textSize="@dimen/_11ssp"
+                                            android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                            android:paddingStart="@dimen/_5sdp"
+                                            android:gravity="center_vertical"
+                                            android:textColor="@color/secondry_text"/>
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text=""
+                                            android:textSize="@dimen/_11ssp"
+                                            android:id="@+id/endDate"
+                                            android:lines="1"
+                                            android:maxLines="1"
+                                            android:ellipsize="end"
+                                            android:fontFamily="@font/bai_jamjuree_medium"
+                                            android:paddingStart="@dimen/_5sdp"
+                                            android:textColor="@color/blue"/>
+                                    </LinearLayout>
+                                </LinearLayout>
+                            </LinearLayout>
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:id="@+id/buttonLayout"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_10sdp"
+                                android:orientation="horizontal">
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1">
+                                    <androidx.cardview.widget.CardView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="@dimen/_30sdp"
+                                        app:cardBackgroundColor="@color/blue"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_marginVertical="@dimen/_8sdp"
+                                        app:cardCornerRadius="@dimen/_5sdp"
+                                        app:cardElevation="@dimen/_4sdp">
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="match_parent"
+                                            android:layout_alignParentBottom="true"
+                                            android:layout_centerHorizontal="true"
+                                            android:text="@string/changeDriverNumber"
+                                            android:onClick="changeMobileNo"
+
+                                            android:lines="1"
+                                            android:maxLines="1"
+                                            android:paddingHorizontal="@dimen/_12sdp"
+                                            android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                            android:textColor="@color/white"
+                                            android:textSize="@dimen/_9ssp"
+                                            android:gravity="center"/>
+                                    </androidx.cardview.widget.CardView>
+                                </RelativeLayout>
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1">
+                                    <androidx.cardview.widget.CardView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="@dimen/_30sdp"
+                                        app:cardBackgroundColor="@color/blue"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_marginVertical="@dimen/_8sdp"
+                                        app:cardCornerRadius="@dimen/_5sdp"
+                                        app:cardElevation="@dimen/_4sdp">
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="match_parent"
+                                            android:layout_alignParentBottom="true"
+                                            android:layout_centerHorizontal="true"
+                                            android:text="@string/extendEndDate"
+                                            android:lines="1"
+                                            android:maxLines="1"
+                                            android:onClick="changeEndDate"
+                                            android:paddingHorizontal="@dimen/_12sdp"
+                                            android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                            android:textColor="@color/white"
+                                            android:textSize="@dimen/_9ssp"
+                                            android:gravity="center"/>
+                                    </androidx.cardview.widget.CardView>
+                                </RelativeLayout>
+                            </LinearLayout>
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:layout_marginEnd="@dimen/_12sdp"
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/viewCurrentLocation"
+                            android:textSize="@dimen/_11ssp"
+                            android:fontFamily="@font/bai_jamjuree_semi_bold"
+                            android:paddingStart="@dimen/_5sdp"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/secondry_text"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/viewMapAndReport"
+                                android:onClick="openMap"
+                                android:layout_gravity="center_horizontal"
+                                android:textSize="@dimen/_11ssp"
+                                android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                android:paddingStart="@dimen/_5sdp"
+                                android:gravity="center_vertical"
+                                android:textColor="@color/blue"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/dataList"
+                    android:layout_margin="@dimen/_8sdp">
+
+                </androidx.recyclerview.widget.RecyclerView>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+
+</RelativeLayout>
+
+
+</layout>

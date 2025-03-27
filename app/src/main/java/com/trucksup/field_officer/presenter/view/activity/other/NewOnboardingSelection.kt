@@ -6,8 +6,8 @@ import android.view.View
 import androidx.activity.enableEdgeToEdge
 import com.trucksup.field_officer.databinding.ActivityNewOnboardingBinding
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
-import com.trucksup.field_officer.presenter.view.activity.business_associate.BA_NewOnboardingActivity
-import com.trucksup.field_officer.presenter.view.activity.growth_partner.GA_NewOnboardingActivity
+import com.trucksup.field_officer.presenter.view.activity.business_associate.BAnOnboardingActivity
+import com.trucksup.field_officer.presenter.view.activity.growth_partner.GPOnboardingActivity
 import com.trucksup.field_officer.presenter.view.activity.miscellaneous.MiscActivity
 import com.trucksup.field_officer.presenter.view.activity.truck_supplier.TSNewOnboardingActivity
 
@@ -34,11 +34,11 @@ class NewOnboardingSelection : BaseActivity() {
     }
 
     fun business_associate(view: View) {
-        startActivity(Intent(this, BA_NewOnboardingActivity::class.java))
+        startActivity(Intent(this, BAnOnboardingActivity::class.java))
     }
 
     fun growth_partner(view: View) {
-        startActivity(Intent(this, GA_NewOnboardingActivity::class.java))
+        startActivity(Intent(this, GPOnboardingActivity::class.java))
     }
 
     fun miscell_onboard(view: View) {

@@ -8,8 +8,7 @@ import com.trucksup.field_officer.databinding.ActivityMyTeamsBinding
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.view.activity.business_associate.MyBATeamOnBActivity
 import com.trucksup.field_officer.presenter.view.activity.growth_partner.MyGPTeamOnBActivity
-import com.trucksup.field_officer.presenter.view.activity.truck_owner.MyTSTeamOnBActivity
-import com.trucksup.field_officer.presenter.view.activity.truck_owner.TruckSupplierDetailActivity
+import com.trucksup.field_officer.presenter.view.activity.truck_supplier.MyTSTeamOnBActivity
 
 class MyTeamScreen : BaseActivity() {
     private lateinit var binding: ActivityMyTeamsBinding

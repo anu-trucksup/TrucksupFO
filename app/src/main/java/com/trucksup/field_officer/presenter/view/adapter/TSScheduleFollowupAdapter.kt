@@ -6,18 +6,17 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.trucksup.field_officer.R
-import com.trucksup.field_officer.databinding.OwnerScheduledItemBinding
-import com.trucksup.field_officer.presenter.view.activity.business_associate.BAStartTripActivity
-import com.trucksup.field_officer.presenter.view.activity.other.OwnerScheduledMeetingActivity
+import com.trucksup.field_officer.databinding.TsScheduledItemBinding
+import com.trucksup.field_officer.presenter.view.activity.truck_supplier.TSStartTripActivity
 
 class TSScheduleFollowupAdapter(var context: Context?, var list: ArrayList<String>) :
     RecyclerView.Adapter<TSScheduleFollowupAdapter.ViewHolder>() {
 
-    inner class ViewHolder(var binding: OwnerScheduledItemBinding) :
+    inner class ViewHolder(var binding: TsScheduledItemBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v = OwnerScheduledItemBinding.inflate(LayoutInflater.from(context), parent, false)
+        val v = TsScheduledItemBinding.inflate(LayoutInflater.from(context), parent, false)
         return ViewHolder(v)
     }
 
@@ -32,7 +31,7 @@ class TSScheduleFollowupAdapter(var context: Context?, var list: ArrayList<Strin
 
         holder.binding.root.setOnClickListener {
 
-            val intent = Intent(context, BAStartTripActivity::class.java)
+            val intent = Intent(context, TSStartTripActivity::class.java)
             context?.startActivity(intent)
         }
     }

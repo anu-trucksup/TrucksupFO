@@ -13,7 +13,7 @@ import com.trucksup.field_officer.databinding.ActivityCreatePasswordBinding
 import com.trucksup.field_officer.presenter.common.Utils
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
-import com.trucksup.field_officer.presenter.view.activity.other.DashboardActivity
+import com.trucksup.field_officer.presenter.view.activity.auth.login.LoginActivity
 import com.trucksup.field_officer.presenter.view.activity.other.WelcomeLocationActivity
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.regex.Pattern
@@ -123,16 +123,10 @@ class CreatePasswordActivity : BaseActivity(), View.OnClickListener {
             } else {
                 dismissProgressDialog()
                 // start home screen
-                // move to home screen
-                //  Log.d("MYTAG", "bearear token ==> " + responseModel.getSuccess().getPayload().getAccess_token());
-                val intent = Intent(
-                    this@CreatePasswordActivity,
-                    DashboardActivity::class.java
+                val intent = Intent(this@CreatePasswordActivity,
+                    LoginActivity::class.java
                 )
-                intent.putExtra("airportId", 0)
-                //                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent)
-                setResult(RESULT_OK, getIntent())
+               startActivity(intent)
                 finish()
                 showInAnimation()
             }

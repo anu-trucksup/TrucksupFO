@@ -1,18 +1,12 @@
 package com.trucksup.field_officer.presenter.view.adapter
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ItemFeaturesBinding
-import com.trucksup.field_officer.presenter.view.activity.business_associate.BAFollowupActivity
-import com.trucksup.field_officer.presenter.view.activity.growth_partner.GPFollowupActivity
-import com.trucksup.field_officer.presenter.view.activity.other.MainActivity
-import com.trucksup.field_officer.presenter.view.activity.truck_owner.TSFollowupActivity
-import com.trucksup.field_officer.presenter.view.activity.truck_owner.TruckSupplierDetailActivity
 
 
 class HomeFeaturesAdapter(var context: Context?, var list: ArrayList<String>) :
@@ -21,7 +15,7 @@ class HomeFeaturesAdapter(var context: Context?, var list: ArrayList<String>) :
     val serviceList = arrayListOf(
         "Truck Supplier",
         "Business Associates",
-        "Channel Partners",
+        "Growth Partners",
         "Finance",
         "Insurance",
         "Smart Fuel",

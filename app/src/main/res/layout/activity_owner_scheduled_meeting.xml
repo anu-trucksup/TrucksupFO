@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".presenter.view.activity.truck_owner.TSScheduledMeetingActivity">
+    tools:context=".presenter.view.activity.truck_supplier.TSScheduledMeetingActivity">
 
 
     <LinearLayout
@@ -201,8 +201,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="visible"
+                tools:visibility="gone"
                 tools:itemCount="1"
-                tools:listitem="@layout/prefferd_truck_list_items" />
+                tools:listitem="@layout/add_truck_list_items" />
 
             <View
                 android:layout_width="match_parent"
@@ -213,7 +214,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:visibility="visible"
+                tools:visibility="gone"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -233,14 +234,14 @@
                         android:layout_width="@dimen/_110sdp"
                         android:layout_height="@dimen/_110sdp"
                         android:layout_marginTop="@dimen/_10sdp"
-                        android:background="@drawable/doted_border">
+                      >
 
                         <ImageView
                             android:id="@+id/selfiPic"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_margin="@dimen/_5sdp"
-                            android:src="@drawable/camera_plus_icon"
+                            android:src="@drawable/icon_camera"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -279,14 +280,14 @@
                         android:layout_width="@dimen/_110sdp"
                         android:layout_height="@dimen/_110sdp"
                         android:layout_marginTop="@dimen/_10sdp"
-                        android:background="@drawable/doted_border">
+                       >
 
                         <ImageView
                             android:id="@+id/officePic"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_margin="@dimen/_5sdp"
-                            android:src="@drawable/camera_plus_icon"
+                            android:src="@drawable/icon_camera"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -341,7 +342,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/bai_jamjuree_semi_bold"
-                        android:text="Insurance"
+                        android:text="@string/insurance"
                         android:textColor="@color/blue"
                         android:textSize="@dimen/_11ssp"
                         app:buttonTint="@color/theme_color" />
@@ -363,7 +364,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/bai_jamjuree_semi_bold"
-                        android:text="FASTag"
+                        android:text="@string/fastag"
                         android:textColor="@color/blue"
                         android:textSize="@dimen/_11ssp"
                         app:buttonTint="@color/theme_color" />
@@ -379,39 +380,60 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/bai_jamjuree_semi_bold"
-                        android:text="Finance"
+                        android:text="@string/finance"
                         android:textColor="@color/blue"
                         android:textSize="@dimen/_11ssp"
                         app:buttonTint="@color/theme_color" />
                 </RelativeLayout>
             </LinearLayout>
 
-            <CheckBox
-                android:id="@+id/subscriptionPlan"
-                android:layout_width="@dimen/_minus5sdp"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/bai_jamjuree_semi_bold"
-                android:text="@string/subscription_plan"
-                android:textColor="@color/blue"
-                android:textSize="@dimen/_11ssp"
-                app:buttonTint="@color/theme_color" />
 
-            <CheckBox
-                android:id="@+id/sell_buy"
-                android:layout_width="@dimen/_minus5sdp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/bai_jamjuree_semi_bold"
-                android:text="@string/buy_amp_sell_trucks"
-                android:textColor="@color/blue"
-                android:textSize="@dimen/_11ssp"
-                app:buttonTint="@color/theme_color" />
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <CheckBox
+                        android:id="@+id/cb_truckhub"
+                        android:layout_width="@dimen/_minus5sdp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/bai_jamjuree_semi_bold"
+                        android:text="@string/truckshub"
+                        android:textColor="@color/blue"
+                        android:textSize="@dimen/_11ssp"
+                        app:buttonTint="@color/theme_color" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <CheckBox
+                        android:id="@+id/smart_fuel"
+                        android:layout_width="@dimen/_minus5sdp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/bai_jamjuree_semi_bold"
+                        android:text="@string/smart_fuel"
+                        android:textColor="@color/blue"
+                        android:textSize="@dimen/_11ssp"
+                        app:buttonTint="@color/theme_color" />
+                </RelativeLayout>
+            </LinearLayout>
+
+
 
             <CheckBox
                 android:id="@+id/Gift"
                 android:layout_width="@dimen/_minus5sdp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/bai_jamjuree_semi_bold"
-                android:text="Gift"
+                android:text="@string/gift"
                 android:textColor="@color/blue"
                 android:textSize="@dimen/_11ssp"
                 app:buttonTint="@color/theme_color" />
@@ -441,7 +463,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
                 style="@style/text12"
-                android:text="Follow Up*"
+                android:text="@string/follow_up"
                 />
 
             <TextView
@@ -481,7 +503,7 @@
                         android:fontFamily="@font/bai_jamjuree_medium"
                         android:gravity="center_vertical"
                         android:paddingStart="@dimen/_8sdp"
-                        android:text="Location Address"
+                        android:text="@string/location_address"
                         android:textColor="@color/grey"
                         android:textSize="@dimen/_10sdp" />
 
@@ -518,7 +540,7 @@
                     android:fontFamily="@font/bai_jamjuree_medium"
                     android:paddingHorizontal="@dimen/_30sdp"
                     android:paddingVertical="@dimen/_4sdp"
-                    android:text="Submit"
+                    android:text="@string/submit"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_12ssp" />
 
@@ -530,7 +552,7 @@
                     android:fontFamily="@font/bai_jamjuree_medium"
                     android:paddingHorizontal="@dimen/_14sdp"
                     android:paddingVertical="@dimen/_2sdp"
-                    android:text="@string/cancel"
+                    android:text="@string/cancel_u"
                     android:textColor="@color/blue"
                     android:textSize="@dimen/_12ssp" />
 
