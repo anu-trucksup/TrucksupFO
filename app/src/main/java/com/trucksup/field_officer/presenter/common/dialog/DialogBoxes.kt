@@ -190,7 +190,7 @@ object DialogBoxes {
             dialog.dismiss()
         }
 
-        dialog?.show()
+        dialog.show()
     }
 
     fun messageDialog(context: Context, msg: String) {

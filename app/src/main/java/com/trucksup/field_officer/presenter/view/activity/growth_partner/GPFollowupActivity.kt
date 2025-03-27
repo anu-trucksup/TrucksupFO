@@ -28,10 +28,9 @@ class GPFollowupActivity : BaseActivity() {
     }
 
     private fun setListener() {
-       /* //find button
-        binding.btnFind.setOnClickListener {
-            binding.viewPager2.setCurrentItem(0, true)
-        }*/
+        binding.ivBack.setOnClickListener {
+            onBackPressed()
+        }
 
         //scheduled button
         binding.tabSchedule.setOnClickListener {

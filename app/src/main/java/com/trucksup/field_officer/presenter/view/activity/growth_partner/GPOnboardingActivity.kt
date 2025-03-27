@@ -17,10 +17,13 @@ class GPOnboardingActivity : BaseActivity() {
         binding = ActivityGaNewOnboardingBinding.inflate(layoutInflater)
         adjustFontScale(resources.configuration, 1.0f);
         setContentView(binding.root)
-        //setContentView(R.layout.activity_banew_onboarding)
 
         binding.btnAdd.setOnClickListener(){
             CheckValidation()
+        }
+
+        binding.ivBack.setOnClickListener(){
+           onBackPressed()
         }
     }
 

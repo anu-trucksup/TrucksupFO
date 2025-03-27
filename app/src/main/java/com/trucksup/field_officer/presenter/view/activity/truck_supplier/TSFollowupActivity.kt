@@ -28,10 +28,6 @@ class TSFollowupActivity : BaseActivity() {
     }
 
     private fun setListener() {
-       /* //find button
-        binding.btnFind.setOnClickListener {
-            binding.viewPager2.setCurrentItem(0, true)
-        }*/
 
         //scheduled button
         binding.tabSchedule.setOnClickListener {
@@ -41,6 +37,10 @@ class TSFollowupActivity : BaseActivity() {
         //completed button
         binding.tabCompleted.setOnClickListener {
             binding.viewPager2.setCurrentItem(1, true)
+        }
+
+        binding.ivBack.setOnClickListener {
+            onBackPressed()
         }
     }
 

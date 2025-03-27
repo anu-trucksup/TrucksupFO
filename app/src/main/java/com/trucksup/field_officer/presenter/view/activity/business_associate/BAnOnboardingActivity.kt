@@ -23,6 +23,10 @@ class BAnOnboardingActivity : BaseActivity() {
         binding.btnAdd.setOnClickListener(){
             checkValidation()
         }
+
+        binding.ivBack.setOnClickListener(){
+            onBackPressed()
+        }
     }
 
     private fun checkValidation() {

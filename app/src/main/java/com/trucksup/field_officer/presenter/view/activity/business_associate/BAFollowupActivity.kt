@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.core.content.ContextCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.trucksup.field_officer.R
+import com.trucksup.field_officer.databinding.BaFollowupActivityBinding
 import com.trucksup.field_officer.databinding.FragmentBrokerBinding
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.view.fragment.ts.TSCompletedFragment
@@ -12,11 +13,11 @@ import com.trucksup.fieldofficer.adapter.FragmentAdapter
 
 class BAFollowupActivity : BaseActivity() {
 
-    private lateinit var binding: FragmentBrokerBinding
+    private lateinit var binding: BaFollowupActivityBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = FragmentBrokerBinding.inflate(layoutInflater)
+        binding = BaFollowupActivityBinding.inflate(layoutInflater)
         adjustFontScale(resources.configuration, 1.0f);
         setContentView(binding.root)
 
@@ -26,10 +27,9 @@ class BAFollowupActivity : BaseActivity() {
     }
 
     private fun setListener() {
-       /* //find button
-        binding.btnFind.setOnClickListener {
-            binding.viewPager2.setCurrentItem(0, true)
-        }*/
+        binding.ivBack.setOnClickListener {
+            onBackPressed()
+        }
 
         //scheduled button
         binding.tabSchedule.setOnClickListener {

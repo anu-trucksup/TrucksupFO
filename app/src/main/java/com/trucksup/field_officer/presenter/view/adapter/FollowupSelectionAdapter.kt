@@ -44,11 +44,11 @@ class FollowupSelectionAdapter(var context: Context?) :
                 val intent = Intent(context, TSFollowupActivity::class.java)
                 context?.startActivity(intent)
             } else if (position == 1) {
-              /*  val intent = Intent(context, BAFollowupActivity::class.java)
-                context?.startActivity(intent)*/
+                val intent = Intent(context, BAFollowupActivity::class.java)
+                context?.startActivity(intent)
             } else if (position == 2) {
-                /*val intent = Intent(context, GPFollowupActivity::class.java)
-                context?.startActivity(intent)*/
+                val intent = Intent(context, GPFollowupActivity::class.java)
+                context?.startActivity(intent)
             }
 
 

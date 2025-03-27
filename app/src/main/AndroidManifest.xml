@@ -40,7 +40,11 @@
             android:name=".presenter.view.activity.truck_supplier.TruckSupplierDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".presenter.view.activity.profile.TotalAddLoadScreen"
+            android:name=".presenter.view.activity.profile.TotalAddLoadActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".presenter.view.activity.profile.TotalDownloadsActivity"
             android:exported="false" />
         <activity
             android:name=".presenter.view.activity.other.NewOnboardingSelection"
@@ -148,6 +152,8 @@
             android:name=".presenter.common.yCamera.CameraXActivity"
             android:exported="false" />
 
+
+
         <activity
             android:name=".presenter.common.CameraActivity"
             android:exported="false" />
@@ -176,6 +182,30 @@
 
         <activity
             android:name=".presenter.view.activity.subscription.SubscriptionActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".presenter.view.activity.truck_supplier.TSPerformanceActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".presenter.view.activity.truck_supplier.TSPerformStatusActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".presenter.view.activity.business_associate.BAPerformanceActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".presenter.view.activity.business_associate.BAPerformStatusActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".presenter.view.activity.growth_partner.GPPerformanceActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".presenter.view.activity.growth_partner.GPPerformStatusActivity"
             android:exported="false" />
 
         <service

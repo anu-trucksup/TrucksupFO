@@ -39,7 +39,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="KYC"
+        android:text="@string/kyc"
         android:layout_marginTop="@dimen/_8sdp"
         android:textSize="@dimen/_11ssp"
         android:fontFamily="@font/bai_jamjuree_medium"
@@ -58,7 +58,7 @@
             android:id="@+id/kycSpinner"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:entries="@array/body_type"
+            android:entries="@array/kyc_type"
             android:fontFamily="@font/bai_jamjuree_medium"
             android:paddingHorizontal="@dimen/_3sdp" />
 
@@ -68,7 +68,7 @@
         android:id="@+id/tvSP"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Subscription Plan"
+        android:text="@string/subscription_plan"
         android:layout_marginTop="@dimen/_10sdp"
         android:textSize="@dimen/_11ssp"
         android:fontFamily="@font/bai_jamjuree_medium"
@@ -87,7 +87,7 @@
             android:id="@+id/subscriptionPlanSpinner"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:entries="@array/body_type"
+            android:entries="@array/plan_type"
             android:fontFamily="@font/bai_jamjuree_medium"
             android:paddingHorizontal="@dimen/_3sdp" />
 
@@ -96,7 +96,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Visit"
+        android:text="@string/visit"
         android:layout_marginTop="@dimen/_10sdp"
         android:textSize="@dimen/_11ssp"
         android:fontFamily="@font/bai_jamjuree_medium"
@@ -115,7 +115,7 @@
             android:id="@+id/visitSpinner"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:entries="@array/body_type"
+            android:entries="@array/visit_type"
             android:fontFamily="@font/bai_jamjuree_medium"
             android:paddingHorizontal="@dimen/_3sdp" />
 
@@ -125,7 +125,7 @@
         android:id="@+id/tvED"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Expiry Date"
+        android:text="@string/expiry_date"
         android:layout_marginTop="@dimen/_10sdp"
         android:textSize="@dimen/_11ssp"
         android:fontFamily="@font/bai_jamjuree_medium"
@@ -144,7 +144,7 @@
             android:id="@+id/expirySpinner"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Select Date"
+            android:hint="@string/select"
             android:lines="1"
             android:textColorHint="#B6B3B1"
             android:textSize="@dimen/_12ssp"

@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:textColor="@color/white"
-                android:text="@string/total_add_load" />
+                android:text="@string/total_downloads" />
         </RelativeLayout>
 
         <com.google.android.material.card.MaterialCardView
@@ -99,7 +99,7 @@
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_gravity="center"
-                                            android:text="@string/total_add_load"
+                                            android:text="@string/total_downloads"
                                             android:textSize="@dimen/_15ssp" />
 
                                         <TextView

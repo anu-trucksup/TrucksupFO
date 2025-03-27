@@ -225,7 +225,7 @@
 
                                 <TextView
                                     android:id="@+id/forget_password_txt"
-                                    style="@style/text_light"
+                                    style="@style/text_label"
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
                                     android:layout_alignParentEnd="true"

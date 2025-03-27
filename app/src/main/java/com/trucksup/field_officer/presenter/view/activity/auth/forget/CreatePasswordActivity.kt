@@ -34,7 +34,7 @@ class CreatePasswordActivity : BaseActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_create_password)
         //click Listener
-        Utils.setStatusBarColorAndIcons(this)
+       // Utils.setStatusBarColorAndIcons(this)
 
         // mBinding.retryTextView.setOnClickListener(this);
         mViewModel = ViewModelProvider(this).get(

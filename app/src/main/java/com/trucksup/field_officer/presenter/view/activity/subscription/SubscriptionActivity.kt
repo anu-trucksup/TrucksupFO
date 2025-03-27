@@ -148,9 +148,7 @@ class SubscriptionActivity : BaseActivity(), PaySubscribtion, PlanCantroler {
     }
 
     @SuppressLint("SuspiciousIndentation")
-    override fun subClick(
-        data: Broker
-    ) {
+    override fun subClick(data: Broker) {
         brokerData = data
 
         LoggerMessage.LogErrorMsg("Disable plan", "====== " + data.disabledPlan)

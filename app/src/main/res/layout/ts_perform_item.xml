@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_8sdp"
+    android:background="@drawable/background3">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/notHighLightView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="@dimen/_1sdp"
+        android:layout_marginTop="@dimen/_1sdp"
+        android:background="@drawable/background2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/highLightView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/_2sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_3sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:layout_marginEnd="@dimen/_3sdp"
+                    android:layout_weight="2"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_weight="1.25"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/_18sdp"
+                            android:layout_height="@dimen/_18sdp"
+                            android:layout_gravity="center_vertical"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/delivery_truck_icon" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1.5"
+                            android:fontFamily="@font/bai_jamjuree_semi_bold"
+                            android:maxLines="1"
+                            android:paddingStart="@dimen/_5sdp"
+                            android:paddingTop="@dimen/_1sdp"
+                            android:paddingEnd="@dimen/_3sdp"
+                            android:paddingBottom="@dimen/_1sdp"
+                            android:text="Last Meeting: Never Met "
+                            android:textColor="@color/blue_tr80"
+                            android:textSize="@dimen/_9ssp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_weight=".75"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/_18sdp"
+                            android:layout_height="@dimen/_18sdp"
+                            android:layout_gravity="center_vertical"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/meeting_count" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1.5"
+                            android:fontFamily="@font/bai_jamjuree_semi_bold"
+                            android:maxLines="1"
+                            android:paddingStart="@dimen/_5sdp"
+                            android:paddingTop="@dimen/_1sdp"
+                            android:paddingEnd="@dimen/_3sdp"
+                            android:paddingBottom="@dimen/_1sdp"
+                            android:text="Meeting count : 5"
+                            android:textColor="@color/blue"
+                            android:textSize="@dimen/_9ssp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_3sdp"
+                        android:layout_marginEnd="@dimen/_3sdp"
+                        android:layout_weight="1.25"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/name"
+                            style="@style/label_semi"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:maxLines="1"
+                            android:text="ABC TRANSPORTER "
+                            android:textColor="@color/black"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_5sdp"
+                        android:layout_weight=".75"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/_10sdp"
+                            android:layout_height="@dimen/_10sdp"
+                            android:src="@drawable/call_14" />
+
+                        <TextView
+                            android:id="@+id/tv_mobile"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_2sdp"
+                            android:fontFamily="@font/bai_jamjuree_medium"
+                            android:maxLines="1"
+                            android:text="9874346734"
+                            android:textColor="#4D4D4D"
+                            android:textSize="@dimen/_11ssp" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_3sdp"
+                        android:layout_marginEnd="@dimen/_3sdp"
+                        android:layout_weight="1.25"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/_10sdp"
+                            android:layout_height="@dimen/_10sdp"
+                            android:src="@drawable/pin_icon" />
+
+                        <TextView
+                            android:id="@+id/address"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_2sdp"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/bai_jamjuree_medium"
+                            android:singleLine="true"
+                            android:text="336, Udyog Vihar, GURUGRAM"
+                            android:textColor="@color/text_grey"
+                            android:textSize="@dimen/_10ssp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_5sdp"
+                        android:layout_weight=".75"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/_10sdp"
+                            android:layout_height="@dimen/_10sdp"
+                            android:src="@drawable/distance_icon" />
+
+                        <TextView
+                            android:id="@+id/tv_distance"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_2sdp"
+                            android:fontFamily="@font/bai_jamjuree_medium"
+                            android:maxLines="1"
+                            android:text="Distance: 12 KM"
+                            android:textColor="#4D4D4D"
+                            android:textSize="@dimen/_11ssp" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:layout_weight="2">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.25"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_3sdp"
+                            android:layout_marginEnd="@dimen/_3sdp"
+                            android:fontFamily="@font/bai_jamjuree_medium"
+                            android:maxLines="1"
+                            android:text="@string/last_call_initiated"
+                            android:textColor="@color/blue"
+                            android:textSize="@dimen/_9ssp" />
+
+                        <TextView
+                            android:id="@+id/tv_last_Call"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_3sdp"
+                            android:layout_marginEnd="@dimen/_3sdp"
+                            android:fontFamily="@font/bai_jamjuree_medium"
+                            android:maxLines="1"
+                            android:textColor="@color/blue"
+                            android:textSize="@dimen/_11ssp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".75"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/resend_verification_code_txt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/bai_jamjuree_medium"
+                            android:text="@string/resand_sms"
+                            android:textColor="@color/pink"
+                            android:textColorLink="@color/pink"
+                            android:textSize="@dimen/_8sdp" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:layout_weight="2">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.25"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_3sdp"
+                            android:layout_marginEnd="@dimen/_3sdp"
+                            android:fontFamily="@font/bai_jamjuree_medium"
+                            android:maxLines="1"
+                            android:text="@string/visit_type"
+                            android:textColor="@color/blue"
+                            android:textSize="@dimen/_9ssp" />
+
+                        <TextView
+                            android:id="@+id/tv_visit"
+                            style="@style/text_medium"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_3sdp"
+                            android:layout_marginEnd="@dimen/_3sdp"
+                            android:maxLines="1"
+                            android:text="First time"
+                            android:textColor="@color/black_4d"
+                            android:textSize="@dimen/_11ssp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight=".75"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_2sdp"
+                            android:background="@drawable/blue_button"
+                            android:fontFamily="@font/bai_jamjuree_medium"
+                            android:paddingHorizontal="@dimen/_9ssp"
+                            android:paddingVertical="@dimen/_4sdp"
+                            android:text="@string/add_schedule"
+                            android:textAlignment="center"
+                            android:gravity="center"
+                            android:layout_gravity="center_horizontal"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_10ssp" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_25sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:background="@drawable/background4"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1.4"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="@dimen/_3sdp"
+                            android:src="@drawable/kyc_done_icon_svg" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:drawablePadding="@dimen/_4sdp"
+                            android:fontFamily="@font/bai_jamjuree_semi_bold"
+                            android:paddingStart="@dimen/_6sdp"
+                            android:paddingTop="@dimen/_1sdp"
+                            android:paddingEnd="@dimen/_6sdp"
+                            android:paddingBottom="@dimen/_1sdp"
+                            android:text="KYC"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_9ssp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/_18sdp"
+                            android:layout_height="@dimen/_18sdp"
+                            android:layout_gravity="center_vertical"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/delivery_truck_icon" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1.5"
+                            android:fontFamily="@font/bai_jamjuree_semi_bold"
+                            android:maxLines="1"
+                            android:paddingStart="@dimen/_5sdp"
+                            android:paddingTop="@dimen/_1sdp"
+                            android:paddingEnd="@dimen/_3sdp"
+                            android:paddingBottom="@dimen/_1sdp"
+                            android:text="No. of Trucks Added : 5"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_9ssp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -294,7 +294,7 @@
                 android:lines="1"
                 android:paddingHorizontal="@dimen/_25sdp"
                 android:paddingVertical="@dimen/_2sdp"
-                android:text="Submit"
+                android:text="@string/submit"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_14ssp" />
 

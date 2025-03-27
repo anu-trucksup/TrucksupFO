@@ -62,8 +62,7 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
         // Obtain the FirebaseAnalytics instance.
         //mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         mSignUpBinding = DataBindingUtil.setContentView(this, R.layout.activity_sign_up)
-        //click Listener
-        Utils.setStatusBarColorAndIcons(this)
+
         //click Listener
         mSignUpBinding!!.topView.ivBack.setOnClickListener(this)
 

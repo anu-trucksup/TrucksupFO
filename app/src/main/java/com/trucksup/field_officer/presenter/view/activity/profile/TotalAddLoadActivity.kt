@@ -2,13 +2,12 @@ package com.trucksup.field_officer.presenter.view.activity.profile
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.trucksup.field_officer.databinding.ActivityTotalAddLoadBinding
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
-import com.trucksup.field_officer.presenter.view.adapter.ServicesMainAdapter
+import com.trucksup.field_officer.presenter.view.adapter.TotalLoadsAdapter
 
-class TotalAddLoadScreen : BaseActivity() {
+class TotalAddLoadActivity : BaseActivity() {
 
     private lateinit var binding: ActivityTotalAddLoadBinding
 
@@ -26,10 +25,15 @@ class TotalAddLoadScreen : BaseActivity() {
     }
 
     private fun setlistofLoad() {
+        val list = ArrayList<String>()
+        list.add("")
+        list.add("")
+        list.add("")
+        list.add("")
 
         binding.rvTotalLoads.apply {
-            layoutManager = LinearLayoutManager(this@TotalAddLoadScreen)
-            adapter = ServicesMainAdapter(this@TotalAddLoadScreen)
+            layoutManager = LinearLayoutManager(this@TotalAddLoadActivity)
+            adapter = TotalLoadsAdapter(this@TotalAddLoadActivity,list)
             hasFixedSize()
         }
     }

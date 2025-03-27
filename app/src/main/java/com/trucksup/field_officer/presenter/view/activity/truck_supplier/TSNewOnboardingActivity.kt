@@ -32,7 +32,7 @@ class TSNewOnboardingActivity : BaseActivity(), View.OnClickListener {
     private fun setOnClicks() {
         binding.btnAdd.setOnClickListener(this)
         binding.btnCancel.setOnClickListener(this)
-        binding.TCBackBtn.IBbackBtn.setOnClickListener(this)
+        binding.ivBack.setOnClickListener(this)
     }
 
     private fun CheckValidation() {
@@ -126,7 +126,7 @@ class TSNewOnboardingActivity : BaseActivity(), View.OnClickListener {
         val item_id = v?.id
         when (item_id) {
             R.id.btnAdd -> CheckValidation()
-            R.id.IBbackBtn -> onBackPressed()
+            R.id.iv_back -> onBackPressed()
             R.id.btnCancel -> onBackPressed()
         }
     }

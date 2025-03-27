@@ -2,21 +2,17 @@ package com.trucksup.field_officer.presenter.common.dialog
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.app.AlertDialog
 import android.app.Dialog
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.view.LayoutInflater
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
-import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import com.trucksup.field_officer.R
-import com.trucksup.field_officer.databinding.ActivityTcNewOnboardingBinding
 import com.trucksup.field_officer.databinding.VerifyOtpDialogBinding
 import com.trucksup.field_officer.presenter.utils.PrefsManager.getString
 import java.util.concurrent.TimeUnit

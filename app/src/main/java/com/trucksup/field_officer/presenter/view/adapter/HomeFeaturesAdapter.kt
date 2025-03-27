@@ -8,10 +8,12 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ItemFeaturesBinding
-import com.trucksup.field_officer.presenter.view.activity.business_associate.BAFollowupActivity
+import com.trucksup.field_officer.presenter.view.activity.business_associate.BAPerformanceActivity
 import com.trucksup.field_officer.presenter.view.activity.growth_partner.GPFollowupActivity
-import com.trucksup.field_officer.presenter.view.activity.profile.TotalAddLoadScreen
-import com.trucksup.field_officer.presenter.view.activity.truck_supplier.TSFollowupActivity
+import com.trucksup.field_officer.presenter.view.activity.growth_partner.GPPerformanceActivity
+import com.trucksup.field_officer.presenter.view.activity.profile.TotalAddLoadActivity
+import com.trucksup.field_officer.presenter.view.activity.profile.TotalDownloadsActivity
+import com.trucksup.field_officer.presenter.view.activity.truck_supplier.TSPerformanceActivity
 
 
 class HomeFeaturesAdapter(var context: Context?, var list: ArrayList<String>) :
@@ -53,29 +55,29 @@ class HomeFeaturesAdapter(var context: Context?, var list: ArrayList<String>) :
         holder.binding.tvName.text = serviceList[position]
 
         holder.binding.root.setOnClickListener {
-            //Toast.makeText(context,"Under Development", Toast.LENGTH_SHORT).show()
-            when (position) {
+            Toast.makeText(context,"Under Development", Toast.LENGTH_SHORT).show()
+           /* when (position) {
                 0 -> {
-                    val intent = Intent(context, TSFollowupActivity::class.java)
+                    val intent = Intent(context, TSPerformanceActivity::class.java)
                     context?.startActivity(intent)
                 }
                 1 -> {
-                    val intent = Intent(context, BAFollowupActivity::class.java)
+                    val intent = Intent(context, BAPerformanceActivity::class.java)
                     context?.startActivity(intent)
                 }
                 2 -> {
-                    val intent = Intent(context, GPFollowupActivity::class.java)
+                    val intent = Intent(context, GPPerformanceActivity::class.java)
                     context?.startActivity(intent)
                 }
                 3 -> {
-                    val intent = Intent(context, TotalAddLoadScreen::class.java)
+                    val intent = Intent(context, TotalAddLoadActivity::class.java)
                     context?.startActivity(intent)
                 }
                 4 -> {
-                    val intent = Intent(context, GPFollowupActivity::class.java)
+                    val intent = Intent(context, TotalDownloadsActivity::class.java)
                     context?.startActivity(intent)
                 }
-            }
+            }*/
 
 
         }

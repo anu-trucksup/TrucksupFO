@@ -22,7 +22,7 @@ class ResetPasswordActivity : BaseActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_reset_password)
-        Utils.setStatusBarColorAndIcons(this)
+
         //click Listener
         mBinding?.topView?.ivBack?.setOnClickListener(this)
         mBinding?.otpUpBtn?.setOnClickListener(this)

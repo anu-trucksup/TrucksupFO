@@ -12,57 +12,44 @@
         android:background="@color/white">
 
         <LinearLayout
-            android:id="@+id/GPOnboarding_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@drawable/toolbar_grdient"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="match_parent"
+            android:background="@drawable/rect_header_profile"
+            android:orientation="vertical">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_56sdp">
 
-                <ImageButton
-                    android:id="@+id/gp_backBtn"
-                    android:layout_width="@dimen/_28sdp"
-                    android:layout_height="@dimen/_28sdp"
-                    android:layout_marginStart="16dp"
-                    android:background="@drawable/circal_weight"
-                    android:src="@drawable/ic_back_icon"
-                    android:tint="@color/black"
-                    android:visibility="visible"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="UseAppTint" />
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:background="@drawable/circal_weight"
+                android:padding="@dimen/_4sdp"
+                android:src="@drawable/ic_back_icon" />
 
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:drawableTint="@color/blue"
-                    android:fontFamily="@font/bai_jamjuree_medium"
-                    android:gravity="center|center_vertical"
-                    android:text="New Onboarding"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_17ssp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                style="@style/title_basicreg_18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/new_onboarding"
+                android:textColor="@color/white" />
+        </RelativeLayout>
 
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </LinearLayout>
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="@dimen/_12sdp"
+            app:cardElevation="@dimen/_4sdp">
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -105,10 +92,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:fontFamily="@font/bai_jamjuree_medium"
-                    android:text="@string/ContactName_star"
-                    android:textColor="@color/blue"
-                    android:textSize="@dimen/_12ssp" />
+                    style="@style/edit_label"
+                    android:text="@string/ContactName_star"/>
 
                 <EditText
                     android:id="@+id/ETAccountHolderName"
@@ -116,12 +101,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:background="@drawable/grey_edit_background"
-                    android:fontFamily="@font/bai_jamjuree_medium"
+                    android:background="@drawable/edit_box"
+                    style="@style/edit_text_m"
                     android:paddingHorizontal="@dimen/_10sdp"
                     android:paddingVertical="@dimen/_4sdp"
                     android:text=""
-                    android:textSize="@dimen/_12ssp"
                     android:singleLine="true"/>
 
                 <TextView
@@ -129,11 +113,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:fontFamily="@font/bai_jamjuree_medium"
+                    style="@style/edit_label"
                     android:lines="1"
-                    android:text="@string/ContactNumber_star"
-                    android:textColor="@color/blue"
-                    android:textSize="@dimen/_12ssp" />
+                    android:text="@string/ContactNumber_star"/>
 
                 <EditText
                     android:id="@+id/ETAccountHolderNumber"
@@ -141,14 +123,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:background="@drawable/grey_edit_background"
-                    android:fontFamily="@font/bai_jamjuree_medium"
+                    android:background="@drawable/edit_box"
+                    style="@style/edit_text_m"
                     android:lines="1"
                     android:inputType="phone"
                     android:paddingHorizontal="@dimen/_10sdp"
                     android:paddingVertical="@dimen/_4sdp"
                     android:text=""
-                    android:textSize="@dimen/_12ssp"
                     android:maxLength="10"/>
 
                 <TextView
@@ -156,11 +137,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:fontFamily="@font/bai_jamjuree_medium"
-                    android:lines="1"
-                    android:text="@string/BusinessName_star"
-                    android:textColor="@color/blue"
-                    android:textSize="@dimen/_12ssp" />
+                    style="@style/edit_label"
+                    android:text="@string/BusinessName_star"/>
 
                 <EditText
                     android:id="@+id/ETBusinessName"
@@ -168,25 +146,21 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:background="@drawable/grey_edit_background"
-                    android:fontFamily="@font/bai_jamjuree_medium"
+                    android:background="@drawable/edit_box"
+                    style="@style/edit_text_m"
                     android:inputType="text"
                     android:lines="1"
                     android:paddingHorizontal="@dimen/_10sdp"
                     android:paddingVertical="@dimen/_4sdp"
-                    android:text=""
-                    android:textSize="@dimen/_12ssp" />
+                    android:text=""/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:fontFamily="@font/bai_jamjuree_medium"
-                    android:lines="1"
-                    android:text="@string/BusinessAddress_star"
-                    android:textColor="@color/blue"
-                    android:textSize="@dimen/_12ssp" />
+                    style="@style/edit_label"
+                    android:text="@string/BusinessAddress_star"/>
 
                 <EditText
                     android:id="@+id/ETBusinessAddress"
@@ -194,25 +168,21 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:background="@drawable/grey_edit_background"
-                    android:fontFamily="@font/bai_jamjuree_medium"
+                    android:background="@drawable/edit_box"
+                    style="@style/edit_text_m"
                     android:inputType="text"
                     android:lines="1"
                     android:paddingHorizontal="@dimen/_10sdp"
                     android:paddingVertical="@dimen/_4sdp"
-                    android:text=""
-                    android:textSize="@dimen/_12ssp" />
+                    android:text=""/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:fontFamily="@font/bai_jamjuree_medium"
-                    android:lines="1"
-                    android:text="@string/Pincode_star"
-                    android:textColor="@color/blue"
-                    android:textSize="@dimen/_12ssp" />
+                    style="@style/edit_label"
+                    android:text="@string/Pincode_star"/>
 
                 <EditText
                     android:id="@+id/ETPincode"
@@ -220,14 +190,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:background="@drawable/grey_edit_background"
-                    android:fontFamily="@font/bai_jamjuree_medium"
+                    android:background="@drawable/edit_box"
+                    style="@style/edit_text_m"
                     android:inputType="phone"
                     android:lines="1"
                     android:paddingHorizontal="@dimen/_10sdp"
                     android:paddingVertical="@dimen/_4sdp"
                     android:text=""
-                    android:textSize="@dimen/_12ssp"
                     android:maxLength="6"/>
 
                 <TextView
@@ -235,11 +204,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:fontFamily="@font/bai_jamjuree_medium"
-                    android:lines="1"
-                    android:text="@string/City_star"
-                    android:textColor="@color/blue"
-                    android:textSize="@dimen/_12ssp" />
+                    style="@style/edit_label"
+                    android:text="@string/City_star"/>
 
                 <EditText
                     android:id="@+id/ETcity"
@@ -247,25 +213,21 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:background="@drawable/grey_edit_background"
-                    android:fontFamily="@font/bai_jamjuree_medium"
+                    android:background="@drawable/edit_box"
+                    style="@style/edit_text_m"
                     android:inputType="text"
                     android:lines="1"
                     android:paddingHorizontal="@dimen/_10sdp"
                     android:paddingVertical="@dimen/_4sdp"
-                    android:text=""
-                    android:textSize="@dimen/_12ssp" />
+                    android:text=""/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:fontFamily="@font/bai_jamjuree_medium"
-                    android:lines="1"
-                    android:text="@string/State_star"
-                    android:textColor="@color/blue"
-                    android:textSize="@dimen/_12ssp" />
+                    style="@style/edit_label"
+                    android:text="@string/State_star"/>
 
                 <EditText
                     android:id="@+id/ETState"
@@ -273,14 +235,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:background="@drawable/grey_edit_background"
-                    android:fontFamily="@font/bai_jamjuree_medium"
+                    android:background="@drawable/edit_box"
+                    style="@style/edit_text_m"
                     android:inputType="phone"
                     android:lines="1"
                     android:paddingHorizontal="@dimen/_10sdp"
                     android:paddingVertical="@dimen/_4sdp"
-                    android:text=""
-                    android:textSize="@dimen/_12ssp" />
+                    android:text="" />
 
                 <ImageView
                     android:id="@+id/image"
@@ -360,6 +321,10 @@
             </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

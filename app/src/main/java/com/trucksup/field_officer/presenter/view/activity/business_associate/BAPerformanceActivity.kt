@@ -1,4 +1,4 @@
-package com.trucksup.field_officer.presenter.view.activity.truck_supplier
+package com.trucksup.field_officer.presenter.view.activity.business_associate
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -9,25 +9,25 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.trucksup.field_officer.R
+import com.trucksup.field_officer.databinding.BaPerformanceActivityBinding
 import com.trucksup.field_officer.databinding.DateFilterBinding
 import com.trucksup.field_officer.databinding.TsFollowupActivityBinding
 import com.trucksup.field_officer.databinding.TsPerformanceActivityBinding
 import com.trucksup.field_officer.presenter.common.dialog.DialogBoxes
-import com.trucksup.field_officer.presenter.common.dialog.HappinessCodeBox
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
-import com.trucksup.field_officer.presenter.view.adapter.TSPerformanceAdapter
+import com.trucksup.field_officer.presenter.view.adapter.BAPerformanceAdapter
 import com.trucksup.field_officer.presenter.view.adapter.TSScheduleFollowupAdapter
 import com.trucksup.field_officer.presenter.view.fragment.ts.TSCompletedFragment
 import com.trucksup.field_officer.presenter.view.fragment.ts.TSScheduledFragment
 import com.trucksup.fieldofficer.adapter.FragmentAdapter
 
-class TSPerformanceActivity : BaseActivity() {
+class BAPerformanceActivity : BaseActivity() {
 
-    private lateinit var binding: TsPerformanceActivityBinding
+    private lateinit var binding: BaPerformanceActivityBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = TsPerformanceActivityBinding.inflate(layoutInflater)
+        binding = BaPerformanceActivityBinding.inflate(layoutInflater)
         adjustFontScale(resources.configuration, 1.0f);
         setContentView(binding.root)
 
@@ -42,8 +42,8 @@ class TSPerformanceActivity : BaseActivity() {
         list.add("")
         list.add("")
         binding.rv.apply {
-            layoutManager = LinearLayoutManager(this@TSPerformanceActivity, RecyclerView.VERTICAL, false)
-            adapter = TSPerformanceAdapter(this@TSPerformanceActivity, list)
+            layoutManager = LinearLayoutManager(this@BAPerformanceActivity, RecyclerView.VERTICAL, false)
+            adapter = BAPerformanceAdapter(this@BAPerformanceActivity, list)
             hasFixedSize()
         }
     }
@@ -56,17 +56,16 @@ class TSPerformanceActivity : BaseActivity() {
 
         //filter
         binding.imgFilter.setOnClickListener {
-            DialogBoxes.setFilter(this@TSPerformanceActivity, "owner")
+            DialogBoxes.setFilter(this@BAPerformanceActivity, "owner")
         }
-
         binding.ivBack.setOnClickListener {
             onBackPressed()
         }
     }
 
     private fun dateFilterDialog() {
-        val builder = AlertDialog.Builder(this@TSPerformanceActivity)
-        val binding = DateFilterBinding.inflate(LayoutInflater.from(this@TSPerformanceActivity))
+        val builder = AlertDialog.Builder(this@BAPerformanceActivity)
+        val binding = DateFilterBinding.inflate(LayoutInflater.from(this@BAPerformanceActivity))
         builder.setView(binding.root)
         val dialog: AlertDialog = builder.create()
         dialog.show()

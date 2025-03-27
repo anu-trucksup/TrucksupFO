@@ -35,10 +35,8 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mLoginBinding = DataBindingUtil.setContentView(this, R.layout.activity_login)
-        Utils.setStatusBarColorAndIcons(this)
+        //Utils.setStatusBarColorAndIcons(this)
 
-
-        Log.e("","date"+System.currentTimeMillis());
         loginPreferences = CommonApplication.getSharedPreferences()
         loginPrefsEditor = loginPreferences?.edit();
 

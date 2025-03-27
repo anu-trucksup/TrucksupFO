@@ -2,145 +2,38 @@
 
     <string name="app_name">Field Officer</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="rs">₹</string>
-    <string name="per">per</string>
-    <string name="title_activity_dashboard">DashboardActivity</string>
-    <string name="title_home">Home</string>
-    <string name="title_search">Search</string>
-    <string name="title_itinerary">Itinerary</string>
-    <string name="title_cart">Cart</string>
-    <string name="title_account">Account</string>
-
-    <!--    <string name="resend_in">Resend In</string>-->
-    <!--    <string name="underline_verify_text"><u>Verify</u></string>-->
-    <!--    <string name="ok">ok</string>-->
-
-    <string name="male">Male</string>
-    <string name="female">Female</string>
-
-    <string name="united_states">United States</string>
-    <string name="united_states_alpha_2_code">US</string>
-
-    <string name="singapore">Singapore</string>
-    <string name="singapore_alpha_2_code">SG</string>
-
-    <string name="canada">Canada</string>
-    <string name="canada_alpha_2_code">CA</string>
-
-    <string name="united_arab_emirates">United Arab Emirates</string>
-    <string name="united_arab_emirates_alpha_2_code">AE</string>
-
-    <string name="united_kingdom">United Kingdom</string>
-    <string name="united_kingdom_emirates_alpha_2_code">GB</string>
-
-    <string name="italy">Italy</string>
-    <string name="italy_alpha_2_code">IT</string>
-
-    <string name="germany">Germany</string>
-    <string name="germany_alpha_2_code">DE</string>
-    <string name="e_sim">eSIM</string>
-    <string name="dollar">$ </string>
-    <string name="Rs">\u20B9</string>
-    <string name="buy_now">Buy Now</string>
-    <string name="add_to_cart">Add to Cart</string>
-    <string name="e_sim_data">ESimData</string>
-    <string name="popular_countries">Popular countries</string>
-    <string name="my_orders">My Orders</string>
-    <string name="order_items">Order Items</string>
-    <string name="installation_instructions_for_esim">Installation instructions for eSIM</string>
-    <string name="share_your_order">share your order !</string>
-    <string name="iphone">iPhone</string>
-    <string name="android">Android</string>
-    <string name="esim_countryTitle">ESimCountryTitle</string>
-    <string name="pdf_show_local_progress_title">hiiii</string>
-    <string name="pdf_show_local_progress_content">Hiii</string>
-    <string name="DeskPortal.Dashboard.title">My Support</string>
-    <string name="DeskPortal.Dashboard.header.description"></string>
-
-    <string name="facebook_app_id">802609781780786</string>
-    <string name="fb_login_protocol_scheme">fb802609781780786</string>
-    <string name="facebook_client_token">56789</string>
-    <string name="individual">Individual</string>
-    <string name="builder">Builder</string>
-    <string name="agent">Agent</string>
-    <string name="dealer">Dealer</string>
-    <string name="are_you">Are You</string>
-    <string name="full_name">Full Name</string>
     <string name="mobile_number">Mobile number</string>
-    <string name="create_account">Create Account</string>
     <string name="welcome_back">Welcome Back</string>
-    <string name="edit_profile">Edit Profile</string>
-    <string name="logout">Logout</string>
     <string name="resend_in_3_30">Resend in 3:30</string>
-    <string name="property_details">Property Details</string>
-    <string name="send_otp">Send OTP</string>
-    <string name="email">Email</string>
-    <string name="update_your_profile">Update Your Profile</string>
-    <string name="your_contact_details">Your Contact Details</string>
-    <string name="apply_filters">Apply Filters</string>
-    <string name="clear_all">Clear All</string>
-    <string name="add_property">Add Property</string>
     <string name="log_in">Log in </string>
     <string name="sign_up">Sign up</string>
     <string name="pin_code">Pin Code *</string>
     <string name="address">Address *</string>
-    <string name="basic_details">Basic Details</string>
-    <string name="upload">Upload</string>
-    <string name="select_images">Select Image</string>
-    <string name="add_project">Add Project</string>
-    <string name="my_property">My Property</string>
     <string name="city">City *</string>
-    <string name="description">Description *</string>
-    <string name="title">Title *</string>
-    <string name="save">Save</string>
-    <string name="back">Back</string>
-    <string name="next">Next</string>
-    <string name="images">Images</string>
-    <string name="next_amp_save"><![CDATA[Next & Save]]></string>
-    <string name="my_project">My Projects</string>
     <string name="data_not_found">Data Not Found\nSorry, the data you are looking for does not exist.</string>
-    <string name="project_details">Project Details</string>
-    <string name="project_amenities">Project Amenities</string>
-    <string name="to_price">To Price *</string>
-    <string name="select_image">Upload Image</string>
-    <string name="select_banner">Upload Banner image</string>
-    <string name="search_project">Search Project</string>
-    <string name="search_property">Search Property</string>
-    <string name="add_inventory">Add Inventory</string>
     <string name="cancel">Cancel</string>
-    <string name="highendkitchens">HighEndKitchens</string>
-    <string name="floor_plan">Floor Plan</string>
-    <string name="property_location">Property Location</string>
-    <string name="ask_for_details">Ask For Details</string>
-    <string name="floor_amp_counter"><![CDATA[Floor & Counter:]]></string>
-    <string name="project_specifications">Project Specifications</string>
-    <string name="edit_inventory">Edit Inventory</string>
-    <string name="no_data_available">No data available.</string>
-    <string name="no_property_available">No Property available.</string>
-    <string name="no_project_available">No Projects available.</string>
-    <string name="no_inventory_available">No Inventory available.</string>
     <string name="submit">Submit</string>
-    <string name="edit_property">Edit Property</string>
-    <string name="edit_project">Edit Project</string>
-    <string name="contact_deatails">Contact Details</string>
     <string name="verify">verify</string>
-    <string name="my_inventory">My Inventory</string>
-    <string name="enter_your_otp">Enter Your OTP</string>
-    <string name="this_is_not_a_valid_email_address">This Is Not a Valid Email Address</string>
-    <string name="check_your_email_for_otp">Check Your email for OTP.</string>
-    <string name="menu_home">Home</string>
-    <string name="menu_privacy">Privacy Policy</string>
-    <string name="menu_term">Term And Condition</string>
-    <string name="menu_about">About us</string>
-    <string name="contact_seller">Contact Seller</string>
-    <string name="view_inventory">View Inventory</string>
-    <string name="invent_details">Inventory Details</string>
-    <string name="posted_on_owner">Posted On Owner:</string>
-    <string name="builder_reputation">Builder Reputation:</string>
-    <string name="legal_compliance">Legal Compliance:</string>
-    <string name="avoid_verbal_agreement">Avoid Verbal Agreement:</string>
     <string name="Complete_Now"><u>Complete Now</u></string>
+
+    <string-array name="kyc_type">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+
+    <string-array name="visit_type">
+        <item>No Visit</item>
+        <item>1st Visit</item>
+        <item>Regular Visit</item>
+    </string-array>
+
+    <string-array name="plan_type">
+        <item>Diamond Plan</item>
+        <item>Gold Plan</item>
+        <item>Silver Plan</item>
+        <item>Welcome Plan</item>
+    </string-array>
+
     <string-array name="body_type">
         <item>Select</item>
         <item>Open</item>
@@ -152,7 +45,6 @@
         <item>O.D.C</item>
         <item>Container</item>
     </string-array>
-    <string name="Close"><u>Close</u></string>
     <string name="password">Password</string>
     <string name="get_started_with_sign">Get started with sign up or log in.</string>
     <string name="confirm_password">Confirm Password</string>
@@ -168,8 +60,6 @@
     <string name="name_star">Profile Name <font color='#FF0000'>*</font></string>
     <string name="type">Type here..</string>
     <string name="profilePhoto_star">Profile Photo <font color='#FF0000'>*</font></string>
-    <string name="takeSelfiText">Please take selfie for your profile</string>
-    <string name="roalSlectText">Please select your profile type to enjoy the benefits.</string>
     <string name="enterProfilePhoto">Please add the profile photo</string>
     <string name="ok">Ok</string>
     <string name="log_in_here">Log In Here</string>
@@ -177,22 +67,15 @@
 
     <string name="process_adhar">Proceed for Aadhaar Verification</string>
     <string name="process_adhar_verify">Thank you for trusting TrucksUp.</string>
-    <string name="process_adhar_verify_desc"> Let’s start the journey to make your business successful.</string>
 
     <string name="generate_OTP">Generate Verification Code</string>
-    <string name="verify_pan">Verify Your PAN</string>
-    <string name="verify_OTP">Verify Verification Code</string>
     <string name="verify_kyc_hint">Verification Code has been sent on your registration no.</string>
     <string name="verification_code_enter">Enter verification code</string>
     <string name="remainingTime">Remaining time</string>
     <string name="cancle">Cancel</string>
-    <string name="time_remaning">Time Remaining</string>
-    <string name="auto_manual">Enter Code manually</string>
     <string name="submit_main">Submit</string>
     <string name="resand_sms"><u>Resend Verification Code</u></string>
-    <string name="resandCode">Resend Code</string>
 
-    <string name="resent_otp">Did not recieve the Sms ?</string>
     <string name="verification_code">Verification code</string>
     <string name="total_follow_up">Total Follow-Up</string>
     <string name="completed">Completed</string>
@@ -231,20 +114,17 @@
     <string name="home">Home</string>
     <string name="helpline">Helpline</string>
 
-    <string name="AccountHolderName_star">Account Holder Name<font color='#FF0000'>*</font></string>
-    <string name="AccountNumber_star">Account Number<font color='#FF0000'>*</font></string>
-    <string name="ReenterAccountNumber_star">Re-enter Account Number<font color='#FF0000'>*</font></string>
-    <string name="BankName_star">Bank Name<font color='#FF0000'>*</font></string>
-    <string name="IFSCCode_star">IFSC Code<font color='#FF0000'>*</font></string>
-    <string name="PANNumber_star">PAN Number<font color='#FF0000'>*</font></string>
+    <string name="AccountHolderName_star">Account Holder Name <font color='#FF0000'>*</font></string>
+    <string name="AccountNumber_star">Account Number <font color='#FF0000'>*</font></string>
+    <string name="ReenterAccountNumber_star">Re-enter Account Number <font color='#FF0000'>*</font></string>
+    <string name="BankName_star">Bank Name <font color='#FF0000'>*</font></string>
+    <string name="IFSCCode_star">IFSC Code <font color='#FF0000'>*</font></string>
+    <string name="PANNumber_star">PAN Number <font color='#FF0000'>*</font></string>
     <string name="UploadChequePassbook_star">Upload Cheque / Passbook<font color='#FF0000'>*</font></string>
 
 
 
     <string name="BaNewOnboardingTab">To onboard a new business associate, please provide the following details.</string>
-    <string name="BaNewOnboardingSameCl">Same as Current Location</string>
-    <string name="BaNewOnboardingSameAdd">Add</string>
-    <string name="BaNewOnboardingSameCancel">Cancel</string>
     <string name="Onboardings">Onboardings</string>
 
     <string name="SalesCode">Sales Code of BO <font color='#FF0000'>*</font></string>
@@ -260,18 +140,17 @@
     <string name="PleaseEnterBusinessName">Please enter your Business Name</string>
     <string name="PleaseEnterBusinessAddress">Please enter your Business Address</string>
     <string name="PleaseEnterBusinessPincode">Please enter your Pincode</string>
-    <string name="PleaseEnterRightPincode">Please enter 6-digit pincode</string>
     <string name="EnterHappinessCode">Enter Happiness Code</string>
     <string name="hapinessCodeMsg">To onboard the new TS, kindly input the happiness code shared to the Truck Supplier on the registered mobile number.</string>
 
-    <string name="ContactName_star">Contact Name<font color='#FF0000'>*</font></string>
-    <string name="ContactNumber_star">Contact Number<font color='#FF0000'>*</font></string>
-    <string name="BusinessName_star">Business Name<font color='#FF0000'>*</font></string>
-    <string name="BusinessType_star">Business Type<font color='#FF0000'>*</font></string>
-    <string name="BusinessAddress_star">Business Address<font color='#FF0000'>*</font></string>
-    <string name="Pincode_star">Pincode<font color='#FF0000'>*</font></string>
-    <string name="City_star">City<font color='#FF0000'>*</font></string>
-    <string name="State_star">State<font color='#FF0000'>*</font></string>
+    <string name="ContactName_star">Contact Name <font color='#FF0000'>*</font></string>
+    <string name="ContactNumber_star">Contact Number <font color='#FF0000'>*</font></string>
+    <string name="BusinessName_star">Business Name <font color='#FF0000'>*</font></string>
+    <string name="BusinessType_star">Business Type <font color='#FF0000'>*</font></string>
+    <string name="BusinessAddress_star">Business Address <font color='#FF0000'>*</font></string>
+    <string name="Pincode_star">Pincode <font color='#FF0000'>*</font></string>
+    <string name="City_star">City <font color='#FF0000'>*</font></string>
+    <string name="State_star">State <font color='#FF0000'>*</font></string>
     <string name="ProfilePhoto_star">Profile Photo <font color='#FF0000'>*</font></string>
 
     <string name="Cancel"><ul>Cancel</ul></string>
@@ -318,9 +197,6 @@
     <string name="visit_type">Visit Type:</string>
 
 
-    <string name="enterName">Please enter name</string>
-    <string name="enterCity">Please enter City Name</string>
-    <string name="slectState">select state</string>
     <string name="enterLoanPrice">Please select valid requested loan amount</string>
     <string name="thanksForContactingUs">Thanks For Contacting Us!</string>
     <string name="finace_msg">Please help us serve better by providing the following details.</string>
@@ -328,18 +204,12 @@
     <string name="other">Other</string>
     <string name="insurance_fullName">Full Name <font color='#FF0000'>*</font></string>
     <string name="finace_fullName">Full Name <font color='#FF0000'>*</font></string>
-    <string name="enterInsurance_validity">Please enter insurance_validity</string>
-    <string name="requestedLoanAmount">Requested Loan Amount</string>
     <string name="requestedLoanAmountStar">Requested Loan Amount <font color='#FF0000'>*</font></string>
-    <string name="typeOfLoan">Type Of Loan</string>
     <string name="typeOfLoanStar">Type Of Loan<font color='#FF0000'>*</font></string>
     <string name="enterYourName">Please enter your name</string>
     <string name="enterYourrightName">Please enter a valid name.</string>
-    <string name="finMobileInfo">*If you want to update your mobile number to an aletrnate one, please enter the new number in the mobile number section.</string>
-    <string name="enderValidVehicalNo">Please enter valid truck number</string>
     <string name="insurance_mobileNo">Mobile Number <font color='#FF0000'>*</font></string>
     <string name="insurance_vehicle_no">Vehicle No. <font color='#FF0000'>*</font></string>
-    <string name="enter_number_v">Please enter phone number</string>
     <string name="enter_right_number_v">Please enter valid mobile number</string>
     <string name="enter_mobile_no">Please enter mobile number</string>
     <string name="slectCity">Please select City</string>
@@ -348,7 +218,6 @@
     <string name="SameCurrentLocation">Same as Current Location</string>
 
     <string name="view_previous_inquiry">View Previous Enquiry</string>
-    <string name="alt_mobile_info">*To change your mobile number, please enter the alternate number in the mobile no. field.</string>
     <string name="current_status">Current Status</string>
     <string name="track_status">Track status >></string>
     <string name="finance_previous_enquiry">Finance Previous Enquiry</string>
@@ -359,20 +228,13 @@
     <string name="ref_id">Ref. ID</string>
     <string name="insurance_validity_error">Please input valid insurance validity.</string>
     <string name="others">Others</string>
-    <string name="hotDeals">Must See</string>
-    <string name="dataNotAvailable">Data not available</string>
-    <string name="needTrucksNow">Loads available for your truck</string>
-    <string name="trucksAvailable">Trucks available for your loads</string>
 
     <string name="data_not_found_msg">We’re sorry, the page you requested could not be found.</string>
     <string name="cityStar">City <font color='#FF0000'>*</font></string>
-    <string name="body">Body</string>
     <string name="state">State</string>
     <string name="stateStar">State <font color='#FF0000'>*</font></string>
-    <string name="search_city">Search City</string>
     <string name="Referral_Code">Sales Code</string>
     <string name="finaceMobile_no">Mobile Number <font color='#FF0000'>*</font></string>
-    <string name="please_upload_photos">Please Upload Photos</string>
 
     <string-array name="loanType">
         <item>New Vehicle</item>
@@ -380,142 +242,20 @@
         <item>Refinance/Top-up</item>
     </string-array>
 
-    <string name="insorenceReq_msg">Do you want to contact to our Insurance Executive?</string>
-
-    <string name="insu_Detail_msg">We have fetched your vehicle details, please provide other details, if required. </string>
-
-    <string name="insu_has_policy_exp">Has the previous policy expired?</string>
-
-    <string name="insu_Not_Expired">Not Expired</string>
-
-    <string name="insu_Expired">Expired</string>
-
-    <string name="insu_Policy_Expiry_Date">Policy Expiry Date?</string>
-
-    <string name="insu_Before">Before</string>
-
-    <string name="insu_Between">Between</string>
-
-    <string name="insu_After">After</string>
-
-    <string name="last_update">Last Updated</string>
-    <string name="subscription_Expiry">Subscription Expiry</string>
-    <string name="subscription">Subscription</string>
-    <string name="choose_y_plan">Choose Your Plan</string>
-    <string name="choose_plan"><u>Choose Plan ></u></string>
-    <string name="stoped">Stopped -</string>
-    <string name="moving">Moving -</string>
-    <string name="current_Status">Current Status</string>
-    <string name="avg_Speed">Avg. Speed</string>
     <string name="continu_main">Continue</string>
 
-    <string name="add_new">Add New</string>
-    <string name="already_requested">Already Requested</string>
-    <string name="policy_issued">Policy Issued</string>
-    <string name="vehicle_no">Vehicle No.</string>
     <string name="vehicle_no_start">Vehicle No. <font color='#FF0000'>*</font></string>
-    <string name="we_have_fetched_your_vehicle_details_please_provide_other_details_if_required">We have fetched your vehicle details, please provide other details, if required.</string>
-    <string name="has_the_previous_policy_expired">Has the previous policy expired?</string>
-    <string name="not_expired">Not Expired</string>
-    <string name="expired">Expired</string>
-    <string name="i_already_have_trucksup_s_insurance">I already have TrucksUp’s Insurance</string>
-    <string name="policy_expiry_date">Policy Expiry Date?</string>
-    <string name="before">Before</string>
-    <string name="between">Between</string>
-    <string name="after">After</string>
-    <string name="quotations">Quotations</string>
-    <string name="we_have_selected_some_insurance_options_according_to_your_truck_details">We have selected some insurance options according to your truck details.</string>
-    <string name="policy_details">Policy Details</string>
-    <string name="manage_your_policies_and_renewals_at_one_place">Manage your policies and renewals at one place</string>
-    <string name="already_sold">Already Sold</string>
 
-    <string name="premium">Premium</string>
-    <string name="policy">Policy</string>
-    <string name="valid_from">Valid From</string>
-    <string name="valid_upto">Valid Upto</string>
     <string name="truck_details">Truck Details</string>
-    <string name="owner_details">Truck Supplier Details</string>
-    <string name="invoice_details">Invoice Details</string>
-    <string name="nominee_details">Nominee Details</string>
-    <string name="requested">Requested</string>
-    <string name="trying_to_customize_best_deals_for_you">Trying to customize best deals for you</string>
-    <string name="estimated_wait_time">Estimated wait time</string>
-    <string name="please_wait_while_we_are_analysing_your_truck_details_to_offer_you_the_bestprices">Please wait while we are analysing your Truck details to offer you the best prices</string>
-    <string name="verifying_registration_number">Verifying registration number....</string>
-    <string name="verifying_engine_number">Verifying engine number....</string>
-    <string name="verifying_chassis_number">Verifying chassis number....</string>
-    <string name="calculating_truck_s_age_and_weight">Calculating truck’s age and weight....</string>
-    <string name="thankyou_for_your_interest_we_ll_get_back_to_you_shortly">Thank you for your interest. We’ll get back to you shortly.</string>
-    <string name="insorence_title_msg">Get your insurance done in no time...</string>
-    <string name="follow_staps">Follow the steps...</string>
-    <string name="enter_registration_no">Please Enter Registration No.</string>
-    <string name="insorence_terms">I agree to the Terms and Conditions</string>
-    <string name="view_proce">View Prices</string>
-    <string name="not_sure">Not Sure?</string>
-    <string name="know_reg">Know your Reg. No.</string>
 
-    <string name="registrationNo">Registration No.</string>
-    <string name="year">Year</string>
-    <string name="brand">Brand</string>
-    <string name="model">Model</string>
-    <string name="vehicleType">Vehicle Type</string>
-    <string name="permitType">Permit Type</string>
-    <string name="fuelType">Fuel Type</string>
-    <string name="uploadCopy">Upload Copy</string>
-    <string name="anyClaimTaken">Any Claim Taken</string>
-    <string name="ownershipTransfer">Ownership Transfer</string>
-    <string name="geographicalArea">Geographical Area Extension</string>
-    <string name="vehicleDetails">Vehicle Details Confirmation</string>
-    <string name="vehicleDetails_msg">We have fetched your vehicle details, please provide other details, if required.</string>
     <string name="insurance_">Insurance</string>
     <string name="select">Select</string>
-    <string name="not_select_able">Not select able</string>
-    <string name="bth_unavailbe">BTH awaited.</string>
-    <string name="thc_unavailbe">THC awaited.</string>
 
-    <string name="style_square">square_box</string>
-    <string name="style_rounded">rounded_box</string>
-    <string name="style_underline">underline</string>
-    <string name="style_rounded_underline">rounded_underline</string>
-    <string name="pricacy">By signing up you agree to our <a href="https://trucksup.com/terms-conditions/">Terms and Conditions</a> and <a href="https://trucksup.com/privacy-policy/">Privacy Policy</a></string>
-    <string name="insorance_message">Thanks for showing your interest in TrucksUp Insurance. Our agent will call you shortly.</string>
-    <string name="rv_vehical_no">Vehicle No.</string>
-    <string name="vehical_no">Vehicle No :</string>
-    <string name="owner_name">Owner Name :</string>
-    <string name="pan_no">PAN No.</string>
-    <string name="rc_copy">RC Copy :</string>
-    <string name="engine_number">Engine Number :</string>
-    <string name="chassis_number">Chassis Number :</string>
     <string name="cancel_u"><u>Cancel</u></string>
-    <string name="confiram">Confirm</string>
 
-    <string name="insurance_name">Insurer :</string>
-    <string name="insurance_ex_date">Expiry Date :</string>
-    <string name="load_notfound">Sorry ! Load not found</string>
-    <string name="khata_notfound">Sorry ! Records not found</string>
-    <string name="khata_notTrip">No trip found</string>
     <string name="no_data">No data found</string>
-    <string name="no_notification">No Notification For You</string>
-    <string name="notification">Notification</string>
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
-    <string name="logout_ms">Do you want to logout?</string>
-    <string name="dail_call">Do you want to call now ?</string>
-    <string name="deleteLain">Do you want delete  to lane?</string>
-    <string name="dail_call_banner">Thanks for showing the interest. Our customer representative will connect you shortly</string>
-    <string name="dail">Dail Call</string>
-    <string name="reject">Reject</string>
     <string name="rejected">Rejected</string>
-    <string name="delete_truck_ms">Are you sure about removing this vehicle?</string>
-    <string name="calls">Calls</string>
-    <string name="khata_book">Khata Book</string>
-    <string name="help">Help</string>
-    <string name="help_msg">Hello Dear ! Please select the option for which you require assistance</string>
-    <string name="orders" tools:ignore="StringEscaping">My Trips</string>
-    <string name="name">Profile Name</string>
-    <string name="go_back">Go To Back</string>
     <string name="insurance_validity">Insurance Validity <font color='#FF0000'>*</font></string>
-    <string name="insurance_validity_ws">Insurance Validity</string>
     <string name="active">Active</string>
     <string name="vehicle_details">Vehicle Details</string>
     <string name="rc_front_image">RC Front Image</string>
@@ -533,29 +273,10 @@
     <string name="selfie_with_your_face">Selfie with your face</string>
     <string name="owner_office_photo">Owner office photo</string>
     <string name="gps">GPS</string>
-    <string name="buy_amp_sell_trucks"><![CDATA[Buy & Sell Trucks]]></string>
     <string name="subscription_plan">Subscription Plan</string>
     <string name="remarks">Remarks*</string>
     <string name="select_follow_up_date">Select Follow-up date</string>
-    <string name="truck_no">Truck No</string>
     <string name="owned_truck">Owned</string>
-
-    <string name="device_permissions">Device Permissions</string>
-    <string name="camara">Camara</string>
-    <string name="camara_hint">TrucksUp uses this information to help you do things such as Upload Photos</string>
-    <string name="location">Location</string>
-    <string name="location_hint">TrucksUp uses this information to help you do things such as Use GPS , and update vehical Location</string>
-    <string name="microphone">Microphone</string>
-    <string name="microphone_hint">TrucksUp uses this information to help you do things such as Search City by Voice</string>
-    <string name="phone">Phone</string>
-    <string name="phone_hint">TrucksUp uses this information to help you do things such as App access device modle no for fixed app bugs</string>
-
-    <string name="notification_hint">TrucksUp uses this information to help you do things such as Receveing Push Notification of new load available</string>
-    <string name="allowed">Allowed</string>
-    <string name="not_allowed">Not Allowed</string>
-    <string name="update_device_settings">Update device settings</string>
-    <string name="see_more">See More</string>
-    <string name="contact_for_loan">Contact For Loan</string>
 
     <string name="dl_verification">DL Verification</string>
     <string name="enter_dL_number_and_dob_for_verification">For verification enter your DL number and DOB</string>
@@ -577,47 +298,31 @@
     <string name="issued_authority">Issued Authority:</string>
     <string name="date_of_birth">Date Of Birth:</string>
     <string name="date_of_issue">Date Of Issue:</string>
-    <string name="add_more_vehicles">Buy\nVehicle Verification</string>
     <string name="enter_vehicle_number">Commercial vehicle number</string>
     <string name="verified_vehicles">Verified Vehicles</string>
     <string name="view_history">View History</string>
     <string name="owner_name1">Owner Name</string>
     <string name="chassis_number1">Chassis Number</string>
     <string name="engine_number1">Engine Number</string>
-    <string name="registration_date">Registration Date</string>
-    <string name="registration_valid_upto">Registration Valid Upto</string>
     <string name="rc_status">RC Status</string>
     <string name="insurance_valid_upto">Insurance Valid Upto</string>
-    <string name="puc_number">PUC Number</string>
     <string name="puc_valid_upto">PUC Valid Upto</string>
-    <string name="permit_number">Permit Number</string>
-    <string name="permit_valid_upto">Permit Valid Upto</string>
-    <string name="permit_level">Permit Level</string>
     <string name="fuel_type1">Fuel Type</string>
     <string name="registration_authority1">Registration Authority</string>
     <string name="tax_paid_upto">Tax Paid Upto</string>
-    <string name="transaction_history">Transaction History</string>
-    <string name="add1">ADD</string>
-    <string name="date_time">Date &amp; Time :</string>
-    <string name="active_plan">Active plan</string>
     <string name="search_verified_truck">Search verified truck..</string>
     <string name="verify2">Verify</string>
     <string name="no_verified_vehicle">No verified vehicle</string>
-    <string name="buy_verification">Buy Verification</string>
     <string name="pending">Pending</string>
     <string name="noTrackingPlanMessage">You do not have active plan to track your vehicle. To continue tracking, kindly purchase the plan now.</string>
     <string name="enterDriverNo">Please input the driver’s mobile number.</string>
     <string name="inputTruckNo">Please input the truck number. </string>
     <string name="no_verified_dl">No verified driving license</string>
-    <string name="history">History</string>
-    <string name="trucks">Trucks</string>
     <string name="enterDLNo">Please enter driving license number.</string>
     <string name="enterDOB">Please enter date of birth.</string>
-    <string name="search_verified_dl">Search verified driving license..</string>
     <string name="date_of_expiry2">Date Of Expiry:</string>
     <string name="check_out_extra_plan_title">You can buy Vehicle Tracking and Vehicle Verification service too.</string>
     <string name="check_out_extra_plan_title2">You can buy Vehicle Tracking and  driving license Verification service too.</string>
-    <string name="checkOutPlanTitle">You can buy vehicle tracking, vehicle verification and driving license verification service too.</string>
 
     <string name="father_husband_Name">Father/Husband Name:</string>
     <string name="state2">State:</string>
@@ -634,107 +339,18 @@
     <string name="enter_otp">Enter Verification Code</string>
     <string name="SkipAadhaar">Skip Aadhaar KYC for now</string>
     <string name="EnterAadhaarNumber">Enter Aadhaar Number</string>
-    <string name="GenerateVerificationCode">Generate Verification Code</string>
     <string name="SkipAadhaarItspaperless">It’s paperless and just takes 2 clicks to complete the KYC.</string>
     <string name="email_address">Email Address</string>
     <string name="miscellaneous">Miscellaneous</string>
     <string name="field_officer">Field Officer</string>
 
-    <string name="renew_now"><u>Renew Now</u></string>
-    <string name="upgrade_to_premium">Upgrade To Premium</string>
-    <string name="plan_discr">Unlimited Loads Add, Find Load, GPS, FasTag, Buy and Sell Old Trucks and many more features enable now </string>
-    <string name="sub_title">With TrucksUp Subscription Plans</string>
-    <string name="get_start">Get Started</string>
-    <string name="edit_otp_tx">Please enter the verification code we have sent you on</string>
-    <string name="edit"><u>Edit</u></string>
-    <string name="edit_main"><u>Edit</u></string>
-    <string name="verify_mobile_number">Verify Mobile Number!</string>
-    <string name="otpError">Please enter valid Verification Code!</string>
-    <string-array name="sell_spinner">
-        <item>चुनना</item>
-        <item>हाँ</item>
-        <item>नहीं</item>
-    </string-array>
-
     <string name="kyc_box_text">You are just one step away from completing your profile.</string>
-    <string name="kycStatus">Kyc Status</string>
-    <string name="preferredLane">Preferred Lane</string>
-    <string name="noOfTruck">No of truck</string>
-    <string name="businessAddress">Business Address</string>
-    <string name="businessName">Business Name</string>
-    <string name="skip"><u>Skip</u></string>
-    <string name="fillFormMsg">Please Fill Truck Details  Form First</string>
-    <string name="fillLanFormMsg">Please Fill Lane  Form First</string>
-    <string name="enterBodyType">Please Enter Body Type</string>
-    <string name="enterNoTruckType">Please Enter Numbe Of Truck</string>
-    <string name="enterSize">Please Enter Numbe Of Truck</string>
-    <string name="enterCapacity">Please Enter Capacity</string>
-    <string name="enterTyer">Please Enter No Of Tyer</string>
-    <string name="notVerified">Not Verified</string>
-    <string name="verified">Verified</string>
-    <string name="total">Total</string>
-    <string name="visitingcard">Visiting Card</string>
-    <string name="trustedFleet">Trusted Fleet</string>
-    <string name="areaOperation">Area Of Operation</string>
-    <string name="truckType">Truck Type</string>
-    <string name="shareBusinessCard">Share Business Card</string>
     <string name="enterTruckNo">Please input commercial vehicle number.</string>
-    <string name="fillPrefrelain">For getting your favourite loads, please  fill the preferred lane.</string>
-    <string name="fillPrefrelain_kyc">For getting your favourite loads, please  fill the preferred lane.</string>
-    <string name="fillRegist_kyc">The KYC will help you to connect with available loads immediately.</string>
-    <string name="submitWithKyc">Submit with KYC</string>
-    <string name="submitWithoutKyc"><u>Submit without KYC</u></string>
-
-    <string name="regester_ow">Register (Truck Supplier/Transporter)</string>
-    <string name="bussinesname_ow">Contact Person Name</string>
-    <string name="company_name">Company Name</string>
 
 
-    <string name="company_name_hint">People will see you with this name in App</string>
-
-
-    <string name="office_city">Office City</string>
-    <string name="alreadyAddedTrucks">Already Added Trucks</string>
-    <string name="enterProfileName">Enter Profile Name</string>
-
-
-    <string name="add_one_truck_msg">You have not added any trucks. Kindly add a truck</string>
-    <string name="verify_truck">Please verify to vehicle</string>
-    <string name="enter_right_company_name">Enter Right Company Name</string>
-    <string name="enter_right_company_namee">Please enter company name</string>
-    <string name="enter_right_city_name">Enter Right City Name</string>
-    <string name="enter_right_contect_name">Enter Right Contact Person Name</string>
-
-    <string name="view_U"><u>View</u></string>
-    <string name="edit_U"><u>Edit</u></string>
-    <string name="updateNow">Update Now</string>
-    <string name="available">Available</string>
-    <string name="updateTruckMessage">We have noted the availability of your truck. A notification will be sent to you on the day of your selection.</string>
     <string name="selectCity">Select City</string>
-    <string name="clearAll"><u>Clear filter</u></string>
     <string name="definedtarget">Defined target for the month of March’25.</string>
     <string name="toaddthe">To add the TS/BA/GP in your team, kindly visit their location and share the happiness share with them.</string>
-
-    <string name="please_select_capicity">Please select capacity</string>
-    <string name="please_select_size">Please select size</string>
-    <string name="please_select_tyer">Please select Tyre</string>
-    <string name="please_select_city">Please Select city</string>
-    <string name="please_select_body">Please select body type</string>
-    <string name="typeHare">Type here</string>
-    <string name="filterNotavailable_size">vehicle size info not available</string>
-    <string name="filterNotavailable_capacity">Capacity info not available</string>
-    <string name="filterNotavailable_body">Body type info not available</string>
-
-    <string name="filterNotavailable_Tyer">Tyre info not available</string>
-    <string name="filterNotavailable_city">City info not available</string>
-    <string name="revarceLoad">(Reverse Load)</string>
-    <string name="bannerTitle">Trucks required urgently!</string>
-    <string name="search">Search</string>
-    <string name="select_prodect">Please select product type</string>
-    <string name="select_vehicalSice">Please select vehicle size type</string>
-    <string name="select_bodyType">Please select body type</string>
-    <string name="select_capacityType">Please select capacity type</string>
-    <string name="select_tyreType">Please select tyre type</string>
 
 
     <string name="startDate">Start Date</string>
@@ -742,40 +358,26 @@
     <string name="trackingstartEnd">End Date <font color='#FF0000'>*</font></string>
     <string name="trackingstartDate">Start Date <font color='#FF0000'>*</font></string>
     <string name="addTrMsg">To track your vehicle, kindly provide the following details.</string>
-    <string name="distanceTravelled">Distance Travelled</string>
-    <string name="distanceRemaining">Distance Remaining</string>
     <string name="changeDriverNumber">Change Driver Number</string>
     <string name="extendEndDate">Extend End Date</string>
     <string name="viewCurrentLocation">View Current Location</string>
-    <string name="viewMap"><u>View Map</u></string>
     <!--<string name="viewMapAndReport"><u>View Map &amp; Report</u></string>-->
     <string name="trackYourVehicle">Add Vehicle for Tracking</string>
-    <string name="addMoreDays">Add More Days</string>
     <string name="activeVehicles">Active Vehicles</string>
     <string name="viewHistory">View History</string>
     <string name="refresh"><u>Refresh</u></string>
     <string name="vehicleTracking">Vehicle Tracking</string>
     <string name="vehicle_verification">Vehicle Verification</string>
     <string name="verify1">Verify your vehicle document from the Government server.</string>
-    <string name="verifiedMobile">Please verify to mobile number</string>
     <string name="enterStartDate">Please select a valid start date.</string>
     <string name="enterEndDate">Please select a valid end date. </string>
     <string name="enterCommercialVehical">Please enter valid commercial vehicle number.</string>
     <string name="trip">Trip</string>
     <string name="resendConsent">Resend Consent</string>
-    <string name="rriverconsentText">Driver consent is pending</string>
 
 
     <string name="entervehical_no">Enter vehicle number</string>
 
-    <string name="addTripNoPlanMess">You do not have sufficient number of days to track the entered truck number. To continue tracking of the vehicle, please upgrade your plan.</string>
-
-    <string name="transactionPanding">Transaction Pending</string>
-
-    <string name="body_typeStar">Body Type <font color='#FF0000'>*</font></string>
-    <string name="tyerStar">Tyre <font color='#FF0000'>*</font></string>
-    <string name="CapacityStar">Capacity <font color='#FF0000'>*</font></string>
-    <string name="Vehicle_SizeStar">Vehicle Size <font color='#FF0000'>*</font></string>
     <string name="you_can_buy_vehicle_tracking_service_also">You can buy vehicle tracking and driving license verification service too.</string>
 
     <string name="blanceTrackingDay">Balance Tracking Days :</string>
@@ -787,17 +389,10 @@
     <string name="fitness_valid_upto">Fitness Valid Upto</string>
     <string name="model1">Model</string>
     <string name="not_available">Not Available</string>
-    <string name="vehicle_details_verified">*Vehicle details verified on:-</string>
-    <string name="trackingChackLine">You can buy vehicle Verification service also</string>
-    <string name="no_data_found">No data found</string>
     <string name="vehicle_number">Vehicle Number</string>
-    <string name="vehicle_number_star">Vehicle Number <font color='#FF0000'>*</font></string>
     <!--<string name="vehicle_number_dot">Vehicle Number :</string>-->
     <string name="registration_date2">Registration Date</string>
-    <string name="download_successful">Download successful</string>
     <string name="enter_mobile_number">Please enter mobile number</string>
-    <string name="national_permit_one_year">National Permit(1 year)</string>
-    <string name="national_permit_5_year">National Permit(5 year)</string>
     <string name="for_your_safty">*For your safety and security, please match above Chassis number with physical truck before placement.</string>
     <string name="date_service">The source of data is Government server. Data request made on</string>
     <string name="date_service_end">as per agreed <u>T&amp;C.</u></string>
@@ -809,96 +404,37 @@
     <string name="mobileNoMatch"><font color='#FF0000'>*</font> Mobile number does not match. Please re-enter the correct number.</string>
     <string name="linkForTrack">Link to track your vehicle :</string>
 
-    <string name="available_trucks">Available Trucks</string>
-    <string name="updated_trucks">Updated Trucks</string>
-    <string name="updated_now">Update Now</string>
-    <string name="edit2">Edit</string>
-    <string name="slectFromCity">Please select from city.</string>
-    <string name="slectToCity">Please select from city.</string>
-    <string name="addTruckMasg">To add a new truck, please enter the details.</string>
-    <string name="slectAvailableDate">Please select a date.</string>
-
-    <string name="or_enter_manually">Or enter manually</string>
-    <string name="choose_from_below_option">Choose from below options <font color='#FF0000'>*</font></string>
-    <string name="truck_specification">Truck specification</string>
-    <string name="availableNow">Available Now</string>
-    <string name="available_on">Available on <font color='#FF0000'>*</font></string>
-    <string name="myTruck_single">My Truck</string>
-    <string name="fromCity">From City</string>
-    <string name="toCity">To City</string>
-    <string name="continueCompleteProfile">Continue to complete profile</string>
-    <string name="firstKycMasg">Please complete your profile to serve you better, You are a few steps away to complete your profile.</string>
-    <string name="secondKycMasg">We noticed your profile is almost complete! Finishing your profile will unlock amazing extra benefits.</string>
-    <string name="threadKycMasg">Please complete your profile so that we can serve you better, Just a few steps need to finish your profile.</string>
-    <string name="checkPaymentStatus">Check Payment Status</string>
-    <string name="dl_valid">Valid</string>
-    <string name="dl_expired">Expired</string>
-    <string name="success">Success</string>
-    <string name="paymentStatus">Payment Status</string>
-    <string name="submitAndContinue">Submit &amp; Continue</string>
-
 
     <string name="pro">Pro</string>
     <string name="pro_one">Membership with unlimited benefits and savings!</string>
     <string name="membershipExpired">Membership Expired</string>
     <string name="expired_sub">EXPIRED</string>
     <string name="planBenefits">Plan Benefits</string>
-    <string name="currentPlan">Current Plan</string>
-    <string name="upgradePlan">Upgrade Plan</string>
     <string name="paymentCheckout">Payment Checkout</string>
     <string name="paymentDetails">Payment Details</string>
-    <string name="beforeYouPay">Before you pay</string>
     <string name="toPay">To Pay :</string>
     <string name="gstNo">GST Number (Optional)</string>
     <string name="gstNohint">GST Number</string>
     <string name="totalAmountTaxes">Total amount (Incl of taxes)</string>
-    <string name="payableAmount">Payable Amount</string>
-    <string name="planLeftDay">Days Left in Current Plan</string>
-    <string name="AmountLeftDay">Amount of Days Left</string>
     <string name="allPricesInclusiveOfGST">*All prices inclusive of GST.</string>
-    <string name="plan_Benefits">Plan Benefits</string>
-    <string name="checkOut">CheckOut</string>
     <string name="pay_now">Pay Now</string>
     <string name="days">Days</string>
     <string name="day">Day</string>
-    <string name="truck_detailsP">Truck Details <font color='#FF0000'>*</font></string>
-    <string name="preferredLaneP">Preferred Lane <font color='#FF0000'>*</font></string>
-    <string name="per_day">per day</string>
     <string name="transactionSuccessful">Transaction Successful</string>
     <string name="transactionFailed">Transaction Failed</string>
     <string name="downloadInvoice"><u>Download Invoice</u></string>
-    <string name="status_Failed">Failed</string>
     <string name="havingIsssue">Having Isssue</string>
-    <string name="city_p">City</string>
     <string name="validGst">Please enter valid GST number</string>
     <string name="driverMobileNumber">Driver Mobile Number <font color='#FF0000'>*</font></string>
-    <string name="search_truck_m">Search my truck(Only 3 months)</string>
-    <string name="vehicle_History">Vehicle History</string>
     <string name="viewMapAndReport"><u>View Map &amp; Report</u></string>
     <string name="transactionStatus">Transaction Status</string>
-    <string name="loadMiniRs">Please enter minimum ₹ 1.</string>
     <string name="purchasedPlan">Purchased Plan</string>
     <string name="free">Free</string>
-    <string name="payFor">Pay for</string>
     <string name="recommended">Recommended</string>
-    <string name="congratulations">Congratulations!!</string>
-    <string name="you_are_upgrading">You are upgrading to </string>
-    <string name="plan">Plan</string>
-    <string name="congMas">All the remaining days of the current plan will be added to the upgraded plan.</string>
-    <string name="transactionID">Transaction ID : </string>
     <string name="status">Status</string>
-    <string name="insurance_vehicle_no_">Vehicle No.</string>
-    <string name="insurance_validity_">Insurance Validity</string>
-    <string name="rc_front_image_">RC Front Image</string>
-    <string name="rc_back_image_">RC Back Image</string>
-    <string name="view_underline"><u>View</u></string>
-    <string name="suggested_vehicle">Suggested vehicle</string>
-    <string name="brand_new">Brand</string>
     <string name="share">Share</string>
     <string name="remove">Remove</string>
     <string name="faq">FAQ</string>
-    <string name="remainingLoad">Remaining Loads</string>
-    <string name="remainingLoadPer">Loads Remaining Today</string>
     <string name="unlimitedBenefits">Unlimited Benefits</string>
     <string name="loads">Loads:</string>
     <string name="ba_follow_up">BA Follow-Up</string>
@@ -913,4 +449,90 @@
     <string name="tyre">Tyre *</string>
     <string name="capacity">Capacity *</string>
     <string name="vehicle_size">Vehicle Size *</string>
+    <string name="search_by_mobile_number">Search by mobile number</string>
+    <string name="filter">Filter</string>
+    <string name="calendar">Calendar</string>
+    <string name="business_associates">Business Associates</string>
+    <string name="add_schedule">Add Schedule</string>
+    <string name="total_downloads">Total Downloads</string>
+    <string name="start_time">Select Time</string>
+    <string name="select_date">Select Date</string>
+    <string name="visit">Visit</string>
+    <string name="expiry_date">Expiry Date</string>
+    <string name="kyc">KYC</string>
+
+    <string name="rs">₹</string>
+    <string name="per">per</string>
+    <string name="vehicle_no">Vehicle No.</string>
+
+    <string name="we_have_fetched_your_vehicle_details_please_provide_other_details_if_required">We have fetched your vehicle details, please provide other details, if required.</string>
+    <string name="has_the_previous_policy_expired">Has the previous policy expired?</string>
+    <string name="not_expired">Not Expired</string>
+    <string name="expired">Expired</string>
+    <string name="i_already_have_trucksup_s_insurance">I already have TrucksUp’s Insurance</string>
+    <string name="policy_expiry_date">Policy Expiry Date?</string>
+    <string name="before">Before</string>
+    <string name="between">Between</string>
+    <string name="after">After</string>
+    <string name="vehicleDetails">Vehicle Details Confirmation</string>
+
+    <string name="trying_to_customize_best_deals_for_you">Trying to customize best deals for you</string>
+    <string name="estimated_wait_time">Estimated wait time</string>
+    <string name="please_wait_while_we_are_analysing_your_truck_details_to_offer_you_the_bestprices">Please wait while we are analysing your Truck details to offer you the best prices</string>
+    <string name="verifying_registration_number">Verifying registration number....</string>
+    <string name="verifying_engine_number">Verifying engine number....</string>
+    <string name="verifying_chassis_number">Verifying chassis number....</string>
+    <string name="calculating_truck_s_age_and_weight">Calculating truck’s age and weight....</string>
+    <string name="thankyou_for_your_interest_we_ll_get_back_to_you_shortly">Thank you for your interest. We’ll get back to you shortly.</string>
+    <string name="insorence_title_msg">Get your insurance done in no time...</string>
+    <string name="follow_staps">Follow the steps...</string>
+    <string name="Close">Close</string>
+
+
+    <string name="registrationNo">Registration No.</string>
+    <string name="year">Year</string>
+    <string name="brand">Brand</string>
+    <string name="model">Model</string>
+    <string name="vehicleType">Vehicle Type</string>
+    <string name="permitType">Permit Type</string>
+    <string name="fuelType">Fuel Type</string>
+    <string name="uploadCopy">Upload Copy</string>
+    <string name="anyClaimTaken">Any Claim Taken</string>
+    <string name="ownershipTransfer">Ownership Transfer</string>
+    <string name="geographicalArea">Geographical Area Extension</string>
+    <string name="vehicleDetails_msg">We have fetched your vehicle details, please provide other details, if required.</string>
+
+    <string name="not_select_able">Not select able</string>
+    <string name="bth_unavailbe">BTH awaited.</string>
+    <string name="thc_unavailbe">THC awaited.</string>
+
+    <string name="engine_number">Engine Number :</string>
+    <string name="chassis_number">Chassis Number :</string>
+    <string name="pan_no">PAN No.</string>
+    <string name="rc_copy">RC Copy :</string>
+
+    <string name="insorenceReq_msg">Do you want to contact to our Insurance Executive?</string>
+    <string name="insu_Detail_msg">We have fetched your vehicle details, please provide other details, if required. </string>
+    <string name="insu_has_policy_exp">Has the previous policy expired?</string>
+    <string name="insu_Not_Expired">Not Expired</string>
+    <string name="insu_Expired">Expired</string>
+    <string name="insu_Policy_Expiry_Date">Policy Expiry Date?</string>
+    <string name="insu_Before">Before</string>
+    <string name="insu_Between">Between</string>
+    <string name="insu_After">After</string>
+
+    <string name="insurance_vehicle_no_">Vehicle No.</string>
+    <string name="insurance_validity_">Insurance Validity</string>
+    <string name="rc_front_image_">RC Front Image</string>
+    <string name="rc_back_image_">RC Back Image</string>
+    <string name="view_underline"><u>View</u></string>
+    <string name="suggested_vehicle">Suggested vehicle</string>
+
+    <string name="add1">ADD</string>
+    <string name="load_notfound">Sorry ! Load not found</string>
+    <string name="khata_notfound">Sorry ! Records not found</string>
+    <string name="search_verified_dl">Search verified driving license..</string>
+    <string name="search_truck_m">Search my truck(Only 3 months)</string>
+    <string name="vehicle_History">Vehicle History</string>
+    <string name="gp_followup">Growth Partners Follow-Up</string>
 </resources>
