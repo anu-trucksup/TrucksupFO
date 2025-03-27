@@ -60,6 +60,7 @@
                     android:layout_gravity="center">
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/cvCamera"
                         android:layout_width="@dimen/_70sdp"
                         android:layout_height="@dimen/_70sdp"
                         app:cardBackgroundColor="@color/white"
@@ -83,7 +84,8 @@
                         android:layout_marginTop="@dimen/_16sdp"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_12sdp"
-                        android:textAlignment="center"/>
+                        android:textAlignment="center"
+                        android:gravity="center"/>
 
                 </LinearLayout>
 

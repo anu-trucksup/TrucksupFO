@@ -130,6 +130,13 @@
     <string name="SalesCode">Sales Code of BO <font color='#FF0000'>*</font></string>
     <string name="GPMobile">GP Mobile Number <font color='#FF0000'>*</font></string>
     <string name="GPName">GP Name <font color='#FF0000'>*</font></string>
+    <string name="PleaseenterSalesCode">Please enter Sales Code of BO</string>
+    <string name="PleaseenterGPMobile">Please enter GP Mobile Number</string>
+    <string name="PleaseenterGPName">Please enter GP Name</string>
+    <string name="PleaseBusinessType">Please enter Business Type</string>
+    <string name="PleaseBusinessAddress">Please enter Business Address</string>
+
+
 
 
     <string name="TcNewOnboardingTab">To onboard a new truck supplier, please provide the following details.</string>
@@ -174,13 +181,18 @@
     <string name="StorePhoto">Store Photo</string>
     <string name="BankAccountDetails">Bank Account Details</string>
     <string name="AccountHolderName">Account Holder Name</string>
+    <string name="PleaseAccountHolderName">Please Enter Account Holder Name</string>
     <string name="AccountNumber">Account Number</string>
+    <string name="PleaseAccountNumber">Please Enter Account Number</string>
     <string name="ReenterAccountNumber">Re-enter Account Number</string>
+    <string name="PleaseReenterAccountNumber">Please Enter Re-enter Account Number</string>
     <string name="IFSCCode">IFSC Code</string>
+    <string name="PleaseIFSCCode">Please Enter IFSC Code</string>
     <string name="PANNumber">PAN Number</string>
     <string name="ChequePassbook">Cheque/Passbook</string>
     <string name="Pending">Pending</string>
     <string name="BankName">Bank Name</string>
+    <string name="PleaseBankName">Please Enter Bank Name</string>
 
 
     <string name="StoreProof">Store Proof</string>
