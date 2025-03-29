@@ -18,7 +18,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.trucksup.field_officer.R
-import com.trucksup.field_officer.databinding.ActivityGponboardingBinding
+import com.trucksup.field_officer.databinding.ActivityGponboardBankBinding
 import com.trucksup.field_officer.presenter.common.image_picker.GetImage
 import com.trucksup.field_officer.presenter.common.image_picker.ImagePickerDailog
 import com.trucksup.field_officer.presenter.utils.FileHelper
@@ -29,7 +29,7 @@ import java.util.regex.Pattern
 
 
 class GPOnboardingBankActivity : AppCompatActivity(), GetImage, View.OnClickListener {
-    private lateinit var binding: ActivityGponboardingBinding
+    private lateinit var binding: ActivityGponboardBankBinding
     var panNumber: String = ""
     private var imageType: Int = -1
 
@@ -37,7 +37,7 @@ class GPOnboardingBankActivity : AppCompatActivity(), GetImage, View.OnClickList
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_gponboarding)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_gponboard_bank)
         val view = binding.root
         setContentView(view)
 
@@ -49,11 +49,11 @@ class GPOnboardingBankActivity : AppCompatActivity(), GetImage, View.OnClickList
     }
 
     fun CheckValidation() {
-        if (binding.ETAccountHolderName.text.isEmpty()) {
-            binding.ETAccountHolderName.requestFocus()
-            binding.ETAccountHolderName.setError("")
+        if (binding.etAccountHolderName.text.isEmpty()) {
+            binding.etAccountHolderName.requestFocus()
+            binding.etAccountHolderName.setError("")
         } else if (binding.ETAccountHolderNumber.text.isEmpty()) {
-            binding.ETAccountHolderName.requestFocus()
+            binding.etAccountHolderName.requestFocus()
             binding.ETAccountHolderNumber.setError("")
         } else if (binding.ETReenterAccountNumber.text.isEmpty()) {
             binding.ETReenterAccountNumber.requestFocus()

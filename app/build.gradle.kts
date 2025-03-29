@@ -137,5 +137,12 @@ dependencies {
     implementation(libs.androidx.camera.view)
     implementation (libs.play.services.mlkit.face.detection)
 
+
+    implementation("com.google.android.gms:play-services-maps:18.2.0")
+    // KTX for the Maps SDK for Android library
+    implementation("com.google.maps.android:maps-ktx:5.0.0")
+    // KTX for the Maps SDK for Android Utility Library
+    implementation("com.google.maps.android:maps-utils-ktx:5.0.0")
+
     
 }

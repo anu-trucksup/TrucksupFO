@@ -547,4 +547,5 @@
     <string name="search_truck_m">Search my truck(Only 3 months)</string>
     <string name="vehicle_History">Vehicle History</string>
     <string name="gp_followup">Growth Partners Follow-Up</string>
+    <string name="PleaseEnterRightPincode">Please enter 6-digit pincode</string>
 </resources>

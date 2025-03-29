@@ -26,8 +26,7 @@ import java.io.OutputStream
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
-class GPPersonalDetailUpdateActivity : BaseActivity() {
-class GP_PersonalDetailUpdateActivity : BaseActivity(), View.OnClickListener {
+class GPPersonalDetailUpdateActivity : BaseActivity(), View.OnClickListener {
     private var launcher: ActivityResultLauncher<Intent>? = null
     private lateinit var binding: ActivityGpPersonalDetailUpdateBinding
     private var imageUri:String = ""
