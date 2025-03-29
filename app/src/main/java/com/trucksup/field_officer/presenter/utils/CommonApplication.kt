@@ -11,14 +11,14 @@ import dagger.hilt.android.HiltAndroidApp
 @HiltAndroidApp
 open class CommonApplication: Application() {
     companion object {
-        var BASE_API_URL: String = "https://api.ksquaretech.co.in/ksa_backend/api/"
+        var BASE_API_URL: String = "https://testapi.trucksups.in/"
         var appContext: CommonApplication? = null
         var shared_pref: SharedPreferences? = null
         var token: String? = ""
 
         fun getSharedPreferences(): SharedPreferences? {
             if(appContext != null) {
-                shared_pref = appContext!!.getSharedPreferences("fo_pref", Context.MODE_PRIVATE)
+                shared_pref = appContext!!.getSharedPreferences("trucksupfo_pref", Context.MODE_PRIVATE)
                 return shared_pref
             }
             throw Exception("Application Class not extended from BaseApplication class")

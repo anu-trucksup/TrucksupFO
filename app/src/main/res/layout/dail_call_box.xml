@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/white"
+        android:layout_margin="@dimen/_20ssp"
+        app:cardCornerRadius="@dimen/_8sdp"
+        android:layout_centerInParent="true"
+        app:cardElevation="0dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+
+            android:orientation="vertical">
+
+
+
+
+
+
+            <TextView
+                android:id="@+id/vehicalNo"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/_16sdp"
+                android:layout_weight="1"
+                android:visibility="gone"
+                android:gravity="center"
+                android:fontFamily="@font/poppins_bold"
+                android:lines="1"
+                android:maxLines="1"
+                android:text="@string/app_name"
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_17ssp" />
+
+
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/poppins_medium"
+                android:lines="1"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_25sdp"
+                android:maxLines="1"
+                android:gravity="center"
+                android:text="@string/dail_call"
+                android:textColor="@color/primery_text"
+                android:textSize="@dimen/_14ssp" />
+
+
+            <TextView
+                android:id="@+id/confiram"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_28sdp"
+                android:layout_marginRight="@dimen/_16sdp"
+               android:layout_marginLeft="@dimen/_16sdp"
+                android:background="@drawable/blue_button"
+                android:fontFamily="@font/roboto_bold"
+                android:layout_marginTop="@dimen/_30sdp"
+                android:paddingStart="@dimen/_13sdp"
+                android:paddingEnd="@dimen/_13sdp"
+                android:text="@string/yes"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:textSize="@dimen/_12ssp" />
+
+
+            <TextView
+                android:id="@+id/cancle"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_28sdp"
+                android:layout_marginRight="@dimen/_16sdp"
+                android:layout_marginLeft="@dimen/_16sdp"
+                android:layout_marginBottom="@dimen/_25sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/blue_border_box"
+                android:fontFamily="@font/roboto_bold"
+                android:paddingStart="@dimen/_13sdp"
+                android:paddingEnd="@dimen/_13sdp"
+                android:text="@string/no"
+                android:textColor="@color/blue"
+                android:gravity="center"
+                android:textSize="@dimen/_12ssp" />
+
+
+
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

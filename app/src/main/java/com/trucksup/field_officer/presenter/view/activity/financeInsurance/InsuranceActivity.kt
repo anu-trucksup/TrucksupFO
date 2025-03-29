@@ -23,12 +23,14 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.data.model.VehicleDetail
 import com.trucksup.field_officer.databinding.ActivityInsuranceScreenBinding
+import com.trucksup.field_officer.presenter.common.MyAlartBox
 import com.trucksup.field_officer.presenter.common.dialog.FinaceSubmitBox
 import com.trucksup.field_officer.presenter.common.image_picker.GetImage
 import com.trucksup.field_officer.presenter.common.image_picker.ImagePickerDailog
@@ -36,13 +38,21 @@ import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.utils.FileHelper
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
+import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinanceHistoryViewModel
+import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.InsuranceViewModel
+import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryRequest
+import com.trucksup.field_officer.presenter.view.activity.vehicleVerify.truckMenu.TruckMenu
+import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.util.Locale
 import java.util.regex.Pattern
 
+@AndroidEntryPoint
 class InsuranceActivity : BaseActivity(), InsuranceController, GetImage {
+
     private lateinit var binding: ActivityInsuranceScreenBinding
     private var list = ArrayList<VehicleDetail>()
+    private var mViewModel: InsuranceViewModel? = null
     private var adapter: InsuranceListAdapter? = null
     private val calendar = Calendar.getInstance()
     private var insuFor: String = "self"
@@ -53,13 +63,15 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage {
     private var prevPolicyDocsImgKey: String? = ""
     private var prevPolicyDocsImgUrl: String? = ""
     private var imageT: Int = 0//0 default,1 front image,2 back image,3 previous policy docs image
+    var sourceValue: String? = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         adjustFontScale(getResources().configuration, 1.0f);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_insurance_screen)
-
+        sourceValue = intent.getStringExtra("SOURCE_VALUE")
         //binding.etFullName.setText(PreferenceManager.getUserData(this)?.profileName)
-
+        mViewModel = ViewModelProvider(this)[InsuranceViewModel::class.java]
         binding.etMobile.setText(PreferenceManager.getPhoneNo(this))
 
         //referral code or sales code
@@ -67,6 +79,7 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage {
 
         disableEmojiInTitle()
         setListener()
+        setupObserver()
     }
 
     private fun setRecyclerView() {
@@ -85,6 +98,34 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage {
         binding.rvInsList.layoutManager =
             LinearLayoutManager(this@InsuranceActivity, RecyclerView.VERTICAL, false)
         binding.rvInsList.adapter = adapter
+    }
+
+
+    private fun setupObserver() {
+        mViewModel?.resultsubmitInsuranceLD?.observe(this@InsuranceActivity) { responseModel ->                     // login function observe
+            if (responseModel.serverError != null) {
+                dismissProgressDialog()
+
+                val abx =
+                    MyAlartBox(
+                        this@InsuranceActivity,
+                        responseModel.serverError.toString(),
+                        "m"
+                    )
+                abx.show()
+            } else {
+                dismissProgressDialog()
+
+                if (responseModel.success?.message != null ) {
+                    val abx = FinaceSubmitBox(this, responseModel.success.message,
+                        responseModel.success.message1, "cl")
+                    abx.show()
+
+                } else {
+
+                }
+            }
+        }
     }
 
     private var activity1Launcher =
@@ -346,533 +387,536 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage {
                 binding.btnAddImage.visibility = View.GONE
             }
 
-            /* if (checkValidation()) {
+            if (checkValidation()) {
 
-                 if (!TextUtils.isEmpty(binding.etVehicleNo.text) && list.size == 0) {
-                     if (!checkVehicleNumber(binding.etVehicleNo.text.toString())) {
-                         LoggerMessage.onSNACK(
-                             binding.etVehicleNo,
-                             resources.getString(R.string.enterRightCommercialVehical),
-                             this
-                         )
+                if (!TextUtils.isEmpty(binding.etVehicleNo.text) && list.size == 0) {
+                    if (!checkVehicleNumber(binding.etVehicleNo.text.toString())) {
+                        LoggerMessage.onSNACK(
+                            binding.etVehicleNo,
+                            resources.getString(R.string.enterRightCommercialVehical),
+                            this
+                        )
 
-                     } else if (binding.etInsValidity.text.toString().isNullOrEmpty()) {
-                         LoggerMessage.onSNACK(
-                             binding.etInsValidity,
-                             resources.getString(R.string.insurance_validity_error),
-                             this
-                         )
-                     }
-                     else {
-                         list.add(
-                             VehicleDetail(
-                                 binding.etInsValidity.text.toString(),
-                                 binding.etVehicleNo.text.toString(),
-                                 rcFrontImgKey ?: "",
-                                 rcBackImgKey ?: "",
-                                 prevPolicyDocsImgKey ?: "",
-                                 rcFrontImgUrl ?: "",
-                                 rcBackImgUrl ?: "",
-                                 prevPolicyDocsImgUrl ?: ""
-                             )
-                         )
+                    } else if (binding.etInsValidity.text.toString().isNullOrEmpty()) {
+                        LoggerMessage.onSNACK(
+                            binding.etInsValidity,
+                            resources.getString(R.string.insurance_validity_error),
+                            this
+                        )
+                    } else {
+                        list.add(
+                            VehicleDetail(
+                                binding.etInsValidity.text.toString(),
+                                binding.etVehicleNo.text.toString(),
+                                rcFrontImgKey ?: "",
+                                rcBackImgKey ?: "",
+                                prevPolicyDocsImgKey ?: "",
+                                rcFrontImgUrl ?: "",
+                                rcBackImgUrl ?: "",
+                                prevPolicyDocsImgUrl ?: ""
+                            )
+                        )
 
-                         val requestData = SubmitInsuranceInquiryRequest(
-                             PreferenceManager.getRequestNo(),
-                             PreferenceManager.getServerDateUtc(""),
-                             PreferenceManager.getPhoneNo(this),
-                             binding.etFullName.text.toString(),
-                             PreferenceManager.getProfileType(this).toString(),
-                             binding.etMobile.getText().toString(),
-                             "commercial",
-                             "NA",
-                             PreferenceManager.getPhoneNo(this),
-                             insuFor,
-                             PreferenceManager.getPhoneNo(this),
-                             binding.etReferralCode.getText().toString(),
-                             list
-                         )
+                        val requestData = SubmitInsuranceInquiryRequest(
+                            PreferenceManager.getRequestNo(),
+                            PreferenceManager.getServerDateUtc(""),
+                            PreferenceManager.getPhoneNo(this),
+                            binding.etFullName.text.toString(),
+                            PreferenceManager.getProfileType(this).toString(),
+                            binding.etMobile.getText().toString(),
+                            "commercial",
+                            "NA",
+                            PreferenceManager.getPhoneNo(this),
+                            insuFor,
+                            PreferenceManager.getPhoneNo(this),
+                            binding.etReferralCode.getText().toString(),
+                            list,
+                            sourceValue ?: ""
+                        )
 
-                         showProgressDialog()
+                        showProgressDialog(this, false)
 
-                         MyResponse().submitInsuranceData(requestData, this, this)
-                     }
+                        mViewModel?.submitInsuranceData(requestData)
+                    }
 
-                 } else if (!binding.etInsValidity.text.isNullOrEmpty() && list.size == 0) {
-                     if (!TextUtils.isEmpty(binding.etVehicleNo.text)) {
-                         if (!checkVehicleNumber(binding.etVehicleNo.text.toString())) {
-                             LoggerMessage.onSNACK(
-                                 binding.etVehicleNo,
-                                 resources.getString(R.string.enterRightCommercialVehical),
-                                 this
-                             )
+                } else if (!binding.etInsValidity.text.isNullOrEmpty() && list.size == 0) {
+                    if (!TextUtils.isEmpty(binding.etVehicleNo.text)) {
+                        if (!checkVehicleNumber(binding.etVehicleNo.text.toString())) {
+                            LoggerMessage.onSNACK(
+                                binding.etVehicleNo,
+                                resources.getString(R.string.enterRightCommercialVehical),
+                                this
+                            )
 
-                         }
-                         else {
-                             list.add(
-                                 VehicleDetail(
-                                     binding.etInsValidity.text.toString(),
-                                     binding.etVehicleNo.text.toString(),
-                                     rcFrontImgKey ?: "",
-                                     rcBackImgKey ?: "",
-                                     prevPolicyDocsImgKey ?: "",
-                                     rcFrontImgUrl ?: "",
-                                     rcBackImgUrl ?: "",
-                                     prevPolicyDocsImgUrl ?: ""
-                                 )
-                             )
+                        } else {
+                            list.add(
+                                VehicleDetail(
+                                    binding.etInsValidity.text.toString(),
+                                    binding.etVehicleNo.text.toString(),
+                                    rcFrontImgKey ?: "",
+                                    rcBackImgKey ?: "",
+                                    prevPolicyDocsImgKey ?: "",
+                                    rcFrontImgUrl ?: "",
+                                    rcBackImgUrl ?: "",
+                                    prevPolicyDocsImgUrl ?: ""
+                                )
+                            )
 
-                             var requestData = SubmitInsuranceInquiryRequest(
-                                 PreferenceManager.getRequestNo(),
-                                 PreferenceManager.getServerDateUtc(""),
-                                 PreferenceManager.getPhoneNo(this),
-                                 binding.etFullName.text.toString(),
-                                 PreferenceManager.getProfileType(this).toString(),
-                                 binding.etMobile.getText().toString(),
-                                 "commercial",
-                                 "NA",
-                                 PreferenceManager.getPhoneNo(this),
-                                 insuFor,
-                                 PreferenceManager.getPhoneNo(this),
-                                 binding.etReferralCode.getText().toString(),
-                                 list
-                             )
-                             showProgressDialog()
+                            var requestData = SubmitInsuranceInquiryRequest(
+                                PreferenceManager.getRequestNo(),
+                                PreferenceManager.getServerDateUtc(""),
+                                PreferenceManager.getPhoneNo(this),
+                                binding.etFullName.text.toString(),
+                                PreferenceManager.getProfileType(this).toString(),
+                                binding.etMobile.getText().toString(),
+                                "commercial",
+                                "NA",
+                                PreferenceManager.getPhoneNo(this),
+                                insuFor,
+                                PreferenceManager.getPhoneNo(this),
+                                binding.etReferralCode.getText().toString(),
+                                list,
+                                sourceValue ?: ""
+                            )
+                            showProgressDialog(this, false)
 
-                             MyResponse().submitInsuranceData(requestData, this, this)
-                         }
-                     } else {
-                         LoggerMessage.onSNACK(
-                             binding.etVehicleNo,
-                             resources.getString(R.string.enterCommercialVehical),
-                             this
-                         )
-                     }
-                 }
- //                else if (!rcFrontImgKey.isNullOrEmpty() && list.size==0)
- //                {
- //                    if (!TextUtils.isEmpty(binding.etVehicleNo.text)) {
- //                        if (!checkVehicleNumber(binding.etVehicleNo.text.toString())) {
- //                            LoggerMessage.onSNACK(
- //                                binding.etVehicleNo,
- //                                resources.getString(R.string.enterRightCommercialVehical),
- //                                this
- //                            )
- //
- //                        }
- //                        else if (binding.etInsValidity.text.toString().isNullOrEmpty()) {
- //                            LoggerMessage.onSNACK(
- //                                binding.etInsValidity,
- //                                resources.getString(R.string.insurance_validity_error),
- //                                this
- //                            )
- //                        }
- //                        else if (rcBackImgKey.isNullOrEmpty())
- //                        {
- //                            LoggerMessage.onSNACK(
- //                                binding.imgBackCamera,
- //                                resources.getString(R.string.rc_back_image_error),
- //                                this
- //                            )
- //                        }
- //                        else {
- //                            list.add(
- //                                VehicleDetail(
- //                                    binding.etInsValidity.text.toString(),
- //                                    binding.etVehicleNo.text.toString(),
- //                                    rcFrontImgKey?:"",
- //                                    rcBackImgKey?:"",
- //                                    prevPolicyDocsImgKey?:""
- //
- //                                )
- //                            )
- //
- //                            var requestData = SubmitInsuranceInquiryRequest(
- //                                PreferenceManager.getRequestNo(),
- //                                PreferenceManager.getServerDateUtc(""),
- //                                PreferenceManager.getPhoneNo(this),
- //                                binding.etFullName.text.toString(),
- //                                PreferenceManager.getProfileType(this).toString(),
- //                                binding.etMobile.getText().toString(),
- //                                "commercial",
- //                                "NA",
- //                                PreferenceManager.getPhoneNo(this),
- //                                insuFor,
- //                                PreferenceManager.getPhoneNo(this),
- //                                binding.etReferralCode.getText().toString(),
- //                                list
- //                            )
- //                            showProgressDialog()
- //
- //                            MyResponse().submitInsuranceData(requestData, this, this)
- //                        }
- //                    }
- //                    else
- //                    {
- //                        LoggerMessage.onSNACK(
- //                            binding.etVehicleNo,
- //                            resources.getString(R.string.enterCommercialVehical),
- //                            this
- //                        )
- //                    }
- //                }
- //                else if (!rcBackImgKey.isNullOrEmpty() && list.size==0)
- //                {
- //                    if (!TextUtils.isEmpty(binding.etVehicleNo.text))
- //                    {
- //                        if (!checkVehicleNumber(binding.etVehicleNo.text.toString())) {
- //                            LoggerMessage.onSNACK(
- //                                binding.etVehicleNo,
- //                                resources.getString(R.string.enterRightCommercialVehical),
- //                                this
- //                            )
- //
- //                        }
- //                        else if (binding.etInsValidity.text.toString().isNullOrEmpty()) {
- //                            LoggerMessage.onSNACK(
- //                                binding.etInsValidity,
- //                                resources.getString(R.string.insurance_validity_error),
- //                                this
- //                            )
- //                        }
- //                        else if (rcFrontImgKey.isNullOrEmpty())
- //                        {
- //                            LoggerMessage.onSNACK(
- //                                binding.imgFrontCamera,
- //                                resources.getString(R.string.rc_front_image_error),
- //                                this
- //                            )
- //                        }
- //                        else {
- //                            list.add(
- //                                VehicleDetail(
- //                                    binding.etInsValidity.text.toString(),
- //                                    binding.etVehicleNo.text.toString(),
- //                                    rcFrontImgKey?:"",
- //                                    rcBackImgKey?:"",
- //                                    prevPolicyDocsImgKey?:""
- //
- //                                )
- //                            )
- //
- //                            var requestData = SubmitInsuranceInquiryRequest(
- //                                PreferenceManager.getRequestNo(),
- //                                PreferenceManager.getServerDateUtc(""),
- //                                PreferenceManager.getPhoneNo(this),
- //                                binding.etFullName.text.toString(),
- //                                PreferenceManager.getProfileType(this).toString(),
- //                                binding.etMobile.getText().toString(),
- //                                "commercial",
- //                                "NA",
- //                                PreferenceManager.getPhoneNo(this),
- //                                insuFor,
- //                                PreferenceManager.getPhoneNo(this),
- //                                binding.etReferralCode.getText().toString(),
- //                                list
- //                            )
- //                            showProgressDialog()
- //
- //                            MyResponse().submitInsuranceData(requestData, this, this)
- //                        }
- //                    }
- //                    else
- //                    {
- //                        LoggerMessage.onSNACK(
- //                            binding.etVehicleNo,
- //                            resources.getString(R.string.enterCommercialVehical),
- //                            this
- //                        )
- //                    }
- //                }
-                 else {
-                     if (!TextUtils.isEmpty(binding.etVehicleNo.text)) {
-                         if (!checkVehicleNumber(binding.etVehicleNo.text.toString())) {
-                             LoggerMessage.onSNACK(
-                                 binding.etVehicleNo,
-                                 resources.getString(R.string.enterRightCommercialVehical),
-                                 this
-                             )
+                            mViewModel?.submitInsuranceData(requestData)
+                        }
+                    } else {
+                        LoggerMessage.onSNACK(
+                            binding.etVehicleNo,
+                            resources.getString(R.string.enterCommercialVehical),
+                            this
+                        )
+                    }
+                }
+                //                else if (!rcFrontImgKey.isNullOrEmpty() && list.size==0)
+                //                {
+                //                    if (!TextUtils.isEmpty(binding.etVehicleNo.text)) {
+                //                        if (!checkVehicleNumber(binding.etVehicleNo.text.toString())) {
+                //                            LoggerMessage.onSNACK(
+                //                                binding.etVehicleNo,
+                //                                resources.getString(R.string.enterRightCommercialVehical),
+                //                                this
+                //                            )
+                //
+                //                        }
+                //                        else if (binding.etInsValidity.text.toString().isNullOrEmpty()) {
+                //                            LoggerMessage.onSNACK(
+                //                                binding.etInsValidity,
+                //                                resources.getString(R.string.insurance_validity_error),
+                //                                this
+                //                            )
+                //                        }
+                //                        else if (rcBackImgKey.isNullOrEmpty())
+                //                        {
+                //                            LoggerMessage.onSNACK(
+                //                                binding.imgBackCamera,
+                //                                resources.getString(R.string.rc_back_image_error),
+                //                                this
+                //                            )
+                //                        }
+                //                        else {
+                //                            list.add(
+                //                                VehicleDetail(
+                //                                    binding.etInsValidity.text.toString(),
+                //                                    binding.etVehicleNo.text.toString(),
+                //                                    rcFrontImgKey?:"",
+                //                                    rcBackImgKey?:"",
+                //                                    prevPolicyDocsImgKey?:""
+                //
+                //                                )
+                //                            )
+                //
+                //                            var requestData = SubmitInsuranceInquiryRequest(
+                //                                PreferenceManager.getRequestNo(),
+                //                                PreferenceManager.getServerDateUtc(""),
+                //                                PreferenceManager.getPhoneNo(this),
+                //                                binding.etFullName.text.toString(),
+                //                                PreferenceManager.getProfileType(this).toString(),
+                //                                binding.etMobile.getText().toString(),
+                //                                "commercial",
+                //                                "NA",
+                //                                PreferenceManager.getPhoneNo(this),
+                //                                insuFor,
+                //                                PreferenceManager.getPhoneNo(this),
+                //                                binding.etReferralCode.getText().toString(),
+                //                                list
+                //                            )
+                //                            showProgressDialog()
+                //
+                //                            MyResponse().submitInsuranceData(requestData, this, this)
+                //                        }
+                //                    }
+                //                    else
+                //                    {
+                //                        LoggerMessage.onSNACK(
+                //                            binding.etVehicleNo,
+                //                            resources.getString(R.string.enterCommercialVehical),
+                //                            this
+                //                        )
+                //                    }
+                //                }
+                //                else if (!rcBackImgKey.isNullOrEmpty() && list.size==0)
+                //                {
+                //                    if (!TextUtils.isEmpty(binding.etVehicleNo.text))
+                //                    {
+                //                        if (!checkVehicleNumber(binding.etVehicleNo.text.toString())) {
+                //                            LoggerMessage.onSNACK(
+                //                                binding.etVehicleNo,
+                //                                resources.getString(R.string.enterRightCommercialVehical),
+                //                                this
+                //                            )
+                //
+                //                        }
+                //                        else if (binding.etInsValidity.text.toString().isNullOrEmpty()) {
+                //                            LoggerMessage.onSNACK(
+                //                                binding.etInsValidity,
+                //                                resources.getString(R.string.insurance_validity_error),
+                //                                this
+                //                            )
+                //                        }
+                //                        else if (rcFrontImgKey.isNullOrEmpty())
+                //                        {
+                //                            LoggerMessage.onSNACK(
+                //                                binding.imgFrontCamera,
+                //                                resources.getString(R.string.rc_front_image_error),
+                //                                this
+                //                            )
+                //                        }
+                //                        else {
+                //                            list.add(
+                //                                VehicleDetail(
+                //                                    binding.etInsValidity.text.toString(),
+                //                                    binding.etVehicleNo.text.toString(),
+                //                                    rcFrontImgKey?:"",
+                //                                    rcBackImgKey?:"",
+                //                                    prevPolicyDocsImgKey?:""
+                //
+                //                                )
+                //                            )
+                //
+                //                            var requestData = SubmitInsuranceInquiryRequest(
+                //                                PreferenceManager.getRequestNo(),
+                //                                PreferenceManager.getServerDateUtc(""),
+                //                                PreferenceManager.getPhoneNo(this),
+                //                                binding.etFullName.text.toString(),
+                //                                PreferenceManager.getProfileType(this).toString(),
+                //                                binding.etMobile.getText().toString(),
+                //                                "commercial",
+                //                                "NA",
+                //                                PreferenceManager.getPhoneNo(this),
+                //                                insuFor,
+                //                                PreferenceManager.getPhoneNo(this),
+                //                                binding.etReferralCode.getText().toString(),
+                //                                list
+                //                            )
+                //                            showProgressDialog()
+                //
+                //                            MyResponse().submitInsuranceData(requestData, this, this)
+                //                        }
+                //                    }
+                //                    else
+                //                    {
+                //                        LoggerMessage.onSNACK(
+                //                            binding.etVehicleNo,
+                //                            resources.getString(R.string.enterCommercialVehical),
+                //                            this
+                //                        )
+                //                    }
+                //                }
+                else {
+                    if (!TextUtils.isEmpty(binding.etVehicleNo.text)) {
+                        if (!checkVehicleNumber(binding.etVehicleNo.text.toString())) {
+                            LoggerMessage.onSNACK(
+                                binding.etVehicleNo,
+                                resources.getString(R.string.enterRightCommercialVehical),
+                                this
+                            )
 
-                         } else if (binding.etInsValidity.text.toString().isNullOrEmpty()) {
-                             LoggerMessage.onSNACK(
-                                 binding.etInsValidity,
-                                 resources.getString(R.string.insurance_validity_error),
-                                 this
-                             )
-                         }
- //                        else if (rcFrontImgKey.isNullOrEmpty())
- //                        {
- //                            LoggerMessage.onSNACK(
- //                                binding.imgFrontCamera,
- //                                resources.getString(R.string.rc_front_image_error),
- //                                this
- //                            )
- //                        }
- //                        else if (rcBackImgKey.isNullOrEmpty())
- //                        {
- //                            LoggerMessage.onSNACK(
- //                                binding.imgBackCamera,
- //                                resources.getString(R.string.rc_back_image_error),
- //                                this
- //                            )
- //                        }
-                         else {
-                             list.add(
-                                 VehicleDetail(
-                                     binding.etInsValidity.text.toString(),
-                                     binding.etVehicleNo.text.toString(),
-                                     rcFrontImgKey ?: "",
-                                     rcBackImgKey ?: "",
-                                     prevPolicyDocsImgKey ?: "",
-                                     rcFrontImgUrl ?: "",
-                                     rcBackImgUrl ?: "",
-                                     prevPolicyDocsImgUrl ?: ""
-                                 )
-                             )
-                             var requestData = SubmitInsuranceInquiryRequest(
-                                 PreferenceManager.getRequestNo(),
-                                 PreferenceManager.getServerDateUtc(""),
-                                 PreferenceManager.getPhoneNo(this),
-                                 binding.etFullName.text.toString(),
-                                 PreferenceManager.getProfileType(this).toString(),
-                                 binding.etMobile.getText().toString(),
-                                 "commercial",
-                                 "NA",
-                                 PreferenceManager.getPhoneNo(this),
-                                 insuFor,
-                                 PreferenceManager.getPhoneNo(this),
-                                 binding.etReferralCode.getText().toString(),
-                                 list
-                             )
-                             showProgressDialog()
+                        } else if (binding.etInsValidity.text.toString().isNullOrEmpty()) {
+                            LoggerMessage.onSNACK(
+                                binding.etInsValidity,
+                                resources.getString(R.string.insurance_validity_error),
+                                this
+                            )
+                        }
+                        //                        else if (rcFrontImgKey.isNullOrEmpty())
+                        //                        {
+                        //                            LoggerMessage.onSNACK(
+                        //                                binding.imgFrontCamera,
+                        //                                resources.getString(R.string.rc_front_image_error),
+                        //                                this
+                        //                            )
+                        //                        }
+                        //                        else if (rcBackImgKey.isNullOrEmpty())
+                        //                        {
+                        //                            LoggerMessage.onSNACK(
+                        //                                binding.imgBackCamera,
+                        //                                resources.getString(R.string.rc_back_image_error),
+                        //                                this
+                        //                            )
+                        //                        }
+                        else {
+                            list.add(
+                                VehicleDetail(
+                                    binding.etInsValidity.text.toString(),
+                                    binding.etVehicleNo.text.toString(),
+                                    rcFrontImgKey ?: "",
+                                    rcBackImgKey ?: "",
+                                    prevPolicyDocsImgKey ?: "",
+                                    rcFrontImgUrl ?: "",
+                                    rcBackImgUrl ?: "",
+                                    prevPolicyDocsImgUrl ?: ""
+                                )
+                            )
+                            val requestData = SubmitInsuranceInquiryRequest(
+                                PreferenceManager.getRequestNo(),
+                                PreferenceManager.getServerDateUtc(""),
+                                PreferenceManager.getPhoneNo(this),
+                                binding.etFullName.text.toString(),
+                                PreferenceManager.getProfileType(this).toString(),
+                                binding.etMobile.getText().toString(),
+                                "commercial",
+                                "NA",
+                                PreferenceManager.getPhoneNo(this),
+                                insuFor,
+                                PreferenceManager.getPhoneNo(this),
+                                binding.etReferralCode.getText().toString(),
+                                list,
+                                sourceValue ?: ""
+                            )
+                            showProgressDialog(this, false)
 
-                             MyResponse().submitInsuranceData(requestData, this, this)
-                         }
-                     } else if (!binding.etInsValidity.text.isNullOrEmpty()) {
-                         if (!TextUtils.isEmpty(binding.etVehicleNo.text)) {
-                             if (!checkVehicleNumber(binding.etVehicleNo.text.toString())) {
-                                 LoggerMessage.onSNACK(
-                                     binding.etVehicleNo,
-                                     resources.getString(R.string.enterRightCommercialVehical),
-                                     this
-                                 )
+                            mViewModel?.submitInsuranceData(requestData)
+                        }
+                    } else if (!binding.etInsValidity.text.isNullOrEmpty()) {
+                        if (!TextUtils.isEmpty(binding.etVehicleNo.text)) {
+                            if (!checkVehicleNumber(binding.etVehicleNo.text.toString())) {
+                                LoggerMessage.onSNACK(
+                                    binding.etVehicleNo,
+                                    resources.getString(R.string.enterRightCommercialVehical),
+                                    this
+                                )
 
-                             }
- //                            else if (rcFrontImgKey.isNullOrEmpty())
- //                            {
- //                                LoggerMessage.onSNACK(
- //                                    binding.imgFrontCamera,
- //                                    resources.getString(R.string.rc_front_image_error),
- //                                    this
- //                                )
- //                            }
- //                            else if (rcBackImgKey.isNullOrEmpty())
- //                            {
- //                                LoggerMessage.onSNACK(
- //                                    binding.imgBackCamera,
- //                                    resources.getString(R.string.rc_back_image_error),
- //                                    this
- //                                )
- //                            }
-                             else {
-                                 list.add(
-                                     VehicleDetail(
-                                         binding.etInsValidity.text.toString(),
-                                         binding.etVehicleNo.text.toString(),
-                                         rcFrontImgKey ?: "",
-                                         rcBackImgKey ?: "",
-                                         prevPolicyDocsImgKey ?: "",
-                                         rcFrontImgUrl ?: "",
-                                         rcBackImgUrl ?: "",
-                                         prevPolicyDocsImgUrl ?: ""
-                                     )
-                                 )
+                            }
+                            //                            else if (rcFrontImgKey.isNullOrEmpty())
+                            //                            {
+                            //                                LoggerMessage.onSNACK(
+                            //                                    binding.imgFrontCamera,
+                            //                                    resources.getString(R.string.rc_front_image_error),
+                            //                                    this
+                            //                                )
+                            //                            }
+                            //                            else if (rcBackImgKey.isNullOrEmpty())
+                            //                            {
+                            //                                LoggerMessage.onSNACK(
+                            //                                    binding.imgBackCamera,
+                            //                                    resources.getString(R.string.rc_back_image_error),
+                            //                                    this
+                            //                                )
+                            //                            }
+                            else {
+                                list.add(
+                                    VehicleDetail(
+                                        binding.etInsValidity.text.toString(),
+                                        binding.etVehicleNo.text.toString(),
+                                        rcFrontImgKey ?: "",
+                                        rcBackImgKey ?: "",
+                                        prevPolicyDocsImgKey ?: "",
+                                        rcFrontImgUrl ?: "",
+                                        rcBackImgUrl ?: "",
+                                        prevPolicyDocsImgUrl ?: ""
+                                    )
+                                )
 
-                                 var requestData = SubmitInsuranceInquiryRequest(
-                                     PreferenceManager.getRequestNo(),
-                                     PreferenceManager.getServerDateUtc(""),
-                                     PreferenceManager.getPhoneNo(this),
-                                     binding.etFullName.text.toString(),
-                                     PreferenceManager.getProfileType(this).toString(),
-                                     binding.etMobile.getText().toString(),
-                                     "commercial",
-                                     "NA",
-                                     PreferenceManager.getPhoneNo(this),
-                                     insuFor,
-                                     PreferenceManager.getPhoneNo(this),
-                                     binding.etReferralCode.getText().toString(),
-                                     list
-                                 )
-                                 showProgressDialog()
+                                var requestData = SubmitInsuranceInquiryRequest(
+                                    PreferenceManager.getRequestNo(),
+                                    PreferenceManager.getServerDateUtc(""),
+                                    PreferenceManager.getPhoneNo(this),
+                                    binding.etFullName.text.toString(),
+                                    PreferenceManager.getProfileType(this).toString(),
+                                    binding.etMobile.getText().toString(),
+                                    "commercial",
+                                    "NA",
+                                    PreferenceManager.getPhoneNo(this),
+                                    insuFor,
+                                    PreferenceManager.getPhoneNo(this),
+                                    binding.etReferralCode.getText().toString(),
+                                    list,
+                                    sourceValue ?: ""
+                                )
+                                showProgressDialog(this, false)
 
-                                 MyResponse().submitInsuranceData(requestData, this, this)
-                             }
-                         } else {
-                             LoggerMessage.onSNACK(
-                                 binding.etVehicleNo,
-                                 resources.getString(R.string.enterCommercialVehical),
-                                 this
-                             )
-                         }
-                     }
- //                    else if (!rcFrontImgKey.isNullOrEmpty())
- //                    {
- //                        if (!TextUtils.isEmpty(binding.etVehicleNo.text)) {
- //                            if (!checkVehicleNumber(binding.etVehicleNo.text.toString())) {
- //                                LoggerMessage.onSNACK(
- //                                    binding.etVehicleNo,
- //                                    resources.getString(R.string.enterRightCommercialVehical),
- //                                    this
- //                                )
- //
- //                            }
- //                            else if (binding.etInsValidity.text.toString().isNullOrEmpty()) {
- //                                LoggerMessage.onSNACK(
- //                                    binding.etInsValidity,
- //                                    resources.getString(R.string.insurance_validity_error),
- //                                    this
- //                                )
- //                            }
- //                            else if (rcBackImgKey.isNullOrEmpty())
- //                            {
- //                                LoggerMessage.onSNACK(
- //                                    binding.imgBackCamera,
- //                                    resources.getString(R.string.rc_back_image_error),
- //                                    this
- //                                )
- //                            }
- //                            else {
- //                                list.add(
- //                                    VehicleDetail(
- //                                        binding.etInsValidity.text.toString(),
- //                                        binding.etVehicleNo.text.toString(),
- //                                        rcFrontImgKey?:"",
- //                                        rcBackImgKey?:"",
- //                                        prevPolicyDocsImgKey?:""
- //
- //                                    )
- //                                )
- //
- //                                var requestData = SubmitInsuranceInquiryRequest(
- //                                    PreferenceManager.getRequestNo(),
- //                                    PreferenceManager.getServerDateUtc(""),
- //                                    PreferenceManager.getPhoneNo(this),
- //                                    binding.etFullName.text.toString(),
- //                                    PreferenceManager.getProfileType(this).toString(),
- //                                    binding.etMobile.getText().toString(),
- //                                    "commercial",
- //                                    "NA",
- //                                    PreferenceManager.getPhoneNo(this),
- //                                    insuFor,
- //                                    PreferenceManager.getPhoneNo(this),
- //                                    binding.etReferralCode.getText().toString(),
- //                                    list
- //                                )
- //                                showProgressDialog()
- //
- //                                MyResponse().submitInsuranceData(requestData, this, this)
- //                            }
- //                        }
- //                        else
- //                        {
- //                            LoggerMessage.onSNACK(
- //                                binding.etVehicleNo,
- //                                resources.getString(R.string.enterCommercialVehical),
- //                                this
- //                            )
- //                        }
- //                    }
- //                    else if (!rcBackImgKey.isNullOrEmpty())
- //                    {
- //                        if (!TextUtils.isEmpty(binding.etVehicleNo.text))
- //                        {
- //                            if (!checkVehicleNumber(binding.etVehicleNo.text.toString())) {
- //                                LoggerMessage.onSNACK(
- //                                    binding.etVehicleNo,
- //                                    resources.getString(R.string.enterRightCommercialVehical),
- //                                    this
- //                                )
- //
- //                            }
- //                            else if (binding.etInsValidity.text.toString().isNullOrEmpty()) {
- //                                LoggerMessage.onSNACK(
- //                                    binding.etInsValidity,
- //                                    resources.getString(R.string.insurance_validity_error),
- //                                    this
- //                                )
- //                            }
- //                            else if (rcFrontImgKey.isNullOrEmpty())
- //                            {
- //                                LoggerMessage.onSNACK(
- //                                    binding.imgFrontCamera,
- //                                    resources.getString(R.string.rc_front_image_error),
- //                                    this
- //                                )
- //                            }
- //                            else {
- //                                list.add(
- //                                    VehicleDetail(
- //                                        binding.etInsValidity.text.toString(),
- //                                        binding.etVehicleNo.text.toString(),
- //                                        rcFrontImgKey?:"",
- //                                        rcBackImgKey?:"",
- //                                        prevPolicyDocsImgKey?:""
- //
- //                                    )
- //                                )
- //
- //                                var requestData = SubmitInsuranceInquiryRequest(
- //                                    PreferenceManager.getRequestNo(),
- //                                    PreferenceManager.getServerDateUtc(""),
- //                                    PreferenceManager.getPhoneNo(this),
- //                                    binding.etFullName.text.toString(),
- //                                    PreferenceManager.getProfileType(this).toString(),
- //                                    binding.etMobile.getText().toString(),
- //                                    "commercial",
- //                                    "NA",
- //                                    PreferenceManager.getPhoneNo(this),
- //                                    insuFor,
- //                                    PreferenceManager.getPhoneNo(this),
- //                                    binding.etReferralCode.getText().toString(),
- //                                    list
- //                                )
- //                                showProgressDialog()
- //
- //                                MyResponse().submitInsuranceData(requestData, this, this)
- //                            }
- //                        }
- //                        else
- //                        {
- //                            LoggerMessage.onSNACK(
- //                                binding.etVehicleNo,
- //                                resources.getString(R.string.enterCommercialVehical),
- //                                this
- //                            )
- //                        }
- //                    }
-                     else {
-                         var requestData = SubmitInsuranceInquiryRequest(
-                             PreferenceManager.getRequestNo(),
-                             PreferenceManager.getServerDateUtc(""),
-                             PreferenceManager.getPhoneNo(this),
-                             binding.etFullName.text.toString(),
-                             PreferenceManager.getProfileType(this).toString(),
-                             binding.etMobile.getText().toString(),
-                             "commercial",
-                             "NA",
-                             PreferenceManager.getPhoneNo(this),
-                             insuFor,
-                             PreferenceManager.getPhoneNo(this),
-                             binding.etReferralCode.getText().toString(),
-                             list
-                         )
-                         showProgressDialog()
+                                mViewModel?.submitInsuranceData(requestData)
+                            }
+                        } else {
+                            LoggerMessage.onSNACK(
+                                binding.etVehicleNo,
+                                resources.getString(R.string.enterCommercialVehical),
+                                this
+                            )
+                        }
+                    }
+                    //                    else if (!rcFrontImgKey.isNullOrEmpty())
+                    //                    {
+                    //                        if (!TextUtils.isEmpty(binding.etVehicleNo.text)) {
+                    //                            if (!checkVehicleNumber(binding.etVehicleNo.text.toString())) {
+                    //                                LoggerMessage.onSNACK(
+                    //                                    binding.etVehicleNo,
+                    //                                    resources.getString(R.string.enterRightCommercialVehical),
+                    //                                    this
+                    //                                )
+                    //
+                    //                            }
+                    //                            else if (binding.etInsValidity.text.toString().isNullOrEmpty()) {
+                    //                                LoggerMessage.onSNACK(
+                    //                                    binding.etInsValidity,
+                    //                                    resources.getString(R.string.insurance_validity_error),
+                    //                                    this
+                    //                                )
+                    //                            }
+                    //                            else if (rcBackImgKey.isNullOrEmpty())
+                    //                            {
+                    //                                LoggerMessage.onSNACK(
+                    //                                    binding.imgBackCamera,
+                    //                                    resources.getString(R.string.rc_back_image_error),
+                    //                                    this
+                    //                                )
+                    //                            }
+                    //                            else {
+                    //                                list.add(
+                    //                                    VehicleDetail(
+                    //                                        binding.etInsValidity.text.toString(),
+                    //                                        binding.etVehicleNo.text.toString(),
+                    //                                        rcFrontImgKey?:"",
+                    //                                        rcBackImgKey?:"",
+                    //                                        prevPolicyDocsImgKey?:""
+                    //
+                    //                                    )
+                    //                                )
+                    //
+                    //                                var requestData = SubmitInsuranceInquiryRequest(
+                    //                                    PreferenceManager.getRequestNo(),
+                    //                                    PreferenceManager.getServerDateUtc(""),
+                    //                                    PreferenceManager.getPhoneNo(this),
+                    //                                    binding.etFullName.text.toString(),
+                    //                                    PreferenceManager.getProfileType(this).toString(),
+                    //                                    binding.etMobile.getText().toString(),
+                    //                                    "commercial",
+                    //                                    "NA",
+                    //                                    PreferenceManager.getPhoneNo(this),
+                    //                                    insuFor,
+                    //                                    PreferenceManager.getPhoneNo(this),
+                    //                                    binding.etReferralCode.getText().toString(),
+                    //                                    list
+                    //                                )
+                    //                                showProgressDialog()
+                    //
+                    //                                MyResponse().submitInsuranceData(requestData, this, this)
+                    //                            }
+                    //                        }
+                    //                        else
+                    //                        {
+                    //                            LoggerMessage.onSNACK(
+                    //                                binding.etVehicleNo,
+                    //                                resources.getString(R.string.enterCommercialVehical),
+                    //                                this
+                    //                            )
+                    //                        }
+                    //                    }
+                    //                    else if (!rcBackImgKey.isNullOrEmpty())
+                    //                    {
+                    //                        if (!TextUtils.isEmpty(binding.etVehicleNo.text))
+                    //                        {
+                    //                            if (!checkVehicleNumber(binding.etVehicleNo.text.toString())) {
+                    //                                LoggerMessage.onSNACK(
+                    //                                    binding.etVehicleNo,
+                    //                                    resources.getString(R.string.enterRightCommercialVehical),
+                    //                                    this
+                    //                                )
+                    //
+                    //                            }
+                    //                            else if (binding.etInsValidity.text.toString().isNullOrEmpty()) {
+                    //                                LoggerMessage.onSNACK(
+                    //                                    binding.etInsValidity,
+                    //                                    resources.getString(R.string.insurance_validity_error),
+                    //                                    this
+                    //                                )
+                    //                            }
+                    //                            else if (rcFrontImgKey.isNullOrEmpty())
+                    //                            {
+                    //                                LoggerMessage.onSNACK(
+                    //                                    binding.imgFrontCamera,
+                    //                                    resources.getString(R.string.rc_front_image_error),
+                    //                                    this
+                    //                                )
+                    //                            }
+                    //                            else {
+                    //                                list.add(
+                    //                                    VehicleDetail(
+                    //                                        binding.etInsValidity.text.toString(),
+                    //                                        binding.etVehicleNo.text.toString(),
+                    //                                        rcFrontImgKey?:"",
+                    //                                        rcBackImgKey?:"",
+                    //                                        prevPolicyDocsImgKey?:""
+                    //
+                    //                                    )
+                    //                                )
+                    //
+                    //                                var requestData = SubmitInsuranceInquiryRequest(
+                    //                                    PreferenceManager.getRequestNo(),
+                    //                                    PreferenceManager.getServerDateUtc(""),
+                    //                                    PreferenceManager.getPhoneNo(this),
+                    //                                    binding.etFullName.text.toString(),
+                    //                                    PreferenceManager.getProfileType(this).toString(),
+                    //                                    binding.etMobile.getText().toString(),
+                    //                                    "commercial",
+                    //                                    "NA",
+                    //                                    PreferenceManager.getPhoneNo(this),
+                    //                                    insuFor,
+                    //                                    PreferenceManager.getPhoneNo(this),
+                    //                                    binding.etReferralCode.getText().toString(),
+                    //                                    list
+                    //                                )
+                    //                                showProgressDialog()
+                    //
+                    //                                MyResponse().submitInsuranceData(requestData, this, this)
+                    //                            }
+                    //                        }
+                    //                        else
+                    //                        {
+                    //                            LoggerMessage.onSNACK(
+                    //                                binding.etVehicleNo,
+                    //                                resources.getString(R.string.enterCommercialVehical),
+                    //                                this
+                    //                            )
+                    //                        }
+                    //                    }
+                    else {
+                        var requestData = SubmitInsuranceInquiryRequest(
+                            PreferenceManager.getRequestNo(),
+                            PreferenceManager.getServerDateUtc(""),
+                            PreferenceManager.getPhoneNo(this),
+                            binding.etFullName.text.toString(),
+                            PreferenceManager.getProfileType(this).toString(),
+                            binding.etMobile.getText().toString(),
+                            "commercial",
+                            "NA",
+                            PreferenceManager.getPhoneNo(this),
+                            insuFor,
+                            PreferenceManager.getPhoneNo(this),
+                            binding.etReferralCode.getText().toString(),
+                            list,
+                            sourceValue ?: ""
+                        )
+                        showProgressDialog(this, false)
 
-                         MyResponse().submitInsuranceData(requestData, this, this)
-                     }
-                 }
+                        mViewModel?.submitInsuranceData(requestData)
+                    }
+                }
 
-             }*/
+            }
         }
     }
 
@@ -1041,7 +1085,7 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage {
         list.removeAt(po)
         setRecyclerView()
     }
-
+/*
     override fun dataSubmitted(message: String, message1: String) {
         dismissProgressDialog()
         val abx = FinaceSubmitBox(this, message, message1, "cl")
@@ -1051,22 +1095,18 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage {
 
     override fun dataError(error: String) {
         dismissProgressDialog()
-    }
+    }*/
 
     fun backScreen(v: View) {
         finish()
     }
 
     fun mobileInfo(v: View) {
-        /* val menu = TruckMenu
-         menu.aboutPlan(this, binding.info, "", resources.getString(R.string.alt_mobile_info))*/
+         val menu = TruckMenu
+         menu.aboutPlan(this, binding.info, "", resources.getString(R.string.alt_mobile_info))
     }
 
     private fun isValidPhoneNumber(phone: String): Boolean {
-//        var INDIAN_MOBILE_NUMBER_PATTERN="^[6-9]\\d{9}$"
-//        val pattern = Pattern.compile(INDIAN_MOBILE_NUMBER_PATTERN)
-//        val matcher = pattern.matcher(phone)
-//        return matcher.matches()
 
         val p = Pattern.compile("([6,7,8,9][0-9]{0,9})")
         val m = p.matcher(phone)
@@ -1333,69 +1373,69 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage {
         startActivityForResult(camera_intent, 11)
     }
 
-   /* private fun viewVehicleDetails(data: VehicleDetail) {
-        val builder = AlertDialog.Builder(this@InsuranceActivity)
-        val binding =
-            VehicleDetailsDialogLayoutBinding.inflate(LayoutInflater.from(this@InsuranceActivity))
-        builder.setView(binding.root)
-        val dialog: AlertDialog = builder.create()
-        dialog.setCancelable(false)
-        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
-        dialog.show()
+    /* private fun viewVehicleDetails(data: VehicleDetail) {
+         val builder = AlertDialog.Builder(this@InsuranceActivity)
+         val binding =
+             VehicleDetailsDialogLayoutBinding.inflate(LayoutInflater.from(this@InsuranceActivity))
+         builder.setView(binding.root)
+         val dialog: AlertDialog = builder.create()
+         dialog.setCancelable(false)
+         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+         dialog.show()
 
-        //vehicle number
-        binding.etVehicleNo.text = data.vehicleNumber
+         //vehicle number
+         binding.etVehicleNo.text = data.vehicleNumber
 
-        //insurance validity
-        binding.etInsValidity.text = data.insuranceValidity
+         //insurance validity
+         binding.etInsValidity.text = data.insuranceValidity
 
-        //rc front image
-        if (data.rcFrontImgUrl.isNullOrEmpty()) {
-            binding.lRcFrontImage.visibility = View.GONE
-        } else {
-            binding.lRcFrontImage.visibility = View.VISIBLE
-            try {
-                Glide.with(this)
-                    .load(data.rcFrontImgUrl).placeholder(R.drawable.placeholder_image2)
-                    .error(R.drawable.placeholder_image2)
-                    .into(binding.imgFrontCamera)
-            } catch (e: Exception) {
+         //rc front image
+         if (data.rcFrontImgUrl.isNullOrEmpty()) {
+             binding.lRcFrontImage.visibility = View.GONE
+         } else {
+             binding.lRcFrontImage.visibility = View.VISIBLE
+             try {
+                 Glide.with(this)
+                     .load(data.rcFrontImgUrl).placeholder(R.drawable.placeholder_image2)
+                     .error(R.drawable.placeholder_image2)
+                     .into(binding.imgFrontCamera)
+             } catch (e: Exception) {
 
-            }
-        }
+             }
+         }
 
-        //rc back image
-        if (data.rcBackImgUrl.isNullOrEmpty()) {
-            binding.lRcBackImage.visibility = View.GONE
-        } else {
-            binding.lRcBackImage.visibility = View.VISIBLE
-            try {
-                Glide.with(this)
-                    .load(data.rcBackImgUrl).placeholder(R.drawable.placeholder_image2)
-                    .error(R.drawable.placeholder_image2)
-                    .into(binding.imgBackCamera)
-            } catch (e: Exception) {
+         //rc back image
+         if (data.rcBackImgUrl.isNullOrEmpty()) {
+             binding.lRcBackImage.visibility = View.GONE
+         } else {
+             binding.lRcBackImage.visibility = View.VISIBLE
+             try {
+                 Glide.with(this)
+                     .load(data.rcBackImgUrl).placeholder(R.drawable.placeholder_image2)
+                     .error(R.drawable.placeholder_image2)
+                     .into(binding.imgBackCamera)
+             } catch (e: Exception) {
 
-            }
-        }
+             }
+         }
 
-        //previous policy docs image
-        if (data.policyDocUrl.isNullOrEmpty()) {
-            binding.lPrevPolicyDocImg.visibility = View.GONE
-        } else {
-            binding.lPrevPolicyDocImg.visibility = View.VISIBLE
-            try {
-                Glide.with(this)
-                    .load(R.drawable.camera_new)
-                    .placeholder(R.drawable.placeholder_image2)
-                    .error(R.drawable.placeholder_image2)
-                    .into(binding.imgPrevPolicyDoc)
-            } catch (e: Exception) {
-            }
-        }
+         //previous policy docs image
+         if (data.policyDocUrl.isNullOrEmpty()) {
+             binding.lPrevPolicyDocImg.visibility = View.GONE
+         } else {
+             binding.lPrevPolicyDocImg.visibility = View.VISIBLE
+             try {
+                 Glide.with(this)
+                     .load(R.drawable.camera_new)
+                     .placeholder(R.drawable.placeholder_image2)
+                     .error(R.drawable.placeholder_image2)
+                     .into(binding.imgPrevPolicyDoc)
+             } catch (e: Exception) {
+             }
+         }
 
-        binding.imgPrevPolicyDoc.setOnClickListener {
-            *//* val intent = Intent(this, ViewPdfScreen::class.java)
+         binding.imgPrevPolicyDoc.setOnClickListener {
+             *//* val intent = Intent(this, ViewPdfScreen::class.java)
              intent.putExtra(
                  "pdf",
                  data.policyDocUrl

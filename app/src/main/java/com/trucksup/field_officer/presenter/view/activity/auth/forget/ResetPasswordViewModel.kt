@@ -29,17 +29,9 @@ class ResetPasswordViewModel @Inject constructor(val apiUseCase: APIUseCase,
     fun forgotPassword(email: String, mobile: String, countryCode: String) {
         CoroutineScope(Dispatchers.IO).launch {
             when (val response = apiUseCase.forgotPassword(email, mobile, countryCode)) {
-                is ResultWrapper.NetworkError -> {
-                    Log.e("API Error", response.error)
-                    resultReset.postValue(ResponseModel<String>(networkError = response.error))
-                }
                 is ResultWrapper.ServerResponseError -> {
-                    Log.e("API Error", response.error?.message?:"")
-                    resultReset.postValue(ResponseModel<String>(serverResponseError = response.error?.message))
-                }
-                is ResultWrapper.GenericError -> {
-                    Log.e("API Error", response.error)
-                    resultReset.postValue(ResponseModel<String>(genericError = response.error))
+                    Log.e("API Error", response.error ?: "")
+                    resultReset.postValue(ResponseModel<String>(serverError = response.error))
                 }
                 is ResultWrapper.Success -> {
                     resultReset.postValue(ResponseModel<String>(success = response.value.payload))
@@ -52,17 +44,9 @@ class ResetPasswordViewModel @Inject constructor(val apiUseCase: APIUseCase,
     fun checkUserProfile(email: String, mobile: String, countryCode: String) {
         CoroutineScope(Dispatchers.IO).launch {
             when (val response = apiUseCase.checkUserProfile(email, mobile, countryCode)) {
-                is ResultWrapper.NetworkError -> {
-                    Log.e("API Error", response.error)
-                    checkUserProfile.postValue(ResponseModel<CheckUserProfileResponse>(networkError = response.error))
-                }
                 is ResultWrapper.ServerResponseError -> {
-                    Log.e("API Error", response.error?.message?:"")
-                    checkUserProfile.postValue(ResponseModel<CheckUserProfileResponse>(serverResponseError = response.error?.message))
-                }
-                is ResultWrapper.GenericError -> {
-                    Log.e("API Error", response.error)
-                    checkUserProfile.postValue(ResponseModel<CheckUserProfileResponse>(genericError = response.error))
+                    Log.e("API Error", response.error ?: "")
+                    checkUserProfile.postValue(ResponseModel<CheckUserProfileResponse>(serverError = response.error))
                 }
                 is ResultWrapper.Success -> {
                     checkUserProfile.postValue(ResponseModel<CheckUserProfileResponse>(success = response.value))

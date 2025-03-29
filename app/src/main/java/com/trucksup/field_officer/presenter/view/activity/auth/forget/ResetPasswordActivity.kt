@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ActivityResetPasswordBinding
+import com.trucksup.field_officer.presenter.common.MyAlartBox
 import com.trucksup.field_officer.presenter.common.Utils
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
@@ -37,33 +38,17 @@ class ResetPasswordActivity : BaseActivity(), View.OnClickListener {
 
     private fun setupObserver() {
         mViewModel!!.resultResetLD.observe(this@ResetPasswordActivity) { responseModel ->
-            if (responseModel.networkError != null) {
-                dismissProgressDialog()
-                Utils.showToastDialog(
-                    "networkError",
-                    this, "Ok"
-                )
-            } else if (responseModel.serverResponseError != null) {
+            if (responseModel.serverError != null) {
                 dismissProgressDialog()
 
-                if (responseModel.serverResponseError == "in.co.ksquaretech.backend.account.email.not.exist") {
-                    Utils.showToastDialog(
-                        "User not exist with this email.",
-                        this, "Ok"
+                val abx =
+                    MyAlartBox(
+                        this@ResetPasswordActivity,
+                        responseModel.serverError.toString(),
+                        "m"
                     )
-                } else {
-                    Utils.showToastDialog(
-                        responseModel.serverResponseError,
-                        this, "Ok"
-                    )
-                }
-            } else if (responseModel.genericError != null) {
-                dismissProgressDialog()
-                Utils.showToastDialog(
-                    "genericError",
-                    this, "Ok"
-                )
-            } else {
+                abx.show()
+            }  else {
                 dismissProgressDialog()
 
                 val intent = Intent(

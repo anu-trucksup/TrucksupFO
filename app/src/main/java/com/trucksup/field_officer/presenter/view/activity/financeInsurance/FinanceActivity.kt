@@ -7,19 +7,27 @@ import android.text.TextUtils
 import android.view.View
 import android.widget.EditText
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ActivityFinanceBinding
+import com.trucksup.field_officer.presenter.common.MyAlartBox
 import com.trucksup.field_officer.presenter.common.dialog.FinaceSubmitBox
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
+import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinanceDataLiatRequest
+import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinanceViewModel
+import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.LoanDataSubmitRequest
+import com.trucksup.field_officer.presenter.view.activity.vehicleVerify.truckMenu.TruckMenu
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
-class FinanceActivity : BaseActivity(), ChipCantroler {
+@AndroidEntryPoint
+class FinanceActivity : BaseActivity(), ChipController {
     private lateinit var binding: ActivityFinanceBinding
     private lateinit var chipAdapter: LoanChipAdapter
-
+    private var mViewModel: FinanceViewModel? = null
     private var loanFor: String = "self"
     private var loanAmount: String = ""
     private var sourceValue: String? = ""
@@ -31,12 +39,72 @@ class FinanceActivity : BaseActivity(), ChipCantroler {
 
         sourceValue = intent.getStringExtra("SOURCE_VALUE")
 
+        mViewModel = ViewModelProvider(this)[FinanceViewModel::class.java]
         //binding.name.setText(PreferenceManager.getUserData(this)?.profileName)
 
         binding.mobileNumber.setText(PreferenceManager.getPhoneNo(this))
 
+        PreferenceManager.setPhoneNo("8707517063", this)
+
+        setupObserver()
         //binding.etReferralCode.setText(PreferenceManager.getUserData(this)?.salesCode)
         getData()
+    }
+
+
+    private fun setupObserver() {
+        mViewModel?.resultFinanceLD?.observe(this@FinanceActivity) { responseModel ->                     // login function observe
+            if (responseModel.serverError != null) {
+                dismissProgressDialog()
+
+                val abx =
+                    MyAlartBox(
+                        this@FinanceActivity,
+                        responseModel.serverError.toString(),
+                        "m"
+                    )
+                abx.show()
+            } else {
+                dismissProgressDialog()
+
+                if (responseModel.success?.inquiryDetails != null && responseModel.success.inquiryDetails.size > 0) {
+
+                    val inquiryList = responseModel.success.inquiryDetails as ArrayList<chipData>
+                    dataList(inquiryList)
+
+                } else {
+
+                }
+            }
+        }
+
+
+        mViewModel?.resultsubmitFinanceLD?.observe(this@FinanceActivity) { responseModel ->                     // login function observe
+            if (responseModel.serverError != null) {
+                dismissProgressDialog()
+
+                val abx =
+                    MyAlartBox(
+                        this@FinanceActivity,
+                        responseModel.serverError.toString(),
+                        "m"
+                    )
+                abx.show()
+            } else {
+                dismissProgressDialog()
+
+                if (responseModel.success?.message != null) {
+
+                    updateData(
+                        responseModel.success.message.toString(),
+                        responseModel.success.message1!!
+                    )
+
+                } else {
+
+                }
+            }
+        }
     }
 
 
@@ -62,25 +130,25 @@ class FinanceActivity : BaseActivity(), ChipCantroler {
 
     private fun getData() {
 
-        /*  showProgressDialog()
-          var request: FinanceDataLiatRequest = FinanceDataLiatRequest(
-              PreferenceManager.getPhoneNo(this),
-              "Required Loan Amount",
-              PreferenceManager.getServerDateUtc(""),
-              PreferenceManager.getRequestNo(),
-              PreferenceManager.getPhoneNo(this)
-          )
-          MyResponse().getFinanceData(request, this, this)*/
+        showProgressDialog(this, true)
+        val request = FinanceDataLiatRequest(
+            PreferenceManager.getPhoneNo(this),
+            "Required Loan Amount",
+            PreferenceManager.getServerDateUtc(""),
+            PreferenceManager.getRequestNo(),
+            PreferenceManager.getPhoneNo(this)
+        )
+        mViewModel?.getFinanceData(request)
     }
 
-    override fun updateData(message: String, message1: String) {
+    fun updateData(message: String, message1: String) {
         dismissProgressDialog()
         dismissProgressDialog()
         val abx = FinaceSubmitBox(this, message, message1, "cl")
         abx.show()
     }
 
-    override fun DataList(data: ArrayList<chipData>) {
+    private fun dataList(data: ArrayList<chipData>) {
         dismissProgressDialog()
         chipAdapter = LoanChipAdapter(this, data, this)
         loadChips()
@@ -262,25 +330,25 @@ class FinanceActivity : BaseActivity(), ChipCantroler {
     @SuppressLint("SuspiciousIndentation")
     fun dataSubmit() {
 
-        /* val request: LoanDataSubmitRequest = LoanDataSubmitRequest(
-             binding.city.text.toString(),
-             PreferenceManager.getPhoneNo(this),
-             loanAmount,
-             binding.mobileNumber.text.toString(),
-             binding.name.text.toString(),
-             PreferenceManager.getProfileType(this).toString(),
-             PreferenceManager.getServerDateUtc(""),
-             PreferenceManager.getRequestNo(),
-             PreferenceManager.getPhoneNo(this),
-             binding.state.text.toString(),
-             binding.typeLoan.selectedItem.toString(),
-             loanFor,
-             PreferenceManager.getPhoneNo(this),
-             binding.etReferralCode.getText().toString(),
-             sourceValue!!
-         )
-         showProgressDialog()
-         MyResponse().submitFinanceData(request, this, this)*/
+        val request = LoanDataSubmitRequest(
+            binding.city.text.toString(),
+            PreferenceManager.getPhoneNo(this),
+            loanAmount,
+            binding.mobileNumber.text.toString(),
+            binding.name.text.toString(),
+            PreferenceManager.getProfileType(this).toString(),
+            PreferenceManager.getServerDateUtc(""),
+            PreferenceManager.getRequestNo(),
+            PreferenceManager.getPhoneNo(this),
+            binding.state.text.toString(),
+            binding.typeLoan.selectedItem.toString(),
+            loanFor,
+            PreferenceManager.getPhoneNo(this),
+            binding.etReferralCode.getText().toString(),
+            sourceValue!!
+        )
+        showProgressDialog(this, false)
+        mViewModel?.submitFinanceData(request)
     }
 
     private fun validation(): Boolean {
@@ -353,7 +421,7 @@ class FinanceActivity : BaseActivity(), ChipCantroler {
     }
 
     fun backScreen(v: View) {
-        finish()
+        onBackPressed()
     }
 
 
@@ -365,19 +433,11 @@ class FinanceActivity : BaseActivity(), ChipCantroler {
     }
 
 
-    /*  fun mobileInfo(v: View) {
-          val menu: TruckMenu = TruckMenu
-          menu.aboutPlan(this, binding.info, "", resources.getString(R.string.alt_mobile_info))
-      }*/
-
-    fun Number_Validate(number: String): Boolean? {
-        val expression = "^[0-9-1+]{10,15}$"
-        val inputStr: CharSequence = number
-        val pattern: Pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE)
-        val matcher: Matcher = pattern.matcher(inputStr)
-        return if (matcher.matches()) true else false
-        // return !TextUtils.isEmpty(number) && number.length == 10 && Patterns.PHONE.matcher(number).matches()
+    fun mobileInfo(v: View) {
+        val menu = TruckMenu
+        menu.aboutPlan(this, binding.info, "", resources.getString(R.string.alt_mobile_info))
     }
+
 
     private fun isValidPhoneNumber(phone: String): Boolean {
         val p = Pattern.compile("([6,7,8,9][0-9]{0,9})")

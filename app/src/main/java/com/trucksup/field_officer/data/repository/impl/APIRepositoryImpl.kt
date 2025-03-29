@@ -2,6 +2,7 @@ package com.trucksup.field_officer.data.repository.impl
 
 
 import android.text.TextUtils
+import com.example.trucksupui.model.SubmitInsuranceInquiryData
 import com.glovejob.data.model.UserSessionResponse
 import com.trucksup.field_officer.data.model.AutoImageSlideResponse
 import com.trucksup.field_officer.data.model.CheckUserProfileResponse
@@ -15,6 +16,7 @@ import com.trucksup.field_officer.data.model.User
 import com.trucksup.field_officer.data.model.category.CategoryAllResponse
 import com.trucksup.field_officer.data.model.deleteResponse.DeleteProfileResponse
 import com.trucksup.field_officer.data.model.image.UploadImageResponse
+import com.trucksup.field_officer.data.model.insurance.InquiryHistoryResponse
 import com.trucksup.field_officer.data.model.user.UpdateProfileRequest
 import com.trucksup.field_officer.data.model.user.UpdateProfileResponse
 import com.trucksup.field_officer.data.network.ResultWrapper
@@ -22,7 +24,15 @@ import com.trucksup.field_officer.data.network.safeApiCall
 import com.trucksup.field_officer.data.repository.APIRepository
 import com.trucksup.field_officer.data.services.ApiService
 import com.trucksup.field_officer.presenter.utils.CommonApplication
+import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinaceDataSubmitResponse
+import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinanceDataLiatRequest
+import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinanceDataLiatResponse
+import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.InquiryHistoryRequest
+import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.LoanDataSubmitRequest
+import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryRequest
 import kotlinx.coroutines.Dispatchers
+import retrofit2.http.Body
+import retrofit2.http.Header
 
 
 class APIRepositoryImpl constructor(private val apiService: ApiService) : APIRepository {
@@ -233,4 +243,21 @@ class APIRepositoryImpl constructor(private val apiService: ApiService) : APIRep
     override suspend fun autoImageSlide(): ResultWrapper<AutoImageSlideResponse> {
         return safeApiCall(Dispatchers.IO) { apiService.autoImageSlide() }
     }
+
+    override suspend fun getFinanceData(authToken: String, request: FinanceDataLiatRequest): ResultWrapper<FinanceDataLiatResponse> {
+        return safeApiCall(Dispatchers.IO) { apiService.getFinanceData(authToken,request) }
+    }
+
+    override suspend fun submitFinanceData(authToken: String, request: LoanDataSubmitRequest): ResultWrapper<FinaceDataSubmitResponse> {
+        return safeApiCall(Dispatchers.IO) { apiService.submitFinanceData(authToken,request) }
+    }
+
+    override suspend fun getInquiryHistory(authToken: String, request: InquiryHistoryRequest): ResultWrapper<InquiryHistoryResponse> {
+        return safeApiCall(Dispatchers.IO) { apiService.getInquiryHistory(authToken,request) }
+    }
+
+    override suspend fun submitInsuranceInquiry(authToken: String, request: SubmitInsuranceInquiryRequest): ResultWrapper<SubmitInsuranceInquiryData> {
+        return safeApiCall(Dispatchers.IO) { apiService.submitInsuranceInquiry(authToken,request) }
+    }
+
 }

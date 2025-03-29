@@ -41,9 +41,9 @@ class GPPerformanceActivity : BaseActivity() {
         list.add("")
         list.add("")
         list.add("")
+
         binding.rv.apply {
-            layoutManager =
-                LinearLayoutManager(this@GPPerformanceActivity, RecyclerView.VERTICAL, false)
+            layoutManager = LinearLayoutManager(this@GPPerformanceActivity, RecyclerView.VERTICAL, false)
             adapter = GPPerformanceAdapter(this@GPPerformanceActivity, list)
             hasFixedSize()
         }

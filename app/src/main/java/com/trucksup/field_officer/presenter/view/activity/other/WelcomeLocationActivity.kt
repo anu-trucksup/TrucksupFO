@@ -48,6 +48,9 @@ class WelcomeLocationActivity : BaseActivity() {
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
+        Handler().postDelayed({ startActivity(Intent(baseContext,
+            HomeActivity::class.java)) }, 3000)
+
     }
 
     private fun checkPermissions(permissions: ArrayList<String>) {

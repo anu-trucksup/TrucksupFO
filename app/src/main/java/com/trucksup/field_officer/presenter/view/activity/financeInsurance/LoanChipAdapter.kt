@@ -14,7 +14,11 @@ import com.trucksup.field_officer.R
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
 
-class LoanChipAdapter (private val context: Context, private val chipTextList: ArrayList<chipData>, var cantroler: ChipCantroler) : BaseAdapter() {
+class LoanChipAdapter(
+    private val context: Context,
+    private val chipTextList: ArrayList<chipData>,
+    var cantroler: ChipController
+) : BaseAdapter() {
 
     private val layoutInflater: LayoutInflater = LayoutInflater.from(context)
 
@@ -25,10 +29,14 @@ class LoanChipAdapter (private val context: Context, private val chipTextList: A
     override fun getItemId(position: Int): Long = position.toLong()
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val view: View = convertView ?: layoutInflater.inflate(R.layout.loan_amount_chip, parent, false)
+        val view: View =
+            convertView ?: layoutInflater.inflate(R.layout.loan_amount_chip, parent, false)
 
         val chip = view.findViewById<Chip>(R.id.chip)
-        chip.typeface = Typeface.create(ResourcesCompat.getFont(context,R.font.bai_jamjuree_semi_bold),Typeface.NORMAL)
+        chip.typeface = Typeface.create(
+            ResourcesCompat.getFont(context, R.font.bai_jamjuree_semi_bold),
+            Typeface.NORMAL
+        )
 
         val textColorStateList = ColorStateList(
             arrayOf(
@@ -44,29 +52,24 @@ class LoanChipAdapter (private val context: Context, private val chipTextList: A
 // Apply the ColorStateList to the chip text color
         chip.setTextColor(textColorStateList)
 
-        if (PreferenceManager.getLanguage(context)=="en") {
-            if (chipTextList[position].optionName!=null) {
+        if (PreferenceManager.getLanguage(context) == "en") {
+            if (chipTextList[position].optionName != null) {
                 chip.text = chipTextList[position].optionName
+            } else {
+                chip.text = ""
             }
-            else{
-                chip.text =""
-            }
-        }
-        else{
-            if (chipTextList[position].optionNameHindi!=null) {
+        } else {
+            if (chipTextList[position].optionNameHindi != null) {
                 chip.text = chipTextList[position].optionNameHindi
-            }
-            else{
-                chip.text =""
+            } else {
+                chip.text = ""
             }
         }
-        if ( chipTextList[position].isClick==true)
-        {
-            chip.isChecked=true
+        if (chipTextList[position].isClick == true) {
+            chip.isChecked = true
             chip.isCheckedIconVisible = true
-        }
-        else{
-            chip.isChecked=false
+        } else {
+            chip.isChecked = false
             chip.isCheckedIconVisible = false
         }
 
@@ -74,39 +77,55 @@ class LoanChipAdapter (private val context: Context, private val chipTextList: A
 
         chip.setOnClickListener {
 
-          if (chipTextList[position].isClick==true)
-          {
-              chipTextList.set(position,
-                  chipData(chipTextList[position].optionName,chipTextList[position].optionNameHindi,false)
-              )
-          }
-            else{
-              chipTextList.set(position,
-                  chipData(chipTextList[position].optionName,chipTextList[position].optionNameHindi,true)
-              )
+            if (chipTextList[position].isClick == true) {
+                chipTextList.set(
+                    position,
+                    chipData(
+                        chipTextList[position].optionName,
+                        chipTextList[position].optionNameHindi,
+                        false
+                    )
+                )
+            } else {
+                chipTextList.set(
+                    position,
+                    chipData(
+                        chipTextList[position].optionName,
+                        chipTextList[position].optionNameHindi,
+                        true
+                    )
+                )
 
-          }
-            LoggerMessage.LogErrorMsg("Click on Chip","Click on Chip ==== true" )
+            }
+            LoggerMessage.LogErrorMsg("Click on Chip", "Click on Chip ==== true")
 
-            var data=ArrayList<chipData>()
+            var data = ArrayList<chipData>()
 
 
-                for ( i in 0 until chipTextList.size)
-                {
-                     if (i==position)
-                     {
-                         data.add(chipData(chipTextList[i].optionName,chipTextList[i].optionNameHindi,true))
-                     }
-                    else{
-                         data.add(chipData(chipTextList[i].optionName,chipTextList[i].optionNameHindi,false))
-                     }
+            for (i in 0 until chipTextList.size) {
+                if (i == position) {
+                    data.add(
+                        chipData(
+                            chipTextList[i].optionName,
+                            chipTextList[i].optionNameHindi,
+                            true
+                        )
+                    )
+                } else {
+                    data.add(
+                        chipData(
+                            chipTextList[i].optionName,
+                            chipTextList[i].optionNameHindi,
+                            false
+                        )
+                    )
                 }
+            }
 
             notifyDataSetChanged()
-            if (PreferenceManager.getLanguage(context).toString()=="en") {
+            if (PreferenceManager.getLanguage(context).toString() == "en") {
                 cantroler.updateData(data, chipTextList.get(position).optionName.toString())
-            }
-            else{
+            } else {
                 cantroler.updateData(data, chipTextList.get(position).optionNameHindi.toString())
             }
 

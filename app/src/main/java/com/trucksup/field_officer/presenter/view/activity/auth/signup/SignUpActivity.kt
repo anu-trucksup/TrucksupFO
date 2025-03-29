@@ -35,6 +35,7 @@ import com.trucksup.field_officer.data.model.Response
 import com.trucksup.field_officer.data.network.ResponseModel
 import com.trucksup.field_officer.databinding.ActivitySignUpBinding
 import com.trucksup.field_officer.presenter.common.CameraActivity
+import com.trucksup.field_officer.presenter.common.MyAlartBox
 import com.trucksup.field_officer.presenter.common.Utils
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
@@ -159,43 +160,33 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
         signupViewModel?.resultSendOTPLD?.observe(
             this@SignUpActivity
         ) { responseModel: ResponseModel<Response<String>> ->                   // send otp observer
-            if (responseModel.networkError != null) {
+            if (responseModel.serverError != null) {
                 dismissProgressDialog()
 
-            } else if (responseModel.serverResponseError != null) {
-                dismissProgressDialog()
-
-            } else if (responseModel.genericError != null) {
-                dismissProgressDialog()
-
+                val abx =
+                    MyAlartBox(
+                        this@SignUpActivity,
+                        responseModel.serverError.toString(),
+                        "m"
+                    )
+                abx.show()
             } else {
                 dismissProgressDialog()
             }
         }
 
         signupViewModel?.verifyOTPResultLD?.observe(this@SignUpActivity) { responseModel ->                // verify otp observer
-            if (responseModel.networkError != null) {
+            if (responseModel.serverError != null) {
                 dismissProgressDialog()
 
-            } else if (responseModel.serverResponseError != null) {
-                dismissProgressDialog()
-
-
-                if (responseModel.serverResponseError == "in.co.ksquaretech.backend.otp.not.found") {
-                    Toast.makeText(this, "Invalid OTP", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(this, responseModel.serverResponseError, Toast.LENGTH_SHORT)
-                        .show()
-                }
-
-                //  mSignUpBinding!!.otpErrorText.visibility = View.VISIBLE
-                //  mSignUpBinding!!.otpErrorText.text = AppConstant.AppLabelName.invalid_otp
-                //  mSignUpBinding!!.otpTxt.background = getDrawable(R.drawable.error_red_background_view)
-
-            } else if (responseModel.genericError != null) {
-                dismissProgressDialog()
-
-            } else {
+                val abx =
+                    MyAlartBox(
+                        this@SignUpActivity,
+                        responseModel.serverError.toString(),
+                        "m"
+                    )
+                abx.show()
+            }  else {
                 mSignUpBinding!!.otpErrorText.visibility = View.GONE
                 mSignUpBinding!!.otpTxt.background =
                     getDrawable(R.drawable.edit_text_background_view)
@@ -207,22 +198,17 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
 
 
         signupViewModel!!.registerUserLD.observe(this@SignUpActivity) { responseModel ->
-            // register user observer
-            if (passwordDialog != null && passwordDialog!!.isShowing) passwordDialog!!.dismiss()
-            if (responseModel.networkError != null) {
+            if (responseModel.serverError != null) {
                 dismissProgressDialog()
 
-            } else if (responseModel.serverResponseError != null) {
-                dismissProgressDialog()
-                Utils.showToastDialog(
-                    responseModel.serverResponseError,
-                    this,
-                    "Ok"
-                )
-            } else if (responseModel.genericError != null) {
-                dismissProgressDialog()
-
-            } else {
+                val abx =
+                    MyAlartBox(
+                        this@SignUpActivity,
+                        responseModel.serverError.toString(),
+                        "m"
+                    )
+                abx.show()
+            }  else {
                 dismissProgressDialog()
                 Toast.makeText(this, "User Registered Successfully", Toast.LENGTH_SHORT).show()
                 // move to home screen

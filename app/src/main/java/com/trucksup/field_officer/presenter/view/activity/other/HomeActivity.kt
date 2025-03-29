@@ -29,6 +29,7 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ActivityHomeBinding
 import com.trucksup.field_officer.databinding.HomeMainServicesDialogBinding
+import com.trucksup.field_officer.presenter.common.HelplineBox
 import com.trucksup.field_officer.presenter.common.dialog.DialogBoxes
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.FinanceActivity
@@ -151,9 +152,7 @@ class HomeActivity : BaseActivity(), OnItemClickListner {
 
         binding.llHome.setOnClickListener {
 
-            setSelectionNav("home")
-           /* val intent = Intent(this@HomeActivity, Ho::class.java)
-            startActivity(intent)*/
+            setSelectionNav()
         }
 
         binding.llOnboard.setOnClickListener {
@@ -162,8 +161,8 @@ class HomeActivity : BaseActivity(), OnItemClickListner {
         }
 
         binding.llHelp.setOnClickListener {
-            val intent = Intent(this@HomeActivity, EditProfileActivity::class.java)
-            startActivity(intent)
+            val call = HelplineBox(this, "7070327070")
+            call.show()
         }
 
         binding.homeEarnings.totalEarn.setOnClickListener {
@@ -177,7 +176,7 @@ class HomeActivity : BaseActivity(), OnItemClickListner {
         }
     }
 
-    private fun setSelectionNav(str: String) {
+    private fun setSelectionNav() {
         binding.homeCard.setCardBackgroundColor(resources.getColor(R.color.blue))
         binding.ivHome.setColorFilter(resources.getColor(R.color.white))
         //binding.llHome.setBackgroundColor(resources.getColor(R.color.blue));
@@ -281,6 +280,10 @@ class HomeActivity : BaseActivity(), OnItemClickListner {
                 val intent = Intent(this, InsuranceActivity::class.java)
                 startActivity(intent)
             }
+            else -> {
+                Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show()
+            }
         }
     }
+
 }

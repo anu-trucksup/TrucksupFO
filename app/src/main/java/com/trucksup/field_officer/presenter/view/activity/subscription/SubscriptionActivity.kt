@@ -42,7 +42,6 @@ class SubscriptionActivity : BaseActivity(), PaySubscribtion, PlanCantroler {
     var brokerData: Broker? = null
     var planStatus: String? = ""
     val addOnsData = ArrayList<AddonsData>()
-    val freeData = ArrayList<AddonsData>()
     val addOnsDataTacking = ArrayList<AddonsData>()
     var addonDataType: String = "addon"
     var isExpire: Boolean = false

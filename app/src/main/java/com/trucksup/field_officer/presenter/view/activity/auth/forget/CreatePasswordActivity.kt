@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ActivityCreatePasswordBinding
+import com.trucksup.field_officer.presenter.common.MyAlartBox
 import com.trucksup.field_officer.presenter.common.Utils
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
@@ -92,34 +93,32 @@ class CreatePasswordActivity : BaseActivity(), View.OnClickListener {
 
     private fun setupObserver() {
         mViewModel!!.resultValidateAnsResetLD.observe(this@CreatePasswordActivity) { responseModel ->
-            if (responseModel.networkError != null) {
-                dismissProgressDialog()
-                // showDeleteProfileDialog(mViewModel.getLabel(AppConstant.AppLabelName.networkError));
-                /* Toast.makeText(CreatePasswordActivity.this,
-                    mViewModel.getLabel(AppConstant.AppLabelName.networkError), Toast.LENGTH_SHORT).show();*/
-            } else if (responseModel.serverResponseError != null) {
-                dismissProgressDialog()
-                // showDeleteProfileDialog(mViewModel.getLabel(responseModel.getServerResponseError()));
-            } else if (responseModel.genericError != null) {
+            if (responseModel.serverError != null) {
                 dismissProgressDialog()
 
-                //sshowDeleteProfileDialog(mViewModel.getLabel(AppConstant.AppLabelName.networkError));
-            } else {
+                val abx =
+                    MyAlartBox(
+                        this@CreatePasswordActivity,
+                        responseModel.serverError.toString(),
+                        "m"
+                    )
+                abx.show()
+            }  else {
                 // nothing required as internally reset password API called
             }
         }
 
         mViewModel!!.resultLoginLD.observe(this@CreatePasswordActivity) { responseModel ->
-            if (responseModel.networkError != null) {
+            if (responseModel.serverError != null) {
                 dismissProgressDialog()
-                Utils.showToastDialog(
-                    "Network Error",
-                    this, "Ok"
-                )
-            } else if (responseModel.serverResponseError != null) {
-                dismissProgressDialog()
-            } else if (responseModel.genericError != null) {
-                dismissProgressDialog()
+
+                val abx =
+                    MyAlartBox(
+                        this@CreatePasswordActivity,
+                        responseModel.serverError.toString(),
+                        "m"
+                    )
+                abx.show()
             } else {
                 dismissProgressDialog()
                 // start home screen
@@ -133,29 +132,17 @@ class CreatePasswordActivity : BaseActivity(), View.OnClickListener {
         }
 
         mViewModel!!.resultResetLD.observe(this@CreatePasswordActivity) { responseModel ->
-            if (responseModel.networkError != null) {
-                dismissProgressDialog()
-                // showDeleteProfileDialog(mViewModel.getLabel(AppConstant.AppLabelName.wrongsecret));
-                /* Toast.makeText(CreatePasswordActivity.this,
-                    mViewModel.getLabel(AppConstant.AppLabelName.networkError), Toast.LENGTH_SHORT).show();*/
-            } else if (responseModel.serverResponseError != null) {
-                dismissProgressDialog()
-                if (responseModel.serverResponseError == "in.co.ksquaretech.backend.current.password.not.match") {
-                    Utils.showToastDialog(
-                        "Invalid Otp.",
-                        this, "Ok"
-                    )
-                } else {
-                    Utils.showToastDialog(
-                        responseModel.serverResponseError,
-                        this, "Ok"
-                    )
-                }
-
-            } else if (responseModel.genericError != null) {
+            if (responseModel.serverError != null) {
                 dismissProgressDialog()
 
-            } else {
+                val abx =
+                    MyAlartBox(
+                        this@CreatePasswordActivity,
+                        responseModel.serverError.toString(),
+                        "m"
+                    )
+                abx.show()
+            }  else {
                 //showDeleteProfileDialog(mViewModel.getLabel(AppConstant.AppLabelName.passwordUpdatedSuccessfully));
                 dismissProgressDialog()
                 Toast.makeText(this, "New Password created Successfully.", Toast.LENGTH_SHORT)
@@ -177,21 +164,16 @@ class CreatePasswordActivity : BaseActivity(), View.OnClickListener {
         ) { value: Int? -> }
 
         mViewModel!!.resultSendOTPLD.observe(this@CreatePasswordActivity) { responseModel ->
-            if (responseModel.networkError != null) {
+            if (responseModel.serverError != null) {
                 dismissProgressDialog()
-                //showDeleteProfileDialog(mViewModel.getLabel(AppConstant.AppLabelName.networkError));
-                /*Toast.makeText(CreatePasswordActivity.this,
-                    mViewModel.getLabel(AppConstant.AppLabelName.networkError), Toast.LENGTH_SHORT).show();*/
-            } else if (responseModel.serverResponseError != null) {
-                dismissProgressDialog()
-                //showDeleteProfileDialog(mViewModel.getLabel(responseModel.getServerResponseError()));
-                /* Toast.makeText(CreatePasswordActivity.this,
-                    mViewModel.getLabel(responseModel.getServerResponseError()), Toast.LENGTH_SHORT).show();*/
-            } else if (responseModel.genericError != null) {
-                dismissProgressDialog()
-                // showDeleteProfileDialog(mViewModel.getLabel(AppConstant.AppLabelName.genericError));
-                /*Toast.makeText(CreatePasswordActivity.this,
-                    mViewModel.getLabel(AppConstant.AppLabelName.genericError), Toast.LENGTH_SHORT).show();*/
+
+                val abx =
+                    MyAlartBox(
+                        this@CreatePasswordActivity,
+                        responseModel.serverError.toString(),
+                        "m"
+                    )
+                abx.show()
             } else if (responseModel.success != null) {
                 dismissProgressDialog()
                 Toast.makeText(this, "OTP sent to your email id", Toast.LENGTH_SHORT).show()

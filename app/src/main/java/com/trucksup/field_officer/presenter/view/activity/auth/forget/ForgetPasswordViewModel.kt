@@ -80,19 +80,11 @@ class ForgetPasswordViewModel @Inject constructor(
         CoroutineScope(Dispatchers.IO).launch {
             when (val response =
                 apiUseCase.validateQuestionAnswer(email, mobile, countryCode, secretAnswer)) {
-                is ResultWrapper.NetworkError -> {
-                    Log.e("API Error", response.error)
-                    resultValidateAnsReset.postValue(ResponseModel<Boolean>(networkError = response.error))
-                }
+
 
                 is ResultWrapper.ServerResponseError -> {
-                    Log.e("API Error", response.error?.message ?: "")
-                    resultValidateAnsReset.postValue(ResponseModel<Boolean>(serverResponseError = response.error?.message))
-                }
-
-                is ResultWrapper.GenericError -> {
-                    Log.e("API Error", response.error)
-                    resultValidateAnsReset.postValue(ResponseModel<Boolean>(genericError = response.error))
+                    Log.e("API Error", response.error ?: "")
+                    resultValidateAnsReset.postValue(ResponseModel<Boolean>(serverError = response.error))
                 }
 
                 is ResultWrapper.Success -> {
@@ -118,19 +110,9 @@ class ForgetPasswordViewModel @Inject constructor(
         CoroutineScope(Dispatchers.IO).launch {
             when (val response =
                 apiUseCase.resetPassword(email, mobile, countryCode, passwordRequest)) {
-                is ResultWrapper.NetworkError -> {
-                    Log.e("API Error", response.error)
-                    resultReset.postValue(ResponseModel<String>(networkError = response.error))
-                }
-
                 is ResultWrapper.ServerResponseError -> {
-                    Log.e("API Error", response.error?.message ?: "")
-                    resultReset.postValue(ResponseModel<String>(serverResponseError = response.error?.message))
-                }
-
-                is ResultWrapper.GenericError -> {
-                    Log.e("API Error", response.error)
-                    resultReset.postValue(ResponseModel<String>(genericError = response.error))
+                    Log.e("API Error", response.error ?: "")
+                    resultValidateAnsReset.postValue(ResponseModel<Boolean>(serverError = response.error))
                 }
 
                 is ResultWrapper.Success -> {
@@ -144,19 +126,9 @@ class ForgetPasswordViewModel @Inject constructor(
     fun sendOTP(email: String, mobile: String, countryCode: String) {
         CoroutineScope(Dispatchers.IO).launch {
             when (val response = apiUseCase.forgotPassword(email, mobile, countryCode)) {
-                is ResultWrapper.NetworkError -> {
-                    Log.e("API Error", response.error)
-                    resultSendOTP.postValue(ResponseModel<Response<String>>(networkError = response.error))
-                }
-
                 is ResultWrapper.ServerResponseError -> {
-                    Log.e("API Error", response.error?.message ?: "")
-                    resultSendOTP.postValue(ResponseModel<Response<String>>(serverResponseError = response.error?.message))
-                }
-
-                is ResultWrapper.GenericError -> {
-                    Log.e("API Error", response.error)
-                    resultSendOTP.postValue(ResponseModel<Response<String>>(genericError = response.error))
+                    Log.e("API Error", response.error ?: "")
+                    resultValidateAnsReset.postValue(ResponseModel<Boolean>(serverError = response.error))
                 }
 
                 is ResultWrapper.Success -> {
@@ -171,19 +143,9 @@ class ForgetPasswordViewModel @Inject constructor(
     fun loginUser(username: String, Password: String, type: String, countryCode: String) {
         CoroutineScope(Dispatchers.IO).launch {
             when (val response = apiUseCase.loginUser(username, Password, type, countryCode)) {
-                is ResultWrapper.NetworkError -> {
-                    Log.e("API Error", response.error)
-                    resultLogin.postValue(ResponseModel<TokenZ>(networkError = response.error))
-                }
-
                 is ResultWrapper.ServerResponseError -> {
-                    Log.e("API Error", response.error?.message ?: "")
-                    resultLogin.postValue(ResponseModel<TokenZ>(serverResponseError = response.error?.message))
-                }
-
-                is ResultWrapper.GenericError -> {
-                    Log.e("API Error", response.error)
-                    resultLogin.postValue(ResponseModel<TokenZ>(genericError = response.error))
+                    Log.e("API Error", response.error ?: "")
+                    resultValidateAnsReset.postValue(ResponseModel<Boolean>(serverError = response.error))
                 }
 
                 is ResultWrapper.Success -> {
