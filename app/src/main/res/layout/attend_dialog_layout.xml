@@ -30,6 +30,7 @@
             android:layout_marginStart="@dimen/_6sdp"
             style="@style/text_medium"
             android:text="Date: 20-Feb-25"
+            android:textColor="@color/dark_gray"
             />
 
         <TextView
@@ -39,7 +40,8 @@
             android:layout_marginTop="@dimen/_5sdp"
             android:layout_marginStart="@dimen/_6sdp"
             android:text="Time: 09:00 AM"
-            style="@style/text_medium"/>
+            style="@style/text_medium"
+            android:textColor="@color/dark_gray"/>
 
 
 
@@ -64,7 +66,7 @@
             android:layout_marginTop="@dimen/_6sdp"
             android:fontFamily="@font/bai_jamjuree_semi_bold"
             android:gravity="center"
-            android:text="@string/Cancel"
+            android:text="@string/cancel_u"
             android:textColor="@color/blue"
             android:textSize="@dimen/_12ssp" />
 

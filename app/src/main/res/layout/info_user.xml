@@ -18,7 +18,7 @@
             android:layout_gravity="center"
             android:background="@drawable/bgcorner_fill_view"
             android:gravity="center"
-            android:layout_margin="@dimen/dp20"
+            android:layout_margin="@dimen/_18sdp"
            >
 
             <RelativeLayout
@@ -28,10 +28,10 @@
 
                 <ImageView
                     android:id="@+id/cancel_button_dialog"
-                    android:layout_width="@dimen/dp45"
-                    android:layout_height="@dimen/dp45"
+                    android:layout_width="@dimen/_43sdp"
+                    android:layout_height="@dimen/_43sdp"
                     android:src="@drawable/cross_ic"
-                   android:padding="@dimen/dp15"
+                   android:padding="@dimen/_13sdp"
                     android:visibility="visible"
                    android:layout_alignParentEnd="true"
 
@@ -49,8 +49,8 @@
                     android:layout_width="@dimen/_60sdp"
                     android:layout_height="@dimen/_60sdp"
                     android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/dp15"
-                    android:padding="@dimen/dp4"
+                    android:layout_marginTop="@dimen/_13sdp"
+                    android:padding="@dimen/_3sdp"
                     android:src="@drawable/check_circle_on_bg"
                     android:visibility="visible" />
 
@@ -60,11 +60,11 @@
                     style="@style/label_16"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp20"
-                    android:layout_marginRight="@dimen/dp20"
+                    android:layout_marginLeft="@dimen/_18sdp"
+                    android:layout_marginRight="@dimen/_18sdp"
                     android:gravity="center"
                     android:letterSpacing=".05"
-                    android:lineSpacingExtra="@dimen/dp5"
+                    android:lineSpacingExtra="@dimen/_4sdp"
                     android:maxLines="4"
                     android:minHeight="@dimen/_30sdp"
                     android:text="Item added to the cart!"
@@ -76,8 +76,8 @@
                     android:layout_width="@dimen/_100sdp"
                     android:layout_height="@dimen/_30sdp"
                     android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/dp10"
-                    android:layout_marginBottom="@dimen/dp18"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginBottom="@dimen/_16sdp"
                     android:gravity="center"
                     android:text="Ok"
                     tools:text="Ok" />

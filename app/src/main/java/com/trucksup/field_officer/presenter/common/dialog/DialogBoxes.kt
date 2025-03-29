@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Context
 import android.graphics.Bitmap
+import android.icu.text.DateFormat
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
 import android.view.LayoutInflater
@@ -27,6 +28,7 @@ import com.trucksup.field_officer.presenter.view.adapter.ImageAdapter
 import com.trucksup.field_officer.presenter.view.interfaces.AddLeadInterface
 import com.trucksup.field_officer.presenter.view.interfaces.AddMiscInterface
 import com.trucksup.field_officer.presenter.view.interfaces.SearchLocation
+import java.util.Date
 import java.util.Locale
 
 object DialogBoxes {
@@ -109,7 +111,7 @@ object DialogBoxes {
                     parent: AdapterView<*>?,
                     view: View?,
                     position: Int,
-                    id: Long
+                    id: Long,
                 ) {
                     val textView: TextView = view as TextView
 //                textView.setPadding(0,0,0,0)
@@ -251,6 +253,16 @@ object DialogBoxes {
         builder.setView(binding.root)
         val dialog: AlertDialog = builder.create()
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+        val calendar = Calendar.getInstance()
+        val getCurrentDate = SimpleDateFormat("dd-MMM-yy")
+        val getCurrentTime = SimpleDateFormat("hh:mm a")
+        val currentDate = getCurrentDate.format(calendar.time)
+        val currentTime = getCurrentTime.format(Date()).toString()
+        val formattedTime = currentTime.replace("am", "AM").replace("pm","PM");
+
+        binding.tvDate.setText("Date: "+currentDate)
+        binding.tvTime.setText("Time: "+formattedTime)
 
         //ok button
         binding.confirm.setOnClickListener {

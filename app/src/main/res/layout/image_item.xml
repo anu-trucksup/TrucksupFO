@@ -14,7 +14,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp100">
+            android:layout_height="@dimen/_8sdp">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/iv_card"
