@@ -77,11 +77,7 @@
             android:name=".presenter.view.activity.auth.login.LoginActivity"
             android:exported="true"
             android:theme="@style/Base.Theme.FieldOfficer">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".presenter.view.activity.auth.forget.CreatePasswordActivity"
@@ -101,7 +97,13 @@
             android:exported="false" />
         <activity
             android:name=".presenter.view.activity.other.HomeActivity"
-            android:exported="false" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <activity
             android:name=".presenter.view.activity.financeInsurance.FinanceActivity"
@@ -195,7 +197,9 @@
         <activity
             android:name=".presenter.view.activity.truck_supplier.TSPerformStatusActivity"
             android:exported="false" />
-
+        <activity
+            android:name=".presenter.view.activity.truck_supplier.TruckSuppliersHomeActivity"
+            android:exported="false" />
         <activity
             android:name=".presenter.view.activity.business_associate.BAPerformanceActivity"
             android:exported="false" />
@@ -211,6 +215,7 @@
         <activity
             android:name=".presenter.view.activity.growth_partner.GPPerformStatusActivity"
             android:exported="false" />
+
 
         <service
             android:name=".presenter.utils.MyFirebaseMessagingService"

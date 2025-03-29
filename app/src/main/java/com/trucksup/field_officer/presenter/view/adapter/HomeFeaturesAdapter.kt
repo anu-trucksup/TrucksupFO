@@ -55,8 +55,8 @@ class HomeFeaturesAdapter(var context: Context?, var list: ArrayList<String>) :
         holder.binding.tvName.text = serviceList[position]
 
         holder.binding.root.setOnClickListener {
-            Toast.makeText(context,"Under Development", Toast.LENGTH_SHORT).show()
-           /* when (position) {
+            //Toast.makeText(context,"Under Development", Toast.LENGTH_SHORT).show()
+            when (position) {
                 0 -> {
                     val intent = Intent(context, TSPerformanceActivity::class.java)
                     context?.startActivity(intent)
@@ -77,7 +77,7 @@ class HomeFeaturesAdapter(var context: Context?, var list: ArrayList<String>) :
                     val intent = Intent(context, TotalDownloadsActivity::class.java)
                     context?.startActivity(intent)
                 }
-            }*/
+            }
 
 
         }

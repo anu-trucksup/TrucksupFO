@@ -35,6 +35,7 @@ import com.trucksup.field_officer.presenter.view.activity.financeInsurance.Finan
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.InsuranceActivity
 import com.trucksup.field_officer.presenter.view.activity.profile.EditProfileActivity
 import com.trucksup.field_officer.presenter.view.activity.profile.MyEarningActivity
+import com.trucksup.field_officer.presenter.view.activity.truck_supplier.TruckSuppliersHomeActivity
 import com.trucksup.field_officer.presenter.view.adapter.HomeFeaturesAdapter
 import com.trucksup.field_officer.presenter.view.adapter.ServicesMainAdapter
 import com.trucksup.field_officer.presenter.view.adapter.OnItemClickListner
@@ -173,6 +174,11 @@ class HomeActivity : BaseActivity(), OnItemClickListner {
 
         binding.homeEarnings.todayFollowup.setOnClickListener {
             val intent = Intent(this@HomeActivity, FollowUpActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.homeEarnings.unassignedTsba.setOnClickListener {
+            val intent = Intent(this@HomeActivity, TruckSuppliersHomeActivity::class.java)
             startActivity(intent)
         }
     }

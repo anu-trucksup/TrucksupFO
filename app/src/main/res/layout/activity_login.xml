@@ -75,7 +75,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/dp25"
+                            android:layout_margin="@dimen/_22sdp"
                             android:orientation="vertical"
                             tools:visibility="visible">
 
@@ -102,7 +102,7 @@
                                 android:id="@+id/phone_layout"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/dp20"
+                                android:layout_marginTop="@dimen/_18sdp"
                                 android:orientation="vertical"
                                 android:visibility="visible">
 
@@ -110,7 +110,7 @@
                                     style="@style/edit_label"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginBottom="@dimen/dp5"
+                                    android:layout_marginBottom="@dimen/_4sdp"
                                     android:text="@string/mobile_number"
                                     tools:text="@string/mobile_number" />
 
@@ -142,14 +142,14 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/dp12"
+                                android:layout_marginTop="@dimen/_10sdp"
                                 android:orientation="vertical">
 
                                 <TextView
                                     style="@style/edit_label"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginBottom="@dimen/dp5"
+                                    android:layout_marginBottom="@dimen/_4sdp"
                                     android:text="@string/password" />
 
 
@@ -168,10 +168,10 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         app:boxBackgroundMode="none"
-                                        app:boxCornerRadiusBottomEnd="@dimen/dp10"
-                                        app:boxCornerRadiusBottomStart="@dimen/dp10"
-                                        app:boxCornerRadiusTopEnd="@dimen/dp10"
-                                        app:boxCornerRadiusTopStart="@dimen/dp10"
+                                        app:boxCornerRadiusBottomEnd="@dimen/_8ssp"
+                                        app:boxCornerRadiusBottomStart="@dimen/_8ssp"
+                                        app:boxCornerRadiusTopEnd="@dimen/_8ssp"
+                                        app:boxCornerRadiusTopStart="@dimen/_8ssp"
                                         app:endIconDrawable="@drawable/custom_eye_drawable"
                                         app:hintAnimationEnabled="false"
                                         app:hintEnabled="false"
@@ -189,7 +189,7 @@
                                             style="@style/edit_text_m"
                                             android:hint="@string/password"
                                             android:drawablePadding="@dimen/_2sdp"
-                                            android:padding="@dimen/dp5" />
+                                            android:padding="@dimen/_4sdp" />
 
                                     </com.google.android.material.textfield.TextInputLayout>
                                    <!-- <EditText
@@ -288,7 +288,7 @@
                                 style="@style/label_semi"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/dp5"
+                                android:layout_marginStart="@dimen/_4sdp"
                                 android:gravity="center"
                                 android:text="@string/sign_up_here"
                                 android:textColor="@color/blue" />

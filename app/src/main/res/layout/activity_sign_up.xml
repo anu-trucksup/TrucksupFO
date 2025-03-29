@@ -43,7 +43,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/dp25"
+                        android:layout_marginHorizontal="@dimen/_23sdp"
                         android:layout_marginTop="@dimen/_80sdp"
                         android:orientation="vertical"
                         android:visibility="visible">
@@ -76,7 +76,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/dp25"
+                    android:layout_marginHorizontal="@dimen/_23sdp"
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -316,15 +316,15 @@
                                 style="@style/label"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginBottom="@dimen/dp10"
+                                android:layout_marginBottom="@dimen/_8sdp"
                                 android:text="OTP" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:layout_marginBottom="@dimen/dp5"
+                                android:layout_marginBottom="@dimen/_4sdp"
                                 android:layout_weight="2"
-                                android:paddingRight="@dimen/dp10">
+                                android:paddingRight="@dimen/_8sdp">
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
@@ -340,7 +340,7 @@
                                         android:inputType="number"
                                         android:maxLength="6"
                                         android:maxLines="1"
-                                        android:padding="@dimen/dp12"
+                                        android:padding="@dimen/_10sdp"
                                         android:textAlignment="viewStart" />
                                 </LinearLayout>
 
@@ -348,7 +348,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1"
-                                    android:paddingLeft="@dimen/dp10"
+                                    android:paddingLeft="@dimen/_8sdp"
                                     android:visibility="invisible">
 
                                     <TextView
@@ -357,12 +357,12 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_gravity="top"
-                                        android:layout_marginStart="@dimen/dp16"
-                                        android:layout_marginTop="@dimen/dp5"
+                                        android:layout_marginStart="@dimen/_14sdp"
+                                        android:layout_marginTop="@dimen/_4sdp"
                                         android:layout_weight="1"
                                         android:background="@drawable/esim_order_detail_tab_bg"
                                         android:gravity="center"
-                                        android:padding="@dimen/dp10"
+                                        android:padding="@dimen/_8sdp"
                                         android:text="@string/resend_in_3_30" />
                                 </LinearLayout>
                             </LinearLayout>
@@ -373,8 +373,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_vertical|start"
-                                android:paddingStart="@dimen/dp10"
-                                android:paddingEnd="@dimen/dp10"
+                                android:paddingStart="@dimen/_8sdp"
+                                android:paddingEnd="@dimen/_8sdp"
                                 android:text="This Is Not a Valid otp?"
                                 android:textAlignment="viewStart"
                                 android:visibility="gone" />
@@ -404,14 +404,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginVertical="@dimen/dp30"
+                    android:layout_marginVertical="@dimen/_28sdp"
                     android:orientation="horizontal">
 
                     <TextView
                         style="@style/text14medium"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dp5"
+                        android:layout_marginStart="@dimen/_4sdp"
                         android:gravity="center"
                         android:text="@string/you_already_have_an_account"
                         android:textColor="@color/black" />
@@ -421,7 +421,7 @@
                         style="@style/label_semi"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/dp5"
+                        android:layout_marginStart="@dimen/_4sdp"
                         android:gravity="center"
                         android:text="@string/log_in_here"
                         android:textColor="@color/blue" />

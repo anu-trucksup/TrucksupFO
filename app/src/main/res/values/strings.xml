@@ -81,6 +81,7 @@
     <string name="completed">Completed</string>
     <string name="scheduled">Scheduled</string>
     <string name="truckSupplier">Truck Supplier</string>
+    <string name="truckSuppliers">Truck Suppliers</string>
     <string name="broker_new">Business Associate</string>
     <string name="growthpartner">Growth Partner</string>
     <string name="add_load">Add Loads</string>
@@ -111,6 +112,7 @@
     <string name="self_leads">Self Leads: </string>
     <string name="other_leads">Other Leads: </string>
     <string name="today_s_follow_up">Today\'s Follow up</string>
+    <string name="unassigned_ts_ba">Unassigned TS/BA</string>
     <string name="home">Home</string>
     <string name="helpline">Helpline</string>
 

@@ -6,8 +6,8 @@
     android:layout_height="wrap_content"
     style="@style/text"
     android:maxLines="1"
-    android:paddingLeft="@dimen/dp5"
-    android:paddingBottom="@dimen/dp5"
-    android:paddingTop="@dimen/dp5"
+    android:paddingLeft="@dimen/_4sdp"
+    android:paddingBottom="@dimen/_4sdp"
+    android:paddingTop="@dimen/_4sdp"
     tools:text="Amana"
     android:gravity="center" />
