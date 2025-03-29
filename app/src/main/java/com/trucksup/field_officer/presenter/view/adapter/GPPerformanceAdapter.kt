@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.trucksup.field_officer.R
+import com.trucksup.field_officer.databinding.GpPerformItemBinding
 import com.trucksup.field_officer.databinding.TsPerformItemBinding
 import com.trucksup.field_officer.databinding.TsScheduledItemBinding
 import com.trucksup.field_officer.presenter.common.dialog.HappinessCodeBox
@@ -15,11 +16,11 @@ import com.trucksup.field_officer.presenter.view.activity.truck_supplier.TSStart
 class GPPerformanceAdapter(var context: Context?, var list: ArrayList<String>) :
     RecyclerView.Adapter<GPPerformanceAdapter.ViewHolder>() {
 
-    inner class ViewHolder(var binding: TsPerformItemBinding) :
+    inner class ViewHolder(var binding: GpPerformItemBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v = TsPerformItemBinding.inflate(LayoutInflater.from(context), parent, false)
+        val v = GpPerformItemBinding.inflate(LayoutInflater.from(context), parent, false)
         return ViewHolder(v)
     }
 
