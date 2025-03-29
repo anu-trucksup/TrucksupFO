@@ -43,6 +43,7 @@ constraintlayout = "2.2.0"
 appcompat = "1.7.0"
 materialVersion = "1.12.0"
 activity = "1.10.0"
+playServicesMaps = "19.1.0"
 
 [libraries]
 accompanist-pager = { module = "com.google.accompanist:accompanist-pager", version.ref = "accompanistPager" }
@@ -102,6 +103,7 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "materialVersion" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
+play-services-maps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "playServicesMaps" }
 
 
 [plugins]

@@ -1,12 +1,17 @@
 package com.trucksup.field_officer.presenter.view.activity.truck_owner
 
-import android.annotation.SuppressLint
+
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ActivityBaMaptripBinding
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
+
 
 class TSStartTripActivity : BaseActivity() {
     private lateinit var binding: ActivityBaMaptripBinding
@@ -18,6 +23,7 @@ class TSStartTripActivity : BaseActivity() {
         binding = ActivityBaMaptripBinding.inflate(layoutInflater)
         adjustFontScale(resources.configuration, 1.0f);
         setContentView(binding.root)
+
 
         binding.btnSubmit.setOnClickListener {
             startActivity(Intent(this, TSScheduledMeetingActivity::class.java))

@@ -71,6 +71,7 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)
+    implementation(libs.play.services.maps)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -137,5 +138,4 @@ dependencies {
     implementation(libs.androidx.camera.view)
     implementation (libs.play.services.mlkit.face.detection)
 
-    
 }

@@ -1,12 +1,20 @@
 package com.trucksup.field_officer.presenter.view.activity.business_associate
 
-import android.annotation.SuppressLint
+
 import android.content.Intent
+import android.location.Location
 import android.os.Bundle
+import android.provider.CallLog.Locations
 import androidx.activity.enableEdgeToEdge
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ActivityBaMaptripBinding
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
+
 
 class BAStartTripActivity : BaseActivity() {
     private lateinit var binding: ActivityBaMaptripBinding
@@ -14,7 +22,7 @@ class BAStartTripActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_ba_maptrip)
+        setContentView(com.trucksup.field_officer.R.layout.activity_ba_maptrip)
         binding = ActivityBaMaptripBinding.inflate(layoutInflater)
         adjustFontScale(resources.configuration, 1.0f);
         setContentView(binding.root)
@@ -23,4 +31,5 @@ class BAStartTripActivity : BaseActivity() {
             startActivity(Intent(this, BAScheduledMeetingActivity::class.java))
         }
     }
+
 }

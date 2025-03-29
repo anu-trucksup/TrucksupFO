@@ -20,7 +20,6 @@ class GpOnboardingPreviewActivity : AppCompatActivity(), View.OnClickListener {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_gp_onboarding_preview)
         val view = binding.root
         setContentView(view)
-
         setOnClicks()
     }
 
