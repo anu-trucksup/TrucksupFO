@@ -1,4 +1,4 @@
-package com.example.trucksupui.model
+package com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName

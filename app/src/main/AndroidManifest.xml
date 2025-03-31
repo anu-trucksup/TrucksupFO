@@ -72,16 +72,14 @@
         <activity
             android:name=".presenter.view.activity.profile.EditProfileActivity"
             android:exported="false" />
-        <activity
-            android:name=".presenter.view.activity.auth.login.LoginActivity"
-            android:exported="true"
-            android:theme="@style/Base.Theme.FieldOfficer">
-
-        </activity>
+      <!--  <activity
+            android:name=".presenter.view.activity.other.HomeActivity"
+            android:exported="true"/>
+-->
         <activity
             android:name=".presenter.view.activity.auth.forget.CreatePasswordActivity"
             android:exported="true"
-            android:theme="@style/Base.Theme.FieldOfficer" />
+            />
         <activity
             android:name=".presenter.view.activity.other.MainActivity"
             android:exported="false" />
@@ -229,7 +227,7 @@
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="Google Key AIzaSyDRB7hEarzrrPCcs-QaGtVCpWDrkubxvs8" />
+            android:value="AIzaSyDRB7hEarzrrPCcs-QaGtVCpWDrkubxvs8" />
     </application>
 
 </manifest>

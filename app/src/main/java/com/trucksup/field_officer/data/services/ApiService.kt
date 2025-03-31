@@ -1,6 +1,6 @@
 package com.trucksup.field_officer.data.services
 
-import com.example.trucksupui.model.SubmitInsuranceInquiryData
+import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryData
 import com.trucksup.field_officer.data.model.AutoImageSlideResponse
 import com.trucksup.field_officer.data.model.CheckUserProfileResponse
 import com.trucksup.field_officer.data.model.CountryResponse
@@ -22,7 +22,6 @@ import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.F
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.InquiryHistoryRequest
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.LoanDataSubmitRequest
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryRequest
-import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.FieldMap
 import retrofit2.http.FormUrlEncoded
@@ -31,7 +30,6 @@ import retrofit2.http.Header
 import retrofit2.http.Headers
 import retrofit2.http.POST
 import retrofit2.http.Query
-import retrofit2.http.Url
 
 interface ApiService {
      @POST("global/user/login?platform=mobile")
@@ -114,9 +112,6 @@ interface ApiService {
     @Headers("Accept: application/json")
     suspend fun updateUserProfile(@Body updateProfileRequest: UpdateProfileRequest): UpdateProfileResponse
 
-
-
-
     //@GET("global/admin/fetch/user/profile")
     @Headers("Accept: application/json")
     suspend fun checkUserProfile( @Query("email") email: String,
@@ -134,8 +129,6 @@ interface ApiService {
     @GET("category/all")
     @Headers("Accept: application/json")
     suspend fun getAllCategoryList(): CategoryAllResponse
-
-
 
 
     @GET("global/city/by-country")
@@ -167,16 +160,20 @@ interface ApiService {
 
 
     @POST("Apigateway/Gateway/GetInquiryOptions")
-    fun getFinanceData(@Header("Authorization") auth:String, @Body request : FinanceDataLiatRequest): FinanceDataLiatResponse
+    @Headers("Accept: application/json")
+    suspend fun getFinanceData(@Header("Authorization") auth:String, @Body request : FinanceDataLiatRequest): FinanceDataLiatResponse
 
 
     @POST("Apigateway/Gateway/SubmitFinanceInquiry")
-    fun submitFinanceData(@Header("Authorization") auth:String, @Body request : LoanDataSubmitRequest): FinaceDataSubmitResponse
+    @Headers("Accept: application/json")
+    suspend fun submitFinanceData(@Header("Authorization") auth:String, @Body request : LoanDataSubmitRequest): FinaceDataSubmitResponse
 
     @POST("Apigateway/Gateway/InquiryHistory")
-    fun getInquiryHistory(@Header("Authorization") auth:String, @Body request : InquiryHistoryRequest): InquiryHistoryResponse
+    @Headers("Accept: application/json")
+    suspend fun getInquiryHistory(@Header("Authorization") auth:String, @Body request : InquiryHistoryRequest): InquiryHistoryResponse
 
     @POST("Apigateway/Gateway/SubmitInsuranceInquiry")
-    fun submitInsuranceInquiry(@Header("Authorization") auth:String, @Body request : SubmitInsuranceInquiryRequest): SubmitInsuranceInquiryData
+    @Headers("Accept: application/json")
+    suspend fun submitInsuranceInquiry(@Header("Authorization") auth:String, @Body request : SubmitInsuranceInquiryRequest): SubmitInsuranceInquiryData
 
 }

@@ -2,7 +2,7 @@ package com.trucksup.field_officer.data.repository.impl
 
 
 import android.text.TextUtils
-import com.example.trucksupui.model.SubmitInsuranceInquiryData
+import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryData
 import com.glovejob.data.model.UserSessionResponse
 import com.trucksup.field_officer.data.model.AutoImageSlideResponse
 import com.trucksup.field_officer.data.model.CheckUserProfileResponse
@@ -31,8 +31,6 @@ import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.I
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.LoanDataSubmitRequest
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryRequest
 import kotlinx.coroutines.Dispatchers
-import retrofit2.http.Body
-import retrofit2.http.Header
 
 
 class APIRepositoryImpl constructor(private val apiService: ApiService) : APIRepository {

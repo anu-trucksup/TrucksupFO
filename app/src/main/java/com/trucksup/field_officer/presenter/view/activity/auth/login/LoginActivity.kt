@@ -181,8 +181,8 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
 
                     val intent = Intent(this@LoginActivity, WelcomeLocationActivity::class.java)
                     startActivity(intent)
-                   /* showProgressDialog()
-                    mViewModel!!.loginUser(
+                    showProgressDialog(this,false)
+                 /*   mViewModel!!.loginUser(
                         mLoginBinding?.phoneTxt?.text.toString(),
                         mLoginBinding?.passwordTxt?.text.toString(),
                         "password",

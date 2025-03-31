@@ -1,6 +1,6 @@
 package com.trucksup.field_officer.data.repository
 
-import com.example.trucksupui.model.SubmitInsuranceInquiryData
+import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryData
 import com.glovejob.data.model.UserSessionResponse
 import com.trucksup.field_officer.data.model.AutoImageSlideResponse
 import com.trucksup.field_officer.data.model.CheckUserProfileResponse
@@ -18,14 +18,12 @@ import com.trucksup.field_officer.data.model.insurance.InquiryHistoryResponse
 import com.trucksup.field_officer.data.model.user.UpdateProfileRequest
 import com.trucksup.field_officer.data.model.user.UpdateProfileResponse
 import com.trucksup.field_officer.data.network.ResultWrapper
-import com.trucksup.field_officer.data.network.safeApiCall
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinaceDataSubmitResponse
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinanceDataLiatRequest
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinanceDataLiatResponse
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.InquiryHistoryRequest
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.LoanDataSubmitRequest
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryRequest
-import kotlinx.coroutines.Dispatchers
 
 interface APIRepository {
 
