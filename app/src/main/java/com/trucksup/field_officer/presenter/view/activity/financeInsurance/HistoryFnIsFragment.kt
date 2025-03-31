@@ -101,7 +101,7 @@ class HistoryFnIsFragment(val status: String) : Fragment() {
 
 
     private fun enquiryHistory() {
-        LoadingUtils.showDialog(aContext, false)
+        LoadingUtils.showDialog(aContext, true)
         val request = InquiryHistoryRequest(
             requestId = PreferenceManager.getRequestNo(),
             requestedBy = PreferenceManager.getPhoneNo(aContext!!),

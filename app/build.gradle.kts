@@ -144,5 +144,5 @@ dependencies {
     // KTX for the Maps SDK for Android Utility Library
     implementation(libs.maps.utils.ktx)
 
-    
+    implementation (libs.mindevpdfviewer)
 }

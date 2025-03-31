@@ -2,11 +2,14 @@ package com.trucksup.field_officer.data.repository
 
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryData
 import com.glovejob.data.model.UserSessionResponse
+import com.logistics.trucksup.modle.PlanResponse
 import com.trucksup.field_officer.data.model.AutoImageSlideResponse
 import com.trucksup.field_officer.data.model.CheckUserProfileResponse
 import com.trucksup.field_officer.data.model.NewResisterRequest
 import com.trucksup.field_officer.data.model.NewUserProfile
 import com.trucksup.field_officer.data.model.PasswordRequest
+import com.trucksup.field_officer.data.model.PinCodeRequest
+import com.trucksup.field_officer.data.model.PinCodeResponse
 import com.trucksup.field_officer.data.model.PrivacyAllResponse
 import com.trucksup.field_officer.data.model.Response
 import com.trucksup.field_officer.data.model.TokenZ
@@ -25,6 +28,7 @@ import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.F
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.InquiryHistoryRequest
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.LoanDataSubmitRequest
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryRequest
+import com.trucksup.field_officer.presenter.view.activity.subscription.model.PlanRequest
 import okhttp3.MultipartBody
 
 interface APIRepository {
@@ -129,4 +133,8 @@ interface APIRepository {
     suspend fun getInquiryHistory(authToken: String, request: InquiryHistoryRequest): ResultWrapper<InquiryHistoryResponse>
 
     suspend fun submitInsuranceInquiry(authToken: String, request: SubmitInsuranceInquiryRequest): ResultWrapper<SubmitInsuranceInquiryData>
+
+    suspend fun getSubscriptionPlanData(authToken: String, planRequest: PlanRequest): ResultWrapper<PlanResponse>
+
+    suspend fun getCityStateByPin(authToken: String, request: PinCodeRequest): ResultWrapper<PinCodeResponse>
 }

@@ -11,12 +11,18 @@ data class VehicleDetail(
     @SerializedName("vehicleNumber")
     @Expose
     val vehicleNumber: String,
-    val rcFrontImgUrl: String,
-    val rcBackImgUrl: String,
-    val policyDocUrl: String,
-    val s: String,
-    val s1: String,
-    val s2: String
+    @SerializedName("rcFrontImgKey")
+    @Expose
+    val RCFrontImgKey: String,
+    @SerializedName("rcBackImgKey")
+    @Expose
+    val RCBackImgKey: String,
+    @SerializedName("policyDoc")
+    @Expose
+    val PolicyDoc: String,
+    val rcFrontImgUrl:String,
+    val rcBackImgUrl:String,
+    val policyDocUrl:String
 
 ) {
 
