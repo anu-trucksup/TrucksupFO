@@ -16,7 +16,7 @@ import com.trucksup.field_officer.presenter.view.activity.profile.TotalDownloads
 import com.trucksup.field_officer.presenter.view.activity.truck_supplier.TSPerformanceActivity
 
 
-class HomeFeaturesAdapter(var context: Context?, var list: ArrayList<String>) :
+class HomeFeaturesAdapter(var context: Context?) :
     RecyclerView.Adapter<HomeFeaturesAdapter.ViewHolder>() {
 
     val serviceList = arrayListOf(
@@ -84,6 +84,6 @@ class HomeFeaturesAdapter(var context: Context?, var list: ArrayList<String>) :
     }
 
     override fun getItemCount(): Int {
-        return list.size
+        return serviceList.size
     }
 }
