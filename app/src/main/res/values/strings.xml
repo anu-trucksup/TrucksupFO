@@ -551,4 +551,9 @@
     <string name="vehicle_History">Vehicle History</string>
     <string name="gp_followup">Growth Partners Follow-Up</string>
     <string name="PleaseEnterRightPincode">Please enter 6-digit pincode</string>
+    <string name="alt_mobile_info">*To change your mobile number, please enter the alternate number in the mobile no. field.</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="logout_ms">Do you want to logout?</string>
+    <string name="dail_call">Do you want to call now ?</string>
 </resources>

@@ -7,7 +7,7 @@ import com.trucksup.field_officer.data.database.dao.TrucksubFODAO
 import com.trucksup.field_officer.data.database.model.TranslationTableModel
 
 @Database(entities = [TranslationTableModel::class],  version = 1)
-abstract class TrucksubFO_DB: RoomDatabase() {
+abstract class TrucksubFODB: RoomDatabase() {
     abstract fun getTrucksubFODao(): TrucksubFODAO
 }
 

@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.trucksup.field_officer.data.model.CheckUserProfileResponse
 import com.trucksup.field_officer.data.model.TokenZ
 import com.trucksup.field_officer.data.network.ResponseModel
 import com.trucksup.field_officer.data.network.ResultWrapper
@@ -26,17 +27,9 @@ class LoginViewModel @Inject constructor(val apiUseCase: APIUseCase,
     fun loginUser(username: String, Password: String, type: String,countryCode:String) {
         CoroutineScope(Dispatchers.IO).launch {
             when (val response = apiUseCase.loginUser(username, Password, type,"91")) {
-                is ResultWrapper.NetworkError -> {
-                    Log.e("API Error", response.error)
-                    resultLogin.postValue(ResponseModel<TokenZ>(networkError = response.error))
-                }
                 is ResultWrapper.ServerResponseError -> {
-                    Log.e("API Error", response.error?.message?:"")
-                    resultLogin.postValue(ResponseModel<TokenZ>(serverResponseError = response.error?.message))
-                }
-                is ResultWrapper.GenericError -> {
-                    Log.e("API Error", response.error)
-                    resultLogin.postValue(ResponseModel<TokenZ>(genericError = response.error))
+                    Log.e("API Error", response.error ?: "")
+                    resultLogin.postValue(ResponseModel<TokenZ>(serverError = response.error))
                 }
                 is ResultWrapper.Success -> {
                     resultLogin.postValue(ResponseModel<TokenZ>(success = response.value))

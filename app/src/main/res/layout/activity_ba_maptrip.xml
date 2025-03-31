@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -68,103 +67,96 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_marginBottom="@dimen/_32sdp">
+            android:layout_marginBottom="@dimen/_32sdp"
+            android:orientation="vertical">
 
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="@dimen/_240sdp">
 
                 <fragment
                     android:id="@+id/map"
                     class="com.google.android.gms.maps.SupportMapFragment"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    />
+                    android:layout_height="match_parent" />
             </RelativeLayout>
 
 
-
             <TextView
+                style="@style/edit_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_10sdp"
-                style="@style/edit_label"
-                android:text="@string/address"
-                />
+                android:text="@string/address" />
 
             <EditText
+                style="@style/edit_text_m"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:background="@drawable/edit_box"
-                style="@style/edit_text_m"
                 android:inputType="text"
                 android:paddingHorizontal="@dimen/_10sdp"
-                android:paddingVertical="@dimen/_4sdp"
-                />
+                android:paddingVertical="@dimen/_4sdp" />
 
             <TextView
+                style="@style/edit_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:lines="1"
-                android:text="@string/pin_code"
-                style="@style/edit_label"/>
+                android:text="@string/pin_code" />
 
             <EditText
+                style="@style/edit_text_m"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:background="@drawable/edit_box"
-                style="@style/edit_text_m"
                 android:inputType="number"
                 android:paddingHorizontal="@dimen/_10sdp"
-                android:paddingVertical="@dimen/_4sdp"/>
+                android:paddingVertical="@dimen/_4sdp" />
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_10sdp"
                 style="@style/edit_label"
-                android:text="@string/city"
-                />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:background="@drawable/edit_box"
-                style="@style/edit_text_m"
-                android:paddingHorizontal="@dimen/_10sdp"
-                android:paddingVertical="@dimen/_4sdp"
-             />
-
-            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:text="@string/state"
-                style="@style/edit_label" />
+                android:text="@string/city" />
 
             <EditText
+                style="@style/edit_text_m"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:background="@drawable/edit_box"
-                style="@style/edit_text_m"
                 android:paddingHorizontal="@dimen/_10sdp"
-                android:paddingVertical="@dimen/_4sdp"
-                />
+                android:paddingVertical="@dimen/_4sdp" />
+
+            <TextView
+                style="@style/edit_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@string/state" />
+
+            <EditText
+                style="@style/edit_text_m"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@drawable/edit_box"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:paddingVertical="@dimen/_4sdp" />
 
             <LinearLayout
                 android:layout_width="match_parent"

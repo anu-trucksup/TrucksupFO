@@ -1099,7 +1099,7 @@ PreferenceManager {
 
     @SuppressLint("NewApi", "SuspiciousIndentation")
     fun getAuthToken(): String {
-        var dataSatring: String = "Basic "
+
         val authPayload = "DevUser:Dev@123"
         val data = authPayload.toByteArray()
 
@@ -1891,7 +1891,7 @@ PreferenceManager {
         return sharedPreferences.getString("VEHICLE_DETAILS", null)!!
     }
 
-    fun getUserData(finance: FinanceActivity): Any {
+    fun getUserData(finance: Activity): Any {
        // TODO("Not yet implemented")
         return 0
     }

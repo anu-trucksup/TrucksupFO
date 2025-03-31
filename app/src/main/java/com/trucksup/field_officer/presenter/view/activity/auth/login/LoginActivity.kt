@@ -1,5 +1,6 @@
 package com.trucksup.field_officer.presenter.view.activity.auth.login
 
+import android.app.Activity
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -12,6 +13,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ActivityLoginBinding
+import com.trucksup.field_officer.presenter.common.MyAlartBox
 import com.trucksup.field_officer.presenter.common.Utils
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.utils.CommonApplication
@@ -78,16 +80,16 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
 
     private fun setupObserver() {
         mViewModel!!.resultLoginLD.observe(this@LoginActivity) { responseModel ->                     // login function observe
-            if (responseModel.networkError != null) {
+          if (responseModel.serverError != null) {
                 dismissProgressDialog()
-                Utils.showToastDialog(
-                    "networkError",
-                    this, "Ok"
-                )
-            } else if (responseModel.serverResponseError != null) {
-                dismissProgressDialog()
-            } else if (responseModel.genericError != null) {
-                dismissProgressDialog()
+
+              val abx =
+                  MyAlartBox(
+                      this@LoginActivity,
+                      responseModel.serverError.toString(),
+                      "m"
+                  )
+              abx.show()
             } else {
                 dismissProgressDialog()
 
@@ -179,8 +181,8 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
 
                     val intent = Intent(this@LoginActivity, WelcomeLocationActivity::class.java)
                     startActivity(intent)
-                   /* showProgressDialog()
-                    mViewModel!!.loginUser(
+                    showProgressDialog(this,false)
+                 /*   mViewModel!!.loginUser(
                         mLoginBinding?.phoneTxt?.text.toString(),
                         mLoginBinding?.passwordTxt?.text.toString(),
                         "password",

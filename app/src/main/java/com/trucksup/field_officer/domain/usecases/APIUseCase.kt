@@ -1,6 +1,7 @@
 package com.trucksup.field_officer.domain.usecases
 
 
+import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryData
 import com.trucksup.field_officer.data.model.AutoImageSlideResponse
 import com.trucksup.field_officer.data.model.CheckUserProfileResponse
 import com.trucksup.field_officer.data.model.NewResisterRequest
@@ -11,11 +12,20 @@ import com.trucksup.field_officer.data.model.TokenZ
 import com.trucksup.field_officer.data.model.User
 import com.trucksup.field_officer.data.model.category.CategoryAllResponse
 import com.trucksup.field_officer.data.model.deleteResponse.DeleteProfileResponse
+import com.trucksup.field_officer.data.model.image.ImageResponse
 import com.trucksup.field_officer.data.model.image.UploadImageResponse
+import com.trucksup.field_officer.data.model.insurance.InquiryHistoryResponse
 import com.trucksup.field_officer.data.model.user.UpdateProfileRequest
 import com.trucksup.field_officer.data.model.user.UpdateProfileResponse
 import com.trucksup.field_officer.data.network.ResultWrapper
 import com.trucksup.field_officer.data.repository.APIRepository
+import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinaceDataSubmitResponse
+import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinanceDataLiatRequest
+import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinanceDataLiatResponse
+import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.InquiryHistoryRequest
+import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.LoanDataSubmitRequest
+import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryRequest
+import okhttp3.MultipartBody
 import javax.inject.Inject
 
 class APIUseCase @Inject constructor(val apiRepository: APIRepository) {
@@ -71,8 +81,8 @@ class APIUseCase @Inject constructor(val apiRepository: APIRepository) {
     }
 
 
-    suspend fun uploadImage(purpose: String,contentType: String): ResultWrapper<UploadImageResponse> {
-        return apiRepository.uploadImage(purpose,contentType)
+    suspend fun uploadImage(bucketName: String?, id: Int?, position: Int?, requestId: Int?, file: MultipartBody.Part?): ResultWrapper<ImageResponse> {
+        return apiRepository.uploadImage(bucketName, id, position, requestId, file)
     }
 
     fun logoutUser() {
@@ -93,6 +103,22 @@ class APIUseCase @Inject constructor(val apiRepository: APIRepository) {
 
      suspend fun autoImageSlide(): ResultWrapper<AutoImageSlideResponse> {
         return apiRepository.autoImageSlide()
+    }
+
+     suspend fun getFinanceData(authToken: String, request: FinanceDataLiatRequest): ResultWrapper<FinanceDataLiatResponse> {
+        return apiRepository.getFinanceData(authToken,request)
+    }
+
+    suspend fun submitFinanceData(authToken: String, request: LoanDataSubmitRequest): ResultWrapper<FinaceDataSubmitResponse> {
+        return  apiRepository.submitFinanceData(authToken,request)
+    }
+
+    suspend fun getInquiryHistory(authToken: String, request: InquiryHistoryRequest): ResultWrapper<InquiryHistoryResponse> {
+        return  apiRepository.getInquiryHistory(authToken,request)
+    }
+
+    suspend fun submitInsuranceInquiry(authToken: String, request: SubmitInsuranceInquiryRequest): ResultWrapper<SubmitInsuranceInquiryData> {
+        return  apiRepository.submitInsuranceInquiry(authToken,request)
     }
 
 }

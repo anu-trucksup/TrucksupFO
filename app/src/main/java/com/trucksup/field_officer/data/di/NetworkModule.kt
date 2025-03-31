@@ -31,7 +31,7 @@ class NetworkModule {
             .addInterceptor(logger)
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
-            .addInterceptor(HeaderInterceptor())
+            //.addInterceptor(HeaderInterceptor())
             //.addInterceptor(ChuckerInterceptor(BaseApplication.appContext!!.applicationContext))
             .build()
     }

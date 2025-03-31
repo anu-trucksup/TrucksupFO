@@ -1,5 +1,6 @@
 package com.trucksup.field_officer.data.repository
 
+import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryData
 import com.glovejob.data.model.UserSessionResponse
 import com.trucksup.field_officer.data.model.AutoImageSlideResponse
 import com.trucksup.field_officer.data.model.CheckUserProfileResponse
@@ -12,10 +13,19 @@ import com.trucksup.field_officer.data.model.TokenZ
 import com.trucksup.field_officer.data.model.User
 import com.trucksup.field_officer.data.model.category.CategoryAllResponse
 import com.trucksup.field_officer.data.model.deleteResponse.DeleteProfileResponse
+import com.trucksup.field_officer.data.model.image.ImageResponse
 import com.trucksup.field_officer.data.model.image.UploadImageResponse
+import com.trucksup.field_officer.data.model.insurance.InquiryHistoryResponse
 import com.trucksup.field_officer.data.model.user.UpdateProfileRequest
 import com.trucksup.field_officer.data.model.user.UpdateProfileResponse
 import com.trucksup.field_officer.data.network.ResultWrapper
+import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinaceDataSubmitResponse
+import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinanceDataLiatRequest
+import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinanceDataLiatResponse
+import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.InquiryHistoryRequest
+import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.LoanDataSubmitRequest
+import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryRequest
+import okhttp3.MultipartBody
 
 interface APIRepository {
 
@@ -46,8 +56,10 @@ interface APIRepository {
         countryCode: String
     ): ResultWrapper<Response<String>>
 
-     suspend fun checkUserProfile( email: String, mobile: String,
-                                 countryCode: String): ResultWrapper<CheckUserProfileResponse>
+    suspend fun checkUserProfile(
+        email: String, mobile: String,
+        countryCode: String
+    ): ResultWrapper<CheckUserProfileResponse>
 
     suspend fun resetPassword(
         email: String, mobile: String, countryCode: String,
@@ -89,10 +101,7 @@ interface APIRepository {
     suspend fun getAllCategoryList(): ResultWrapper<CategoryAllResponse>
 
 
-    suspend fun uploadImage(
-        purpose: String,
-        contentType: String
-    ): ResultWrapper<UploadImageResponse>
+    suspend fun uploadImage(bucketName: String?, id: Int?, position: Int?, requestId: Int?, file: MultipartBody.Part?): ResultWrapper<ImageResponse>
 
     suspend fun privacyDetails(name: String): ResultWrapper<PrivacyAllResponse>
 
@@ -100,9 +109,24 @@ interface APIRepository {
         socialOrigin: String?,
         email: String?
     ): ResultWrapper<UserSessionResponse>
- suspend fun deleteUserReview(reviewid : Int,shopId: Int): ResultWrapper<DeleteProfileResponse>
+
+    suspend fun deleteUserReview(reviewid: Int, shopId: Int): ResultWrapper<DeleteProfileResponse>
 
     suspend fun deleteUserProfile(): ResultWrapper<DeleteProfileResponse>
 
     suspend fun autoImageSlide(): ResultWrapper<AutoImageSlideResponse>
+
+    suspend fun getFinanceData(
+        authToken: String,
+        request: FinanceDataLiatRequest
+    ): ResultWrapper<FinanceDataLiatResponse>
+
+    suspend fun submitFinanceData(
+        authToken: String,
+        request: LoanDataSubmitRequest
+    ): ResultWrapper<FinaceDataSubmitResponse>
+
+    suspend fun getInquiryHistory(authToken: String, request: InquiryHistoryRequest): ResultWrapper<InquiryHistoryResponse>
+
+    suspend fun submitInsuranceInquiry(authToken: String, request: SubmitInsuranceInquiryRequest): ResultWrapper<SubmitInsuranceInquiryData>
 }

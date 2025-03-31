@@ -5,15 +5,26 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.trucksup.field_officer.R
+import com.trucksup.field_officer.data.model.insurance.InquiryHistoryResponse
 import com.trucksup.field_officer.databinding.ActivityFinanceHistoryBinding
+import com.trucksup.field_officer.presenter.common.LoadingUtils
+import com.trucksup.field_officer.presenter.common.MyAlartBox
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
+import com.trucksup.field_officer.presenter.utils.PreferenceManager
+import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinanceHistoryViewModel
+import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.InquiryHistoryRequest
 import com.trucksup.fieldofficer.adapter.FragmentAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
-class FinanceHistoryActivity : BaseActivity()/*, EnquiryHistoryController*/ {
+
+@AndroidEntryPoint
+class FinanceHistoryActivity : BaseActivity() {
 
     private lateinit var binding: ActivityFinanceHistoryBinding
+
     private var historyType: String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,6 +35,7 @@ class FinanceHistoryActivity : BaseActivity()/*, EnquiryHistoryController*/ {
 
         historyType = intent.getStringExtra("HISTORY_TYPE")
 
+
         if (historyType == "Finance") {
             binding.appBarTitle.text = getText(R.string.finance_previous_enquiry)
             binding.tvAddNew.text = getText(R.string.add_new_finance)
@@ -32,10 +44,9 @@ class FinanceHistoryActivity : BaseActivity()/*, EnquiryHistoryController*/ {
             binding.tvAddNew.text = getText(R.string.add_new_insurance)
         }
 
-        enquiryHistory()
-
         setListener()
         setupViewPager()
+
     }
 
     private fun setListener() {
@@ -65,9 +76,9 @@ class FinanceHistoryActivity : BaseActivity()/*, EnquiryHistoryController*/ {
 
         try {
             val adapter = FragmentAdapter(this)
-            val fragment1 = HistoryFnIsFragment()
-            val fragment2 = HistoryFnIsFragment()
-            val fragment3 = HistoryFnIsFragment()
+            val fragment1 = HistoryFnIsFragment("active")
+            val fragment2 = HistoryFnIsFragment("complete")
+            val fragment3 = HistoryFnIsFragment("reject")
             adapter.addFragment(fragment1)
             adapter.addFragment(fragment2)
             adapter.addFragment(fragment3)
@@ -155,7 +166,6 @@ class FinanceHistoryActivity : BaseActivity()/*, EnquiryHistoryController*/ {
 
     }
 
-
     fun addNewEnquery(view: View) {
         if (historyType == "Finance") {
             val intent = Intent(this, FinanceActivity::class.java)
@@ -167,33 +177,5 @@ class FinanceHistoryActivity : BaseActivity()/*, EnquiryHistoryController*/ {
 
     }
 
-    private fun enquiryHistory() {
-        /* LoadingUtils.showDialog(this, false)
-         var request = InquiryHistoryRequest(
-             requestId = PreferenceManager.getRequestNo(),
-             requestedBy = PreferenceManager.getPhoneNo(this),
-             requestDatetime = PreferenceManager.getServerDateUtc(""),
-             mobilenumber = PreferenceManager.getPhoneNo(this),
-             referralCode = PreferenceManager.getUserData(this)?.salesCode?:"",
-             historyType = historyType!!
-         )
-         MyResponse().inquiryHistory(request, this, this)*/
-    }
-
-   /* override fun inquiryHistorySuccess(inquiryHistoryResponse: InquiryHistoryResponse) {
-        dismissProgressDialog()
-        if (inquiryHistoryResponse.inquiryHistory.isNullOrEmpty()) {
-            binding.rv.visibility = View.GONE
-            binding.noData.visibility = View.VISIBLE
-        } else {
-            binding.rv.visibility = View.VISIBLE
-            binding.noData.visibility = View.GONE
-            setRvList(inquiryHistoryResponse.inquiryHistory)
-        }
-    }
-
-    override fun inquiryHistoryFailure(msg: String) {
-        dismissProgressDialog()
-    }*/
 
 }

@@ -1,5 +1,6 @@
 package com.trucksup.field_officer.data.services
 
+import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryData
 import com.trucksup.field_officer.data.model.AutoImageSlideResponse
 import com.trucksup.field_officer.data.model.CheckUserProfileResponse
 import com.trucksup.field_officer.data.model.CountryResponse
@@ -11,15 +12,28 @@ import com.trucksup.field_officer.data.model.TokenZ
 import com.trucksup.field_officer.data.model.User
 import com.trucksup.field_officer.data.model.category.CategoryAllResponse
 import com.trucksup.field_officer.data.model.deleteResponse.DeleteProfileResponse
+import com.trucksup.field_officer.data.model.image.ImageResponse
 import com.trucksup.field_officer.data.model.image.UploadImageResponse
+import com.trucksup.field_officer.data.model.insurance.InquiryHistoryResponse
 import com.trucksup.field_officer.data.model.user.UpdateProfileRequest
 import com.trucksup.field_officer.data.model.user.UpdateProfileResponse
+import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinaceDataSubmitResponse
+import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinanceDataLiatRequest
+import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinanceDataLiatResponse
+import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.InquiryHistoryRequest
+import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.LoanDataSubmitRequest
+import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryRequest
+import okhttp3.MultipartBody
+import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.FieldMap
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.Headers
+import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.Part
 import retrofit2.http.Query
 
 interface ApiService {
@@ -103,9 +117,6 @@ interface ApiService {
     @Headers("Accept: application/json")
     suspend fun updateUserProfile(@Body updateProfileRequest: UpdateProfileRequest): UpdateProfileResponse
 
-
-
-
     //@GET("global/admin/fetch/user/profile")
     @Headers("Accept: application/json")
     suspend fun checkUserProfile( @Query("email") email: String,
@@ -125,21 +136,12 @@ interface ApiService {
     suspend fun getAllCategoryList(): CategoryAllResponse
 
 
-
-
     @GET("global/city/by-country")
     @Headers("Accept: application/json")
     suspend fun getcountryDetails(
         @Query("countryId") countryId : String
     ): CountryResponse
 
-    /*?purpose=propertiesImage&contentType=image/png*/
-    @GET("global/media/presigned")
-    @Headers("Accept: application/json")
-    suspend fun uploadImage(
-        @Query("purpose") purpose : String,
-        @Query("contentType") contentType : String,
-    ): UploadImageResponse
 
 
     @GET("shop/delete/review")
@@ -155,5 +157,32 @@ interface ApiService {
     suspend fun autoImageSlide(): AutoImageSlideResponse
 
 
+    @POST("Apigateway/Gateway/GetInquiryOptions")
+    @Headers("Accept: application/json")
+    suspend fun getFinanceData(@Header("Authorization") auth:String, @Body request : FinanceDataLiatRequest): FinanceDataLiatResponse
 
+
+    @POST("Apigateway/Gateway/SubmitFinanceInquiry")
+    @Headers("Accept: application/json")
+    suspend fun submitFinanceData(@Header("Authorization") auth:String, @Body request : LoanDataSubmitRequest): FinaceDataSubmitResponse
+
+    @POST("Apigateway/Gateway/InquiryHistory")
+    @Headers("Accept: application/json")
+    suspend fun getInquiryHistory(@Header("Authorization") auth:String, @Body request : InquiryHistoryRequest): InquiryHistoryResponse
+
+    @POST("Apigateway/Gateway/SubmitInsuranceInquiry")
+    @Headers("Accept: application/json")
+    suspend fun submitInsuranceInquiry(@Header("Authorization") auth:String, @Body request : SubmitInsuranceInquiryRequest): SubmitInsuranceInquiryData
+
+
+    @Multipart
+    @POST("upload-imagefile")
+    fun uploadImage(
+        @Query("bucketName") bucketName: String?,
+        @Query("ID") id: Int?,
+        @Query("Position") Position: Int?,
+        @Query("RequestId") RequestId: Int?,
+        @Part file: MultipartBody.Part?,
+
+        ): ImageResponse
 }

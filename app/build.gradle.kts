@@ -87,12 +87,13 @@ dependencies {
 
     ksp(libs.hilt.android.compiler)
     implementation(libs.hilt.android)
-    implementation(libs.androidx.hilt.navigation.compose)
+
     implementation(libs.retrofit.core)
     implementation(libs.retrofit.converter)
     implementation(platform(libs.okhttp.bom))
     implementation(libs.okhttp)
     implementation(libs.okhttp3.logging.interceptor)
+    implementation (libs.adapter.rxjava2)
     // JSON Converter
     implementation(libs.converter.gson)
     implementation(libs.coil.compose.v222)
@@ -136,13 +137,12 @@ dependencies {
     // If you want to additionally use the CameraX View class
     implementation(libs.androidx.camera.view)
     implementation (libs.play.services.mlkit.face.detection)
+    implementation (libs.gson)
 
-
-    implementation("com.google.android.gms:play-services-maps:19.1.0")
     // KTX for the Maps SDK for Android library
     implementation(libs.maps.ktx)
     // KTX for the Maps SDK for Android Utility Library
-    implementation("com.google.maps.android:maps-utils-ktx:5.0.0")
+    implementation(libs.maps.utils.ktx)
 
     
 }
