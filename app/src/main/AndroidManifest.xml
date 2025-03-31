@@ -211,6 +211,9 @@
         <activity
             android:name=".presenter.view.activity.growth_partner.GPPerformStatusActivity"
             android:exported="false" />
+        <activity
+            android:name=".presenter.view.activity.growth_partner.GPViewAllActivity"
+            android:exported="false" />
 
         <activity
             android:name=".presenter.view.activity.other.ViewPdfScreen"

@@ -86,15 +86,9 @@ class HomeActivity : BaseActivity(), OnItemClickListner {
 
 
     private fun setSecondRvList() {
-
-        val list = ArrayList<String>()
-        list.add("")
-        list.add("")
-        list.add("")
-        list.add("")
         binding.rvFeatures.apply {
             layoutManager = GridLayoutManager(this@HomeActivity, 3)
-            adapter = HomeFeaturesAdapter(this@HomeActivity, list)
+            adapter = HomeFeaturesAdapter(this@HomeActivity)
             hasFixedSize()
         }
     }
