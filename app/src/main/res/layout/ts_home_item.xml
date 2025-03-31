@@ -63,7 +63,7 @@
                             <ImageView
                                 android:layout_width="@dimen/_10sdp"
                                 android:layout_height="@dimen/_10sdp"
-                                android:src="@drawable/timetable_icon" />
+                                android:src="@drawable/ic_watch" />
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -71,7 +71,7 @@
                                 android:layout_marginStart="@dimen/_2sdp"
                                 android:fontFamily="@font/bai_jamjuree_medium"
                                 android:maxLines="1"
-                                android:text="12-11-2024 10:53:00"
+                                android:text="Last Meeting: Never Met "
                                 android:textColor="@color/blue"
                                 android:textSize="@dimen/_11ssp" />
 
@@ -277,34 +277,61 @@
                     </LinearLayout>
 
 
-
-
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:orientation="horizontal">
 
-                        <TextView
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="@dimen/_3sdp"
-                            android:fontFamily="@font/bai_jamjuree_medium"
-                            android:maxLines="1"
-                            android:text="@string/last_call_initiated"
-                            android:textColor="@color/blue"
-                            android:textSize="@dimen/_9ssp" />
+                            android:layout_weight=".75"
+                            android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/tv_last_Call"
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/_3sdp"
+                                android:fontFamily="@font/bai_jamjuree_medium"
+                                android:maxLines="1"
+                                android:text="@string/last_call_initiated"
+                                android:textColor="@color/blue"
+                                android:textSize="@dimen/_9ssp" />
+
+                            <TextView
+                                android:id="@+id/tv_last_Call"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_3sdp"
+                                android:layout_marginEnd="@dimen/_3sdp"
+                                android:fontFamily="@font/bai_jamjuree_medium"
+                                android:maxLines="1"
+                                android:textColor="@color/blue"
+                                android:textSize="@dimen/_11ssp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_3sdp"
-                            android:layout_marginEnd="@dimen/_3sdp"
-                            android:fontFamily="@font/bai_jamjuree_medium"
-                            android:maxLines="1"
-                            android:textColor="@color/blue"
-                            android:textSize="@dimen/_11ssp" />
+                            android:layout_weight="1.25"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tv_send_happiness_code"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/bai_jamjuree_medium"
+                                android:maxLines="1"
+                                android:text="@string/send_happiness_code"
+                                android:textColor="@color/pink"
+                                android:textSize="@dimen/_9ssp"
+                                android:textAlignment="textEnd"
+                                android:gravity="end"/>
+
+                        </LinearLayout>
+
 
                     </LinearLayout>
 
@@ -355,7 +382,6 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/_2sdp"
                                 android:background="@drawable/blue_76"
                                 android:backgroundTint="@color/colorPrimary"
                                 android:fontFamily="@font/bai_jamjuree_medium"
