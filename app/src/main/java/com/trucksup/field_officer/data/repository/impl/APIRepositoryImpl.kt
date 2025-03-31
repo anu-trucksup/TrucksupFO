@@ -15,6 +15,7 @@ import com.trucksup.field_officer.data.model.TokenZ
 import com.trucksup.field_officer.data.model.User
 import com.trucksup.field_officer.data.model.category.CategoryAllResponse
 import com.trucksup.field_officer.data.model.deleteResponse.DeleteProfileResponse
+import com.trucksup.field_officer.data.model.image.ImageResponse
 import com.trucksup.field_officer.data.model.image.UploadImageResponse
 import com.trucksup.field_officer.data.model.insurance.InquiryHistoryResponse
 import com.trucksup.field_officer.data.model.user.UpdateProfileRequest
@@ -31,6 +32,7 @@ import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.I
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.LoanDataSubmitRequest
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryRequest
 import kotlinx.coroutines.Dispatchers
+import okhttp3.MultipartBody
 
 
 class APIRepositoryImpl constructor(private val apiService: ApiService) : APIRepository {
@@ -211,8 +213,8 @@ class APIRepositoryImpl constructor(private val apiService: ApiService) : APIRep
     }
 
 
-    override suspend fun uploadImage(purpose: String,contentType: String): ResultWrapper<UploadImageResponse> {
-        return safeApiCall(Dispatchers.IO) { apiService.uploadImage(purpose,contentType) }
+    override suspend fun uploadImage(bucketName: String?, id: Int?, position: Int?, requestId: Int?, file: MultipartBody.Part?): ResultWrapper<ImageResponse> {
+        return safeApiCall(Dispatchers.IO) { apiService.uploadImage(bucketName , id , position , requestId , file) }
     }
 
 

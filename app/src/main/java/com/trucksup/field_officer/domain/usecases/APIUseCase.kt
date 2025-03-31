@@ -12,6 +12,7 @@ import com.trucksup.field_officer.data.model.TokenZ
 import com.trucksup.field_officer.data.model.User
 import com.trucksup.field_officer.data.model.category.CategoryAllResponse
 import com.trucksup.field_officer.data.model.deleteResponse.DeleteProfileResponse
+import com.trucksup.field_officer.data.model.image.ImageResponse
 import com.trucksup.field_officer.data.model.image.UploadImageResponse
 import com.trucksup.field_officer.data.model.insurance.InquiryHistoryResponse
 import com.trucksup.field_officer.data.model.user.UpdateProfileRequest
@@ -24,6 +25,7 @@ import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.F
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.InquiryHistoryRequest
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.LoanDataSubmitRequest
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryRequest
+import okhttp3.MultipartBody
 import javax.inject.Inject
 
 class APIUseCase @Inject constructor(val apiRepository: APIRepository) {
@@ -79,8 +81,8 @@ class APIUseCase @Inject constructor(val apiRepository: APIRepository) {
     }
 
 
-    suspend fun uploadImage(purpose: String,contentType: String): ResultWrapper<UploadImageResponse> {
-        return apiRepository.uploadImage(purpose,contentType)
+    suspend fun uploadImage(bucketName: String?, id: Int?, position: Int?, requestId: Int?, file: MultipartBody.Part?): ResultWrapper<ImageResponse> {
+        return apiRepository.uploadImage(bucketName, id, position, requestId, file)
     }
 
     fun logoutUser() {

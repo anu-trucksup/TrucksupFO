@@ -30,6 +30,7 @@ import com.bumptech.glide.Glide
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.data.model.VehicleDetail
 import com.trucksup.field_officer.databinding.ActivityInsuranceScreenBinding
+import com.trucksup.field_officer.presenter.common.LoadingUtils
 import com.trucksup.field_officer.presenter.common.MyAlartBox
 import com.trucksup.field_officer.presenter.common.dialog.FinaceSubmitBox
 import com.trucksup.field_officer.presenter.common.image_picker.GetImage
@@ -116,9 +117,11 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage {
             } else {
                 dismissProgressDialog()
 
-                if (responseModel.success?.message != null ) {
-                    val abx = FinaceSubmitBox(this, responseModel.success.message,
-                        responseModel.success.message1, "cl")
+                if (responseModel.success?.message != null) {
+                    val abx = FinaceSubmitBox(
+                        this, responseModel.success.message,
+                        responseModel.success.message1, "cl"
+                    )
                     abx.show()
 
                 } else {
@@ -1085,25 +1088,25 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage {
         list.removeAt(po)
         setRecyclerView()
     }
-/*
-    override fun dataSubmitted(message: String, message1: String) {
-        dismissProgressDialog()
-        val abx = FinaceSubmitBox(this, message, message1, "cl")
-        abx.show()
+    /*
+        override fun dataSubmitted(message: String, message1: String) {
+            dismissProgressDialog()
+            val abx = FinaceSubmitBox(this, message, message1, "cl")
+            abx.show()
 
-    }
+        }
 
-    override fun dataError(error: String) {
-        dismissProgressDialog()
-    }*/
+        override fun dataError(error: String) {
+            dismissProgressDialog()
+        }*/
 
     fun backScreen(v: View) {
         finish()
     }
 
     fun mobileInfo(v: View) {
-         val menu = TruckMenu
-         menu.aboutPlan(this, binding.info, "", resources.getString(R.string.alt_mobile_info))
+        val menu = TruckMenu
+        menu.aboutPlan(this, binding.info, "", resources.getString(R.string.alt_mobile_info))
     }
 
     private fun isValidPhoneNumber(phone: String): Boolean {
@@ -1328,9 +1331,11 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage {
 
 
                 getImageToken(newFile)
-//            LoadingUtils.showDialog(this,false)
-//            MyResponse().uploadImage("jpg","DOC"+ PreferenceManager.getRequestNo(),"",
-//                PreferenceManager.prepareFilePart(newFile!!),this,this)
+                LoadingUtils.showDialog(this, false)
+                mViewModel?.uploadImage(
+                    "jpg", "DOC" + PreferenceManager.getRequestNo(), "",
+                    PreferenceManager.prepareFilePart(newFile!!), this, this
+                )
 
 
             } else {

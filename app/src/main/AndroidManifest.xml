@@ -156,7 +156,6 @@
             android:exported="false" />
 
 
-
         <activity
             android:name=".presenter.common.CameraActivity"
             android:exported="false" />

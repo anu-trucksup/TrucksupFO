@@ -8,10 +8,12 @@ import com.trucksup.field_officer.data.network.ResponseModel
 import com.trucksup.field_officer.data.network.ResultWrapper
 import com.trucksup.field_officer.domain.usecases.APIUseCase
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
+import com.trucksup.field_officer.presenter.view.activity.financeInsurance.InsuranceActivity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
 import javax.inject.Inject
 
 @HiltViewModel
@@ -36,6 +38,18 @@ class InsuranceViewModel @Inject constructor(val apiUseCase: APIUseCase) : ViewM
                 }
             }
         }
+    }
+
+    fun uploadImage(
+        s: String,
+        s1: String,
+        s2: String,
+        prepareFilePart: MultipartBody.Part,
+        insuranceActivity: InsuranceActivity,
+        insuranceActivity1: InsuranceActivity
+    ) {
+
+
     }
 
 
