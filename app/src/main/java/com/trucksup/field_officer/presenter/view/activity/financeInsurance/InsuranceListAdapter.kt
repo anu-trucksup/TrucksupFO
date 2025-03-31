@@ -2,6 +2,7 @@ package com.trucksup.field_officer.presenter.view.activity.financeInsurance
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.trucksup.field_officer.data.model.VehicleDetail
@@ -23,10 +24,18 @@ class InsuranceListAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.tvVehicleNo.text = list[position].vehicleNumber
         holder.binding.tvDate.text = list[position].insuranceValidity
-        //delete list item
-        holder.binding.imgDelete.setOnClickListener {
-            cantroler.deleteTruck(position)
 
+        if (!list[position].PolicyDoc.isNullOrEmpty() || !list[position].RCFrontImgKey.isNullOrEmpty() || !list[position].RCBackImgKey.isNullOrEmpty()) {
+            holder.binding.tvView.visibility = View.VISIBLE
+        } else {
+            holder.binding.tvView.visibility = View.INVISIBLE
+        }
+
+        //delete list item
+        holder.binding.tvView.setOnClickListener {
+//            cantroler.deleteTruck(position)
+//            controllerListener2?.onDeleteTruck(position)
+            controllerListener2?.onShowTruckDetails(list[position])
         }
     }
 
@@ -34,8 +43,14 @@ class InsuranceListAdapter(
         return list.size
     }
 
-    fun addListItem(vehicleNo: String, date: String) {
-        list.add(0, VehicleDetail(date, vehicleNo,"","","","","",""))
+    var controllerListener2: ControllerListener2? = null
 
+    interface ControllerListener2 {
+        fun onDeleteTruck(position: Int)
+        fun onShowTruckDetails(data: VehicleDetail)
+    }
+
+    fun setOnControllerListener2(controllerListener2: ControllerListener2) {
+        this.controllerListener2 = controllerListener2
     }
 }

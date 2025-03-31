@@ -14,6 +14,7 @@ import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.core.widget.NestedScrollView
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
@@ -25,19 +26,26 @@ import com.logistics.trucksup.modle.OwnerFaq
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ActivitySubscriptionBinding
 import com.trucksup.field_officer.presenter.common.HelpUnit
+import com.trucksup.field_officer.presenter.common.MyAlartBox
 import com.trucksup.field_officer.presenter.common.ProgressDailogBox
+import com.trucksup.field_officer.presenter.common.dialog.FinaceSubmitBox
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
+import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.InsuranceViewModel
+import com.trucksup.field_officer.presenter.view.activity.other.TokenViewModel
 import com.trucksup.field_officer.presenter.view.activity.subscription.model.MyPlanData
 import com.trucksup.field_officer.presenter.view.activity.subscription.model.NavigationSubData
 import com.trucksup.field_officer.presenter.view.activity.subscription.model.PlanRequest
 import com.trucksup.field_officer.presenter.view.activity.subscription.model.payBillResponse
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class SubscriptionActivity : BaseActivity(), PaySubscribtion, PlanCantroler {
     private lateinit var binding: ActivitySubscriptionBinding
     var progressDailogBox: ProgressDailogBox? = null
+    private var mViewModel: SubscriptionViewModel? = null
+    private var mTokenViewModel: TokenViewModel? = null
     var handler: Handler? = null
     var brokerData: Broker? = null
     var planStatus: String? = ""
@@ -49,13 +57,13 @@ class SubscriptionActivity : BaseActivity(), PaySubscribtion, PlanCantroler {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        adjustFontScale(getResources().getConfiguration(), 1.0f);
+        adjustFontScale(getResources().configuration, 1.0f);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_subscription)
 
         progressDailogBox = ProgressDailogBox(this)
+        mViewModel = ViewModelProvider(this)[SubscriptionViewModel::class.java]
+
         handler = Handler()
-
-
         binding.nestedScrollView.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
             if (scrollY > oldScrollY) {
                 binding.hindBt.visibility = View.GONE
@@ -70,6 +78,57 @@ class SubscriptionActivity : BaseActivity(), PaySubscribtion, PlanCantroler {
 
     }
 
+    private fun setupObserver() {
+        mViewModel?.resultSubPlanListLD?.observe(this@SubscriptionActivity) { responseModel ->                     // login function observe
+            if (responseModel.serverError != null) {
+                dismissProgressDialog()
+
+                val abx =
+                    MyAlartBox(
+                        this@SubscriptionActivity,
+                        responseModel.serverError.toString(),
+                        "m"
+                    )
+                abx.show()
+            } else {
+                dismissProgressDialog()
+
+                if (responseModel.success?.message != null) {
+                   /* val abx = FinaceSubmitBox(
+                        this, responseModel.success.message,
+                        responseModel.success.message1, "cl"
+                    )
+                    abx.show()*/
+
+                } else {
+
+                }
+            }
+        }
+
+        mViewModel?.imgUploadResultLD?.observe(this@SubscriptionActivity) { responseModel ->                     // login function observe
+            if (responseModel.serverError != null) {
+                dismissProgressDialog()
+
+                val abx =
+                    MyAlartBox(
+                        this@SubscriptionActivity,
+                        responseModel.serverError.toString(),
+                        "m"
+                    )
+                abx.show()
+            } else {
+                dismissProgressDialog()
+
+                if (responseModel.success?.imagekey != null) {
+
+
+                } else {
+
+                }
+            }
+        }
+    }
 
     private fun setPlanList(list: ArrayList<Broker>) {
 
@@ -130,7 +189,7 @@ class SubscriptionActivity : BaseActivity(), PaySubscribtion, PlanCantroler {
 
         val adapror = SubscriptionAdaptor(this, list!!, this)
 
-        binding.planView?.layoutManager = GridLayoutManager(this, 2)
+        binding.planView.layoutManager = GridLayoutManager(this, 2)
 
         binding.planView.adapter = adapror
         adapror.notifyDataSetChanged()

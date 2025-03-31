@@ -44,11 +44,6 @@ suspend fun <T> safeApiCall(
                         ResultWrapper.ServerResponseError("ErrorMessage_ServerEncounteredError")
                     }
                 }
-
-                /* is ServerException -> {
-                    ResultWrapper.ServerResponseError(ServerResponseError(0, 0, throwable.messageLabel))
-                }*/
-
                 else -> {
                     ResultWrapper.ServerResponseError("ErrorMessage_ServerEncounteredError" + throwable.message + "" + throwable.stackTraceToString())
                 }

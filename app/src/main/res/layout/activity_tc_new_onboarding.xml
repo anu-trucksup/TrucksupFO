@@ -180,7 +180,7 @@
                         />
 
                     <EditText
-                        android:id="@+id/ETPincode"
+                        android:id="@+id/eTPincode"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_5sdp"
@@ -202,7 +202,7 @@
                        />
 
                     <EditText
-                        android:id="@+id/ETcity"
+                        android:id="@+id/eTcity"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_5sdp"
@@ -225,7 +225,7 @@
                          />
 
                     <EditText
-                        android:id="@+id/ETState"
+                        android:id="@+id/eTState"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_5sdp"

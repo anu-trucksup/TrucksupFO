@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.trucksup.field_officer.data.model.image.ImageResponse
 import com.trucksup.field_officer.data.network.ResponseModel
 import com.trucksup.field_officer.data.network.ResultWrapper
 import com.trucksup.field_officer.domain.usecases.APIUseCase
@@ -21,6 +22,9 @@ class InsuranceViewModel @Inject constructor(val apiUseCase: APIUseCase) : ViewM
 
     private var resultsubmitInsurance: MutableLiveData<ResponseModel<SubmitInsuranceInquiryData>> = MutableLiveData<ResponseModel<SubmitInsuranceInquiryData>>()
     val resultsubmitInsuranceLD: LiveData<ResponseModel<SubmitInsuranceInquiryData>> = resultsubmitInsurance
+
+    private var imgUploadResult: MutableLiveData<ResponseModel<ImageResponse>> = MutableLiveData<ResponseModel<ImageResponse>>()
+    val imgUploadResultLD: LiveData<ResponseModel<ImageResponse>> = imgUploadResult
 
 
     fun submitInsuranceData(request: SubmitInsuranceInquiryRequest) {
@@ -40,16 +44,35 @@ class InsuranceViewModel @Inject constructor(val apiUseCase: APIUseCase) : ViewM
         }
     }
 
-    fun uploadImage(
-        s: String,
-        s1: String,
-        s2: String,
-        prepareFilePart: MultipartBody.Part,
-        insuranceActivity: InsuranceActivity,
-        insuranceActivity1: InsuranceActivity
+    fun uploadImage(bucketName: String?, id: Int?, position: Int?, requestId: Int?, file: MultipartBody.Part?
     ) {
+        CoroutineScope(Dispatchers.IO).launch {
+        when (val response = apiUseCase.uploadImage(
+           bucketName, id, position, requestId, file
+        )) {
+            is ResultWrapper.ServerResponseError -> {
+                Log.e("API Error", response.error?:"")
+                imgUploadResult.postValue(ResponseModel(serverError = response.error))
+            }
+            is ResultWrapper.Success -> {
+                imgUploadResult.postValue(ResponseModel(success = response.value))
+            }
+        }
+    }
 
 
+    }
+
+    fun trucksupImageUpload(
+        authToken: String,
+        s: String,
+        prepareFilePartTrucksHum: MultipartBody.Part,
+        prepareFilePartTrucksHum1: MultipartBody.Part,
+        insuranceActivity: InsuranceActivity,
+        insuranceActivity1: InsuranceActivity,
+        s1: String
+    ) {
+        TODO("Not yet implemented")
     }
 
 

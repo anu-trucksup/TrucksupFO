@@ -4,11 +4,14 @@ package com.trucksup.field_officer.data.repository.impl
 import android.text.TextUtils
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryData
 import com.glovejob.data.model.UserSessionResponse
+import com.logistics.trucksup.modle.PlanResponse
 import com.trucksup.field_officer.data.model.AutoImageSlideResponse
 import com.trucksup.field_officer.data.model.CheckUserProfileResponse
 import com.trucksup.field_officer.data.model.NewResisterRequest
 import com.trucksup.field_officer.data.model.NewUserProfile
 import com.trucksup.field_officer.data.model.PasswordRequest
+import com.trucksup.field_officer.data.model.PinCodeRequest
+import com.trucksup.field_officer.data.model.PinCodeResponse
 import com.trucksup.field_officer.data.model.PrivacyAllResponse
 import com.trucksup.field_officer.data.model.Response
 import com.trucksup.field_officer.data.model.TokenZ
@@ -31,6 +34,7 @@ import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.F
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.InquiryHistoryRequest
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.LoanDataSubmitRequest
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryRequest
+import com.trucksup.field_officer.presenter.view.activity.subscription.model.PlanRequest
 import kotlinx.coroutines.Dispatchers
 import okhttp3.MultipartBody
 
@@ -243,7 +247,9 @@ class APIRepositoryImpl constructor(private val apiService: ApiService) : APIRep
     override suspend fun autoImageSlide(): ResultWrapper<AutoImageSlideResponse> {
         return safeApiCall(Dispatchers.IO) { apiService.autoImageSlide() }
     }
-
+    override suspend fun getCityStateByPin(authToken: String, request: PinCodeRequest): ResultWrapper<PinCodeResponse> {
+        return safeApiCall(Dispatchers.IO) { apiService.getPinData(authToken,request) }
+    }
     override suspend fun getFinanceData(authToken: String, request: FinanceDataLiatRequest): ResultWrapper<FinanceDataLiatResponse> {
         return safeApiCall(Dispatchers.IO) { apiService.getFinanceData(authToken,request) }
     }
@@ -258,6 +264,10 @@ class APIRepositoryImpl constructor(private val apiService: ApiService) : APIRep
 
     override suspend fun submitInsuranceInquiry(authToken: String, request: SubmitInsuranceInquiryRequest): ResultWrapper<SubmitInsuranceInquiryData> {
         return safeApiCall(Dispatchers.IO) { apiService.submitInsuranceInquiry(authToken,request) }
+    }
+
+    override suspend fun getSubscriptionPlanData(authToken: String, planRequest: PlanRequest): ResultWrapper<PlanResponse> {
+        return safeApiCall(Dispatchers.IO) { apiService.getSubscriptionPlanList(authToken,planRequest) }
     }
 
 }
