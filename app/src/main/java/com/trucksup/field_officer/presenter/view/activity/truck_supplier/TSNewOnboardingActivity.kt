@@ -244,7 +244,7 @@ class TSNewOnboardingActivity : BaseActivity(), View.OnClickListener, JWTtoken {
 
     override fun onTokenSuccess(response: GenerateJWTtokenResponse) {
         if (!response.accessToken.isNullOrEmpty()) {
-            getPinData("Bearer " + response?.accessToken ?: "")
+            getPinData("Bearer " + response.accessToken)
         } else {
             val abx = MyAlartBox(
                 this@TSNewOnboardingActivity,

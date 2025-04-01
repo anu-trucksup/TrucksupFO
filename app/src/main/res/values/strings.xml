@@ -557,4 +557,5 @@
     <string name="logout_ms">Do you want to logout?</string>
     <string name="dail_call">Do you want to call now ?</string>
     <string name="no_data_found">NO Data Found.</string>
+    <string name="platinum_plan_benefits">Platinum Plan Benefits</string>
 </resources>

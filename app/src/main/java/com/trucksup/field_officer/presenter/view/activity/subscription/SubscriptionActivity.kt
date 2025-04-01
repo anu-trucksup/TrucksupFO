@@ -1,17 +1,11 @@
 package com.trucksup.field_officer.presenter.view.activity.subscription
 
 import android.annotation.SuppressLint
-import android.graphics.Color
-import android.graphics.LinearGradient
-import android.graphics.Shader
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
-import android.provider.Settings
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
-import androidx.annotation.RequiresApi
 import androidx.core.widget.NestedScrollView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -28,11 +22,9 @@ import com.trucksup.field_officer.databinding.ActivitySubscriptionBinding
 import com.trucksup.field_officer.presenter.common.HelpUnit
 import com.trucksup.field_officer.presenter.common.MyAlartBox
 import com.trucksup.field_officer.presenter.common.ProgressDailogBox
-import com.trucksup.field_officer.presenter.common.dialog.FinaceSubmitBox
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
-import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.InsuranceViewModel
 import com.trucksup.field_officer.presenter.view.activity.other.TokenViewModel
 import com.trucksup.field_officer.presenter.view.activity.subscription.model.MyPlanData
 import com.trucksup.field_officer.presenter.view.activity.subscription.model.NavigationSubData
@@ -46,14 +38,14 @@ class SubscriptionActivity : BaseActivity(), PaySubscribtion, PlanCantroler {
     var progressDailogBox: ProgressDailogBox? = null
     private var mViewModel: SubscriptionViewModel? = null
     private var mTokenViewModel: TokenViewModel? = null
-    var handler: Handler? = null
-    var brokerData: Broker? = null
-    var planStatus: String? = ""
-    val addOnsData = ArrayList<AddonsData>()
-    val addOnsDataTacking = ArrayList<AddonsData>()
-    var addonDataType: String = "addon"
-    var isExpire: Boolean = false
-    var loadCount: String? = ""
+    private var handler: Handler? = null
+    private var brokerData: Broker? = null
+    private var planStatus: String? = ""
+    private val addOnsData = ArrayList<AddonsData>()
+    private val addOnsDataTacking = ArrayList<AddonsData>()
+    private var addonDataType: String = "addon"
+    private var isExpire: Boolean = false
+    private var loadCount: String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,6 +68,7 @@ class SubscriptionActivity : BaseActivity(), PaySubscribtion, PlanCantroler {
             binding.nestedScrollView.fullScroll(View.FOCUS_DOWN)
         }
 
+        setupObserver()
     }
 
     private fun setupObserver() {
@@ -94,11 +87,11 @@ class SubscriptionActivity : BaseActivity(), PaySubscribtion, PlanCantroler {
                 dismissProgressDialog()
 
                 if (responseModel.success?.message != null) {
-                   /* val abx = FinaceSubmitBox(
-                        this, responseModel.success.message,
-                        responseModel.success.message1, "cl"
-                    )
-                    abx.show()*/
+                    /* val abx = FinaceSubmitBox(
+                         this, responseModel.success.message,
+                         responseModel.success.message1, "cl"
+                     )
+                     abx.show()*/
 
                 } else {
 
@@ -136,12 +129,31 @@ class SubscriptionActivity : BaseActivity(), PaySubscribtion, PlanCantroler {
         for (i in 0..s) {
             if (list[i].currentPlan.toString().toLowerCase().equals("y")) {
                 val upData = Broker(
-                    list[i].actualAmount, list[i].planList, list[i].createdAt, list[i].createdBy, list[i].currentPlan,
-                    list[i].description, list[i].disabledPlan, list[i].gstPercent, list[i].headerId, list[i].id,
-                    list[i].isVisible, list[i].mrp, list[i].planAmount, list[i].recommended, list[i].sellingPrice,
-                    list[i].subType, list[i].subscriptionName, list[i].tags,
-                    list[i].userType, list[i].validityDays, true, list[i].freebies, list[i].addLoadinPkg,
-                    list[i].perDayAmount, list[i].discount
+                    list[i].actualAmount,
+                    list[i].planList,
+                    list[i].createdAt,
+                    list[i].createdBy,
+                    list[i].currentPlan,
+                    list[i].description,
+                    list[i].disabledPlan,
+                    list[i].gstPercent,
+                    list[i].headerId,
+                    list[i].id,
+                    list[i].isVisible,
+                    list[i].mrp,
+                    list[i].planAmount,
+                    list[i].recommended,
+                    list[i].sellingPrice,
+                    list[i].subType,
+                    list[i].subscriptionName,
+                    list[i].tags,
+                    list[i].userType,
+                    list[i].validityDays,
+                    true,
+                    list[i].freebies,
+                    list[i].addLoadinPkg,
+                    list[i].perDayAmount,
+                    list[i].discount
                 )
                 list.set(i, upData)
                 break
@@ -227,8 +239,7 @@ class SubscriptionActivity : BaseActivity(), PaySubscribtion, PlanCantroler {
             binding.planMsg.visibility = View.GONE
         }
 
-        binding.plandiscrib.text =
-            data.subscriptionName + " " + resources.getString(R.string.planBenefits)
+        binding.plandiscrib.text = data.subscriptionName + " " + resources.getString(R.string.planBenefits)
         Log.e(
             "is Active Plan",
             "======= yes\n plan status == " + planStatus.toString() + " Plan is " + brokerData?.currentPlan
@@ -241,27 +252,14 @@ class SubscriptionActivity : BaseActivity(), PaySubscribtion, PlanCantroler {
 
                 if (data.subscriptionName.toString().toLowerCase().contains("welcome")) {
                     binding.planExLayout.visibility = View.GONE
-//                    binding.upgradIangCard?.visibility=View.VISIBLE
-                    binding.disableContinu?.visibility
-                    binding.actiCard.visibility = View.VISIBLE
-                    binding.expCard.visibility = View.GONE
-                    binding.disableContinu?.visibility = View.VISIBLE
-                    binding.activeLayout.visibility = View.VISIBLE
                 } else {
 
                     if (data.disabledPlan == "disabled") {
 
                         binding.planExLayout.visibility = View.VISIBLE
-                        binding.actiCard.visibility = View.VISIBLE
-                        binding.expCard.visibility = View.GONE
-                        binding.disableContinu?.visibility = View.VISIBLE
-                        binding.activeLayout.visibility = View.VISIBLE
+
                     } else {
                         binding.planExLayout.visibility = View.VISIBLE
-                        binding.actiCard.visibility = View.VISIBLE
-                        binding.expCard.visibility = View.GONE
-                        binding.disableContinu?.visibility = View.GONE
-                        binding.activeLayout.visibility = View.VISIBLE
 
                     }
 
@@ -271,20 +269,10 @@ class SubscriptionActivity : BaseActivity(), PaySubscribtion, PlanCantroler {
             } else if (planStatus.toString().toLowerCase() == "expired") {
                 if (data.subscriptionName.toString().toLowerCase().contains("welcome")) {
                     binding.planExLayout.visibility = View.GONE
-//                    binding.upgradIangCard?.visibility=View.VISIBLE
-//                    binding.disableContinu?.visibility
 
-                    binding.actiCard.visibility = View.VISIBLE
-                    binding.expCard.visibility = View.GONE
-                    binding.disableContinu?.visibility = View.VISIBLE
-                    binding.activeLayout.visibility = View.VISIBLE
                 } else {
                     binding.planExLayout.visibility = View.VISIBLE
-                    binding.activCard?.visibility = View.VISIBLE
-                    binding.disableContinu?.visibility = View.GONE
-                    binding.expCard.visibility = View.VISIBLE
-                    binding.actiCard.visibility = View.GONE
-                    binding.activeLayout.visibility = View.VISIBLE
+
                     //  binding.upgradIang.visibility = View.GONE
                     binding.planExpText.text = resources.getString(R.string.membershipExpired)
                     binding.planExpText.setTextColor(resources.getColor(R.color.text_red))
@@ -293,20 +281,10 @@ class SubscriptionActivity : BaseActivity(), PaySubscribtion, PlanCantroler {
             } else {
                 if (data.subscriptionName.toString().toLowerCase().contains("welcome")) {
                     binding.planExLayout.visibility = View.GONE
-//                    binding.upgradIangCard?.visibility=View.VISIBLE
-//                    binding.disableContinu?.visibility
 
-                    binding.actiCard.visibility = View.VISIBLE
-                    binding.expCard.visibility = View.GONE
-                    binding.disableContinu?.visibility = View.VISIBLE
-                    binding.activeLayout.visibility = View.VISIBLE
                 } else {
                     binding.planExLayout.visibility = View.VISIBLE
-                    binding.activCard?.visibility = View.VISIBLE
-                    binding.disableContinu?.visibility = View.GONE
-                    binding.expCard.visibility = View.GONE
-                    binding.actiCard.visibility = View.VISIBLE
-                    binding.activeLayout.visibility = View.VISIBLE
+
                     //  binding.upgradIang.visibility = View.GONE
                     binding.planExpText.text = resources.getString(R.string.membershipExpired)
                     binding.planExpText.setTextColor(resources.getColor(R.color.text_red))
@@ -318,32 +296,15 @@ class SubscriptionActivity : BaseActivity(), PaySubscribtion, PlanCantroler {
 
             if (data.subscriptionName.toString().toLowerCase().contains("welcome")) {
                 binding.planExLayout.visibility = View.GONE
-//                    binding.upgradIangCard?.visibility=View.VISIBLE
-//                    binding.disableContinu?.visibility
 
-                //  binding.actiCard.visibility=View.VISIBLE
-                binding.expCard.visibility = View.GONE
-                binding.disableContinu?.visibility = View.VISIBLE
-                binding.activeLayout.visibility = View.VISIBLE
             } else {
 
 
                 if (data.disabledPlan == "disabled") {
                     binding.planExLayout.visibility = View.VISIBLE
-//     binding.upgradIangCard?.visibility=View.VISIBLE
-                    binding.disableContinu?.visibility
-                    binding.actiCard.visibility = View.VISIBLE
-                    binding.expCard.visibility = View.GONE
-                    binding.disableContinu?.visibility = View.VISIBLE
-                    binding.activeLayout.visibility = View.GONE
+
                 } else {
-                    binding.actiCard.visibility = View.GONE
-                    binding.expCard.visibility = View.GONE
-                    binding.actiCard.visibility = View.GONE
-                    binding.activeLayout.visibility = View.GONE
-                    //  binding.upgradIang.visibility = View.GONE
-                    binding.disableContinu?.visibility = View.GONE
-                    // binding.planExLayout.visibility = View.VISIBLE
+
                     if (planStatus.toString().toLowerCase() == "active" || planStatus.toString()
                             .toLowerCase() == "expired"
                     ) {
@@ -612,10 +573,6 @@ class SubscriptionActivity : BaseActivity(), PaySubscribtion, PlanCantroler {
     }
 
 
-    fun backSub(v: View) {
-        finish()
-    }
-
     override fun planData(
         data: ArrayList<Broker>,
         dataAddOns: ArrayList<AddonsData>,
@@ -655,26 +612,9 @@ class SubscriptionActivity : BaseActivity(), PaySubscribtion, PlanCantroler {
                 remaningLoad = tt.toString()
 
 
-//                val carDate:String= PreferenceManager.getDateFormet("dd-MMM-yyyy","dd-MMM-yyyy hh:mm a",PreferenceManager.getCurantDateWithFormate("dd-MMM-yyyy hh:mm a")).toString()
-//
-//                val upDate:String=  PreferenceManager.getDateFormet("dd-MMM-yyyy","dd-MMM-yyyy hh:mm a",currentPlanDetails.upGradeDate).toString()
-
-
-//                if (currentPlanDetails.upgradeBtnVisible.toString().toLowerCase()=="y")
-//                {
-//                    binding.upgreadBtLayout.visibility = View.VISIBLE
-//                  //  binding.upgradIangCard.visibility = View.VISIBLE
-//                }
-//                else{
-//                    binding.upgreadBtLayout.visibility = View.GONE
-//                   // binding.upgradIangCard.visibility = View.GONE
-//                }
-
                 if (currentPlanDetails.previousPlan?.planStatus.toString().toLowerCase() == "active"
                 ) {
                     binding.planExpText.text = currentPlanDetails.previousPlan?.text2
-                    binding.activCard?.visibility = View.VISIBLE
-                    binding.disableContinu?.visibility = View.VISIBLE
 
                     binding.planExLayout.visibility = View.VISIBLE
                     isExpire = false
@@ -709,23 +649,12 @@ class SubscriptionActivity : BaseActivity(), PaySubscribtion, PlanCantroler {
                     PreferenceManager.setSubData(jsonStringSub, this)
 
 
-//                    if(currentPlanDetails.isWelcomePlan.toString().toLowerCase() == "y")
-//                    {
-//                        binding.planExLayout.visibility=View.GONE
-//
-//                    }
-//                    else {
-//
-//                        binding.planExLayout.visibility = View.VISIBLE
-//                    }
 
                 } else {
                     isExpire = false
-                    // binding.planExpText.text = "Membership Expired"
-//                    binding.activCard?.visibility=View.VISIBLE
-//                    binding.disableContinu?.visibility=View.GONE
+
                     binding.planExLayout.visibility = View.GONE
-                    binding.expCard.visibility = View.VISIBLE
+
                 }
             } else {
                 var remaningLoad = ""
@@ -836,23 +765,18 @@ class SubscriptionActivity : BaseActivity(), PaySubscribtion, PlanCantroler {
 
     }
 
-    fun setFaqList(faqData: ArrayList<OwnerFaq>) {
-        val adapror: PlanFaqAdaptor = PlanFaqAdaptor(this, faqData)
+    private fun setFaqList(faqData: ArrayList<OwnerFaq>) {
+        val adapter = PlanFaqAdaptor(this, faqData)
 
-        binding.faqsList?.layoutManager = LinearLayoutManager(this)
-
-        binding.faqsList.adapter = adapror
-        adapror.notifyDataSetChanged()
+        binding.faqsList.layoutManager = LinearLayoutManager(this)
+        binding.faqsList.adapter = adapter
+        adapter.notifyDataSetChanged()
     }
 
     override fun myPlanData(data: ArrayList<MyPlanData>, key: String) {
-
-
     }
 
     override fun planBill(data: payBillResponse) {
-
-
     }
 
     override fun planError(error: String) {
@@ -865,60 +789,18 @@ class SubscriptionActivity : BaseActivity(), PaySubscribtion, PlanCantroler {
         renew()
     }
 
-
-    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
-    fun isDevMode(): Boolean {
-        return when {
-            Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN -> {
-                Settings.Secure.getInt(
-                    this.contentResolver,
-                    Settings.Global.DEVELOPMENT_SETTINGS_ENABLED, 0
-                ) != 0
-            }
-
-            Build.VERSION.SDK_INT == Build.VERSION_CODES.JELLY_BEAN -> {
-                @Suppress("DEPRECATION")
-                Settings.Secure.getInt(
-                    this.contentResolver,
-                    Settings.Secure.DEVELOPMENT_SETTINGS_ENABLED, 0
-                ) != 0
-            }
-
-            else -> false
-        }
-    }
-
-    override fun onStart() {
-        setTextColor()
-        super.onStart()
-    }
-
     override fun onResume() {
         super.onResume()
         progressDailogBox?.show()
-       // createBill()
+        // createBill()
     }
 
-    fun renew() {
+    private fun renew() {
         binding.nestedScrollView.fullScroll(View.FOCUS_UP);
         binding.nestedScrollView.scrollTo(0, binding.nestedScrollView.bottom)
 
     }
 
-    fun setTextColor() {
-        val paint = binding.pro.paint
-        val width = paint.measureText(binding.pro.text.toString())
-        val textShader: Shader = LinearGradient(
-            0f, 0f, width, binding.pro.textSize, intArrayOf(
-                Color.parseColor("#4F378B"),
-                Color.parseColor("#B33B9B"),
-                Color.parseColor("#4F378B"),
-
-                ), null, Shader.TileMode.REPEAT
-        )
-
-        binding.pro.paint.setShader(textShader)
-    }
 
     fun checkOut(v: View) {
 
@@ -935,19 +817,19 @@ class SubscriptionActivity : BaseActivity(), PaySubscribtion, PlanCantroler {
         }
 
 
-       /* FirebaseAnalytics().CreateCustomEvent(
-            "checkout_screen",
-            "" + PreferenceManager.getPhoneNo(this)
-        )
-        val jsonStringAddons = Gson().toJson(addOnsData)
-        val jsonStringPlans = Gson().toJson(brokerData)
-        val jsonStringAddonsTracing = Gson().toJson(addOnsDataTacking)
-        val intent: Intent = Intent(this, PaymentCheckout::class.java)
-        intent.putExtra("addons", jsonStringAddons)
-        intent.putExtra("plan", jsonStringPlans)
-        intent.putExtra("tracking", jsonStringAddonsTracing)
-        intent
-        startActivity(intent)*/
+        /* FirebaseAnalytics().CreateCustomEvent(
+             "checkout_screen",
+             "" + PreferenceManager.getPhoneNo(this)
+         )
+         val jsonStringAddons = Gson().toJson(addOnsData)
+         val jsonStringPlans = Gson().toJson(brokerData)
+         val jsonStringAddonsTracing = Gson().toJson(addOnsDataTacking)
+         val intent: Intent = Intent(this, PaymentCheckout::class.java)
+         intent.putExtra("addons", jsonStringAddons)
+         intent.putExtra("plan", jsonStringPlans)
+         intent.putExtra("tracking", jsonStringAddonsTracing)
+         intent
+         startActivity(intent)*/
     }
 
     fun upGradPlan(v: View) {
