@@ -11,7 +11,7 @@ import com.trucksup.field_officer.databinding.ItemServicesDialogBinding
 class TUKawachDialogAdapter(var context: Context?) :
     RecyclerView.Adapter<TUKawachDialogAdapter.ViewHolder>() {
 
-    private val serviceList = arrayListOf("Vehicle Tracking","Vehicle Verification", "Verify Driving License"
+    private val serviceList = arrayListOf("Vehicle Tracking","Vehicle Verification", "Driving License"
     /*,"EMI Check", "Bank Account Verification","UPI Verification"*/)
     private val imageList = arrayListOf(R.drawable.veh_track, R.drawable.veh_verify, R.drawable.dl_verify
        /* R.drawable.emi_check, R.drawable.bank_verify, R.drawable.upi_verify*/)

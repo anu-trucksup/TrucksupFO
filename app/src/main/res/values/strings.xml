@@ -101,6 +101,9 @@
     <string name="current_location">Current Location</string>
     <string name="alternative_mobile_no">Alternative Mobile No.</string>
     <string name="enter_add">Enter Address</string>
+    <string name="enter_pin">Enter Pincode</string>
+    <string name="enter_city">Enter City</string>
+    <string name="enter_state">Enter State</string>
     <string name="profile">Profile</string>
     <string name="total_add_load">Total Add Loads</string>
     <string name="total_earning">Total Earning</string>
@@ -248,7 +251,7 @@
     <string name="cityStar">City <font color='#FF0000'>*</font></string>
     <string name="state">State</string>
     <string name="stateStar">State <font color='#FF0000'>*</font></string>
-    <string name="Referral_Code">Sales Code</string>
+    <string name="Referral_Code">Referral Code</string>
     <string name="finaceMobile_no">Mobile Number <font color='#FF0000'>*</font></string>
 
     <string-array name="loanType">
@@ -558,4 +561,14 @@
     <string name="dail_call">Do you want to call now ?</string>
     <string name="no_data_found">NO Data Found.</string>
     <string name="platinum_plan_benefits">Platinum Plan Benefits</string>
+    <string name="todays_performance">Today’s performance</string>
+    <string name="target_achieved"><u>Target Achieved</u></string>
+    <string name="target_pending"><u>Target Pending</u></string>
+
+    <string name="tu_kawach">
+    <font color="#3E2089">TU</font>
+    <font color="#DB5015">Kawach</font>
+
+</string>
+
 </resources>

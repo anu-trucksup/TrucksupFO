@@ -197,11 +197,26 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent" />
 
+                    <TextView
+                        android:id="@+id/tv_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/label_semi18"
+                        android:textSize="@dimen/_16ssp"
+                        android:textColor="@color/colorPrimary"
+                        android:textAlignment="center"
+                        android:gravity="center"
+                        android:maxLines="2"
+                        android:minLines="2"
+                        android:text="@string/todays_performance"
+                        android:layout_marginLeft="@dimen/_8sdp"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        />
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_features"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_16sdp"
                         android:layout_gravity="center|center_vertical"
                         android:orientation="horizontal"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

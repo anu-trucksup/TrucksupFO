@@ -51,268 +51,352 @@
                 android:textColor="@color/white"/>
         </RelativeLayout>
 
-        <com.google.android.material.card.MaterialCardView
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:cardBackgroundColor="@color/white"
-            app:cardCornerRadius="@dimen/_12sdp"
-            app:cardElevation="@dimen/_4sdp">
+            android:fillViewport="true">
 
-            <LinearLayout
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:paddingHorizontal="@dimen/_24sdp">
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/_12sdp"
+                app:cardElevation="@dimen/_4sdp">
 
                 <LinearLayout
-                    android:id="@+id/mr"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:paddingHorizontal="@dimen/_12sdp">
 
-
-                    <androidx.cardview.widget.CardView
+                    <LinearLayout
+                        android:id="@+id/mr"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:cardUseCompatPadding="true"
-                        app:cardCornerRadius="@dimen/_8sdp">
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
 
-                        <LinearLayout
+
+                        <androidx.cardview.widget.CardView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginStart="@dimen/_5sdp"
-                            android:layout_marginTop="@dimen/_6sdp"
-                            android:layout_marginEnd="@dimen/_10sdp"
-                            android:padding="@dimen/_2sdp"
-                            android:orientation="vertical">
+                            app:cardUseCompatPadding="true"
+                            app:cardCornerRadius="@dimen/_8sdp">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginHorizontal="@dimen/_10sdp"
-                                android:layout_marginTop="@dimen/_5sdp"
-                                android:padding="@dimen/_4ssp"
-                                android:orientation="horizontal">
-
-                                <de.hdodenhof.circleimageview.CircleImageView
-                                    android:id="@+id/iv_profile_"
-                                    android:layout_width="@dimen/_40sdp"
-                                    android:layout_height="@dimen/_40sdp"
-                                    android:layout_gravity="center_horizontal"
-                                    android:layout_marginTop="@dimen/_10sdp"
-                                    android:src="@drawable/profile_blue"
-                                    app:civ_border_color="@color/blue"
-                                    app:civ_border_width="@dimen/_1sdp" />
+                                android:layout_centerVertical="true"
+                                android:layout_marginStart="@dimen/_5sdp"
+                                android:layout_marginTop="@dimen/_6sdp"
+                                android:layout_marginEnd="@dimen/_10sdp"
+                                android:padding="@dimen/_2sdp"
+                                android:orientation="vertical">
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginStart="@dimen/_16sdp"
-                                    android:layout_marginTop="@dimen/_2sdp"
-                                    android:orientation="vertical">
+                                    android:layout_marginHorizontal="@dimen/_10sdp"
+                                    android:layout_marginTop="@dimen/_5sdp"
+                                    android:padding="@dimen/_4ssp"
+                                    android:orientation="horizontal">
 
-                                    <TextView
-                                        android:id="@+id/_nav_user_name"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:ellipsize="end"
-                                        android:fontFamily="@font/bai_jamjuree_semi_bold"
-                                        android:lines="1"
-                                        android:maxLines="1"
-                                        android:text="User Name "
-                                        android:textColor="@color/black"
-                                        android:textSize="@dimen/_15ssp" />
+                                    <de.hdodenhof.circleimageview.CircleImageView
+                                        android:id="@+id/iv_profile_"
+                                        android:layout_width="@dimen/_40sdp"
+                                        android:layout_height="@dimen/_40sdp"
+                                        android:layout_gravity="center_horizontal"
+                                        android:layout_marginTop="@dimen/_10sdp"
+                                        android:src="@drawable/profile_blue"
+                                        app:civ_border_color="@color/blue"
+                                        app:civ_border_width="@dimen/_1sdp" />
+
+                                    <ImageButton
+                                        android:id="@+id/imageButton"
+                                        android:layout_width="@dimen/_20sdp"
+                                        android:layout_height="@dimen/_20sdp"
+                                        android:layout_marginLeft="-16dp"
+                                        android:layout_marginBottom="@dimen/_4sdp"
+                                        android:layout_gravity="bottom"
+                                        android:background="@drawable/circle_wite"
+                                        android:elevation="@dimen/_5sdp"
+                                        android:src="@drawable/camera_create_icon"
+                                        />
 
                                     <LinearLayout
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:orientation="horizontal">
+                                        android:layout_marginHorizontal="@dimen/_8sdp"
+                                        android:layout_marginTop="@dimen/_2sdp"
+                                        android:orientation="vertical">
 
                                         <TextView
-                                            android:id="@+id/_nav_mobile_no"
-                                            android:layout_width="0dp"
+                                            android:id="@+id/_nav_user_name"
+                                            android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
-                                            android:layout_weight="1.5"
                                             android:ellipsize="end"
                                             android:fontFamily="@font/bai_jamjuree_semi_bold"
                                             android:lines="1"
                                             android:maxLines="1"
-                                            android:text="9999999999"
-                                            android:drawableLeft="@drawable/phone_call"
-                                            android:drawablePadding="@dimen/_3sdp"
+                                            android:text="User Name "
                                             android:textColor="@color/black"
-                                            android:textSize="@dimen/_9ssp" />
+                                            android:textSize="@dimen/_15ssp" />
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:orientation="horizontal">
+
+                                            <TextView
+                                                android:id="@+id/_nav_mobile_no"
+                                                android:layout_width="0dp"
+                                                android:layout_height="wrap_content"
+                                                android:layout_weight="1.5"
+                                                android:ellipsize="end"
+                                                android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                                android:lines="1"
+                                                android:maxLines="1"
+                                                android:text="9999999999"
+                                                android:drawableLeft="@drawable/phone_call"
+                                                android:drawablePadding="@dimen/_3sdp"
+                                                android:textColor="@color/black"
+                                                android:textSize="@dimen/_9ssp" />
+
+                                        </LinearLayout>
 
                                     </LinearLayout>
 
                                 </LinearLayout>
 
+                                <TextView
+                                    android:id="@+id/user_referral"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:maxLines="1"
+                                    android:layout_marginHorizontal="@dimen/_10sdp"
+                                    android:text="Referral Code : DACG8GH "
+                                    android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                    android:textSize="@dimen/_10ssp"
+                                    android:textColor="@color/black" />
                             </LinearLayout>
 
-                            <TextView
-                                android:id="@+id/user_referral"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:maxLines="1"
-                                android:layout_marginHorizontal="@dimen/_10sdp"
-                                android:text="Referral Code : DACG8GH "
-                                android:fontFamily="@font/bai_jamjuree_semi_bold"
-                                android:textSize="@dimen/_10ssp"
-                                android:textColor="@color/black" />
-                        </LinearLayout>
+                        </androidx.cardview.widget.CardView>
 
-                    </androidx.cardview.widget.CardView>
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/_6sdp"
-                        android:elevation="@dimen/_8sdp"
-                        android:orientation="vertical">
-
-
-                        <TextView
-                            style="@style/edit_label"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_12ssp"
-                            android:layout_marginBottom="@dimen/_4sdp"
-                            android:text="@string/alternative_mobile_no"
-                            tools:text="@string/alternative_mobile_no" />
-
-                        <com.google.android.material.card.MaterialCardView
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_32sdp"
-                            android:layout_marginTop="@dimen/_2sdp"
-                            app:cardBackgroundColor="@color/white"
-                            app:cardCornerRadius="@dimen/_8sdp"
-                            app:cardElevation="0dp"
-                            app:strokeColor="@color/blue"
-                            app:strokeWidth="@dimen/_1sdp">
-
-                            <EditText
-                                android:id="@+id/edit_phone"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="@drawable/edit_box"
-                                style="@style/edit_text_m"
-                                android:hint="@string/alternative_mobile_no"
-                                android:inputType="phone"
-                                android:paddingHorizontal="@dimen/_10sdp"
-                                android:maxLength="10" />
-                        </com.google.android.material.card.MaterialCardView>
-
-                        <TextView
-                            style="@style/edit_label"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="@dimen/_4sdp"
-                            android:layout_marginTop="@dimen/_8sdp"
-                            android:text="@string/email_address"
-                            tools:text="@string/email_address" />
-
-                        <com.google.android.material.card.MaterialCardView
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_32sdp"
-                            android:layout_marginTop="@dimen/_2sdp"
-                            app:cardBackgroundColor="@color/white"
-                            app:cardCornerRadius="@dimen/_8sdp"
-                            app:cardElevation="0dp"
-                            app:strokeColor="@color/blue"
-                            app:strokeWidth="@dimen/_1sdp">
-
-                            <EditText
-                                android:id="@+id/edit_email"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="@drawable/edit_box"
-                                style="@style/edit_text_m"
-                                android:hint="@string/email_address"
-                                android:inputType="textEmailAddress"
-                                android:paddingHorizontal="@dimen/_10sdp"
-                                android:maxLength="10" />
-                        </com.google.android.material.card.MaterialCardView>
-
-                        <TextView
-                            style="@style/edit_label"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="@dimen/_4sdp"
-                            android:layout_marginTop="@dimen/_8sdp"
-                            android:text="@string/address"
-                            tools:text="@string/address" />
-
-                        <com.google.android.material.card.MaterialCardView
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_32sdp"
-                            android:layout_marginTop="@dimen/_2sdp"
-                            app:cardBackgroundColor="@color/white"
-                            app:cardCornerRadius="@dimen/_8sdp"
-                            app:cardElevation="0dp"
-                            app:strokeColor="@color/blue"
-                            app:strokeWidth="@dimen/_1sdp">
-
-                            <EditText
-                                android:id="@+id/edit_address"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="@drawable/edit_box"
-                                style="@style/edit_text_m"
-                                android:hint="@string/enter_add"
-                                android:inputType="text"
-                                android:paddingHorizontal="@dimen/_10sdp"
-                                android:maxLength="10" />
-                        </com.google.android.material.card.MaterialCardView>
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginVertical="@dimen/_20sdp"
-                            android:gravity="center"
-                            android:orientation="vertical"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/textView6">
+                            android:layout_margin="@dimen/_6sdp"
+                            android:elevation="@dimen/_8sdp"
+                            android:orientation="vertical">
+
 
                             <TextView
-                                android:id="@+id/btnSubmit"
+                                style="@style/edit_label"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:background="@drawable/background_1_1"
-                                android:fontFamily="@font/bai_jamjuree_medium"
-                                android:lines="1"
-                                android:paddingHorizontal="@dimen/_25sdp"
-                                android:paddingVertical="@dimen/_2sdp"
-                                android:text="@string/update"
-                                android:textColor="@color/white"
-                                android:textSize="@dimen/_14ssp" />
+                                android:layout_marginTop="@dimen/_12ssp"
+                                android:layout_marginBottom="@dimen/_4sdp"
+                                android:text="@string/alternative_mobile_no"
+                                tools:text="@string/alternative_mobile_no" />
+
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_32sdp"
+                                android:layout_marginTop="@dimen/_2sdp"
+                                app:cardBackgroundColor="@color/white"
+                                app:cardCornerRadius="@dimen/_8sdp"
+                                app:cardElevation="0dp"
+                                app:strokeColor="@color/blue"
+                                app:strokeWidth="@dimen/_1sdp">
+
+                                <EditText
+                                    android:id="@+id/edit_phone"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/edit_box"
+                                    style="@style/edit_text_m"
+                                    android:hint="@string/alternative_mobile_no"
+                                    android:inputType="phone"
+                                    android:paddingHorizontal="@dimen/_10sdp"
+                                    android:maxLength="10" />
+                            </com.google.android.material.card.MaterialCardView>
 
                             <TextView
-                                android:id="@+id/btnClose"
+                                style="@style/edit_label"
                                 android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_4sdp"
+                                android:layout_marginTop="@dimen/_8sdp"
+                                android:text="@string/email_address"
+                                tools:text="@string/email_address" />
+
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_32sdp"
+                                android:layout_marginTop="@dimen/_2sdp"
+                                app:cardBackgroundColor="@color/white"
+                                app:cardCornerRadius="@dimen/_8sdp"
+                                app:cardElevation="0dp"
+                                app:strokeColor="@color/blue"
+                                app:strokeWidth="@dimen/_1sdp">
+
+                                <EditText
+                                    android:id="@+id/edit_email"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/edit_box"
+                                    style="@style/edit_text_m"
+                                    android:hint="@string/email_address"
+                                    android:inputType="textEmailAddress"
+                                    android:paddingHorizontal="@dimen/_10sdp"
+                                    android:maxLength="10" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <TextView
+                                style="@style/edit_label"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/_4sdp"
+                                android:layout_marginTop="@dimen/_8sdp"
+                                android:text="@string/address"
+                                tools:text="@string/address" />
+
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_32sdp"
+                                android:layout_marginTop="@dimen/_2sdp"
+                                app:cardBackgroundColor="@color/white"
+                                app:cardCornerRadius="@dimen/_8sdp"
+                                app:cardElevation="0dp"
+                                app:strokeColor="@color/blue"
+                                app:strokeWidth="@dimen/_1sdp">
+
+                                <EditText
+                                    android:id="@+id/edit_address"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/edit_box"
+                                    style="@style/edit_text_m"
+                                    android:hint="@string/enter_add"
+                                    android:inputType="text"
+                                    android:paddingHorizontal="@dimen/_10sdp"
+                                    android:maxLength="10" />
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_8sdp"
+                                style="@style/edit_label"
+                                android:text="@string/Pincode_star"/>
+
+                            <EditText
+                                android:id="@+id/edit_pincode"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/_5sdp"
-                                android:fontFamily="@font/bai_jamjuree_medium"
+                                android:background="@drawable/edit_box"
+                                style="@style/edit_text_m"
+                                android:inputType="phone"
                                 android:lines="1"
-                                android:paddingHorizontal="@dimen/_14sdp"
-                                android:paddingVertical="@dimen/_2sdp"
-                                android:text="@string/cancel_u"
-                                android:textColor="@color/blue"
-                                android:textSize="@dimen/_14ssp" />
+                                android:hint="@string/enter_pin"
+                                android:paddingHorizontal="@dimen/_10sdp"
+                                android:paddingVertical="@dimen/_4sdp"
+                                android:text=""
+                                android:maxLength="6"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_8sdp"
+                                style="@style/edit_label"
+                                android:text="@string/City_star"/>
+
+                            <EditText
+                                android:id="@+id/edit_city"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:background="@drawable/edit_box"
+                                style="@style/edit_text_m"
+                                android:inputType="text"
+                                android:lines="1"
+                                android:hint="@string/enter_city"
+                                android:paddingHorizontal="@dimen/_10sdp"
+                                android:paddingVertical="@dimen/_4sdp"
+                                android:text=""/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_8sdp"
+                                style="@style/edit_label"
+                                android:text="@string/State_star"/>
+
+                            <EditText
+                                android:id="@+id/edit_state"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:background="@drawable/edit_box"
+                                style="@style/edit_text_m"
+                                android:inputType="phone"
+                                android:lines="1"
+                                android:hint="@string/enter_state"
+                                android:paddingHorizontal="@dimen/_10sdp"
+                                android:paddingVertical="@dimen/_4sdp"
+                                android:text="" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginVertical="@dimen/_20sdp"
+                                android:gravity="center"
+                                android:orientation="vertical"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/textView6">
+
+                                <TextView
+                                    android:id="@+id/btnSubmit"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/background_1_1"
+                                    android:fontFamily="@font/bai_jamjuree_medium"
+                                    android:lines="1"
+                                    android:paddingHorizontal="@dimen/_25sdp"
+                                    android:paddingVertical="@dimen/_2sdp"
+                                    android:text="@string/update"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/_14ssp" />
+
+                                <TextView
+                                    android:id="@+id/btnClose"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_5sdp"
+                                    android:fontFamily="@font/bai_jamjuree_medium"
+                                    android:lines="1"
+                                    android:paddingHorizontal="@dimen/_14sdp"
+                                    android:paddingVertical="@dimen/_2sdp"
+                                    android:text="@string/cancel_u"
+                                    android:textColor="@color/blue"
+                                    android:textSize="@dimen/_14ssp" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
 
                     </LinearLayout>
 
                 </LinearLayout>
 
-            </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
-            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
 
-        </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>
 

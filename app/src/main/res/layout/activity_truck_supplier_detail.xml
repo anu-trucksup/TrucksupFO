@@ -86,7 +86,7 @@
                                     android:layout_width="@dimen/_40sdp"
                                     android:layout_height="@dimen/_40sdp"
                                     android:layout_gravity="center_horizontal"
-                                    android:src="@drawable/profile"
+                                    android:src="@drawable/ic_profile"
                                     app:civ_border_color="@color/blue"
                                     app:civ_border_width="@dimen/_1sdp"
                                     app:layout_constraintBottom_toBottomOf="parent"
@@ -413,7 +413,8 @@
                                                 android:gravity="center_vertical"
                                                 android:paddingStart="@dimen/_5sdp"
                                                 android:textColor="@color/blue"
-                                                android:textSize="@dimen/_10ssp" />
+                                                android:textSize="@dimen/_10ssp"
+                                                android:text="Surat"/>
 
 
                                         </LinearLayout>
@@ -485,7 +486,7 @@
                                         <LinearLayout
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
-                                            android:layout_marginStart="@dimen/_20sdp"
+                                            android:layout_marginStart="@dimen/_6sdp"
                                             android:orientation="vertical">
 
                                             <LinearLayout
@@ -601,7 +602,7 @@
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:orientation="vertical"
-                                            android:layout_marginStart="@dimen/_15sdp">
+                                            android:layout_marginStart="@dimen/_6sdp">
 
                                             <LinearLayout
                                                 android:layout_width="match_parent"
@@ -745,8 +746,8 @@
                         android:textColor="@color/pink"
                         android:textColorLink="@color/pink"
                         android:textSize="@dimen/_16sdp"
-                        android:visibility="visible"
-                        android:layout_marginTop="@dimen/_32sdp"/>
+                        android:visibility="gone"
+                        android:layout_marginTop="@dimen/_32sdp" />
 
                 </LinearLayout>
 

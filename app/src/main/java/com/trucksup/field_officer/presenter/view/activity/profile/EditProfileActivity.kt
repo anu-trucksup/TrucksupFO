@@ -1,9 +1,12 @@
 package com.trucksup.field_officer.presenter.view.activity.profile
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ActivityMyProfileBinding
+import com.trucksup.field_officer.presenter.view.activity.other.HomeActivity
 
 class EditProfileActivity : AppCompatActivity() {
 
@@ -25,6 +28,7 @@ class EditProfileActivity : AppCompatActivity() {
         //back button
         binding.ivBack.setOnClickListener {
             onBackPressed()
+            finish()
         }
         //submit button
         binding.btnSubmit.setOnClickListener {
