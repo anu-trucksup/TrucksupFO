@@ -34,7 +34,7 @@ class LoanChipAdapter(
 
         val chip = view.findViewById<Chip>(R.id.chip)
         chip.typeface = Typeface.create(
-            ResourcesCompat.getFont(context, R.font.bai_jamjuree_semi_bold),
+            ResourcesCompat.getFont(context, R.font.bai_jamjuree_medium),
             Typeface.NORMAL
         )
 
@@ -44,8 +44,8 @@ class LoanChipAdapter(
                 intArrayOf(-android.R.attr.state_checked)  // Unchecked state (not selected)
             ),
             intArrayOf(
-                ContextCompat.getColor(context, R.color.blue),  // Color when selected
-                ContextCompat.getColor(context, R.color.primery_text) // Color when not selected
+                ContextCompat.getColor(context, R.color.white),  // Color when selected
+                ContextCompat.getColor(context, R.color.black) // Color when not selected
             )
         )
 
@@ -67,10 +67,15 @@ class LoanChipAdapter(
         }
         if (chipTextList[position].isClick == true) {
             chip.isChecked = true
-            chip.isCheckedIconVisible = true
+            //chip.isCheckedIconVisible = true
+            chip.chipStrokeColor = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.colorPrimary))
+            chip.chipBackgroundColor = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.colorPrimary))
         } else {
             chip.isChecked = false
-            chip.isCheckedIconVisible = false
+            chip.chipStrokeColor = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.cir_gray))
+            chip.chipBackgroundColor = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.white))
+
+                //chip.isCheckedIconVisible = false
         }
 
 

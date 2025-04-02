@@ -3,7 +3,9 @@ package com.trucksup.field_officer.presenter.view.adapter
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.DrawerItemBinding
@@ -29,7 +31,6 @@ class NavigationMenuItem(var context: Context, var list: ArrayList<NavItems>) :
         holder.binding.title.text = list[position].title
         holder.binding.subtitle.text = list[position].subtitle
 
-
         holder.itemView.setOnClickListener {
              if (position == 0) {
                  val intent = Intent(context, MyTeamScreen::class.java)
@@ -40,7 +41,6 @@ class NavigationMenuItem(var context: Context, var list: ArrayList<NavItems>) :
                 context.startActivity(intent)
             }
         }
-
         /*if (position > 1) {
             holder.binding.cardBack.setBackgroundColor(context.getColor(R.color.nav_not_select))
         }*/
@@ -49,4 +49,5 @@ class NavigationMenuItem(var context: Context, var list: ArrayList<NavItems>) :
     override fun getItemCount(): Int {
         return list.size
     }
+
 }

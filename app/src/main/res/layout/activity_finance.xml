@@ -209,9 +209,7 @@
                     android:layout_marginTop="@dimen/_5sdp"
                     android:layout_marginEnd="@dimen/_16sdp"
                     android:background="@drawable/finace_text_box"
-                    android:clickable="false"
-                    android:editable="false"
-                    android:focusable="false"
+
                     android:fontFamily="@font/bai_jamjuree_medium"
                     android:lines="1"
                     android:maxLines="1"
@@ -260,7 +258,6 @@
                     android:layout_marginStart="@dimen/_16sdp"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:layout_marginEnd="@dimen/_16sdp"
-
                     android:background="@drawable/finace_text_box"
                     android:fontFamily="@font/bai_jamjuree_medium"
                     android:inputType="number"

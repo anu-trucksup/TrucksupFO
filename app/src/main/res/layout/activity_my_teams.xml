@@ -78,7 +78,8 @@
                             android:text="@string/toaddthe"
                             android:textAlignment="textStart"
                             android:textColor="@color/purple"
-                            android:textSize="@dimen/_12ssp" />
+                            android:textSize="@dimen/_12ssp"
+                            android:visibility="gone"/>
 
 
                         <com.google.android.material.card.MaterialCardView

@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import com.trucksup.field_officer.databinding.ActivityMyTeamsBinding
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.view.activity.business_associate.MyBATeamActivity
+import com.trucksup.field_officer.presenter.view.activity.growth_partner.GPViewAllActivity
 import com.trucksup.field_officer.presenter.view.activity.growth_partner.MyGPTeamActivity
 import com.trucksup.field_officer.presenter.view.activity.truck_supplier.MyTSTeamActivity
 
@@ -36,6 +37,6 @@ class MyTeamScreen : BaseActivity() {
     }
 
     fun clickOnGP(view: View) {
-        startActivity(Intent(this, MyGPTeamActivity::class.java))
+        startActivity(Intent(this, GPViewAllActivity::class.java))
     }
 }
