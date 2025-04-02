@@ -69,7 +69,7 @@
             android:id="@+id/captureIB"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:background="@drawable/ic_camera"
+            android:background="@drawable/camera_button"
             android:padding="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/relativeLayout"

@@ -2,14 +2,14 @@ package com.trucksup.field_officer.presenter.view.activity.profile
 
 import android.os.Bundle
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.trucksup.field_officer.databinding.ActivityMyProfileBinding
 import com.trucksup.field_officer.presenter.common.AppVersionUtils
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.view.activity.profile.vml.EditProfileViewModel
-import com.trucksup.field_officer.presenter.view.activity.truck_supplier.vml.TSOnboardViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class EditProfileActivity : BaseActivity() {
 
     private lateinit var binding: ActivityMyProfileBinding

@@ -1,7 +1,6 @@
 package com.trucksup.field_officer.presenter.common
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.DialogInterface
 import android.content.Intent
@@ -9,9 +8,6 @@ import android.content.pm.PackageManager
 import android.graphics.ImageFormat
 import android.graphics.drawable.Drawable
 import android.hardware.camera2.CameraCharacteristics
-import android.location.Address
-import android.location.Geocoder
-import android.location.Location
 import android.location.LocationManager
 import android.media.ExifInterface
 import android.net.Uri
@@ -19,7 +15,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import android.provider.Settings
 import android.util.Log
 import android.util.Size
 import android.view.MotionEvent
@@ -53,8 +48,6 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ActivityCameraBinding
 import com.trucksup.field_officer.presenter.common.Utils.ORIENT_LANDSCAPE_LEFT
