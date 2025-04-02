@@ -120,7 +120,7 @@ class TSOnboardingActivity : BaseActivity(), View.OnClickListener, JWTtoken {
         mViewModel?.getCityStateByPin(token, request)
     }
 
-    private fun pinData(city: String, cityHindi: String, state: String, StateHindi: String) {
+    private fun pinData(city: String, cityHindi: String, state: String, stateHindi: String) {
         dismissProgressDialog()
         if (PreferenceManager.getLanguage(this) == "en") {
             binding.eTcity.setText(city)
@@ -128,7 +128,7 @@ class TSOnboardingActivity : BaseActivity(), View.OnClickListener, JWTtoken {
             // stateProfile = state
         } else {
             binding.eTcity.setText(cityHindi)
-            binding.eTState.setText(StateHindi)
+            binding.eTState.setText(stateHindi)
             // stateProfile = state
         }
     }
@@ -227,7 +227,6 @@ class TSOnboardingActivity : BaseActivity(), View.OnClickListener, JWTtoken {
 
         dialog.show()
     }
-
 
     override fun onClick(v: View?) {
         val item_id = v?.id

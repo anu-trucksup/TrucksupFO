@@ -1071,7 +1071,7 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksU
             return false
         }
 
-        if (isValidPhoneNumber(binding.etMobile?.text.toString()) == false) {
+        if (!isValidPhoneNumber(binding.etMobile.text.toString())) {
             LoggerMessage.onSNACK(
                 binding.etMobile,
                 resources.getString(R.string.enter_right_number_v),
@@ -1146,19 +1146,19 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksU
 
         //clear rc front image
         binding.cutFrontBtn.visibility = View.GONE
-        binding.imgFrontCamera.setImageDrawable(getDrawable(R.drawable.camera_new))
+        binding.imgFrontCamera.setImageResource(R.drawable.camera_new)
         rcFrontImgKey = ""
         rcFrontImgUrl = ""
 
         //clear rc back image
         binding.cutBackBtn.visibility = View.GONE
-        binding.imgBackCamera.setImageDrawable(getDrawable(R.drawable.camera_new))
+        binding.imgBackCamera.setImageResource(R.drawable.camera_new)
         rcBackImgKey = ""
         rcBackImgUrl = ""
 
         //clear previous policy docs image image
         binding.cutPrevPolicyBtn.visibility = View.GONE
-        binding.imgPrevPolicyDoc.setImageDrawable(getDrawable(R.drawable.camera_new))
+        binding.imgPrevPolicyDoc.setImageResource(R.drawable.camera_new)
         prevPolicyDocsImgKey = ""
         prevPolicyDocsImgUrl = ""
 
@@ -1169,7 +1169,7 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksU
     private fun showDatePicker() {
         // Create a DatePickerDialog
         val datePickerDialog = DatePickerDialog(
-            this, { DatePicker, year: Int, monthOfYear: Int, dayOfMonth: Int ->
+            this, { datepicker, year: Int, monthOfYear: Int, dayOfMonth: Int ->
                 // Create a new Calendar instance to hold the selected date
                 val selectedDate = Calendar.getInstance()
                 // Set the selected date using the values received from the DatePicker dialog
@@ -1179,7 +1179,7 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksU
                 // Format the selected date into a string
                 val formattedDate = dateFormat.format(selectedDate.time)
                 // Update the TextView to display the selected date with the "Selected Date: " prefix
-                binding.etInsValidity.text = "$formattedDate"
+                binding.etInsValidity.text = formattedDate
             },
             calendar.get(Calendar.YEAR),
             calendar.get(Calendar.MONTH),
@@ -1192,8 +1192,8 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksU
         val maxDate = Calendar.getInstance()
         maxDate.add(Calendar.YEAR, 1);
 
-        datePickerDialog.datePicker.setMinDate(minDate.getTimeInMillis());
-        datePickerDialog.datePicker.setMaxDate(maxDate.getTimeInMillis())
+        datePickerDialog.datePicker.minDate = minDate.getTimeInMillis();
+        datePickerDialog.datePicker.maxDate = maxDate.getTimeInMillis()
         datePickerDialog.show()
     }
 
@@ -1215,7 +1215,7 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksU
     }*/
 
     fun backScreen(v: View) {
-        finish()
+     onBackPressed()
     }
 
     fun mobileInfo(v: View) {

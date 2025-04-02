@@ -139,8 +139,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_15sdp"
-                    android:visibility="gone"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <com.google.android.material.card.MaterialCardView
                         android:id="@+id/btnSelf"
@@ -316,8 +316,8 @@
                         android:layout_height="@dimen/_18sdp"
                         android:layout_toRightOf="@id/planName"
                         android:background="@color/transparent"
-                        android:visibility="gone"
                         android:src="@drawable/add_image"
+                        android:visibility="gone"
                         tools:ignore="UseAppTint" />
 
                 </LinearLayout>
@@ -484,43 +484,43 @@
                                 android:id="@+id/lRcFrontImage"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
                                 android:layout_marginEnd="@dimen/_5sdp"
-                                app:layout_constraintEnd_toStartOf="@+id/lRcBackImage">
+                                app:layout_constraintEnd_toStartOf="@+id/lRcBackImage"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
 
                                 <TextView
                                     android:id="@+id/tvRcFrontImg"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/_3sdp"
                                     android:fontFamily="@font/bai_jamjuree_semi_bold"
                                     android:maxLines="1"
                                     android:text="@string/rc_front_image"
                                     android:textColor="@color/secondry_text"
                                     android:textSize="@dimen/_11ssp"
-                                    android:layout_marginStart="@dimen/_3sdp"
                                     app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent"/>
+                                    app:layout_constraintTop_toTopOf="parent" />
 
                                 <com.google.android.material.card.MaterialCardView
                                     android:id="@+id/frontImgCard"
                                     android:layout_width="@dimen/_40sdp"
                                     android:layout_height="@dimen/_40sdp"
-                                    app:layout_constraintTop_toBottomOf="@+id/tvRcFrontImg"
-                                    app:layout_constraintStart_toStartOf="@+id/tvRcFrontImg"
-                                    app:cardCornerRadius="@dimen/_4sdp"
-                                    app:cardBackgroundColor="@color/white"
-                                    app:strokeWidth="@dimen/_1sdp"
-                                    app:strokeColor="#8A73C2"
                                     android:layout_marginStart="@dimen/_25sdp"
-                                    android:layout_marginTop="@dimen/_5sdp">
+                                    android:layout_marginTop="@dimen/_5sdp"
+                                    app:cardBackgroundColor="@color/white"
+                                    app:cardCornerRadius="@dimen/_4sdp"
+                                    app:layout_constraintStart_toStartOf="@+id/tvRcFrontImg"
+                                    app:layout_constraintTop_toBottomOf="@+id/tvRcFrontImg"
+                                    app:strokeColor="#8A73C2"
+                                    app:strokeWidth="@dimen/_1sdp">
 
                                     <ImageView
                                         android:id="@+id/imgFrontCamera"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
-                                        android:src="@drawable/camera_new"
-                                        android:scaleType="fitXY"/>
+                                        android:scaleType="fitXY"
+                                        android:src="@drawable/camera_new" />
 
                                 </com.google.android.material.card.MaterialCardView>
 
@@ -528,13 +528,13 @@
                                     android:id="@+id/cutFrontBtn"
                                     android:layout_width="@dimen/_20sdp"
                                     android:layout_height="@dimen/_20sdp"
+                                    android:layout_marginStart="@dimen/_5sdp"
+                                    android:paddingEnd="@dimen/_10sdp"
+                                    android:paddingBottom="@dimen/_10sdp"
                                     android:src="@drawable/cut_icon"
                                     android:visibility="gone"
                                     app:layout_constraintStart_toEndOf="@+id/frontImgCard"
-                                    app:layout_constraintTop_toTopOf="@+id/frontImgCard"
-                                    android:layout_marginStart="@dimen/_5sdp"
-                                    android:paddingEnd="@dimen/_10sdp"
-                                    android:paddingBottom="@dimen/_10sdp"/>
+                                    app:layout_constraintTop_toTopOf="@+id/frontImgCard" />
 
                             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -543,42 +543,42 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/_5sdp"
+                                app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toEndOf="@+id/lRcFrontImage"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent">
+                                app:layout_constraintTop_toTopOf="parent">
 
                                 <TextView
                                     android:id="@+id/tvRcBackImg"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/_3sdp"
                                     android:fontFamily="@font/bai_jamjuree_semi_bold"
                                     android:maxLines="1"
                                     android:text="@string/rc_back_image"
                                     android:textColor="@color/secondry_text"
                                     android:textSize="@dimen/_11ssp"
-                                    android:layout_marginStart="@dimen/_3sdp"
                                     app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent"/>
+                                    app:layout_constraintTop_toTopOf="parent" />
 
                                 <com.google.android.material.card.MaterialCardView
                                     android:id="@+id/backImgCard"
                                     android:layout_width="@dimen/_40sdp"
                                     android:layout_height="@dimen/_40sdp"
-                                    app:layout_constraintTop_toBottomOf="@+id/tvRcBackImg"
-                                    app:layout_constraintStart_toStartOf="@+id/tvRcBackImg"
-                                    app:layout_constraintEnd_toEndOf="@+id/tvRcBackImg"
-                                    app:cardCornerRadius="@dimen/_4sdp"
+                                    android:layout_marginTop="@dimen/_5sdp"
                                     app:cardBackgroundColor="@color/white"
-                                    app:strokeWidth="@dimen/_1sdp"
+                                    app:cardCornerRadius="@dimen/_4sdp"
+                                    app:layout_constraintEnd_toEndOf="@+id/tvRcBackImg"
+                                    app:layout_constraintStart_toStartOf="@+id/tvRcBackImg"
+                                    app:layout_constraintTop_toBottomOf="@+id/tvRcBackImg"
                                     app:strokeColor="#8A73C2"
-                                    android:layout_marginTop="@dimen/_5sdp">
+                                    app:strokeWidth="@dimen/_1sdp">
 
                                     <ImageView
                                         android:id="@+id/imgBackCamera"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:scaleType="fitXY"
-                                        android:src="@drawable/camera_new"/>
+                                        android:src="@drawable/camera_new" />
 
                                 </com.google.android.material.card.MaterialCardView>
 
@@ -586,13 +586,13 @@
                                     android:id="@+id/cutBackBtn"
                                     android:layout_width="@dimen/_20sdp"
                                     android:layout_height="@dimen/_20sdp"
+                                    android:layout_marginStart="@dimen/_5sdp"
+                                    android:paddingEnd="@dimen/_10sdp"
+                                    android:paddingBottom="@dimen/_10sdp"
                                     android:src="@drawable/cut_icon"
                                     android:visibility="gone"
                                     app:layout_constraintStart_toEndOf="@+id/backImgCard"
-                                    app:layout_constraintTop_toTopOf="@+id/backImgCard"
-                                    android:layout_marginStart="@dimen/_5sdp"
-                                    android:paddingEnd="@dimen/_10sdp"
-                                    android:paddingBottom="@dimen/_10sdp"/>
+                                    app:layout_constraintTop_toTopOf="@+id/backImgCard" />
 
                             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -614,27 +614,27 @@
                                 android:textColor="@color/secondry_text"
                                 android:textSize="@dimen/_11ssp"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"/>
+                                app:layout_constraintTop_toTopOf="parent" />
 
                             <com.google.android.material.card.MaterialCardView
                                 android:id="@+id/prevPolicyImgCard"
                                 android:layout_width="@dimen/_40sdp"
                                 android:layout_height="@dimen/_40sdp"
-                                app:layout_constraintTop_toBottomOf="@+id/tvPrevPolicyDocImg"
-                                app:layout_constraintStart_toStartOf="@+id/tvPrevPolicyDocImg"
-                                app:cardCornerRadius="@dimen/_4sdp"
-                                app:cardBackgroundColor="@color/white"
-                                app:strokeWidth="@dimen/_1sdp"
-                                app:strokeColor="#8A73C2"
+                                android:layout_marginStart="@dimen/_25sdp"
                                 android:layout_marginTop="@dimen/_5sdp"
-                                android:layout_marginStart="@dimen/_25sdp">
+                                app:cardBackgroundColor="@color/white"
+                                app:cardCornerRadius="@dimen/_4sdp"
+                                app:layout_constraintStart_toStartOf="@+id/tvPrevPolicyDocImg"
+                                app:layout_constraintTop_toBottomOf="@+id/tvPrevPolicyDocImg"
+                                app:strokeColor="#8A73C2"
+                                app:strokeWidth="@dimen/_1sdp">
 
                                 <ImageView
                                     android:id="@+id/imgPrevPolicyDoc"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:src="@drawable/camera_new"
-                                    android:scaleType="fitXY"/>
+                                    android:scaleType="fitXY"
+                                    android:src="@drawable/camera_new" />
 
                             </com.google.android.material.card.MaterialCardView>
 
@@ -642,13 +642,13 @@
                                 android:id="@+id/cutPrevPolicyBtn"
                                 android:layout_width="@dimen/_20sdp"
                                 android:layout_height="@dimen/_20sdp"
+                                android:layout_marginStart="@dimen/_5sdp"
+                                android:paddingEnd="@dimen/_10sdp"
+                                android:paddingBottom="@dimen/_10sdp"
                                 android:src="@drawable/cut_icon"
                                 android:visibility="gone"
                                 app:layout_constraintStart_toEndOf="@+id/prevPolicyImgCard"
-                                app:layout_constraintTop_toTopOf="@+id/prevPolicyImgCard"
-                                android:layout_marginStart="@dimen/_5sdp"
-                                android:paddingEnd="@dimen/_10sdp"
-                                android:paddingBottom="@dimen/_10sdp"/>
+                                app:layout_constraintTop_toTopOf="@+id/prevPolicyImgCard" />
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
