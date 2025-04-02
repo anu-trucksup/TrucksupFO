@@ -1,4 +1,4 @@
-package com.trucksup.field_officer.presenter.view.activity.vehicleVerify
+package com.trucksup.field_officer.presenter.common
 
 import com.trucksup.field_officer.data.model.GenerateJWTtokenResponse
 

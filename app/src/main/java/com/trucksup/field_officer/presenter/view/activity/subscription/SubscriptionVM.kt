@@ -1,33 +1,19 @@
 package com.trucksup.field_officer.presenter.view.activity.subscription
 
-import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.gson.Gson
-import com.logistics.trucksup.modle.AddonsData
-import com.logistics.trucksup.modle.Broker
-import com.logistics.trucksup.modle.CurantPlan
-import com.logistics.trucksup.modle.CurantPlanData
-import com.logistics.trucksup.modle.OwnerFaq
 import com.logistics.trucksup.modle.PlanResponse
 import com.trucksup.field_officer.data.model.image.ImageResponse
 import com.trucksup.field_officer.data.network.ResponseModel
 import com.trucksup.field_officer.data.network.ResultWrapper
 import com.trucksup.field_officer.domain.usecases.APIUseCase
-import com.trucksup.field_officer.presenter.utils.PreferenceManager
-import com.trucksup.field_officer.presenter.view.activity.financeInsurance.InsuranceActivity
-import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryData
-import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryRequest
 import com.trucksup.field_officer.presenter.view.activity.subscription.model.PlanRequest
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import okhttp3.MultipartBody
-import org.json.JSONException
-import org.json.JSONObject
 import javax.inject.Inject
 
 @HiltViewModel

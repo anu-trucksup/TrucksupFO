@@ -157,7 +157,6 @@
                                 android:layout_height="match_parent"
                                 android:layout_marginStart="@dimen/_10sdp"
                                 android:layout_marginEnd="@dimen/_10sdp"
-                                android:layout_weight="1"
                                 android:gravity="center_vertical"
                                 android:text=""
                                 android:textColor="@color/primery_text"
@@ -209,7 +208,7 @@
 
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/planDitailsList"
+                        android:id="@+id/plandetailsList"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="@dimen/_16sdp" />
@@ -218,7 +217,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_20sdp"
-                        android:layout_weight="1"
                         android:fontFamily="@font/bai_jamjuree_semi_bold"
                         android:gravity="center_horizontal"
                         android:text="@string/faq"
@@ -241,7 +239,7 @@
 
             </androidx.core.widget.NestedScrollView>
 
-            <RelativeLayout
+           <!-- <RelativeLayout
                 android:id="@+id/hind_bt"
                 android:layout_width="@dimen/_40sdp"
                 android:layout_height="@dimen/_40sdp"
@@ -263,7 +261,7 @@
                     app:lottie_autoPlay="true"
                     app:lottie_fileName="arrowdown.json"
                     app:lottie_loop="true" />'
-            </RelativeLayout>
+            </RelativeLayout>-->
         </RelativeLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

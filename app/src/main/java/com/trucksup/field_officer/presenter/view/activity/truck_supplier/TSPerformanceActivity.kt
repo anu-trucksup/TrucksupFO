@@ -32,7 +32,6 @@ class TSPerformanceActivity : BaseActivity() {
         setContentView(binding.root)
 
         setRvList()
-
         setOnListeners()
     }
 

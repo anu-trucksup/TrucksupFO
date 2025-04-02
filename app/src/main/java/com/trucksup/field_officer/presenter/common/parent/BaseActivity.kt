@@ -1,6 +1,5 @@
 package com.trucksup.field_officer.presenter.common.parent
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.Configuration
 import android.net.ConnectivityManager
@@ -10,11 +9,11 @@ import android.util.Log
 import android.util.Patterns
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
-import com.trucksup.field_officer.presenter.common.dialog.ProgressDialog
 import com.trucksup.field_officer.presenter.common.dialog.ProgressDialogBox
 
 open class BaseActivity : AppCompatActivity() {
-    private var jarvisLoader: ProgressDialogBox? = null
+    private var progressDialog: ProgressDialogBox? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -27,8 +26,8 @@ open class BaseActivity : AppCompatActivity() {
         dismissProgressDialog()
         if (context != null) {
             try {
-                jarvisLoader = ProgressDialogBox(context)
-                jarvisLoader?.let { jarvisLoader ->
+                progressDialog = ProgressDialogBox(context)
+                progressDialog?.let { jarvisLoader ->
                     jarvisLoader.setCanceledOnTouchOutside(true)
                     jarvisLoader.setCancelable(isCancelable)
                     jarvisLoader.show()
@@ -41,9 +40,9 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     fun dismissProgressDialog() {
-        if (jarvisLoader != null && jarvisLoader?.isShowing!!) {
-            jarvisLoader = try {
-                jarvisLoader?.dismiss()
+        if (progressDialog != null && progressDialog?.isShowing!!) {
+            progressDialog = try {
+                progressDialog?.dismiss()
                 null
             } catch (e: Exception) {
                 null

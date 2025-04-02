@@ -6,7 +6,6 @@ import android.os.Handler
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
-import androidx.core.widget.NestedScrollView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -19,7 +18,6 @@ import com.logistics.trucksup.modle.CurantPlanData
 import com.logistics.trucksup.modle.OwnerFaq
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ActivitySubscriptionBinding
-import com.trucksup.field_officer.presenter.common.HelpUnit
 import com.trucksup.field_officer.presenter.common.MyAlartBox
 import com.trucksup.field_officer.presenter.common.ProgressDailogBox
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
@@ -35,7 +33,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class SubscriptionActivity : BaseActivity(), PaySubscribtion, PlanCantroler {
     private lateinit var binding: ActivitySubscriptionBinding
-    var progressDailogBox: ProgressDailogBox? = null
+
     private var mViewModel: SubscriptionViewModel? = null
     private var mTokenViewModel: TokenViewModel? = null
     private var handler: Handler? = null
@@ -52,21 +50,20 @@ class SubscriptionActivity : BaseActivity(), PaySubscribtion, PlanCantroler {
         adjustFontScale(getResources().configuration, 1.0f);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_subscription)
 
-        progressDailogBox = ProgressDailogBox(this)
         mViewModel = ViewModelProvider(this)[SubscriptionViewModel::class.java]
 
-        handler = Handler()
-        binding.nestedScrollView.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
-            if (scrollY > oldScrollY) {
-                binding.hindBt.visibility = View.GONE
-                HelpUnit.downHint = false
-            }
-        })
+        /*  handler = Handler()
+          binding.nestedScrollView.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+              if (scrollY > oldScrollY) {
+                  binding.hindBt.visibility = View.GONE
+                  HelpUnit.downHint = false
+              }
+          })
 
-        binding.hindBt.setOnClickListener {
-            LoggerMessage.LogErrorMsg("Click on button", ">>>>>>>>true")
-            binding.nestedScrollView.fullScroll(View.FOCUS_DOWN)
-        }
+          binding.hindBt.setOnClickListener {
+              LoggerMessage.LogErrorMsg("Click on button", ">>>>>>>>true")
+              binding.nestedScrollView.fullScroll(View.FOCUS_DOWN)
+          }*/
 
         setupObserver()
     }
@@ -208,13 +205,12 @@ class SubscriptionActivity : BaseActivity(), PaySubscribtion, PlanCantroler {
     }
 
 
-    private fun setPlanDitails(data: ArrayList<BrokerPlan>) {
+    private fun setPlanDetails(data: ArrayList<BrokerPlan>) {
 
-        val plandetailAdapter = PlanDetailsAdapter(this, data)
-
-        binding.planDitailsList.layoutManager = LinearLayoutManager(this)
-        binding.planDitailsList.adapter = plandetailAdapter
-        plandetailAdapter.notifyDataSetChanged()
+        val plandetailsAdapter = PlanDetailsAdapter(this, data)
+        binding.plandetailsList.layoutManager = LinearLayoutManager(this)
+        binding.plandetailsList.adapter = plandetailsAdapter
+        plandetailsAdapter.notifyDataSetChanged()
     }
 
     @SuppressLint("SuspiciousIndentation")
@@ -239,7 +235,8 @@ class SubscriptionActivity : BaseActivity(), PaySubscribtion, PlanCantroler {
             binding.planMsg.visibility = View.GONE
         }
 
-        binding.plandiscrib.text = data.subscriptionName + " " + resources.getString(R.string.planBenefits)
+        binding.plandiscrib.text =
+            data.subscriptionName + " " + resources.getString(R.string.planBenefits)
         Log.e(
             "is Active Plan",
             "======= yes\n plan status == " + planStatus.toString() + " Plan is " + brokerData?.currentPlan
@@ -374,7 +371,7 @@ class SubscriptionActivity : BaseActivity(), PaySubscribtion, PlanCantroler {
 
         }
 
-        setPlanDitails(data.planList as ArrayList<BrokerPlan>)
+        setPlanDetails(data.planList as ArrayList<BrokerPlan>)
 
 
     }
@@ -569,7 +566,7 @@ class SubscriptionActivity : BaseActivity(), PaySubscribtion, PlanCantroler {
             PreferenceManager.getLanguage(this)
         )
 
-        // VollyRequests().planList(request, this, this, key)
+        mViewModel?.subscriptionPlanList(request, key)
     }
 
 
@@ -582,7 +579,7 @@ class SubscriptionActivity : BaseActivity(), PaySubscribtion, PlanCantroler {
     ) {
 
         binding.nestedScrollView.visibility = View.VISIBLE
-        binding.hindBt.visibility = View.VISIBLE
+        // binding.hindBt.visibility = View.VISIBLE
 
         val listD = dataAddOns
         val listT = vehicleverification
@@ -598,8 +595,8 @@ class SubscriptionActivity : BaseActivity(), PaySubscribtion, PlanCantroler {
                 if (currentPlanDetails.previousPlan?.subsPendingLoads != null) {
                     remaningLoad = currentPlanDetails.previousPlan?.subsPendingLoads!!
                 }
-                var tl: Int = 0;
-                var tl1: Int = 0;
+                var tl = 0
+                var tl1 = 0
                 if (currentPlanDetails.previousPlan?.subsPendingLoads != null) {
                     tl = currentPlanDetails.previousPlan?.subsPendingLoads.toString().toInt()
                 }
@@ -607,7 +604,7 @@ class SubscriptionActivity : BaseActivity(), PaySubscribtion, PlanCantroler {
                     tl1 = currentPlanDetails.previousPlan?.freeLoadCount.toString().toInt()
                 }
 
-                val tt: Int = tl + tl1
+                val tt = tl + tl1
 
                 remaningLoad = tt.toString()
 
@@ -647,7 +644,6 @@ class SubscriptionActivity : BaseActivity(), PaySubscribtion, PlanCantroler {
                     )
                     val jsonStringSub = Gson().toJson(subData)
                     PreferenceManager.setSubData(jsonStringSub, this)
-
 
 
                 } else {
@@ -695,7 +691,7 @@ class SubscriptionActivity : BaseActivity(), PaySubscribtion, PlanCantroler {
         val s: Int = listD.size - 1
         for (i in 0..s) {
 
-            val d: AddonsData = AddonsData(
+            val d = AddonsData(
                 listD.get(i).actualPrice,
                 listD.get(i).cgstPercent,
                 listD.get(i).createdBy,
@@ -729,7 +725,7 @@ class SubscriptionActivity : BaseActivity(), PaySubscribtion, PlanCantroler {
         val t: Int = listT.size - 1
         for (i in 0..t) {
 
-            val d: AddonsData = AddonsData(
+            val d = AddonsData(
                 listT.get(i).actualPrice,
                 listT.get(i).cgstPercent,
                 listT.get(i).createdBy,
@@ -758,7 +754,7 @@ class SubscriptionActivity : BaseActivity(), PaySubscribtion, PlanCantroler {
         }
 
 
-        progressDailogBox?.dismiss()
+        dismissProgressDialog()
 
         setPlanList(data)
         setFaqList(faqData)
@@ -780,7 +776,7 @@ class SubscriptionActivity : BaseActivity(), PaySubscribtion, PlanCantroler {
     }
 
     override fun planError(error: String) {
-        progressDailogBox?.dismiss()
+        dismissProgressDialog()
         LoggerMessage.onSNACK(binding.planView, "" + error, this)
     }
 
@@ -791,7 +787,7 @@ class SubscriptionActivity : BaseActivity(), PaySubscribtion, PlanCantroler {
 
     override fun onResume() {
         super.onResume()
-        progressDailogBox?.show()
+        showProgressDialog(this, false)
         // createBill()
     }
 
@@ -801,41 +797,6 @@ class SubscriptionActivity : BaseActivity(), PaySubscribtion, PlanCantroler {
 
     }
 
-
-    fun checkOut(v: View) {
-
-        if (PreferenceManager.getProfileType(this) == 2) {
-            addOnsDataTacking.clear()
-        } else {
-            if (addonDataType != "free") {
-                addOnsDataTacking.clear()
-            } else {
-                if (isExpire == true) {
-                    addOnsDataTacking.clear()
-                }
-            }
-        }
-
-
-        /* FirebaseAnalytics().CreateCustomEvent(
-             "checkout_screen",
-             "" + PreferenceManager.getPhoneNo(this)
-         )
-         val jsonStringAddons = Gson().toJson(addOnsData)
-         val jsonStringPlans = Gson().toJson(brokerData)
-         val jsonStringAddonsTracing = Gson().toJson(addOnsDataTacking)
-         val intent: Intent = Intent(this, PaymentCheckout::class.java)
-         intent.putExtra("addons", jsonStringAddons)
-         intent.putExtra("plan", jsonStringPlans)
-         intent.putExtra("tracking", jsonStringAddonsTracing)
-         intent
-         startActivity(intent)*/
-    }
-
-    fun upGradPlan(v: View) {
-        /* val intent: Intent = Intent(this, UpGreadPlan::class.java)
-         startActivity(intent)*/
-    }
 
     fun openTranHist(v: View) {
 

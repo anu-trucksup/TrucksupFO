@@ -40,7 +40,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".presenter.view.activity.truck_supplier.TruckSupplierDetailActivity"
+            android:name=".presenter.view.activity.truck_supplier.TSDetailActivity"
             android:exported="false" />
         <activity
             android:name=".presenter.view.activity.profile.TotalAddLoadActivity"
@@ -161,7 +161,7 @@
             android:exported="false" />
 
         <activity
-            android:name=".presenter.view.activity.truck_supplier.TSNewOnboardingActivity"
+            android:name=".presenter.view.activity.truck_supplier.TSOnboardingActivity"
             android:exported="false" />
 
         <activity
@@ -194,7 +194,7 @@
             android:name=".presenter.view.activity.truck_supplier.TSPerformStatusActivity"
             android:exported="false" />
         <activity
-            android:name=".presenter.view.activity.truck_supplier.TruckSuppliersHomeActivity"
+            android:name=".presenter.view.activity.truck_supplier.UnAssignedTSActivity"
             android:exported="false" />
         <activity
             android:name=".presenter.view.activity.business_associate.BAPerformanceActivity"

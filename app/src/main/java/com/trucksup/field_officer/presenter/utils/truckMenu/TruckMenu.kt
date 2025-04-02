@@ -1,4 +1,4 @@
-package com.trucksup.field_officer.presenter.view.activity.vehicleVerify.truckMenu
+package com.trucksup.field_officer.presenter.utils.truckMenu
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -18,15 +18,14 @@ import com.trucksup.field_officer.R
 
 
 object TruckMenu {
-    var mypopupWindow: PopupWindow? = null
-    @SuppressLint("SuspiciousIndentation")
-    @RequiresApi(Build.VERSION_CODES.M)
-    fun OptionMenu(context: Activity, v: View?,menu: TruckListCantroler) {
+    private var mypopupWindow: PopupWindow? = null
 
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    fun OptionMenu(context: Activity, v: View?, menu: TruckListCantroler) {
 
 
         val add: TextView
-
         val remove: TextView
 
         val inflater =
@@ -36,10 +35,10 @@ object TruckMenu {
         remove = view.findViewById(R.id.remove)
 
 
-           add?.setOnClickListener {
-               menu.addTruck()
-               mypopupWindow?.dismiss()
-           }
+        add?.setOnClickListener {
+            menu.addTruck()
+            mypopupWindow?.dismiss()
+        }
 
         remove?.setOnClickListener {
             menu.removeTruck()
@@ -63,28 +62,25 @@ object TruckMenu {
 
     @SuppressLint("MissingInflatedId")
     @RequiresApi(Build.VERSION_CODES.M)
-    fun aboutPlan(context: Activity, v: View?,name:String,textPlan:String) {
-
+    fun aboutPlan(context: Activity, v: View?, name: String, textPlan: String) {
 
 
         val planName: TextView
 
         val text: TextView
 
-        val inflater =
-            context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val view: View = inflater.inflate(R.layout.about_plan_box, null)
         planName = view.findViewById<TextView>(R.id.planName)
         text = view.findViewById(R.id.text)
 
-         text.text=textPlan.toString()
+        text.text = textPlan.toString()
 
-        planName.text=name.toString()
+        planName.text = name.toString()
 
-       if (TextUtils.isEmpty(name))
-       {
-           planName?.visibility=View.GONE
-       }
+        if (TextUtils.isEmpty(name)) {
+            planName?.visibility = View.GONE
+        }
 
         mypopupWindow = PopupWindow(
             view,
@@ -92,11 +88,11 @@ object TruckMenu {
             RelativeLayout.LayoutParams.WRAP_CONTENT,
             true
         )
-        mypopupWindow!!.setOutsideTouchable(true)
-        mypopupWindow!!.setFocusable(true)
+        mypopupWindow!!.isOutsideTouchable = true
+        mypopupWindow!!.isFocusable = true
         mypopupWindow!!.setBackgroundDrawable(ColorDrawable(Color.WHITE))
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            mypopupWindow!!.setElevation(20F)
+            mypopupWindow!!.elevation = 20F
         }
         show(v)
     }

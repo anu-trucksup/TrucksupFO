@@ -18,9 +18,8 @@ import com.trucksup.field_officer.presenter.utils.PreferenceManager
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinanceDataLiatRequest
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinanceViewModel
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.LoanDataSubmitRequest
-import com.trucksup.field_officer.presenter.view.activity.vehicleVerify.truckMenu.TruckMenu
+import com.trucksup.field_officer.presenter.utils.truckMenu.TruckMenu
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.regex.Matcher
 import java.util.regex.Pattern
 
 @AndroidEntryPoint

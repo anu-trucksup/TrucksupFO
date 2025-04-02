@@ -13,6 +13,7 @@ import com.trucksup.field_officer.presenter.view.activity.growth_partner.GPFollo
 import com.trucksup.field_officer.presenter.view.activity.growth_partner.GPPerformanceActivity
 import com.trucksup.field_officer.presenter.view.activity.profile.TotalAddLoadActivity
 import com.trucksup.field_officer.presenter.view.activity.profile.TotalDownloadsActivity
+import com.trucksup.field_officer.presenter.view.activity.subscription.SubscriptionActivity
 import com.trucksup.field_officer.presenter.view.activity.truck_supplier.TSPerformanceActivity
 
 
@@ -75,6 +76,11 @@ class HomeFeaturesAdapter(var context: Context?) :
                 }
                 4 -> {
                     val intent = Intent(context, TotalDownloadsActivity::class.java)
+                    context?.startActivity(intent)
+                }
+
+                5 -> {
+                    val intent = Intent(context, SubscriptionActivity::class.java)
                     context?.startActivity(intent)
                 }
             }

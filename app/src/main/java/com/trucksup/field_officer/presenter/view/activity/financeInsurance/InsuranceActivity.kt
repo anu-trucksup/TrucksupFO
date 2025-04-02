@@ -51,7 +51,7 @@ import com.trucksup.field_officer.presenter.utils.PreferenceManager
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.InsuranceViewModel
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryRequest
 import com.trucksup.field_officer.presenter.view.activity.other.ViewPdfScreen
-import com.trucksup.field_officer.presenter.view.activity.vehicleVerify.truckMenu.TruckMenu
+import com.trucksup.field_officer.presenter.utils.truckMenu.TruckMenu
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.util.Locale
@@ -1219,7 +1219,7 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksU
     }
 
     fun mobileInfo(v: View) {
-        var menu: TruckMenu = TruckMenu
+        val menu = TruckMenu
         menu.aboutPlan(this, binding.info, "", resources.getString(R.string.alt_mobile_info))
     }
 

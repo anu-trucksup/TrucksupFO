@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.trucksup.field_officer.databinding.ItemMyTeamBaInactiveBinding
-import com.trucksup.field_officer.presenter.view.activity.truck_supplier.TruckSupplierDetailActivity
+import com.trucksup.field_officer.presenter.view.activity.truck_supplier.TSDetailActivity
 
 class MyTeamBAInActiveAdapter(var context: Context?, var list: ArrayList<String>) :
     RecyclerView.Adapter<MyTeamBAInActiveAdapter.ViewHolder>() {
@@ -23,7 +23,7 @@ class MyTeamBAInActiveAdapter(var context: Context?, var list: ArrayList<String>
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         holder.binding.root.setOnClickListener{
-            context?.startActivity(Intent(context, TruckSupplierDetailActivity::class.java))
+            context?.startActivity(Intent(context, TSDetailActivity::class.java))
 
         }
         /*holder.binding.rvPlan.apply {

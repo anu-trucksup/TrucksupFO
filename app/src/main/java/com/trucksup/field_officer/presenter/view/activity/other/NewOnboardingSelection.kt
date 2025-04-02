@@ -9,7 +9,7 @@ import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.view.activity.business_associate.BAnOnboardingActivity
 import com.trucksup.field_officer.presenter.view.activity.growth_partner.GPOnboardingActivity
 import com.trucksup.field_officer.presenter.view.activity.miscellaneous.MiscActivity
-import com.trucksup.field_officer.presenter.view.activity.truck_supplier.TSNewOnboardingActivity
+import com.trucksup.field_officer.presenter.view.activity.truck_supplier.TSOnboardingActivity
 
 class NewOnboardingSelection : BaseActivity() {
     private lateinit var binding: ActivityNewOnboardingBinding
@@ -30,7 +30,7 @@ class NewOnboardingSelection : BaseActivity() {
     }
 
     fun truck_supplier(view: View) {
-        startActivity(Intent(this, TSNewOnboardingActivity::class.java))
+        startActivity(Intent(this, TSOnboardingActivity::class.java))
     }
 
     fun business_associate(view: View) {

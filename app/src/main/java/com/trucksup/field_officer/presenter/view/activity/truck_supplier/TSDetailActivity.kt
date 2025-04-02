@@ -7,7 +7,7 @@ import com.trucksup.field_officer.databinding.ActivityTruckSupplierDetailBinding
 import com.trucksup.field_officer.presenter.common.dialog.HappinessCodeBox
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 
-class TruckSupplierDetailActivity : BaseActivity() {
+class TSDetailActivity : BaseActivity() {
     private lateinit var binding: ActivityTruckSupplierDetailBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -15,22 +15,18 @@ import com.trucksup.field_officer.data.model.GenerateJWTtokenResponse
 import com.trucksup.field_officer.data.model.PinCodeRequest
 import com.trucksup.field_officer.databinding.ActivityTcNewOnboardingBinding
 import com.trucksup.field_officer.databinding.VerifyOtpDialogBinding
-import com.trucksup.field_officer.presenter.common.LoadingUtils
 import com.trucksup.field_officer.presenter.common.MyAlartBox
-import com.trucksup.field_officer.presenter.common.dialog.FinaceSubmitBox
 import com.trucksup.field_officer.presenter.common.dialog.HappinessCodeBox
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
-import com.trucksup.field_officer.presenter.view.activity.auth.login.LoginActivity
 import com.trucksup.field_officer.presenter.view.activity.other.TokenViewModel
-import com.trucksup.field_officer.presenter.view.activity.subscription.SubscriptionViewModel
 import com.trucksup.field_officer.presenter.view.activity.truck_supplier.vml.TSOnboardViewModel
-import com.trucksup.field_officer.presenter.view.activity.vehicleVerify.JWTtoken
+import com.trucksup.field_officer.presenter.common.JWTtoken
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
-class TSNewOnboardingActivity : BaseActivity(), View.OnClickListener, JWTtoken {
+class TSOnboardingActivity : BaseActivity(), View.OnClickListener, JWTtoken {
     private lateinit var binding: ActivityTcNewOnboardingBinding
     private var mViewModel: TSOnboardViewModel? = null
     private var mTokenViewModel: TokenViewModel? = null
@@ -56,18 +52,18 @@ class TSNewOnboardingActivity : BaseActivity(), View.OnClickListener, JWTtoken {
         binding.eTPincode.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 if (binding.eTPincode.text.length == 6) {
-                    showProgressDialog(this@TSNewOnboardingActivity, false)
-                    var request = GenerateJWTtokenRequest(
-                        username = PreferenceManager.getAccesUserName(this@TSNewOnboardingActivity),
-                        password = PreferenceManager.getAccesPassword(this@TSNewOnboardingActivity),
-                        apiSecreteKey = PreferenceManager.getAccesKey(this@TSNewOnboardingActivity),
-                        userAgent = PreferenceManager.getAccesUserAgaint(this@TSNewOnboardingActivity),
-                        issuer = PreferenceManager.getAccesUserInssur(this@TSNewOnboardingActivity)
+                    showProgressDialog(this@TSOnboardingActivity, false)
+                    val request = GenerateJWTtokenRequest(
+                        username = PreferenceManager.getAccesUserName(this@TSOnboardingActivity),
+                        password = PreferenceManager.getAccesPassword(this@TSOnboardingActivity),
+                        apiSecreteKey = PreferenceManager.getAccesKey(this@TSOnboardingActivity),
+                        userAgent = PreferenceManager.getAccesUserAgaint(this@TSOnboardingActivity),
+                        issuer = PreferenceManager.getAccesUserInssur(this@TSOnboardingActivity)
                     )
                     mTokenViewModel?.generateJWTtoken(
                         request,
-                        this@TSNewOnboardingActivity,
-                        this@TSNewOnboardingActivity
+                        this@TSOnboardingActivity,
+                        this@TSOnboardingActivity
                     )
 
                 }
@@ -138,13 +134,13 @@ class TSNewOnboardingActivity : BaseActivity(), View.OnClickListener, JWTtoken {
     }
 
     private fun setupObserver() {
-        mViewModel?.resultSCbyPincodeLD?.observe(this@TSNewOnboardingActivity) { responseModel ->                     // login function observe
+        mViewModel?.resultSCbyPincodeLD?.observe(this@TSOnboardingActivity) { responseModel ->                     // login function observe
             if (responseModel.serverError != null) {
                 dismissProgressDialog()
 
                 val abx =
                     MyAlartBox(
-                        this@TSNewOnboardingActivity,
+                        this@TSOnboardingActivity,
                         responseModel.serverError.toString(),
                         "m"
                     )
@@ -162,7 +158,7 @@ class TSNewOnboardingActivity : BaseActivity(), View.OnClickListener, JWTtoken {
                         )
                     } else {
                         val abx = MyAlartBox(
-                            this@TSNewOnboardingActivity,
+                            this@TSOnboardingActivity,
                             responseModel.success.message,
                             "m"
                         )
@@ -170,7 +166,7 @@ class TSNewOnboardingActivity : BaseActivity(), View.OnClickListener, JWTtoken {
                     }
                 } else {
                     val abx = MyAlartBox(
-                        this@TSNewOnboardingActivity,
+                        this@TSOnboardingActivity,
                         "no data found",
                         "m"
                     )
@@ -246,11 +242,8 @@ class TSNewOnboardingActivity : BaseActivity(), View.OnClickListener, JWTtoken {
         if (!response.accessToken.isNullOrEmpty()) {
             getPinData("Bearer " + response.accessToken)
         } else {
-            val abx = MyAlartBox(
-                this@TSNewOnboardingActivity,
-                "Something went wrong",
-                "m"
-            )
+            val abx = MyAlartBox(this@TSOnboardingActivity,
+                "Something went wrong", "m")
             abx.show()
         }
 
@@ -258,11 +251,7 @@ class TSNewOnboardingActivity : BaseActivity(), View.OnClickListener, JWTtoken {
 
     override fun onTokenFailure(msg: String) {
         dismissProgressDialog()
-        val abx = MyAlartBox(
-            this@TSNewOnboardingActivity,
-            msg,
-            "m"
-        )
+        val abx = MyAlartBox(this@TSOnboardingActivity, msg, "m")
         abx.show()
     }
 }

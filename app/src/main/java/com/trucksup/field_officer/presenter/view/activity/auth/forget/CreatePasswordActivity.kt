@@ -214,9 +214,9 @@ class CreatePasswordActivity : BaseActivity(), View.OnClickListener {
         if (view.id == R.id.iv_back) {
             onBackPressed()
         } else if (view.id == R.id.updatepass_btn) {
-
+            startActivity(Intent(this, WelcomeLocationActivity::class.java))
             if (TextUtils.isEmpty(mBinding?.passwordTxt?.text.toString().trim())) {
-                mBinding?.passwordTxt?.setError("Please Enter Password")
+                mBinding?.passwordTxt?.error = "Please Enter Password"
                 mBinding?.passwordTxt?.requestFocus()
                 return
             }

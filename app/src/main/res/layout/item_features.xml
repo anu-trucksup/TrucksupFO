@@ -22,6 +22,7 @@
             android:layout_height="@dimen/_40sdp"
             android:layout_gravity="center_horizontal"
             android:background="#00ffffff"
+            android:padding="@dimen/_5sdp"
             android:src="@drawable/truck_img" />
 
         <TextView

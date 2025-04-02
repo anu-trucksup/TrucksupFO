@@ -135,7 +135,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
             startActivity(resetPassword)
             //finish()
         } else if (view.id == R.id.login_btn) {
-
+            startActivity(Intent(this, WelcomeLocationActivity::class.java))
             if (isOnline(this)) {
                 if (TextUtils.isEmpty(mLoginBinding?.phoneTxt?.text.toString().trim())) {
                     mLoginBinding?.phoneTxt?.error = "Please enter mobile no."

@@ -36,7 +36,7 @@ import com.trucksup.field_officer.presenter.view.activity.financeInsurance.Finan
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.InsuranceActivity
 import com.trucksup.field_officer.presenter.view.activity.profile.EditProfileActivity
 import com.trucksup.field_officer.presenter.view.activity.profile.MyEarningActivity
-import com.trucksup.field_officer.presenter.view.activity.truck_supplier.TruckSuppliersHomeActivity
+import com.trucksup.field_officer.presenter.view.activity.truck_supplier.UnAssignedTSActivity
 import com.trucksup.field_officer.presenter.view.adapter.HomeFeaturesAdapter
 import com.trucksup.field_officer.presenter.view.adapter.ServicesMainAdapter
 import com.trucksup.field_officer.presenter.view.adapter.OnItemClickListner
@@ -62,8 +62,7 @@ class HomeActivity : BaseActivity(), OnItemClickListner {
         enableEdgeToEdge()
         adjustFontScale(getResources().configuration, 1.0f)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home)
-        val view = binding.root
-        setContentView(view)
+        setContentView( binding.root)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
         setListonService()
@@ -171,9 +170,11 @@ class HomeActivity : BaseActivity(), OnItemClickListner {
         }
 
         binding.homeEarnings.unassignedTsba.setOnClickListener {
-            val intent = Intent(this@HomeActivity, TruckSuppliersHomeActivity::class.java)
+            val intent = Intent(this@HomeActivity, UnAssignedTSActivity::class.java)
             startActivity(intent)
         }
+
+        setSelectionNav()
     }
 
     private fun setSelectionNav() {
