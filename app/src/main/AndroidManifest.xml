@@ -196,6 +196,11 @@
         <activity
             android:name=".presenter.view.activity.truck_supplier.UnAssignedTSActivity"
             android:exported="false" />
+
+        <activity
+            android:name=".presenter.view.activity.truck_supplier.unassigned_ts_ba.activity.UnAssignedTSBAActivity"
+            android:exported="false" />
+
         <activity
             android:name=".presenter.view.activity.business_associate.BAPerformanceActivity"
             android:exported="false" />

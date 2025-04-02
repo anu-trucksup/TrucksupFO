@@ -37,6 +37,7 @@ import com.trucksup.field_officer.presenter.view.activity.financeInsurance.Insur
 import com.trucksup.field_officer.presenter.view.activity.profile.EditProfileActivity
 import com.trucksup.field_officer.presenter.view.activity.profile.MyEarningActivity
 import com.trucksup.field_officer.presenter.view.activity.truck_supplier.UnAssignedTSActivity
+import com.trucksup.field_officer.presenter.view.activity.truck_supplier.unassigned_ts_ba.activity.UnAssignedTSBAActivity
 import com.trucksup.field_officer.presenter.view.adapter.HomeFeaturesAdapter
 import com.trucksup.field_officer.presenter.view.adapter.ServicesMainAdapter
 import com.trucksup.field_officer.presenter.view.adapter.OnItemClickListner
@@ -142,6 +143,7 @@ class HomeActivity : BaseActivity(), OnItemClickListner {
         binding.nn.btnEditProfile.setOnClickListener {
             val intent = Intent(this@HomeActivity, EditProfileActivity::class.java)
             startActivity(intent)
+            overridePendingTransition( R.anim.slide_in_up, R.anim.slide_out_up );
         }
 
         binding.llHome.setOnClickListener {
@@ -170,7 +172,7 @@ class HomeActivity : BaseActivity(), OnItemClickListner {
         }
 
         binding.homeEarnings.unassignedTsba.setOnClickListener {
-            val intent = Intent(this@HomeActivity, UnAssignedTSActivity::class.java)
+            val intent = Intent(this@HomeActivity, UnAssignedTSBAActivity::class.java)
             startActivity(intent)
         }
 
