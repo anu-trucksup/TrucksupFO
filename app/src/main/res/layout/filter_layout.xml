@@ -64,34 +64,7 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/tvSP"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/subscription_plan"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:textSize="@dimen/_11ssp"
-        android:fontFamily="@font/bai_jamjuree_medium"
-        android:textColor="#B33E2089"
-        android:lines="1"/>
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_30sdp"
-        android:layout_marginTop="@dimen/_5sdp"
-        android:background="@drawable/filter_spiner_background"
-        android:orientation="horizontal">
-
-        <Spinner
-            android:id="@+id/subscriptionPlanSpinner"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:entries="@array/plan_type"
-            android:fontFamily="@font/bai_jamjuree_medium"
-            android:paddingHorizontal="@dimen/_3sdp" />
-
-    </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
@@ -116,6 +89,35 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:entries="@array/visit_type"
+            android:fontFamily="@font/bai_jamjuree_medium"
+            android:paddingHorizontal="@dimen/_3sdp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvSP"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/subscription_plan"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:textSize="@dimen/_11ssp"
+        android:fontFamily="@font/bai_jamjuree_medium"
+        android:textColor="#B33E2089"
+        android:lines="1"/>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:background="@drawable/filter_spiner_background"
+        android:orientation="horizontal">
+
+        <Spinner
+            android:id="@+id/subscriptionPlanSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:entries="@array/plan_type"
             android:fontFamily="@font/bai_jamjuree_medium"
             android:paddingHorizontal="@dimen/_3sdp" />
 

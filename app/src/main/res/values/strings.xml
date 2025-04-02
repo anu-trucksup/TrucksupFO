@@ -157,6 +157,8 @@
     <string name="PleaseEnterBusinessPincode">Please enter your Pincode</string>
     <string name="EnterHappinessCode">Enter Happiness Code</string>
     <string name="hapinessCodeMsg">To onboard the new TS, kindly input the happiness code shared to the Truck Supplier on the registered mobile number.</string>
+    <string name="hapinessCodeUnassignedTsMsg">To add the truck supplier in your team, kindly input the happiness code shared with the TS.</string>
+    <string name="hapinessCodeUnassignedBaMsg">To add the business associate in your team, kindly input the happiness code shared with the BA.</string>
 
     <string name="ContactName_star">Contact Name <font color='#FF0000'>*</font></string>
     <string name="ContactNumber_star">Contact Number <font color='#FF0000'>*</font></string>

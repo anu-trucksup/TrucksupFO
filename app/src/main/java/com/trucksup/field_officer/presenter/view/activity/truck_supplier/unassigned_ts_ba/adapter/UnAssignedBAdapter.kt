@@ -1,13 +1,17 @@
 package com.trucksup.field_officer.presenter.view.activity.truck_supplier.unassigned_ts_ba.adapter
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ItemMyTeamTsInactiveBinding
 import com.trucksup.field_officer.databinding.ItemUnassignedBaBinding
+import com.trucksup.field_officer.presenter.common.dialog.HappinessCodeBox
 import com.trucksup.field_officer.presenter.view.activity.truck_supplier.TSDetailActivity
+import com.trucksup.field_officer.presenter.view.activity.truck_supplier.TSStartTripActivity
 
 class UnAssignedBAdapter(var context: Context?, var list: ArrayList<String>) :
     RecyclerView.Adapter<UnAssignedBAdapter.ViewHolder>() {
@@ -23,19 +27,20 @@ class UnAssignedBAdapter(var context: Context?, var list: ArrayList<String>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        holder.binding.root.setOnClickListener{
-            context?.startActivity(Intent(context, TSDetailActivity::class.java))
 
+        if (position == 0) {
+            holder.binding.highLightView.setBackgroundResource(R.drawable.background2)
+            holder.binding.notHighLightView.setBackgroundResource(R.color.transeprant)
+        } else {
+            holder.binding.notHighLightView.setBackgroundResource(R.drawable.background2)
+            holder.binding.highLightView.setBackgroundResource(R.color.transeprant)
         }
-        /*holder.binding.rvPlan.apply {
-            var list=ArrayList<String>()
-            list.add("Silver Plan")
-            list.add("Loads Added: 50")
-            list.add("Loads Left: 50")
-            layoutManager= LinearLayoutManager(context,RecyclerView.HORIZONTAL,false)
-            adapter=PlanAdapter(context,list)
-            hasFixedSize()
-        }*/
+
+        holder.binding.tvSendHappinessCode.setOnClickListener {
+            val happinessCodeBox = HappinessCodeBox(context!! as Activity, context!!.getString(R.string.hapinessCodeUnassignedBaMsg),
+                context!!.getString(R.string.EnterHappinessCode), context!!.getString(R.string.resand_sms))
+            happinessCodeBox.show()
+        }
     }
 
     override fun getItemCount(): Int {

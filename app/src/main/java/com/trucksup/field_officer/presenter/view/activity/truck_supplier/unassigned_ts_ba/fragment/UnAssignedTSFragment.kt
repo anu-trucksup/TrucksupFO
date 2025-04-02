@@ -11,8 +11,11 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.trucksup.field_officer.databinding.AddScheduledLayoutBinding
+import com.trucksup.field_officer.databinding.DateFilterBinding
 import com.trucksup.field_officer.databinding.FragmentUnassignedTsBinding
+import com.trucksup.field_officer.presenter.common.dialog.DialogBoxes
 import com.trucksup.field_officer.presenter.view.activity.truck_supplier.unassigned_ts_ba.adapter.UnAssignedTSAdapter
+import com.trucksup.field_officer.presenter.view.adapter.TSHomeAdapter
 import java.util.Calendar
 
 
@@ -44,95 +47,52 @@ class UnAssignedTSFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setRvList()
+        setOnListeners()
 
-        setListener()
 
     }
 
-    private fun setListener() {
-        //add new truck owner button
-        /* binding.btnAddTruckOwner.setOnClickListener {
-             DialogBoxes.addLeadDialog(aContext!!,"Add Truck Owner",object : AddLeadInterface {
-                 override fun onLocation(dialog: AlertDialog, binding: AddLeadLayoutBinding) {
-                     binding.tvCurrentLocation.text=activity?.findViewById<TextView>(R.id.addressUpdate)?.text
-                 }
-             })
-         }
 
-         //filter
-         binding.imgFilter.setOnClickListener {
-             DialogBoxes.setFilter(aContext!!,"owner")
-         }*/
-    }
 
     private fun setRvList() {
-        var list = ArrayList<String>()
+        val list = ArrayList<String>()
         list.add("")
         list.add("")
         list.add("")
-        binding.rvActiveBA.apply {
+        binding.rv.apply {
             layoutManager = LinearLayoutManager(aContext, RecyclerView.VERTICAL, false)
-            adapter = UnAssignedTSAdapter(aContext, list).apply {
-                setOnControllerListener(object : UnAssignedTSAdapter.ControllerListener {
-                    override fun onOpenLocation(location: String) {
-                        // geocodeAddress(location)
-//                        DialogBoxes.locationPermission(aContext!!)
-                    }
-
-                    override fun onDateTime() {
-                        val builder = AlertDialog.Builder(context)
-                        val binding =
-                            AddScheduledLayoutBinding.inflate(LayoutInflater.from(context))
-                        builder.setView(binding.root)
-                        val dialog: AlertDialog = builder.create()
-                        dialog.show()
-
-                        val today = Calendar.getInstance()
-                        binding.datePicker.init(
-                            today.get(Calendar.YEAR), today.get(Calendar.MONTH),
-                            today.get(Calendar.DAY_OF_MONTH)
-                        ) { _, year, months, day ->
-                            val month = months + 1
-                            val msg = "$day/$month/$year"
-//                            date = msg
-                        }
-
-                        binding.timePicker.setOnTimeChangedListener { _, hours, minute ->
-                            var hour = hours
-                            val amPm: String
-                            when {
-                                hour == 0 -> {
-                                    hour += 12
-                                    amPm = "AM"
-                                }
-
-                                hour == 12 -> amPm = "PM"
-                                hour > 12 -> {
-                                    hour -= 12
-                                    amPm = "PM"
-                                }
-
-                                else -> amPm = "AM"
-                            }
-
-                            val hourFormatted = if (hour < 10) "0$hour" else hour
-                            val minuteFormatted = if (minute < 10) "0$minute" else minute
-                            val msg = "$hourFormatted : $minuteFormatted $amPm"
-//                            time = msg
-                        }
-
-                        binding.btnSubmit.setOnClickListener {
-                            // addScheduledSubmit(binding,dialog)
-                        }
-
-                        //cancel button
-                        binding.btnCancel.setOnClickListener {
-                            dialog.dismiss()
-                        }
-                    }
-                })
-            }
+            adapter = UnAssignedTSAdapter(aContext, list)
             hasFixedSize()
+        }
+    }
+
+    private fun setOnListeners() {
+        //date picker
+        binding.imgCalender.setOnClickListener {
+            dateFilterDialog()
+        }
+
+        //filter
+        binding.imgFilter.setOnClickListener {
+            aContext?.let { it1 -> DialogBoxes.setFilter(it1, "owner") }
+        }
+    }
+
+    private fun dateFilterDialog() {
+        val builder = AlertDialog.Builder(aContext)
+        val binding = DateFilterBinding.inflate(LayoutInflater.from(aContext))
+        builder.setView(binding.root)
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
+
+        //apply button
+        binding.btnApply.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        //cancel button
+        binding.btnCancel.setOnClickListener {
+            dialog.dismiss()
         }
     }
 
