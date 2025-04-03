@@ -24,10 +24,10 @@
             android:layout_height="match_parent"
             android:scaleType="fitCenter" />
 
-        <com.trucksup.field_officer.presenter.common.camerax.GraphicOverlay
+        <!--<com.trucksup.field_officer.presenter.common.camerax.GraphicOverlay
             android:id="@+id/graphicOverlay_finder"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent" />-->
 
         <com.trucksup.field_officer.presenter.common.FocusView
             android:layout_width="match_parent"
@@ -102,7 +102,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/latitude"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:layout_toRightOf="@+id/latitude"
                 android:singleLine="true"
                 android:textColor="@color/white"
@@ -112,7 +112,7 @@
                 android:id="@+id/longitude"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="24dp"
                 android:textColor="@color/white"
@@ -123,7 +123,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/longitude"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:layout_toRightOf="@+id/longitude"
                 android:singleLine="true"
                 android:textColor="@color/white"

@@ -25,7 +25,7 @@ class EditProfileActivity : BaseActivity() {
 
     private fun setListener() {
 
-        binding.version.text = AppVersionUtils.getAppVersionName(this)
+        binding.version.text = "Version ${AppVersionUtils.getAppVersionName(this)}"
 
         //back button
         binding.ivBack.setOnClickListener {

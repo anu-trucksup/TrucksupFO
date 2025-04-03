@@ -53,15 +53,11 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
 
     private var startForResult: ActivityResultLauncher<Intent>? = null
     private var mSignUpBinding: ActivitySignUpBinding? = null
-    private var passwordDialog: Dialog? = null
     private var signupViewModel: SignupViewModel? = null
 
-
-    //private FirebaseAnalytics mFirebaseAnalytics;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Obtain the FirebaseAnalytics instance.
-        //mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
         mSignUpBinding = DataBindingUtil.setContentView(this, R.layout.activity_sign_up)
 
         //click Listener
@@ -69,9 +65,6 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
 
         mSignUpBinding!!.loginTxt.setOnClickListener(this)
         mSignUpBinding!!.signUpBtn.setOnClickListener(this)
-        // mSignUpBinding!!.tvVerify.setOnClickListener(this)
-
-
         // mSignUpBinding!!.signUpButtonView.setEnabled(false);
         signupViewModel = ViewModelProvider(this).get(
             SignupViewModel::class.java
@@ -237,16 +230,16 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
 
 
                 if (TextUtils.isEmpty(mSignUpBinding?.profileName?.text.toString().trim())) {
-                    mSignUpBinding?.profileName?.error = "Enter Profile Name"
+                    mSignUpBinding?.profileName?.error = resources.getString(R.string.enterProfileName)
                     mSignUpBinding?.profileName?.requestFocus()
                     return
                 }
                 if (isValidName(mSignUpBinding?.profileName?.text.toString().trim())) {
-                    mSignUpBinding?.profileName?.error = "Enter Right Name"
+                    mSignUpBinding?.profileName?.error = resources.getString(R.string.validnameformate)
                     return
                 }
                 if (getSpecialCharacterCount(mSignUpBinding?.profileName?.text.toString()) == 0) {
-                    mSignUpBinding?.profileName?.error = "Enter Right Name"
+                    mSignUpBinding?.profileName?.error = resources.getString(R.string.validnameformate)
                     return
                 }
 
@@ -257,7 +250,7 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
                 }
 
                 if (TextUtils.isEmpty(mSignUpBinding?.phoneNoTxt?.text.toString().trim())) {
-                    mSignUpBinding?.phoneNoTxt?.error = "Enter Mobile Number"
+                    mSignUpBinding?.phoneNoTxt?.error = resources.getString(R.string.enter_mobile_no)
                     mSignUpBinding?.phoneNoTxt?.requestFocus()
                     return
                 }
@@ -265,7 +258,7 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
 
                     LoggerMessage.onSNACK(
                         mSignUpBinding!!.passwordTxt,
-                        "Please Enter Password.",
+                        resources.getString(R.string.enter_password),
                         applicationContext
                     )
 
@@ -345,7 +338,7 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
 
                         LoggerMessage.onSNACK(
                             mSignUpBinding!!.phoneNoTxt,
-                            "Enter valid mobile number.",
+                            resources.getString(R.string.enter_valid_mobile),
                             applicationContext
                         )
                     }
@@ -353,8 +346,7 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
 
                 } else {
                     LoggerMessage.onSNACK(
-                        mSignUpBinding!!.phoneNoTxt,
-                        "Enter valid mobile number.",
+                        mSignUpBinding!!.phoneNoTxt,resources.getString(R.string.enter_valid_mobile),
                         applicationContext
                     )
 
@@ -402,7 +394,7 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
-    fun cameraListner() {
+    private fun cameraListner() {
         startForResult = registerForActivityResult<Intent, ActivityResult>(
             ActivityResultContracts.StartActivityForResult()
         ) { result: ActivityResult ->

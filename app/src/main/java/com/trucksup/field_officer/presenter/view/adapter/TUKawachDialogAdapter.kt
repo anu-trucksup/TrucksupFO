@@ -33,7 +33,6 @@ class TUKawachDialogAdapter(var context: Context?) :
         holder.binding.ivImage.setImageResource(imageList[position])
         holder.binding.tvTitle.text = serviceList[position]
         holder.binding.root.setOnClickListener {
-            Toast.makeText(context,"Under Development",Toast.LENGTH_SHORT).show()
            /* val intent = Intent(context, MainActivity::class.java)
             context?.startActivity(intent)*/
         }

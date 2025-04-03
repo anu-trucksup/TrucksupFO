@@ -55,10 +55,6 @@ import com.trucksup.field_officer.presenter.common.Utils.ORIENT_LANDSCAPE_RIGHT
 import com.trucksup.field_officer.presenter.common.Utils.ORIENT_PORTRAIT
 import com.trucksup.field_officer.presenter.common.Utils.appSettingOpen
 import com.trucksup.field_officer.presenter.common.Utils.warningPermissionDialog
-import com.trucksup.field_officer.presenter.common.camerax.GraphicOverlay
-import com.trucksup.field_officer.presenter.common.dialog.DialogBoxes
-import com.trucksup.field_officer.presenter.common.face_detection.FaceContourDetectionProcessor
-import com.trucksup.field_officer.presenter.common.face_detection.FaceStatus
 import com.trucksup.field_officer.presenter.view.activity.auth.signup.SignUpActivity
 import com.trucksup.field_officer.presenter.view.activity.other.MainActivity
 import java.io.File
@@ -73,7 +69,7 @@ class CameraActivity : AppCompatActivity() {
         ActivityCameraBinding.inflate(layoutInflater)
     }
 
-    private val graphicOverlay by lazy { findViewById<GraphicOverlay>(R.id.graphicOverlay_finder) }
+   // private val graphicOverlay by lazy { findViewById<GraphicOverlay>(R.id.graphicOverlay_finder) }
    // private lateinit var mFusedLocationClient: FusedLocationProviderClient
     private val permissionId = 2
     //test
@@ -260,9 +256,9 @@ class CameraActivity : AppCompatActivity() {
             imageAnalyzer = ImageAnalysis.Builder()
                 .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
                 .build()
-                .also {
-                    it.setAnalyzer(cameraExecutor, selectAnalyzer())
-                }
+               /* .also {
+                    it.setAnalyzer(cameraExecutor)
+                }*/
             bindCameraUserCases()
         }, ContextCompat.getMainExecutor(this))
     }
@@ -271,7 +267,7 @@ class CameraActivity : AppCompatActivity() {
         cameraExecutor = Executors.newSingleThreadExecutor()
     }
 
-    private fun selectAnalyzer(): ImageAnalysis.Analyzer {
+   /* private fun selectAnalyzer(): ImageAnalysis.Analyzer {
         return FaceContourDetectionProcessor(graphicOverlay) {
             onSuccessCallback(
                 it
@@ -287,7 +283,7 @@ class CameraActivity : AppCompatActivity() {
         } else {
             Log.e("facestatus", "This is it ${faceStatus.name}")
         }
-    }
+    }*/
 
     private fun bindCameraUserCases() {
         val rotatedResolution = getRotatedResolution(

@@ -32,12 +32,6 @@ class SignupViewModel @Inject constructor(val apiUseCase: APIUseCase,
     val registerUserLD: LiveData<ResponseModel<Response<User>>> = registerUser
 
 
-    /*var checkUserProfile: MutableLiveData<ResponseModel<CheckUserProfileResponse>> = MutableLiveData<ResponseModel<CheckUserProfileResponse>>()
-    val checkUserProfileLD: LiveData<ResponseModel<CheckUserProfileResponse>> = checkUserProfile
-*/
-
-
-
     fun signUp(registerUserRequest: NewResisterRequest) {
         CoroutineScope(Dispatchers.IO).launch {
             when (val response = apiUseCase.registerUser(registerUserRequest)) {

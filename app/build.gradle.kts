@@ -136,7 +136,7 @@ dependencies {
 
     // If you want to additionally use the CameraX View class
     implementation(libs.androidx.camera.view)
-    implementation (libs.play.services.mlkit.face.detection)
+    //implementation (libs.play.services.mlkit.face.detection)
     implementation (libs.gson)
 
     // KTX for the Maps SDK for Android library

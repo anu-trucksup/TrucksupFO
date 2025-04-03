@@ -289,7 +289,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/_8sdp"
                                 style="@style/edit_label"
-                                android:text="@string/Pincode_star"/>
+                                android:text="@string/Pincode"/>
 
                             <EditText
                                 android:id="@+id/edit_pincode"
@@ -311,7 +311,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/_8sdp"
                                 style="@style/edit_label"
-                                android:text="@string/City_star"/>
+                                android:text="@string/city"/>
 
                             <EditText
                                 android:id="@+id/edit_city"
@@ -332,7 +332,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/_8sdp"
                                 style="@style/edit_label"
-                                android:text="@string/State_star"/>
+                                android:text="@string/state"/>
 
                             <EditText
                                 android:id="@+id/edit_state"

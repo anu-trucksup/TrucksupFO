@@ -7,9 +7,9 @@
     <string name="resend_in_3_30">Resend in 3:30</string>
     <string name="log_in">Log in </string>
     <string name="sign_up">Sign up</string>
-    <string name="pin_code">Pin Code *</string>
-    <string name="address">Address *</string>
-    <string name="city">City *</string>
+    <string name="pin_code">Pin Code</string>
+    <string name="address">Address</string>
+    <string name="city">City</string>
     <string name="data_not_found">Data Not Found\nSorry, the data you are looking for does not exist.</string>
     <string name="cancel">Cancel</string>
     <string name="submit">Submit</string>
@@ -570,5 +570,9 @@
     <font color="#DB5015">Kawach</font>
 
 </string>
+    <string name="enter_password">\"Please Enter Password.\"</string>
+    <string name="validnameformate">Enter valid name format.</string>
+    <string name="enterProfileName">Enter Profile name</string>
+    <string name="enter_valid_mobile">\"Enter valid mobile number.\"</string>
 
 </resources>

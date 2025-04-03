@@ -12,9 +12,9 @@ object AppVersionUtils {
         return try {
             val packageInfo = getPackageInfo(context)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                packageInfo.longVersionCode.toString()
+                packageInfo.versionName.toString()
             } else {
-                packageInfo.versionCode.toString()
+                packageInfo.versionName.toString()
             }
         } catch (e: PackageManager.NameNotFoundException) {
             Log.e("AppVersionUtils", "Error getting app version name", e)
