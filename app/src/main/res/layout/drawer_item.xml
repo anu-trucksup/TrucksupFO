@@ -10,7 +10,10 @@
         android:layout_height="wrap_content"
         app:cardCornerRadius="@dimen/_8sdp"
         app:strokeWidth="0dp"
-        android:layout_margin="@dimen/_10sdp"
+        android:layout_marginLeft="@dimen/_8sdp"
+        android:layout_marginRight="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_3sdp"
+        android:layout_marginBottom="@dimen/_3sdp"
         app:cardBackgroundColor="@color/white"
         app:cardElevation="@dimen/_4sdp"
         >
@@ -73,6 +76,12 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/dark_gray0"
+        android:layout_margin="@dimen/_6sdp"/>
 
 <!--    <View-->
 <!--        android:layout_width="match_parent"-->

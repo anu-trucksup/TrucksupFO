@@ -31,6 +31,9 @@ class NavigationMenuItem(var context: Context, var list: ArrayList<NavItems>) :
         holder.binding.title.text = list[position].title
         holder.binding.subtitle.text = list[position].subtitle
 
+        //setAnimation(holder.itemView, position);
+
+
         holder.itemView.setOnClickListener {
              if (position == 0) {
                  val intent = Intent(context, MyTeamScreen::class.java)
@@ -48,6 +51,14 @@ class NavigationMenuItem(var context: Context, var list: ArrayList<NavItems>) :
 
     override fun getItemCount(): Int {
         return list.size
+    }
+
+    private fun setAnimation(viewToAnimate: View, position: Int) {
+        //val context = getActivity()
+        val animation = AnimationUtils.loadAnimation(context, android.R.anim.slide_in_left)
+
+        animation.duration = (position * 50 + 1000).toLong()
+        viewToAnimate.startAnimation(animation)
     }
 
 }

@@ -29,6 +29,7 @@
                 android:src="@drawable/ic_back_icon" />
 
             <TextView
+                android:id="@+id/nav_title"
                 style="@style/title_basicreg_18"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -133,6 +134,7 @@
                                                 android:layout_marginLeft="@dimen/_6sdp"/>
 
                                             <TextView
+                                                android:id="@+id/tv_addload"
                                                 android:layout_width="match_parent"
                                                 android:layout_height="wrap_content"
                                                 android:layout_marginStart="@dimen/_16sdp"
@@ -221,6 +223,7 @@
                                                     />
 
                                                 <TextView
+                                                    android:id="@+id/tv_ts"
                                                     android:layout_width="match_parent"
                                                     android:layout_height="wrap_content"
                                                     android:layout_gravity="end"
@@ -252,6 +255,7 @@
                                                     />
 
                                                 <TextView
+                                                    android:id="@+id/tv_ba"
                                                     android:layout_width="match_parent"
                                                     android:layout_height="wrap_content"
                                                     android:layout_gravity="end"
@@ -283,6 +287,7 @@
                                                     />
 
                                                 <TextView
+                                                    android:id="@+id/tv_gp"
                                                     android:layout_width="match_parent"
                                                     android:layout_height="wrap_content"
                                                     android:layout_gravity="end"
@@ -375,6 +380,7 @@
                                                     />
 
                                                 <TextView
+                                                    android:id="@+id/tv_vehicle_tracking"
                                                     android:layout_width="match_parent"
                                                     android:layout_height="wrap_content"
                                                     android:layout_gravity="end"
@@ -406,6 +412,7 @@
                                                     />
 
                                                 <TextView
+                                                    android:id="@+id/tv_vehicle_verify"
                                                     android:layout_width="match_parent"
                                                     android:layout_height="wrap_content"
                                                     android:layout_gravity="end"
@@ -437,6 +444,7 @@
                                                     />
 
                                                 <TextView
+                                                    android:id="@+id/tv_verify_dl"
                                                     android:layout_width="match_parent"
                                                     android:layout_height="wrap_content"
                                                     android:layout_gravity="end"
@@ -468,6 +476,7 @@
                                                     />
 
                                                 <TextView
+                                                    android:id="@+id/tv_insurance"
                                                     android:layout_width="match_parent"
                                                     android:layout_height="wrap_content"
                                                     android:layout_gravity="end"
@@ -499,6 +508,7 @@
                                                     />
 
                                                 <TextView
+                                                    android:id="@+id/tv_finance"
                                                     android:layout_width="match_parent"
                                                     android:layout_height="wrap_content"
                                                     android:layout_gravity="end"
@@ -530,6 +540,7 @@
                                                     />
 
                                                 <TextView
+                                                    android:id="@+id/tv_smart_fuel"
                                                     android:layout_width="match_parent"
                                                     android:layout_height="wrap_content"
                                                     android:layout_gravity="end"
@@ -554,6 +565,7 @@
                             </com.google.android.material.card.MaterialCardView>
 
                             <TextView
+                                android:id="@+id/tv_target_achieved"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginHorizontal="@dimen/_16sdp"
@@ -566,6 +578,7 @@
 
 
                             <TextView
+                                android:id="@+id/tv_target_pending"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginHorizontal="@dimen/_16sdp"

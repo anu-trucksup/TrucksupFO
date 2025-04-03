@@ -27,7 +27,6 @@ class UnAssignedTSActivity : BaseActivity() {
     }
 
     private fun setListener() {
-
         binding.ivBack.setOnClickListener {
             onBackPressed()
         }
