@@ -46,10 +46,10 @@ class WelcomeLocationActivity : BaseActivity() {
         adjustFontScale(resources.configuration, 1.0f);
         setContentView(binding.root)
 
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
-
-        Handler().postDelayed({ startActivity(Intent(baseContext,
-            HomeActivity::class.java)) }, 3000)
+      /*  Handler().postDelayed({ startActivity(Intent(baseContext,
+            HomeActivity::class.java)) }, 3000)*/
 
     }
 
