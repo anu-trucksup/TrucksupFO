@@ -52,70 +52,70 @@ class BAOnboardingUploadDocActivity : BaseActivity(), GetImage {
         setContentView(binding.root)
 
 
-        binding.vc?.setOnClickListener {
+        binding.vc.setOnClickListener {
             DocType = "visiting card"
-            binding.vc?.background = resources.getDrawable(R.drawable.edit_box_blue)
-            binding.vc?.setTextColor(resources.getColor(R.color.white))
-            binding.tl?.background = resources.getDrawable(R.drawable.edit_new_box)
-            binding.tl?.setTextColor(resources.getColor(R.color.black))
-            binding.sb?.background = resources.getDrawable(R.drawable.edit_new_box)
-            binding.sb?.setTextColor(resources.getColor(R.color.black))
-            binding.gc?.background = resources.getDrawable(R.drawable.edit_new_box)
-            binding.gc?.setTextColor(resources.getColor(R.color.black))
-            binding.se?.background = resources.getDrawable(R.drawable.edit_new_box)
-            binding.se?.setTextColor(resources.getColor(R.color.black))
+            binding.vc.background = resources.getDrawable(R.drawable.edit_box_blue)
+            binding.vc.setTextColor(resources.getColor(R.color.white))
+            binding.tl.background = resources.getDrawable(R.drawable.edit_new_box)
+            binding.tl.setTextColor(resources.getColor(R.color.black))
+            binding.sb.background = resources.getDrawable(R.drawable.edit_new_box)
+            binding.sb.setTextColor(resources.getColor(R.color.black))
+            binding.gc.background = resources.getDrawable(R.drawable.edit_new_box)
+            binding.gc.setTextColor(resources.getColor(R.color.black))
+            binding.se.background = resources.getDrawable(R.drawable.edit_new_box)
+            binding.se.setTextColor(resources.getColor(R.color.black))
         }
-        binding.tl?.setOnClickListener {
+        binding.tl.setOnClickListener {
             DocType = "trade licence"
-            binding.tl?.background = resources.getDrawable(R.drawable.edit_box_blue)
-            binding.tl?.setTextColor(resources.getColor(R.color.white))
-            binding.vc?.background = resources.getDrawable(R.drawable.edit_new_box)
-            binding.vc?.setTextColor(resources.getColor(R.color.black))
-            binding.sb?.background = resources.getDrawable(R.drawable.edit_new_box)
-            binding.sb?.setTextColor(resources.getColor(R.color.black))
-            binding.gc?.background = resources.getDrawable(R.drawable.edit_new_box)
-            binding.gc?.setTextColor(resources.getColor(R.color.black))
-            binding.se?.background = resources.getDrawable(R.drawable.edit_new_box)
-            binding.se?.setTextColor(resources.getColor(R.color.black))
+            binding.tl.background = resources.getDrawable(R.drawable.edit_box_blue)
+            binding.tl.setTextColor(resources.getColor(R.color.white))
+            binding.vc.background = resources.getDrawable(R.drawable.edit_new_box)
+            binding.vc.setTextColor(resources.getColor(R.color.black))
+            binding.sb.background = resources.getDrawable(R.drawable.edit_new_box)
+            binding.sb.setTextColor(resources.getColor(R.color.black))
+            binding.gc.background = resources.getDrawable(R.drawable.edit_new_box)
+            binding.gc.setTextColor(resources.getColor(R.color.black))
+            binding.se.background = resources.getDrawable(R.drawable.edit_new_box)
+            binding.se.setTextColor(resources.getColor(R.color.black))
         }
-        binding.sb?.setOnClickListener {
+        binding.sb.setOnClickListener {
             DocType = "signage board"
-            binding.sb?.background = resources.getDrawable(R.drawable.edit_box_blue)
-            binding.sb?.setTextColor(resources.getColor(R.color.white))
-            binding.vc?.background = resources.getDrawable(R.drawable.edit_new_box)
-            binding.vc?.setTextColor(resources.getColor(R.color.black))
-            binding.tl?.background = resources.getDrawable(R.drawable.edit_new_box)
-            binding.tl?.setTextColor(resources.getColor(R.color.black))
-            binding.gc?.background = resources.getDrawable(R.drawable.edit_new_box)
-            binding.gc?.setTextColor(resources.getColor(R.color.black))
-            binding.se?.background = resources.getDrawable(R.drawable.edit_new_box)
-            binding.se?.setTextColor(resources.getColor(R.color.black))
+            binding.sb.background = resources.getDrawable(R.drawable.edit_box_blue)
+            binding.sb.setTextColor(resources.getColor(R.color.white))
+            binding.vc.background = resources.getDrawable(R.drawable.edit_new_box)
+            binding.vc.setTextColor(resources.getColor(R.color.black))
+            binding.tl.background = resources.getDrawable(R.drawable.edit_new_box)
+            binding.tl.setTextColor(resources.getColor(R.color.black))
+            binding.gc.background = resources.getDrawable(R.drawable.edit_new_box)
+            binding.gc.setTextColor(resources.getColor(R.color.black))
+            binding.se.background = resources.getDrawable(R.drawable.edit_new_box)
+            binding.se.setTextColor(resources.getColor(R.color.black))
         }
-        binding.gc?.setOnClickListener {
+        binding.gc.setOnClickListener {
             DocType = "GSTIN Certificate"
-            binding.gc?.background = resources.getDrawable(R.drawable.edit_box_blue)
-            binding.gc?.setTextColor(resources.getColor(R.color.white))
-            binding.vc?.background = resources.getDrawable(R.drawable.edit_new_box)
-            binding.vc?.setTextColor(resources.getColor(R.color.black))
-            binding.tl?.background = resources.getDrawable(R.drawable.edit_new_box)
-            binding.tl?.setTextColor(resources.getColor(R.color.black))
-            binding.sb?.background = resources.getDrawable(R.drawable.edit_new_box)
-            binding.sb?.setTextColor(resources.getColor(R.color.black))
-            binding.se?.background = resources.getDrawable(R.drawable.edit_new_box)
-            binding.se?.setTextColor(resources.getColor(R.color.black))
+            binding.gc.background = resources.getDrawable(R.drawable.edit_box_blue)
+            binding.gc.setTextColor(resources.getColor(R.color.white))
+            binding.vc.background = resources.getDrawable(R.drawable.edit_new_box)
+            binding.vc.setTextColor(resources.getColor(R.color.black))
+            binding.tl.background = resources.getDrawable(R.drawable.edit_new_box)
+            binding.tl.setTextColor(resources.getColor(R.color.black))
+            binding.sb.background = resources.getDrawable(R.drawable.edit_new_box)
+            binding.sb.setTextColor(resources.getColor(R.color.black))
+            binding.se.background = resources.getDrawable(R.drawable.edit_new_box)
+            binding.se.setTextColor(resources.getColor(R.color.black))
         }
-        binding.se?.setOnClickListener {
+        binding.se.setOnClickListener {
             DocType = "shop and establishment"
-            binding.se?.background = resources.getDrawable(R.drawable.edit_box_blue)
-            binding.se?.setTextColor(resources.getColor(R.color.white))
-            binding.vc?.background = resources.getDrawable(R.drawable.edit_new_box)
-            binding.vc?.setTextColor(resources.getColor(R.color.black))
-            binding.tl?.background = resources.getDrawable(R.drawable.edit_new_box)
-            binding.tl?.setTextColor(resources.getColor(R.color.black))
-            binding.sb?.background = resources.getDrawable(R.drawable.edit_new_box)
-            binding.sb?.setTextColor(resources.getColor(R.color.black))
-            binding.gc?.background = resources.getDrawable(R.drawable.edit_new_box)
-            binding.gc?.setTextColor(resources.getColor(R.color.black))
+            binding.se.background = resources.getDrawable(R.drawable.edit_box_blue)
+            binding.se.setTextColor(resources.getColor(R.color.white))
+            binding.vc.background = resources.getDrawable(R.drawable.edit_new_box)
+            binding.vc.setTextColor(resources.getColor(R.color.black))
+            binding.tl.background = resources.getDrawable(R.drawable.edit_new_box)
+            binding.tl.setTextColor(resources.getColor(R.color.black))
+            binding.sb.background = resources.getDrawable(R.drawable.edit_new_box)
+            binding.sb.setTextColor(resources.getColor(R.color.black))
+            binding.gc.background = resources.getDrawable(R.drawable.edit_new_box)
+            binding.gc.setTextColor(resources.getColor(R.color.black))
         }
 
         binding.tvUploadImage.setOnClickListener{

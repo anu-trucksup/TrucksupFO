@@ -39,6 +39,7 @@
         android:theme="@style/Base.Theme.FieldOfficer"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+
         <activity
             android:name=".presenter.view.activity.truck_supplier.TSDetailActivity"
             android:exported="false" />
@@ -82,6 +83,10 @@
             />
         <activity
             android:name=".presenter.view.activity.other.MainActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".presenter.view.activity.business_associate.BAOnboardingUploadDocActivity"
             android:exported="false" />
         <activity
             android:name=".presenter.view.activity.business_associate.BAFollowupActivity"
