@@ -92,7 +92,8 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:orientation="horizontal"
-                                        android:padding="@dimen/_3sdp">
+                                        android:paddingVertical="@dimen/_2sdp"
+                                        android:paddingHorizontal="@dimen/_6sdp">
 
                                         <TextView
                                             style="@style/label_semi18"

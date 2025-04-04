@@ -14,13 +14,16 @@ class BAStartTripActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_ba_maptrip)
         binding = ActivityBaMaptripBinding.inflate(layoutInflater)
         adjustFontScale(resources.configuration, 1.0f);
         setContentView(binding.root)
 
         binding.btnSubmit.setOnClickListener {
-            startActivity(Intent(this, BAScheduledMeetingActivity::class.java))
+            startActivity(Intent(this, BAScheduleMeetingActivity::class.java))
+        }
+
+        binding.ivBack.setOnClickListener {
+            onBackPressed()
         }
     }
 }

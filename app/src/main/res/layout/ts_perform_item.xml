@@ -284,6 +284,7 @@
                             android:fontFamily="@font/bai_jamjuree_medium"
                             android:text="@string/resand_sms"
                             android:textColor="@color/pink"
+                            android:visibility="gone"
                             android:textColorLink="@color/pink"
                             android:textSize="@dimen/_8sdp" />
 
@@ -337,6 +338,7 @@
                         android:orientation="horizontal">
 
                         <TextView
+                            android:id="@+id/btn_schedule"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/_2sdp"

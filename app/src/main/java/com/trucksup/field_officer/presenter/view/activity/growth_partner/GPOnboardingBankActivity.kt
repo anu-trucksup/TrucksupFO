@@ -30,7 +30,7 @@ import java.util.regex.Pattern
 
 class GPOnboardingBankActivity : AppCompatActivity(), GetImage, View.OnClickListener {
     private lateinit var binding: ActivityGponboardBankBinding
-    var panNumber: String = ""
+    private var panNumber: String = ""
     private var imageType: Int = -1
 
 
@@ -88,6 +88,8 @@ class GPOnboardingBankActivity : AppCompatActivity(), GetImage, View.OnClickList
             binding.ETPanNumberNOB?.setError("Enter Right PAN No" , customErrorDrawable)*/
             binding.ETPanNumberNOB?.setError("Enter Right PAN No")
             binding.ETPanNumberNOB?.setText("")
+
+            startActivity(Intent(this, GpOnboardingPreviewActivity::class.java))
         }
 
     }

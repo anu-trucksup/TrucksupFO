@@ -51,7 +51,7 @@ class TSOnboardingActivity : BaseActivity(), View.OnClickListener, JWTtoken {
 
         binding.eTPincode.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                if (binding.eTPincode.text.length == 6) {
+              /*  if (binding.eTPincode.text.length == 6) {
                     showProgressDialog(this@TSOnboardingActivity, false)
                     val request = GenerateJWTtokenRequest(
                         username = PreferenceManager.getAccesUserName(this@TSOnboardingActivity),
@@ -66,7 +66,7 @@ class TSOnboardingActivity : BaseActivity(), View.OnClickListener, JWTtoken {
                         this@TSOnboardingActivity
                     )
 
-                }
+                }*/
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {

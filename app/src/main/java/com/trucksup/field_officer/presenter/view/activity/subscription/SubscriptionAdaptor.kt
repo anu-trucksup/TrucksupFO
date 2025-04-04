@@ -55,14 +55,6 @@ class SubscriptionAdaptor(
     @SuppressLint("ResourceType")
     override fun onBindViewHolder(viewHolder: SubscriptionAdaptor.ViewHolder, position: Int) {
 
-//        if(data.get(position).clickOn==true){
-//            viewHolder.main_cat.setBackgroundResource(R.drawable.sub_slect_card)
-//          //  viewHolder.recomanded.visibility=View.VISIBLE
-//            cantroler.subClick("0",data[position].buyingPrice.toString(),data[position].categoryID.toString(),data[position].productID.toString(),"1",data.get(position))
-//        }else{
-//           // viewHolder.recomanded.visibility=View.INVISIBLE
-//            viewHolder.main_cat.setBackgroundResource(R.drawable.sub_unslect_card)
-//        }
         if (data.get(position).recommended.toString().toLowerCase() == "y") {
             viewHolder.recomanded.visibility = View.VISIBLE
         } else {
@@ -167,7 +159,7 @@ class SubscriptionAdaptor(
     // Returns
     // the total count of items in the list
     override fun getItemCount(): Int {
-        return data.size
+        return 4
     }
 
     fun updateData(position: Int, dataS: Broker) {

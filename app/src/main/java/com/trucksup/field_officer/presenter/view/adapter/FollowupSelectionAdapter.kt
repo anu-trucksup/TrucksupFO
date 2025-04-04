@@ -37,6 +37,7 @@ class FollowupSelectionAdapter(var context: Context?) :
 
         holder.binding.ivImage.setImageResource(imageList[position])
         holder.binding.tvName.text = serviceList[position]
+       // holder.binding.tvCount.text = serviceList[position]
 
         holder.binding.root.setOnClickListener {
             //Toast.makeText(context,"Under Development", Toast.LENGTH_SHORT).show()

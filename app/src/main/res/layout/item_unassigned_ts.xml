@@ -381,13 +381,17 @@
                             android:orientation="horizontal">
 
                             <TextView
+                                android:id="@+id/btn_schedule"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:background="@drawable/blue_76"
                                 android:backgroundTint="@color/colorPrimary"
-                                android:fontFamily="@font/bai_jamjuree_medium"
+                                android:fontFamily="@font/bai_jamjuree_regular"
                                 android:maxLines="1"
-                                android:padding="@dimen/_4sdp"
+                                android:layout_gravity="center"
+                                android:textAlignment="center"
+                                android:gravity="center"
+                                android:paddingHorizontal="@dimen/_4sdp"
                                 android:text="@string/add_schedule"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/_8ssp" />

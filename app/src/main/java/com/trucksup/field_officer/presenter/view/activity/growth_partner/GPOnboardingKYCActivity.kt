@@ -20,6 +20,6 @@ class GPOnboardingKYCActivity : AppCompatActivity() {
         setContentView(view)
     }
     fun growth_proof(view: View) {
-        startActivity(Intent(this, GPOnBoardingStoreOroofActivity::class.java))
+        startActivity(Intent(this, GPOnBoardStoreProofActivity::class.java))
     }
 }

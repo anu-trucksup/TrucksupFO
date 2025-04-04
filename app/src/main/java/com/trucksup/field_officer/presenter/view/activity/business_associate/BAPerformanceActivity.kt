@@ -1,6 +1,7 @@
 package com.trucksup.field_officer.presenter.view.activity.business_associate
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.core.content.ContextCompat
@@ -15,6 +16,7 @@ import com.trucksup.field_officer.databinding.TsFollowupActivityBinding
 import com.trucksup.field_officer.databinding.TsPerformanceActivityBinding
 import com.trucksup.field_officer.presenter.common.dialog.DialogBoxes
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
+import com.trucksup.field_officer.presenter.view.activity.growth_partner.GPViewAllActivity
 import com.trucksup.field_officer.presenter.view.adapter.BAPerformanceAdapter
 import com.trucksup.field_officer.presenter.view.adapter.TSScheduleFollowupAdapter
 import com.trucksup.field_officer.presenter.view.fragment.ts.TSCompletedFragment
@@ -49,9 +51,8 @@ class BAPerformanceActivity : BaseActivity() {
     }
 
     private fun setOnListeners() {
-        //date picker
-        binding.imgCalender.setOnClickListener {
-            dateFilterDialog()
+        binding.imgViewAll.setOnClickListener {
+            startActivity(Intent(this, BAStatusViewAllActivity::class.java))
         }
 
         //filter

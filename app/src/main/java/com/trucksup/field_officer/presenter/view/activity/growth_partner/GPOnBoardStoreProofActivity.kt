@@ -13,7 +13,7 @@ import androidx.core.net.toUri
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.trucksup.field_officer.R
-import com.trucksup.field_officer.databinding.ActivityGponBoardingStoreOroofBinding
+import com.trucksup.field_officer.databinding.ActivityGponboardingStoreproofBinding
 import com.trucksup.field_officer.presenter.common.CameraActivity
 import com.trucksup.field_officer.presenter.common.FileHelp
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
@@ -21,26 +21,27 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
 
-class GPOnBoardingStoreOroofActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityGponBoardingStoreOroofBinding
+class GPOnBoardStoreProofActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityGponboardingStoreproofBinding
     private var launcher: ActivityResultLauncher<Intent>? = null
-    private var imageUri:String = ""
+    private var imageUri: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_gpon_boarding_store_oroof)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_gponboarding_storeproof)
         val view = binding.root
         setContentView(view)
-        binding.cvCamera.setOnClickListener{
+        binding.cvCamera.setOnClickListener {
             val intent: Intent = Intent(this, CameraActivity::class.java)
             launcher!!.launch(intent)
         }
-        binding.btnPreview.setOnClickListener{
-            CheckValidation()
+        binding.btnPreview.setOnClickListener {
+            checkValidation()
         }
         camera()
     }
-    fun camera() {
+
+    private fun camera() {
         launcher = registerForActivityResult<Intent, ActivityResult>(
             ActivityResultContracts.StartActivityForResult()
         ) { result: ActivityResult ->
@@ -62,7 +63,8 @@ class GPOnBoardingStoreOroofActivity : AppCompatActivity() {
 
                     val name = "trucksUp_image" + System.currentTimeMillis() + ".jpg"
                     val pt = Environment.DIRECTORY_PICTURES //+  "/trucksUp";
-                    val MEDIA_PATH = Environment.getExternalStorageDirectory().absolutePath + "/" + pt + "/"
+                    val MEDIA_PATH =
+                        Environment.getExternalStorageDirectory().absolutePath + "/" + pt + "/"
 
                     val filesDir: File = getFilesDir()
                     val imageFile = File(filesDir, name)
@@ -89,15 +91,16 @@ class GPOnBoardingStoreOroofActivity : AppCompatActivity() {
             }
         }
     }
-    fun CheckValidation() {
+
+    private fun checkValidation() {
         if (imageUri.isEmpty() || imageUri == null) {
             LoggerMessage.onSNACK(
                 binding.cvCamera,
                 resources.getString(R.string.PleaseSelectStorePhoto),
                 this
             )
-        }else{
-            startActivity(Intent(this, GPOnboardingActivity::class.java))
+        } else {
+            startActivity(Intent(this, GPOnboardingBankActivity::class.java))
         }
         /*else if (binding.ETPanNumberNOB.length() == 10) {
             val s = binding.ETPanNumberNOB.toString() // get your editext value here

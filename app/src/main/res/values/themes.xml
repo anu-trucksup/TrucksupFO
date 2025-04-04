@@ -117,7 +117,6 @@
     <style name="label_semi18" parent="Base.Theme.FieldOfficer">
         <item name="android:textSize">@dimen/_18ssp</item>
         <item name="android:textColor">@color/blue</item>
-        <item name="android:textStyle">bold</item>
         <item name="android:fontFamily">@font/bai_jamjuree_semi_bold</item>
     </style>
 

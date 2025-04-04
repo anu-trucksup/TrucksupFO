@@ -41,10 +41,9 @@ class GPPerformanceActivity : BaseActivity() {
     }
 
     private fun setOnListeners() {
-        //date picker
-        binding.imgCalender.setOnClickListener {
+
+        binding.imgViewAll.setOnClickListener {
             startActivity(Intent(this, GPViewAllActivity::class.java))
-            //dateFilterDialog()
         }
 
         //filter

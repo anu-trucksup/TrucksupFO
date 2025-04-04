@@ -27,7 +27,8 @@
             android:src="@drawable/loc_red" />
 
         <TextView
-            style="@style/edit_text_m"
+            style="@style/label_semi"
+            android:textColor="@color/black_4d"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_40sdp"

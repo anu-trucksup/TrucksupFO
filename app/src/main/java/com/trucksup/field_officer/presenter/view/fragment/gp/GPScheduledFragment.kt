@@ -14,6 +14,7 @@ import com.trucksup.field_officer.databinding.DateFilterBinding
 import com.trucksup.field_officer.databinding.FragmentOwnerScheduledBinding
 import com.trucksup.field_officer.presenter.view.adapter.TSScheduleFollowupAdapter
 import com.trucksup.field_officer.presenter.common.dialog.DialogBoxes
+import com.trucksup.field_officer.presenter.view.adapter.GPScheduleFollowupAdapter
 
 class GPScheduledFragment : Fragment() {
 
@@ -50,7 +51,7 @@ class GPScheduledFragment : Fragment() {
         list.add("")
         binding.rv.apply {
             layoutManager = LinearLayoutManager(aContext, RecyclerView.VERTICAL, false)
-            adapter = TSScheduleFollowupAdapter(aContext, list)
+            adapter = GPScheduleFollowupAdapter(aContext, list)
             hasFixedSize()
         }
     }

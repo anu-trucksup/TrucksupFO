@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:fitsSystemWindows="true"
+    tools:context=".activity.TC_NewOnboardingActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/rect_header_profile"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_56sdp">
+
+                <ImageView
+                    android:id="@+id/iv_back"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:background="@drawable/circal_weight"
+                    android:padding="@dimen/_4sdp"
+                    android:src="@drawable/ic_back_icon" />
+
+                <TextView
+                    style="@style/title_basicreg_18"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/new_onboarding"
+                    android:textColor="@color/white" />
+            </RelativeLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/_12sdp"
+                app:cardElevation="@dimen/_4sdp">
+
+                <androidx.core.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginHorizontal="@dimen/_12sdp"
+                        android:layout_marginBottom="@dimen/_32sdp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/_10sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:fontFamily="@font/bai_jamjuree_semi_bold"
+                            android:text="@string/GaNewOnboardingTab"
+                            android:textColor="@color/purple"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <!--<EditText
+                            android:id="@+id/et_input_pass"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:layout_marginTop="3dp"
+                            android:layout_marginStart="56dp"
+                            android:layout_marginEnd="56dp"
+                            android:hint="Password"
+                            android:inputType="textPassword"
+                            android:singleLine="true"
+                            android:textSize="13sp"
+                            android:background="@android:color/transparent"
+                            android:theme="@style/MyEditText" />-->
+
+
+                        <TextView
+                            style="@style/edit_label"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/_10sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:text="@string/ContactName_star" />
+
+                        <EditText
+                            android:id="@+id/ETAccountHolderName"
+                            style="@style/edit_text_m"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/_10sdp"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:background="@drawable/edit_box"
+                            android:paddingHorizontal="@dimen/_10sdp"
+                            android:paddingVertical="@dimen/_4sdp"
+                            android:singleLine="true"
+                            android:text="" />
+
+                        <TextView
+                            style="@style/edit_label"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/_10sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:text="@string/ContactNumber_star" />
+
+                        <EditText
+                            android:id="@+id/ETAccountHolderNumber"
+                            style="@style/edit_text_m"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/_10sdp"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:background="@drawable/edit_box"
+                            android:inputType="phone"
+                            android:lines="1"
+                            android:maxLength="10"
+                            android:paddingHorizontal="@dimen/_10sdp"
+                            android:paddingVertical="@dimen/_4sdp"
+                            android:text="" />
+
+                        <TextView
+                            style="@style/edit_label"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/_10sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:text="@string/SelectPartnerType_star" />
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout1"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_30sdp"
+                            android:layout_marginHorizontal="@dimen/_10sdp"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:background="@drawable/grey_edit_background"
+                            android:orientation="horizontal">
+
+                            <Spinner
+                                android:id="@+id/kycSpinner"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:entries="@array/select_partner"
+                                android:fontFamily="@font/bai_jamjuree_medium"
+                                android:paddingHorizontal="@dimen/_3sdp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_30sdp"
+                            android:layout_marginHorizontal="@dimen/_10sdp"
+                            android:layout_marginTop="@dimen/_16sdp"
+                            android:background="@drawable/grey_edit_background"
+                            android:orientation="horizontal">
+
+                            <Spinner
+                                android:id="@+id/kycSpinners"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:entries="@array/select_partner"
+                                android:fontFamily="@font/bai_jamjuree_medium"
+                                android:paddingHorizontal="@dimen/_3sdp" />
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="@dimen/_20sdp"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textView6">
+
+                            <TextView
+                                android:id="@+id/btnAdd"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/background_1_1"
+                                android:fontFamily="@font/bai_jamjuree_medium"
+                                android:lines="1"
+                                android:onClick="growth_continue"
+                                android:paddingHorizontal="@dimen/_25sdp"
+                                android:paddingVertical="@dimen/_2sdp"
+                                android:text="@string/continu_main"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/_14ssp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </androidx.core.widget.NestedScrollView>
+
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

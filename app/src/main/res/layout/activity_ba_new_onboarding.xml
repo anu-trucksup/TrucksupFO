@@ -60,7 +60,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="@dimen/_32sdp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginHorizontal="@dimen/_12sdp">
 
                 <TextView
                     android:layout_width="match_parent"

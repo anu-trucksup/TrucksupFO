@@ -10,55 +10,46 @@
         android:layout_height="match_parent"
         android:background="@color/white">
 
-        <LinearLayout
-            android:id="@+id/activeBA_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@drawable/toolbar_grdient"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/rect_header_profile"
+        android:orientation="vertical">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_56sdp">
 
-                <ImageButton
-                    android:id="@+id/iv_back"
-                    android:layout_width="@dimen/_28sdp"
-                    android:layout_height="@dimen/_28sdp"
-                    android:layout_marginStart="16dp"
-                    android:background="@drawable/circal_weight"
-                    android:src="@drawable/ic_back_icon"
-                    android:tint="@color/black"
-                    android:visibility="visible"
-                    android:backgroundTint="@color/white"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="UseAppTint" />
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:background="@drawable/circal_weight"
+            android:padding="@dimen/_4sdp"
+            android:src="@drawable/ic_back_icon" />
 
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:drawableTint="@color/blue"
-                    android:fontFamily="@font/bai_jamjuree_medium"
-                    android:gravity="center|center_vertical"
-                    android:text="Business Associates"
-                    android:textAlignment="center"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_17ssp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            style="@style/title_basicreg_18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/business_associates"
+            android:textColor="@color/white" />
+    </RelativeLayout>
 
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/_12sdp"
+        app:cardElevation="@dimen/_4sdp">
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </LinearLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
         <LinearLayout
             android:id="@+id/l1"
@@ -71,7 +62,7 @@
             android:background="@drawable/blue_border_box"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/activeBA_toolbar">
+            app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
                 android:id="@+id/tabActiveBA"
@@ -138,6 +129,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/l1" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

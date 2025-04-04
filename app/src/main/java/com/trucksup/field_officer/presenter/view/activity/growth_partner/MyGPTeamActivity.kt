@@ -4,21 +4,14 @@ import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.activity.enableEdgeToEdge
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.ViewPager2
 import com.trucksup.field_officer.R
-import com.trucksup.field_officer.databinding.ActivityBusinessAssociatesNewBinding
 import com.trucksup.field_officer.databinding.ActivityMyTeamGpBinding
 import com.trucksup.field_officer.databinding.AddScheduledLayoutBinding
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
-import com.trucksup.field_officer.presenter.view.adapter.MyTeamBAActiveAdapter
 import com.trucksup.field_officer.presenter.view.adapter.MyTeamGPAdapter
-import com.trucksup.field_officer.presenter.view.fragment.ba.ActiveBAFragment
-import com.trucksup.fieldofficer.adapter.FragmentAdapter
 import java.util.Calendar
 
 class MyGPTeamActivity : BaseActivity() {

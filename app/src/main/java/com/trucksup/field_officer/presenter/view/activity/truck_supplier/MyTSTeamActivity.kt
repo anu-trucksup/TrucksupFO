@@ -47,8 +47,8 @@ class MyTSTeamActivity : BaseActivity() {
 
         try {
             val adapter = FragmentAdapter(this)
-            val fragment1: Fragment? = MyTeamTSActiveFragment()
-            val fragment2: Fragment? = MyTeamTSInActiveFragment()
+            val fragment1: Fragment = MyTeamTSActiveFragment()
+            val fragment2: Fragment = MyTeamTSInActiveFragment()
             adapter.addFragment(fragment1)
             adapter.addFragment(fragment2)
             binding.viewPager2.adapter = adapter

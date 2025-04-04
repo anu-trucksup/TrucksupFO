@@ -75,6 +75,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         }*/
 
         setupObserver()
+
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
     }
 

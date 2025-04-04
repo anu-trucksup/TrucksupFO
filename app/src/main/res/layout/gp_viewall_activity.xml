@@ -193,7 +193,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/l1"
-                    tools:listitem="@layout/item_active_ba" />
+                    tools:listitem="@layout/item_gp_viewall" />
 
                 <com.facebook.shimmer.ShimmerFrameLayout
                     android:id="@+id/shimmerLayout"

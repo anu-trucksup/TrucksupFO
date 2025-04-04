@@ -31,13 +31,14 @@ import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ActivityBaMaptripBinding
+import com.trucksup.field_officer.databinding.ActivityTsMaptripBinding
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.view.activity.other.HomeActivity
 import java.util.Locale
 
 
 class TSStartTripActivity : BaseActivity(), OnMapReadyCallback {
-    private lateinit var binding: ActivityBaMaptripBinding
+    private lateinit var binding: ActivityTsMaptripBinding
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var googleMap: GoogleMap
 
@@ -52,7 +53,7 @@ class TSStartTripActivity : BaseActivity(), OnMapReadyCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        binding = ActivityBaMaptripBinding.inflate(layoutInflater)
+        binding = ActivityTsMaptripBinding.inflate(layoutInflater)
         adjustFontScale(resources.configuration, 1.0f);
         setContentView(binding.root)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
@@ -69,6 +70,11 @@ class TSStartTripActivity : BaseActivity(), OnMapReadyCallback {
                  getString(R.string.resand_sms))
              happinessCodeBox.show()*/
             startActivity(Intent(this, TSScheduledMeetingActivity::class.java))
+        }
+
+
+        binding.ivBack.setOnClickListener {
+            onBackPressed()
         }
     }
 

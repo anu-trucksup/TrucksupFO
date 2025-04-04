@@ -52,23 +52,16 @@ class SubscriptionActivity : BaseActivity(), PaySubscribtion, PlanCantroler {
 
         mViewModel = ViewModelProvider(this)[SubscriptionViewModel::class.java]
 
-        /*  handler = Handler()
-          binding.nestedScrollView.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
-              if (scrollY > oldScrollY) {
-                  binding.hindBt.visibility = View.GONE
-                  HelpUnit.downHint = false
-              }
-          })
-
-          binding.hindBt.setOnClickListener {
-              LoggerMessage.LogErrorMsg("Click on button", ">>>>>>>>true")
-              binding.nestedScrollView.fullScroll(View.FOCUS_DOWN)
-          }*/
-
         setupObserver()
+
+        setPlanList(arrayListOf())
     }
 
     private fun setupObserver() {
+        binding.ivBack.setOnClickListener {
+          onBackPressed()
+        }
+
         mViewModel?.resultSubPlanListLD?.observe(this@SubscriptionActivity) { responseModel ->                     // login function observe
             if (responseModel.serverError != null) {
                 dismissProgressDialog()
@@ -196,12 +189,12 @@ class SubscriptionActivity : BaseActivity(), PaySubscribtion, PlanCantroler {
 
         //  Collections.reverse(mainList);
 
-        val adapror = SubscriptionAdaptor(this, list!!, this)
+        val subsAdapter = SubscriptionAdapterTest(this, list!!, this)
 
         binding.planView.layoutManager = GridLayoutManager(this, 2)
 
-        binding.planView.adapter = adapror
-        adapror.notifyDataSetChanged()
+        binding.planView.adapter = subsAdapter
+        subsAdapter.notifyDataSetChanged()
     }
 
 
@@ -785,11 +778,11 @@ class SubscriptionActivity : BaseActivity(), PaySubscribtion, PlanCantroler {
         renew()
     }
 
-    override fun onResume() {
+   /* override fun onResume() {
         super.onResume()
         showProgressDialog(this, false)
         // createBill()
-    }
+    }*/
 
     private fun renew() {
         binding.nestedScrollView.fullScroll(View.FOCUS_UP);

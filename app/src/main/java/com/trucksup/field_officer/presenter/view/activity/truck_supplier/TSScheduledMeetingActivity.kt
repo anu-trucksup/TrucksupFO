@@ -18,6 +18,7 @@ import com.trucksup.field_officer.databinding.ActivityOwnerScheduledMeetingBindi
 import com.trucksup.field_officer.databinding.AddNewTruckLayoutBinding
 import com.trucksup.field_officer.databinding.PreferredLaneDialogBinding
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
+import com.trucksup.field_officer.presenter.view.activity.business_associate.BAPerformanceActivity
 import com.trucksup.field_officer.presenter.view.adapter.TrucksDetailsAdap
 import com.trucksup.fieldofficer.adapter.PreferredLaneAdap
 import java.io.File
@@ -45,8 +46,8 @@ class TSScheduledMeetingActivity : BaseActivity(), PreferredLaneAdap.ControllerL
 
     private fun setListener() {
         //back button
-        binding.backButton.setOnClickListener {
-            finish()
+        binding.ivBack.setOnClickListener {
+           onBackPressed()
         }
 
         //add preferred lane
@@ -63,21 +64,21 @@ class TSScheduledMeetingActivity : BaseActivity(), PreferredLaneAdap.ControllerL
         binding.selfiPic.setOnClickListener {
             photo1 = true
             photo2 = false
-            val camera_intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            startForResult.launch(camera_intent)
+          /*  val camera_intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            startForResult.launch(camera_intent)*/
         }
 
         //office pic image
         binding.officePic.setOnClickListener {
             photo2 = true
             photo1 = false
-            val camera_intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            startForResult.launch(camera_intent)
+         /*   val camera_intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            startForResult.launch(camera_intent)*/
         }
 
         //submit button
         binding.btnSubmit.setOnClickListener {
-            finish()
+            startActivity(Intent(this, TSFollowupActivity::class.java))
         }
 
         //cancel button

@@ -11,14 +11,14 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.trucksup.field_officer.databinding.DateFilterBinding
-import com.trucksup.field_officer.databinding.FragmentBrokerCompletedBinding
-import com.trucksup.field_officer.presenter.view.adapter.BrokerCompleted
+import com.trucksup.field_officer.databinding.FragmentOwnerCompletedBinding
+import com.trucksup.field_officer.presenter.view.adapter.TSCompletedAdapter
 import com.trucksup.field_officer.presenter.common.dialog.DialogBoxes
 
 class BACompletedFragment : Fragment() {
 
-    private lateinit var binding: FragmentBrokerCompletedBinding
     private var aContext: Context? = null
+    private lateinit var binding: FragmentOwnerCompletedBinding
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -28,12 +28,10 @@ class BACompletedFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        binding = FragmentBrokerCompletedBinding.inflate(inflater, container, false)
+    ): View {
+        binding = FragmentOwnerCompletedBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -53,18 +51,18 @@ class BACompletedFragment : Fragment() {
 
         //filter
         binding.imgFilter.setOnClickListener {
-            DialogBoxes.setFilter(aContext!!, "ba")
+            DialogBoxes.setFilter(aContext!!, "owner")
         }
     }
 
     private fun setRvList() {
-        var list = ArrayList<String>()
+        val list = ArrayList<String>()
         list.add("")
         list.add("")
         list.add("")
         binding.rv.apply {
             layoutManager = LinearLayoutManager(aContext, RecyclerView.VERTICAL, false)
-            adapter = BrokerCompleted(aContext, list)
+            adapter = TSCompletedAdapter(aContext!!, list)
             hasFixedSize()
         }
     }

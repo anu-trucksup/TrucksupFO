@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/_8sdp"
+    android:layout_margin="@dimen/_6sdp"
     android:background="@drawable/background3">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -12,7 +13,7 @@
         android:layout_height="match_parent"
         android:layout_marginHorizontal="@dimen/_1sdp"
         android:layout_marginTop="@dimen/_1sdp"
-        android:background="@drawable/background2"
+        android:background="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,16 +24,19 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/_2sdp"
+            android:background="@drawable/background2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
+                android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_4sdp"
                 android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:padding="@dimen/_4sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -40,392 +44,515 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_3sdp"
-                    android:layout_marginTop="@dimen/_3sdp"
-                    android:layout_marginEnd="@dimen/_3sdp"
-                    android:layout_weight="2"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="@dimen/_5sdp"
-                        android:layout_weight="1.25"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="@dimen/_18sdp"
-                            android:layout_height="@dimen/_18sdp"
-                            android:layout_gravity="center_vertical"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/delivery_truck_icon" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_weight="1.5"
-                            android:fontFamily="@font/bai_jamjuree_semi_bold"
-                            android:maxLines="1"
-                            android:paddingStart="@dimen/_5sdp"
-                            android:paddingTop="@dimen/_1sdp"
-                            android:paddingEnd="@dimen/_3sdp"
-                            android:paddingBottom="@dimen/_1sdp"
-                            android:text="Last Meeting: Never Met "
-                            android:textColor="@color/blue_tr80"
-                            android:textSize="@dimen/_9ssp" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="@dimen/_5sdp"
-                        android:layout_weight=".75"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="@dimen/_18sdp"
-                            android:layout_height="@dimen/_18sdp"
-                            android:layout_gravity="center_vertical"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/meeting_count" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_weight="1.5"
-                            android:fontFamily="@font/bai_jamjuree_semi_bold"
-                            android:maxLines="1"
-                            android:paddingStart="@dimen/_5sdp"
-                            android:paddingTop="@dimen/_1sdp"
-                            android:paddingEnd="@dimen/_3sdp"
-                            android:paddingBottom="@dimen/_1sdp"
-                            android:text="Meeting count : 5"
-                            android:textColor="@color/blue"
-                            android:textSize="@dimen/_9ssp" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
-
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_3sdp"
-                        android:layout_marginEnd="@dimen/_3sdp"
-                        android:layout_weight="1.25"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/name"
-                            style="@style/label_semi"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:maxLines="1"
-                            android:text="ABC TRANSPORTER "
-                            android:textColor="@color/black"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/_5sdp"
-                        android:layout_weight=".75"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="@dimen/_10sdp"
-                            android:layout_height="@dimen/_10sdp"
-                            android:src="@drawable/call_14" />
-
-                        <TextView
-                            android:id="@+id/tv_mobile"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_2sdp"
-                            android:fontFamily="@font/bai_jamjuree_medium"
-                            android:maxLines="1"
-                            android:text="9874346734"
-                            android:textColor="#4D4D4D"
-                            android:textSize="@dimen/_11ssp" />
-
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
-
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_3sdp"
-                        android:layout_marginEnd="@dimen/_3sdp"
-                        android:layout_weight="1.25"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="@dimen/_10sdp"
-                            android:layout_height="@dimen/_10sdp"
-                            android:src="@drawable/pin_icon" />
-
-                        <TextView
-                            android:id="@+id/address"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_2sdp"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/bai_jamjuree_medium"
-                            android:singleLine="true"
-                            android:text="336, Udyog Vihar, GURUGRAM"
-                            android:textColor="@color/text_grey"
-                            android:textSize="@dimen/_10ssp" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/_5sdp"
-                        android:layout_weight=".75"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="@dimen/_10sdp"
-                            android:layout_height="@dimen/_10sdp"
-                            android:src="@drawable/distance_icon" />
-
-                        <TextView
-                            android:id="@+id/tv_distance"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_2sdp"
-                            android:fontFamily="@font/bai_jamjuree_medium"
-                            android:maxLines="1"
-                            android:text="Distance: 12 KM"
-                            android:textColor="#4D4D4D"
-                            android:textSize="@dimen/_11ssp" />
-
-                    </LinearLayout>
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_2sdp"
-                    android:layout_weight="2">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1.25"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_3sdp"
-                            android:layout_marginEnd="@dimen/_3sdp"
-                            android:fontFamily="@font/bai_jamjuree_medium"
-                            android:maxLines="1"
-                            android:text="@string/last_call_initiated"
-                            android:textColor="@color/blue"
-                            android:textSize="@dimen/_9ssp" />
-
-                        <TextView
-                            android:id="@+id/tv_last_Call"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_3sdp"
-                            android:layout_marginEnd="@dimen/_3sdp"
-                            android:fontFamily="@font/bai_jamjuree_medium"
-                            android:maxLines="1"
-                            android:textColor="@color/blue"
-                            android:textSize="@dimen/_11ssp" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".75"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/resend_verification_code_txt"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/bai_jamjuree_medium"
-                            android:text="@string/resand_sms"
-                            android:textColor="@color/pink"
-                            android:textColorLink="@color/pink"
-                            android:textSize="@dimen/_8sdp" />
-
-                    </LinearLayout>
-
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_2sdp"
-                    android:layout_weight="2">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1.25"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_3sdp"
-                            android:layout_marginEnd="@dimen/_3sdp"
-                            android:fontFamily="@font/bai_jamjuree_medium"
-                            android:maxLines="1"
-                            android:text="@string/visit_type"
-                            android:textColor="@color/blue"
-                            android:textSize="@dimen/_9ssp" />
-
-                        <TextView
-                            android:id="@+id/tv_visit"
-                            style="@style/text_medium"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_3sdp"
-                            android:layout_marginEnd="@dimen/_3sdp"
-                            android:maxLines="1"
-                            android:text="First time"
-                            android:textColor="@color/black_4d"
-                            android:textSize="@dimen/_11ssp" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight=".75"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_marginStart="@dimen/_2sdp"
-                            android:background="@drawable/blue_button"
-                            android:fontFamily="@font/bai_jamjuree_medium"
-                            android:gravity="center"
-                            android:paddingHorizontal="@dimen/_9ssp"
-                            android:paddingVertical="@dimen/_4sdp"
-                            android:text="@string/add_schedule"
-                            android:textAlignment="center"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/_10ssp" />
-
-                    </LinearLayout>
-
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_25sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:background="@drawable/background4"
-                    android:orientation="horizontal">
+                    android:layout_marginRight="@dimen/_2sdp"
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1.4"
-                        android:gravity="center"
+                        android:layout_weight="2"
                         android:orientation="horizontal">
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="@dimen/_3sdp"
-                            android:src="@drawable/kyc_done_icon_svg" />
-
-                        <TextView
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:drawablePadding="@dimen/_4sdp"
-                            android:fontFamily="@font/bai_jamjuree_semi_bold"
-                            android:paddingStart="@dimen/_6sdp"
-                            android:paddingTop="@dimen/_1sdp"
-                            android:paddingEnd="@dimen/_6sdp"
-                            android:paddingBottom="@dimen/_1sdp"
-                            android:text="KYC"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/_9ssp" />
+                            android:layout_weight=".75"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="@dimen/_10sdp"
+                                android:layout_height="@dimen/_10sdp"
+                                android:src="@drawable/ic_watch" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_2sdp"
+                                android:fontFamily="@font/bai_jamjuree_medium"
+                                android:maxLines="1"
+                                android:text="Last Meeting: Never Met "
+                                android:textColor="@color/blue"
+                                android:textSize="@dimen/_11ssp" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1.25"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="@dimen/_10sdp"
+                                android:layout_height="@dimen/_10sdp"
+                                android:src="@drawable/ic_business" />
+
+                            <TextView
+                                android:id="@+id/tv_meetingCount"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_4sdp"
+                                android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                android:maxLines="1"
+                                android:text="Meeting Count: 5"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="@dimen/_9ssp" />
+
+                        </LinearLayout>
 
                     </LinearLayout>
 
                     <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".75"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/name"
+                                style="@style/label_semi"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:maxLines="1"
+                                android:text="ABC TRANSPORTER "
+                                android:textColor="@color/black" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_2sdp"
+                                android:fontFamily="@font/bai_jamjuree_medium"
+                                android:maxLines="1"
+                                android:text="12-11-2024 10:53:00"
+                                android:textColor="@color/blue"
+                                android:textSize="@dimen/_11ssp" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1.25"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="@dimen/_10sdp"
+                                android:layout_height="@dimen/_10sdp"
+                                android:src="@drawable/ic_call" />
+
+                            <TextView
+                                android:id="@+id/tv_mobile"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_4sdp"
+                                android:fontFamily="@font/bai_jamjuree_medium"
+                                android:maxLines="1"
+                                android:text="6532548976"
+                                android:textColor="@color/text_grey"
+                                android:textSize="@dimen/_9ssp" />
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/_3sdp"
+                            android:layout_weight=".75"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="@dimen/_10sdp"
+                                android:layout_height="@dimen/_10sdp"
+                                android:src="@drawable/pin_icon" />
+
+                            <TextView
+                                android:id="@+id/address"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_2sdp"
+                                android:fontFamily="@font/bai_jamjuree_medium"
+                                android:maxLines="5"
+                                android:text="336, Udyog Vihar, GURUGRAM"
+                                android:textColor="@color/text_grey"
+                                android:textSize="@dimen/_10ssp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1.25"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="@dimen/_10sdp"
+                                android:layout_height="@dimen/_10sdp"
+                                android:src="@drawable/distance_icon" />
+
+                            <TextView
+                                android:id="@+id/tv_distance"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_4sdp"
+                                android:fontFamily="@font/bai_jamjuree_medium"
+                                android:maxLines="1"
+                                android:text="Distance: 12 KM"
+                                android:textColor="@color/text_grey"
+                                android:textSize="@dimen/_9ssp" />
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/lineartvSubscriptionPlan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:layout_marginBottom="@dimen/_8sdp"
+                        android:orientation="vertical"
+                        android:visibility="visible"
+                        android:weightSum="2">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="start|center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="@dimen/_10sdp"
+                                android:layout_height="@dimen/_10sdp"
+                                android:src="@drawable/subscription_plan_icon" />
+
+                            <TextView
+                                android:id="@+id/tvSubscriptionPlan"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_2sdp"
+                                android:fontFamily="@font/bai_jamjuree_medium"
+                                android:text="@string/subscription_plan"
+                                android:textColor="@color/text_grey"
+                                android:textSize="@dimen/_11ssp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="3">
+
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                app:cardBackgroundColor="@color/white"
+                                app:cardCornerRadius="@dimen/_6sdp"
+                                app:cardElevation="@dimen/_2sdp"
+                                app:cardUseCompatPadding="true"
+                                app:strokeColor="@color/pink"
+                                app:strokeWidth="@dimen/_1sdp">
+
+
+                                <TextView
+                                    android:id="@+id/tv_plan"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/bai_jamjuree_medium"
+                                    android:gravity="center"
+                                    android:text="Silver Plan"
+                                    android:textColor="@color/blue"
+                                    android:textSize="@dimen/_9ssp" />
+
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                app:cardBackgroundColor="@color/white"
+                                app:cardCornerRadius="@dimen/_6sdp"
+                                app:cardElevation="@dimen/_2sdp"
+                                app:cardUseCompatPadding="true"
+                                app:strokeColor="@color/pink"
+                                app:strokeWidth="@dimen/_1sdp">
+
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginLeft="@dimen/_4sdp"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/bai_jamjuree_medium"
+                                    android:gravity="center_vertical"
+                                    android:text="Loads Added: 50"
+                                    android:textColor="@color/blue"
+                                    android:textSize="@dimen/_9ssp" />
+
+
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                app:cardBackgroundColor="@color/white"
+                                app:cardCornerRadius="@dimen/_6sdp"
+                                app:cardElevation="@dimen/_2sdp"
+                                app:cardUseCompatPadding="true"
+                                app:strokeColor="@color/pink"
+                                app:strokeWidth="@dimen/_1sdp">
+
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginLeft="@dimen/_4sdp"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/bai_jamjuree_medium"
+                                    android:gravity="center_vertical"
+                                    android:text="Loads Left: 50"
+                                    android:textColor="@color/blue"
+                                    android:textSize="@dimen/_9ssp" />
+
+
+                            </com.google.android.material.card.MaterialCardView>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".75"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/_3sdp"
+                                android:fontFamily="@font/bai_jamjuree_medium"
+                                android:maxLines="1"
+                                android:text="@string/last_call_initiated"
+                                android:textColor="@color/blue"
+                                android:textSize="@dimen/_9ssp" />
+
+                            <TextView
+                                android:id="@+id/tv_last_Call"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_3sdp"
+                                android:layout_marginEnd="@dimen/_3sdp"
+                                android:fontFamily="@font/bai_jamjuree_medium"
+                                android:maxLines="1"
+                                android:textColor="@color/blue"
+                                android:textSize="@dimen/_11ssp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1.25"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tv_send_happiness_code"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/bai_jamjuree_medium"
+                                android:gravity="end"
+                                android:maxLines="1"
+                                android:text="@string/send_happiness_code"
+                                android:textAlignment="textEnd"
+                                android:textColor="@color/pink"
+                                android:textSize="@dimen/_9ssp"
+                                android:visibility="gone" />
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".75"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/_3sdp"
+                                android:fontFamily="@font/bai_jamjuree_medium"
+                                android:maxLines="1"
+                                android:text="@string/visit_type"
+                                android:textColor="@color/blue"
+                                android:textSize="@dimen/_9ssp" />
+
+                            <TextView
+                                android:id="@+id/tv_visit"
+                                style="@style/text_medium"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_3sdp"
+                                android:layout_marginEnd="@dimen/_3sdp"
+                                android:maxLines="1"
+                                android:text="First time"
+                                android:textColor="@color/black_4d"
+                                android:textSize="@dimen/_11ssp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="end|bottom"
+                            android:gravity="end|bottom"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tv_add_schedule"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:background="@drawable/blue_76"
+                                android:backgroundTint="@color/colorPrimary"
+                                android:fontFamily="@font/bai_jamjuree_regular"
+                                android:gravity="center"
+                                android:maxLines="1"
+                                android:paddingHorizontal="@dimen/_4sdp"
+                                android:text="@string/add_schedule"
+                                android:textAlignment="center"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/_8ssp" />
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_25sdp"
+                android:background="@drawable/background4"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1.4"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginStart="@dimen/_5sdp"
-                        android:gravity="center"
-                        android:orientation="horizontal">
+                        android:layout_marginStart="@dimen/_3sdp"
+                        android:src="@drawable/kyc_done_icon_svg" />
 
-                        <ImageView
-                            android:layout_width="@dimen/_18sdp"
-                            android:layout_height="@dimen/_18sdp"
-                            android:layout_gravity="center_vertical"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/delivery_truck_icon" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:drawablePadding="@dimen/_4sdp"
+                        android:fontFamily="@font/bai_jamjuree_semi_bold"
+                        android:paddingStart="@dimen/_6sdp"
+                        android:paddingTop="@dimen/_1sdp"
+                        android:paddingEnd="@dimen/_6sdp"
+                        android:paddingBottom="@dimen/_1sdp"
+                        android:text="KYC"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_9ssp" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_weight="1.5"
-                            android:fontFamily="@font/bai_jamjuree_semi_bold"
-                            android:maxLines="1"
-                            android:paddingStart="@dimen/_5sdp"
-                            android:paddingTop="@dimen/_1sdp"
-                            android:paddingEnd="@dimen/_3sdp"
-                            android:paddingBottom="@dimen/_1sdp"
-                            android:text="No. of Trucks Added : 5"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/_9ssp" />
+                </LinearLayout>
 
-                    </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/_18sdp"
+                        android:layout_height="@dimen/_18sdp"
+                        android:layout_gravity="center_vertical"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/delivery_truck_icon" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1.5"
+                        android:fontFamily="@font/bai_jamjuree_semi_bold"
+                        android:maxLines="1"
+                        android:paddingStart="@dimen/_5sdp"
+                        android:paddingTop="@dimen/_1sdp"
+                        android:paddingEnd="@dimen/_3sdp"
+                        android:paddingBottom="@dimen/_1sdp"
+                        android:text="No. of Trucks Added : 5"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_9ssp" />
 
                 </LinearLayout>
 

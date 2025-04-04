@@ -53,7 +53,7 @@ class OwnerScheduledMeetingActivity : AppCompatActivity(), PreferredLaneAdap.Con
 
     private fun setListener() {
         //back button
-        binding.backButton.setOnClickListener {
+        binding.ivBack.setOnClickListener {
             finish()
         }
 

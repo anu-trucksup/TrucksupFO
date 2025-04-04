@@ -7,14 +7,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.trucksup.field_officer.R
-import com.trucksup.field_officer.databinding.ActivityMyTeamTsNewBinding
-import com.trucksup.field_officer.databinding.ActivityTsPerformstatusBinding
 import com.trucksup.field_officer.databinding.ActivityUnassignedTsBaBinding
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.view.activity.truck_supplier.unassigned_ts_ba.fragment.UnAssignedBAFragment
 import com.trucksup.field_officer.presenter.view.activity.truck_supplier.unassigned_ts_ba.fragment.UnAssignedTSFragment
-import com.trucksup.field_officer.presenter.view.fragment.ts.MyTeamTSActiveFragment
-import com.trucksup.field_officer.presenter.view.fragment.ts.MyTeamTSInActiveFragment
 import com.trucksup.fieldofficer.adapter.FragmentAdapter
 
 class UnAssignedTSBAActivity : BaseActivity() {
@@ -51,8 +47,8 @@ class UnAssignedTSBAActivity : BaseActivity() {
 
         try {
             val adapter = FragmentAdapter(this)
-            val fragment1: Fragment? = UnAssignedTSFragment()
-            val fragment2: Fragment? = UnAssignedBAFragment()
+            val fragment1: Fragment = UnAssignedTSFragment()
+            val fragment2: Fragment = UnAssignedBAFragment()
             adapter.addFragment(fragment1)
             adapter.addFragment(fragment2)
             binding.viewPager2.adapter = adapter

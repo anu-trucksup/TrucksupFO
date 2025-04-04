@@ -147,12 +147,22 @@
             android:name=".presenter.view.activity.truck_supplier.TSStartTripActivity"
             android:exported="false" />
 
+
         <activity
-            android:name=".presenter.view.activity.business_associate.BAScheduledMeetingActivity"
+            android:name=".presenter.view.activity.growth_partner.GPStartTripActivity"
             android:exported="false" />
+
 
         <activity
             android:name=".presenter.view.activity.truck_supplier.TSScheduledMeetingActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".presenter.view.activity.business_associate.BAScheduleMeetingActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".presenter.view.activity.growth_partner.GPScheduleMeetingActivity"
             android:exported="false" />
 
         <activity
@@ -183,6 +193,16 @@
             android:exported="false" />
 
         <activity
+            android:name=".presenter.view.activity.growth_partner.GPOnBoardStoreProofActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presenter.view.activity.growth_partner.GPOnboardingBankActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presenter.view.activity.growth_partner.GpOnboardingPreviewActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".presenter.view.activity.miscellaneous.MiscActivity"
             android:exported="false" />
 
@@ -195,7 +215,7 @@
             android:exported="false" />
 
         <activity
-            android:name=".presenter.view.activity.truck_supplier.TSPerformStatusActivity"
+            android:name=".presenter.view.activity.truck_supplier.TSViewAllActivity"
             android:exported="false" />
         <activity
             android:name=".presenter.view.activity.truck_supplier.UnAssignedTSActivity"
@@ -210,16 +230,13 @@
             android:exported="false" />
 
         <activity
-            android:name=".presenter.view.activity.business_associate.BAPerformStatusActivity"
+            android:name=".presenter.view.activity.business_associate.BAStatusViewAllActivity"
             android:exported="false" />
 
         <activity
             android:name=".presenter.view.activity.growth_partner.GPPerformanceActivity"
             android:exported="false" />
 
-        <activity
-            android:name=".presenter.view.activity.growth_partner.GPPerformStatusActivity"
-            android:exported="false" />
         <activity
             android:name=".presenter.view.activity.growth_partner.GPViewAllActivity"
             android:exported="false" />

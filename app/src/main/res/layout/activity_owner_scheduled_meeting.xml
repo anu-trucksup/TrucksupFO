@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:background="@color/white"
     tools:context=".presenter.view.activity.truck_supplier.TSScheduledMeetingActivity">
 
@@ -12,33 +13,49 @@
     <LinearLayout
         android:id="@+id/appBar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_50sdp"
+        android:layout_height="@dimen/_60sdp"
         android:background="@drawable/toolbar_grdient"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/backButton"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:paddingHorizontal="@dimen/_10sdp"
-            android:src="@drawable/left_back_icon"
-            app:tint="@color/white" />
-
-        <TextView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_marginHorizontal="@dimen/_10sdp"
-            android:fontFamily="@font/bai_jamjuree_medium"
-            android:gravity="center"
-            android:lines="1"
-            android:text="@string/truckSupplierfollow"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_14ssp" />
+            android:layout_height="@dimen/_64sdp">
+
+            <ImageButton
+                android:id="@+id/iv_back"
+                android:layout_width="@dimen/_28sdp"
+                android:layout_height="@dimen/_28sdp"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/circal_weight"
+                android:src="@drawable/ic_back_icon"
+                android:tint="@color/black"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="UseAppTint" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:drawableTint="@color/blue"
+                android:fontFamily="@font/bai_jamjuree_medium"
+                android:gravity="center|center_vertical"
+                android:text="@string/truckSupplierfollow"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_17ssp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
 
@@ -214,7 +231,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:visibility="gone"
                 android:orientation="horizontal">
 
                 <LinearLayout

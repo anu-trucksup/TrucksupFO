@@ -1,26 +1,25 @@
-package com.trucksup.field_officer.presenter.view.activity.truck_supplier
+package com.trucksup.field_officer.presenter.view.activity.business_associate
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.trucksup.field_officer.R
-import com.trucksup.field_officer.databinding.ActivityMyTeamTsNewBinding
-import com.trucksup.field_officer.databinding.ActivityTsPerformstatusBinding
+import com.trucksup.field_officer.databinding.ActivityBusinessAssociatesNewBinding
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
-import com.trucksup.field_officer.presenter.view.fragment.ts.MyTeamTSActiveFragment
-import com.trucksup.field_officer.presenter.view.fragment.ts.MyTeamTSInActiveFragment
+import com.trucksup.field_officer.presenter.view.fragment.ba.ActiveBAFragment
 import com.trucksup.fieldofficer.adapter.FragmentAdapter
 
-class TSPerformStatusActivity : BaseActivity() {
-    private lateinit var binding: ActivityTsPerformstatusBinding
+class BAStatusViewAllActivity : BaseActivity() {
+    private lateinit var binding: ActivityBusinessAssociatesNewBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_ts_performstatus)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_business_associates_new)
         val view = binding.root
         setContentView(view)
 
@@ -29,10 +28,6 @@ class TSPerformStatusActivity : BaseActivity() {
     }
 
     private fun setListener() {
-        //back button
-        binding.ivBack.setOnClickListener {
-            onBackPressed()
-        }
         //find button
         binding.tabActiveBA.setOnClickListener {
             binding.viewPager2.setCurrentItem(0, true)
@@ -42,14 +37,19 @@ class TSPerformStatusActivity : BaseActivity() {
         binding.tabInActiveBA.setOnClickListener {
             binding.viewPager2.setCurrentItem(1, true)
         }
+
+        //back button
+        binding.ivBack.setOnClickListener {
+            onBackPressed()
+        }
     }
 
     private fun setupViewPager() {
 
         try {
             val adapter = FragmentAdapter(this)
-            val fragment1: Fragment? = MyTeamTSActiveFragment()
-            val fragment2: Fragment? = MyTeamTSInActiveFragment()
+            val fragment1: Fragment = ActiveBAFragment()
+            val fragment2: Fragment = ActiveBAFragment()
             adapter.addFragment(fragment1)
             adapter.addFragment(fragment2)
             binding.viewPager2.adapter = adapter
@@ -62,13 +62,13 @@ class TSPerformStatusActivity : BaseActivity() {
                     if (position == 0) {
                         binding.tabActiveBA.setBackgroundDrawable(
                             ContextCompat.getDrawable(
-                                this@TSPerformStatusActivity,
+                                this@BAStatusViewAllActivity,
                                 R.drawable.ba_tab_unselected_background
                             )
                         );
                         binding.tabInActiveBA.setBackgroundDrawable(
                             ContextCompat.getDrawable(
-                                this@TSPerformStatusActivity,
+                                this@BAStatusViewAllActivity,
                                 R.drawable.tab_selected_background
                             )
                         );
@@ -83,13 +83,13 @@ class TSPerformStatusActivity : BaseActivity() {
 
                         binding.tabInActiveBA.setBackgroundDrawable(
                             ContextCompat.getDrawable(
-                                this@TSPerformStatusActivity,
+                                this@BAStatusViewAllActivity,
                                 R.drawable.ba_tab_unselected_background
                             )
                         );
                         binding.tabActiveBA.setBackgroundDrawable(
                             ContextCompat.getDrawable(
-                                this@TSPerformStatusActivity,
+                                this@BAStatusViewAllActivity,
                                 R.drawable.tab_selected_background
                             )
                         );
@@ -102,13 +102,13 @@ class TSPerformStatusActivity : BaseActivity() {
                     } else {
                         binding.tabInActiveBA.setBackgroundDrawable(
                             ContextCompat.getDrawable(
-                                this@TSPerformStatusActivity,
+                                this@BAStatusViewAllActivity,
                                 R.drawable.tab_selected_background
                             )
                         );
                         binding.tabActiveBA.setBackgroundDrawable(
                             ContextCompat.getDrawable(
-                                this@TSPerformStatusActivity,
+                                this@BAStatusViewAllActivity,
                                 R.drawable.tab_unselected_background
                             )
                         );

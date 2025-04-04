@@ -11,20 +11,20 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.trucksup.field_officer.databinding.DateFilterBinding
-import com.trucksup.field_officer.databinding.FragmentBrokerScheduledBinding
-import com.trucksup.field_officer.presenter.view.adapter.BrokerScheduled
+import com.trucksup.field_officer.databinding.FragmentOwnerScheduledBinding
+import com.trucksup.field_officer.presenter.view.adapter.TSScheduleFollowupAdapter
 import com.trucksup.field_officer.presenter.common.dialog.DialogBoxes
+import com.trucksup.field_officer.presenter.view.adapter.BAScheduleFollowupAdapter
 
 class BAScheduledFragment : Fragment() {
 
-    private lateinit var binding: FragmentBrokerScheduledBinding
-    private var aContext:Context?=null
+    private var aContext: Context? = null
+    private lateinit var binding: FragmentOwnerScheduledBinding
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is FragmentActivity)
-        {
-            aContext=context
+        if (context is FragmentActivity) {
+            aContext = context
         }
     }
 
@@ -32,26 +32,26 @@ class BAScheduledFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
-        binding=FragmentBrokerScheduledBinding.inflate(inflater,container,false)
+        binding = FragmentOwnerScheduledBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         setRvList()
 
         setOnListeners()
     }
 
     private fun setRvList() {
-        var list=ArrayList<String>()
+        val list = ArrayList<String>()
         list.add("")
         list.add("")
         list.add("")
         binding.rv.apply {
-            layoutManager=LinearLayoutManager(aContext,RecyclerView.VERTICAL,false)
-            adapter= BrokerScheduled(aContext,list)
+            layoutManager = LinearLayoutManager(aContext, RecyclerView.VERTICAL, false)
+            adapter = BAScheduleFollowupAdapter(aContext, list)
             hasFixedSize()
         }
     }
@@ -64,7 +64,7 @@ class BAScheduledFragment : Fragment() {
 
         //filter
         binding.imgFilter.setOnClickListener {
-            DialogBoxes.setFilter(aContext!!,"ba")
+            DialogBoxes.setFilter(aContext!!, "owner")
         }
     }
 
@@ -85,6 +85,5 @@ class BAScheduledFragment : Fragment() {
             dialog.dismiss()
         }
     }
-
 
 }

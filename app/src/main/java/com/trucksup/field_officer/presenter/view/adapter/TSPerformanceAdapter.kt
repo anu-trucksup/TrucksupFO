@@ -1,12 +1,14 @@
 package com.trucksup.field_officer.presenter.view.adapter
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.trucksup.field_officer.R
+import com.trucksup.field_officer.databinding.DateFilterBinding
 import com.trucksup.field_officer.databinding.TsPerformItemBinding
 import com.trucksup.field_officer.databinding.TsScheduledItemBinding
 import com.trucksup.field_officer.presenter.common.dialog.HappinessCodeBox
@@ -32,11 +34,8 @@ class TSPerformanceAdapter(var context: Context?, var list: ArrayList<String>) :
             holder.binding.highLightView.setBackgroundResource(R.color.transeprant)
         }
 
-        holder.binding.resendVerificationCodeTxt.setOnClickListener {
-
-            val happinessCodeBox = HappinessCodeBox(context!! as Activity, context!!.getString(R.string.hapinessCodeMsg),
-                context!!.getString(R.string.EnterHappinessCode), context!!.getString(R.string.resand_sms))
-            happinessCodeBox.show()
+        holder.binding.btnSchedule.setOnClickListener {
+            dateFilterDialog()
         }
 
 
@@ -44,5 +43,23 @@ class TSPerformanceAdapter(var context: Context?, var list: ArrayList<String>) :
 
     override fun getItemCount(): Int {
         return list.size
+    }
+
+    private fun dateFilterDialog() {
+        val builder = AlertDialog.Builder(context)
+        val binding = DateFilterBinding.inflate(LayoutInflater.from(context))
+        builder.setView(binding.root)
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
+
+        //apply button
+        binding.btnApply.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        //cancel button
+        binding.btnCancel.setOnClickListener {
+            dialog.dismiss()
+        }
     }
 }

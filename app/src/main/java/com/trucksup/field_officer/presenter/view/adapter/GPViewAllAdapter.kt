@@ -16,7 +16,7 @@ class GPViewAllAdapter(var context: Context?, var list: ArrayList<String>) :
     inner class ViewHolder(var binding: ItemGpViewallBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        var v = ItemGpViewallBinding.inflate(LayoutInflater.from(context), parent, false)
+        val v = ItemGpViewallBinding.inflate(LayoutInflater.from(context), parent, false)
         return ViewHolder(v)
     }
 

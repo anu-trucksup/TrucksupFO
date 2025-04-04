@@ -41,9 +41,6 @@ class MiscActivity : BaseActivity(), AddMiscInterface {
     private var imageList2 = ArrayList<Bitmap>()
     private var imageType: Int = -1
 
-//    0=add misc image
-//    1=add incomplete mics image
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +55,11 @@ class MiscActivity : BaseActivity(), AddMiscInterface {
     }
 
     private fun setListener() {
+        //back button
+        binding.ivBack.setOnClickListener {
+            onBackPressed()
+        }
+
         binding.d1.setOnClickListener {
             if (binding.rvd1.visibility == View.GONE) {
                 binding.rvd1.visibility = View.VISIBLE

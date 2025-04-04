@@ -37,7 +37,7 @@ class UnAssignedTSFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentUnassignedTsBinding.inflate(inflater, container, false)
         return binding.root
@@ -48,11 +48,7 @@ class UnAssignedTSFragment : Fragment() {
 
         setRvList()
         setOnListeners()
-
-
     }
-
-
 
     private fun setRvList() {
         val list = ArrayList<String>()
@@ -67,10 +63,6 @@ class UnAssignedTSFragment : Fragment() {
     }
 
     private fun setOnListeners() {
-        //date picker
-        binding.imgCalender.setOnClickListener {
-            dateFilterDialog()
-        }
 
         //filter
         binding.imgFilter.setOnClickListener {

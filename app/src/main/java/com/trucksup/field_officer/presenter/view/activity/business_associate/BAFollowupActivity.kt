@@ -7,6 +7,8 @@ import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.BaFollowupActivityBinding
 import com.trucksup.field_officer.databinding.FragmentBrokerBinding
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
+import com.trucksup.field_officer.presenter.view.fragment.ba.BACompletedFragment
+import com.trucksup.field_officer.presenter.view.fragment.ba.BAScheduledFragment
 import com.trucksup.field_officer.presenter.view.fragment.ts.TSCompletedFragment
 import com.trucksup.field_officer.presenter.view.fragment.ts.TSScheduledFragment
 import com.trucksup.fieldofficer.adapter.FragmentAdapter
@@ -46,8 +48,8 @@ class BAFollowupActivity : BaseActivity() {
 
         try {
             val adapter = FragmentAdapter(this)
-            val fragment1 = TSScheduledFragment()
-            val fragment2 = TSCompletedFragment()
+            val fragment1 = BAScheduledFragment()
+            val fragment2 = BACompletedFragment()
             adapter.addFragment(fragment1)
             adapter.addFragment(fragment2)
 

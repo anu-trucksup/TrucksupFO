@@ -5,25 +5,29 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.enableEdgeToEdge
 import com.trucksup.field_officer.R
-import com.trucksup.field_officer.databinding.ActivityGaNewOnboardingBinding
+import com.trucksup.field_officer.databinding.ActivityGpOnboardingBinding
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 
 class GPOnboardingActivity : BaseActivity() {
-    private lateinit var binding: ActivityGaNewOnboardingBinding
+    private lateinit var binding: ActivityGpOnboardingBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        binding = ActivityGaNewOnboardingBinding.inflate(layoutInflater)
+        binding = ActivityGpOnboardingBinding.inflate(layoutInflater)
         adjustFontScale(resources.configuration, 1.0f);
         setContentView(binding.root)
 
         binding.btnAdd.setOnClickListener(){
-            CheckValidation()
+            checkValidation()
+        }
+
+        binding.ivBack.setOnClickListener(){
+            onBackPressed()
         }
     }
 
-    fun CheckValidation() {
+    private fun checkValidation() {
         if (binding.ETAccountHolderName.text.isEmpty()) {
             binding.ETAccountHolderName.requestFocus()
             binding.ETAccountHolderName.setError(getString(R.string.PleaseEnterContactName))

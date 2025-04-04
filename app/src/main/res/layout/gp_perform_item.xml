@@ -245,54 +245,53 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        app:strokeColor="@color/pink"
-                        app:strokeWidth="@dimen/_1sdp"
                         app:cardBackgroundColor="@color/white"
-                        app:cardUseCompatPadding="true"
                         app:cardCornerRadius="@dimen/_6sdp"
-                        app:cardElevation="@dimen/_2sdp">
+                        app:cardElevation="@dimen/_2sdp"
+                        app:cardUseCompatPadding="true"
+                        app:strokeColor="@color/pink"
+                        app:strokeWidth="@dimen/_1sdp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
-                            android:weightSum="3"
                             android:paddingHorizontal="@dimen/_4sdp"
-                            android:paddingVertical="@dimen/_2sdp">
+                            android:paddingVertical="@dimen/_2sdp"
+                            android:weightSum="3">
 
                             <ImageView
                                 android:layout_width="@dimen/_18sdp"
                                 android:layout_height="@dimen/_18sdp"
-                                android:layout_weight=".10"
                                 android:layout_gravity="center_vertical"
+                                android:layout_weight=".10"
                                 android:src="@drawable/finance_feature" />
 
                             <TextView
                                 android:id="@+id/tvName"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="@string/finance"
-                                android:textSize="@dimen/_9ssp"
-                                android:textColor="@color/blue"
-                                android:gravity="center_vertical"
-                                android:fontFamily="@font/bai_jamjuree_medium"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="@dimen/_4sdp"
-                                />
+                                android:layout_weight="1"
+                                android:fontFamily="@font/bai_jamjuree_medium"
+                                android:gravity="center_vertical"
+                                android:text="@string/finance"
+                                android:textColor="@color/blue"
+                                android:textSize="@dimen/_9ssp" />
 
                             <TextView
                                 android:id="@+id/tv_finance_count"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:textAlignment="textEnd"
-                                android:gravity="end|center_vertical"
                                 android:layout_gravity="end|center_vertical"
                                 android:layout_weight="1.90"
-                                android:text="10"
-                                android:textSize="@dimen/_11ssp"
-                                android:textColor="@color/blue"
                                 android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                android:gravity="end|center_vertical"
+                                android:text="10"
+                                android:textAlignment="textEnd"
+                                android:textColor="@color/blue"
+                                android:textSize="@dimen/_11ssp"
 
                                 />
 
@@ -304,53 +303,52 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        app:strokeColor="@color/pink"
-                        app:strokeWidth="@dimen/_1sdp"
                         app:cardBackgroundColor="@color/white"
-                        app:cardUseCompatPadding="true"
                         app:cardCornerRadius="@dimen/_6sdp"
-                        app:cardElevation="@dimen/_2sdp">
+                        app:cardElevation="@dimen/_2sdp"
+                        app:cardUseCompatPadding="true"
+                        app:strokeColor="@color/pink"
+                        app:strokeWidth="@dimen/_1sdp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
-                            android:weightSum="3"
                             android:paddingHorizontal="@dimen/_4sdp"
-                            android:paddingVertical="@dimen/_2sdp">
+                            android:paddingVertical="@dimen/_2sdp"
+                            android:weightSum="3">
 
                             <ImageView
                                 android:layout_width="@dimen/_18sdp"
                                 android:layout_height="@dimen/_18sdp"
-                                android:layout_weight=".10"
                                 android:layout_gravity="center_vertical"
+                                android:layout_weight=".10"
                                 android:src="@drawable/insure_feature" />
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="@string/insurance"
-                                android:textSize="@dimen/_9ssp"
-                                android:textColor="@color/blue"
-                                android:gravity="center_vertical"
-                                android:fontFamily="@font/bai_jamjuree_medium"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="@dimen/_4sdp"
-                                />
+                                android:layout_weight="1"
+                                android:fontFamily="@font/bai_jamjuree_medium"
+                                android:gravity="center_vertical"
+                                android:text="@string/insurance"
+                                android:textColor="@color/blue"
+                                android:textSize="@dimen/_9ssp" />
 
                             <TextView
                                 android:id="@+id/tv_insurance_count"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:textAlignment="textEnd"
-                                android:gravity="end|center_vertical"
                                 android:layout_gravity="end|center_vertical"
                                 android:layout_weight="1.90"
-                                android:text="10"
-                                android:textSize="@dimen/_11ssp"
-                                android:textColor="@color/blue"
                                 android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                android:gravity="end|center_vertical"
+                                android:text="10"
+                                android:textAlignment="textEnd"
+                                android:textColor="@color/blue"
+                                android:textSize="@dimen/_11ssp"
 
                                 />
 
@@ -362,53 +360,52 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        app:strokeColor="@color/pink"
-                        app:strokeWidth="@dimen/_1sdp"
                         app:cardBackgroundColor="@color/white"
-                        app:cardUseCompatPadding="true"
                         app:cardCornerRadius="@dimen/_6sdp"
-                        app:cardElevation="@dimen/_2sdp">
+                        app:cardElevation="@dimen/_2sdp"
+                        app:cardUseCompatPadding="true"
+                        app:strokeColor="@color/pink"
+                        app:strokeWidth="@dimen/_1sdp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
-                            android:weightSum="3"
                             android:paddingHorizontal="@dimen/_4sdp"
-                            android:paddingVertical="@dimen/_2sdp">
+                            android:paddingVertical="@dimen/_2sdp"
+                            android:weightSum="3">
 
                             <ImageView
                                 android:layout_width="@dimen/_18sdp"
                                 android:layout_height="@dimen/_18sdp"
-                                android:layout_weight=".10"
                                 android:layout_gravity="center_vertical"
+                                android:layout_weight=".10"
                                 android:src="@drawable/ic_gps_new" />
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="@string/gps"
-                                android:textSize="@dimen/_9ssp"
-                                android:textColor="@color/blue"
-                                android:gravity="center_vertical"
-                                android:fontFamily="@font/bai_jamjuree_medium"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="@dimen/_4sdp"
-                                />
+                                android:layout_weight="1"
+                                android:fontFamily="@font/bai_jamjuree_medium"
+                                android:gravity="center_vertical"
+                                android:text="@string/gps"
+                                android:textColor="@color/blue"
+                                android:textSize="@dimen/_9ssp" />
 
                             <TextView
                                 android:id="@+id/tv_gps_count"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:textAlignment="textEnd"
-                                android:gravity="end|center_vertical"
                                 android:layout_gravity="end|center_vertical"
                                 android:layout_weight="1.90"
-                                android:text="10"
-                                android:textSize="@dimen/_11ssp"
-                                android:textColor="@color/blue"
                                 android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                android:gravity="end|center_vertical"
+                                android:text="10"
+                                android:textAlignment="textEnd"
+                                android:textColor="@color/blue"
+                                android:textSize="@dimen/_11ssp"
 
                                 />
 
@@ -428,53 +425,52 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        app:strokeColor="@color/pink"
-                        app:strokeWidth="@dimen/_1sdp"
                         app:cardBackgroundColor="@color/white"
-                        app:cardUseCompatPadding="true"
                         app:cardCornerRadius="@dimen/_6sdp"
-                        app:cardElevation="@dimen/_2sdp">
+                        app:cardElevation="@dimen/_2sdp"
+                        app:cardUseCompatPadding="true"
+                        app:strokeColor="@color/pink"
+                        app:strokeWidth="@dimen/_1sdp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
-                            android:weightSum="3"
                             android:paddingHorizontal="@dimen/_4sdp"
-                            android:paddingVertical="@dimen/_2sdp">
+                            android:paddingVertical="@dimen/_2sdp"
+                            android:weightSum="3">
 
                             <ImageView
                                 android:layout_width="@dimen/_18sdp"
                                 android:layout_height="@dimen/_18sdp"
-                                android:layout_weight=".10"
                                 android:layout_gravity="center_vertical"
+                                android:layout_weight=".10"
                                 android:src="@drawable/ic_fasttag_new" />
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="@string/fastag"
-                                android:textSize="@dimen/_9ssp"
-                                android:textColor="@color/blue"
-                                android:gravity="center_vertical"
-                                android:fontFamily="@font/bai_jamjuree_medium"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="@dimen/_4sdp"
-                                />
+                                android:layout_weight="1"
+                                android:fontFamily="@font/bai_jamjuree_medium"
+                                android:gravity="center_vertical"
+                                android:text="@string/fastag"
+                                android:textColor="@color/blue"
+                                android:textSize="@dimen/_9ssp" />
 
                             <TextView
                                 android:id="@+id/tv_fastag_count"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:textAlignment="textEnd"
-                                android:gravity="end|center_vertical"
                                 android:layout_gravity="end|center_vertical"
                                 android:layout_weight="1.90"
-                                android:text="10"
-                                android:textSize="@dimen/_11ssp"
-                                android:textColor="@color/blue"
                                 android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                android:gravity="end|center_vertical"
+                                android:text="10"
+                                android:textAlignment="textEnd"
+                                android:textColor="@color/blue"
+                                android:textSize="@dimen/_11ssp"
 
                                 />
 
@@ -486,60 +482,58 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        app:strokeColor="@color/pink"
-                        app:strokeWidth="@dimen/_1sdp"
                         app:cardBackgroundColor="@color/white"
-                        app:cardUseCompatPadding="true"
                         app:cardCornerRadius="@dimen/_6sdp"
-                        app:cardElevation="@dimen/_2sdp">
+                        app:cardElevation="@dimen/_2sdp"
+                        app:cardUseCompatPadding="true"
+                        app:strokeColor="@color/pink"
+                        app:strokeWidth="@dimen/_1sdp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
-                            android:weightSum="3"
                             android:paddingHorizontal="@dimen/_4sdp"
-                            android:paddingVertical="@dimen/_2sdp">
+                            android:paddingVertical="@dimen/_2sdp"
+                            android:weightSum="3">
 
                             <ImageView
                                 android:layout_width="@dimen/_18sdp"
                                 android:layout_height="@dimen/_18sdp"
-                                android:layout_weight=".10"
                                 android:layout_gravity="center_vertical"
+                                android:layout_weight=".10"
                                 android:src="@drawable/fuel_feature" />
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="@string/smart_fuel"
-                                android:textSize="@dimen/_9ssp"
-                                android:textColor="@color/blue"
-                                android:gravity="center_vertical"
-                                android:fontFamily="@font/bai_jamjuree_medium"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="@dimen/_4sdp"
-                                />
+                                android:layout_weight="1"
+                                android:fontFamily="@font/bai_jamjuree_medium"
+                                android:gravity="center_vertical"
+                                android:text="@string/smart_fuel"
+                                android:textColor="@color/blue"
+                                android:textSize="@dimen/_9ssp" />
 
                             <TextView
                                 android:id="@+id/tv_smartfuel_count"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:textAlignment="textEnd"
-                                android:gravity="end|center_vertical"
                                 android:layout_gravity="end|center_vertical"
                                 android:layout_weight="1.90"
-                                android:text="10"
-                                android:textSize="@dimen/_11ssp"
-                                android:textColor="@color/blue"
                                 android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                android:gravity="end|center_vertical"
+                                android:text="10"
+                                android:textAlignment="textEnd"
+                                android:textColor="@color/blue"
+                                android:textSize="@dimen/_11ssp"
 
                                 />
 
                         </LinearLayout>
 
                     </com.google.android.material.card.MaterialCardView>
-
 
 
                 </LinearLayout>
@@ -652,15 +646,15 @@
                             android:id="@+id/tv_add_schedule"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="end"
                             android:layout_marginStart="@dimen/_2sdp"
                             android:background="@drawable/blue_button"
                             android:fontFamily="@font/bai_jamjuree_medium"
+                            android:gravity="center"
                             android:paddingHorizontal="@dimen/_9ssp"
                             android:paddingVertical="@dimen/_4sdp"
                             android:text="@string/add_schedule"
                             android:textAlignment="center"
-                            android:gravity="center"
-                            android:layout_gravity="end"
                             android:textColor="@color/white"
                             android:textSize="@dimen/_10ssp" />
 

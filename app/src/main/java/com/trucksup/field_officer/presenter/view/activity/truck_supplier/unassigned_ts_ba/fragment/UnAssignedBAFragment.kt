@@ -43,7 +43,7 @@ class UnAssignedBAFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentUnassignedBaBinding.inflate(inflater, container, false)
         return binding.root
@@ -70,10 +70,6 @@ class UnAssignedBAFragment : Fragment() {
     }
 
     private fun setOnListeners() {
-        //date picker
-        binding.imgCalender.setOnClickListener {
-            dateFilterDialog()
-        }
 
         //filter
         binding.imgFilter.setOnClickListener {

@@ -36,7 +36,6 @@ import com.trucksup.field_officer.presenter.view.activity.financeInsurance.Finan
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.InsuranceActivity
 import com.trucksup.field_officer.presenter.view.activity.profile.EditProfileActivity
 import com.trucksup.field_officer.presenter.view.activity.profile.MyEarningActivity
-import com.trucksup.field_officer.presenter.view.activity.truck_supplier.UnAssignedTSActivity
 import com.trucksup.field_officer.presenter.view.activity.truck_supplier.unassigned_ts_ba.activity.UnAssignedTSBAActivity
 import com.trucksup.field_officer.presenter.view.adapter.HomeFeaturesAdapter
 import com.trucksup.field_officer.presenter.view.adapter.ServicesMainAdapter
