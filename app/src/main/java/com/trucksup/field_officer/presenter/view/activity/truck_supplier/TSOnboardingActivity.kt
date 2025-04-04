@@ -1,20 +1,30 @@
 package com.trucksup.field_officer.presenter.view.activity.truck_supplier
 
 import android.app.AlertDialog
+import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.os.Environment
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.net.toUri
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.data.model.GenerateJWTtokenRequest
 import com.trucksup.field_officer.data.model.GenerateJWTtokenResponse
 import com.trucksup.field_officer.data.model.PinCodeRequest
 import com.trucksup.field_officer.databinding.ActivityTcNewOnboardingBinding
 import com.trucksup.field_officer.databinding.VerifyOtpDialogBinding
+import com.trucksup.field_officer.presenter.common.CameraActivity
+import com.trucksup.field_officer.presenter.common.FileHelp
 import com.trucksup.field_officer.presenter.common.MyAlartBox
 import com.trucksup.field_officer.presenter.common.dialog.HappinessCodeBox
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
@@ -22,7 +32,11 @@ import com.trucksup.field_officer.presenter.utils.PreferenceManager
 import com.trucksup.field_officer.presenter.view.activity.other.TokenViewModel
 import com.trucksup.field_officer.presenter.view.activity.truck_supplier.vml.TSOnboardViewModel
 import com.trucksup.field_officer.presenter.common.JWTtoken
+import com.trucksup.field_officer.presenter.utils.LoggerMessage
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.File
+import java.io.FileOutputStream
+import java.io.OutputStream
 import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
@@ -30,6 +44,8 @@ class TSOnboardingActivity : BaseActivity(), View.OnClickListener, JWTtoken {
     private lateinit var binding: ActivityTcNewOnboardingBinding
     private var mViewModel: TSOnboardViewModel? = null
     private var mTokenViewModel: TokenViewModel? = null
+    private var launcher: ActivityResultLauncher<Intent>? = null
+    private var imageUri:String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -41,17 +57,74 @@ class TSOnboardingActivity : BaseActivity(), View.OnClickListener, JWTtoken {
         setOnClicks()
 
         setupObserver()
+        camera()
+    }
+
+    fun camera() {
+        launcher = registerForActivityResult<Intent, ActivityResult>(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result: ActivityResult ->
+            if (result.resultCode == RESULT_OK) {
+                val data = result.data
+
+                try {
+                    imageUri = data!!.getStringExtra("result").toString()
+                    binding.profileImage?.let {
+                        Glide.with(getApplicationContext())
+                            .load(data!!.getStringExtra("result")?.toUri())
+                            .into(it)
+                    }
+                    //profileImage?.setRotation(270F)
+                    var orFile: File =
+                        FileHelp().getFile(this, data!!.getStringExtra("result")?.toUri())!!
+                    var newBitmap: Bitmap = FileHelp().FileToBitmap(orFile)
+
+
+                    val name = "trucksUp_image" + System.currentTimeMillis() + ".jpg"
+                    val pt = Environment.DIRECTORY_PICTURES //+  "/trucksUp";
+                    val MEDIA_PATH = Environment.getExternalStorageDirectory().absolutePath + "/" + pt + "/"
+
+                    val filesDir: File = getFilesDir()
+                    val imageFile = File(filesDir, name)
+
+                    val os: OutputStream
+                    os = FileOutputStream(imageFile)
+                    newBitmap.compress(Bitmap.CompressFormat.JPEG, 99, os)
+                    os.flush()
+                    os.close()
+
+                    //LoadingUtils?.showDialog(this, false)
+                    //LoadingUtils.showDialog(this, false)
+                    /*MyResponse()?.uploadImage(
+                        "jpg",
+                        "DOC" + PreferenceManager.getRequestNo(),
+                        "" + PreferenceManager.getPhoneNo(this),
+                        PreferenceManager.prepareFilePart(imageFile!!),
+                        this,
+                        this
+                    )*/
+                } catch (ex: Exception) {
+                    ex.printStackTrace()
+                }
+            }
+        }
+    }
+
+    private fun launchCamera(){
+            val intent: Intent = Intent(this, CameraActivity::class.java)
+            launcher!!.launch(intent)
     }
 
     private fun setOnClicks() {
         binding.btnAdd.setOnClickListener(this)
         binding.btnCancel.setOnClickListener(this)
         binding.ivBack.setOnClickListener(this)
+        binding.cvCamera.setOnClickListener(this)
 
 
         binding.eTPincode.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                if (binding.eTPincode.text.length == 6) {
+                /*if (binding.eTPincode.text.length == 6) {
                     showProgressDialog(this@TSOnboardingActivity, false)
                     val request = GenerateJWTtokenRequest(
                         username = PreferenceManager.getAccesUserName(this@TSOnboardingActivity),
@@ -66,7 +139,7 @@ class TSOnboardingActivity : BaseActivity(), View.OnClickListener, JWTtoken {
                         this@TSOnboardingActivity
                     )
 
-                }
+                }*/
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -83,6 +156,12 @@ class TSOnboardingActivity : BaseActivity(), View.OnClickListener, JWTtoken {
         if (binding.ETAccountHolderName.text.isEmpty()) {
             binding.ETAccountHolderName.requestFocus()
             binding.ETAccountHolderName.setError(getString(R.string.PleaseEnterContactName))
+        }else if (imageUri.isEmpty() || imageUri == null) {
+            LoggerMessage.onSNACK(
+                binding.cvCamera,
+                resources.getString(R.string.PleaseSelectStorePhoto),
+                this
+            )
         } else if (binding.ETAccountHolderNumber.text.isEmpty()) {
             binding.ETAccountHolderNumber.requestFocus()
             binding.ETAccountHolderNumber.setError(getString(R.string.PleaseEnterContactNumber))
@@ -92,10 +171,10 @@ class TSOnboardingActivity : BaseActivity(), View.OnClickListener, JWTtoken {
         } else if (binding.ETBusinessName.text.isEmpty()) {
             binding.ETBusinessName.requestFocus()
             binding.ETBusinessName.setError(getString(R.string.PleaseEnterBusinessName))
-        } else if (binding.ETBusinessAddress.text.isEmpty()) {
+        } /*else if (binding.ETBusinessAddress.text.isEmpty()) {
             binding.ETBusinessAddress.requestFocus()
             binding.ETBusinessAddress.setError(getString(R.string.PleaseEnterBusinessAddress))
-        } else if (binding.eTPincode.text.isEmpty()) {
+        }*/ else if (binding.eTPincode.text.isEmpty()) {
             binding.eTPincode.requestFocus()
             binding.eTPincode.setError(getString(R.string.PleaseEnterBusinessPincode))
         } else if (binding.eTPincode.text.length < 6) {
@@ -234,6 +313,7 @@ class TSOnboardingActivity : BaseActivity(), View.OnClickListener, JWTtoken {
             R.id.btnAdd -> checkValidation()
             R.id.iv_back -> onBackPressed()
             R.id.btnCancel -> onBackPressed()
+            R.id.cvCamera -> launchCamera()
         }
     }
 

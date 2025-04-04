@@ -120,6 +120,12 @@
         <item name="android:textStyle">bold</item>
         <item name="android:fontFamily">@font/bai_jamjuree_semi_bold</item>
     </style>
+    <style name="label_semi16" parent="Base.Theme.FieldOfficer">
+        <item name="android:textSize">@dimen/_16ssp</item>
+        <item name="android:textColor">@color/blue</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/bai_jamjuree_semi_bold</item>
+    </style>
 
     <style name="label_16" parent="Base.Theme.FieldOfficer">
         <item name="android:textSize">@dimen/_14ssp</item>

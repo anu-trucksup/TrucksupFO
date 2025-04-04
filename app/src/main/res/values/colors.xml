@@ -121,5 +121,6 @@
     <color name="disable_text_color">#7F8C8D</color>
     <color name="text_red">#C60E15</color>
     <color name="dark_gray0">#8C99A8</color>
+    <color name="drop_unselect">#80B5B5B5</color>
 
 </resources>
