@@ -41,9 +41,9 @@ class FinanceActivity : BaseActivity(), ChipController {
         mViewModel = ViewModelProvider(this)[FinanceViewModel::class.java]
         //binding.name.setText(PreferenceManager.getUserData(this)?.profileName)
 
-        binding.mobileNumber.setText(PreferenceManager.getPhoneNo(this))
+        PreferenceManager.setPhoneNo("8527257606", this)
 
-        PreferenceManager.setPhoneNo("8707517063", this)
+        binding.mobileNumber.setText(PreferenceManager.getPhoneNo(this))
 
         setupObserver()
         //binding.etReferralCode.setText(PreferenceManager.getUserData(this)?.salesCode)
@@ -96,7 +96,7 @@ class FinanceActivity : BaseActivity(), ChipController {
 
                     updateData(
                         responseModel.success.message.toString(),
-                        responseModel.success.message1!!
+                        responseModel.success.message1
                     )
 
                 } else {
@@ -140,9 +140,7 @@ class FinanceActivity : BaseActivity(), ChipController {
         mViewModel?.getFinanceData(request)
     }
 
-    fun updateData(message: String, message1: String) {
-        dismissProgressDialog()
-        dismissProgressDialog()
+    private fun updateData(message: String, message1: String) {
         val abx = FinaceSubmitBox(this, message, message1, "cl")
         abx.show()
     }
@@ -158,7 +156,7 @@ class FinanceActivity : BaseActivity(), ChipController {
         LoggerMessage.onSNACK(binding.city, error, this)
     }
 
-    fun clickSelf(v: View) {
+   /* fun clickSelf(v: View) {
         loanFor = "self"
         binding.self.setBackgroundResource(R.drawable.self_finace_bt_blue)
         binding.self.setTextColor(resources.getColor(R.color.white))
@@ -223,7 +221,7 @@ class FinanceActivity : BaseActivity(), ChipController {
 //        binding.etReferralCode.keyListener = EditText(this).keyListener  // restore typing capability
 
         getData()
-    }
+    }*/
 
     /* override fun GoogleApiKey(key: String, view: TextView, type: String, apiType: String) {
          dismissProgressDialog()
@@ -327,8 +325,7 @@ class FinanceActivity : BaseActivity(), ChipController {
     }
 
     @SuppressLint("SuspiciousIndentation")
-    fun
-            dataSubmit() {
+    fun dataSubmit() {
 
         val request = LoanDataSubmitRequest(
             binding.city.text.toString(),
