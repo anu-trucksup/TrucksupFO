@@ -131,7 +131,6 @@
     <string name="UploadChequePassbook_star">Upload Cheque / Passbook<font color='#FF0000'>*</font></string>
 
 
-
     <string name="BaNewOnboardingTab">To onboard a new business associate, please provide the following details.</string>
     <string name="Onboardings">Onboardings</string>
 
@@ -143,8 +142,6 @@
     <string name="PleaseenterGPName">Please enter GP Name</string>
     <string name="PleaseBusinessType">Please enter Business Type</string>
     <string name="PleaseBusinessAddress">Please enter Business Address</string>
-
-
 
 
     <string name="TcNewOnboardingTab">To onboard a new truck supplier, please provide the following details.</string>
@@ -163,10 +160,12 @@
     <string name="ContactName_star">Contact Name <font color='#FF0000'>*</font></string>
     <string name="ContactNumber_star">Contact Number <font color='#FF0000'>*</font></string>
     <string name="BusinessName_star">Business Name <font color='#FF0000'>*</font></string>
+    <string name="BusinessNameContect_star">Business Name/Contact Name <font color='#FF0000'>*</font></string>
     <string name="BusinessType_star">Business Type <font color='#FF0000'>*</font></string>
     <string name="BusinessAddress_star">Business Address <font color='#FF0000'>*</font></string>
     <string name="Pincode_star">Pincode <font color='#FF0000'>*</font></string>
     <string name="City_star">City <font color='#FF0000'>*</font></string>
+    <string name="sub_City_star">Sub-City <font color='#FF0000'>*</font></string>
     <string name="State_star">State <font color='#FF0000'>*</font></string>
     <string name="ProfilePhoto_star">Profile Photo <font color='#FF0000'>*</font></string>
 
@@ -208,6 +207,7 @@
     <string name="StoreProof">Store Proof</string>
     <string name="PleaseSelectStorePhoto">Please select or click the store photo</string>
     <string name="PleasetakeSelfie">Please take selfie for your profile.</string>
+    <string name="PleasetakephotoTS">Please take photo of the TS.</string>
     <string name="misc">Miscellaneous</string>
     <string name="follow_up">Follow Up</string>
     <string name="select_the_user_type_you_want_to_onboard">Select the user type you want to onboard.</string>
@@ -285,6 +285,7 @@
     <string name="rc_back_image">RC Back Image</string>
     <string name="previous_policy_document">Previous Policy Document</string>
     <string name="add">Add</string>
+    <string name="proceed">Proceed</string>
     <string name="add_new_finance">Add New Finance Enquiry</string>
     <string name="add_new_insurance">Add New Insurance Enquiry</string>
     <string name="previous_enquiries">Previous Enquiries</string>
@@ -579,5 +580,18 @@
     <string name="validnameformate">Enter valid name format.</string>
     <string name="enterProfileName">Enter Profile name</string>
     <string name="enter_valid_mobile">\"Enter valid mobile number.\"</string>
+
+    <string name="business_document">Business document</string>
+    <string name="visiting_card">Visiting card</string>
+    <string name="trade_licence">Trade License</string>
+    <string name="signage_board">Signage board</string>
+    <string name="GSTIN_Certificate">GSTIN Certificate</string>
+    <string name="shop_establishment">Shop and establishment</string>
+    <string name="choose_document_type">Choose document type</string>
+    <string name="upload_business_iD_proof">Upload business iD proof</string>
+    <string name="select_any_one_document_type">Select any one document type</string>
+    <string name="doc_disc_new">Please click a clear picture of your <b>(Document Type)</b> proof.</string>
+    <string name="upload">Upload</string>
+
 
 </resources>

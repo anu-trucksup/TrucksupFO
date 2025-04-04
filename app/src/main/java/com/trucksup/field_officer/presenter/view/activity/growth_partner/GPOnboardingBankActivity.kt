@@ -130,7 +130,6 @@ class GPOnboardingBankActivity : AppCompatActivity(), GetImage, View.OnClickList
         }
     }
 
-
     private fun checkLocationPermission() {
 
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA)
