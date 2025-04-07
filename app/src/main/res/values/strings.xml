@@ -248,6 +248,7 @@
     <string name="insurance_previous_enquiry">Insurance</string>
     <string name="finance_msg2">Create a new finance enquiry with the following details.</string>
     <string name="insurance_msg2">Create a new insurance enquiry with the following details.</string>
+    <string name="smartfuel_msg">Create a new smart fuel card enquiry with the following details.</string>
     <string name="mobile_no_colon">Mobile No.:</string>
     <string name="ref_id">Ref. ID</string>
     <string name="insurance_validity_error">Please input valid insurance validity.</string>
@@ -615,8 +616,25 @@
     <string name="purchased_on">Purchased on</string>
     <string name="total_leads_added">Total Leads Added</string>
     <string name="amount_disbursed">[Amount Disbursed]</string>
-    <string name="rc_front_image_error">Please upload the RC front image.</string>
-    <string name="rc_back_image_error">Please upload the RC back image.</string>
+    <string name="mobile_customer">Customer Mobile Number <font color='#FF0000'>*</font></string>
+    <string name="vehicle_customer">Customer Vehicle Number <font color='#FF0000'>*</font></string>
+    <string name="email_customer">Customer Email <font color='#FF0000'>*</font></string>
+    <string name="name_customer">Customer Full Name <font color='#FF0000'>*</font></string>
+    <string name="customer_vehicle_no">Customer Vehicle Number <font color='#FF0000'>*</font></string>
+    <string name="pan_details">Customer PAN Details <font color='#FF0000'>*</font></string>
+    <string name="pan_number_s">PAN Number <font color='#FF0000'>*</font></string>
+    <string name="add_details">Customer Address Details</string>
+    <string name="cancelled_cheque_photo">Cancelled Cheque Photo</string>
+    <string name="declaration_form">Declaration Form</string>
+    <string name="declare_document">If vehicle is attached or purchased from someone else, kindly upload the declaration form.</string>
+    <string name="activated">Activated</string>
+    <string name="current">Current</string>
+    <string name="add_front_image">Address Front Photo <font color='#FF0000'>*</font></string>
+    <string name="add_back_image">Address Back Photo <font color='#FF0000'>*</font></string>
+    <string name="select_address_proof">Select Address Proof</string>
+    <string name="bank_details">Bank Details</string>
+    <string name="vrc_front_image">Vehicle RC Front Image <font color='#FF0000'>*</font></string>
+    <string name="vrc_back_image">Vehicle RC Back Image <font color='#FF0000'>*</font></string>
 
 
 </resources>

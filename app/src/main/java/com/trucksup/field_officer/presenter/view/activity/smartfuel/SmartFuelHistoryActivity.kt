@@ -149,8 +149,8 @@ class SmartFuelHistoryActivity : BaseActivity() {
     fun addNewEnquiry(view: View) {
         val intent = Intent(this, AddSmartFuelActivity::class.java)
         startActivity(intent)
+        finish()
 
     }
-
 
 }

@@ -36,6 +36,7 @@ import com.trucksup.field_officer.presenter.view.activity.financeInsurance.Finan
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.InsuranceActivity
 import com.trucksup.field_officer.presenter.view.activity.profile.EditProfileActivity
 import com.trucksup.field_officer.presenter.view.activity.profile.MyEarningActivity
+import com.trucksup.field_officer.presenter.view.activity.smartfuel.AddSmartFuelActivity
 import com.trucksup.field_officer.presenter.view.activity.truck_supplier.unassigned_ts_ba.activity.UnAssignedTSBAActivity
 import com.trucksup.field_officer.presenter.view.adapter.HomeFeaturesAdapter
 import com.trucksup.field_officer.presenter.view.adapter.ServicesMainAdapter
@@ -280,6 +281,10 @@ class HomeActivity : BaseActivity(), OnItemClickListner {
             }
             2 -> {
                 val intent = Intent(this, InsuranceActivity::class.java)
+                startActivity(intent)
+            }
+            3 -> {
+                val intent = Intent(this, AddSmartFuelActivity::class.java)
                 startActivity(intent)
             }
             else -> {

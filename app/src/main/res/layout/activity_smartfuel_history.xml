@@ -40,7 +40,7 @@
                 android:gravity="center"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_14ssp"
-                tools:text="@string/smart_fuel" />
+                android:text="@string/smart_fuel" />
 
             <ImageView
                 android:id="@+id/btnTransactionHis"
@@ -157,7 +157,7 @@
                         android:gravity="center"
                         android:maxLines="1"
                         android:paddingVertical="@dimen/_5sdp"
-                        android:text="@string/active"
+                        android:text="@string/current"
                         android:textColor="@color/blue"
                         android:textSize="@dimen/_12ssp" />
 
@@ -184,7 +184,7 @@
                         android:gravity="center"
                         android:maxLines="1"
                         android:paddingVertical="@dimen/_5sdp"
-                        android:text="@string/completed"
+                        android:text="@string/activated"
                         android:textColor="@color/blue"
                         android:textSize="@dimen/_12ssp" />
 

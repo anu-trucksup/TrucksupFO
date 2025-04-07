@@ -46,6 +46,8 @@ class FinanceActivity : BaseActivity(), ChipController, CityPicker {
 
         setupObserver()
         //binding.etReferralCode.setText(PreferenceManager.getUserData(this)?.salesCode)
+
+        binding.etReferralCode.setText("7BGHJ9")
         getData()
     }
 

@@ -117,9 +117,7 @@ class AddSmartFuelActivity : BaseActivity(), InsuranceController, GetImage, Truc
                 }
             })
         }
-        binding.rvInsList.layoutManager =
-            LinearLayoutManager(this@AddSmartFuelActivity, RecyclerView.VERTICAL, false)
-        binding.rvInsList.adapter = adapter
+
     }
 
 
@@ -203,44 +201,16 @@ class AddSmartFuelActivity : BaseActivity(), InsuranceController, GetImage, Truc
             }
         }
 
-        //previous policy
+       /* //previous policy
         binding.imgPrevPolicyDoc.setOnClickListener {
             if (prevPolicyDocsImgKey.isNullOrEmpty()) {
                 imageT = 3
                 getImage()
             }
-        }
+        }*/
 
-        //plus button
-        binding.btnAddImage.setOnClickListener {
-            if (binding.vehicleDetailsCard.visibility == View.GONE) {
-                binding.vehicleDetailsCard.visibility = View.VISIBLE
-                binding.btnAddImage.visibility = View.GONE
-            }
 
-            binding.etVehicleNo.getText().clear()
-            binding.etInsValidity.text = ""
-
-            //clear rc front image
-            binding.cutFrontBtn.visibility = View.GONE
-            binding.imgFrontCamera.setImageDrawable(getDrawable(R.drawable.camera_new))
-            rcFrontImgKey = ""
-            rcFrontImgUrl = ""
-
-            //clear rc back image
-            binding.cutBackBtn.visibility = View.GONE
-            binding.imgBackCamera.setImageDrawable(getDrawable(R.drawable.camera_new))
-            rcBackImgKey = ""
-            rcBackImgUrl = ""
-
-            //clear previous policy docs image image
-            binding.cutPrevPolicyBtn.visibility = View.GONE
-            binding.imgPrevPolicyDoc.setImageDrawable(getDrawable(R.drawable.camera_new))
-            prevPolicyDocsImgKey = ""
-            prevPolicyDocsImgUrl = ""
-        }
-
-        //cut button
+       /* //cut button
         binding.btnCut.setOnClickListener {
 
             binding.vehicleDetailsCard.visibility = View.GONE
@@ -265,7 +235,7 @@ class AddSmartFuelActivity : BaseActivity(), InsuranceController, GetImage, Truc
             binding.imgPrevPolicyDoc.setImageDrawable(getDrawable(R.drawable.camera_new))
             prevPolicyDocsImgKey = ""
             prevPolicyDocsImgUrl = ""
-        }
+        }*/
 
         //cut front
         binding.cutFrontBtn.setOnClickListener {
@@ -285,188 +255,20 @@ class AddSmartFuelActivity : BaseActivity(), InsuranceController, GetImage, Truc
             rcBackImgUrl = ""
         }
 
-        //cut previous policy docs
+       /* //cut previous policy docs
         binding.cutPrevPolicyBtn.setOnClickListener {
             //clear previous policy docs image image
             binding.cutPrevPolicyBtn.visibility = View.GONE
             binding.imgPrevPolicyDoc.setImageDrawable(getDrawable(R.drawable.camera_new))
             prevPolicyDocsImgKey = ""
             prevPolicyDocsImgUrl = ""
-        }
+        }*/
 
-        //add button
-        binding.btnAdd.setOnClickListener {
-            if (TextUtils.isEmpty(binding.etVehicleNo.getText().toString())) {
-                LoggerMessage.onSNACK(
-                    binding.etVehicleNo,
-                    resources.getString(R.string.enterCommercialVehical),
-                    this
-                )
-            } else if (!checkVehicleNumber(binding.etVehicleNo.text.toString())) {
-                LoggerMessage.onSNACK(
-                    binding.etVehicleNo,
-                    resources.getString(R.string.enterRightCommercialVehical),
-                    this
-                )
-            } else if (binding.etInsValidity.text.toString().isNullOrEmpty()) {
-                LoggerMessage.onSNACK(
-                    binding.etInsValidity,
-                    resources.getString(R.string.insurance_validity_error),
-                    this
-                )
-            }
-//            else if (rcFrontImgKey.isNullOrEmpty())
-//            {
-//                LoggerMessage.onSNACK(
-//                    binding.imgFrontCamera,
-//                    resources.getString(R.string.rc_front_image_error),
-//                    this
-//                )
-//            }
-//            else if (rcBackImgKey.isNullOrEmpty())
-//            {
-//                LoggerMessage.onSNACK(
-//                    binding.imgBackCamera,
-//                    resources.getString(R.string.rc_back_image_error),
-//                    this
-//                )
-//            }
-            else {
-                addListItem()
-            }
-        }
-
-        //self button
-        binding.btnSelf.setOnClickListener {
-            //self
-            insuFor = "self"
-            binding.btnSelf.apply {
-                setStrokeColor(resources.getColor(R.color.blue))
-                setCardBackgroundColor(resources.getColor(R.color.blue))
-            }
-            binding.tvSelf.setTextColor(resources.getColor(R.color.white))
-
-            //other
-            binding.btnOther.apply {
-                setStrokeColor(resources.getColor(R.color.border_color))
-                setCardBackgroundColor(resources.getColor(R.color.chipColor))
-            }
-            binding.tvOther.setTextColor(resources.getColor(R.color.secondry_text))
-
-            //clear full name
-            // binding.etFullName.setText(PreferenceManager.getUserData(this)?.profileName)
-            binding.etMobile.setText(PreferenceManager.getPhoneNo(this))
-            // binding.etReferralCode.setText(PreferenceManager.getUserData(this)?.salesCode)
-
-            binding.etInsValidity.text = ""
-            binding.etFullName.isFocusable = false
-            binding.etFullName.isClickable = false  // optional, to disable click events
-            binding.etFullName.isFocusableInTouchMode = false
-            binding.etFullName.isCursorVisible = false  // optional, hide the cursor
-            binding.etFullName.keyListener = null
-
-            //referral code or sales code
-            binding.etReferralCode.isFocusable = false
-            binding.etReferralCode.isClickable = false  // optional, to disable click events
-            binding.etReferralCode.isFocusableInTouchMode = false
-            binding.etReferralCode.isCursorVisible = false  // optional, hide the cursor
-//            binding.etReferralCode.keyListener = null
-
-            //clear rc front image
-            binding.cutFrontBtn.visibility = View.GONE
-            binding.imgFrontCamera.setImageDrawable(getDrawable(R.drawable.camera_new))
-            rcFrontImgKey = ""
-            rcFrontImgUrl = ""
-
-            //clear rc back image
-            binding.cutBackBtn.visibility = View.GONE
-            binding.imgBackCamera.setImageDrawable(getDrawable(R.drawable.camera_new))
-            rcBackImgKey = ""
-            rcBackImgUrl = ""
-
-            //clear previous policy docs image image
-            binding.cutPrevPolicyBtn.visibility = View.GONE
-            binding.imgPrevPolicyDoc.setImageDrawable(getDrawable(R.drawable.camera_new))
-            prevPolicyDocsImgKey = ""
-            prevPolicyDocsImgUrl = ""
-
-            list.clear()
-            setRecyclerView()
-        }
-
-        //other button
-        binding.btnOther.setOnClickListener {
-            //other
-            insuFor = "other"
-            binding.btnOther.apply {
-                setStrokeColor(resources.getColor(R.color.blue))
-                setCardBackgroundColor(resources.getColor(R.color.blue))
-            }
-            binding.tvOther.setTextColor(resources.getColor(R.color.white))
-
-            //self
-            binding.btnSelf.apply {
-                setStrokeColor(resources.getColor(R.color.border_color))
-                setCardBackgroundColor(resources.getColor(R.color.chipColor))
-            }
-            binding.tvSelf.setTextColor(resources.getColor(R.color.secondry_text))
-
-            //clear full name
-            binding.etFullName.getText().clear()
-            //clear mobile
-            binding.etMobile.getText().clear()
-            //clear vehicle no.
-            binding.etVehicleNo.getText().clear()
-            //clear Insurance Validity
-            binding.etInsValidity.text = ""
-            //clear referral code
-            binding.etReferralCode.getText().clear()
-
-            binding.etFullName.isFocusable = true
-            binding.etFullName.isClickable = true  // optional, to re-enable click events
-            binding.etFullName.isFocusableInTouchMode = true
-            binding.etFullName.isCursorVisible = true  // optional, show the cursor
-            binding.etFullName.keyListener = EditText(this).keyListener
-
-            //referral code or sales code
-            binding.etReferralCode.isFocusable = true
-            binding.etReferralCode.isClickable = true  // optional, to re-enable click events
-            binding.etReferralCode.isFocusableInTouchMode = true
-            binding.etReferralCode.isCursorVisible = true  // optional, show the cursor
-//            binding.etReferralCode.keyListener = EditText(this).keyListener
-
-            //clear rc front image
-            binding.cutFrontBtn.visibility = View.GONE
-            binding.imgFrontCamera.setImageDrawable(getDrawable(R.drawable.camera_new))
-            rcFrontImgKey = ""
-            rcFrontImgUrl = ""
-
-            //clear rc back image
-            binding.cutBackBtn.visibility = View.GONE
-            binding.imgBackCamera.setImageDrawable(getDrawable(R.drawable.camera_new))
-            rcBackImgKey = ""
-            rcBackImgUrl = ""
-
-            //clear previous policy docs image image
-            binding.cutPrevPolicyBtn.visibility = View.GONE
-            binding.imgPrevPolicyDoc.setImageDrawable(getDrawable(R.drawable.camera_new))
-            prevPolicyDocsImgKey = ""
-            prevPolicyDocsImgUrl = ""
-
-            list.clear()
-            setRecyclerView()
-        }
-
-        //insurance validity button
-        binding.etInsValidity.setOnClickListener {
-            showDatePicker()
-        }
 
         //submit button
         binding.btnSumbit.setOnClickListener {
             if (list.size == 0 && binding.vehicleDetailsCard.visibility == View.GONE) {
                 binding.vehicleDetailsCard.visibility = View.VISIBLE
-                binding.btnAddImage.visibility = View.GONE
             }
 
             if (checkValidation()) {
@@ -479,13 +281,13 @@ class AddSmartFuelActivity : BaseActivity(), InsuranceController, GetImage, Truc
                             this
                         )
 
-                    } else if (binding.etInsValidity.text.toString().isNullOrEmpty()) {
+                    } /*else if (binding.etInsValidity.text.toString().isNullOrEmpty()) {
                         LoggerMessage.onSNACK(
                             binding.etInsValidity,
                             resources.getString(R.string.insurance_validity_error),
                             this
                         )
-                    }
+                    }*/
 //                    else if (rcFrontImgKey.isNullOrEmpty())
 //                    {
 //                        LoggerMessage.onSNACK(
@@ -505,7 +307,7 @@ class AddSmartFuelActivity : BaseActivity(), InsuranceController, GetImage, Truc
                     else {
                         list.add(
                             VehicleDetail(
-                                binding.etInsValidity.text.toString(),
+                                "",
                                 binding.etVehicleNo.text.toString(),
                                 rcFrontImgKey ?: "",
                                 rcBackImgKey ?: "",
@@ -537,7 +339,7 @@ class AddSmartFuelActivity : BaseActivity(), InsuranceController, GetImage, Truc
                         mViewModel?.submitInsuranceData(requestData)
                     }
 
-                } else if (!binding.etInsValidity.text.isNullOrEmpty() && list.size == 0) {
+                } else if (!binding.etEmail.text.isNullOrEmpty() && list.size == 0) {
                     if (!TextUtils.isEmpty(binding.etVehicleNo.text)) {
                         if (!checkVehicleNumber(binding.etVehicleNo.text.toString())) {
                             LoggerMessage.onSNACK(
@@ -547,26 +349,10 @@ class AddSmartFuelActivity : BaseActivity(), InsuranceController, GetImage, Truc
                             )
 
                         }
-//                        else if (rcFrontImgKey.isNullOrEmpty())
-//                        {
-//                            LoggerMessage.onSNACK(
-//                                binding.imgFrontCamera,
-//                                resources.getString(R.string.rc_front_image_error),
-//                                this
-//                            )
-//                        }
-//                        else if (rcBackImgKey.isNullOrEmpty())
-//                        {
-//                            LoggerMessage.onSNACK(
-//                                binding.imgBackCamera,
-//                                resources.getString(R.string.rc_back_image_error),
-//                                this
-//                            )
-//                        }
                         else {
                             list.add(
                                 VehicleDetail(
-                                    binding.etInsValidity.text.toString(),
+                                    "",
                                     binding.etVehicleNo.text.toString(),
                                     rcFrontImgKey ?: "",
                                     rcBackImgKey ?: "",
@@ -749,33 +535,11 @@ class AddSmartFuelActivity : BaseActivity(), InsuranceController, GetImage, Truc
                                 this
                             )
 
-                        } else if (binding.etInsValidity.text.toString().isNullOrEmpty()) {
-                            LoggerMessage.onSNACK(
-                                binding.etInsValidity,
-                                resources.getString(R.string.insurance_validity_error),
-                                this
-                            )
                         }
-//                        else if (rcFrontImgKey.isNullOrEmpty())
-//                        {
-//                            LoggerMessage.onSNACK(
-//                                binding.imgFrontCamera,
-//                                resources.getString(R.string.rc_front_image_error),
-//                                this
-//                            )
-//                        }
-//                        else if (rcBackImgKey.isNullOrEmpty())
-//                        {
-//                            LoggerMessage.onSNACK(
-//                                binding.imgBackCamera,
-//                                resources.getString(R.string.rc_back_image_error),
-//                                this
-//                            )
-//                        }
                         else {
                             list.add(
                                 VehicleDetail(
-                                    binding.etInsValidity.text.toString(),
+                                    "",
                                     binding.etVehicleNo.text.toString(),
                                     rcFrontImgKey ?: "",
                                     rcBackImgKey ?: "",
@@ -805,7 +569,7 @@ class AddSmartFuelActivity : BaseActivity(), InsuranceController, GetImage, Truc
 
                             mViewModel?.submitInsuranceData(requestData)
                         }
-                    } else if (!binding.etInsValidity.text.isNullOrEmpty()) {
+                    } else if (!binding.etEmail.text.isNullOrEmpty()) {
                         if (!TextUtils.isEmpty(binding.etVehicleNo.text)) {
                             if (!checkVehicleNumber(binding.etVehicleNo.text.toString())) {
                                 LoggerMessage.onSNACK(
@@ -815,26 +579,10 @@ class AddSmartFuelActivity : BaseActivity(), InsuranceController, GetImage, Truc
                                 )
 
                             }
-//                            else if (rcFrontImgKey.isNullOrEmpty())
-//                            {
-//                                LoggerMessage.onSNACK(
-//                                    binding.imgFrontCamera,
-//                                    resources.getString(R.string.rc_front_image_error),
-//                                    this
-//                                )
-//                            }
-//                            else if (rcBackImgKey.isNullOrEmpty())
-//                            {
-//                                LoggerMessage.onSNACK(
-//                                    binding.imgBackCamera,
-//                                    resources.getString(R.string.rc_back_image_error),
-//                                    this
-//                                )
-//                            }
                             else {
                                 list.add(
                                     VehicleDetail(
-                                        binding.etInsValidity.text.toString(),
+                                        "",
                                         binding.etVehicleNo.text.toString(),
                                         rcFrontImgKey ?: "",
                                         rcBackImgKey ?: "",
@@ -1090,36 +838,6 @@ class AddSmartFuelActivity : BaseActivity(), InsuranceController, GetImage, Truc
             )
             return false
         }
-
-        if (TextUtils.isEmpty(binding.etInsValidity.text) && list.size == 0) {
-            LoggerMessage.onSNACK(
-                binding.etInsValidity,
-                resources.getString(R.string.insurance_validity_error),
-                this
-            )
-            return false
-        }
-
-//        if (rcFrontImgKey.isNullOrEmpty() && list.size==0)
-//        {
-//            LoggerMessage.onSNACK(
-//                binding.imgFrontCamera,
-//                resources.getString(R.string.rc_front_image_error),
-//                this
-//            )
-//            return false
-//        }
-//
-//        if (rcBackImgKey.isNullOrEmpty() && list.size==0)
-//        {
-//            LoggerMessage.onSNACK(
-//                binding.imgBackCamera,
-//                resources.getString(R.string.rc_back_image_error),
-//                this
-//            )
-//            return false
-//        }
-
         return true
     }
 
@@ -1128,108 +846,18 @@ class AddSmartFuelActivity : BaseActivity(), InsuranceController, GetImage, Truc
         return vehicleNumber.matches(regex.toRegex())
     }
 
-    private fun addListItem() {
-        list.add(
-            0,
-            VehicleDetail(
-                binding.etInsValidity.text.toString(),
-                binding.etVehicleNo.text.toString(),
-                rcFrontImgKey ?: "",
-                rcBackImgKey ?: "",
-                prevPolicyDocsImgKey ?: "",
-                rcFrontImgUrl ?: "",
-                rcBackImgUrl ?: "",
-                prevPolicyDocsImgUrl ?: ""
-            )
-        )
-        setRecyclerView()
-        binding.etVehicleNo.getText().clear()
-        binding.etInsValidity.text = ""
-
-        //clear rc front image
-        binding.cutFrontBtn.visibility = View.GONE
-        binding.imgFrontCamera.setImageResource(R.drawable.camera_new)
-        rcFrontImgKey = ""
-        rcFrontImgUrl = ""
-
-        //clear rc back image
-        binding.cutBackBtn.visibility = View.GONE
-        binding.imgBackCamera.setImageResource(R.drawable.camera_new)
-        rcBackImgKey = ""
-        rcBackImgUrl = ""
-
-        //clear previous policy docs image image
-        binding.cutPrevPolicyBtn.visibility = View.GONE
-        binding.imgPrevPolicyDoc.setImageResource(R.drawable.camera_new)
-        prevPolicyDocsImgKey = ""
-        prevPolicyDocsImgUrl = ""
-
-        binding.vehicleDetailsCard.visibility = View.GONE
-        binding.btnAddImage.visibility = View.VISIBLE
-    }
-
-    private fun showDatePicker() {
-        // Create a DatePickerDialog
-        val datePickerDialog = DatePickerDialog(
-            this, { datepicker, year: Int, monthOfYear: Int, dayOfMonth: Int ->
-                // Create a new Calendar instance to hold the selected date
-                val selectedDate = Calendar.getInstance()
-                // Set the selected date using the values received from the DatePicker dialog
-                selectedDate.set(year, monthOfYear, dayOfMonth)
-                // Create a SimpleDateFormat to format the date as "dd/MM/yyyy"
-                val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
-                // Format the selected date into a string
-                val formattedDate = dateFormat.format(selectedDate.time)
-                // Update the TextView to display the selected date with the "Selected Date: " prefix
-                binding.etInsValidity.text = formattedDate
-            },
-            calendar.get(Calendar.YEAR),
-            calendar.get(Calendar.MONTH),
-            calendar.get(Calendar.DAY_OF_MONTH)
-        )
-        // Show the DatePicker dialog
-
-        val minDate = Calendar.getInstance()
-        minDate.add(Calendar.YEAR, -1);
-        val maxDate = Calendar.getInstance()
-        maxDate.add(Calendar.YEAR, 1);
-
-        datePickerDialog.datePicker.minDate = minDate.getTimeInMillis();
-        datePickerDialog.datePicker.maxDate = maxDate.getTimeInMillis()
-        datePickerDialog.show()
-    }
 
     override fun deleteTruck(po: Int) {
         list.removeAt(po)
         setRecyclerView()
     }
 
-    /*  override fun dataSubmited(message: String, message1: String) {
-        progressDailogBox?.dismiss()
-        var abx: FinaceSubmitBox =
-            FinaceSubmitBox(this, message, message1, "cl")
-        abx?.show()
-
-    }
-
-    override fun dataError(error: String) {
-        progressDailogBox?.dismiss()
-    }*/
 
     fun backScreen(v: View) {
         onBackPressed()
     }
 
-    fun mobileInfo(v: View) {
-        val menu = TruckMenu
-        menu.aboutPlan(this, binding.info, "", resources.getString(R.string.alt_mobile_info))
-    }
-
     private fun isValidPhoneNumber(phone: String): Boolean {
-//        var INDIAN_MOBILE_NUMBER_PATTERN="^[6-9]\\d{9}$"
-//        val pattern = Pattern.compile(INDIAN_MOBILE_NUMBER_PATTERN)
-//        val matcher = pattern.matcher(phone)
-//        return matcher.matches()
 
         val p = Pattern.compile("([6,7,8,9][0-9]{0,9})")
         val m = p.matcher(phone)
@@ -1735,11 +1363,11 @@ class AddSmartFuelActivity : BaseActivity(), InsuranceController, GetImage, Truc
         } else if (imageT == 3) {
             prevPolicyDocsImgKey = value
             prevPolicyDocsImgUrl = url
-            binding.cutPrevPolicyBtn.visibility = View.VISIBLE
+            binding.cutDeclareBtn.visibility = View.VISIBLE
             try {
                 Glide.with(this)
                     .load(R.drawable.pdf_icon)
-                    .into(binding.imgPrevPolicyDoc)
+                    .into(binding.imgchequeDoc)
             } catch (e: Exception) {
             }
         }
