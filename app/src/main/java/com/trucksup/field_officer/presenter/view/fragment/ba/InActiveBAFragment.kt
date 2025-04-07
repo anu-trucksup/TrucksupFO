@@ -1,88 +1,87 @@
-package com.trucksup.field_officer.presenter.view.adapter
+package com.trucksup.field_officer.presenter.view.fragment.ba
 
 import android.app.AlertDialog
 import android.content.Context
+import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.Adapter
-import com.trucksup.field_officer.data.model.FromToModel
 import com.trucksup.field_officer.databinding.AddScheduledLayoutBinding
-import com.trucksup.field_officer.databinding.ItemActiveBaBinding
-import com.trucksup.field_officer.databinding.ListDialogBinding
-import com.trucksup.field_officer.databinding.PreferredLaneDialogBinding
+import com.trucksup.field_officer.databinding.FragmentActiveBABinding
+import com.trucksup.field_officer.databinding.FragmentInactiveBaBinding
+import com.trucksup.field_officer.presenter.common.dialog.DialogBoxes
+import com.trucksup.field_officer.presenter.view.adapter.ActiveBAAdapter
+import com.trucksup.field_officer.presenter.view.adapter.InActiveBAAdapter
 import java.util.Calendar
 
-class ActiveBAAdapter(var context: Context?, var list: ArrayList<String>) :
-    Adapter<ActiveBAAdapter.ViewHolder>() {
 
-    private var controllerListener: ControllerListener? = null
+class InActiveBAFragment : Fragment() {
+    private var aContext: Context? = null
+    private lateinit var binding: FragmentInactiveBaBinding
 
-    inner class ViewHolder(var binding: ItemActiveBaBinding) : RecyclerView.ViewHolder(binding.root)
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        var v = ItemActiveBaBinding.inflate(LayoutInflater.from(context), parent, false)
-        return ViewHolder(v)
-    }
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
-        /*holder.binding.rvPlan.apply {
-            var list=ArrayList<String>()
-            list.add("Silver Plan")
-            list.add("Loads Added: 50")
-            list.add("Loads Left: 50")
-            layoutManager= LinearLayoutManager(context,RecyclerView.HORIZONTAL,false)
-            adapter=PlanAdapter(context,list)
-            hasFixedSize()
-        }*/
-
-        holder.binding.tvViewHistroy.setOnClickListener{
-            context?.let { it1 -> SubscriptionPurchaseHistoryDialog(it1) }
-        }
-        holder.binding.llProfile.setOnClickListener{
-            if(holder.binding.llDeatil.isVisible){
-                holder.binding.llDeatil.visibility = View.GONE
-            }else{
-                holder.binding.llDeatil.visibility = View.VISIBLE
-
-            }
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is FragmentActivity) {
+            aContext = context
         }
     }
 
-    override fun getItemCount(): Int {
-        return list.size
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
     }
 
-    fun setOnControllerListener(controllerListener: ControllerListener) {
-        this.controllerListener = controllerListener
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        binding = FragmentInactiveBaBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    interface ControllerListener {
-        fun onOpenLocation(location: String)
-        fun onDateTime()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setRvList()
+
+        setListener()
+
     }
 
-    private fun SubscriptionPurchaseHistoryDialog(context: Context) {
-        val builder = AlertDialog.Builder(context)
-        val binding = ListDialogBinding.inflate(LayoutInflater.from(context))
-        builder.setView(binding.root)
-        val dialog: AlertDialog = builder.create()
-        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+    private fun setListener() {
+        //add new truck owner button
+        /* binding.btnAddTruckOwner.setOnClickListener {
+             DialogBoxes.addLeadDialog(aContext!!,"Add Truck Owner",object : AddLeadInterface {
+                 override fun onLocation(dialog: AlertDialog, binding: AddLeadLayoutBinding) {
+                     binding.tvCurrentLocation.text=activity?.findViewById<TextView>(R.id.addressUpdate)?.text
+                 }
+             })
+         }*/
 
+        //filter
+        binding.imgFilter.setOnClickListener {
+            DialogBoxes.setFilter(aContext!!, "owner")
+        }
+    }
+
+    private fun setRvList() {
         var list = ArrayList<String>()
         list.add("")
         list.add("")
         list.add("")
-        binding.rvSecondServices.apply {
-            layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-            adapter = ListDialogAdapter(context, list).apply {
-                setOnControllerListener(object : ActiveBAAdapter.ControllerListener {
+        binding.rvActiveBA.apply {
+            layoutManager = LinearLayoutManager(aContext, RecyclerView.VERTICAL, false)
+            adapter = InActiveBAAdapter(aContext, list).apply {
+                setOnControllerListener(object : InActiveBAAdapter.ControllerListener {
                     override fun onOpenLocation(location: String) {
+                        // geocodeAddress(location)
+//                        DialogBoxes.locationPermission(aContext!!)
                     }
+
                     override fun onDateTime() {
                         val builder = AlertDialog.Builder(context)
                         val binding =
@@ -138,13 +137,7 @@ class ActiveBAAdapter(var context: Context?, var list: ArrayList<String>) :
             }
             hasFixedSize()
         }
-
-        dialog.show()
-
-        //cancel button
-        binding.imgCancel.setOnClickListener {
-            dialog.dismiss()
-        }
     }
 
 }
+

@@ -115,4 +115,18 @@
         <item name="android:fontFamily">@font/bai_jamjuree_medium</item>
     </style>
 
+    <style name="text_label_10" parent="Base.Theme.FieldOfficer">
+        <item name="android:textSize">@dimen/_10ssp</item>
+        <item name="android:textColor">@color/unsellect_text_color</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">@font/bai_jamjuree_medium</item>
+    </style>
+
+    <style name="text_label_8" parent="Base.Theme.FieldOfficer">
+        <item name="android:textSize">@dimen/_8ssp</item>
+        <item name="android:textColor">@color/not_active_color</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">@font/bai_jamjuree_semi_bold</item>
+    </style>
+
 </resources>

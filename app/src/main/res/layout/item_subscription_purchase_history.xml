@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="@dimen/_4sdp"
+        app:cardCornerRadius="@dimen/_8sdp"
+        app:cardBackgroundColor="@color/white"
+        app:strokeColor="@color/light_gray"
+        app:strokeWidth="@dimen/_1sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="@dimen/_6sdp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/_6sdp"
+            android:layout_margin="@dimen/_4sdp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_plan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/bai_jamjuree_bold"
+                    android:singleLine="true"
+                    android:text="Silver Plan"
+                    android:textColor="@color/card_dis"
+                    android:textSize="@dimen/_12sdp" />
+
+                <TextView
+                    android:id="@+id/tv_plan_durection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawablePadding="@dimen/_4sdp"
+                    android:fontFamily="@font/bai_jamjuree_bold"
+                    android:singleLine="true"
+                    android:text="Plan for 30 days"
+                    android:textColor="@color/card_dis"
+                    android:textSize="@dimen/_10sdp"
+                    android:textAlignment="textEnd"
+                    android:gravity="end"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/plan_purchess_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/bai_jamjuree_bold"
+                android:singleLine="true"
+                android:text="@string/purchased_on"
+                style="@style/text_label_header"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/plan_purchess_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawablePadding="@dimen/_4sdp"
+                android:fontFamily="@font/bai_jamjuree_bold"
+                android:singleLine="true"
+                android:text="@string/purchased_on"
+                android:textColor="@color/card_dis"
+                android:textSize="@dimen/_10sdp" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -33,6 +33,7 @@ import com.trucksup.field_officer.presenter.view.activity.other.TokenViewModel
 import com.trucksup.field_officer.presenter.view.activity.truck_supplier.vml.TSOnboardViewModel
 import com.trucksup.field_officer.presenter.common.JWTtoken
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
+import com.trucksup.field_officer.presenter.view.activity.other.WelcomeLocationActivity
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.io.FileOutputStream
@@ -181,12 +182,7 @@ class TSOnboardingActivity : BaseActivity(), View.OnClickListener, JWTtoken {
             binding.eTPincode.requestFocus()
             binding.eTPincode.setError(getString(R.string.PleaseEnterRightPincode))
         } else {
-            val HappinessCodeBox = HappinessCodeBox(
-                this, getString(R.string.hapinessCodeMsg),
-                getString(R.string.EnterHappinessCode),
-                getString(R.string.resand_sms)
-            )
-            HappinessCodeBox.show()
+            startActivity(Intent(this, TSTrackDetailsActivity::class.java))
         }
     }
 

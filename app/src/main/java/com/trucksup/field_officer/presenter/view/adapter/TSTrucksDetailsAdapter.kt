@@ -5,22 +5,23 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.trucksup.field_officer.databinding.AddTruckListItemsBinding
+import com.trucksup.field_officer.databinding.AddTsTruckDetailsItemsBinding
 import com.trucksup.field_officer.databinding.PreferredLaneItemBinding
 
-class TrucksDetailsAdap(
+class TSTrucksDetailsAdapter(
     var context: Context,
     var list: ArrayList<String>,
     var controllerListener: ControllerListener
-) : RecyclerView.Adapter<TrucksDetailsAdap.ViewHolder>() {
+) : RecyclerView.Adapter<TSTrucksDetailsAdapter.ViewHolder>() {
 
-    inner class ViewHolder(var binding: AddTruckListItemsBinding) :
+    inner class ViewHolder(var binding: AddTsTruckDetailsItemsBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): ViewHolder {
-        val v = AddTruckListItemsBinding.inflate(LayoutInflater.from(context), parent, false)
+        val v = AddTsTruckDetailsItemsBinding.inflate(LayoutInflater.from(context), parent, false)
         return ViewHolder(v)
     }
 

@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_8sdp"
     app:cardCornerRadius="@dimen/_8sdp"
-    app:strokeWidth="@dimen/_1sdp"
-    app:strokeColor="#B6B3B1"
-    app:cardElevation="0dp"
-    android:id="@+id/card"
-    app:cardBackgroundColor="@color/white"
-    android:layout_marginHorizontal="@dimen/_10sdp"
-    android:layout_marginTop="@dimen/_10sdp">
+    app:cardElevation="@dimen/_5sdp"
+    app:strokeColor="@color/blue_20"
+    app:strokeWidth="@dimen/_1sdp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingHorizontal="@dimen/_10sdp"
-        android:paddingVertical="@dimen/_5sdp">
+        android:paddingVertical="@dimen/_5sdp"
+        android:padding="@dimen/_8sdp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/l1"
@@ -37,35 +36,35 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tvName"
+                android:id="@+id/tveName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_5sdp"
                 android:fontFamily="@font/bai_jamjuree_semi_bold"
                 android:lines="1"
                 android:maxWidth="@dimen/_125sdp"
-                tools:text="Supriya Tripathi"
                 android:textColor="#4D4D4D"
                 android:textSize="@dimen/_11ssp"
-                app:layout_constraintEnd_toStartOf="@+id/tvClose"
+                app:layout_constraintEnd_toStartOf="@+id/tvAmount"
                 app:layout_constraintStart_toEndOf="@+id/image"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="" />
 
             <TextView
-                android:id="@+id/tvClose"
+                android:id="@+id/tvAmount"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_5sdp"
                 android:fontFamily="@font/bai_jamjuree_medium"
-                android:lines="1"
                 android:gravity="end"
-                tools:text="[Closed]"
-                android:textColor="@color/blue"
+                android:lines="1"
+                android:textColor="@color/green"
                 android:textSize="@dimen/_9ssp"
-                app:layout_constraintBottom_toBottomOf="@+id/tvName"
+                app:layout_constraintBottom_toBottomOf="@+id/tveName"
                 app:layout_constraintEnd_toStartOf="@+id/cardSelfOther"
-                app:layout_constraintStart_toEndOf="@+id/tvName"
-                app:layout_constraintTop_toTopOf="@+id/tvName" />
+                app:layout_constraintStart_toEndOf="@+id/tveName"
+                app:layout_constraintTop_toTopOf="@+id/tveName"
+                tools:text="@string/amount_disbursed" />
 
             <!--        #36A9E1 blue, #F45D1C orange-->
             <com.google.android.material.card.MaterialCardView
@@ -75,9 +74,9 @@
                 app:cardBackgroundColor="@color/ins_self"
                 app:cardCornerRadius="@dimen/_4sdp"
                 app:cardElevation="0dp"
-                app:layout_constraintBottom_toBottomOf="@+id/tvName"
+                app:layout_constraintBottom_toBottomOf="@+id/tveName"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tvName"
+                app:layout_constraintTop_toTopOf="@+id/tveName"
                 app:strokeWidth="0dp">
 
                 <TextView
@@ -85,11 +84,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/bai_jamjuree_medium"
-                    android:paddingHorizontal="@dimen/_6sdp"
-                    tools:text="Self"
                     android:lines="1"
+                    android:paddingHorizontal="@dimen/_6sdp"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/_9ssp" />
+                    android:textSize="@dimen/_9ssp"
+                    android:visibility="gone"
+                    tools:text="Self" />
 
             </com.google.android.material.card.MaterialCardView>
 
@@ -99,15 +99,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_5sdp"
                 android:fontFamily="@font/bai_jamjuree_medium"
-                tools:text="Mobile No: 9876543215"
                 android:textColor="#4D4D4D"
                 android:textSize="@dimen/_9ssp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/image"
-                app:layout_constraintTop_toBottomOf="@+id/tvName" />
+                app:layout_constraintTop_toBottomOf="@+id/tveName"
+                tools:text="" />
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardTrackStatus"
+                android:id="@+id/cardStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_5sdp"
@@ -132,16 +132,16 @@
             </com.google.android.material.card.MaterialCardView>
 
             <TextView
-                android:id="@+id/refId"
+                android:id="@+id/tvRefId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/bai_jamjuree_medium"
-                tools:text="Ref. ID #FIN37-142848PB"
                 android:textColor="@color/blue"
                 android:textSize="@dimen/_9ssp"
-                app:layout_constraintBottom_toBottomOf="@+id/cardTrackStatus"
+                app:layout_constraintBottom_toBottomOf="@+id/cardStatus"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/cardTrackStatus" />
+                app:layout_constraintTop_toTopOf="@+id/cardStatus"
+                tools:text="" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -150,21 +150,44 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/l1">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_20sdp"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:fontFamily="@font/bai_jamjuree_semi_bold"
-                android:lines="1"
-                android:text="@string/current_status"
-                android:textColor="#585858"
-                android:textSize="@dimen/_11ssp" />
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/_14sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/bai_jamjuree_semi_bold"
+                    android:lines="1"
+                    android:text="@string/current_status"
+                    android:textColor="#585858"
+                    android:textSize="@dimen/_11ssp" />
+
+                <TextView
+                    android:id="@+id/tv_send_happiness_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/bai_jamjuree_medium"
+                    android:gravity="end"
+                    android:maxLines="1"
+                    android:text="@string/send_happiness_code"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/pink"
+                    android:textSize="@dimen/_9ssp" />
+            </LinearLayout>
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvCurrentStatus"
@@ -175,15 +198,7 @@
 
         </LinearLayout>
 
-        <!--    <View-->
-        <!--        android:layout_width="match_parent"-->
-        <!--        android:layout_height="@dimen/_1sdp"-->
-        <!--        android:background="#4D3E2089"-->
-        <!--        app:layout_constraintStart_toStartOf="parent"-->
-        <!--        app:layout_constraintEnd_toEndOf="parent"-->
-        <!--        app:layout_constraintTop_toBottomOf="@+id/l2"-->
-        <!--        android:layout_marginTop="@dimen/_6sdp"/>-->
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </com.google.android.material.card.MaterialCardView>

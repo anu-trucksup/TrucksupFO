@@ -133,6 +133,7 @@
 
     <string name="BaNewOnboardingTab">To onboard a new business associate, please provide the following details.</string>
     <string name="Onboardings">Onboardings</string>
+    <string name="onboard">Onboard</string>
 
     <string name="SalesCode">Sales Code of BO <font color='#FF0000'>*</font></string>
     <string name="GPMobile">GP Mobile Number <font color='#FF0000'>*</font></string>
@@ -279,6 +280,8 @@
     <string name="no_data">No data found</string>
     <string name="rejected">Rejected</string>
     <string name="insurance_validity">Insurance Validity <font color='#FF0000'>*</font></string>
+    <string name="truck_details_validity">Truck Details <font color='#FF0000'>*</font></string>
+
     <string name="active">Active</string>
     <string name="vehicle_details">Vehicle Details</string>
     <string name="rc_front_image">RC Front Image</string>
@@ -325,6 +328,7 @@
     <string name="enter_vehicle_number">Commercial vehicle number</string>
     <string name="verified_vehicles">Verified Vehicles</string>
     <string name="view_history">View History</string>
+    <string name="view_history_u"><u>View History</u></string>
     <string name="owner_name1">Owner Name</string>
     <string name="chassis_number1">Chassis Number</string>
     <string name="engine_number1">Engine Number</string>
@@ -469,6 +473,7 @@
     <string name="ownedVehicle">Owned Vehicle</string>
     <string name="attached_vehicle">Attached Vehicle</string>
     <string name="truck_number">Truck Number *</string>
+    <string name="enter_truck_no">Enter Truck No</string>
     <string name="body_type">Body Type *</string>
     <string name="tyre">Tyre *</string>
     <string name="capacity">Capacity *</string>
@@ -592,6 +597,15 @@
     <string name="select_any_one_document_type">Select any one document type</string>
     <string name="doc_disc_new">Please click a clear picture of your <b>(Document Type)</b> proof.</string>
     <string name="upload">Upload</string>
+
+
+    <string name="Active_subscription_plan">Active Subscription Plan</string>
+    <string name="insurance_leads">Insurance Leads</string>
+    <string name="finance_leads">Finance Leads</string>
+    <string name="subscription_purchase_history">Subscription Purchase History</string>
+    <string name="purchased_on">Purchased on</string>
+    <string name="total_leads_added">Total Leads Added</string>
+    <string name="amount_disbursed">[Amount Disbursed]</string>
 
 
 </resources>
