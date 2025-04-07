@@ -4,29 +4,61 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/appbg"
-    tools:context=".activities.ViewPdfScreen">
+    android:background="@color/appbg">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageButton
-            android:id="@+id/back"
-            android:layout_width="@dimen/_40sdp"
-            android:layout_height="@dimen/_40sdp"
-            android:layout_margin="@dimen/_16sdp"
-            android:background="@drawable/blue_circle"
-            android:elevation="@dimen/_8sdp"
-            android:onClick="backScreen"
-            android:src="@drawable/ic_back_icon"
-            android:tint="@color/white"
-            tools:ignore="UseAppTint" />
+        <LinearLayout
+            android:id="@+id/appBar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_56sdp"
+            android:background="@drawable/rect_header_profile"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/_16sdp"
+            android:paddingVertical="@dimen/_12sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="@dimen/_27sdp"
+                android:layout_height="@dimen/_27sdp"
+                android:background="@drawable/circal_weight"
+                android:onClick="backScreen"
+                android:src="@drawable/back_icon" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_12sdp"
+                android:layout_weight="1"
+                style="@style/label_semi18"
+                android:gravity="center"
+                android:text="@string/pdf"
+                android:textColor="@color/white" />
+
+
+            <ImageView
+                android:id="@+id/download"
+                android:layout_width="@dimen/_27sdp"
+                android:layout_height="@dimen/_27sdp"
+                android:onClick="download"
+                android:padding="@dimen/_3sdp"
+                android:src="@drawable/ic_download_icon"
+                android:background="@drawable/blue_circle"
+                android:elevation="@dimen/_8sdp"
+                android:visibility="visible" />
+
+        </LinearLayout>
 
         <com.mindev.mindev_pdfviewer.MindevPDFViewer
             android:id="@+id/pdf_viewer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@+id/appBar"
             app:pdf_animation="true"
             app:pdf_direction="vertical" />
 
@@ -35,21 +67,6 @@
             android:layout_width="@dimen/_50sdp"
             android:layout_height="@dimen/_50sdp"
             android:layout_centerInParent="true" />
-
-
-        <ImageButton
-            android:id="@+id/download"
-            android:layout_width="@dimen/_40sdp"
-            android:layout_height="@dimen/_40sdp"
-            android:layout_alignParentEnd="true"
-            android:layout_margin="@dimen/_16sdp"
-            android:background="@drawable/blue_circle"
-            android:elevation="@dimen/_8sdp"
-            android:onClick="download"
-            android:src="@drawable/ic_download_icon"
-            android:tint="@color/white"
-            android:visibility="visible"
-            tools:ignore="UseAppTint" />
 
     </RelativeLayout>
 

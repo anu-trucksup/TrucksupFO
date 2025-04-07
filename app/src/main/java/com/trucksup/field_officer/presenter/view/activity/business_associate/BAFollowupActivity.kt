@@ -5,13 +5,10 @@ import androidx.core.content.ContextCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.BaFollowupActivityBinding
-import com.trucksup.field_officer.databinding.FragmentBrokerBinding
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.view.fragment.ba.BACompletedFragment
 import com.trucksup.field_officer.presenter.view.fragment.ba.BAScheduledFragment
-import com.trucksup.field_officer.presenter.view.fragment.ts.TSCompletedFragment
-import com.trucksup.field_officer.presenter.view.fragment.ts.TSScheduledFragment
-import com.trucksup.fieldofficer.adapter.FragmentAdapter
+import com.trucksup.field_officer.presenter.view.adapter.FragmentAdapter
 
 class BAFollowupActivity : BaseActivity() {
 

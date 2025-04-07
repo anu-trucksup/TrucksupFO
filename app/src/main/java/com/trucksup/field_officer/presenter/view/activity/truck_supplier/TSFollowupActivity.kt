@@ -9,7 +9,7 @@ import com.trucksup.field_officer.databinding.TsFollowupActivityBinding
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.view.fragment.ts.TSCompletedFragment
 import com.trucksup.field_officer.presenter.view.fragment.ts.TSScheduledFragment
-import com.trucksup.fieldofficer.adapter.FragmentAdapter
+import com.trucksup.field_officer.presenter.view.adapter.FragmentAdapter
 
 class TSFollowupActivity : BaseActivity() {
 

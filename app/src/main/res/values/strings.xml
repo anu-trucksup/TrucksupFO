@@ -243,8 +243,8 @@
     <string name="view_previous_inquiry">View Previous Enquiry</string>
     <string name="current_status">Current Status</string>
     <string name="track_status">Track status >></string>
-    <string name="finance_previous_enquiry">Finance Previous Enquiry</string>
-    <string name="insurance_previous_enquiry">Insurance Previous Enquiry</string>
+    <string name="finance_previous_enquiry">Finance</string>
+    <string name="insurance_previous_enquiry">Insurance</string>
     <string name="finance_msg2">Create a new finance enquiry with the following details.</string>
     <string name="insurance_msg2">Create a new insurance enquiry with the following details.</string>
     <string name="mobile_no_colon">Mobile No.:</string>
@@ -288,6 +288,7 @@
     <string name="proceed">Proceed</string>
     <string name="add_new_finance">Add New Finance Enquiry</string>
     <string name="add_new_insurance">Add New Insurance Enquiry</string>
+    <string name="add_new_smartfuel">Add New Smart Fuel Enquiry</string>
     <string name="previous_enquiries">Previous Enquiries</string>
     <string name="business_name">Business Name</string>
     <string name="phone_no">Phone No</string>
@@ -485,6 +486,14 @@
     <string name="expiry_date">Expiry Date</string>
     <string name="kyc">KYC</string>
 
+    <string name="search_city">Search City</string>
+    <string name="anywhere">Anywhere</string>
+    <string name="verify_kyc">Verify KYC</string>
+    <string name="verify_hint_massageage">It’s paperless and just takes 2 minutes!.</string>
+    <string name="choose_identity">Choose your identity type</string>
+    <string name="adhar">Aadhaar card</string>
+    <string name="pan_card">PAN card</string>
+    <string name="pan_card_un">PAN card</string>
     <string name="rs">₹</string>
     <string name="per">per</string>
     <string name="vehicle_no">Vehicle No.</string>
@@ -511,7 +520,6 @@
     <string name="insorence_title_msg">Get your insurance done in no time...</string>
     <string name="follow_staps">Follow the steps...</string>
     <string name="Close">Close</string>
-
 
     <string name="registrationNo">Registration No.</string>
     <string name="year">Year</string>
@@ -592,6 +600,7 @@
     <string name="select_any_one_document_type">Select any one document type</string>
     <string name="doc_disc_new">Please click a clear picture of your <b>(Document Type)</b> proof.</string>
     <string name="upload">Upload</string>
+    <string name="pdf">PDF</string>
 
 
 </resources>

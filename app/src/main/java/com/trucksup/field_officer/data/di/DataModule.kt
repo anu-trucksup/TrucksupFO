@@ -39,4 +39,5 @@ object DataModule {
         )
         return dbBuilder.build() // The reason we can construct a database for the repo
     }
+
 }

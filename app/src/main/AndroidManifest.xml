@@ -73,10 +73,7 @@
         <activity
             android:name=".presenter.view.activity.profile.EditProfileActivity"
             android:exported="false" />
-      <!--  <activity
-            android:name=".presenter.view.activity.other.HomeActivity"
-            android:exported="true"/>
--->
+
         <activity
             android:name=".presenter.view.activity.auth.forget.CreatePasswordActivity"
             android:exported="true"
@@ -98,7 +95,7 @@
             android:name=".presenter.view.activity.growth_partner.GPFollowupActivity"
             android:exported="false" />
         <activity
-            android:name=".presenter.view.activity.auth.login.LoginActivity"
+            android:name=".presenter.view.activity.other.HomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -108,7 +105,7 @@
         </activity>
 
         <activity
-            android:name=".presenter.view.activity.other.HomeActivity"
+            android:name=".presenter.view.activity.auth.login.LoginActivity"
             android:exported="false" />
 
         <activity
@@ -250,7 +247,13 @@
             android:name=".presenter.view.activity.other.ViewPdfScreen"
             android:exported="false" />
 
+        <activity
+            android:name=".presenter.view.activity.smartfuel.SmartFuelHistoryActivity"
+            android:exported="false" />
 
+        <activity
+            android:name=".presenter.view.activity.smartfuel.AddSmartFuelActivity"
+            android:exported="false" />
         <service
             android:name=".presenter.utils.MyFirebaseMessagingService"
             android:exported="false">

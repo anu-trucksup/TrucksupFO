@@ -1,4 +1,4 @@
-package com.trucksup.field_officer.presenter.view.activity.financeInsurance
+package com.trucksup.field_officer.presenter.view.activity.smartfuel
 
 import android.content.Context
 import android.os.Bundle
@@ -23,7 +23,8 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class HistoryFnIsFragment(val status: String) : Fragment() {
+class HistorySmartFuelFragment(val status: String) : Fragment() {
+
     private var aContext: Context? = null
     private lateinit var binding: FragmentHistoryInfnsBinding
     private var mViewModel: FinanceHistoryViewModel? = null
@@ -57,11 +58,11 @@ class HistoryFnIsFragment(val status: String) : Fragment() {
                     setRvList(arrayListOf())
                 }
 
-
+                setListener()*/
 
         enquiryHistory()
 
-        setupObserver() */
+        setupObserver()
 
     }
 
@@ -74,9 +75,25 @@ class HistoryFnIsFragment(val status: String) : Fragment() {
         }
     }
 
+    private fun setListener() {
+        //add new truck owner button
+        /* binding.btnAddTruckOwner.setOnClickListener {
+             DialogBoxes.addLeadDialog(aContext!!,"Add Truck Owner",object : AddLeadInterface {
+                 override fun onLocation(dialog: AlertDialog, binding: AddLeadLayoutBinding) {
+                     binding.tvCurrentLocation.text=activity?.findViewById<TextView>(R.id.addressUpdate)?.text
+                 }
+             })
+         }
 
-  /*  private fun enquiryHistory() {
-        LoadingUtils.showDialog(aContext, false)
+         //filter
+         binding.imgFilter.setOnClickListener {
+             DialogBoxes.setFilter(aContext!!,"owner")
+         }*/
+    }
+
+
+    private fun enquiryHistory() {
+         LoadingUtils.showDialog(aContext, false)
         val request = InquiryHistoryRequest(
             requestId = PreferenceManager.getRequestNo(),
             requestedBy = PreferenceManager.getPhoneNo(aContext!!),
@@ -98,8 +115,11 @@ class HistoryFnIsFragment(val status: String) : Fragment() {
             } else {
                 LoadingUtils.hideDialog()
 
+                Toast.makeText(aContext, "Success", Toast.LENGTH_SHORT).show()
                 if (responseModel.success != null) {
+
                     inquiryHistorySuccess(responseModel.success)
+
                 } else {
                 }
             }
@@ -119,7 +139,7 @@ class HistoryFnIsFragment(val status: String) : Fragment() {
             }
 
         }
-    }*/
+    }
 
 }
 

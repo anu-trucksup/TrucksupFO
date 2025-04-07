@@ -14,7 +14,7 @@ class LoadingUtils {
             if (context != null) {
                 try {
                     jarvisLoader = ProgressDailogBox(context)
-                    jarvisLoader?.let { jarvisLoader->
+                    jarvisLoader?.let { jarvisLoader ->
                         jarvisLoader.setCanceledOnTouchOutside(true)
                         jarvisLoader.setCancelable(isCancelable)
                         jarvisLoader.show()
@@ -27,13 +27,8 @@ class LoadingUtils {
         }
 
         fun hideDialog() {
-            if (jarvisLoader!=null && jarvisLoader?.isShowing!!) {
-                jarvisLoader = try {
-                    jarvisLoader?.dismiss()
-                    null
-                } catch (e: Exception) {
-                    null
-                }
+            if (jarvisLoader != null && jarvisLoader?.isShowing!!) {
+                jarvisLoader?.dismiss()
             }
         }
 

@@ -21,13 +21,13 @@ class ViewPdfScreen : BaseActivity() {
     var url: String? = null
     var downloadVisibal: String = "y"
     var download_B: ImageButton? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_pdf_screen)
 
-        // url = "https://gahp.net/wp-content/uploads/2017/09/sample.pdf"
-
         url = intent.getStringExtra("pdf")
+
         if (intent.getStringExtra("button") != null) {
             downloadVisibal = intent.getStringExtra("button").toString()
         }
@@ -99,7 +99,7 @@ class ViewPdfScreen : BaseActivity() {
     }
 
     fun backScreen(v: View) {
-       onBackPressed()
+        onBackPressed()
     }
 
 }

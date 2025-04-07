@@ -1,4 +1,4 @@
-package com.trucksup.field_officer.presenter.view.activity.financeInsurance
+package com.trucksup.field_officer.presenter.view.activity.smartfuel
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,47 +7,26 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.viewpager2.widget.ViewPager2
 import com.trucksup.field_officer.R
-import com.trucksup.field_officer.data.model.insurance.InquiryHistoryResponse
 import com.trucksup.field_officer.databinding.ActivityFinanceHistoryBinding
-import com.trucksup.field_officer.presenter.common.LoadingUtils
-import com.trucksup.field_officer.presenter.common.MyAlartBox
+import com.trucksup.field_officer.databinding.ActivitySmartfuelHistoryBinding
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
-import com.trucksup.field_officer.presenter.utils.PreferenceManager
-import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinanceHistoryViewModel
-import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.InquiryHistoryRequest
 import com.trucksup.field_officer.presenter.view.adapter.FragmentAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class FinanceHistoryActivity : BaseActivity() {
+class SmartFuelHistoryActivity : BaseActivity() {
 
-    private lateinit var binding: ActivityFinanceHistoryBinding
-    private var historyType: String? = ""
-    private var mViewModel: FinanceHistoryViewModel? = null
+    private lateinit var binding: ActivitySmartfuelHistoryBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //enableEdgeToEdge()
         adjustFontScale(getResources().configuration, 1.0f);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_finance_history)
-
-        historyType = intent.getStringExtra("HISTORY_TYPE")
-
-
-        if (historyType == "Finance") {
-            binding.appBarTitle.text = getText(R.string.finance_previous_enquiry)
-            binding.tvAddNew.text = getText(R.string.add_new_finance)
-        } else if (historyType == "Insurance") {
-            binding.appBarTitle.text = getText(R.string.insurance_previous_enquiry)
-            binding.tvAddNew.text = getText(R.string.add_new_insurance)
-        }
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_smartfuel_history)
 
         setListener()
         setupViewPager()
-
-        enquiryHistory()
-        setupObserver()
 
     }
 
@@ -55,7 +34,7 @@ class FinanceHistoryActivity : BaseActivity() {
 
         //back button
         binding.btnBack.setOnClickListener {
-           onBackPressed()
+            onBackPressed()
         }
 
         //active button
@@ -78,9 +57,9 @@ class FinanceHistoryActivity : BaseActivity() {
 
         try {
             val adapter = FragmentAdapter(this)
-            val fragment1 = HistoryFnIsFragment("active")
-            val fragment2 = HistoryFnIsFragment("complete")
-            val fragment3 = HistoryFnIsFragment("reject")
+            val fragment1 = HistorySmartFuelFragment("active")
+            val fragment2 = HistorySmartFuelFragment("complete")
+            val fragment3 = HistorySmartFuelFragment("reject")
             adapter.addFragment(fragment1)
             adapter.addFragment(fragment2)
             adapter.addFragment(fragment3)
@@ -94,19 +73,19 @@ class FinanceHistoryActivity : BaseActivity() {
                     if (position == 0) {
                         binding.tabActive.setBackgroundDrawable(
                             ContextCompat.getDrawable(
-                                this@FinanceHistoryActivity,
+                                this@SmartFuelHistoryActivity,
                                 R.drawable.ba_tab_unselected_background
                             )
                         );
                         binding.tabCompleted.setBackgroundDrawable(
                             ContextCompat.getDrawable(
-                                this@FinanceHistoryActivity,
+                                this@SmartFuelHistoryActivity,
                                 R.drawable.tab_selected_background
                             )
                         );
                         binding.tabRejected.setBackgroundDrawable(
                             ContextCompat.getDrawable(
-                                this@FinanceHistoryActivity,
+                                this@SmartFuelHistoryActivity,
                                 R.drawable.tab_selected_background
                             )
                         )
@@ -118,19 +97,19 @@ class FinanceHistoryActivity : BaseActivity() {
 
                         binding.tabActive.setBackgroundDrawable(
                             ContextCompat.getDrawable(
-                                this@FinanceHistoryActivity,
+                                this@SmartFuelHistoryActivity,
                                 R.drawable.tab_selected_background
                             )
                         );
                         binding.tabCompleted.setBackgroundDrawable(
                             ContextCompat.getDrawable(
-                                this@FinanceHistoryActivity,
+                                this@SmartFuelHistoryActivity,
                                 R.drawable.ba_tab_unselected_background
                             )
                         )
                         binding.tabRejected.setBackgroundDrawable(
                             ContextCompat.getDrawable(
-                                this@FinanceHistoryActivity,
+                                this@SmartFuelHistoryActivity,
                                 R.drawable.tab_selected_background
                             )
                         )
@@ -140,19 +119,19 @@ class FinanceHistoryActivity : BaseActivity() {
                     } else if (position == 2) {
                         binding.tabActive.setBackgroundDrawable(
                             ContextCompat.getDrawable(
-                                this@FinanceHistoryActivity,
+                                this@SmartFuelHistoryActivity,
                                 R.drawable.tab_selected_background
                             )
                         )
                         binding.tabCompleted.setBackgroundDrawable(
                             ContextCompat.getDrawable(
-                                this@FinanceHistoryActivity,
+                                this@SmartFuelHistoryActivity,
                                 R.drawable.tab_selected_background
                             )
                         )
                         binding.tabRejected.setBackgroundDrawable(
                             ContextCompat.getDrawable(
-                                this@FinanceHistoryActivity,
+                                this@SmartFuelHistoryActivity,
                                 R.drawable.tab_unselected_background
                             )
                         )
@@ -162,65 +141,15 @@ class FinanceHistoryActivity : BaseActivity() {
                     }
                 }
             })
-        } catch (_: Exception) { }
+        } catch (_: Exception) {
+        }
 
     }
 
     fun addNewEnquiry(view: View) {
-        if (historyType == "Finance") {
-            val intent = Intent(this, FinanceActivity::class.java)
-            startActivity(intent)
-        } else {
-            val intent = Intent(this, InsuranceActivity::class.java)
-            startActivity(intent)
-        }
+        val intent = Intent(this, AddSmartFuelActivity::class.java)
+        startActivity(intent)
 
-    }
-
-    private fun enquiryHistory() {
-        LoadingUtils.showDialog(this, false)
-        val request = InquiryHistoryRequest(
-            requestId = PreferenceManager.getRequestNo(),
-            requestedBy = PreferenceManager.getPhoneNo(this),
-            requestDatetime = PreferenceManager.getServerDateUtc(""),
-            mobilenumber = PreferenceManager.getPhoneNo(this),
-            referralCode = "7B4C18",
-            historyType = historyType!!
-        )
-        mViewModel?.inquiryHistory(request)
-    }
-
-    private fun setupObserver() {
-        mViewModel?.resultInquiryHistoryLD?.observe(this) { responseModel ->                     // login function observe
-            if (responseModel.serverError != null) {
-                LoadingUtils.hideDialog()
-
-                val abx = MyAlartBox(this, responseModel.serverError.toString(), "m")
-                abx.show()
-            } else {
-                LoadingUtils.hideDialog()
-
-                if (responseModel.success != null) {
-                    inquiryHistorySuccess(responseModel.success)
-                } else {
-                }
-            }
-        }
-    }
-
-    private fun inquiryHistorySuccess(inquiryHistoryResponse: InquiryHistoryResponse) {
-
-      /*  if (inquiryHistoryResponse.inquiryHistory.isNullOrEmpty()) {
-            binding.rv.visibility = View.GONE
-            binding.noData.visibility = View.VISIBLE
-        } else {
-            binding.rv.visibility = View.VISIBLE
-            binding.noData.visibility = View.GONE
-            if (inquiryHistoryResponse.inquiryHistory.size > 0) {
-                setRvList(inquiryHistoryResponse.inquiryHistory)
-            }
-
-        }*/
     }
 
 

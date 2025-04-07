@@ -39,7 +39,7 @@
                 android:layout_weight="1"
                 style="@style/label_semi18"
                 android:gravity="center"
-                android:text="@string/insurance_"
+                android:text="@string/smart_fuel"
                 android:textColor="@color/white"/>
 
             <ImageView

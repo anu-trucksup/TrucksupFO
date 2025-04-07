@@ -5,11 +5,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
-import android.widget.EditText
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ActivityFinanceBinding
+import com.trucksup.field_officer.presenter.cityPicker.CityPicker
+import com.trucksup.field_officer.presenter.cityPicker.CityStateDialog
 import com.trucksup.field_officer.presenter.common.MyAlartBox
 import com.trucksup.field_officer.presenter.common.dialog.FinaceSubmitBox
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
@@ -23,20 +24,18 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.util.regex.Pattern
 
 @AndroidEntryPoint
-class FinanceActivity : BaseActivity(), ChipController {
+class FinanceActivity : BaseActivity(), ChipController, CityPicker {
     private lateinit var binding: ActivityFinanceBinding
     private lateinit var chipAdapter: LoanChipAdapter
     private var mViewModel: FinanceViewModel? = null
-    private var loanFor: String = "self"
+    private var loanFor: String = "other"
     private var loanAmount: String = ""
-    private var sourceValue: String? = ""
+    private var sourceValue: String? = "Trucksup"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         adjustFontScale(getResources().configuration, 1.0f);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_finance)
-
-        sourceValue = intent.getStringExtra("SOURCE_VALUE")
 
         mViewModel = ViewModelProvider(this)[FinanceViewModel::class.java]
         //binding.name.setText(PreferenceManager.getUserData(this)?.profileName)
@@ -71,9 +70,7 @@ class FinanceActivity : BaseActivity(), ChipController {
                     val inquiryList = responseModel.success.inquiryDetails as ArrayList<chipData>
                     dataList(inquiryList)
 
-                } else {
-
-                }
+                } else { }
             }
         }
 
@@ -82,9 +79,7 @@ class FinanceActivity : BaseActivity(), ChipController {
             if (responseModel.serverError != null) {
                 dismissProgressDialog()
 
-                val abx =
-                    MyAlartBox(
-                        this@FinanceActivity,
+                val abx = MyAlartBox(this@FinanceActivity,
                         responseModel.serverError.toString(),
                         "m"
                     )
@@ -156,170 +151,91 @@ class FinanceActivity : BaseActivity(), ChipController {
         LoggerMessage.onSNACK(binding.city, error, this)
     }
 
-   /* fun clickSelf(v: View) {
-        loanFor = "self"
-        binding.self.setBackgroundResource(R.drawable.self_finace_bt_blue)
-        binding.self.setTextColor(resources.getColor(R.color.white))
 
-        binding.other.setBackgroundResource(R.drawable.other_finace_bt_gray)
-        binding.other.setTextColor(resources.getColor(R.color.secondry_text))
+    /*    override fun GoogleApiKey(key: String, view: TextView, type: String, apiType: String) {
+            dismissProgressDialog()
 
-        //  binding.name.setText(PreferenceManager.getUserData(this).profileName)
+            var cityDailog: CityState =
+                CityState(this, this, "cs", binding.city!!, key, apiType, "M", true)
+            cityDailog?.show()
+        }
 
-        binding.mobileNumber.setText(PreferenceManager.getPhoneNo(this))
+        override fun GoogleCodeApiKey(
+            key: String,
+            type: String,
+            value: String,
+            id: String,
+            apiType: String
+        ) {
+            var myResponse: MyResponse = MyResponse()
+            showProgressDialog()
+            if (apiType.toString().toUpperCase().equals("M")) {
+                var vollyRequests: VollyRequests = VollyRequests()
+                var data: PathsModle =
+                    PreferenceManager.stringToPath(PreferenceManager.getApiPath(this))
+                vollyRequests.translateText(
+                    this,
+                    value,
+                    id,
+                    "en",
+                    this,
+                    type,
+                    key,
+                    data.GetPlaceSearches
+                )
+            } else {
+                myResponse.translateText(value, id, "en", this, "from", key, this)
+            }
+        }
 
-        //referral code
-        //  binding.etReferralCode.setText(PreferenceManager.getUserData(this).salesCode)
+        override fun googleApiError(error: String) {
+            dismissProgressDialog()
+        }
+    */
 
-        binding.city.setText("")
-        binding.state.setText("")
 
-        binding.name.isFocusable = false
-        binding.name.isClickable = false  // optional, to disable click events
-        binding.name.isFocusableInTouchMode = false
-        binding.name.isCursorVisible = false  // optional, hide the cursor
-        binding.name.keyListener = null
-
-        //referral code or sales code
-        binding.etReferralCode.isFocusable = false
-        binding.etReferralCode.isClickable = false  // optional, to disable click events
-        binding.etReferralCode.isFocusableInTouchMode = false
-        binding.etReferralCode.isCursorVisible = false  // optional, hide the cursor
-//        binding.etReferralCode.keyListener = null
-
-        getData()
+    override fun fromCity(
+        value: String,
+        valueState: String,
+        id: String,
+        type: String,
+        valueHi: String,
+        valueStateHi: String
+    ) {
     }
 
-    fun clickOther(v: View) {
-        loanFor = "other"
-        binding.self.setBackgroundResource(R.drawable.other_finace_bt_gray)
-        binding.self.setTextColor(resources.getColor(R.color.secondry_text))
-        binding.other.setBackgroundResource(R.drawable.self_finace_bt_blue)
-        binding.other.setTextColor(resources.getColor(R.color.white))
+    override fun toCity(
+        value: String,
+        valueState: String,
+        id: String,
+        type: String,
+        valueHi: String,
+        valueStateHi: String
+    ) {
+    }
 
-        binding.name.setText("")
-
-        binding.mobileNumber.setText("")
-
-        //referral code
-        binding.etReferralCode.setText("")
-
-        binding.city.setText("")
-        binding.state.setText("")
-
-        binding.name.isFocusable = true
-        binding.name.isClickable = true  // optional, to re-enable click events
-        binding.name.isFocusableInTouchMode = true
-        binding.name.isCursorVisible = true  // optional, show the cursor
-        binding.name.keyListener = EditText(this).keyListener  // restore typing capability
-
-        //referral code
-        binding.etReferralCode.isFocusable = true
-        binding.etReferralCode.isClickable = true  // optional, to re-enable click events
-        binding.etReferralCode.isFocusableInTouchMode = true
-        binding.etReferralCode.isCursorVisible = true  // optional, show the cursor
-//        binding.etReferralCode.keyListener = EditText(this).keyListener  // restore typing capability
-
-        getData()
-    }*/
-
-    /* override fun GoogleApiKey(key: String, view: TextView, type: String, apiType: String) {
-         dismissProgressDialog()
- 
-         var cityDailog: CityState =
-             CityState(this, this, "cs", binding.city!!, key, apiType, "M", true)
-         cityDailog?.show()
-     }
- 
-     override fun GoogleCodeApiKey(
-         key: String,
-         type: String,
-         value: String,
-         id: String,
-         apiType: String
-     ) {
-         var myResponse: MyResponse = MyResponse()
-         showProgressDialog()
-         if (apiType.toString().toUpperCase().equals("M")) {
-             var vollyRequests: VollyRequests = VollyRequests()
-             var data: PathsModle =
-                 PreferenceManager.stringToPath(PreferenceManager.getApiPath(this))
-             vollyRequests.translateText(
-                 this,
-                 value,
-                 id,
-                 "en",
-                 this,
-                 type,
-                 key,
-                 data.GetPlaceSearches
-             )
-         } else {
-             myResponse.translateText(value, id, "en", this, "from", key, this)
-         }
-     }
- 
-     override fun googleApiError(error: String) {
-         dismissProgressDialog()
-     }
- 
-     override fun translate(text: String, state: String, TranslateText: String, type: String) {
-         dismissProgressDialog()
- 
-         binding.city.setText(TranslateText)
-         binding.state.setText(state)
- 
-     }
- 
-     override fun TranslateError(error: String) {
-     }
- 
-     override fun fromCity(
-         value: String,
-         valueState: String,
-         id: String,
-         type: String,
-         valueHi: String,
-         valueStateHi: String
-     ) {
-     }
- 
-     override fun toCity(
-         value: String,
-         valueState: String,
-         id: String,
-         type: String,
-         valueHi: String,
-         valueStateHi: String
-     ) {
-     }
- 
-     override fun cityState(
-         cityEng: String,
-         cityHi: String,
-         stateEn: String,
-         stateHi: String,
-         id: String,
-         type: String
-     ) {
-         binding.city?.setText("" + cityEng)
-         binding.state?.setText("" + stateEn)
-         binding.city?.error = null
-         binding.state?.error = null
-     }*/
+    override fun cityState(
+        cityEng: String,
+        cityHi: String,
+        stateEn: String,
+        stateHi: String,
+        id: String,
+        type: String
+    ) {
+        binding.city.text = cityEng
+        binding.state.text = stateEn
+        binding.city.error = null
+        binding.state.error = null
+    }
 
     fun getCityState(v: View) {
-        /* showProgressDialog()
-         var masterAPI: MasterAPI = MasterAPI()
-         masterAPI.getGoodleAPI(this, binding.city!!, "cs", "cs", "", "")*/
-//        var cityDailog:CityState = CityState(this,this,"cs",city!!,googleCodeApi)
-//        cityDailog?.show()
+        val cityDialog = CityStateDialog(this, this, "cs", binding.city, "M", true)
+        cityDialog.show()
     }
 
 
     fun submit(v: View) {
         if (validation()) {
-
             dataSubmit()
         }
     }
@@ -425,7 +341,7 @@ class FinanceActivity : BaseActivity(), ChipController {
     fun viewPreviousEnquiry(v: View) {
         //finance
         val intent = Intent(this, FinanceHistoryActivity::class.java)
-        intent.putExtra("HISTORY_TYPE", "Insurance")
+        intent.putExtra("HISTORY_TYPE", "Finance")
         startActivity(intent)
     }
 
@@ -457,10 +373,10 @@ class FinanceActivity : BaseActivity(), ChipController {
         return 1
     }
 
-    fun viewPreviousInquery(v: View) {
+ /*   fun viewPreviousInquiry(v: View) {
         //finance
         val intent = Intent(this, FinanceHistoryActivity::class.java)
         intent.putExtra("HISTORY_TYPE", "Finance")
         startActivity(intent)
-    }
+    }*/
 }

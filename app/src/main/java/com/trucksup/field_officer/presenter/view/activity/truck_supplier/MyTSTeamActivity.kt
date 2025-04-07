@@ -11,7 +11,7 @@ import com.trucksup.field_officer.databinding.ActivityMyTeamTsNewBinding
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.view.fragment.ts.MyTeamTSActiveFragment
 import com.trucksup.field_officer.presenter.view.fragment.ts.MyTeamTSInActiveFragment
-import com.trucksup.fieldofficer.adapter.FragmentAdapter
+import com.trucksup.field_officer.presenter.view.adapter.FragmentAdapter
 
 class MyTSTeamActivity : BaseActivity() {
     private lateinit var binding: ActivityMyTeamTsNewBinding

@@ -15,13 +15,16 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class FinanceViewModel @Inject constructor(val apiUseCase: APIUseCase) : ViewModel()  {
+class FinanceViewModel @Inject constructor(val apiUseCase: APIUseCase) : ViewModel() {
 
-    private var resultFinance: MutableLiveData<ResponseModel<FinanceDataLiatResponse>> = MutableLiveData<ResponseModel<FinanceDataLiatResponse>>()
+    private var resultFinance: MutableLiveData<ResponseModel<FinanceDataLiatResponse>> =
+        MutableLiveData<ResponseModel<FinanceDataLiatResponse>>()
     val resultFinanceLD: LiveData<ResponseModel<FinanceDataLiatResponse>> = resultFinance
 
-    private var resultsubmitFinance: MutableLiveData<ResponseModel<FinaceDataSubmitResponse>> = MutableLiveData<ResponseModel<FinaceDataSubmitResponse>>()
-    val resultsubmitFinanceLD: LiveData<ResponseModel<FinaceDataSubmitResponse>> = resultsubmitFinance
+    private var resultsubmitFinance: MutableLiveData<ResponseModel<FinaceDataSubmitResponse>> =
+        MutableLiveData<ResponseModel<FinaceDataSubmitResponse>>()
+    val resultsubmitFinanceLD: LiveData<ResponseModel<FinaceDataSubmitResponse>> =
+        resultsubmitFinance
 
 
     fun getFinanceData(request: FinanceDataLiatRequest) {
@@ -31,9 +34,10 @@ class FinanceViewModel @Inject constructor(val apiUseCase: APIUseCase) : ViewMod
                 request
             )) {
                 is ResultWrapper.ServerResponseError -> {
-                    Log.e("API Error", response.error?:"")
+                    Log.e("API Error", response.error ?: "")
                     resultFinance.postValue(ResponseModel(serverError = response.error))
                 }
+
                 is ResultWrapper.Success -> {
                     resultFinance.postValue(ResponseModel(success = response.value))
                 }
@@ -48,9 +52,10 @@ class FinanceViewModel @Inject constructor(val apiUseCase: APIUseCase) : ViewMod
                 request
             )) {
                 is ResultWrapper.ServerResponseError -> {
-                    Log.e("API Error", response.error?:"")
+                    Log.e("API Error", response.error ?: "")
                     resultsubmitFinance.postValue(ResponseModel(serverError = response.error))
                 }
+
                 is ResultWrapper.Success -> {
                     resultsubmitFinance.postValue(ResponseModel(success = response.value))
                 }

@@ -11,7 +11,7 @@ import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ActivityMyTeamBaBinding
 import com.trucksup.field_officer.presenter.view.fragment.ba.MyTeamBAActiveFragment
 import com.trucksup.field_officer.presenter.view.fragment.ba.MyTeamBAInActiveFragment
-import com.trucksup.fieldofficer.adapter.FragmentAdapter
+import com.trucksup.field_officer.presenter.view.adapter.FragmentAdapter
 
 class MyBATeamActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMyTeamBaBinding

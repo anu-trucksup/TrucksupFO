@@ -1,4 +1,4 @@
-package com.trucksup.field_officer.presenter.view.activity.financeInsurance
+package com.trucksup.field_officer.presenter.view.activity.smartfuel
 
 import android.Manifest
 import android.app.Activity
@@ -35,6 +35,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.data.model.VehicleDetail
+import com.trucksup.field_officer.databinding.ActivityAddSmartfuelBinding
 import com.trucksup.field_officer.databinding.ActivityInsuranceScreenBinding
 import com.trucksup.field_officer.databinding.VehicleDetailsDialogLayoutBinding
 import com.trucksup.field_officer.presenter.common.FileHelp
@@ -53,14 +54,16 @@ import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.I
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryRequest
 import com.trucksup.field_officer.presenter.view.activity.other.ViewPdfScreen
 import com.trucksup.field_officer.presenter.utils.truckMenu.TruckMenu
+import com.trucksup.field_officer.presenter.view.activity.financeInsurance.InsuranceController
+import com.trucksup.field_officer.presenter.view.activity.financeInsurance.InsuranceListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.util.Locale
 import java.util.regex.Pattern
 
 @AndroidEntryPoint
-class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksFOImageController {
-    private lateinit var binding: ActivityInsuranceScreenBinding
+class AddSmartFuelActivity : BaseActivity(), InsuranceController, GetImage, TrucksFOImageController {
+    private lateinit var binding: ActivityAddSmartfuelBinding
     private var list = ArrayList<VehicleDetail>()
     private var mViewModel: InsuranceViewModel? = null
     private var adapter: InsuranceListAdapter? = null
@@ -80,7 +83,7 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
         enableEdgeToEdge()
 
         adjustFontScale(getResources().configuration, 1.0f);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_insurance_screen)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_add_smartfuel)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -115,19 +118,19 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
             })
         }
         binding.rvInsList.layoutManager =
-            LinearLayoutManager(this@InsuranceActivity, RecyclerView.VERTICAL, false)
+            LinearLayoutManager(this@AddSmartFuelActivity, RecyclerView.VERTICAL, false)
         binding.rvInsList.adapter = adapter
     }
 
 
     private fun setupObserver() {
-        mViewModel?.resultsubmitInsuranceLD?.observe(this@InsuranceActivity) { responseModel ->                     // login function observe
+        mViewModel?.resultsubmitInsuranceLD?.observe(this@AddSmartFuelActivity) { responseModel ->                     // login function observe
             if (responseModel.serverError != null) {
                 dismissProgressDialog()
 
                 val abx =
                     MyAlartBox(
-                        this@InsuranceActivity,
+                        this@AddSmartFuelActivity,
                         responseModel.serverError.toString(),
                         "m"
                     )
@@ -148,13 +151,13 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
             }
         }
 
-        mViewModel?.imgUploadResultLD?.observe(this@InsuranceActivity) { responseModel ->                     // login function observe
+        mViewModel?.imgUploadResultLD?.observe(this@AddSmartFuelActivity) { responseModel ->                     // login function observe
             if (responseModel.serverError != null) {
                 dismissProgressDialog()
 
                 val abx =
                     MyAlartBox(
-                        this@InsuranceActivity,
+                        this@AddSmartFuelActivity,
                         responseModel.serverError.toString(),
                         "m"
                     )
@@ -1535,9 +1538,9 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
 
 
     private fun viewVehicleDetails(data: VehicleDetail) {
-        val builder = AlertDialog.Builder(this@InsuranceActivity)
+        val builder = AlertDialog.Builder(this@AddSmartFuelActivity)
         val binding =
-            VehicleDetailsDialogLayoutBinding.inflate(LayoutInflater.from(this@InsuranceActivity))
+            VehicleDetailsDialogLayoutBinding.inflate(LayoutInflater.from(this@AddSmartFuelActivity))
         builder.setView(binding.root)
         val dialog: AlertDialog = builder.create()
         dialog.setCancelable(false)
@@ -1752,8 +1755,7 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
 
     fun viewPreviousEnquiry(v: View) {
         //Insurance
-        val intent = Intent(this, FinanceHistoryActivity::class.java)
-        intent.putExtra("HISTORY_TYPE", "Insurance")
+        val intent = Intent(this, SmartFuelHistoryActivity::class.java)
         startActivity(intent)
     }
 

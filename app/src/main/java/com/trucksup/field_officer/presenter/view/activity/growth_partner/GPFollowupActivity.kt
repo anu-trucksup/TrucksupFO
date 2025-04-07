@@ -9,7 +9,7 @@ import com.trucksup.field_officer.databinding.GpFollowupActivityBinding
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.view.fragment.gp.GPCompletedFragment
 import com.trucksup.field_officer.presenter.view.fragment.gp.GPScheduledFragment
-import com.trucksup.fieldofficer.adapter.FragmentAdapter
+import com.trucksup.field_officer.presenter.view.adapter.FragmentAdapter
 
 class GPFollowupActivity : BaseActivity() {
 

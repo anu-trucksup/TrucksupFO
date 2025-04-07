@@ -1,6 +1,6 @@
-package com.trucksup.field_officer.presenter.view.activity.financeInsurance
+package com.trucksup.field_officer.presenter.common.image_picker
 
-interface TrucksUbImageController {
+interface TrucksFOImageController {
     fun getImage(value:String,url:String)
     fun dataSubmitted(message:String)
     fun imageError(error:String)

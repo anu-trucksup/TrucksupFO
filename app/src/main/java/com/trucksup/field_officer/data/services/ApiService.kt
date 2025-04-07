@@ -18,9 +18,12 @@ import com.trucksup.field_officer.data.model.User
 import com.trucksup.field_officer.data.model.category.CategoryAllResponse
 import com.trucksup.field_officer.data.model.deleteResponse.DeleteProfileResponse
 import com.trucksup.field_officer.data.model.image.ImageResponse
+import com.trucksup.field_officer.data.model.image.TrucksupImageUploadResponse
 import com.trucksup.field_officer.data.model.insurance.InquiryHistoryResponse
 import com.trucksup.field_officer.data.model.user.UpdateProfileRequest
 import com.trucksup.field_officer.data.model.user.UpdateProfileResponse
+import com.trucksup.field_officer.presenter.cityPicker.CityListbySearchRequest
+import com.trucksup.field_officer.presenter.cityPicker.CitySearchRequest
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinaceDataSubmitResponse
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinanceDataLiatRequest
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinanceDataLiatResponse
@@ -229,4 +232,20 @@ interface ApiService {
         @Query("RequestId") requestId: Int?,
         @Part file: MultipartBody.Part?,
     ): ImageResponse
+
+    @POST("TrucksUpAPIGateway/gateway/CitySearch")
+    @Headers("Accept: application/json")
+    fun searchCity(@Body request: CitySearchRequest): Call<CityListbySearchRequest>?
+
+    @Multipart
+    @POST("Apigateway/Gateway/TrucksupImageUpload")
+    @Headers("Accept: application/json")
+    fun trucksupImageUpload(
+        @Header("Authorization") auth: String,
+        @Query("filetype") filetype: String?,
+        @Part imageFile: MultipartBody.Part?,
+        @Part watermarkFile: MultipartBody.Part?
+    ): Call<TrucksupImageUploadResponse>?
+
+
 }

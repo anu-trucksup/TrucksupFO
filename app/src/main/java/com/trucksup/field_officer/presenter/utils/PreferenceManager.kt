@@ -19,6 +19,7 @@ import android.provider.OpenableColumns
 import android.util.Log
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
+import com.google.gson.Gson
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.FinanceActivity
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody

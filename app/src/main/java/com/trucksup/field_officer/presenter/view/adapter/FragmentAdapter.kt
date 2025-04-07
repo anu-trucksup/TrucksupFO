@@ -1,4 +1,4 @@
-package com.trucksup.fieldofficer.adapter
+package com.trucksup.field_officer.presenter.view.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -15,9 +15,7 @@ class FragmentAdapter(fragmentActivity: FragmentActivity) :
     override fun createFragment(position: Int): Fragment {
         try {
             return fragments[position]
-        }
-        catch (e:Exception)
-        {
+        } catch (e: Exception) {
             return fragments[position]
         }
     }
@@ -27,9 +25,7 @@ class FragmentAdapter(fragmentActivity: FragmentActivity) :
             if (fragment != null) {
                 fragments.add(fragment)
             }
-        }
-        catch (e:Exception)
-        {
+        } catch (e: Exception) {
 
         }
     }

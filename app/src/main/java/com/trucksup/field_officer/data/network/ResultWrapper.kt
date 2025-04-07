@@ -14,7 +14,8 @@ sealed class ResultWrapper<out T> {
 
 }
 
-class ServerException constructor( var status: String? = null, var messageLabel: String? = null) : Exception()
+class ServerException constructor(var status: String? = null, var messageLabel: String? = null) :
+    Exception()
 
 suspend fun <T> safeApiCall(
     dispatcher: CoroutineDispatcher,
@@ -30,20 +31,23 @@ suspend fun <T> safeApiCall(
                     if (throwable.code() == 400) {
                         val error_description: String
                         // Log.e("msgBodyResponse",""+ (throwable.response()?.errorBody()?.byteString().toString()))
-                        val response1 = throwable.apply {
-                            val response: String = this.response()?.errorBody()?.string()!!
-                            Log.e("msgBodyResponse", "" + response)
-                            val jresponse = JSONObject(response)
-                            error_description = jresponse.getString("error_description")
-                            ResultWrapper.ServerResponseError("" + error_description)
-                        }
-                        ResultWrapper.ServerResponseError("" + error_description)
-                        // ResultWrapper.GenericError(""+ (throwable.response()?.errorBody()?.byteString().toString()))
+                        /*  val response1 = throwable.apply {
+                              val response: String = this.response()?.errorBody()?.string()!!
+                              Log.e("msgBodyResponse", "" + response)
+                              val jresponse = JSONObject(response)
+                              error_description = jresponse.getString("error_description")
+                              ResultWrapper.ServerResponseError("" + error_description)
+                          }*/
+
+                        ResultWrapper.ServerResponseError(
+                            "" + (throwable.response()?.errorBody()?.byteString().toString())
+                        )
 
                     } else {
                         ResultWrapper.ServerResponseError("ErrorMessage_ServerEncounteredError")
                     }
                 }
+
                 else -> {
                     ResultWrapper.ServerResponseError("ErrorMessage_ServerEncounteredError" + throwable.message + "" + throwable.stackTraceToString())
                 }

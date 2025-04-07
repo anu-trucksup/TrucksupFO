@@ -40,7 +40,7 @@ data class InquiryHistoryResponse(
         val callStatusFlag: String,
         @SerializedName("dateAndTime")
         val dateAndTime: String,
-        var isVisible:Boolean=false
+        var isVisible: Boolean = false
     ) {
         data class HistoryDetail(
             @SerializedName("callStatus")

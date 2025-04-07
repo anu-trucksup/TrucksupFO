@@ -11,7 +11,7 @@ import com.trucksup.field_officer.databinding.ActivityUnassignedTsBaBinding
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.view.activity.truck_supplier.unassigned_ts_ba.fragment.UnAssignedBAFragment
 import com.trucksup.field_officer.presenter.view.activity.truck_supplier.unassigned_ts_ba.fragment.UnAssignedTSFragment
-import com.trucksup.fieldofficer.adapter.FragmentAdapter
+import com.trucksup.field_officer.presenter.view.adapter.FragmentAdapter
 
 class UnAssignedTSBAActivity : BaseActivity() {
     private lateinit var binding: ActivityUnassignedTsBaBinding

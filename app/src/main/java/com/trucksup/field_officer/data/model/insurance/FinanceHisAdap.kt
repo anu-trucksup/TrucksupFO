@@ -11,8 +11,7 @@ import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.FRHistoryItemBinding
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.TrackStatusAdap
 
-class FinanceHisAdap(
-    var context: Context, var list: ArrayList<InquiryHistoryResponse.InquiryHistory>
+class FinanceHisAdap(var context: Context, var list: ArrayList<InquiryHistoryResponse.InquiryHistory>
 ) : RecyclerView.Adapter<FinanceHisAdap.ViewHolder>() {
 
     inner class ViewHolder(var binding: FRHistoryItemBinding) :
@@ -24,7 +23,7 @@ class FinanceHisAdap(
     }
 
     override fun onBindViewHolder(holder: FinanceHisAdap.ViewHolder, position: Int) {
-//        holder.setIsRecyclable(false)
+       //  holder.setIsRecyclable(false)
         //name
         if (!list[position].name.isNullOrEmpty()) {
             holder.binding.tvName.text = list[position].name
@@ -72,7 +71,7 @@ class FinanceHisAdap(
                 .load("" + list[position].profilePhoto + "&Position=1")
                 .placeholder(R.mipmap.user_profile)
                 .error(R.mipmap.user_profile).into(holder.binding.image)
-        } catch (e: Exception) {
+        } catch (_: Exception) {
         }
 
         if (list[position].isVisible == false) {
@@ -98,7 +97,7 @@ class FinanceHisAdap(
     }
 
     override fun getItemCount(): Int {
-        return 5
+        return list.size
     }
 
     private fun setRvList(

@@ -3,28 +3,13 @@ package com.trucksup.field_officer.presenter.view.activity.growth_partner
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
-import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.ViewPager2
-import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.AddScheduledLayoutBinding
 import com.trucksup.field_officer.databinding.DateFilterBinding
-import com.trucksup.field_officer.databinding.GpPerformanceActivityBinding
 import com.trucksup.field_officer.databinding.GpViewallActivityBinding
-import com.trucksup.field_officer.databinding.TsFollowupActivityBinding
-import com.trucksup.field_officer.databinding.TsPerformanceActivityBinding
 import com.trucksup.field_officer.presenter.common.dialog.DialogBoxes
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
-import com.trucksup.field_officer.presenter.view.adapter.GPPerformanceAdapter
 import com.trucksup.field_officer.presenter.view.adapter.GPViewAllAdapter
-import com.trucksup.field_officer.presenter.view.adapter.MyTeamTSActiveAdapter
-import com.trucksup.field_officer.presenter.view.adapter.TSScheduleFollowupAdapter
-import com.trucksup.field_officer.presenter.view.fragment.ts.TSCompletedFragment
-import com.trucksup.field_officer.presenter.view.fragment.ts.TSScheduledFragment
-import com.trucksup.fieldofficer.adapter.FragmentAdapter
 import java.util.Calendar
 
 class GPViewAllActivity : BaseActivity() {

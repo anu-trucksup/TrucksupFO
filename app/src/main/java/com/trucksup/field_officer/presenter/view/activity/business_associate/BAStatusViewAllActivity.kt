@@ -2,7 +2,6 @@ package com.trucksup.field_officer.presenter.view.activity.business_associate
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -11,7 +10,7 @@ import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ActivityBusinessAssociatesNewBinding
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.view.fragment.ba.ActiveBAFragment
-import com.trucksup.fieldofficer.adapter.FragmentAdapter
+import com.trucksup.field_officer.presenter.view.adapter.FragmentAdapter
 
 class BAStatusViewAllActivity : BaseActivity() {
     private lateinit var binding: ActivityBusinessAssociatesNewBinding

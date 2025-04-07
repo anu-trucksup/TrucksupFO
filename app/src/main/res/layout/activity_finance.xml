@@ -33,15 +33,14 @@
                 android:src="@drawable/back_icon" />
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_12sdp"
                 android:layout_weight="1"
-                android:fontFamily="@font/bai_jamjuree_semi_bold"
+                style="@style/label_semi18"
                 android:gravity="center"
                 android:text="@string/finance"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_17ssp" />
+                android:textColor="@color/white" />
 
             <ImageView
                 android:id="@+id/btnTransactionHis"
@@ -53,7 +52,7 @@
         </LinearLayout>
 
         <androidx.core.widget.NestedScrollView
-            android:id="@+id/nastedScroll"
+            android:id="@+id/nsScroll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/addload_bg"
@@ -61,7 +60,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tp">
+           >
 
             <LinearLayout
                 android:layout_width="match_parent"
