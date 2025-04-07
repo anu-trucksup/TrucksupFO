@@ -10,7 +10,8 @@ import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ActivityBusinessAssociatesNewBinding
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.view.fragment.ba.ActiveBAFragment
-import com.trucksup.field_officer.presenter.view.adapter.FragmentAdapter
+import com.trucksup.field_officer.presenter.view.fragment.ba.InActiveBAFragment
+import com.trucksup.fieldofficer.adapter.FragmentAdapter
 
 class BAStatusViewAllActivity : BaseActivity() {
     private lateinit var binding: ActivityBusinessAssociatesNewBinding
@@ -48,7 +49,7 @@ class BAStatusViewAllActivity : BaseActivity() {
         try {
             val adapter = FragmentAdapter(this)
             val fragment1: Fragment = ActiveBAFragment()
-            val fragment2: Fragment = ActiveBAFragment()
+            val fragment2: Fragment = InActiveBAFragment()
             adapter.addFragment(fragment1)
             adapter.addFragment(fragment2)
             binding.viewPager2.adapter = adapter

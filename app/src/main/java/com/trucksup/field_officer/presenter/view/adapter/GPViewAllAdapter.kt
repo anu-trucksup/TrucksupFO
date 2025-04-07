@@ -1,12 +1,16 @@
 package com.trucksup.field_officer.presenter.view.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.trucksup.field_officer.databinding.ItemActiveBaBinding
 import com.trucksup.field_officer.databinding.ItemGpViewallBinding
 import com.trucksup.field_officer.databinding.ItemMyTeamTsActiveBinding
+import com.trucksup.field_officer.presenter.view.activity.business_associate.BAStatusViewAllActivity
+import com.trucksup.field_officer.presenter.view.activity.growth_partner.MyTeamGPDetailsActivity
+import com.trucksup.field_officer.presenter.view.activity.truck_supplier.TSPerformanceActivity
 
 class GPViewAllAdapter(var context: Context?, var list: ArrayList<String>) :
     RecyclerView.Adapter<GPViewAllAdapter.ViewHolder>() {
@@ -31,6 +35,11 @@ class GPViewAllAdapter(var context: Context?, var list: ArrayList<String>) :
             adapter=PlanAdapter(context,list)
             hasFixedSize()
         }*/
+
+        holder.binding.root.setOnClickListener{
+            val intent = Intent(context, MyTeamGPDetailsActivity::class.java)
+            context?.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {

@@ -3,7 +3,9 @@ package com.trucksup.field_officer.presenter.view.adapter
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.trucksup.field_officer.databinding.ItemMyTeamBaInactiveBinding
 import com.trucksup.field_officer.presenter.view.activity.truck_supplier.TSDetailActivity
@@ -26,15 +28,14 @@ class MyTeamBAInActiveAdapter(var context: Context?, var list: ArrayList<String>
             context?.startActivity(Intent(context, TSDetailActivity::class.java))
 
         }
-        /*holder.binding.rvPlan.apply {
-            var list=ArrayList<String>()
-            list.add("Silver Plan")
-            list.add("Loads Added: 50")
-            list.add("Loads Left: 50")
-            layoutManager= LinearLayoutManager(context,RecyclerView.HORIZONTAL,false)
-            adapter=PlanAdapter(context,list)
-            hasFixedSize()
-        }*/
+        holder.binding.llProfile.setOnClickListener{
+            if(holder.binding.llDeatil.isVisible){
+                holder.binding.llDeatil.visibility = View.GONE
+            }else{
+                holder.binding.llDeatil.visibility = View.VISIBLE
+
+            }
+        }
     }
 
     override fun getItemCount(): Int {

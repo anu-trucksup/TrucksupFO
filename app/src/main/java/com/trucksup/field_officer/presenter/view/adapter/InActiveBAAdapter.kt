@@ -8,23 +8,21 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.Adapter
-import com.trucksup.field_officer.data.model.FromToModel
 import com.trucksup.field_officer.databinding.AddScheduledLayoutBinding
 import com.trucksup.field_officer.databinding.ItemActiveBaBinding
+import com.trucksup.field_officer.databinding.ItemInactiveBaBinding
 import com.trucksup.field_officer.databinding.ListDialogBinding
-import com.trucksup.field_officer.databinding.PreferredLaneDialogBinding
 import java.util.Calendar
 
-class ActiveBAAdapter(var context: Context?, var list: ArrayList<String>) :
-    Adapter<ActiveBAAdapter.ViewHolder>() {
+class InActiveBAAdapter(var context: Context?, var list: ArrayList<String>) :
+    RecyclerView.Adapter<InActiveBAAdapter.ViewHolder>() {
 
     private var controllerListener: ControllerListener? = null
 
-    inner class ViewHolder(var binding: ItemActiveBaBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class ViewHolder(var binding: ItemInactiveBaBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        var v = ItemActiveBaBinding.inflate(LayoutInflater.from(context), parent, false)
+        var v = ItemInactiveBaBinding.inflate(LayoutInflater.from(context), parent, false)
         return ViewHolder(v)
     }
 
@@ -39,7 +37,6 @@ class ActiveBAAdapter(var context: Context?, var list: ArrayList<String>) :
             adapter=PlanAdapter(context,list)
             hasFixedSize()
         }*/
-
         holder.binding.tvViewHistroy.setOnClickListener{
             context?.let { it1 -> SubscriptionPurchaseHistoryDialog(it1) }
         }
@@ -80,7 +77,7 @@ class ActiveBAAdapter(var context: Context?, var list: ArrayList<String>) :
         binding.rvSecondServices.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             adapter = ListDialogAdapter(context, list).apply {
-                setOnControllerListener(object : ActiveBAAdapter.ControllerListener {
+                setOnControllerListener(object : InActiveBAAdapter.ControllerListener {
                     override fun onOpenLocation(location: String) {
                     }
                     override fun onDateTime() {
