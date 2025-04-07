@@ -9,9 +9,9 @@ import androidx.viewpager2.widget.ViewPager2
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ActivityBusinessAssociatesNewBinding
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
+import com.trucksup.field_officer.presenter.view.adapter.FragmentAdapter
 import com.trucksup.field_officer.presenter.view.fragment.ba.ActiveBAFragment
 import com.trucksup.field_officer.presenter.view.fragment.ba.InActiveBAFragment
-import com.trucksup.fieldofficer.adapter.FragmentAdapter
 
 class BAStatusViewAllActivity : BaseActivity() {
     private lateinit var binding: ActivityBusinessAssociatesNewBinding

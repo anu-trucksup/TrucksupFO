@@ -27,6 +27,7 @@ import android.view.Window
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.core.app.ActivityCompat
@@ -60,6 +61,7 @@ class CityStateDialog(
 
     var clickCity: CityClick? = null
     var back: ImageButton? = null
+    var progress: ProgressBar? = null
     private var micro: ImageButton? = null
     private var anywhere: LinearLayout? = null
     var cityAdapter: CityLocationAdapter? = null
@@ -106,6 +108,7 @@ class CityStateDialog(
         back = findViewById(R.id.back)
         micro = findViewById(R.id.micro)
         reco = findViewById(R.id.reco)
+        progress = findViewById(R.id.progressBar)
         Log.e("Type", type)
         anywhere?.visibility = View.GONE
         micro?.setOnClickListener {
@@ -124,7 +127,6 @@ class CityStateDialog(
             mSpeechRecognizer?.destroy()
             this.dismiss()
         }
-
 
         search_place?.addTextChangedListener(object : TextWatcher {
 
@@ -247,7 +249,7 @@ class CityStateDialog(
 
         LoggerMessage.LogErrorMsg("text input", ">>>>" + s)
         val newCity = ArrayList<CityNameData>()
-
+        progress?.visibility = View.VISIBLE
         val request = CitySearchRequest(
             s,
             PreferenceManager.getPhoneNo(context),
@@ -276,6 +278,8 @@ class CityStateDialog(
                                 city_list?.adapter = cityAdapter
 
                                 cityAdapter?.notifyDataSetChanged()
+
+                                progress?.visibility = View.GONE
                             }
                         }
 

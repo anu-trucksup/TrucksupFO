@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.data.model.insurance.InquiryHistoryResponse
@@ -17,11 +18,18 @@ import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.F
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.InquiryHistoryRequest
 import com.trucksup.field_officer.presenter.view.adapter.FragmentAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.ArrayList
 
 
 @AndroidEntryPoint
 class FinanceHistoryActivity : BaseActivity() {
 
+    private var activehistoryList: ArrayList<InquiryHistoryResponse.InquiryHistory> = arrayListOf()
+    private var completehistoryList: ArrayList<InquiryHistoryResponse.InquiryHistory> = arrayListOf()
+    private var rejectedhistoryList: ArrayList<InquiryHistoryResponse.InquiryHistory> = arrayListOf()
+    private lateinit var fragment1: HistoryFnIsFragment
+    private lateinit var fragment2: HistoryFnIsFragment
+    private lateinit var fragment3: HistoryFnIsFragment
     private lateinit var binding: ActivityFinanceHistoryBinding
     private var historyType: String? = ""
     private var mViewModel: FinanceHistoryViewModel? = null
@@ -31,7 +39,7 @@ class FinanceHistoryActivity : BaseActivity() {
         //enableEdgeToEdge()
         adjustFontScale(getResources().configuration, 1.0f);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_finance_history)
-
+        mViewModel = ViewModelProvider(this)[FinanceHistoryViewModel::class.java]
         historyType = intent.getStringExtra("HISTORY_TYPE")
 
 
@@ -43,11 +51,12 @@ class FinanceHistoryActivity : BaseActivity() {
             binding.tvAddNew.text = getText(R.string.add_new_insurance)
         }
 
-        setListener()
-        setupViewPager()
+
 
         enquiryHistory()
         setupObserver()
+
+        setListener()
 
     }
 
@@ -78,9 +87,9 @@ class FinanceHistoryActivity : BaseActivity() {
 
         try {
             val adapter = FragmentAdapter(this)
-            val fragment1 = HistoryFnIsFragment("active")
-            val fragment2 = HistoryFnIsFragment("complete")
-            val fragment3 = HistoryFnIsFragment("reject")
+           fragment1 = HistoryFnIsFragment("active",activehistoryList)
+           fragment2 = HistoryFnIsFragment("complete",completehistoryList)
+           fragment3 = HistoryFnIsFragment("reject",rejectedhistoryList)
             adapter.addFragment(fragment1)
             adapter.addFragment(fragment2)
             adapter.addFragment(fragment3)
@@ -114,6 +123,7 @@ class FinanceHistoryActivity : BaseActivity() {
                         binding.txtCompleted.setTextColor(resources.getColor(R.color.blue))
                         binding.txtRejected.setTextColor(resources.getColor(R.color.blue))
 
+
                     } else if (position == 1) {
 
                         binding.tabActive.setBackgroundDrawable(
@@ -137,6 +147,7 @@ class FinanceHistoryActivity : BaseActivity() {
                         binding.txtActive.setTextColor(resources.getColor(R.color.blue))
                         binding.txtCompleted.setTextColor(resources.getColor(R.color.white))
                         binding.txtRejected.setTextColor(resources.getColor(R.color.blue))
+
                     } else if (position == 2) {
                         binding.tabActive.setBackgroundDrawable(
                             ContextCompat.getDrawable(
@@ -159,6 +170,7 @@ class FinanceHistoryActivity : BaseActivity() {
                         binding.txtActive.setTextColor(resources.getColor(R.color.blue))
                         binding.txtCompleted.setTextColor(resources.getColor(R.color.blue))
                         binding.txtRejected.setTextColor(resources.getColor(R.color.white))
+
                     }
                 }
             })
@@ -170,9 +182,11 @@ class FinanceHistoryActivity : BaseActivity() {
         if (historyType == "Finance") {
             val intent = Intent(this, FinanceActivity::class.java)
             startActivity(intent)
+            finish()
         } else {
             val intent = Intent(this, InsuranceActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
     }
@@ -209,18 +223,26 @@ class FinanceHistoryActivity : BaseActivity() {
     }
 
     private fun inquiryHistorySuccess(inquiryHistoryResponse: InquiryHistoryResponse) {
+        inquiryHistoryResponse?.inquiryHistory?.forEachIndexed { _, inquiryHistory ->
+            run {
+                inquiryHistory.historyDetails.forEachIndexed { _, historyDetails ->
+                    run {
+                        if (historyDetails.status.equals("Amount Disbursed")) {
+                            completehistoryList.add(inquiryHistory)
+                        }else  if (historyDetails.status.equals("Rejected")) {
+                            rejectedhistoryList.add(inquiryHistory)
+                        }else{
+                            activehistoryList.add(inquiryHistory)
+                        }
+                    }
+                }
 
-      /*  if (inquiryHistoryResponse.inquiryHistory.isNullOrEmpty()) {
-            binding.rv.visibility = View.GONE
-            binding.noData.visibility = View.VISIBLE
-        } else {
-            binding.rv.visibility = View.VISIBLE
-            binding.noData.visibility = View.GONE
-            if (inquiryHistoryResponse.inquiryHistory.size > 0) {
-                setRvList(inquiryHistoryResponse.inquiryHistory)
             }
+        }
 
-        }*/
+        binding.tvTotalEnquiry.text = "${inquiryHistoryResponse?.inquiryHistory?.size} Enquiries"
+        setupViewPager()
+
     }
 
 

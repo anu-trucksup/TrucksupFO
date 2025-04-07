@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.trucksup.field_officer.databinding.AddScheduledLayoutBinding
 import com.trucksup.field_officer.databinding.FragmentMyTeamTsActiveBinding
+import com.trucksup.field_officer.presenter.common.dialog.DialogBoxes
 import com.trucksup.field_officer.presenter.view.adapter.MyTeamTSActiveAdapter
 import java.util.Calendar
 
@@ -50,19 +51,11 @@ class MyTeamTSActiveFragment : Fragment() {
     }
 
     private fun setListener() {
-        //add new truck owner button
-        /* binding.btnAddTruckOwner.setOnClickListener {
-             DialogBoxes.addLeadDialog(aContext!!,"Add Truck Owner",object : AddLeadInterface {
-                 override fun onLocation(dialog: AlertDialog, binding: AddLeadLayoutBinding) {
-                     binding.tvCurrentLocation.text=activity?.findViewById<TextView>(R.id.addressUpdate)?.text
-                 }
-             })
-         }
 
-         //filter
-         binding.imgFilter.setOnClickListener {
-             DialogBoxes.setFilter(aContext!!,"owner")
-         }*/
+        //filter
+        binding.imgFilter.setOnClickListener {
+            DialogBoxes.setFilter(aContext!!,"owner")
+        }
     }
 
     private fun setRvList() {

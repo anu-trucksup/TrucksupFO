@@ -15,6 +15,7 @@ import com.trucksup.field_officer.databinding.FragmentActiveBABinding
 import com.trucksup.field_officer.databinding.FragmentMyTeamBaInactiveBinding
 import com.trucksup.field_officer.databinding.FragmentMyTeamTsActiveBinding
 import com.trucksup.field_officer.databinding.FragmentMyTeamTsInactiveBinding
+import com.trucksup.field_officer.presenter.common.dialog.DialogBoxes
 import com.trucksup.field_officer.presenter.view.adapter.ActiveBAAdapter
 import com.trucksup.field_officer.presenter.view.adapter.MyTeamBAInActiveAdapter
 import com.trucksup.field_officer.presenter.view.adapter.MyTeamTSActiveAdapter
@@ -56,19 +57,10 @@ class MyTeamBAInActiveFragment : Fragment() {
     }
 
     private fun setListener() {
-        //add new truck owner button
-        /* binding.btnAddTruckOwner.setOnClickListener {
-             DialogBoxes.addLeadDialog(aContext!!,"Add Truck Owner",object : AddLeadInterface {
-                 override fun onLocation(dialog: AlertDialog, binding: AddLeadLayoutBinding) {
-                     binding.tvCurrentLocation.text=activity?.findViewById<TextView>(R.id.addressUpdate)?.text
-                 }
-             })
-         }
-
-         //filter
-         binding.imgFilter.setOnClickListener {
-             DialogBoxes.setFilter(aContext!!,"owner")
-         }*/
+        //filter
+        binding.imgFilter.setOnClickListener {
+            DialogBoxes.setFilter(aContext!!,"ba")
+        }
     }
 
     private fun setRvList() {

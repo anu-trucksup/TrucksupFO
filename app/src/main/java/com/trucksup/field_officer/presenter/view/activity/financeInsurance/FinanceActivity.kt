@@ -308,7 +308,7 @@ class FinanceActivity : BaseActivity(), ChipController, CityPicker {
             )
             return false
         }
-        /*if (TextUtils.isEmpty(binding.city.text)) {
+        if (TextUtils.isEmpty(binding.city.text)) {
             LoggerMessage.onSNACK(binding.state, resources.getString(R.string.slectCity), this)
             return false
         }
@@ -323,7 +323,7 @@ class FinanceActivity : BaseActivity(), ChipController, CityPicker {
                 this
             )
             return false
-        }*/
+        }
 //        if (TextUtils.isEmpty(binding.etReferralCode.text))
 //        {
 //            LoggerMessage.onSNACK( binding.etReferralCode!!,resources.getString(R.string.enter_referral_code2),this)
@@ -373,10 +373,4 @@ class FinanceActivity : BaseActivity(), ChipController, CityPicker {
         return 1
     }
 
- /*   fun viewPreviousInquiry(v: View) {
-        //finance
-        val intent = Intent(this, FinanceHistoryActivity::class.java)
-        intent.putExtra("HISTORY_TYPE", "Finance")
-        startActivity(intent)
-    }*/
 }

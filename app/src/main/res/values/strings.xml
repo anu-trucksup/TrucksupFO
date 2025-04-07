@@ -221,7 +221,7 @@
     <string name="visit_type">Visit Type:</string>
 
 
-    <string name="enterLoanPrice">Please select valid requested loan amount</string>
+    <string name="enterLoanPrice">Please select the range of the requested loan amount.</string>
     <string name="thanksForContactingUs">Thanks For Contacting Us!</string>
     <string name="finace_msg">Please help us serve better by providing the following details.</string>
     <string name="self">Self</string>
@@ -230,15 +230,15 @@
     <string name="finace_fullName">Full Name <font color='#FF0000'>*</font></string>
     <string name="requestedLoanAmountStar">Requested Loan Amount <font color='#FF0000'>*</font></string>
     <string name="typeOfLoanStar">Type Of Loan<font color='#FF0000'>*</font></string>
-    <string name="enterYourName">Please enter your name</string>
-    <string name="enterYourrightName">Please enter a valid name.</string>
+    <string name="enterYourName">Please input the name.</string>
+    <string name="enterYourrightName">Please input a valid name.</string>
     <string name="insurance_mobileNo">Mobile Number <font color='#FF0000'>*</font></string>
     <string name="insurance_vehicle_no">Vehicle No. <font color='#FF0000'>*</font></string>
-    <string name="enter_right_number_v">Please enter valid mobile number</string>
-    <string name="enter_mobile_no">Please enter mobile number</string>
-    <string name="slectCity">Please select City</string>
-    <string name="enterState">Please select state</string>
-    <string name="enterRightCommercialVehical">Please enter valid commercial truck number.</string>
+    <string name="enter_right_number_v">Please input valid mobile number.</string>
+    <string name="enter_mobile_no">Please input mobile number.</string>
+    <string name="slectCity">Please input the city.</string>
+    <string name="enterState">Please input the state.</string>
+    <string name="enterRightCommercialVehical">Please input a valid vehicle number.</string>
     <string name="SameCurrentLocation">Same as Current Location</string>
 
     <string name="view_previous_inquiry">View Previous Enquiry</string>
@@ -400,7 +400,7 @@
     <string name="verify1">Verify your vehicle document from the Government server.</string>
     <string name="enterStartDate">Please select a valid start date.</string>
     <string name="enterEndDate">Please select a valid end date. </string>
-    <string name="enterCommercialVehical">Please enter valid commercial vehicle number.</string>
+    <string name="enterCommercialVehical">Please input a valid vehicle number.</string>
     <string name="trip">Trip</string>
     <string name="resendConsent">Resend Consent</string>
 
@@ -615,6 +615,8 @@
     <string name="purchased_on">Purchased on</string>
     <string name="total_leads_added">Total Leads Added</string>
     <string name="amount_disbursed">[Amount Disbursed]</string>
+    <string name="rc_front_image_error">Please upload the RC front image.</string>
+    <string name="rc_back_image_error">Please upload the RC back image.</string>
 
 
 </resources>
