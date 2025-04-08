@@ -21,7 +21,7 @@ class HomeFeaturesAdapter(var context: Context?) :
     RecyclerView.Adapter<HomeFeaturesAdapter.ViewHolder>() {
 
     val serviceList = arrayListOf(
-        "Truck Supplier",
+        "Truck Suppliers",
         "Business Associates",
         "Growth Partners",
         "Total Add Loads",

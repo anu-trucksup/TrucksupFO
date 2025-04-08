@@ -1,6 +1,5 @@
 package com.trucksup.field_officer.presenter.view.activity.financeInsurance
 
-import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.DatePickerDialog
@@ -44,19 +43,17 @@ import com.trucksup.field_officer.presenter.common.CameraActivity
 import com.trucksup.field_officer.presenter.common.FileHelp
 import com.trucksup.field_officer.presenter.common.LoadingUtils
 import com.trucksup.field_officer.presenter.common.MyAlartBox
-import com.trucksup.field_officer.presenter.common.ProgressDailogBox
 import com.trucksup.field_officer.presenter.common.dialog.FinaceSubmitBox
 import com.trucksup.field_officer.presenter.common.image_picker.GetImage
 import com.trucksup.field_officer.presenter.common.image_picker.ImagePickerDailog
 import com.trucksup.field_officer.presenter.common.image_picker.TrucksFOImageController
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
-import com.trucksup.field_officer.presenter.common.yCamera.CameraXActivity
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
+import com.trucksup.field_officer.presenter.utils.truckMenu.TruckMenu
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.InsuranceViewModel
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryRequest
 import com.trucksup.field_officer.presenter.view.activity.other.ViewPdfScreen
-import com.trucksup.field_officer.presenter.utils.truckMenu.TruckMenu
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.io.FileOutputStream
@@ -81,7 +78,6 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
     private var prevPolicyDocsImgUrl: String? = ""
     private var imageT: Int = 0//0 default,1 front image,2 back image,3 previous policy docs image
     private var sourceValue: String? = "Trucksup"
-    private var sourceValue: String? = ""
 
     private var launcher: ActivityResultLauncher<Intent>? = null
     private var imageUri:String = ""
@@ -109,7 +105,7 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
         disableEmojiInTitle()
         setListener()
         setupObserver()
-        camera()
+        cameraActivityresult()
     }
 
     private fun setRecyclerView() {
@@ -1445,15 +1441,8 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
                 } else {
                     MediaStore.Images.Media.getBitmap(contentResolver, uri)
                 }
-                var newBitmap: Bitmap = FileHelp().resizeImage(bitmap, 500, 500)!!
-                var newFile: File = FileHelp().bitmapTofile(newBitmap, this)!!
-
-                uploadImage(newFile, "")
-
-//            var orFile: File = FileHelp().getFile(this, uri)!!
-//            var bitmap: Bitmap = FileHelp().FileToBitmap(orFile)
-//            var newBitmap: Bitmap = FileHelp().resizeImage(bitmap, 500, 500)!!
-//            var newFile: File = FileHelp().bitmapTofile(newBitmap, this)!!
+                val newBitmap: Bitmap = FileHelp().resizeImage(bitmap, 500, 500)!!
+                val newFile: File = FileHelp().bitmapTofile(newBitmap, this)!!
 
                 uploadImage(newFile, "")
 
@@ -1612,81 +1601,9 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
         }
     }
 
-    /* fun getImageToken(file: File) {
-         LoadingUtils.showDialog(this, false)
-         var apiInterface: ApiInterface =
-             ApiClient(PreferenceManager.getServerUrl(this)).getClient
-         var req: TrucksHubAuthJWTtokenRequest = TrucksHubAuthJWTtokenRequest(
-             PreferenceManager.trucksHubAuthData(this)?.apiSecreteKey.toString(),
-             PreferenceManager.trucksHubAuthData(this)?.issuer.toString(),
-             PreferenceManager.trucksHubAuthData(this)?.password.toString(),
-             PreferenceManager.trucksHubAuthData(this)?.userAgent.toString(),
-             PreferenceManager.trucksHubAuthData(this)?.userName.toString()
-         )
-
-         apiInterface.generateTrucksHubJWTtoken(
-             PreferenceManager.trucksHubAuthData(this)?.headerKey.toString().toString(),
-             req,
-             "JwtAuth/api/Auth/GenerateJWTtoken"
-         )
-             ?.enqueue(object : Callback<TrucksHubAuthJWTtokenResponse> {
-                 override fun onResponse(
-                     call: Call<TrucksHubAuthJWTtokenResponse>,
-                     response: Response<TrucksHubAuthJWTtokenResponse>
-                 ) {
-                     if (response.isSuccessful) {
-
-                         if (response.body()?.statusCode == 200) {
-
-                             //   controller.trucksHubAuthTokken(response.body()!!.accessToken,requestFor)
-
- //                            uploadImage(file,"Bearer " + response.body()!!.accessToken)
-                         } else {
-
-                             LoadingUtils.hideDialog()
-                             var abx: MyAlartBox =
-                                 MyAlartBox(
-                                     this@InsuranceScreen,
-                                     response.body()?.message.toString(),
-                                     "m"
-                                 )
-                             abx?.show()
-
-                         }
-                     } else {
-                         LoadingUtils.hideDialog()
-                         var abx: MyAlartBox =
-                             MyAlartBox(
-                                 this@InsuranceScreen,
-                                 resources.getString(R.string.no_data_found),
-                                 "m"
-                             )
-                         abx?.show()
-                     }
-
-
-                 }
-
-                 override fun onFailure(call: Call<TrucksHubAuthJWTtokenResponse>, t: Throwable) {
-                     LoggerMessage.LogErrorMsg("Error", "" + t.message)
-                     LoadingUtils.hideDialog()
-                     val data: ErrorModel = ErrorModel(
-                         "" + t.message,
-                         "" + PreferenceManager.getPhoneNo(this@InsuranceScreen),
-                         "" + PreferenceManager.getUserData(this@InsuranceScreen)?.profileName,
-                         "" + DeviceInfoUtils.getDeviceModel(this@InsuranceScreen),
-                         "API",
-                         "JwtAuth/api/Auth/GenerateJWTtoken"
-                     )
-                     ErrorStore().StoreError(data)
-                 }
-             })
-
-     }*/
-
     fun uploadImage(file: File, token: String) {
         LoadingUtils.showDialog(this, false)
-        /*if (imageT == 3) {
+        if (imageT == 3) {
             mViewModel?.trucksupImageUpload(
                 PreferenceManager.getAuthToken(),
                 "pdf",
@@ -1702,7 +1619,7 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
                 PreferenceManager.prepareFilePartTrucksHum(file!!, "watermarkFile"),
                 this
             )
-        }*/
+        }
     }
 
     override fun getImage(value: String, url: String) {
@@ -1748,7 +1665,7 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
     }
 
     //test
-    fun camera() {
+    private fun cameraActivityresult() {
         launcher = registerForActivityResult<Intent, ActivityResult>(
             ActivityResultContracts.StartActivityForResult()
         ) { result: ActivityResult ->
@@ -1757,15 +1674,15 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
 
                 try {
                     imageUri = data!!.getStringExtra("result").toString()
-                    binding.imgFrontCamera?.let {
-                        Glide.with(getApplicationContext())
-                            .load(data!!.getStringExtra("result")?.toUri())
+                    binding.imgFrontCamera.let {
+                        Glide.with(applicationContext)
+                            .load(data.getStringExtra("result")?.toUri())
                             .into(it)
                     }
                     //profileImage?.setRotation(270F)
-                    var orFile: File =
+                    val orFile: File =
                         FileHelp().getFile(this, data!!.getStringExtra("result")?.toUri())!!
-                    var newBitmap: Bitmap = FileHelp().FileToBitmap(orFile)
+                    val newBitmap: Bitmap = FileHelp().FileToBitmap(orFile)
 
 
                     val name = "trucksUp_image" + System.currentTimeMillis() + ".jpg"
@@ -1781,16 +1698,6 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
                     os.flush()
                     os.close()
 
-                    //LoadingUtils?.showDialog(this, false)
-                    //LoadingUtils.showDialog(this, false)
-                    /*MyResponse()?.uploadImage(
-                        "jpg",
-                        "DOC" + PreferenceManager.getRequestNo(),
-                        "" + PreferenceManager.getPhoneNo(this),
-                        PreferenceManager.prepareFilePart(imageFile!!),
-                        this,
-                        this
-                    )*/
                 } catch (ex: Exception) {
                     ex.printStackTrace()
                 }

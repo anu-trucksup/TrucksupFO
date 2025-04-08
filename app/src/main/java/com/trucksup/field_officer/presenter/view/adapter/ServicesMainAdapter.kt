@@ -11,7 +11,7 @@ class ServicesMainAdapter(var context: Context?) :
     RecyclerView.Adapter<ServicesMainAdapter.ViewHolder>() {
 
     private val serviceList =
-        arrayListOf("TU kawach", "Finance", "Insurance", "Smart Fuel", "GPS", "Fast Tag")
+        arrayListOf("TU Kawach", "Finance", "Insurance", "Smart Fuel", "GPS", "FASTag")
     private val imageList = arrayListOf(
         R.drawable.ic_kawach, R.drawable.ic_finanace, R.drawable.ic_insurance,
         R.drawable.ic_smart_fuel, R.drawable.ic_gps, R.drawable.ic_fasttag,
