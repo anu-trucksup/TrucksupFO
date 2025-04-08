@@ -148,6 +148,7 @@
                                 android:orientation="vertical">
 
                                 <androidx.cardview.widget.CardView
+                                    android:id="@+id/cvCamera"
                                     android:layout_width="@dimen/_50sdp"
                                     android:layout_height="@dimen/_50sdp"
                                     android:layout_marginStart="@dimen/_4sdp"
@@ -163,7 +164,6 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:layout_gravity="center_horizontal"
-                                        android:onClick="getProfileImage"
                                         android:scaleType="fitXY"
                                         android:src="@drawable/capture_selfi"
                                         android:tag="none" />

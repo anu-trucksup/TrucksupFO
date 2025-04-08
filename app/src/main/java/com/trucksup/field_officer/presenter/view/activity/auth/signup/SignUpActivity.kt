@@ -20,6 +20,7 @@ import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -35,6 +36,7 @@ import com.trucksup.field_officer.data.model.Response
 import com.trucksup.field_officer.data.network.ResponseModel
 import com.trucksup.field_officer.databinding.ActivitySignUpBinding
 import com.trucksup.field_officer.presenter.common.CameraActivity
+import com.trucksup.field_officer.presenter.common.FileHelp
 import com.trucksup.field_officer.presenter.common.MyAlartBox
 import com.trucksup.field_officer.presenter.common.Utils
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
@@ -50,28 +52,28 @@ import java.util.regex.Pattern
 
 @AndroidEntryPoint
 class SignUpActivity : BaseActivity(), View.OnClickListener {
-
-    private var startForResult: ActivityResultLauncher<Intent>? = null
-    private var mSignUpBinding: ActivitySignUpBinding? = null
+    private  var mSignUpBinding: ActivitySignUpBinding? = null
     private var signupViewModel: SignupViewModel? = null
+    private var launcher: ActivityResultLauncher<Intent>? = null
+    private var imageUri:String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         mSignUpBinding = DataBindingUtil.setContentView(this, R.layout.activity_sign_up)
-
+        adjustFontScale(resources.configuration, 1.0f)
+        enableEdgeToEdge()
         //click Listener
         mSignUpBinding!!.topView.ivBack.setOnClickListener(this)
 
         mSignUpBinding!!.loginTxt.setOnClickListener(this)
         mSignUpBinding!!.signUpBtn.setOnClickListener(this)
+        mSignUpBinding!!.cvCamera.setOnClickListener(this)
         // mSignUpBinding!!.signUpButtonView.setEnabled(false);
         signupViewModel = ViewModelProvider(this).get(
             SignupViewModel::class.java
         )
         mSignUpBinding!!.setViewModel(signupViewModel)
-
-        cameraListner()
 
         /* mSignUpBinding!!.confirmPasswordTxt.addTextChangedListener(object : TextWatcher {
              override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
@@ -111,8 +113,6 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
                  }
              }
          })*/
-
-
         /*  mSignUpBinding!!.otpTxt.addTextChangedListener(object : TextWatcher {
               override fun afterTextChanged(s: Editable) {
                   mSignUpBinding!!.otpErrorText.visibility = View.GONE
@@ -145,9 +145,66 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
           })*/
 
         setupObserver()
+        camera()
 
     }
 
+    fun camera() {
+        launcher = registerForActivityResult<Intent, ActivityResult>(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result: ActivityResult ->
+            if (result.resultCode == RESULT_OK) {
+                val data = result.data
+
+                try {
+                    imageUri = data!!.getStringExtra("result").toString()
+                    mSignUpBinding?.profileImage?.let {
+                        Glide.with(getApplicationContext())
+                            .load(data!!.getStringExtra("result")?.toUri())
+                            .into(it)
+                    }
+                    //profileImage?.setRotation(270F)
+                    var orFile: File =
+                        FileHelp().getFile(this, data!!.getStringExtra("result")?.toUri())!!
+                    var newBitmap: Bitmap = FileHelp().FileToBitmap(orFile)
+
+
+                    val name = "trucksUp_image" + System.currentTimeMillis() + ".jpg"
+                    val pt = Environment.DIRECTORY_PICTURES //+  "/trucksUp";
+                    val MEDIA_PATH = Environment.getExternalStorageDirectory().absolutePath + "/" + pt + "/"
+
+                    val filesDir: File = getFilesDir()
+                    val imageFile = File(filesDir, name)
+
+                    val os: OutputStream
+                    os = FileOutputStream(imageFile)
+                    newBitmap.compress(Bitmap.CompressFormat.JPEG, 99, os)
+                    os.flush()
+                    os.close()
+
+                    //LoadingUtils?.showDialog(this, false)
+                    //LoadingUtils.showDialog(this, false)
+                    /*MyResponse()?.uploadImage(
+                        "jpg",
+                        "DOC" + PreferenceManager.getRequestNo(),
+                        "" + PreferenceManager.getPhoneNo(this),
+                        PreferenceManager.prepareFilePart(imageFile!!),
+                        this,
+                        this
+                    )*/
+                } catch (ex: Exception) {
+                    ex.printStackTrace()
+                }
+            }
+        }
+    }
+
+    private fun launchCamera(){
+        val intent = Intent(this, CameraActivity::class.java)
+        intent.putExtra("flipCamera", true)
+        intent.putExtra("cameraOpen", 0)
+        launcher!!.launch(intent)
+    }
 
     private fun setupObserver() {
         signupViewModel?.resultSendOTPLD?.observe(
@@ -215,7 +272,6 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
         }
 
     }
-
 
     override fun onClick(view: View) {
         if (view.id == R.id.iv_back) {
@@ -364,6 +420,8 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
                     "Ok"
                 )
             }
+        }else if(view.id == R.id.cvCamera){
+            launchCamera()
         }
     }
 
@@ -386,65 +444,9 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
         ) {
             Log.e("Click", "Click opn location ask  ")
             checkLocationPermission()
-
-
         } else {
-            val intent = Intent(this, CameraActivity::class.java)
-            startForResult?.launch(intent)
-        }
-    }
-
-    private fun cameraListner() {
-        startForResult = registerForActivityResult<Intent, ActivityResult>(
-            ActivityResultContracts.StartActivityForResult()
-        ) { result: ActivityResult ->
-            if (result.resultCode == RESULT_OK) {
-                val data = result.data
-                //var mainBitmap: Bitmap = data?.extras?.get("data") as Bitmap
-                //userImage?.setImageBitmap(mainBitmap)
-                //   ImageCompresser().CompressWithBitmap(mainBitmap,this)
-
-                try {
-                    mSignUpBinding?.profileImage?.let {
-
-                        it.tag = "y"
-                        Glide.with(applicationContext)
-                            .load(data!!.getStringExtra("result")?.toUri())
-                            .into(it)
-                    }
-                    //profileImage?.setRotation(270F)
-                    /* var orFile: File =
-                         FileHelp().getFile(this, data!!.getStringExtra("result")?.toUri())!!
-                     var newBitmap: Bitmap = FileHelp().FileToBitmap(orFile)
-
-
-                     val name = "trucksUp_image" + System.currentTimeMillis() + ".jpg"
-                     val pt = Environment.DIRECTORY_PICTURES //+  "/trucksUp";
-                     val MEDIA_PATH = Environment.getExternalStorageDirectory().absolutePath + "/" + pt + "/"
-
-                     val filesDir: File = getFilesDir()
-                     val imageFile = File(filesDir, name)
-
-                     val os: OutputStream
-                     os = FileOutputStream(imageFile)
-                     newBitmap.compress(Bitmap.CompressFormat.JPEG, 99, os)
-                     os.flush()
-                     os.close()
-
-                     LoadingUtils?.showDialog(this, false)
-                     LoadingUtils.showDialog(this, false)
-                     MyResponse()?.uploadImage(
-                         "jpg",
-                         "DOC" + PreferenceManager.getRequestNo(),
-                         "" + PreferenceManager.getPhoneNo(this),
-                         PreferenceManager.prepareFilePart(imageFile!!),
-                         this,
-                         this
-                     )*/
-                } catch (ex: Exception) {
-                    ex.printStackTrace()
-                }
-            }
+            /*val intent = Intent(this, CameraActivity::class.java)
+            startForResult?.launch(intent)*/
         }
     }
 
@@ -513,54 +515,6 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
             }
         }
 
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (resultCode == Activity.RESULT_OK && requestCode == 11 && data != null) {
-            var mainBitmap: Bitmap = data.extras?.get("data") as Bitmap
-            mSignUpBinding?.profileImage?.setImageBitmap(mainBitmap)
-
-            val newBitmap: Bitmap =
-                FileHelper().resizeImage(data.extras?.get("data") as Bitmap, 500, 500)!!
-            //  var newFile: File = FileHelp().bitmapTofile(newBitmap,this)!!
-
-            val name = "trucksUp_image" + System.currentTimeMillis() + ".jpg"
-            val imageFile = File(filesDir, name)
-
-            val os: OutputStream
-            try {
-                os = FileOutputStream(imageFile)
-                newBitmap.compress(Bitmap.CompressFormat.JPEG, 99, os)
-                os.flush()
-                os.close()
-
-                mSignUpBinding?.profileImage?.tag = "uploaded"
-
-                /* LoadingUtils?.showDialog(this, false)
-                 LoadingUtils.showDialog(this, false)
-                 MyResponse()?.uploadImage(
-                     "jpg",
-                     "DOC" + PreferenceManager.getRequestNo(),
-                     "" + PreferenceManager.getPhoneNo(this),
-                     PreferenceManager.prepareFilePart(imageFile!!),
-                     this,
-                     this
-                 )*/
-            } catch (e: java.lang.Exception) {
-                Log.e(javaClass.simpleName, "Error writing bitmap", e)
-                LoggerMessage.onSNACK(
-                    mSignUpBinding?.profileImage!!,
-                    "Request cancelled or something went wrong.",
-                    this
-                )
-            }
-
-
-        } else {
-            LoggerMessage.toastPrint("Request cancelled or something went wrong.", baseContext)
-        }
     }
 
     /*override fun getImage(value: String) {

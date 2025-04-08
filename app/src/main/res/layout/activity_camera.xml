@@ -170,7 +170,8 @@
         android:src="@drawable/flip_camera"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/flashToggleIB"
-        app:tint="@color/white" />
+        app:tint="@color/white"
+        android:visibility="gone"/>
 
 
     <Spinner

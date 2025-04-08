@@ -13,6 +13,7 @@ import android.icu.util.Calendar
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.text.InputFilter
 import android.text.TextUtils
@@ -22,10 +23,12 @@ import android.view.View
 import android.widget.EditText
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
@@ -37,6 +40,7 @@ import com.trucksup.field_officer.R
 import com.trucksup.field_officer.data.model.VehicleDetail
 import com.trucksup.field_officer.databinding.ActivityInsuranceScreenBinding
 import com.trucksup.field_officer.databinding.VehicleDetailsDialogLayoutBinding
+import com.trucksup.field_officer.presenter.common.CameraActivity
 import com.trucksup.field_officer.presenter.common.FileHelp
 import com.trucksup.field_officer.presenter.common.LoadingUtils
 import com.trucksup.field_officer.presenter.common.MyAlartBox
@@ -55,6 +59,8 @@ import com.trucksup.field_officer.presenter.view.activity.other.ViewPdfScreen
 import com.trucksup.field_officer.presenter.utils.truckMenu.TruckMenu
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
+import java.io.FileOutputStream
+import java.io.OutputStream
 import java.util.Locale
 import java.util.regex.Pattern
 
@@ -75,6 +81,10 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
     private var prevPolicyDocsImgUrl: String? = ""
     private var imageT: Int = 0//0 default,1 front image,2 back image,3 previous policy docs image
     private var sourceValue: String? = "Trucksup"
+    private var sourceValue: String? = ""
+
+    private var launcher: ActivityResultLauncher<Intent>? = null
+    private var imageUri:String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -99,6 +109,7 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
         disableEmojiInTitle()
         setListener()
         setupObserver()
+        camera()
     }
 
     private fun setRecyclerView() {
@@ -1282,7 +1293,16 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
 
 
     private fun getImage() {
-        if (ActivityCompat.checkSelfPermission(
+        if (imageT == 3) {
+            var chooseFile = Intent(Intent.ACTION_GET_CONTENT)
+            chooseFile.setType("application/pdf");
+            chooseFile = Intent.createChooser(chooseFile, "Choose a file")
+            activitypdfLauncher.launch(chooseFile)
+        } else {
+            val imagePickerDialog = ImagePickerDailog(this, this)
+            imagePickerDialog.show()
+        }
+        /*if (ActivityCompat.checkSelfPermission(
                 this,
                 Manifest.permission.READ_EXTERNAL_STORAGE
             ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
@@ -1308,7 +1328,7 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
                 val imagePickerDialog = ImagePickerDailog(this, this)
                 imagePickerDialog.show()
             }
-        }
+        }*/
     }
 
     private fun checkLocationPermission() {
@@ -1394,10 +1414,10 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
                         chooseFile.setType("application/pdf");
                         chooseFile = Intent.createChooser(chooseFile, "Choose a file")
                         activitypdfLauncher.launch(chooseFile)
-                    } else {
+                    } /*else {
                         val imagePickerDailog = ImagePickerDailog(this, this)
                         imagePickerDailog.show()
-                    }
+                    }*/
                 } else {
 
                     divPer()
@@ -1475,10 +1495,11 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
 //        startActivity(intent)
 
         //new 6
-        val intent = Intent(this, CameraXActivity::class.java)
+        /*val intent = Intent(this, CameraXActivity::class.java)
         intent.putExtra("FRONT", "n")
         intent.putExtra("BACK", "y")
-        startForResult.launch(intent)
+        startForResult.launch(intent)*/
+        launchCamera(false, 0)
     }
 
     private val startForResult =
@@ -1591,10 +1612,81 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
         }
     }
 
+    /* fun getImageToken(file: File) {
+         LoadingUtils.showDialog(this, false)
+         var apiInterface: ApiInterface =
+             ApiClient(PreferenceManager.getServerUrl(this)).getClient
+         var req: TrucksHubAuthJWTtokenRequest = TrucksHubAuthJWTtokenRequest(
+             PreferenceManager.trucksHubAuthData(this)?.apiSecreteKey.toString(),
+             PreferenceManager.trucksHubAuthData(this)?.issuer.toString(),
+             PreferenceManager.trucksHubAuthData(this)?.password.toString(),
+             PreferenceManager.trucksHubAuthData(this)?.userAgent.toString(),
+             PreferenceManager.trucksHubAuthData(this)?.userName.toString()
+         )
+
+         apiInterface.generateTrucksHubJWTtoken(
+             PreferenceManager.trucksHubAuthData(this)?.headerKey.toString().toString(),
+             req,
+             "JwtAuth/api/Auth/GenerateJWTtoken"
+         )
+             ?.enqueue(object : Callback<TrucksHubAuthJWTtokenResponse> {
+                 override fun onResponse(
+                     call: Call<TrucksHubAuthJWTtokenResponse>,
+                     response: Response<TrucksHubAuthJWTtokenResponse>
+                 ) {
+                     if (response.isSuccessful) {
+
+                         if (response.body()?.statusCode == 200) {
+
+                             //   controller.trucksHubAuthTokken(response.body()!!.accessToken,requestFor)
+
+ //                            uploadImage(file,"Bearer " + response.body()!!.accessToken)
+                         } else {
+
+                             LoadingUtils.hideDialog()
+                             var abx: MyAlartBox =
+                                 MyAlartBox(
+                                     this@InsuranceScreen,
+                                     response.body()?.message.toString(),
+                                     "m"
+                                 )
+                             abx?.show()
+
+                         }
+                     } else {
+                         LoadingUtils.hideDialog()
+                         var abx: MyAlartBox =
+                             MyAlartBox(
+                                 this@InsuranceScreen,
+                                 resources.getString(R.string.no_data_found),
+                                 "m"
+                             )
+                         abx?.show()
+                     }
+
+
+                 }
+
+                 override fun onFailure(call: Call<TrucksHubAuthJWTtokenResponse>, t: Throwable) {
+                     LoggerMessage.LogErrorMsg("Error", "" + t.message)
+                     LoadingUtils.hideDialog()
+                     val data: ErrorModel = ErrorModel(
+                         "" + t.message,
+                         "" + PreferenceManager.getPhoneNo(this@InsuranceScreen),
+                         "" + PreferenceManager.getUserData(this@InsuranceScreen)?.profileName,
+                         "" + DeviceInfoUtils.getDeviceModel(this@InsuranceScreen),
+                         "API",
+                         "JwtAuth/api/Auth/GenerateJWTtoken"
+                     )
+                     ErrorStore().StoreError(data)
+                 }
+             })
+
+     }*/
 
     fun uploadImage(file: File, token: String) {
         LoadingUtils.showDialog(this, false)
-        if (imageT == 3) {
+        /*if (imageT == 3) {
             mViewModel?.trucksupImageUpload(
                 PreferenceManager.getAuthToken(),
                 "pdf",
@@ -1610,7 +1702,7 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
                 PreferenceManager.prepareFilePartTrucksHum(file!!, "watermarkFile"),
                 this
             )
-        }
+        }*/
     }
 
     override fun getImage(value: String, url: String) {
@@ -1655,6 +1747,63 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
         LoggerMessage.onSNACK(binding.main, error, this)
     }
 
+    //test
+    fun camera() {
+        launcher = registerForActivityResult<Intent, ActivityResult>(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result: ActivityResult ->
+            if (result.resultCode == RESULT_OK) {
+                val data = result.data
+
+                try {
+                    imageUri = data!!.getStringExtra("result").toString()
+                    binding.imgFrontCamera?.let {
+                        Glide.with(getApplicationContext())
+                            .load(data!!.getStringExtra("result")?.toUri())
+                            .into(it)
+                    }
+                    //profileImage?.setRotation(270F)
+                    var orFile: File =
+                        FileHelp().getFile(this, data!!.getStringExtra("result")?.toUri())!!
+                    var newBitmap: Bitmap = FileHelp().FileToBitmap(orFile)
+
+
+                    val name = "trucksUp_image" + System.currentTimeMillis() + ".jpg"
+                    val pt = Environment.DIRECTORY_PICTURES //+  "/trucksUp";
+                    val MEDIA_PATH = Environment.getExternalStorageDirectory().absolutePath + "/" + pt + "/"
+
+                    val filesDir: File = getFilesDir()
+                    val imageFile = File(filesDir, name)
+
+                    val os: OutputStream
+                    os = FileOutputStream(imageFile)
+                    newBitmap.compress(Bitmap.CompressFormat.JPEG, 99, os)
+                    os.flush()
+                    os.close()
+
+                    //LoadingUtils?.showDialog(this, false)
+                    //LoadingUtils.showDialog(this, false)
+                    /*MyResponse()?.uploadImage(
+                        "jpg",
+                        "DOC" + PreferenceManager.getRequestNo(),
+                        "" + PreferenceManager.getPhoneNo(this),
+                        PreferenceManager.prepareFilePart(imageFile!!),
+                        this,
+                        this
+                    )*/
+                } catch (ex: Exception) {
+                    ex.printStackTrace()
+                }
+            }
+        }
+    }
+    private fun launchCamera(flipCamera: Boolean, cameraOpen: Int){
+        val intent = Intent(this, CameraActivity::class.java)
+        intent.putExtra("flipCamera", flipCamera)
+        intent.putExtra("cameraOpen", cameraOpen)
+        launcher!!.launch(intent)
+    }
+    //test
 
     fun viewPreviousEnquiry(v: View) {
         //Insurance

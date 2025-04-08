@@ -57,6 +57,7 @@ import com.trucksup.field_officer.presenter.common.Utils.appSettingOpen
 import com.trucksup.field_officer.presenter.common.Utils.warningPermissionDialog
 import com.trucksup.field_officer.presenter.view.activity.auth.signup.SignUpActivity
 import com.trucksup.field_officer.presenter.view.activity.other.MainActivity
+import kotlinx.serialization.Required
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -64,7 +65,8 @@ import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 
-class CameraActivity : AppCompatActivity() {
+class CameraActivity: AppCompatActivity() {
+
     private val camera_binding: ActivityCameraBinding by lazy {
         ActivityCameraBinding.inflate(layoutInflater)
     }
@@ -78,16 +80,16 @@ class CameraActivity : AppCompatActivity() {
     private val multiplePermissionNameList = if (Build.VERSION.SDK_INT >= 33) {
         arrayListOf(
             Manifest.permission.CAMERA,
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.ACCESS_COARSE_LOCATION,
+            //Manifest.permission.ACCESS_FINE_LOCATION,
+            //Manifest.permission.ACCESS_COARSE_LOCATION,
         )
     } else {
         arrayListOf(
             Manifest.permission.CAMERA,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.ACCESS_COARSE_LOCATION,
+            //Manifest.permission.ACCESS_FINE_LOCATION,
+            //Manifest.permission.ACCESS_COARSE_LOCATION,
         )
     }
 
@@ -97,7 +99,8 @@ class CameraActivity : AppCompatActivity() {
     private lateinit var cameraSelector: CameraSelector
     private var mLastHandledOrientation = 0
     private var orientationEventListener: OrientationEventListener? = null
-    private var lensFacing = CameraSelector.LENS_FACING_FRONT
+    //private var lensFacing = CameraSelector.LENS_FACING_BACK
+    private var lensFacing = CameraSelector.LENS_FACING_BACK
     private var selectedResolution: Size? = null
     private lateinit var cameraExecutor: ExecutorService
     private var imageAnalyzer: ImageAnalysis? = null
@@ -120,14 +123,31 @@ class CameraActivity : AppCompatActivity() {
             takePhoto()
         }
 
-        camera_binding.flipCameraIB.setOnClickListener {
-            lensFacing = if (lensFacing == CameraSelector.LENS_FACING_FRONT) {
-                CameraSelector.LENS_FACING_BACK
-            } else {
-                CameraSelector.LENS_FACING_FRONT
-            }
-            bindCameraUserCases()
+
+        val cameraOpen = intent.getIntExtra("cameraOpen", 0)
+        if(cameraOpen == 1){
+            lensFacing = CameraSelector.LENS_FACING_BACK
+        }else{
+            lensFacing = CameraSelector.LENS_FACING_FRONT
         }
+
+        //check flip action on camera
+        val flipCamera = intent.getBooleanExtra("flipCamera", false)
+        if(flipCamera){
+            camera_binding.flipCameraIB.visibility = View.VISIBLE
+            camera_binding.flipCameraIB.setOnClickListener {
+                lensFacing = if (lensFacing == CameraSelector.LENS_FACING_FRONT) {
+                    CameraSelector.LENS_FACING_BACK
+                } else {
+                    CameraSelector.LENS_FACING_FRONT
+                }
+                bindCameraUserCases()
+            }
+        }else{
+            camera_binding.flipCameraIB.visibility = View.GONE
+
+        }
+
 
         camera_binding.flashToggleIB.setOnClickListener {
             setFlashIcon(camera)
@@ -170,15 +190,19 @@ class CameraActivity : AppCompatActivity() {
                     this, permission
                 ) != PackageManager.PERMISSION_GRANTED
             ) {
+               // Toast.makeText(this, "ok",Toast.LENGTH_SHORT).show()
                 listPermissionNeeded.add(permission)
             }
         }
         if (listPermissionNeeded.isNotEmpty()) {
+            //Toast.makeText(this, "not",Toast.LENGTH_SHORT).show()
             ActivityCompat.requestPermissions(
                 this, listPermissionNeeded.toTypedArray(), multiplePermissionId
             )
             return false
         }
+       // Toast.makeText(this, "ooh",Toast.LENGTH_SHORT).show()
+
         return true
     }
 
@@ -220,7 +244,7 @@ class CameraActivity : AppCompatActivity() {
                         // here app Setting open because all permission is not granted
                         // and permanent denied
                         appSettingOpen(this)
-
+                        finish()
                     } else {
                         // here warning permission show
                         warningPermissionDialog(this) { _: DialogInterface, which: Int ->
@@ -286,9 +310,12 @@ class CameraActivity : AppCompatActivity() {
     }*/
 
     private fun bindCameraUserCases() {
+
+
         val rotatedResolution = getRotatedResolution(
             selectedResolution!!,
-            camera_binding.previewview.display.rotation
+            //camera_binding.previewview.display.rotation
+            0
         )
         val resolutionFilter = object : ResolutionFilter {
             override fun filter(
@@ -321,7 +348,8 @@ class CameraActivity : AppCompatActivity() {
         )
         imageCapture = ImageCapture.Builder()
             .setResolutionSelector(resolutionSelector)
-            .setTargetRotation(camera_binding.previewview.display.rotation)
+            //.setTargetRotation(camera_binding.previewview.display.rotation)
+            .setTargetRotation(0)
             .build()
         Log.e(
             "CameraResolutionsTAG",
@@ -676,7 +704,6 @@ class CameraActivity : AppCompatActivity() {
             camera_binding.latitudeTextview.text.toString()
         )
     }*/
-
 
     /*private fun getLocation() {
         if(checkMultiplePermission()){
