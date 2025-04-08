@@ -17,7 +17,7 @@ class ServicesMainAdapter(var context: Context?) :
         R.drawable.ic_smart_fuel, R.drawable.ic_gps, R.drawable.ic_fasttag,
     )
 
-    private val itemClickListner: OnItemClickListner = context as OnItemClickListner
+    private val itemClickListener: OnItemClickListener = context as OnItemClickListener
 
     inner class ViewHolder(var binding: ItemServicesMainBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -31,10 +31,13 @@ class ServicesMainAdapter(var context: Context?) :
         holder.binding.serviceImg.setImageResource(imageList[position])
         holder.binding.serviceName.text = serviceList[position]
 
+        if (position == 5 || position == 4) {
+            holder.binding.serviceImg.isEnabled = false
+        }
 
         holder.binding.root.setOnClickListener {
 
-            itemClickListner.onItemClick(position)
+            itemClickListener.onItemClick(position)
 
         }
     }
@@ -46,6 +49,6 @@ class ServicesMainAdapter(var context: Context?) :
 
 }
 
-interface OnItemClickListner {
+interface OnItemClickListener {
     fun onItemClick(position: Int)
 }

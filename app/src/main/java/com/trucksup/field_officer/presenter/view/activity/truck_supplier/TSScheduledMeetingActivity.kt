@@ -30,8 +30,8 @@ class TSScheduledMeetingActivity : BaseActivity(), PreferredLaneAdap.ControllerL
     TrucksDetailsAdap.ControllerListener {
 
     private lateinit var binding: ActivityOwnerScheduledMeetingBinding
-    var preferredLaneList = ArrayList<FromToModel>()
-    var trucksDetailsList = ArrayList<String>()
+    private var preferredLaneList = ArrayList<FromToModel>()
+    private var trucksDetailsList = ArrayList<String>()
     private var photo1: Boolean = false
     private var photo2: Boolean = false
 

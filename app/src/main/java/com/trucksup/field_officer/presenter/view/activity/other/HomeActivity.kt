@@ -40,13 +40,13 @@ import com.trucksup.field_officer.presenter.view.activity.smartfuel.AddSmartFuel
 import com.trucksup.field_officer.presenter.view.activity.truck_supplier.unassigned_ts_ba.activity.UnAssignedTSBAActivity
 import com.trucksup.field_officer.presenter.view.adapter.HomeFeaturesAdapter
 import com.trucksup.field_officer.presenter.view.adapter.ServicesMainAdapter
-import com.trucksup.field_officer.presenter.view.adapter.OnItemClickListner
+import com.trucksup.field_officer.presenter.view.adapter.OnItemClickListener
 import com.trucksup.field_officer.presenter.view.adapter.TUKawachDialogAdapter
 import com.trucksup.field_officer.presenter.view.adapter.NavigationMenuItem
 import java.util.Locale
 
 
-class HomeActivity : BaseActivity(), OnItemClickListner {
+class HomeActivity : BaseActivity(), OnItemClickListener {
     private lateinit var binding: ActivityHomeBinding
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 

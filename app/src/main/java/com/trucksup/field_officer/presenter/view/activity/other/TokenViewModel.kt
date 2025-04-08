@@ -7,7 +7,7 @@ import com.trucksup.field_officer.R
 import com.trucksup.field_officer.data.model.GenerateJWTtokenRequest
 import com.trucksup.field_officer.data.model.GenerateJWTtokenResponse
 import com.trucksup.field_officer.data.services.ApiService
-import com.trucksup.field_officer.presenter.common.MyAlartBox
+import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
 import com.trucksup.field_officer.presenter.common.JWTtoken
@@ -43,7 +43,7 @@ class TokenViewModel @Inject constructor(private val apiService: ApiService) : V
 
                             controller.onTokenFailure(response.body()?.message.toString())
                             val abx =
-                                MyAlartBox(
+                                AlertBoxDialog(
                                     context as Activity,
                                     response.body()?.message.toString(),
                                     "m"
@@ -53,7 +53,7 @@ class TokenViewModel @Inject constructor(private val apiService: ApiService) : V
                         }
                     } else {
                         val abx =
-                            MyAlartBox(
+                            AlertBoxDialog(
                                 context as Activity,
                                 context.resources.getString(R.string.no_data_found),
                                 "m"

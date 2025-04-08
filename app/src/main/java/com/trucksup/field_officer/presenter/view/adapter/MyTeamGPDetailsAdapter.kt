@@ -1,22 +1,15 @@
 package com.trucksup.field_officer.presenter.view.adapter
 
 import android.app.Activity
-import android.app.AlertDialog
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.trucksup.field_officer.R
-import com.trucksup.field_officer.databinding.DateFilterBinding
-import com.trucksup.field_officer.databinding.ItemMyTeamTsInactiveBinding
 import com.trucksup.field_officer.databinding.ItemMyteamGpDetailsBinding
-import com.trucksup.field_officer.databinding.ItemUnassignedBaBinding
 import com.trucksup.field_officer.presenter.common.dialog.HappinessCodeBox
-import com.trucksup.field_officer.presenter.view.activity.truck_supplier.TSDetailActivity
-import com.trucksup.field_officer.presenter.view.activity.truck_supplier.TSStartTripActivity
 
 class MyTeamGPDetailsAdapter(var context: Context?, var list: ArrayList<String>) :
     RecyclerView.Adapter<MyTeamGPDetailsAdapter.ViewHolder>() {

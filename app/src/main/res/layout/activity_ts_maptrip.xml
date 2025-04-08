@@ -35,16 +35,13 @@
                 tools:ignore="UseAppTint" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:drawableTint="@color/blue"
-                android:fontFamily="@font/bai_jamjuree_medium"
+                style="@style/title_basicreg_18"
                 android:gravity="center|center_vertical"
-                android:text="@string/truckSupplierfollow"
                 android:textAlignment="center"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_17ssp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

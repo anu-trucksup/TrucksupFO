@@ -3,17 +3,13 @@ package com.trucksup.field_officer.presenter.view.adapter
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.DateFilterBinding
 import com.trucksup.field_officer.databinding.GpPerformItemBinding
-import com.trucksup.field_officer.databinding.TsPerformItemBinding
-import com.trucksup.field_officer.databinding.TsScheduledItemBinding
 import com.trucksup.field_officer.presenter.common.dialog.HappinessCodeBox
-import com.trucksup.field_officer.presenter.view.activity.truck_supplier.TSStartTripActivity
 
 class GPPerformanceAdapter(var context: Context?, var list: ArrayList<String>) :
     RecyclerView.Adapter<GPPerformanceAdapter.ViewHolder>() {

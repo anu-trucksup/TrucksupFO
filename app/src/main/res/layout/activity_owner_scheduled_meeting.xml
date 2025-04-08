@@ -45,7 +45,7 @@
                 android:drawableTint="@color/blue"
                 android:fontFamily="@font/bai_jamjuree_medium"
                 android:gravity="center|center_vertical"
-                android:text="@string/truckSupplierfollow"
+                android:text="@string/ts_followup"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_17ssp"

@@ -9,8 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ActivityResetPasswordBinding
-import com.trucksup.field_officer.presenter.common.MyAlartBox
-import com.trucksup.field_officer.presenter.common.Utils
+import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,7 +41,7 @@ class ResetPasswordActivity : BaseActivity(), View.OnClickListener {
                 dismissProgressDialog()
 
                 val abx =
-                    MyAlartBox(
+                    AlertBoxDialog(
                         this@ResetPasswordActivity,
                         responseModel.serverError.toString(),
                         "m"

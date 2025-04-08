@@ -15,7 +15,6 @@ import com.trucksup.field_officer.databinding.DateFilterBinding
 import com.trucksup.field_officer.databinding.FragmentUnassignedTsBinding
 import com.trucksup.field_officer.presenter.common.dialog.DialogBoxes
 import com.trucksup.field_officer.presenter.view.activity.truck_supplier.unassigned_ts_ba.adapter.UnAssignedTSAdapter
-import com.trucksup.field_officer.presenter.view.adapter.TSHomeAdapter
 import java.util.Calendar
 
 

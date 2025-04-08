@@ -1,6 +1,5 @@
 package com.trucksup.field_officer.presenter.view.activity.auth.login
 
-import android.app.Activity
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -13,7 +12,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ActivityLoginBinding
-import com.trucksup.field_officer.presenter.common.MyAlartBox
+import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.Utils
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.utils.CommonApplication
@@ -85,7 +84,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                 dismissProgressDialog()
 
               val abx =
-                  MyAlartBox(
+                  AlertBoxDialog(
                       this@LoginActivity,
                       responseModel.serverError.toString(),
                       "m"

@@ -24,7 +24,7 @@ import com.trucksup.field_officer.databinding.ActivityTcNewOnboardingBinding
 import com.trucksup.field_officer.databinding.VerifyOtpDialogBinding
 import com.trucksup.field_officer.presenter.common.CameraActivity
 import com.trucksup.field_officer.presenter.common.FileHelp
-import com.trucksup.field_officer.presenter.common.MyAlartBox
+import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
 import com.trucksup.field_officer.presenter.view.activity.other.TokenViewModel
@@ -213,7 +213,7 @@ class TSOnboardingActivity : BaseActivity(), View.OnClickListener, JWTtoken {
                 dismissProgressDialog()
 
                 val abx =
-                    MyAlartBox(
+                    AlertBoxDialog(
                         this@TSOnboardingActivity,
                         responseModel.serverError.toString(),
                         "m"
@@ -231,7 +231,7 @@ class TSOnboardingActivity : BaseActivity(), View.OnClickListener, JWTtoken {
                             responseModel.success.data[0].hindiState
                         )
                     } else {
-                        val abx = MyAlartBox(
+                        val abx = AlertBoxDialog(
                             this@TSOnboardingActivity,
                             responseModel.success.message,
                             "m"
@@ -239,7 +239,7 @@ class TSOnboardingActivity : BaseActivity(), View.OnClickListener, JWTtoken {
                         abx.show()
                     }
                 } else {
-                    val abx = MyAlartBox(
+                    val abx = AlertBoxDialog(
                         this@TSOnboardingActivity,
                         "no data found",
                         "m"
@@ -316,7 +316,7 @@ class TSOnboardingActivity : BaseActivity(), View.OnClickListener, JWTtoken {
         if (!response.accessToken.isNullOrEmpty()) {
             getPinData("Bearer " + response.accessToken)
         } else {
-            val abx = MyAlartBox(this@TSOnboardingActivity,
+            val abx = AlertBoxDialog(this@TSOnboardingActivity,
                 "Something went wrong", "m")
             abx.show()
         }
@@ -325,7 +325,7 @@ class TSOnboardingActivity : BaseActivity(), View.OnClickListener, JWTtoken {
 
     override fun onTokenFailure(msg: String) {
         dismissProgressDialog()
-        val abx = MyAlartBox(this@TSOnboardingActivity, msg, "m")
+        val abx = AlertBoxDialog(this@TSOnboardingActivity, msg, "m")
         abx.show()
     }
 }

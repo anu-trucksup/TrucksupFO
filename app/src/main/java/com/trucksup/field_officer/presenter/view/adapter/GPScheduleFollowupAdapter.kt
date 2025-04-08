@@ -32,7 +32,8 @@ class GPScheduleFollowupAdapter(var context: Context?, var list: ArrayList<Strin
 
         holder.binding.root.setOnClickListener {
 
-            val intent = Intent(context, GPStartTripActivity::class.java)
+            val intent = Intent(context, TSStartTripActivity::class.java)
+            intent.putExtra("title", "" + context?.resources?.getString(R.string.gp_followup))
             context?.startActivity(intent)
         }
     }

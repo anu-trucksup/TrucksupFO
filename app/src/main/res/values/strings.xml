@@ -214,10 +214,11 @@
     <string name="select_the_user_type_you_want_to_onboard">Select the user type you want to onboard.</string>
     <string name="please_confirm_the_date_and_time">Please confirm the date and time..</string>
     <string name="confirm">Confirm</string>
-    <string name="truckSupplierfollow">Truck Suppliers Follow-Up</string>
+    <string name="ts_followup">Truck Suppliers Follow-Up</string>
     <string name="start_trip">Start Trip</string>
     <string name="last_call_initiated">Last Call Initiated :</string>
     <string name="send_happiness_code"><u>Send Happiness Code</u></string>
+    <string name="send_happiness_code_">Send Happiness Code</string>
     <string name="visit_type">Visit Type:</string>
 
 
@@ -636,6 +637,12 @@
     <string name="vrc_front_image">Vehicle RC Front Image <font color='#FF0000'>*</font></string>
     <string name="vrc_back_image">Vehicle RC Back Image <font color='#FF0000'>*</font></string>
     <string name="end_trip">End Trip</string>
+    <string name="schedule_text">You have a scheduled follow-up with the Truck Supplier today at 2:30 PM. To start the trip, continue with the start trip.</string>
+    <string name="scheduled_follow_up">Scheduled Follow-Up</string>
+    <string name="redirect_to_map">Click to redirect to Google Map</string>
+    <string name="end_your_trip">You have reached your location. Please end your trip.</string>
+    <string name="meeting_alert_text">To start the scheduled meeting, kindly input the happiness code shared to the Growth Partner on the registered mobile number.</string>
+    <string name="reschedule_meeting"><u>Reschedule Meeting</u></string>
 
 
 </resources>

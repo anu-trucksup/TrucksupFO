@@ -1,23 +1,14 @@
 package com.trucksup.field_officer.presenter.view.activity.auth.signup
 
 import android.Manifest
-import android.app.Activity
-import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.ImageDecoder
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
-import android.provider.MediaStore
-import android.text.Editable
-import android.text.Spannable
 import android.text.TextUtils
-import android.text.TextWatcher
 import android.util.Log
-import android.util.Patterns
 import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -37,12 +28,10 @@ import com.trucksup.field_officer.data.network.ResponseModel
 import com.trucksup.field_officer.databinding.ActivitySignUpBinding
 import com.trucksup.field_officer.presenter.common.CameraActivity
 import com.trucksup.field_officer.presenter.common.FileHelp
-import com.trucksup.field_officer.presenter.common.MyAlartBox
+import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.Utils
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
-import com.trucksup.field_officer.presenter.common.yCamera.CameraXActivity
-import com.trucksup.field_officer.presenter.utils.FileHelper
 import com.trucksup.field_officer.presenter.view.activity.auth.login.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
@@ -214,7 +203,7 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
                 dismissProgressDialog()
 
                 val abx =
-                    MyAlartBox(
+                    AlertBoxDialog(
                         this@SignUpActivity,
                         responseModel.serverError.toString(),
                         "m"
@@ -230,7 +219,7 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
                 dismissProgressDialog()
 
                 val abx =
-                    MyAlartBox(
+                    AlertBoxDialog(
                         this@SignUpActivity,
                         responseModel.serverError.toString(),
                         "m"
@@ -252,7 +241,7 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
                 dismissProgressDialog()
 
                 val abx =
-                    MyAlartBox(
+                    AlertBoxDialog(
                         this@SignUpActivity,
                         responseModel.serverError.toString(),
                         "m"

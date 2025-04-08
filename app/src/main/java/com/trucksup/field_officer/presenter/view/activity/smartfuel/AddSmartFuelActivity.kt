@@ -3,12 +3,10 @@ package com.trucksup.field_officer.presenter.view.activity.smartfuel
 import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
-import android.app.DatePickerDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
-import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
 import android.net.Uri
 import android.os.Build
@@ -19,7 +17,6 @@ import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.EditText
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.PickVisualMediaRequest
@@ -30,18 +27,14 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.data.model.VehicleDetail
 import com.trucksup.field_officer.databinding.ActivityAddSmartfuelBinding
-import com.trucksup.field_officer.databinding.ActivityInsuranceScreenBinding
 import com.trucksup.field_officer.databinding.VehicleDetailsDialogLayoutBinding
 import com.trucksup.field_officer.presenter.common.FileHelp
 import com.trucksup.field_officer.presenter.common.LoadingUtils
-import com.trucksup.field_officer.presenter.common.MyAlartBox
-import com.trucksup.field_officer.presenter.common.ProgressDailogBox
+import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.dialog.FinaceSubmitBox
 import com.trucksup.field_officer.presenter.common.image_picker.GetImage
 import com.trucksup.field_officer.presenter.common.image_picker.ImagePickerDailog
@@ -53,12 +46,10 @@ import com.trucksup.field_officer.presenter.utils.PreferenceManager
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.InsuranceViewModel
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryRequest
 import com.trucksup.field_officer.presenter.view.activity.other.ViewPdfScreen
-import com.trucksup.field_officer.presenter.utils.truckMenu.TruckMenu
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.InsuranceController
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.InsuranceListAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
-import java.util.Locale
 import java.util.regex.Pattern
 
 @AndroidEntryPoint
@@ -127,7 +118,7 @@ class AddSmartFuelActivity : BaseActivity(), InsuranceController, GetImage, Truc
                 dismissProgressDialog()
 
                 val abx =
-                    MyAlartBox(
+                    AlertBoxDialog(
                         this@AddSmartFuelActivity,
                         responseModel.serverError.toString(),
                         "m"
@@ -154,7 +145,7 @@ class AddSmartFuelActivity : BaseActivity(), InsuranceController, GetImage, Truc
                 dismissProgressDialog()
 
                 val abx =
-                    MyAlartBox(
+                    AlertBoxDialog(
                         this@AddSmartFuelActivity,
                         responseModel.serverError.toString(),
                         "m"

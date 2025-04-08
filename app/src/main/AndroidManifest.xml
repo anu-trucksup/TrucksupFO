@@ -223,9 +223,6 @@
         <activity
             android:name=".presenter.view.activity.truck_supplier.TSViewAllActivity"
             android:exported="false" />
-        <activity
-            android:name=".presenter.view.activity.truck_supplier.UnAssignedTSActivity"
-            android:exported="false" />
 
         <activity
             android:name=".presenter.view.activity.truck_supplier.unassigned_ts_ba.activity.UnAssignedTSBAActivity"
@@ -259,7 +256,7 @@
             android:name=".presenter.view.activity.smartfuel.AddSmartFuelActivity"
             android:exported="false" />
         <activity
-            android:name=".presenter.view.activity.truck_supplier.TSEndTripActivity"
+            android:name=".presenter.view.activity.truck_supplier.EndTripActivity"
             android:exported="false" />
         <service
             android:name=".presenter.utils.MyFirebaseMessagingService"

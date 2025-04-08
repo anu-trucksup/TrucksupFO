@@ -3,26 +3,21 @@ package com.trucksup.field_officer.presenter.common
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Dialog
-import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.os.Build
 import android.os.Bundle
 import android.text.util.Linkify
 import android.util.Log
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
-import android.widget.ImageView
 import android.widget.TextView
 import com.trucksup.field_officer.R
-import com.trucksup.field_officer.presenter.utils.PreferenceManager
 
-class MyAlartBox(var context: Activity, var message: String, var type: String) : Dialog(context) {
-    var meassageTexy: TextView? = null
-    var ok: TextView? = null
-    var verifymessagetxt: TextView? = null
-    var imgLogo: ImageView? = null
+class AlertBoxDialog(var context: Activity, var message: String, var type: String) : Dialog(context) {
+    private var msgText: TextView? = null
+    private var okButton: TextView? = null
+    private var verifymessagetxt: TextView? = null
 
     init {
         setCancelable(false)
@@ -31,38 +26,35 @@ class MyAlartBox(var context: Activity, var message: String, var type: String) :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
-        //  this.getWindow()?.setFlags(ActionBar.LayoutParams.FILL_PARENT, ActionBar.LayoutParams.FILL_PARENT);
         setContentView(R.layout.alart_box)
-        this.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
-        //  this.getWindow()?.setLayout(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT);
-        //  this. getWindow()?.setLayout(ActionBar.LayoutParams.FILL_PARENT, ActionBar.LayoutParams.FILL_PARENT);
+        this.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         this.setCancelable(true)
-        inst()
+        initializeUI()
     }
 
     @SuppressLint("NewApi")
-    fun inst() {
+    fun initializeUI() {
 
-        this.getWindow()?.setSoftInputMode(
+        this.window?.setSoftInputMode(
             WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE
-        );
+        )
 
-        meassageTexy = findViewById(R.id.message)
-        imgLogo = findViewById(R.id.imgLogo)
+        msgText = findViewById(R.id.message)
+
         verifymessagetxt = findViewById(R.id.verify_message_txt)
-        ok = findViewById(R.id.ok)
-        meassageTexy?.setText(message)
+        okButton = findViewById(R.id.ok)
+        msgText?.text = message
 
         if (type == "verifymsgadhar") {
             verifymessagetxt?.visibility = View.VISIBLE
         }
 
         if (type == "p") {
-            Linkify.addLinks(meassageTexy!!, Linkify.ALL);
+            Linkify.addLinks(msgText!!, Linkify.ALL);
         }
 
-        ok?.setOnClickListener {
+        okButton?.setOnClickListener {
             Log.e("type", ">>>>>" + type)
             if (type == "m") {
                 this.dismiss()
@@ -100,12 +92,6 @@ class MyAlartBox(var context: Activity, var message: String, var type: String) :
                 this.dismiss()
             }*/
 
-        }
-
-        if (PreferenceManager.getLanguage(context) == "en") {
-            imgLogo?.setImageResource(R.drawable.logo_blue)
-        } else {
-            imgLogo?.setImageResource(R.drawable.logo_blue)
         }
 
     }

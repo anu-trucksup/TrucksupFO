@@ -15,7 +15,7 @@ import com.trucksup.field_officer.data.model.insurance.FinanceHisAdap
 import com.trucksup.field_officer.data.model.insurance.InquiryHistoryResponse
 import com.trucksup.field_officer.databinding.FragmentHistoryInfnsBinding
 import com.trucksup.field_officer.presenter.common.LoadingUtils
-import com.trucksup.field_officer.presenter.common.MyAlartBox
+import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinanceHistoryViewModel
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.InquiryHistoryRequest
@@ -110,7 +110,7 @@ class HistorySmartFuelFragment(val status: String) : Fragment() {
             if (responseModel.serverError != null) {
                 LoadingUtils.hideDialog()
 
-                val abx = MyAlartBox(requireActivity(), responseModel.serverError.toString(), "m")
+                val abx = AlertBoxDialog(requireActivity(), responseModel.serverError.toString(), "m")
                 abx.show()
             } else {
                 LoadingUtils.hideDialog()

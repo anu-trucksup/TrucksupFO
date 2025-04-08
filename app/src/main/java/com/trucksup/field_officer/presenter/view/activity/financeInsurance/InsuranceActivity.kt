@@ -42,7 +42,7 @@ import com.trucksup.field_officer.databinding.VehicleDetailsDialogLayoutBinding
 import com.trucksup.field_officer.presenter.common.CameraActivity
 import com.trucksup.field_officer.presenter.common.FileHelp
 import com.trucksup.field_officer.presenter.common.LoadingUtils
-import com.trucksup.field_officer.presenter.common.MyAlartBox
+import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.dialog.FinaceSubmitBox
 import com.trucksup.field_officer.presenter.common.image_picker.GetImage
 import com.trucksup.field_officer.presenter.common.image_picker.ImagePickerDailog
@@ -133,7 +133,7 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
                 dismissProgressDialog()
 
                 val abx =
-                    MyAlartBox(
+                    AlertBoxDialog(
                         this@InsuranceActivity,
                         responseModel.serverError.toString(),
                         "m"
@@ -160,7 +160,7 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
                 dismissProgressDialog()
 
                 val abx =
-                    MyAlartBox(
+                    AlertBoxDialog(
                         this@InsuranceActivity,
                         responseModel.serverError.toString(),
                         "m"

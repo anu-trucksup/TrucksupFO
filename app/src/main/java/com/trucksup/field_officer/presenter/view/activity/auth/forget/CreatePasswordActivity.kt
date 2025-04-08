@@ -10,8 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ActivityCreatePasswordBinding
-import com.trucksup.field_officer.presenter.common.MyAlartBox
-import com.trucksup.field_officer.presenter.common.Utils
+import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
 import com.trucksup.field_officer.presenter.view.activity.auth.login.LoginActivity
@@ -97,7 +96,7 @@ class CreatePasswordActivity : BaseActivity(), View.OnClickListener {
                 dismissProgressDialog()
 
                 val abx =
-                    MyAlartBox(
+                    AlertBoxDialog(
                         this@CreatePasswordActivity,
                         responseModel.serverError.toString(),
                         "m"
@@ -113,7 +112,7 @@ class CreatePasswordActivity : BaseActivity(), View.OnClickListener {
                 dismissProgressDialog()
 
                 val abx =
-                    MyAlartBox(
+                    AlertBoxDialog(
                         this@CreatePasswordActivity,
                         responseModel.serverError.toString(),
                         "m"
@@ -136,7 +135,7 @@ class CreatePasswordActivity : BaseActivity(), View.OnClickListener {
                 dismissProgressDialog()
 
                 val abx =
-                    MyAlartBox(
+                    AlertBoxDialog(
                         this@CreatePasswordActivity,
                         responseModel.serverError.toString(),
                         "m"
@@ -168,7 +167,7 @@ class CreatePasswordActivity : BaseActivity(), View.OnClickListener {
                 dismissProgressDialog()
 
                 val abx =
-                    MyAlartBox(
+                    AlertBoxDialog(
                         this@CreatePasswordActivity,
                         responseModel.serverError.toString(),
                         "m"

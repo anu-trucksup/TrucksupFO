@@ -11,7 +11,7 @@ import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ActivityFinanceBinding
 import com.trucksup.field_officer.presenter.cityPicker.CityPicker
 import com.trucksup.field_officer.presenter.cityPicker.CityStateDialog
-import com.trucksup.field_officer.presenter.common.MyAlartBox
+import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.dialog.FinaceSubmitBox
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
@@ -58,7 +58,7 @@ class FinanceActivity : BaseActivity(), ChipController, CityPicker {
                 dismissProgressDialog()
 
                 val abx =
-                    MyAlartBox(
+                    AlertBoxDialog(
                         this@FinanceActivity,
                         responseModel.serverError.toString(),
                         "m"
@@ -81,7 +81,7 @@ class FinanceActivity : BaseActivity(), ChipController, CityPicker {
             if (responseModel.serverError != null) {
                 dismissProgressDialog()
 
-                val abx = MyAlartBox(this@FinanceActivity,
+                val abx = AlertBoxDialog(this@FinanceActivity,
                         responseModel.serverError.toString(),
                         "m"
                     )

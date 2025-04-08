@@ -18,8 +18,7 @@ import com.logistics.trucksup.modle.CurantPlanData
 import com.logistics.trucksup.modle.OwnerFaq
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ActivitySubscriptionBinding
-import com.trucksup.field_officer.presenter.common.MyAlartBox
-import com.trucksup.field_officer.presenter.common.ProgressDailogBox
+import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
@@ -67,7 +66,7 @@ class SubscriptionActivity : BaseActivity(), PaySubscribtion, PlanCantroler {
                 dismissProgressDialog()
 
                 val abx =
-                    MyAlartBox(
+                    AlertBoxDialog(
                         this@SubscriptionActivity,
                         responseModel.serverError.toString(),
                         "m"
@@ -94,7 +93,7 @@ class SubscriptionActivity : BaseActivity(), PaySubscribtion, PlanCantroler {
                 dismissProgressDialog()
 
                 val abx =
-                    MyAlartBox(
+                    AlertBoxDialog(
                         this@SubscriptionActivity,
                         responseModel.serverError.toString(),
                         "m"
