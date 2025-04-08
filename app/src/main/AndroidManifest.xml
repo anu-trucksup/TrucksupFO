@@ -258,6 +258,9 @@
         <activity
             android:name=".presenter.view.activity.smartfuel.AddSmartFuelActivity"
             android:exported="false" />
+        <activity
+            android:name=".presenter.view.activity.truck_supplier.TSEndTripActivity"
+            android:exported="false" />
         <service
             android:name=".presenter.utils.MyFirebaseMessagingService"
             android:exported="false">

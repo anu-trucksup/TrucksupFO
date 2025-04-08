@@ -40,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:cardBackgroundColor="@color/white"
-            app:cardCornerRadius="@dimen/_12sdp"
+            style="@style/CustomCardViewStyle"
             app:cardElevation="@dimen/_4sdp">
 
             <LinearLayout

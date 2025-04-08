@@ -318,7 +318,7 @@ class AddSmartFuelActivity : BaseActivity(), InsuranceController, GetImage, Truc
                             )
                         )
 
-                        var requestData = SubmitInsuranceInquiryRequest(
+                        val requestData = SubmitInsuranceInquiryRequest(
                             PreferenceManager.getRequestNo(),
                             PreferenceManager.getServerDateUtc(""),
                             PreferenceManager.getPhoneNo(this),
@@ -363,7 +363,7 @@ class AddSmartFuelActivity : BaseActivity(), InsuranceController, GetImage, Truc
                                 )
                             )
 
-                            var requestData = SubmitInsuranceInquiryRequest(
+                            val requestData = SubmitInsuranceInquiryRequest(
                                 PreferenceManager.getRequestNo(),
                                 PreferenceManager.getServerDateUtc(""),
                                 PreferenceManager.getPhoneNo(this),
@@ -391,141 +391,6 @@ class AddSmartFuelActivity : BaseActivity(), InsuranceController, GetImage, Truc
                         )
                     }
                 }
-//                else if (!rcFrontImgKey.isNullOrEmpty() && list.size==0)
-//                {
-//                    if (!TextUtils.isEmpty(binding.etVehicleNo.text)) {
-//                        if (!checkVehicleNumber(binding.etVehicleNo.text.toString())) {
-//                            LoggerMessage.onSNACK(
-//                                binding.etVehicleNo,
-//                                resources.getString(R.string.enterRightCommercialVehical),
-//                                this
-//                            )
-//
-//                        }
-//                        else if (binding.etInsValidity.text.toString().isNullOrEmpty()) {
-//                            LoggerMessage.onSNACK(
-//                                binding.etInsValidity,
-//                                resources.getString(R.string.insurance_validity_error),
-//                                this
-//                            )
-//                        }
-//                        else if (rcBackImgKey.isNullOrEmpty())
-//                        {
-//                            LoggerMessage.onSNACK(
-//                                binding.imgBackCamera,
-//                                resources.getString(R.string.rc_back_image_error),
-//                                this
-//                            )
-//                        }
-//                        else {
-//                            list.add(
-//                                VehicleDetail(
-//                                    binding.etInsValidity.text.toString(),
-//                                    binding.etVehicleNo.text.toString(),
-//                                    rcFrontImgKey?:"",
-//                                    rcBackImgKey?:"",
-//                                    prevPolicyDocsImgKey?:""
-//
-//                                )
-//                            )
-//
-//                            var requestData = SubmitInsuranceInquiryRequest(
-//                                PreferenceManager.getRequestNo(),
-//                                PreferenceManager.getServerDateUtc(""),
-//                                PreferenceManager.getPhoneNo(this),
-//                                binding.etFullName.text.toString(),
-//                                PreferenceManager.getProfileType(this).toString(),
-//                                binding.etMobile.getText().toString(),
-//                                "commercial",
-//                                "NA",
-//                                PreferenceManager.getPhoneNo(this),
-//                                insuFor,
-//                                PreferenceManager.getPhoneNo(this),
-//                                binding.etReferralCode.getText().toString(),
-//                                list
-//                            )
-//                            progressDailogBox?.show()
-//
-//                            MyResponse().submitInsuranceData(requestData, this, this)
-//                        }
-//                    }
-//                    else
-//                    {
-//                        LoggerMessage.onSNACK(
-//                            binding.etVehicleNo,
-//                            resources.getString(R.string.enterCommercialVehical),
-//                            this
-//                        )
-//                    }
-//                }
-//                else if (!rcBackImgKey.isNullOrEmpty() && list.size==0)
-//                {
-//                    if (!TextUtils.isEmpty(binding.etVehicleNo.text))
-//                    {
-//                        if (!checkVehicleNumber(binding.etVehicleNo.text.toString())) {
-//                            LoggerMessage.onSNACK(
-//                                binding.etVehicleNo,
-//                                resources.getString(R.string.enterRightCommercialVehical),
-//                                this
-//                            )
-//
-//                        }
-//                        else if (binding.etInsValidity.text.toString().isNullOrEmpty()) {
-//                            LoggerMessage.onSNACK(
-//                                binding.etInsValidity,
-//                                resources.getString(R.string.insurance_validity_error),
-//                                this
-//                            )
-//                        }
-//                        else if (rcFrontImgKey.isNullOrEmpty())
-//                        {
-//                            LoggerMessage.onSNACK(
-//                                binding.imgFrontCamera,
-//                                resources.getString(R.string.rc_front_image_error),
-//                                this
-//                            )
-//                        }
-//                        else {
-//                            list.add(
-//                                VehicleDetail(
-//                                    binding.etInsValidity.text.toString(),
-//                                    binding.etVehicleNo.text.toString(),
-//                                    rcFrontImgKey?:"",
-//                                    rcBackImgKey?:"",
-//                                    prevPolicyDocsImgKey?:""
-//
-//                                )
-//                            )
-//
-//                            var requestData = SubmitInsuranceInquiryRequest(
-//                                PreferenceManager.getRequestNo(),
-//                                PreferenceManager.getServerDateUtc(""),
-//                                PreferenceManager.getPhoneNo(this),
-//                                binding.etFullName.text.toString(),
-//                                PreferenceManager.getProfileType(this).toString(),
-//                                binding.etMobile.getText().toString(),
-//                                "commercial",
-//                                "NA",
-//                                PreferenceManager.getPhoneNo(this),
-//                                insuFor,
-//                                PreferenceManager.getPhoneNo(this),
-//                                binding.etReferralCode.getText().toString(),
-//                                list
-//                            )
-//                            progressDailogBox?.show()
-//
-//                            MyResponse().submitInsuranceData(requestData, this, this)
-//                        }
-//                    }
-//                    else
-//                    {
-//                        LoggerMessage.onSNACK(
-//                            binding.etVehicleNo,
-//                            resources.getString(R.string.enterCommercialVehical),
-//                            this
-//                        )
-//                    }
-//                }
                 else {
                     if (!TextUtils.isEmpty(binding.etVehicleNo.text)) {
                         if (!checkVehicleNumber(binding.etVehicleNo.text.toString())) {

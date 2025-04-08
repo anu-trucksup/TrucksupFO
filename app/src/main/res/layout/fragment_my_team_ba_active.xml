@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.ActiveBAFragment">
+   >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/l1"
@@ -14,7 +14,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_2sdp"
         android:visibility="visible"
         android:layout_marginHorizontal="@dimen/_8sdp">
 

@@ -635,6 +635,7 @@
     <string name="bank_details">Bank Details</string>
     <string name="vrc_front_image">Vehicle RC Front Image <font color='#FF0000'>*</font></string>
     <string name="vrc_back_image">Vehicle RC Back Image <font color='#FF0000'>*</font></string>
+    <string name="end_trip">End Trip</string>
 
 
 </resources>

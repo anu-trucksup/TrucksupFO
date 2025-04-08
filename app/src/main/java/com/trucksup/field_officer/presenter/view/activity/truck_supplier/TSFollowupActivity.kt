@@ -15,7 +15,6 @@ class TSFollowupActivity : BaseActivity() {
 
     private lateinit var binding: TsFollowupActivityBinding
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = TsFollowupActivityBinding.inflate(layoutInflater)

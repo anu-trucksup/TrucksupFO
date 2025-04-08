@@ -4,25 +4,34 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Color
 import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.provider.Settings
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.ui.tooling.data.position
+import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.PolylineOptions
 import com.google.android.gms.tasks.CancellationTokenSource
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
@@ -36,127 +45,106 @@ import com.trucksup.field_officer.databinding.ActivityTsMaptripBinding
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.view.activity.other.HomeActivity
 import java.util.Locale
+import kotlin.math.max
+import kotlin.math.min
 
 
 class TSEndTripActivity : BaseActivity(), OnMapReadyCallback {
-    private lateinit var binding: ActivityTsEndmaptripBinding
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
-    private lateinit var googleMap: GoogleMap
 
-    override fun onStart() {
-        super.onStart()
-        val permissionList = ArrayList<String>()
-        permissionList.add(Manifest.permission.ACCESS_FINE_LOCATION)
-        permissionList.add(Manifest.permission.ACCESS_COARSE_LOCATION)
-        checkPermissions(permissionList)
-    }
+    private lateinit var map: GoogleMap
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var locationCallback: LocationCallback
+
+    // Define your two fixed locations
+    private val pointA = LatLng(28.510830, 77.085922)
+    private val pointB = LatLng(28.646981, 77.125658)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        binding = ActivityTsEndmaptripBinding.inflate(layoutInflater)
-        adjustFontScale(resources.configuration, 1.0f);
-        setContentView(binding.root)
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        // Get the SupportMapFragment and request notification
-        // when the map is ready to be used.
-        val mapFragment =
-            supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+        setContentView(R.layout.activity_ts_endmaptrip)
+
+        val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-        binding.btnSubmit.setOnClickListener {
-
-            /* val happinessCodeBox = HappinessCodeBox(this, getString(R.string.hapinessCodeMsg),
-                 getString(R.string.EnterHappinessCode),
-                 getString(R.string.resand_sms))
-             happinessCodeBox.show()*/
-            startActivity(Intent(this, TSScheduledMeetingActivity::class.java))
-        }
-
-
-        binding.ivBack.setOnClickListener {
-            onBackPressed()
-        }
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
     }
 
-    // This method is called when the map is ready to be used.
     override fun onMapReady(googleMap: GoogleMap) {
-        // Add a marker in Sydney, Australia,
-        // and move the map's camera to the same location.
-        this.googleMap = googleMap
-        // Specify the location
-        val myLocation = LatLng(37.7749, -122.4194) // San Francisco
+        map = googleMap
 
-        // Move the camera
-        val cameraUpdate = CameraUpdateFactory.newLatLngZoom(myLocation, 15f)
-        googleMap.animateCamera(cameraUpdate)
+        // Mark the two fixed locations
+        map.addMarker(MarkerOptions().position(pointA).title("Start Point"))
+        map.addMarker(MarkerOptions().position(pointB).title("End Point"))
 
-        // Add a marker
-        val markerOptions = MarkerOptions()
-            .position(myLocation)
-            .title("My Location")
-        googleMap.addMarker(markerOptions)
+        // Draw a line between them
+        map.addPolyline(
+            PolylineOptions()
+                .add(pointA, pointB)
+                .width(5f)
+                .color(Color.BLUE)
+                .geodesic(true)
+        )
+
+        // Move camera to start point
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(pointA, 15f))
+
+        startLocationUpdates()
     }
 
-    private fun checkPermissions(permissions: ArrayList<String>) {
+    private fun startLocationUpdates() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 1)
+            return
+        }
 
-        Dexter.withContext(this@TSEndTripActivity)
-            .withPermissions(
-                permissions
-            )
-            .withListener(object : MultiplePermissionsListener {
-                @SuppressLint("MissingPermission")
-                override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
-                    report?.let {
-                        if (report.areAllPermissionsGranted()) {
-                            fusedLocationClient.getCurrentLocation(
-                                Priority.PRIORITY_HIGH_ACCURACY,
-                                CancellationTokenSource().token
-                            ).addOnSuccessListener { location: Location? ->
-                                try {
-                                    val myPos = LatLng(location?.latitude!!, location.longitude)
-                                    googleMap.moveCamera(CameraUpdateFactory.newLatLng(myPos))
+        val locationRequest = LocationRequest.create().apply {
+            interval = 2000
+            fastestInterval = 1000
+            priority = Priority.PRIORITY_HIGH_ACCURACY
+        }
 
-                                } catch (e: Exception) {
-//                                    val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-//                                    startActivity(intent)
-                                    showLocationDisabledDialog()
-                                }
-                            }
-                        }
+        locationCallback = object : LocationCallback() {
+            override fun onLocationResult(result: LocationResult) {
+                val location = result.lastLocation ?: return
+                val userLatLng = LatLng(location.latitude, location.longitude)
 
-                        if (report.isAnyPermissionPermanentlyDenied) {
-//                            val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-//                            startActivity(intent)
-                            showLocationDisabledDialog()
-                        }
-                    }
-                }
+                // Optional: clear old marker and draw new one
+                map.clear()
+                map.addMarker(MarkerOptions().position(pointA).title("Start"))
+                map.addMarker(MarkerOptions().position(pointB).title("End"))
+                map.addMarker(MarkerOptions().position(userLatLng).title("You").icon(
+                    BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)))
 
-                override fun onPermissionRationaleShouldBeShown(
-                    permissions: MutableList<PermissionRequest>?,
-                    token: PermissionToken?
-                ) {
-                    // Remember to invoke this method when the custom rationale is closed
-                    // or just by default if you don't want to use any custom rationale.
-                    token?.continuePermissionRequest()
-                }
-            })
-            .withErrorListener {
-                Toast.makeText(this, it.name, Toast.LENGTH_SHORT).show()
+                map.moveCamera(CameraUpdateFactory.newLatLng(userLatLng))
+
+                // Optional: check if user is between pointA and pointB
+                val isBetween = isUserBetween(userLatLng, pointA, pointB)
+                Log.d("LOCATION_TRACK", "User between A and B? $isBetween")
             }
-            .check()
+        }
+
+        fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper())
     }
 
-    private fun showLocationDisabledDialog() {
-        AlertDialog.Builder(this)
-            .setTitle("Location Services Disabled")
-            .setMessage("Location services are required for this app. Please enable them in the settings.")
-            .setPositiveButton("Open Settings") { _, _ ->
-                val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-                startActivity(intent)
-            }
-            .setCancelable(false)
-            .show()
+    private fun isUserBetween(user: LatLng, start: LatLng, end: LatLng): Boolean {
+        // Simple bounding box check — refine if needed
+        val latMin = min(start.latitude, end.latitude)
+        val latMax = max(start.latitude, end.latitude)
+        val lngMin = min(start.longitude, end.longitude)
+        val lngMax = max(start.longitude, end.longitude)
+
+        return user.latitude in latMin..latMax && user.longitude in lngMin..lngMax
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == 1 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            startLocationUpdates()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        fusedLocationClient.removeLocationUpdates(locationCallback)
     }
 }

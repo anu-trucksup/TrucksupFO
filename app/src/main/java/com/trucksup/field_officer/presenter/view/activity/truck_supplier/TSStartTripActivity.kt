@@ -4,6 +4,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
@@ -14,6 +15,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.ui.tooling.data.position
+import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
@@ -69,7 +71,7 @@ class TSStartTripActivity : BaseActivity(), OnMapReadyCallback {
                  getString(R.string.EnterHappinessCode),
                  getString(R.string.resand_sms))
              happinessCodeBox.show()*/
-            startActivity(Intent(this, TSScheduledMeetingActivity::class.java))
+            startActivity(Intent(this, TSEndTripActivity::class.java))
         }
 
 
@@ -83,18 +85,7 @@ class TSStartTripActivity : BaseActivity(), OnMapReadyCallback {
         // Add a marker in Sydney, Australia,
         // and move the map's camera to the same location.
         this.googleMap = googleMap
-        // Specify the location
-        val myLocation = LatLng(37.7749, -122.4194) // San Francisco
-
-        // Move the camera
-        val cameraUpdate = CameraUpdateFactory.newLatLngZoom(myLocation, 15f)
-        googleMap.animateCamera(cameraUpdate)
-
-        // Add a marker
-        val markerOptions = MarkerOptions()
-            .position(myLocation)
-            .title("My Location")
-        googleMap.addMarker(markerOptions)
+        enableMyLocation()
     }
 
     private fun checkPermissions(permissions: ArrayList<String>) {
@@ -108,20 +99,7 @@ class TSStartTripActivity : BaseActivity(), OnMapReadyCallback {
                 override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
                     report?.let {
                         if (report.areAllPermissionsGranted()) {
-                            fusedLocationClient.getCurrentLocation(
-                                Priority.PRIORITY_HIGH_ACCURACY,
-                                CancellationTokenSource().token
-                            ).addOnSuccessListener { location: Location? ->
-                                try {
-                                    val myPos = LatLng(location?.latitude!!, location.longitude)
-                                    googleMap.moveCamera(CameraUpdateFactory.newLatLng(myPos))
-
-                                } catch (e: Exception) {
-//                                    val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-//                                    startActivity(intent)
-                                    showLocationDisabledDialog()
-                                }
-                            }
+                            enableMyLocation()
                         }
 
                         if (report.isAnyPermissionPermanentlyDenied) {
@@ -157,5 +135,33 @@ class TSStartTripActivity : BaseActivity(), OnMapReadyCallback {
             }
             .setCancelable(false)
             .show()
+    }
+
+
+    private fun enableMyLocation() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                1
+            )
+            return
+        }
+
+        googleMap.isMyLocationEnabled = true
+
+        fusedLocationClient.lastLocation
+            .addOnSuccessListener { location: Location? ->
+                location?.let {
+                    val currentLatLng = LatLng(it.latitude, it.longitude)
+                    googleMap.addMarker(
+                        MarkerOptions().position(currentLatLng).title("You are here")
+                    )
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15f))
+                }
+            }
     }
 }

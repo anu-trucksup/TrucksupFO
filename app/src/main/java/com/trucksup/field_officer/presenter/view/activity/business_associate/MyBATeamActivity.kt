@@ -9,11 +9,12 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ActivityMyTeamBaBinding
+import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.view.fragment.ba.MyTeamBAActiveFragment
 import com.trucksup.field_officer.presenter.view.fragment.ba.MyTeamBAInActiveFragment
 import com.trucksup.field_officer.presenter.view.adapter.FragmentAdapter
 
-class MyBATeamActivity : AppCompatActivity() {
+class MyBATeamActivity : BaseActivity() {
     private lateinit var binding: ActivityMyTeamBaBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,7 +31,7 @@ class MyBATeamActivity : AppCompatActivity() {
     private fun setListener() {
         //back button
         binding.ivBack.setOnClickListener {
-            finish()
+          onBackPressed()
         }
 
 

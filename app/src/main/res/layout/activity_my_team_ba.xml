@@ -2,8 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:fitsSystemWindows="true"
-    tools:context=".activity.BusinessAssociatesNewActivity">
+    android:fitsSystemWindows="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -43,7 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="@dimen/_12sdp"
+        style="@style/CustomCardViewStyle"
         app:cardElevation="@dimen/_4sdp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -55,76 +54,84 @@
             android:id="@+id/l1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_8sdp"
-            android:layout_marginTop="8dp"
-            android:padding="@dimen/_4sdp"
-            android:orientation="horizontal"
-            android:background="@drawable/blue_border_box"
+            android:background="@drawable/bg_earn"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/_14sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
-                android:id="@+id/tabActiveBA"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:layout_marginHorizontal="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/blue_border_box"
+                android:orientation="horizontal"
+                android:padding="@dimen/_4sdp">
 
-                <TextView
-                    android:id="@+id/txtActiveBA"
+                <LinearLayout
+                    android:id="@+id/tabActiveBA"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/bai_jamjuree_medium"
-                    android:gravity="center"
-                    android:maxLines="1"
-                    android:paddingVertical="@dimen/_5sdp"
-                    android:text="Active BA"
-                    android:textColor="@color/blue"
-                    android:textSize="@dimen/_12ssp" />
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                <!--<View
-                    android:id="@+id/vLine1"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_2sdp"
-                    android:background="@color/blue" />-->
+                    <TextView
+                        android:id="@+id/txtActiveBA"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/bai_jamjuree_medium"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:paddingVertical="@dimen/_5sdp"
+                        android:text="Active BA"
+                        android:textColor="@color/blue"
+                        android:textSize="@dimen/_12ssp" />
 
-            </LinearLayout>
+                    <!--<View
+                        android:id="@+id/vLine1"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_2sdp"
+                        android:background="@color/blue" />-->
 
-            <LinearLayout
-                android:id="@+id/tabInActiveBA"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                </LinearLayout>
 
-                <TextView
-                    android:id="@+id/txtInActiveBA"
+                <LinearLayout
+                    android:id="@+id/tabInActiveBA"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/bai_jamjuree_medium"
-                    android:gravity="center"
-                    android:maxLines="1"
-                    android:paddingVertical="@dimen/_5sdp"
-                    android:text="Inactive BA"
-                    android:textColor="@color/blue"
-                    android:textSize="@dimen/_12ssp" />
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-               <!-- <View
-                    android:id="@+id/vLine2"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_2sdp"
-                    android:background="@color/unselect_tab" />-->
+                    <TextView
+                        android:id="@+id/txtInActiveBA"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/bai_jamjuree_medium"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:paddingVertical="@dimen/_5sdp"
+                        android:text="Inactive BA"
+                        android:textColor="@color/blue"
+                        android:textSize="@dimen/_12ssp" />
+
+                    <!-- <View
+                         android:id="@+id/vLine2"
+                         android:layout_width="match_parent"
+                         android:layout_height="@dimen/_2sdp"
+                         android:background="@color/unselect_tab" />-->
+
+                </LinearLayout>
 
             </LinearLayout>
-
         </LinearLayout>
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPager2"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_margin="@dimen/_8sdp"
+            android:layout_marginHorizontal="@dimen/_8sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
