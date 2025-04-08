@@ -32,9 +32,15 @@ object Utils {
     var strManualInstallation: String = ""
 
     fun appSettingOpen(context: Context) {
-        Toast.makeText(
+        /*Toast.makeText(
             context,
             "Go to Setting and Enable All Permission",
+            Toast.LENGTH_LONG
+        ).show()*/
+
+        Toast.makeText(
+            context,
+            "Go to Setting and Enable Camera Permission",
             Toast.LENGTH_LONG
         ).show()
 

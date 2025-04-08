@@ -32,8 +32,7 @@ class GPOnBoardStoreProofActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
         binding.cvCamera.setOnClickListener {
-            val intent: Intent = Intent(this, CameraActivity::class.java)
-            launcher!!.launch(intent)
+            launchCamera()
         }
         binding.btnPreview.setOnClickListener {
             checkValidation()
@@ -90,6 +89,13 @@ class GPOnBoardStoreProofActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun launchCamera(){
+        val intent = Intent(this, CameraActivity::class.java)
+        intent.putExtra("flipCamera", true)
+        intent.putExtra("cameraOpen", 1)
+        launcher!!.launch(intent)
     }
 
     private fun checkValidation() {

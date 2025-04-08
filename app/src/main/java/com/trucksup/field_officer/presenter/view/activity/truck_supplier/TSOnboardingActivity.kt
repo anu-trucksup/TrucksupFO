@@ -18,7 +18,6 @@ import androidx.core.net.toUri
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.trucksup.field_officer.R
-import com.trucksup.field_officer.data.model.GenerateJWTtokenRequest
 import com.trucksup.field_officer.data.model.GenerateJWTtokenResponse
 import com.trucksup.field_officer.data.model.PinCodeRequest
 import com.trucksup.field_officer.databinding.ActivityTcNewOnboardingBinding
@@ -26,14 +25,12 @@ import com.trucksup.field_officer.databinding.VerifyOtpDialogBinding
 import com.trucksup.field_officer.presenter.common.CameraActivity
 import com.trucksup.field_officer.presenter.common.FileHelp
 import com.trucksup.field_officer.presenter.common.MyAlartBox
-import com.trucksup.field_officer.presenter.common.dialog.HappinessCodeBox
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
 import com.trucksup.field_officer.presenter.view.activity.other.TokenViewModel
 import com.trucksup.field_officer.presenter.view.activity.truck_supplier.vml.TSOnboardViewModel
 import com.trucksup.field_officer.presenter.common.JWTtoken
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
-import com.trucksup.field_officer.presenter.view.activity.other.WelcomeLocationActivity
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.io.FileOutputStream
@@ -112,8 +109,10 @@ class TSOnboardingActivity : BaseActivity(), View.OnClickListener, JWTtoken {
     }
 
     private fun launchCamera(){
-            val intent: Intent = Intent(this, CameraActivity::class.java)
-            launcher!!.launch(intent)
+        val intent = Intent(this, CameraActivity::class.java)
+        intent.putExtra("flipCamera", true)
+        intent.putExtra("cameraOpen", 0)
+        launcher!!.launch(intent)
     }
 
     private fun setOnClicks() {

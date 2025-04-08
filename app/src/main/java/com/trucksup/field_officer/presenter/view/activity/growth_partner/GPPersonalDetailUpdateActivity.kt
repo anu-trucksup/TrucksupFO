@@ -41,8 +41,10 @@ class GPPersonalDetailUpdateActivity : BaseActivity(), View.OnClickListener {
         camera()
     }
 
-    fun CameraLuncher(){
-        val intent: Intent = Intent(this, CameraActivity::class.java)
+    private fun launchCamera(){
+        val intent = Intent(this, CameraActivity::class.java)
+        intent.putExtra("flipCamera", true)
+        intent.putExtra("cameraOpen", 0)
         launcher!!.launch(intent)
     }
     fun camera() {
@@ -152,7 +154,7 @@ class GPPersonalDetailUpdateActivity : BaseActivity(), View.OnClickListener {
         val item_id = v?.id
         when (item_id) {
             R.id.btnContinue -> CheckValidation()
-            R.id.cvCamera -> CameraLuncher()
+            R.id.cvCamera -> launchCamera()
         }
     }
 
