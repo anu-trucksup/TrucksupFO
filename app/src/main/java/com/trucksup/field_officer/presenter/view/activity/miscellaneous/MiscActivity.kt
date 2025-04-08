@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
@@ -11,14 +12,19 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.AddMiscLayoutBinding
 import com.trucksup.field_officer.databinding.DateFilterBinding
 import com.trucksup.field_officer.databinding.IncompleteDropItemBinding
 import com.trucksup.field_officer.databinding.MiscActivityBinding
+import com.trucksup.field_officer.presenter.common.CameraActivity
+import com.trucksup.field_officer.presenter.common.FileHelp
 import com.trucksup.field_officer.presenter.utils.NetworkManager
 import com.trucksup.field_officer.presenter.view.adapter.CompleteLead
 import com.trucksup.field_officer.presenter.view.adapter.ICImageAdapter
@@ -30,6 +36,7 @@ import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import java.io.OutputStream
 
 class MiscActivity : BaseActivity(), AddMiscInterface {
 
@@ -41,6 +48,7 @@ class MiscActivity : BaseActivity(), AddMiscInterface {
     private var imageList2 = ArrayList<Bitmap>()
     private var imageType: Int = -1
 
+    private var launcher: ActivityResultLauncher<Intent>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +59,7 @@ class MiscActivity : BaseActivity(), AddMiscInterface {
         setIncompleteLead()
         setCompleteLead()
         setListener()
-
+        camera()
     }
 
     private fun setListener() {
@@ -108,8 +116,9 @@ class MiscActivity : BaseActivity(), AddMiscInterface {
                     override fun incompleteAddImage(incompleteDropItemBinding: IncompleteDropItemBinding) {
                         this@MiscActivity.incompleteDropItemBinding = incompleteDropItemBinding
                         imageType = 1
-                        val camera_intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-                        startForResult.launch(camera_intent)
+                        launchCamera()
+                        /*val camera_intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                        startForResult.launch(camera_intent)*/
                     }
                 })
             }
@@ -146,14 +155,46 @@ class MiscActivity : BaseActivity(), AddMiscInterface {
         }
     }
 
+
+    //add by me
+    fun camera() {
+        launcher = registerForActivityResult<Intent, ActivityResult>(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result: ActivityResult ->
+            if (result.resultCode == RESULT_OK) {
+                val data = result.data
+
+                try {
+                    val imageUris: Uri = data!!.getStringExtra("result")!!.toUri()
+                    val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(imageUris.toString()))
+                    // Set the image in imageview for display
+                    handleImageCapture(bitmap)
+                } catch (ex: Exception) {
+                    ex.printStackTrace()
+                }
+            }
+        }
+    }
+
+    private fun launchCamera(){
+        val intent = Intent(this, CameraActivity::class.java)
+        intent.putExtra("flipCamera", true)
+        intent.putExtra("cameraOpen", 1)
+        intent.putExtra("focusView", false)
+        launcher!!.launch(intent)
+    }
+    //add by me
+
+
     override fun addImage(v: AddMiscLayoutBinding) {
         addMiscLayoutBinding = v
         imageType = 0
-        val camera_intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        startForResult.launch(camera_intent)
+        launchCamera()
+        /*val camera_intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        startForResult.launch(camera_intent)*/
     }
 
-    val startForResult =
+    /*val startForResult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
             try {
                 val photo = result.data?.extras?.get("data") as Bitmap?
@@ -161,7 +202,7 @@ class MiscActivity : BaseActivity(), AddMiscInterface {
                 handleImageCapture(photo!!)
             } catch (e: Exception) {
             }
-        }
+        }*/
 
     private fun handleImageCapture(bitmap: Bitmap) {
         try {

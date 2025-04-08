@@ -19,7 +19,7 @@
             android:layout_marginTop="40dp"
             android:fontFamily="@font/bai_jamjuree_medium"
             android:gravity="center"
-            android:text="You are currently not on duty. Please activate your duty status to add a new lead."
+            android:text="@string/activate_msg"
             android:textColor="@color/blue"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"

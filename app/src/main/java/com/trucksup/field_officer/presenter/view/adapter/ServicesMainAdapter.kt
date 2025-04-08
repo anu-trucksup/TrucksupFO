@@ -33,9 +33,7 @@ class ServicesMainAdapter(var context: Context?) :
 
 
         holder.binding.root.setOnClickListener {
-
             itemClickListner.onItemClick(position)
-
         }
     }
 

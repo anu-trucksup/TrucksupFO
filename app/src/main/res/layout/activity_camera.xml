@@ -30,6 +30,7 @@
             android:layout_height="match_parent" />-->
 
         <com.trucksup.field_officer.presenter.common.FocusView
+            android:id="@+id/focusView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </FrameLayout>
