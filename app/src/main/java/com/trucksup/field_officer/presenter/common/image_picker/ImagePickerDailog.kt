@@ -72,8 +72,6 @@ class ImagePickerDailog(var context: Activity, var getImage: GetImage) : Dialog(
             this.dismiss()
         }
 
-
-
     }
 
 }

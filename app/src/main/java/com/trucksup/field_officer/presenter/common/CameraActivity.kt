@@ -133,6 +133,12 @@ class CameraActivity: AppCompatActivity() {
 
         //check flip action on camera
         val flipCamera = intent.getBooleanExtra("flipCamera", false)
+        val focusViews = intent.getBooleanExtra("focusView", true)
+        if(focusViews){
+            camera_binding.focusView.visibility = View.VISIBLE
+        }else{
+            camera_binding.focusView.visibility = View.GONE
+        }
         if(flipCamera){
             camera_binding.flipCameraIB.visibility = View.VISIBLE
             camera_binding.flipCameraIB.setOnClickListener {

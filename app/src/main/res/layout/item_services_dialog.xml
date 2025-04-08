@@ -39,8 +39,8 @@
 
                     <ImageView
                         android:id="@+id/iv_image"
-                        android:layout_width="@dimen/_45sdp"
-                        android:layout_height="@dimen/_45sdp"
+                        android:layout_width="@dimen/_65sdp"
+                        android:layout_height="@dimen/_65sdp"
                         android:src="@drawable/vec_tra_img" />
 
                     <TextView

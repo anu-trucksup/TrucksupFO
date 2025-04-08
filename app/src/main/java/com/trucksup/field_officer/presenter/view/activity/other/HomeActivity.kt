@@ -109,6 +109,9 @@ class HomeActivity : BaseActivity(), OnItemClickListener {
         val dialog: AlertDialog = builder.create()
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
 
+        binding.imgCancel.setOnClickListener{
+            dialog.dismiss()
+        }
         setDialogRvList(binding)
         dialog.show()
     }

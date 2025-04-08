@@ -643,6 +643,7 @@
     <string name="end_your_trip">You have reached your location. Please end your trip.</string>
     <string name="meeting_alert_text">To start the scheduled meeting, kindly input the happiness code shared to the Growth Partner on the registered mobile number.</string>
     <string name="reschedule_meeting"><u>Reschedule Meeting</u></string>
+    <string name="activate_msg">You are currently not on duty. Please activate your duty status to mark your attendance and start today’s journey.</string>
 
 
 </resources>

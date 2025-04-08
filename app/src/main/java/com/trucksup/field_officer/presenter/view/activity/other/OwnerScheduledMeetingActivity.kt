@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
@@ -12,14 +13,17 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.WindowManager
 import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.trucksup.field_officer.data.model.FromToModel
 import com.trucksup.field_officer.databinding.ActivityOwnerScheduledMeetingBinding
 import com.trucksup.field_officer.databinding.AddNewTruckLayoutBinding
 import com.trucksup.field_officer.databinding.PreferredLaneDialogBinding
+import com.trucksup.field_officer.presenter.common.CameraActivity
 import com.trucksup.field_officer.presenter.view.adapter.TrucksDetailsAdap
 import com.trucksup.fieldofficer.adapter.PreferredLaneAdap
 import java.io.File
@@ -36,6 +40,8 @@ class OwnerScheduledMeetingActivity : AppCompatActivity(), PreferredLaneAdap.Con
     private var photo1:Boolean=false
     private var photo2:Boolean=false
 
+    private var launcher: ActivityResultLauncher<Intent>? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        enableEdgeToEdge()
@@ -49,6 +55,7 @@ class OwnerScheduledMeetingActivity : AppCompatActivity(), PreferredLaneAdap.Con
 //        }
 
         setListener()
+        camera()
     }
 
     private fun setListener() {
@@ -67,20 +74,23 @@ class OwnerScheduledMeetingActivity : AppCompatActivity(), PreferredLaneAdap.Con
             addNewTruckDialog()
         }
 
+
+
         //selfie pic image
         binding.selfiPic.setOnClickListener {
             photo1=true
             photo2=false
-            val camera_intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            startForResult.launch(camera_intent)
+            launchCamera()
+            /*val camera_intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            startForResult.launch(camera_intent)*/
         }
 
         //office pic image
         binding.officePic.setOnClickListener {
             photo2=true
             photo1=false
-            val camera_intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            startForResult.launch(camera_intent)
+            /*val camera_intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            startForResult.launch(camera_intent)*/
         }
 
         //submit button
@@ -94,7 +104,35 @@ class OwnerScheduledMeetingActivity : AppCompatActivity(), PreferredLaneAdap.Con
         }
     }
 
-    val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+    //add by me
+    private fun camera() {
+        launcher = registerForActivityResult<Intent, ActivityResult>(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result: ActivityResult ->
+            if (result.resultCode == RESULT_OK) {
+                val data = result.data
+
+                try {
+                    val imageUris: Uri = data!!.getStringExtra("result")!!.toUri()
+                    val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(imageUris.toString()))
+                    // Set the image in imageview for display
+                    handleImageCapture(bitmap)
+                } catch (ex: Exception) {
+                    ex.printStackTrace()
+                }
+            }
+        }
+    }
+    private fun launchCamera(){
+        val intent = Intent(this, CameraActivity::class.java)
+        intent.putExtra("flipCamera", false)
+        intent.putExtra("cameraOpen", 0)
+        intent.putExtra("focusView", true)
+        launcher!!.launch(intent)
+    }
+    //add by me
+
+    /*val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
             try {
                 val photo = result.data?.extras?.get("data") as Bitmap?
                 // Set the image in imageview for display
@@ -104,7 +142,7 @@ class OwnerScheduledMeetingActivity : AppCompatActivity(), PreferredLaneAdap.Con
             {
 
             }
-        }
+        }*/
 
     private fun handleImageCapture(bitmap: Bitmap) {
         try {
