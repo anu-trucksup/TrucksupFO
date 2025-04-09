@@ -55,7 +55,6 @@ class OwnerScheduledMeetingActivity : AppCompatActivity(), PreferredLaneAdap.Con
 //        }
 
         setListener()
-        camera()
     }
 
     private fun setListener() {
@@ -74,23 +73,48 @@ class OwnerScheduledMeetingActivity : AppCompatActivity(), PreferredLaneAdap.Con
             addNewTruckDialog()
         }
 
+        //add by me
+        fun camera() {
+            launcher = registerForActivityResult<Intent, ActivityResult>(
+                ActivityResultContracts.StartActivityForResult()
+            ) { result: ActivityResult ->
+                if (result.resultCode == RESULT_OK) {
+                    val data = result.data
 
+                    try {
+                        val imageUris: Uri = data!!.getStringExtra("result")!!.toUri()
+                        val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(imageUris.toString()))
+                        // Set the image in imageview for display
+                        handleImageCapture(bitmap)
+                    } catch (ex: Exception) {
+                        ex.printStackTrace()
+                    }
+                }
+            }
+        }
+        fun launchCamera(){
+            val intent = Intent(this, CameraActivity::class.java)
+            intent.putExtra("flipCamera", false)
+            intent.putExtra("cameraOpen", 0)
+            intent.putExtra("focusView", true)
+            launcher!!.launch(intent)
+        }
+        //add by me
 
         //selfie pic image
         binding.selfiPic.setOnClickListener {
             photo1=true
             photo2=false
-            launchCamera()
-            /*val camera_intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            startForResult.launch(camera_intent)*/
+            val camera_intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            startForResult.launch(camera_intent)
         }
 
         //office pic image
         binding.officePic.setOnClickListener {
             photo2=true
             photo1=false
-            /*val camera_intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            startForResult.launch(camera_intent)*/
+            val camera_intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            startForResult.launch(camera_intent)
         }
 
         //submit button
@@ -104,35 +128,7 @@ class OwnerScheduledMeetingActivity : AppCompatActivity(), PreferredLaneAdap.Con
         }
     }
 
-    //add by me
-    private fun camera() {
-        launcher = registerForActivityResult<Intent, ActivityResult>(
-            ActivityResultContracts.StartActivityForResult()
-        ) { result: ActivityResult ->
-            if (result.resultCode == RESULT_OK) {
-                val data = result.data
-
-                try {
-                    val imageUris: Uri = data!!.getStringExtra("result")!!.toUri()
-                    val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(imageUris.toString()))
-                    // Set the image in imageview for display
-                    handleImageCapture(bitmap)
-                } catch (ex: Exception) {
-                    ex.printStackTrace()
-                }
-            }
-        }
-    }
-    private fun launchCamera(){
-        val intent = Intent(this, CameraActivity::class.java)
-        intent.putExtra("flipCamera", false)
-        intent.putExtra("cameraOpen", 0)
-        intent.putExtra("focusView", true)
-        launcher!!.launch(intent)
-    }
-    //add by me
-
-    /*val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+    val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
             try {
                 val photo = result.data?.extras?.get("data") as Bitmap?
                 // Set the image in imageview for display
@@ -142,7 +138,7 @@ class OwnerScheduledMeetingActivity : AppCompatActivity(), PreferredLaneAdap.Con
             {
 
             }
-        }*/
+        }
 
     private fun handleImageCapture(bitmap: Bitmap) {
         try {

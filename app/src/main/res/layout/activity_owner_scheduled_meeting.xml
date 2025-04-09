@@ -341,10 +341,8 @@
                         android:id="@+id/gps"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/bai_jamjuree_semi_bold"
                         android:text="@string/gps"
-                        android:textColor="@color/blue"
-                        android:textSize="@dimen/_11ssp"
+                        style="@style/label_semi16"
                         app:buttonTint="@color/theme_color" />
                 </RelativeLayout>
 
@@ -357,10 +355,8 @@
                         android:id="@+id/insurance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/bai_jamjuree_semi_bold"
                         android:text="@string/insurance"
-                        android:textColor="@color/blue"
-                        android:textSize="@dimen/_11ssp"
+                        style="@style/label_semi16"
                         app:buttonTint="@color/theme_color" />
                 </RelativeLayout>
             </LinearLayout>
@@ -379,10 +375,8 @@
                         android:id="@+id/fastag"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/bai_jamjuree_semi_bold"
                         android:text="@string/fastag"
-                        android:textColor="@color/blue"
-                        android:textSize="@dimen/_11ssp"
+                        style="@style/label_semi16"
                         app:buttonTint="@color/theme_color" />
                 </RelativeLayout>
 
@@ -395,10 +389,8 @@
                         android:id="@+id/finance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/bai_jamjuree_semi_bold"
                         android:text="@string/finance"
-                        android:textColor="@color/blue"
-                        android:textSize="@dimen/_11ssp"
+                        style="@style/label_semi16"
                         app:buttonTint="@color/theme_color" />
                 </RelativeLayout>
             </LinearLayout>
@@ -418,10 +410,8 @@
                         android:id="@+id/cb_truckhub"
                         android:layout_width="@dimen/_minus5sdp"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/bai_jamjuree_semi_bold"
                         android:text="@string/truckshub"
-                        android:textColor="@color/blue"
-                        android:textSize="@dimen/_11ssp"
+                        style="@style/label_semi16"
                         app:buttonTint="@color/theme_color" />
                 </RelativeLayout>
 
@@ -434,10 +424,8 @@
                         android:id="@+id/smart_fuel"
                         android:layout_width="@dimen/_minus5sdp"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/bai_jamjuree_semi_bold"
                         android:text="@string/smart_fuel"
-                        android:textColor="@color/blue"
-                        android:textSize="@dimen/_11ssp"
+                        style="@style/label_semi16"
                         app:buttonTint="@color/theme_color" />
                 </RelativeLayout>
             </LinearLayout>
@@ -448,10 +436,8 @@
                 android:id="@+id/Gift"
                 android:layout_width="@dimen/_minus5sdp"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/bai_jamjuree_semi_bold"
                 android:text="@string/gift"
-                android:textColor="@color/blue"
-                android:textSize="@dimen/_11ssp"
+                style="@style/label_semi16"
                 app:buttonTint="@color/theme_color" />
 
             <TextView

@@ -157,7 +157,7 @@
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:cardBackgroundColor="#B30D8418"
+                    app:cardBackgroundColor="@color/green_1"
                     app:cardCornerRadius="@dimen/_6sdp"
                     app:strokeColor="#0D8418"
                     app:strokeWidth="1dp">
@@ -176,6 +176,7 @@
                         android:textColor="@color/white"
                         android:textSize="@dimen/_14sdp"
                         app:drawableTint="@color/white"
+                        android:background="@color/green_1"
                         />
 
                 </com.google.android.material.card.MaterialCardView>
@@ -184,7 +185,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_16sdp"
-                    app:cardBackgroundColor="#00e5e5e5"
+                    app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="@dimen/_6sdp"
                     app:strokeColor="#3E2089"
                     app:strokeWidth="@dimen/_1sdp">
@@ -319,7 +320,7 @@
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:cardBackgroundColor="#B30D8418"
+                    app:cardBackgroundColor="@color/green_1"
                     app:cardCornerRadius="@dimen/_6sdp"
                     app:strokeColor="#0D8418"
                     app:strokeWidth="1dp">
@@ -340,7 +341,8 @@
                         android:paddingEnd="@dimen/_10sdp"
                         android:text="Yes"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/_14sdp" />
+                        android:textSize="@dimen/_14sdp"
+                        android:background="@color/green_1"/>
 
                 </com.google.android.material.card.MaterialCardView>
 
@@ -348,7 +350,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_16sdp"
-                    app:cardBackgroundColor="#00e5e5e5"
+                    app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="@dimen/_6sdp"
                     app:strokeColor="#3E2089"
                     app:strokeWidth="@dimen/_1sdp">
@@ -402,15 +404,14 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="@dimen/_110sdp"
                         android:layout_height="@dimen/_110sdp"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:background="@drawable/doted_border">
+                        android:layout_marginTop="@dimen/_10sdp">
 
                         <ImageView
                             android:id="@+id/selfiPic"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_margin="@dimen/_5sdp"
-                            android:src="@drawable/camera_plus_icon"
+                            android:src="@drawable/ic_cam_hd"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -449,15 +450,14 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="@dimen/_110sdp"
                         android:layout_height="@dimen/_110sdp"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        android:background="@drawable/doted_border">
+                        android:layout_marginTop="@dimen/_10sdp">
 
                         <ImageView
                             android:id="@+id/officePic"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_margin="@dimen/_5sdp"
-                            android:src="@drawable/camera_plus_icon"
+                            android:src="@drawable/ic_cam_hd"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -495,10 +495,8 @@
                         android:id="@+id/gps"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/bai_jamjuree_semi_bold"
+                        style="@style/label_semi16"
                         android:text="GPS"
-                        android:textColor="@color/blue"
-                        android:textSize="@dimen/_11ssp"
                         app:buttonTint="@color/theme_color" />
                 </RelativeLayout>
 
@@ -511,10 +509,8 @@
                         android:id="@+id/insurance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/bai_jamjuree_semi_bold"
                         android:text="Insurance"
-                        android:textColor="@color/blue"
-                        android:textSize="@dimen/_11ssp"
+                        style="@style/label_semi16"
                         app:buttonTint="@color/theme_color" />
                 </RelativeLayout>
             </LinearLayout>
@@ -533,10 +529,8 @@
                         android:id="@+id/fastag"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/bai_jamjuree_semi_bold"
                         android:text="FASTag"
-                        android:textColor="@color/blue"
-                        android:textSize="@dimen/_11ssp"
+                        style="@style/label_semi16"
                         app:buttonTint="@color/theme_color" />
                 </RelativeLayout>
 
@@ -549,10 +543,8 @@
                         android:id="@+id/finance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/bai_jamjuree_semi_bold"
                         android:text="Finance"
-                        android:textColor="@color/blue"
-                        android:textSize="@dimen/_11ssp"
+                        style="@style/label_semi16"
                         app:buttonTint="@color/theme_color" />
                 </RelativeLayout>
             </LinearLayout>
@@ -571,10 +563,8 @@
                         android:id="@+id/sell_buy"
                         android:layout_width="@dimen/_minus5sdp"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/bai_jamjuree_semi_bold"
                         android:text="TrucksHUb"
-                        android:textColor="@color/blue"
-                        android:textSize="@dimen/_11ssp"
+                        style="@style/label_semi16"
                         app:buttonTint="@color/theme_color" />
 
 
@@ -589,10 +579,8 @@
                         android:id="@+id/cb_smartfuel"
                         android:layout_width="@dimen/_minus5sdp"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/bai_jamjuree_semi_bold"
                         android:text="Smart Fuel"
-                        android:textColor="@color/blue"
-                        android:textSize="@dimen/_11ssp"
+                        style="@style/label_semi16"
                         app:buttonTint="@color/theme_color" />
                 </RelativeLayout>
 
@@ -604,10 +592,8 @@
                 android:id="@+id/Gift"
                 android:layout_width="@dimen/_minus5sdp"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/bai_jamjuree_semi_bold"
                 android:text="Gift"
-                android:textColor="@color/blue"
-                android:textSize="@dimen/_11ssp"
+                style="@style/label_semi16"
                 app:buttonTint="@color/theme_color" />
 
             <TextView

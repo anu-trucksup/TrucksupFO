@@ -24,7 +24,8 @@
             android:padding="@dimen/_10sdp"
             style="@style/text"
             android:textColor="@color/blue"
-            android:text="@string/meeting_alert_text" />
+            android:text="@string/meeting_alert_text"
+            android:padding="@dimen/_10sdp"/>
 
 
         <LinearLayout
