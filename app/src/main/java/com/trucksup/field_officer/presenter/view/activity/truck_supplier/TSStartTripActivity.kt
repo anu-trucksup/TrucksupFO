@@ -8,6 +8,7 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
 import android.provider.Settings
+import android.text.TextUtils
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.core.app.ActivityCompat
@@ -27,6 +28,7 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ActivityTsMaptripBinding
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
+import com.trucksup.field_officer.presenter.utils.LoggerMessage
 
 
 class TSStartTripActivity : BaseActivity(), OnMapReadyCallback {
@@ -60,9 +62,12 @@ class TSStartTripActivity : BaseActivity(), OnMapReadyCallback {
         binding.tvTitle.text = title_name
 
         binding.btnSubmit.setOnClickListener {
-            val intent = Intent(this, EndTripActivity::class.java)
-            intent.putExtra("title", "" + title_name)
-            startActivity(intent)
+
+            if(checkValidation()){
+                val intent = Intent(this, EndTripActivity::class.java)
+                intent.putExtra("title", "" + title_name)
+                startActivity(intent)
+            }
 
         }
 
@@ -70,6 +75,47 @@ class TSStartTripActivity : BaseActivity(), OnMapReadyCallback {
         binding.ivBack.setOnClickListener {
             onBackPressed()
         }
+    }
+
+    private fun checkValidation(): Boolean {
+        if (TextUtils.isEmpty(binding.etAddress.text)) {
+            LoggerMessage.onSNACK(
+                binding.etAddress,
+                resources.getString(R.string.enter_add),
+                this
+            )
+            return false
+        }
+
+        if (TextUtils.isEmpty(binding.etPincode.text)) {
+            LoggerMessage.onSNACK(
+                binding.etPincode,
+                resources.getString(R.string.enter_pin),
+                this
+            )
+            return false
+        }
+
+
+        if (TextUtils.isEmpty(binding.etCity.text)) {
+            LoggerMessage.onSNACK(
+                binding.etCity,
+                resources.getString(R.string.enter_city),
+                this
+            )
+            return false
+        }
+
+        if (TextUtils.isEmpty(binding.etState.text)) {
+            LoggerMessage.onSNACK(
+                binding.etState,
+                resources.getString(R.string.enter_state),
+                this
+            )
+            return false
+        }
+
+        return true
     }
 
     // This method is called when the map is ready to be used.

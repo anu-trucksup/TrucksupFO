@@ -216,7 +216,6 @@
                                     android:layout_height="match_parent"
                                     android:background="@drawable/edit_box"
                                     style="@style/edit_text_m"
-                                    android:hint="@string/alternative_mobile_no"
                                     android:inputType="phone"
                                     android:paddingHorizontal="@dimen/_10sdp"
                                     android:maxLength="10" />
@@ -247,7 +246,6 @@
                                     android:layout_height="match_parent"
                                     android:background="@drawable/edit_box"
                                     style="@style/edit_text_m"
-                                    android:hint="@string/email_address"
                                     android:inputType="textEmailAddress"
                                     android:paddingHorizontal="@dimen/_10sdp"
                                     android:maxLength="10" />
@@ -278,7 +276,6 @@
                                     android:layout_height="match_parent"
                                     android:background="@drawable/edit_box"
                                     style="@style/edit_text_m"
-                                    android:hint="@string/enter_add"
                                     android:inputType="text"
                                     android:paddingHorizontal="@dimen/_10sdp"
                                     android:maxLength="10" />
@@ -300,7 +297,6 @@
                                 style="@style/edit_text_m"
                                 android:inputType="phone"
                                 android:lines="1"
-                                android:hint="@string/enter_pin"
                                 android:paddingHorizontal="@dimen/_10sdp"
                                 android:paddingVertical="@dimen/_4sdp"
                                 android:text=""
@@ -322,7 +318,6 @@
                                 style="@style/edit_text_m"
                                 android:inputType="text"
                                 android:lines="1"
-                                android:hint="@string/enter_city"
                                 android:paddingHorizontal="@dimen/_10sdp"
                                 android:paddingVertical="@dimen/_4sdp"
                                 android:text=""/>
@@ -343,7 +338,6 @@
                                 style="@style/edit_text_m"
                                 android:inputType="phone"
                                 android:lines="1"
-                                android:hint="@string/enter_state"
                                 android:paddingHorizontal="@dimen/_10sdp"
                                 android:paddingVertical="@dimen/_4sdp"
                                 android:text="" />

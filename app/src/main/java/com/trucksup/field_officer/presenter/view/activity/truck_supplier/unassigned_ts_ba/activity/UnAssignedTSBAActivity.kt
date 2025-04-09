@@ -20,8 +20,8 @@ class UnAssignedTSBAActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         binding = DataBindingUtil.setContentView(this, R.layout.activity_unassigned_ts_ba)
-        val view = binding.root
-        setContentView(view)
+
+        setContentView(binding.root)
 
         setListener()
         setupViewPager()
@@ -33,12 +33,12 @@ class UnAssignedTSBAActivity : BaseActivity() {
             onBackPressed()
         }
         //find button
-        binding.tabActiveBA.setOnClickListener {
+        binding.tabUnassignedTs.setOnClickListener {
             binding.viewPager2.setCurrentItem(0, true)
         }
 
         //scheduled button
-        binding.tabInActiveBA.setOnClickListener {
+        binding.tabUnassignedBa.setOnClickListener {
             binding.viewPager2.setCurrentItem(1, true)
         }
     }
@@ -59,20 +59,20 @@ class UnAssignedTSBAActivity : BaseActivity() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
                     if (position == 0) {
-                        binding.tabActiveBA.setBackgroundDrawable(
+                        binding.tabUnassignedTs.setBackgroundDrawable(
                             ContextCompat.getDrawable(
                                 this@UnAssignedTSBAActivity,
                                 R.drawable.ba_tab_unselected_background
                             )
                         );
-                        binding.tabInActiveBA.setBackgroundDrawable(
+                        binding.tabUnassignedBa.setBackgroundDrawable(
                             ContextCompat.getDrawable(
                                 this@UnAssignedTSBAActivity,
                                 R.drawable.tab_selected_background
                             )
                         );
-                        binding.txtActiveBA.setTextColor(resources.getColor(R.color.white))
-                        binding.txtInActiveBA.setTextColor(resources.getColor(R.color.blue))
+                        binding.textUnassignedTs.setTextColor(resources.getColor(R.color.white))
+                        binding.textUnassignedBa.setTextColor(resources.getColor(R.color.blue))
 
 
                         /*binding.vLine1.setBackgroundColor(resources.getColor(R.color.blue))
@@ -80,39 +80,39 @@ class UnAssignedTSBAActivity : BaseActivity() {
                         //binding.vLine3.setBackgroundColor(resources.getColor(R.color.unselect_tab))
                     } else if (position == 1) {
 
-                        binding.tabInActiveBA.setBackgroundDrawable(
+                        binding.tabUnassignedBa.setBackgroundDrawable(
                             ContextCompat.getDrawable(
                                 this@UnAssignedTSBAActivity,
                                 R.drawable.ba_tab_unselected_background
                             )
                         );
-                        binding.tabActiveBA.setBackgroundDrawable(
+                        binding.tabUnassignedTs.setBackgroundDrawable(
                             ContextCompat.getDrawable(
                                 this@UnAssignedTSBAActivity,
                                 R.drawable.tab_selected_background
                             )
                         );
-                        binding.txtActiveBA.setTextColor(resources.getColor(R.color.blue))
-                        binding.txtInActiveBA.setTextColor(resources.getColor(R.color.white))
+                        binding.textUnassignedTs.setTextColor(resources.getColor(R.color.blue))
+                        binding.textUnassignedBa.setTextColor(resources.getColor(R.color.white))
 
 
                         /*binding.vLine1.setBackgroundColor(resources.getColor(R.color.unselect_tab))
                         binding.vLine2.setBackgroundColor(resources.getColor(R.color.blue))*/
                     } else {
-                        binding.tabInActiveBA.setBackgroundDrawable(
+                        binding.tabUnassignedBa.setBackgroundDrawable(
                             ContextCompat.getDrawable(
                                 this@UnAssignedTSBAActivity,
                                 R.drawable.tab_selected_background
                             )
                         );
-                        binding.tabActiveBA.setBackgroundDrawable(
+                        binding.tabUnassignedTs.setBackgroundDrawable(
                             ContextCompat.getDrawable(
                                 this@UnAssignedTSBAActivity,
                                 R.drawable.tab_unselected_background
                             )
                         );
-                        binding.txtActiveBA.setTextColor(resources.getColor(R.color.white))
-                        binding.txtInActiveBA.setTextColor(resources.getColor(R.color.blue))
+                        binding.textUnassignedTs.setTextColor(resources.getColor(R.color.white))
+                        binding.textUnassignedBa.setTextColor(resources.getColor(R.color.blue))
 
 
                         /*binding.vLine1.setBackgroundColor(resources.getColor(R.color.unselect_tab))

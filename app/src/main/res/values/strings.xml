@@ -101,10 +101,10 @@
     <string name="target">Target</string>
     <string name="current_location">Current Location</string>
     <string name="alternative_mobile_no">Alternative Mobile No.</string>
-    <string name="enter_add">Enter Address</string>
-    <string name="enter_pin">Enter Pincode</string>
-    <string name="enter_city">Enter City</string>
-    <string name="enter_state">Enter State</string>
+    <string name="enter_add">Please Enter Address</string>
+    <string name="enter_pin">Please Enter Pincode</string>
+    <string name="enter_city">Please Enter City</string>
+    <string name="enter_state">Please Enter State</string>
     <string name="profile">Profile</string>
     <string name="total_add_load">Total Add Loads</string>
     <string name="total_earning">Total Earning</string>

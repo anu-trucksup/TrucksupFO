@@ -56,7 +56,7 @@ import java.util.regex.Pattern
 class AddSmartFuelActivity : BaseActivity(), InsuranceController, GetImage, TrucksFOImageController {
     private lateinit var binding: ActivityAddSmartfuelBinding
     private var list = ArrayList<VehicleDetail>()
-    private var mViewModel: InsuranceViewModel? = null
+    private var mViewModel: SmartFuelViewModel? = null
     private var adapter: InsuranceListAdapter? = null
     private val calendar = Calendar.getInstance()
 
@@ -67,7 +67,7 @@ class AddSmartFuelActivity : BaseActivity(), InsuranceController, GetImage, Truc
     private var rcBackImgUrl: String? = ""
     private var prevPolicyDocsImgKey: String? = ""
     private var prevPolicyDocsImgUrl: String? = ""
-    private var imageT: Int = 0//0 default,1 front image,2 back image,3 previous policy docs image
+    private var imageT: Int = 0 //0 default,1 front image,2 back image,3 previous policy docs image
     private var sourceValue: String? = "Trucksup"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,7 +81,7 @@ class AddSmartFuelActivity : BaseActivity(), InsuranceController, GetImage, Truc
             insets
         }
 
-        mViewModel = ViewModelProvider(this)[InsuranceViewModel::class.java]
+        mViewModel = ViewModelProvider(this)[SmartFuelViewModel::class.java]
         PreferenceManager.setPhoneNo("9870009988", this)
         binding.etFullName.setText("Anupam")
 

@@ -13,6 +13,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -33,6 +34,7 @@ import com.trucksup.field_officer.presenter.common.dialog.HappinessCodeBox
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.view.activity.business_associate.BAScheduleMeetingActivity
 import com.trucksup.field_officer.presenter.view.activity.growth_partner.GPScheduleMeetingActivity
+import com.trucksup.field_officer.presenter.view.service.LocationService
 
 
 class EndTripActivity : BaseActivity(), OnMapReadyCallback {
@@ -58,6 +60,13 @@ class EndTripActivity : BaseActivity(), OnMapReadyCallback {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
         setClickListener()
+
+        startService()
+    }
+
+    private fun startService() {
+        val intent = Intent(this, LocationService::class.java)
+        ContextCompat.startForegroundService(this, intent)
     }
 
     private fun setClickListener() {
