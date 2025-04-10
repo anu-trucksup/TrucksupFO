@@ -2,6 +2,8 @@ package com.trucksup.field_officer.data.repository
 
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryData
 import com.glovejob.data.model.UserSessionResponse
+import com.logistics.trucksup.activities.preferre.modle.PrefferLanRequest
+import com.logistics.trucksup.activities.preferre.modle.PrefferdResponse
 import com.logistics.trucksup.modle.PlanResponse
 import com.trucksup.field_officer.data.model.AutoImageSlideResponse
 import com.trucksup.field_officer.data.model.CheckUserProfileResponse
@@ -22,6 +24,7 @@ import com.trucksup.field_officer.data.model.insurance.InquiryHistoryResponse
 import com.trucksup.field_officer.data.model.user.UpdateProfileRequest
 import com.trucksup.field_officer.data.model.user.UpdateProfileResponse
 import com.trucksup.field_officer.data.network.ResultWrapper
+import com.trucksup.field_officer.data.network.safeApiCall
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinaceDataSubmitResponse
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinanceDataLiatRequest
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinanceDataLiatResponse
@@ -29,6 +32,12 @@ import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.I
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.LoanDataSubmitRequest
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryRequest
 import com.trucksup.field_officer.presenter.view.activity.subscription.model.PlanRequest
+import com.trucksup.field_officer.presenter.view.activity.truck_supplier.model.AddLoadFilterRequest
+import com.trucksup.field_officer.presenter.view.activity.truck_supplier.model.AddLoadFilterResponse
+import com.trucksup.field_officer.presenter.view.activity.truck_supplier.model.RcRequest
+import com.trucksup.field_officer.presenter.view.activity.truck_supplier.model.RcResponse
+import com.trucksup.field_officer.presenter.view.activity.truck_supplier.model.VerifyTruckResponse
+import kotlinx.coroutines.Dispatchers
 import okhttp3.MultipartBody
 
 interface APIRepository {
@@ -137,4 +146,17 @@ interface APIRepository {
     suspend fun getSubscriptionPlanData(authToken: String, planRequest: PlanRequest): ResultWrapper<PlanResponse>
 
     suspend fun getCityStateByPin(authToken: String, request: PinCodeRequest): ResultWrapper<PinCodeResponse>
+
+    suspend fun verifyTruck(authToken: String,vehicleRegNo: String?, mobileNo: String?): ResultWrapper<VerifyTruckResponse>
+
+    suspend fun getRcDetails(authToken: String, rcRequest: RcRequest): ResultWrapper<RcResponse>
+
+    suspend fun getAddLoadFilter(request: AddLoadFilterRequest): ResultWrapper<AddLoadFilterResponse>
+
+    suspend fun onBoardTruckSupplier(authToken:String, request : PrefferLanRequest): ResultWrapper<PrefferdResponse>
+
+    suspend fun onBoardBusinessAssociate(authToken:String, request : PrefferLanRequest): ResultWrapper<PrefferdResponse>
+
+    suspend fun onBoardGrowthPartner(authToken:String, request : PrefferLanRequest): ResultWrapper<PrefferdResponse>
+
 }

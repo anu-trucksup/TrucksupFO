@@ -2,15 +2,17 @@ package com.trucksup.field_officer.presenter.view.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.trucksup.field_officer.databinding.AddTruckListItemsBinding
 import com.trucksup.field_officer.databinding.AddTsTruckDetailsItemsBinding
 import com.trucksup.field_officer.databinding.PreferredLaneItemBinding
+import com.trucksup.field_officer.presenter.view.activity.truck_supplier.model.VehicleDetail
 
 class TSTrucksDetailsAdapter(
     var context: Context,
-    var list: ArrayList<String>,
+    var trucksDetail: ArrayList<VehicleDetail>,
     var controllerListener: ControllerListener
 ) : RecyclerView.Adapter<TSTrucksDetailsAdapter.ViewHolder>() {
 
@@ -25,15 +27,15 @@ class TSTrucksDetailsAdapter(
         return ViewHolder(v)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.binding.truckNo.text = "UP14FZ7850"
-        /*holder.binding.btnDelete.setOnClickListener {
-            controllerListener.onDeleteTruck(position)
-        }*/
+    override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
+        val truckdetails = trucksDetail[position].bodytype + "/" + trucksDetail[position].tyre +
+            "/" + trucksDetail[position].capacity + "/" + trucksDetail[position].vehicleSize
+        viewHolder.binding.truckNo.text = trucksDetail[position].vehicleNo
+        viewHolder.binding.tvTruckdetails.text = "" + truckdetails
     }
 
     override fun getItemCount(): Int {
-        return list.size
+        return trucksDetail.size
     }
 
     interface ControllerListener {

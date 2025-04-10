@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+android:id="@+id/mn"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/white"
+        android:layout_margin="@dimen/_20ssp"
+        app:cardCornerRadius="@dimen/_8sdp"
+        android:layout_centerInParent="true"
+        app:cardElevation="0dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_20ssp"
+                android:layout_marginRight="@dimen/_16sdp"
+                android:layout_weight="1"
+                android:drawableStart="@drawable/back_icon"
+                android:fontFamily="@font/roboto_medium"
+                android:gravity="center"
+                android:lines="1"
+                android:maxLines="1"
+                android:text="@string/logout"
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_14ssp" />
+
+            <EditText
+                android:id="@+id/search"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"
+                android:visibility="visible"
+                android:layout_marginStart="@dimen/_16sdp"
+                android:layout_marginEnd="@dimen/_16sdp"
+                android:layout_below="@+id/title"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:background="@drawable/editbox_blue_border"
+                android:fontFamily="@font/roboto_medium"
+                android:hint="@string/search"
+                android:inputType="text"
+                android:paddingStart="@dimen/_12sdp"
+                android:textColor="@color/blue"
+                android:textColorHint="#4d007fff"
+                android:textSize="@dimen/_11sdp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:id="@+id/list"
+            android:layout_below="@+id/search"
+            android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

@@ -40,7 +40,7 @@ class FinanceActivity : BaseActivity(), ChipController, CityPicker {
         mViewModel = ViewModelProvider(this)[FinanceViewModel::class.java]
         //binding.name.setText(PreferenceManager.getUserData(this)?.profileName)
 
-        PreferenceManager.setPhoneNo("8527257606", this)
+        PreferenceManager.setPhoneNo("8303871415", this)
 
         binding.mobileNumber.setText(PreferenceManager.getPhoneNo(this))
 

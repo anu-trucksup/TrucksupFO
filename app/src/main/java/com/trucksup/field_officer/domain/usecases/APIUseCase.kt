@@ -1,6 +1,8 @@
 package com.trucksup.field_officer.domain.usecases
 
 
+import com.logistics.trucksup.activities.preferre.modle.PrefferLanRequest
+import com.logistics.trucksup.activities.preferre.modle.PrefferdResponse
 import com.logistics.trucksup.modle.PlanResponse
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryData
 import com.trucksup.field_officer.data.model.AutoImageSlideResponse
@@ -30,6 +32,11 @@ import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.I
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.LoanDataSubmitRequest
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryRequest
 import com.trucksup.field_officer.presenter.view.activity.subscription.model.PlanRequest
+import com.trucksup.field_officer.presenter.view.activity.truck_supplier.model.AddLoadFilterRequest
+import com.trucksup.field_officer.presenter.view.activity.truck_supplier.model.AddLoadFilterResponse
+import com.trucksup.field_officer.presenter.view.activity.truck_supplier.model.RcRequest
+import com.trucksup.field_officer.presenter.view.activity.truck_supplier.model.RcResponse
+import com.trucksup.field_officer.presenter.view.activity.truck_supplier.model.VerifyTruckResponse
 import kotlinx.coroutines.Dispatchers
 import okhttp3.MultipartBody
 import javax.inject.Inject
@@ -207,6 +214,43 @@ class APIUseCase @Inject constructor(val apiRepository: APIRepository) {
         authToken: String,
         request: PinCodeRequest
     ): ResultWrapper<PinCodeResponse> {
-        return  apiRepository.getCityStateByPin(authToken, request)
+        return apiRepository.getCityStateByPin(authToken, request)
+    }
+
+    suspend fun verifyTruck(
+        authToken: String,
+        vehicleRegNo: String?,
+        mobileNo: String?
+    ): ResultWrapper<VerifyTruckResponse> {
+        return apiRepository.verifyTruck(authToken, vehicleRegNo, mobileNo)
+    }
+
+    suspend fun getRcDetails(authToken: String, rcRequest: RcRequest): ResultWrapper<RcResponse> {
+        return apiRepository.getRcDetails(authToken, rcRequest)
+    }
+
+    suspend fun getAddLoadFilter(request: AddLoadFilterRequest): ResultWrapper<AddLoadFilterResponse> {
+        return apiRepository.getAddLoadFilter(request)
+    }
+
+    suspend fun onBoardTruckSupplier(
+        authToken: String,
+        request: PrefferLanRequest
+    ): ResultWrapper<PrefferdResponse> {
+        return apiRepository.onBoardTruckSupplier(authToken, request)
+    }
+
+    suspend fun onBoardBusinessAssociate(
+        authToken: String,
+        request: PrefferLanRequest
+    ): ResultWrapper<PrefferdResponse> {
+        return apiRepository.onBoardBusinessAssociate(authToken, request)
+    }
+
+    suspend fun onBoardGrowthPartner(
+        authToken: String,
+        request: PrefferLanRequest
+    ): ResultWrapper<PrefferdResponse> {
+        return apiRepository.onBoardGrowthPartner(authToken, request)
     }
 }

@@ -4,6 +4,8 @@ package com.trucksup.field_officer.data.repository.impl
 import android.text.TextUtils
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryData
 import com.glovejob.data.model.UserSessionResponse
+import com.logistics.trucksup.activities.preferre.modle.PrefferLanRequest
+import com.logistics.trucksup.activities.preferre.modle.PrefferdResponse
 import com.logistics.trucksup.modle.PlanResponse
 import com.trucksup.field_officer.data.model.AutoImageSlideResponse
 import com.trucksup.field_officer.data.model.CheckUserProfileResponse
@@ -35,8 +37,15 @@ import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.I
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.LoanDataSubmitRequest
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryRequest
 import com.trucksup.field_officer.presenter.view.activity.subscription.model.PlanRequest
+import com.trucksup.field_officer.presenter.view.activity.truck_supplier.model.AddLoadFilterRequest
+import com.trucksup.field_officer.presenter.view.activity.truck_supplier.model.AddLoadFilterResponse
+import com.trucksup.field_officer.presenter.view.activity.truck_supplier.model.RcRequest
+import com.trucksup.field_officer.presenter.view.activity.truck_supplier.model.RcResponse
+import com.trucksup.field_officer.presenter.view.activity.truck_supplier.model.VerifyTruckResponse
 import kotlinx.coroutines.Dispatchers
 import okhttp3.MultipartBody
+import retrofit2.http.Body
+import retrofit2.http.Query
 
 
 class APIRepositoryImpl constructor(private val apiService: ApiService) : APIRepository {
@@ -268,6 +277,30 @@ class APIRepositoryImpl constructor(private val apiService: ApiService) : APIRep
 
     override suspend fun getSubscriptionPlanData(authToken: String, planRequest: PlanRequest): ResultWrapper<PlanResponse> {
         return safeApiCall(Dispatchers.IO) { apiService.getSubscriptionPlanList(authToken,planRequest) }
+    }
+
+    override suspend fun verifyTruck(authToken: String,vehicleRegNo: String?, mobileNo: String?): ResultWrapper<VerifyTruckResponse> {
+        return safeApiCall(Dispatchers.IO) { apiService.verifyTruck(authToken,vehicleRegNo,mobileNo) }
+    }
+
+    override suspend fun getRcDetails(authToken: String, rcRequest: RcRequest): ResultWrapper<RcResponse> {
+        return safeApiCall(Dispatchers.IO) { apiService.getRcDetails(authToken,rcRequest) }
+    }
+
+    override suspend fun getAddLoadFilter(request: AddLoadFilterRequest): ResultWrapper<AddLoadFilterResponse> {
+        return safeApiCall(Dispatchers.IO) { apiService.getAddLoadFilter(request) }
+    }
+
+    override suspend fun onBoardTruckSupplier(authToken:String, request : PrefferLanRequest): ResultWrapper<PrefferdResponse> {
+        return safeApiCall(Dispatchers.IO) { apiService.onBoardTruckSupplier(authToken,request) }
+    }
+
+    override suspend fun onBoardBusinessAssociate(authToken:String, request : PrefferLanRequest): ResultWrapper<PrefferdResponse> {
+        return safeApiCall(Dispatchers.IO) { apiService.onBoardBusinessAssociate(authToken,request) }
+    }
+
+    override suspend fun onBoardGrowthPartner(authToken:String, request : PrefferLanRequest): ResultWrapper<PrefferdResponse> {
+        return safeApiCall(Dispatchers.IO) { apiService.onBoardGrowthPartner(authToken,request) }
     }
 
 }

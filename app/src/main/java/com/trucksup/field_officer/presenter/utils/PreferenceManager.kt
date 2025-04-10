@@ -226,7 +226,7 @@ PreferenceManager {
         editor.commit()
     }
 
-    fun getAccesKey(myContext: Context): String {
+    fun getAccessKey(myContext: Context): String {
 
         val sharedPreferences: SharedPreferences =
             myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)

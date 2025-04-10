@@ -68,9 +68,7 @@ class TSStartTripActivity : BaseActivity(), OnMapReadyCallback {
                 intent.putExtra("title", "" + title_name)
                 startActivity(intent)
             }
-
         }
-
 
         binding.ivBack.setOnClickListener {
             onBackPressed()

@@ -25,11 +25,13 @@ import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.view.activity.business_associate.BAPerformanceActivity
 import com.trucksup.field_officer.presenter.view.adapter.TrucksDetailsAdap
 import com.trucksup.fieldofficer.adapter.PreferredLaneAdap
+import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import kotlin.collections.ArrayList
 
+@AndroidEntryPoint
 class TSScheduledMeetingActivity : BaseActivity(), PreferredLaneAdap.ControllerListener,
     TrucksDetailsAdap.ControllerListener {
 

@@ -475,12 +475,12 @@
     <string name="location_address">Location Address</string>
     <string name="ownedVehicle">Owned Vehicle</string>
     <string name="attached_vehicle">Attached Vehicle</string>
-    <string name="truck_number">Truck Number *</string>
+    <string name="truck_number">Truck Number <font color='#FF0000'>*</font></string>
     <string name="enter_truck_no">Enter Truck No</string>
-    <string name="body_type">Body Type *</string>
-    <string name="tyre">Tyre *</string>
-    <string name="capacity">Capacity *</string>
-    <string name="vehicle_size">Vehicle Size *</string>
+    <string name="body_type">Body Type <font color='#FF0000'>*</font></string>
+    <string name="tyre">Tyre <font color='#FF0000'>*</font></string>
+    <string name="capacity">Capacity <font color='#FF0000'>*</font></string>
+    <string name="vehicle_size">Vehicle Size <font color='#FF0000'>*</font></string>
     <string name="search_by_mobile_number">Search by mobile number</string>
     <string name="filter">Filter</string>
     <string name="calendar">Calendar</string>
@@ -645,5 +645,40 @@
     <string name="reschedule_meeting"><u>Reschedule Meeting</u></string>
     <string name="activate_msg">You are currently not on duty. Please activate your duty status to mark your attendance and start today’s journey.</string>
 
+   //
+    <string name="enter_truckno">Enter Truck No. </string>
+    <string name="add_one_truck_msg">You have not added any trucks. Kindly add a truck</string>
+    <string name="verify_truck">Please verify to vehicle</string>
+    <string name="enter_right_company_name">Enter Right Company Name</string>
+    <string name="enter_right_company_namee">Please enter company name</string>
+    <string name="enter_right_city_name">Enter Right City Name</string>
+    <string name="enter_right_contect_name">Enter Right Contact Person Name</string>
+    <string name="valid_truckno">Please enter valid truck number.</string>
+
+    <string name="select_product">Please select product type</string>
+    <string name="select_vehiclesize">Please select vehicle size type</string>
+    <string name="select_bodyType">Please select body type</string>
+    <string name="select_capacityType">Please select capacity type</string>
+    <string name="select_tyreType">Please select tyre type</string>
+
+    <string name="please_select_capacity">Please select capacity</string>
+    <string name="please_select_size">Please select size</string>
+    <string name="please_select_tyre">Please select Tyre</string>
+    <string name="please_select_city">Please Select city</string>
+    <string name="please_select_body">Please select body type</string>
+    <string name="typeHare">Type here</string>
+    <string name="filterNotavailable_size">vehicle size info not available</string>
+    <string name="filterNotavailable_capacity">Capacity info not available</string>
+    <string name="filterNotavailable_body">Body type info not available</string>
+
+    <string name="filterNotavailable_Tyer">Tyre info not available</string>
+    <string name="filterNotavailable_city">City info not available</string>
+    <string name="enterTypeOfSource">Please select vehicle type</string>
+    <string name="add_truck">Add Truck</string>
+    <string name="Capacity">Capacity</string>
+    <string name="logout">Logout</string>
+    <string name="search">Search</string>
+    <string name="Vehicle_Size">Vehicle Size</string>
+    <string name="tyre_">Tyre</string>
 
 </resources>

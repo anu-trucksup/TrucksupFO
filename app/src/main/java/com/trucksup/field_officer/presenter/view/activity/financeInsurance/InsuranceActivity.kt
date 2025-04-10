@@ -94,7 +94,7 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
         }
 
         mViewModel = ViewModelProvider(this)[InsuranceViewModel::class.java]
-        PreferenceManager.setPhoneNo("8527257632", this)
+        PreferenceManager.setPhoneNo("8303871415", this)
         binding.etFullName.setText("Anupam")
 
         binding.etMobile.setText(PreferenceManager.getPhoneNo(this))
@@ -1615,8 +1615,8 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
             mViewModel?.trucksupImageUpload(
                 PreferenceManager.getAuthToken(),
                 "image",
-                PreferenceManager.prepareFilePartTrucksHum(file!!, "imageFile"),
-                PreferenceManager.prepareFilePartTrucksHum(file!!, "watermarkFile"),
+                PreferenceManager.prepareFilePartTrucksHum(file, "imageFile"),
+                PreferenceManager.prepareFilePartTrucksHum(file, "watermarkFile"),
                 this
             )
         }

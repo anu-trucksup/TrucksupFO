@@ -2,10 +2,8 @@ package com.trucksup.field_officer.presenter.view.activity.truck_supplier
 
 import android.app.AlertDialog
 import android.content.Intent
-import android.graphics.Bitmap
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.os.Environment
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -20,45 +18,50 @@ import com.bumptech.glide.Glide
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.data.model.GenerateJWTtokenResponse
 import com.trucksup.field_officer.data.model.PinCodeRequest
-import com.trucksup.field_officer.databinding.ActivityTcNewOnboardingBinding
+import com.trucksup.field_officer.databinding.ActivityTsOnboardingBinding
 import com.trucksup.field_officer.databinding.VerifyOtpDialogBinding
+import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.CameraActivity
 import com.trucksup.field_officer.presenter.common.FileHelp
-import com.trucksup.field_officer.presenter.common.AlertBoxDialog
+import com.trucksup.field_officer.presenter.common.JWTtoken
+import com.trucksup.field_officer.presenter.common.LoadingUtils
+import com.trucksup.field_officer.presenter.common.image_picker.TrucksFOImageController
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
+import com.trucksup.field_officer.presenter.utils.LoggerMessage
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
 import com.trucksup.field_officer.presenter.view.activity.other.TokenViewModel
 import com.trucksup.field_officer.presenter.view.activity.truck_supplier.vml.TSOnboardViewModel
-import com.trucksup.field_officer.presenter.common.JWTtoken
-import com.trucksup.field_officer.presenter.utils.LoggerMessage
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
-import java.io.FileOutputStream
-import java.io.OutputStream
 import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
-class TSOnboardingActivity : BaseActivity(), View.OnClickListener, JWTtoken {
-    private lateinit var binding: ActivityTcNewOnboardingBinding
+class TSOnboardingActivity : BaseActivity(), View.OnClickListener, JWTtoken,
+    TrucksFOImageController {
+    private lateinit var binding: ActivityTsOnboardingBinding
     private var mViewModel: TSOnboardViewModel? = null
     private var mTokenViewModel: TokenViewModel? = null
     private var launcher: ActivityResultLauncher<Intent>? = null
-    private var imageUri:String = ""
+    private var imageUri: String = ""
+    private var profileImgKey: String? = ""
+    private var profileImgUrl: String? = ""
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        binding = ActivityTcNewOnboardingBinding.inflate(layoutInflater)
+        binding = ActivityTsOnboardingBinding.inflate(layoutInflater)
         adjustFontScale(resources.configuration, 1.0f)
         setContentView(binding.root)
         mTokenViewModel = ViewModelProvider(this)[TokenViewModel::class.java]
         mViewModel = ViewModelProvider(this)[TSOnboardViewModel::class.java]
-        setOnClicks()
 
+        setOnClicks()
         setupObserver()
-        camera()
+        cameraListener()
     }
 
-    fun camera() {
+    private fun cameraListener() {
         launcher = registerForActivityResult<Intent, ActivityResult>(
             ActivityResultContracts.StartActivityForResult()
         ) { result: ActivityResult ->
@@ -66,41 +69,17 @@ class TSOnboardingActivity : BaseActivity(), View.OnClickListener, JWTtoken {
                 val data = result.data
 
                 try {
-                    imageUri = data!!.getStringExtra("result").toString()
-                    binding.profileImage?.let {
-                        Glide.with(getApplicationContext())
-                            .load(data!!.getStringExtra("result")?.toUri())
+                    imageUri = data?.getStringExtra("result").toString()
+                    binding.profileImage.let {
+                        Glide.with(applicationContext)
+                            .load(data?.getStringExtra("result")?.toUri())
                             .into(it)
                     }
-                    //profileImage?.setRotation(270F)
-                    var orFile: File =
-                        FileHelp().getFile(this, data!!.getStringExtra("result")?.toUri())!!
-                    var newBitmap: Bitmap = FileHelp().FileToBitmap(orFile)
 
+                    val orFile: File = FileHelp().getFile(this, result.data?.data)!!
 
-                    val name = "trucksUp_image" + System.currentTimeMillis() + ".jpg"
-                    val pt = Environment.DIRECTORY_PICTURES //+  "/trucksUp";
-                    val MEDIA_PATH = Environment.getExternalStorageDirectory().absolutePath + "/" + pt + "/"
+                    uploadImage(orFile, "")
 
-                    val filesDir: File = getFilesDir()
-                    val imageFile = File(filesDir, name)
-
-                    val os: OutputStream
-                    os = FileOutputStream(imageFile)
-                    newBitmap.compress(Bitmap.CompressFormat.JPEG, 99, os)
-                    os.flush()
-                    os.close()
-
-                    //LoadingUtils?.showDialog(this, false)
-                    //LoadingUtils.showDialog(this, false)
-                    /*MyResponse()?.uploadImage(
-                        "jpg",
-                        "DOC" + PreferenceManager.getRequestNo(),
-                        "" + PreferenceManager.getPhoneNo(this),
-                        PreferenceManager.prepareFilePart(imageFile!!),
-                        this,
-                        this
-                    )*/
                 } catch (ex: Exception) {
                     ex.printStackTrace()
                 }
@@ -108,11 +87,24 @@ class TSOnboardingActivity : BaseActivity(), View.OnClickListener, JWTtoken {
         }
     }
 
-    private fun launchCamera(){
+    fun uploadImage(file: File, token: String) {
+        LoadingUtils.showDialog(this, false)
+
+        mViewModel?.trucksupImageUpload(
+            PreferenceManager.getAuthToken(),
+            "image",
+            PreferenceManager.prepareFilePartTrucksHum(file, "imageFile"),
+            PreferenceManager.prepareFilePartTrucksHum(file, "watermarkFile"),
+            this
+        )
+
+    }
+
+    private fun launchCamera() {
         val intent = Intent(this, CameraActivity::class.java)
         intent.putExtra("flipCamera", true)
         intent.putExtra("cameraOpen", 0)
-        launcher!!.launch(intent)
+        launcher?.launch(intent)
     }
 
     private fun setOnClicks() {
@@ -156,7 +148,7 @@ class TSOnboardingActivity : BaseActivity(), View.OnClickListener, JWTtoken {
         if (binding.ETAccountHolderName.text.isEmpty()) {
             binding.ETAccountHolderName.requestFocus()
             binding.ETAccountHolderName.setError(getString(R.string.PleaseEnterContactName))
-        }else if (imageUri.isEmpty() || imageUri == null) {
+        } else if (imageUri.isEmpty() || imageUri == null) {
             LoggerMessage.onSNACK(
                 binding.cvCamera,
                 resources.getString(R.string.PleaseSelectStorePhoto),
@@ -171,17 +163,14 @@ class TSOnboardingActivity : BaseActivity(), View.OnClickListener, JWTtoken {
         } else if (binding.ETBusinessName.text.isEmpty()) {
             binding.ETBusinessName.requestFocus()
             binding.ETBusinessName.setError(getString(R.string.PleaseEnterBusinessName))
-        } /*else if (binding.ETBusinessAddress.text.isEmpty()) {
-            binding.ETBusinessAddress.requestFocus()
-            binding.ETBusinessAddress.setError(getString(R.string.PleaseEnterBusinessAddress))
-        }*/ else if (binding.eTPincode.text.isEmpty()) {
+        }  else if (binding.eTPincode.text.isEmpty()) {
             binding.eTPincode.requestFocus()
             binding.eTPincode.setError(getString(R.string.PleaseEnterBusinessPincode))
         } else if (binding.eTPincode.text.length < 6) {
             binding.eTPincode.requestFocus()
             binding.eTPincode.setError(getString(R.string.PleaseEnterRightPincode))
         } else {
-            startActivity(Intent(this, TSTrackDetailsActivity::class.java))
+            startActivity(Intent(this, TSOnBoardStep2Activity::class.java))
         }
     }
 
@@ -316,8 +305,10 @@ class TSOnboardingActivity : BaseActivity(), View.OnClickListener, JWTtoken {
         if (!response.accessToken.isNullOrEmpty()) {
             getPinData("Bearer " + response.accessToken)
         } else {
-            val abx = AlertBoxDialog(this@TSOnboardingActivity,
-                "Something went wrong", "m")
+            val abx = AlertBoxDialog(
+                this@TSOnboardingActivity,
+                "Something went wrong", "m"
+            )
             abx.show()
         }
 
@@ -328,4 +319,26 @@ class TSOnboardingActivity : BaseActivity(), View.OnClickListener, JWTtoken {
         val abx = AlertBoxDialog(this@TSOnboardingActivity, msg, "m")
         abx.show()
     }
+
+    override fun getImage(value: String, url: String) {
+        LoadingUtils.hideDialog()
+        profileImgKey = value
+        profileImgUrl = url
+        try {
+            Glide.with(this)
+                .load(url)
+                .into(binding.profileImage)
+        } catch (e: Exception) {
+        }
+
+    }
+
+    override fun dataSubmitted(message: String) {}
+
+    override fun imageError(error: String) {
+        LoadingUtils.hideDialog()
+        LoggerMessage.onSNACK(binding.profileImage, error, this)
+    }
+
+
 }

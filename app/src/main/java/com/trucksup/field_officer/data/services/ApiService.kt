@@ -1,5 +1,7 @@
 package com.trucksup.field_officer.data.services
 
+import com.logistics.trucksup.activities.preferre.modle.PrefferLanRequest
+import com.logistics.trucksup.activities.preferre.modle.PrefferdResponse
 import com.logistics.trucksup.modle.PlanResponse
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryData
 import com.trucksup.field_officer.data.model.AutoImageSlideResponse
@@ -31,6 +33,11 @@ import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.I
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.LoanDataSubmitRequest
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryRequest
 import com.trucksup.field_officer.presenter.view.activity.subscription.model.PlanRequest
+import com.trucksup.field_officer.presenter.view.activity.truck_supplier.model.AddLoadFilterRequest
+import com.trucksup.field_officer.presenter.view.activity.truck_supplier.model.AddLoadFilterResponse
+import com.trucksup.field_officer.presenter.view.activity.truck_supplier.model.RcRequest
+import com.trucksup.field_officer.presenter.view.activity.truck_supplier.model.RcResponse
+import com.trucksup.field_officer.presenter.view.activity.truck_supplier.model.VerifyTruckResponse
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.Body
@@ -247,5 +254,45 @@ interface ApiService {
         @Part watermarkFile: MultipartBody.Part?
     ): Call<TrucksupImageUploadResponse>?
 
+    @GET("Apigateway/Gateway/CheckDuplicateVehicle?")
+    @Headers("Accept: application/json")
+    suspend fun verifyTruck(
+        @Header("Authorization") auth: String,
+        @Query("VehicleNo") VehicleRegNo: String?,
+        @Query("MobileNo") MobileNo: String?
+    ): VerifyTruckResponse
+
+    @POST("Apigateway/Gateway/V3/GetRCDetail")
+    @Headers("Accept: application/json")
+    suspend fun getRcDetails(
+        @Header("Authorization") auth: String,
+        @Body request: RcRequest
+    ): RcResponse
+
+    @POST("TrucksUpAPIGateway/gateway/GetAddLoadSelectvalues")
+    @Headers("Accept: application/json")
+    suspend fun getAddLoadFilter(@Body request: AddLoadFilterRequest): AddLoadFilterResponse
+
+
+    @POST("Apigateway/Gateway/AddOwnerData")
+    @Headers("Accept: application/json")
+    suspend fun onBoardTruckSupplier(
+        @Header("Authorization") auth: String,
+        @Body request: PrefferLanRequest
+    ): PrefferdResponse
+
+    @POST("Apigateway/Gateway/AddOwnerData")
+    @Headers("Accept: application/json")
+    suspend fun onBoardBusinessAssociate(
+        @Header("Authorization") auth: String,
+        @Body request: PrefferLanRequest
+    ): PrefferdResponse
+
+    @POST("Apigateway/Gateway/AddOwnerData")
+    @Headers("Accept: application/json")
+    suspend fun onBoardGrowthPartner(
+        @Header("Authorization") auth: String,
+        @Body request: PrefferLanRequest
+    ): PrefferdResponse
 
 }
