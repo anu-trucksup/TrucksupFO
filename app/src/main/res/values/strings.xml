@@ -45,6 +45,16 @@
         <item>O.D.C</item>
         <item>Container</item>
     </string-array>
+
+    <string-array name="customer_address">
+        <item>Aadhaar Card</item>
+        <item>Voter ID</item>
+        <item>GST Certificate</item>
+        <item>Electricity Bill</item>
+        <item>Passport</item>
+    </string-array>
+
+
     <string name="password">Password</string>
     <string name="get_started_with_sign">Get started with sign up or log in.</string>
     <string name="confirm_password">Confirm Password</string>
@@ -235,11 +245,22 @@
     <string name="enterYourrightName">Please input a valid name.</string>
     <string name="insurance_mobileNo">Mobile Number <font color='#FF0000'>*</font></string>
     <string name="insurance_vehicle_no">Vehicle No. <font color='#FF0000'>*</font></string>
-    <string name="enter_right_number_v">Please input valid mobile number.</string>
+    <string name="enter_right_number_v">Please input a valid mobile number.</string>
     <string name="enter_mobile_no">Please input mobile number.</string>
     <string name="slectCity">Please input the city.</string>
     <string name="enterState">Please input the state.</string>
     <string name="enterRightCommercialVehical">Please input a valid vehicle number.</string>
+    <string name="valid_vehicle_front_photo">Please upload vehicle front photo.</string>
+    <string name="valid_vehicle_back_photo">Please upload vehicle back photo.</string>
+    <string name="address_front_photo">Please upload address proof front photo..</string>
+    <string name="address_back_photo">Please upload address proof back photo..</string>
+
+    <string name="email">Please input email ID.</string>
+    <string name="valid_email">Please input a valid email ID.</string>
+    <string name="valid_pan">Please input a valid PAN number.</string>
+    <string name="pan">Please input PAN number.</string>
+    <string name="pan_photo">Please upload PAN photo.</string>
+    <string name="address_proof">Please select address proof.</string>
     <string name="SameCurrentLocation">Same as Current Location</string>
 
     <string name="view_previous_inquiry">View Previous Enquiry</string>
@@ -403,6 +424,7 @@
     <string name="enterStartDate">Please select a valid start date.</string>
     <string name="enterEndDate">Please select a valid end date. </string>
     <string name="enterCommercialVehical">Please input a valid vehicle number.</string>
+    <string name="enterVehicle">Please input vehicle number.</string>
     <string name="trip">Trip</string>
     <string name="resendConsent">Resend Consent</string>
 
@@ -572,6 +594,7 @@
     <string name="khata_notfound">Sorry ! Records not found</string>
     <string name="search_verified_dl">Search verified driving license..</string>
     <string name="search_truck_m">Search my truck(Only 3 months)</string>
+    <string name="choose_file">Choose File</string>
     <string name="vehicle_History">Vehicle History</string>
     <string name="gp_followup">Growth Partners Follow-Up</string>
     <string name="PleaseEnterRightPincode">Please enter 6-digit pincode</string>

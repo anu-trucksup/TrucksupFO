@@ -8,8 +8,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/blue"
-        android:orientation="vertical"
         android:fitsSystemWindows="true"
+        android:orientation="vertical"
         tools:context=".activities.Finance.InsuranceScreen">
 
         <LinearLayout
@@ -33,14 +33,14 @@
                 android:src="@drawable/back_icon" />
 
             <TextView
+                style="@style/label_semi18"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_12sdp"
                 android:layout_weight="1"
-                style="@style/label_semi18"
                 android:gravity="center"
                 android:text="@string/smart_fuel"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white" />
 
             <ImageView
                 android:id="@+id/btnTransactionHis"
@@ -54,12 +54,11 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/_60sdp"
             android:background="@drawable/addload_bg"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="@dimen/_60sdp"
-            app:layout_constraintStart_toStartOf="parent"
-            >
+            app:layout_constraintStart_toStartOf="parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -76,8 +75,8 @@
                     app:cardCornerRadius="@dimen/_8sdp"
                     app:cardElevation="@dimen/_2sdp"
                     app:cardUseCompatPadding="true"
-                    tools:visibility="gone"
-                    app:strokeWidth="0dp">
+                    app:strokeWidth="0dp"
+                    tools:visibility="gone">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -217,13 +216,11 @@
                     app:strokeWidth="@dimen/_1sdp">
 
                     <EditText
-                        android:id="@+id/etFullName"
+                        android:id="@+id/et_customer_fullname"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
-                        android:clickable="false"
-                        android:editable="false"
-                        android:focusable="false"
+                        android:focusable="true"
                         android:fontFamily="@font/bai_jamjuree_medium"
                         android:inputType="textPersonName"
                         android:lines="1"
@@ -264,7 +261,7 @@
                     app:strokeWidth="@dimen/_1sdp">
 
                     <EditText
-                        android:id="@+id/etMobile"
+                        android:id="@+id/et_customer_mobile"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
@@ -303,13 +300,11 @@
                     app:strokeWidth="@dimen/_1sdp">
 
                     <EditText
-                        android:id="@+id/etEmail"
+                        android:id="@+id/et_customer_email"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@null"
-                        android:clickable="false"
-                        android:editable="false"
-                        android:focusable="false"
+                        android:focusable="true"
                         android:fontFamily="@font/bai_jamjuree_medium"
                         android:inputType="textPersonName"
                         android:lines="1"
@@ -349,7 +344,7 @@
                         app:strokeWidth="@dimen/_1sdp">
 
                         <EditText
-                            android:id="@+id/etVehicleNo"
+                            android:id="@+id/et_customer_vehicle_number"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@null"
@@ -398,8 +393,8 @@
                     app:cardCornerRadius="@dimen/_8sdp"
                     app:cardElevation="0dp"
                     app:strokeColor="#B6B3B1"
-                    tools:visibility="gone"
-                    app:strokeWidth="@dimen/_1sdp">
+                    app:strokeWidth="@dimen/_1sdp"
+                    tools:visibility="visible">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -440,10 +435,10 @@
                                     android:id="@+id/frontImgCard"
                                     android:layout_width="@dimen/_40sdp"
                                     android:layout_height="@dimen/_40sdp"
-                                    android:layout_marginStart="@dimen/_25sdp"
                                     android:layout_marginTop="@dimen/_5sdp"
                                     app:cardBackgroundColor="@color/white"
                                     app:cardCornerRadius="@dimen/_4sdp"
+                                    app:layout_constraintEnd_toEndOf="@+id/tvRcFrontImg"
                                     app:layout_constraintStart_toStartOf="@+id/tvRcFrontImg"
                                     app:layout_constraintTop_toBottomOf="@+id/tvRcFrontImg"
                                     app:strokeColor="#8A73C2"
@@ -457,6 +452,20 @@
                                         android:src="@drawable/camera_new" />
 
                                 </com.google.android.material.card.MaterialCardView>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_8sdp"
+                                    android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                    android:maxLines="1"
+                                    android:text="@string/choose_file"
+                                    android:textColor="@color/secondry_text"
+                                    android:textSize="@dimen/_9ssp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="@+id/frontImgCard"
+                                    app:layout_constraintStart_toStartOf="@+id/frontImgCard"
+                                    app:layout_constraintTop_toBottomOf="@+id/frontImgCard" />
 
                                 <ImageView
                                     android:id="@+id/cutFrontBtn"
@@ -516,6 +525,20 @@
 
                                 </com.google.android.material.card.MaterialCardView>
 
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_8sdp"
+                                    android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                    android:maxLines="1"
+                                    android:text="@string/choose_file"
+                                    android:textColor="@color/secondry_text"
+                                    android:textSize="@dimen/_9ssp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="@+id/backImgCard"
+                                    app:layout_constraintStart_toStartOf="@+id/backImgCard"
+                                    app:layout_constraintTop_toBottomOf="@+id/backImgCard" />
+
                                 <ImageView
                                     android:id="@+id/cutBackBtn"
                                     android:layout_width="@dimen/_20sdp"
@@ -567,8 +590,8 @@
                     app:cardCornerRadius="@dimen/_8sdp"
                     app:cardElevation="0dp"
                     app:strokeColor="#B6B3B1"
-                    tools:visibility="visible"
-                    app:strokeWidth="@dimen/_1sdp">
+                    app:strokeWidth="@dimen/_1sdp"
+                    tools:visibility="visible">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -598,13 +621,11 @@
                             app:strokeWidth="@dimen/_1sdp">
 
                             <EditText
-                                android:id="@+id/etPanNo"
+                                android:id="@+id/et_pan_number"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:background="@null"
-                                android:clickable="false"
-                                android:editable="false"
-                                android:focusable="false"
+                                android:focusable="true"
                                 android:fontFamily="@font/bai_jamjuree_medium"
                                 android:inputType="textPersonName"
                                 android:lines="1"
@@ -639,11 +660,11 @@
                                 android:id="@+id/panImgCard"
                                 android:layout_width="@dimen/_40sdp"
                                 android:layout_height="@dimen/_40sdp"
-                                android:layout_marginTop="@dimen/_5sdp"
                                 app:cardBackgroundColor="@color/white"
                                 app:cardCornerRadius="@dimen/_4sdp"
-                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintBottom_toTopOf="@+id/textView4"
                                 app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/tv_panphoto"
                                 app:strokeColor="#8A73C2"
                                 app:strokeWidth="@dimen/_1sdp">
@@ -657,17 +678,32 @@
 
                             </com.google.android.material.card.MaterialCardView>
 
+                            <TextView
+                                android:id="@+id/textView4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_8sdp"
+                                android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                android:maxLines="1"
+                                android:text="@string/choose_file"
+                                android:textColor="@color/secondry_text"
+                                android:textSize="@dimen/_9ssp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="@+id/panImgCard"
+                                app:layout_constraintStart_toStartOf="@+id/panImgCard"
+                                app:layout_constraintTop_toBottomOf="@+id/panImgCard" />
+
                             <ImageView
                                 android:id="@+id/cutPanBtn"
                                 android:layout_width="@dimen/_20sdp"
                                 android:layout_height="@dimen/_20sdp"
-                                android:layout_marginStart="@dimen/_5sdp"
+                                android:layout_marginStart="4dp"
                                 android:paddingEnd="@dimen/_10sdp"
                                 android:paddingBottom="@dimen/_10sdp"
                                 android:src="@drawable/cut_icon"
                                 android:visibility="gone"
-                                app:layout_constraintStart_toEndOf="@+id/lPanDocImg"
-                                app:layout_constraintTop_toTopOf="@+id/lPanDocImg" />
+                                app:layout_constraintStart_toEndOf="@+id/panImgCard"
+                                app:layout_constraintTop_toTopOf="@+id/panImgCard" />
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -702,6 +738,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5sdp"
+                    android:visibility="visible"
                     app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="@dimen/_8sdp"
                     app:cardElevation="0dp"
@@ -743,14 +780,18 @@
                                 app:strokeWidth="@dimen/_1sdp">
 
                                 <androidx.appcompat.widget.AppCompatSpinner
+                                    android:id="@+id/acs_address_proof"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="match_parent"
                                     android:focusable="true"
                                     android:maxLines="1"
                                     android:paddingStart="@dimen/_10sdp"
                                     android:textColor="@color/primery_text"
                                     android:textColorHint="#cccccc"
-                                    android:textSize="@dimen/_12ssp" />
+                                    android:textSize="@dimen/_12ssp"
+                                    android:entries="@array/customer_address"
+                                    android:fontFamily="@font/bai_jamjuree_medium"
+                                    android:paddingHorizontal="@dimen/_3sdp"/>
 
                             </com.google.android.material.card.MaterialCardView>
 
@@ -793,6 +834,7 @@
                                     android:layout_marginTop="@dimen/_5sdp"
                                     app:cardBackgroundColor="@color/white"
                                     app:cardCornerRadius="@dimen/_4sdp"
+                                    app:layout_constraintEnd_toEndOf="@+id/tvAddFrontImg"
                                     app:layout_constraintStart_toStartOf="@+id/tvAddFrontImg"
                                     app:layout_constraintTop_toBottomOf="@+id/tvAddFrontImg"
                                     app:strokeColor="#8A73C2"
@@ -806,6 +848,20 @@
                                         android:src="@drawable/camera_new" />
 
                                 </com.google.android.material.card.MaterialCardView>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_8sdp"
+                                    android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                    android:maxLines="1"
+                                    android:text="@string/choose_file"
+                                    android:textColor="@color/secondry_text"
+                                    android:textSize="@dimen/_9ssp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="@+id/frontAddImgCard"
+                                    app:layout_constraintStart_toStartOf="@+id/frontAddImgCard"
+                                    app:layout_constraintTop_toBottomOf="@+id/frontAddImgCard" />
 
                                 <ImageView
                                     android:id="@+id/cutFrontAddressBtn"
@@ -865,8 +921,22 @@
 
                                 </com.google.android.material.card.MaterialCardView>
 
-                              <!--  <ImageView
-                                    android:id="@+id/cutBackBtn"
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_8sdp"
+                                    android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                    android:maxLines="1"
+                                    android:text="@string/choose_file"
+                                    android:textColor="@color/secondry_text"
+                                    android:textSize="@dimen/_9ssp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="@+id/backAddImgCard"
+                                    app:layout_constraintStart_toStartOf="@+id/backAddImgCard"
+                                    app:layout_constraintTop_toBottomOf="@+id/backAddImgCard" />
+
+                                <ImageView
+                                    android:id="@+id/cutAddressBackBtn"
                                     android:layout_width="@dimen/_20sdp"
                                     android:layout_height="@dimen/_20sdp"
                                     android:layout_marginStart="@dimen/_5sdp"
@@ -874,13 +944,12 @@
                                     android:paddingBottom="@dimen/_10sdp"
                                     android:src="@drawable/cut_icon"
                                     android:visibility="gone"
-                                    app:layout_constraintStart_toEndOf="@+id/backImgCard"
-                                    app:layout_constraintTop_toTopOf="@+id/backImgCard" />-->
+                                    app:layout_constraintStart_toEndOf="@+id/backAddImgCard"
+                                    app:layout_constraintTop_toTopOf="@+id/backAddImgCard" />
 
                             </androidx.constraintlayout.widget.ConstraintLayout>
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
                     </LinearLayout>
@@ -951,8 +1020,8 @@
                                 android:layout_marginTop="@dimen/_5sdp"
                                 app:cardBackgroundColor="@color/white"
                                 app:cardCornerRadius="@dimen/_4sdp"
-                                app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/tvCheque"
                                 app:strokeColor="#8A73C2"
                                 app:strokeWidth="@dimen/_1sdp">
@@ -965,6 +1034,32 @@
                                     android:src="@drawable/camera_new" />
 
                             </com.google.android.material.card.MaterialCardView>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_8sdp"
+                                android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                android:maxLines="1"
+                                android:text="@string/choose_file"
+                                android:textColor="@color/secondry_text"
+                                android:textSize="@dimen/_9ssp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="@+id/chequeImgCard"
+                                app:layout_constraintStart_toStartOf="@+id/chequeImgCard"
+                                app:layout_constraintTop_toBottomOf="@+id/chequeImgCard" />
+
+                            <ImageView
+                                android:id="@+id/cutChequeImgCard"
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"
+                                android:layout_marginStart="@dimen/_5sdp"
+                                android:paddingEnd="@dimen/_10sdp"
+                                android:paddingBottom="@dimen/_10sdp"
+                                android:src="@drawable/cut_icon"
+                                android:visibility="gone"
+                                app:layout_constraintStart_toEndOf="@+id/chequeImgCard"
+                                app:layout_constraintTop_toTopOf="@+id/chequeImgCard" />
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -1037,8 +1132,8 @@
                                 android:layout_marginTop="@dimen/_5sdp"
                                 app:cardBackgroundColor="@color/white"
                                 app:cardCornerRadius="@dimen/_4sdp"
-                                app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/tvDeclare"
                                 app:strokeColor="#8A73C2"
                                 app:strokeWidth="@dimen/_1sdp">
@@ -1051,6 +1146,20 @@
                                     android:src="@drawable/camera_new" />
 
                             </com.google.android.material.card.MaterialCardView>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_8sdp"
+                                android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                android:maxLines="1"
+                                android:text="@string/choose_file"
+                                android:textColor="@color/secondry_text"
+                                android:textSize="@dimen/_9ssp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="@+id/declareImgCard"
+                                app:layout_constraintStart_toStartOf="@+id/declareImgCard"
+                                app:layout_constraintTop_toBottomOf="@+id/declareImgCard" />
 
                             <ImageView
                                 android:id="@+id/cutDeclareBtn"
