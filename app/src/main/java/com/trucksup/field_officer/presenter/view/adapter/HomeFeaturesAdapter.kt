@@ -4,23 +4,23 @@ import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ItemFeaturesBinding
-import com.trucksup.field_officer.presenter.view.activity.business_associate.BAPerformanceActivity
-import com.trucksup.field_officer.presenter.view.activity.growth_partner.GPFollowupActivity
-import com.trucksup.field_officer.presenter.view.activity.growth_partner.GPPerformanceActivity
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.BAPerformanceActivity
+import com.trucksup.field_officer.presenter.view.activity.financeInsurance.FinanceHistoryActivity
+import com.trucksup.field_officer.presenter.view.activity.growthPartner.GPPerformanceActivity
 import com.trucksup.field_officer.presenter.view.activity.profile.TotalAddLoadActivity
 import com.trucksup.field_officer.presenter.view.activity.profile.TotalDownloadsActivity
+import com.trucksup.field_officer.presenter.view.activity.smartfuel.SmartFuelHistoryActivity
 import com.trucksup.field_officer.presenter.view.activity.subscription.SubscriptionActivity
-import com.trucksup.field_officer.presenter.view.activity.truck_supplier.TSPerformanceActivity
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.TSPerformanceActivity
 
 
 class HomeFeaturesAdapter(var context: Context?) :
     RecyclerView.Adapter<HomeFeaturesAdapter.ViewHolder>() {
 
-    val serviceList = arrayListOf(
+    private val serviceList = arrayListOf(
         "Truck Suppliers",
         "Business Associates",
         "Growth Partners",
@@ -31,7 +31,7 @@ class HomeFeaturesAdapter(var context: Context?) :
         "Insurance Leads",
         "Smart Fuel Leads"
     )
-    val imageList = arrayListOf(
+    private val imageList = arrayListOf(
         R.drawable.truck_img,
         R.drawable.ba_ic,
         R.drawable.growth_part,
@@ -83,6 +83,24 @@ class HomeFeaturesAdapter(var context: Context?) :
                     val intent = Intent(context, SubscriptionActivity::class.java)
                     context?.startActivity(intent)
                 }
+                6 -> {
+
+                    //Finance
+                    val intent = Intent(context, FinanceHistoryActivity::class.java)
+                    intent.putExtra("HISTORY_TYPE", "Finance")
+                    context?.startActivity(intent)
+                }
+                7 -> {
+                    //Insurance
+                    val intent = Intent(context, FinanceHistoryActivity::class.java)
+                    intent.putExtra("HISTORY_TYPE", "Insurance")
+                    context?.startActivity(intent)
+                }
+                8 -> {
+                    val intent = Intent(context, SmartFuelHistoryActivity::class.java)
+                    context?.startActivity(intent)
+                }
+
             }
 
 

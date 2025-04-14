@@ -44,11 +44,27 @@
         android:theme="@style/Base.Theme.FieldOfficer"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+
         <activity
-            android:name=".presenter.view.activity.growth_partner.MyTeamGPDetailsActivity"
+            android:name=".presenter.view.activity.other.HomeActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".presenter.view.activity.auth.login.LoginActivity"
+            android:exported="false" />
+
+
+        <activity
+            android:name=".presenter.view.activity.growthPartner.MyTeamGPDetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".presenter.view.activity.truck_supplier.TSDetailActivity"
+            android:name=".presenter.view.activity.truckSupplier.TSDetailActivity"
             android:exported="false" />
         <activity
             android:name=".presenter.view.activity.profile.TotalAddLoadActivity"
@@ -90,29 +106,16 @@
             android:exported="false" />
 
         <activity
-            android:name=".presenter.view.activity.business_associate.BAOnboardingUploadDocActivity"
+            android:name=".presenter.view.activity.businessAssociate.BAOnboardingUploadDocActivity"
             android:exported="false" />
         <activity
-            android:name=".presenter.view.activity.business_associate.BAFollowupActivity"
+            android:name=".presenter.view.activity.businessAssociate.BAFollowupActivity"
             android:exported="false" />
         <activity
-            android:name=".presenter.view.activity.truck_supplier.TSFollowupActivity"
+            android:name=".presenter.view.activity.truckSupplier.TSFollowupActivity"
             android:exported="false" />
         <activity
-            android:name=".presenter.view.activity.growth_partner.GPFollowupActivity"
-            android:exported="false" />
-        <activity
-            android:name=".presenter.view.activity.other.HomeActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".presenter.view.activity.auth.login.LoginActivity"
+            android:name=".presenter.view.activity.growthPartner.GPFollowupActivity"
             android:exported="false" />
 
         <activity
@@ -137,41 +140,41 @@
 
 
         <activity
-            android:name=".presenter.view.activity.business_associate.MyBATeamActivity"
+            android:name=".presenter.view.activity.businessAssociate.MyBATeamActivity"
             android:exported="false" />
 
         <activity
-            android:name=".presenter.view.activity.truck_supplier.MyTSTeamActivity"
+            android:name=".presenter.view.activity.truckSupplier.MyTSTeamActivity"
             android:exported="false" />
 
         <activity
-            android:name=".presenter.view.activity.growth_partner.MyGPTeamActivity"
+            android:name=".presenter.view.activity.growthPartner.MyGPTeamActivity"
             android:exported="false" />
 
         <activity
-            android:name=".presenter.view.activity.business_associate.BAStartTripActivity"
+            android:name=".presenter.view.activity.businessAssociate.BAStartTripActivity"
             android:exported="false" />
 
         <activity
-            android:name=".presenter.view.activity.truck_supplier.TSStartTripActivity"
-            android:exported="false" />
-
-
-        <activity
-            android:name=".presenter.view.activity.growth_partner.GPStartTripActivity"
+            android:name=".presenter.view.activity.truckSupplier.TSStartTripActivity"
             android:exported="false" />
 
 
         <activity
-            android:name=".presenter.view.activity.truck_supplier.TSScheduledMeetingActivity"
+            android:name=".presenter.view.activity.growthPartner.GPStartTripActivity"
+            android:exported="false" />
+
+
+        <activity
+            android:name=".presenter.view.activity.truckSupplier.TSScheduledMeetingActivity"
             android:exported="false" />
 
         <activity
-            android:name=".presenter.view.activity.business_associate.BAScheduleMeetingActivity"
+            android:name=".presenter.view.activity.businessAssociate.BAScheduleMeetingActivity"
             android:exported="false" />
 
         <activity
-            android:name=".presenter.view.activity.growth_partner.GPScheduleMeetingActivity"
+            android:name=".presenter.view.activity.growthPartner.GPScheduleMeetingActivity"
             android:exported="false" />
 
         <activity
@@ -184,33 +187,33 @@
             android:exported="false" />
 
         <activity
-            android:name=".presenter.view.activity.truck_supplier.TSOnboardingActivity"
+            android:name=".presenter.view.activity.truckSupplier.TSOnboardingActivity"
             android:exported="false" />
         <activity
-            android:name=".presenter.view.activity.truck_supplier.TSOnBoardStep2Activity"
+            android:name=".presenter.view.activity.truckSupplier.TSOnBoardStep2Activity"
             android:exported="false" />
         <activity
-            android:name=".presenter.view.activity.business_associate.BAnOnboardingActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".presenter.view.activity.growth_partner.GPOnboardingActivity"
-            android:exported="false" />
-        <activity
-            android:name=".presenter.view.activity.growth_partner.GPPersonalDetailUpdateActivity"
-            android:exported="false" />
-        <activity
-            android:name=".presenter.view.activity.growth_partner.GPOnboardingKYCActivity"
+            android:name=".presenter.view.activity.businessAssociate.BAnOnboardingActivity"
             android:exported="false" />
 
         <activity
-            android:name=".presenter.view.activity.growth_partner.GPOnBoardStoreProofActivity"
+            android:name=".presenter.view.activity.growthPartner.GPOnboardingActivity"
             android:exported="false" />
         <activity
-            android:name=".presenter.view.activity.growth_partner.GPOnboardingBankActivity"
+            android:name=".presenter.view.activity.growthPartner.GPPersonalDetailUpdateActivity"
             android:exported="false" />
         <activity
-            android:name=".presenter.view.activity.growth_partner.GpOnboardingPreviewActivity"
+            android:name=".presenter.view.activity.growthPartner.GPOnboardingKYCActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".presenter.view.activity.growthPartner.GPOnBoardStoreProofActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presenter.view.activity.growthPartner.GPOnboardingBankActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presenter.view.activity.growthPartner.GpOnboardingPreviewActivity"
             android:exported="false" />
 
         <activity
@@ -222,31 +225,31 @@
             android:exported="false" />
 
         <activity
-            android:name=".presenter.view.activity.truck_supplier.TSPerformanceActivity"
+            android:name=".presenter.view.activity.truckSupplier.TSPerformanceActivity"
             android:exported="false" />
 
         <activity
-            android:name=".presenter.view.activity.truck_supplier.TSViewAllActivity"
+            android:name=".presenter.view.activity.truckSupplier.TSViewAllActivity"
             android:exported="false" />
 
         <activity
-            android:name=".presenter.view.activity.truck_supplier.unassigned_ts_ba.activity.UnAssignedTSBAActivity"
+            android:name=".presenter.view.activity.truckSupplier.unassigned_ts_ba.activity.UnAssignedTSBAActivity"
             android:exported="false" />
 
         <activity
-            android:name=".presenter.view.activity.business_associate.BAPerformanceActivity"
+            android:name=".presenter.view.activity.businessAssociate.BAPerformanceActivity"
             android:exported="false" />
 
         <activity
-            android:name=".presenter.view.activity.business_associate.BAStatusViewAllActivity"
+            android:name=".presenter.view.activity.businessAssociate.BAStatusViewAllActivity"
             android:exported="false" />
 
         <activity
-            android:name=".presenter.view.activity.growth_partner.GPPerformanceActivity"
+            android:name=".presenter.view.activity.growthPartner.GPPerformanceActivity"
             android:exported="false" />
 
         <activity
-            android:name=".presenter.view.activity.growth_partner.GPViewAllActivity"
+            android:name=".presenter.view.activity.growthPartner.GPViewAllActivity"
             android:exported="false" />
 
         <activity
@@ -261,7 +264,7 @@
             android:name=".presenter.view.activity.smartfuel.AddSmartFuelActivity"
             android:exported="false" />
         <activity
-            android:name=".presenter.view.activity.truck_supplier.EndTripActivity"
+            android:name=".presenter.view.activity.truckSupplier.EndTripActivity"
             android:exported="false" />
         <service
             android:name=".presenter.utils.MyFirebaseMessagingService"

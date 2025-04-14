@@ -24,6 +24,7 @@ import com.bumptech.glide.Glide
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.data.model.NewResisterRequest
 import com.trucksup.field_officer.data.model.Response
+import com.trucksup.field_officer.data.model.authModel.SignRequest
 import com.trucksup.field_officer.data.network.ResponseModel
 import com.trucksup.field_officer.databinding.ActivitySignUpBinding
 import com.trucksup.field_officer.presenter.common.CameraActivity
@@ -32,6 +33,7 @@ import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.Utils
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
+import com.trucksup.field_officer.presenter.utils.PreferenceManager
 import com.trucksup.field_officer.presenter.view.activity.auth.login.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
@@ -59,9 +61,7 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
         mSignUpBinding!!.signUpBtn.setOnClickListener(this)
         mSignUpBinding!!.cvCamera.setOnClickListener(this)
         // mSignUpBinding!!.signUpButtonView.setEnabled(false);
-        signupViewModel = ViewModelProvider(this).get(
-            SignupViewModel::class.java
-        )
+        signupViewModel = ViewModelProvider(this)[SignupViewModel::class.java]
         mSignUpBinding!!.setViewModel(signupViewModel)
 
         /* mSignUpBinding!!.confirmPasswordTxt.addTextChangedListener(object : TextWatcher {
@@ -102,43 +102,13 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
                  }
              }
          })*/
-        /*  mSignUpBinding!!.otpTxt.addTextChangedListener(object : TextWatcher {
-              override fun afterTextChanged(s: Editable) {
-                  mSignUpBinding!!.otpErrorText.visibility = View.GONE
-                  mSignUpBinding!!.otpTxt.background =
-                      getDrawable(R.drawable.edit_text_background_view)
-              }
-
-              override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
-              }
-
-              override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-              }
-          })
-
-          mSignUpBinding!!.phoneNoTxt.addTextChangedListener(object : TextWatcher {
-              override fun afterTextChanged(s: Editable) {
-
-              }
-
-              override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
-              }
-
-              override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                  if (mSignUpBinding!!.retryTextView.visibility == View.VISIBLE) {
-                      mSignUpBinding!!.otpTxt.setText("")
-                      // mSignUpBinding!!.otpTxt.setFocusable(false);
-                      mSignUpBinding!!.retryTextView.visibility = View.GONE
-                  }
-              }
-          })*/
 
         setupObserver()
-        camera()
+        cameraListener()
 
     }
 
-    fun camera() {
+    private fun cameraListener() {
         launcher = registerForActivityResult<Intent, ActivityResult>(
             ActivityResultContracts.StartActivityForResult()
         ) { result: ActivityResult ->
@@ -236,12 +206,11 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
         }
 
 
-        signupViewModel!!.registerUserLD.observe(this@SignUpActivity) { responseModel ->
+        signupViewModel?.registerUserLD?.observe(this@SignUpActivity) { responseModel ->
             if (responseModel.serverError != null) {
                 dismissProgressDialog()
 
-                val abx =
-                    AlertBoxDialog(
+                val abx = AlertBoxDialog(
                         this@SignUpActivity,
                         responseModel.serverError.toString(),
                         "m"
@@ -249,13 +218,11 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
                 abx.show()
             }  else {
                 dismissProgressDialog()
-                Toast.makeText(this, "User Registered Successfully", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Signup successfully", Toast.LENGTH_SHORT).show()
                 // move to home screen
                 val intent = Intent(this@SignUpActivity, LoginActivity::class.java)
-                //intent.putExtra("airportId", 0)
                 //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK)
                 startActivity(intent)
-                setResult(RESULT_OK, getIntent())
                 finish()
             }
         }
@@ -300,27 +267,17 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
                     return
                 }
                 if (mSignUpBinding!!.passwordTxt.text.toString().isEmpty()) {
-
-                    LoggerMessage.onSNACK(
-                        mSignUpBinding!!.passwordTxt,
-                        resources.getString(R.string.enter_password),
-                        applicationContext
-                    )
-
+                    LoggerMessage.onSNACK(mSignUpBinding!!.passwordTxt,
+                        resources.getString(R.string.enter_password), applicationContext)
                     return
-
                 }
 
                 if (mSignUpBinding!!.confirmPasswordTxt.text.toString().isEmpty()) {
-
                     LoggerMessage.onSNACK(
                         mSignUpBinding!!.confirmPasswordTxt,
                         "Please Enter Confirm Password.",
-                        applicationContext
-                    )
-
+                        applicationContext)
                     return
-
                 }
 
                 val password: String = mSignUpBinding!!.passwordTxt.getText().toString()
@@ -370,14 +327,20 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
 
                         showProgressDialog(this,false)
 
-                        val request = NewResisterRequest(
-                            "",
-                            "",
-                            mSignUpBinding!!.phoneNoTxt.text.toString(),
-                            mSignUpBinding!!.passwordTxt.text.toString()
+                        val request = SignRequest(
+                            requestedBy = PreferenceManager.getPhoneNo(this),
+                            requestId = PreferenceManager.getRequestNo().toInt(),
+                            requestDatetime = PreferenceManager.getServerDateUtc(),
+                            deviceid = PreferenceManager.getAndroiDeviceId(this),
+                            appVersion = "",
+                            androidVersion = "",
+                            profilename = PreferenceManager.getUserName(this),
+                            profilephoto = "",
+                            mobilenumber = mSignUpBinding?.phoneNoTxt?.text.toString(),
+                            password = mSignUpBinding?.passwordTxt?.text.toString()
                         )
 
-                        //signupViewModel!!.signUp(request)
+                        signupViewModel?.signUp(PreferenceManager.getAuthToken(),request)
 
                     } else {
 

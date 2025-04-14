@@ -118,7 +118,7 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
         disableEmojiInTitle()
         setListener()
         setupObserver()
-        camera()
+        cameraLauncher()
     }
 
 
@@ -779,50 +779,8 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
 
     override fun fromCamara() {
 
-        //new 2
-//        var intent=Intent(this,CameraXActivity::class.java)
-//        startActivity(intent)
-
-        //new 6
-        /*val intent = Intent(this, CameraXActivity::class.java)
-        intent.putExtra("FRONT", "n")
-        intent.putExtra("BACK", "y")
-        startForResult.launch(intent)*/
-
         launchCamera(true, 1, false)
     }
-
-    private val startForResult =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
-            if (result.resultCode == 100) {
-
-                if (Uri.parse(result.data?.getStringExtra("image")) != null) {
-//                    var orFile: File =
-//                        FileHelp().getFile(this, Uri.parse(result.data?.getStringExtra("image")))!!
-//                    var bitmap: Bitmap = FileHelp().FileToBitmap(orFile)
-//                    var newBitmap: Bitmap = FileHelp().resizeImage(bitmap, 500, 500)!!
-//                    var newFile: File = FileHelp().bitmapTofile(newBitmap, this)!!
-
-                    val bitmap = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                        ImageDecoder.decodeBitmap(
-                            ImageDecoder.createSource(
-                                contentResolver,
-                                Uri.parse(result.data?.getStringExtra("image"))
-                            )
-                        )
-                    } else {
-                        MediaStore.Images.Media.getBitmap(
-                            contentResolver,
-                            Uri.parse(result.data?.getStringExtra("image"))
-                        )
-                    }
-                    val newBitmap: Bitmap = FileHelp().resizeImage(bitmap, 500, 500)!!
-                    val newFile: File = FileHelp().bitmapTofile(newBitmap, this)!!
-
-                    uploadImage(newFile, "")
-                }
-            }
-        }
 
 
     private fun viewVehicleDetails(data: VehicleDetail) {
@@ -1098,7 +1056,7 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
     }
 
     //add by me
-    private fun camera() {
+    private fun cameraLauncher() {
         launcher = registerForActivityResult<Intent, ActivityResult>(
             ActivityResultContracts.StartActivityForResult()
         ) { result: ActivityResult ->
@@ -1125,7 +1083,7 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
         intent.putExtra("flipCamera", flipCamera)
         intent.putExtra("cameraOpen", cameraOpen)
         intent.putExtra("focusView", focusView)
-        launcher!!.launch(intent)
+        launcher?.launch(intent)
     }
     //add by me
 

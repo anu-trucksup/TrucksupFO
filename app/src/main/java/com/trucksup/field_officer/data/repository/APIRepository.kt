@@ -7,24 +7,28 @@ import com.logistics.trucksup.activities.preferre.modle.PrefferdResponse
 import com.logistics.trucksup.modle.PlanResponse
 import com.trucksup.field_officer.data.model.AutoImageSlideResponse
 import com.trucksup.field_officer.data.model.CheckUserProfileResponse
-import com.trucksup.field_officer.data.model.NewResisterRequest
 import com.trucksup.field_officer.data.model.NewUserProfile
-import com.trucksup.field_officer.data.model.PasswordRequest
 import com.trucksup.field_officer.data.model.PinCodeRequest
 import com.trucksup.field_officer.data.model.PinCodeResponse
 import com.trucksup.field_officer.data.model.PrivacyAllResponse
 import com.trucksup.field_officer.data.model.Response
-import com.trucksup.field_officer.data.model.TokenZ
-import com.trucksup.field_officer.data.model.User
+import com.trucksup.field_officer.data.model.authModel.ForgetRequest
+import com.trucksup.field_officer.data.model.authModel.ForgetResponse
+import com.trucksup.field_officer.data.model.authModel.LoginRequest
+import com.trucksup.field_officer.data.model.authModel.LoginResponse
+import com.trucksup.field_officer.data.model.authModel.SignRequest
+import com.trucksup.field_officer.data.model.authModel.SignResponse
 import com.trucksup.field_officer.data.model.category.CategoryAllResponse
 import com.trucksup.field_officer.data.model.deleteResponse.DeleteProfileResponse
 import com.trucksup.field_officer.data.model.image.ImageResponse
-import com.trucksup.field_officer.data.model.image.UploadImageResponse
 import com.trucksup.field_officer.data.model.insurance.InquiryHistoryResponse
+import com.trucksup.field_officer.data.model.otp.NewOtpResponse
+import com.trucksup.field_officer.data.model.otp.OtpRequest
 import com.trucksup.field_officer.data.model.user.UpdateProfileRequest
 import com.trucksup.field_officer.data.model.user.UpdateProfileResponse
 import com.trucksup.field_officer.data.network.ResultWrapper
-import com.trucksup.field_officer.data.network.safeApiCall
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.AddBrokerRequest
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.AddBrokerResponse
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinaceDataSubmitResponse
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinanceDataLiatRequest
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinanceDataLiatResponse
@@ -32,24 +36,18 @@ import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.I
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.LoanDataSubmitRequest
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryRequest
 import com.trucksup.field_officer.presenter.view.activity.subscription.model.PlanRequest
-import com.trucksup.field_officer.presenter.view.activity.truck_supplier.model.AddLoadFilterRequest
-import com.trucksup.field_officer.presenter.view.activity.truck_supplier.model.AddLoadFilterResponse
-import com.trucksup.field_officer.presenter.view.activity.truck_supplier.model.RcRequest
-import com.trucksup.field_officer.presenter.view.activity.truck_supplier.model.RcResponse
-import com.trucksup.field_officer.presenter.view.activity.truck_supplier.model.VerifyTruckResponse
-import kotlinx.coroutines.Dispatchers
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.AddLoadFilterRequest
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.AddLoadFilterResponse
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.RcRequest
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.RcResponse
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.VerifyTruckResponse
 import okhttp3.MultipartBody
 
 interface APIRepository {
 
-    suspend fun loginUser(
-        username: String,
-        Password: String,
-        type: String,
-        countryCode: String
-    ): ResultWrapper<TokenZ>
+    suspend fun loginUser(token: String, request: LoginRequest): ResultWrapper<LoginResponse>
 
-    suspend fun registerUser(registerUserRequest: NewResisterRequest): ResultWrapper<Response<User>>
+    suspend fun registerUser(token: String, request: SignRequest): ResultWrapper<SignResponse>
 
     suspend fun verifyOTP(
         otp: String,
@@ -63,11 +61,6 @@ interface APIRepository {
         mobileNumber: String, mobileCode: String, userId: Int
     ): ResultWrapper<Response<String>>
 
-    //    suspend fun refreshToken(grant_type: String, refresh_token: String)
-    suspend fun forgotPassword(
-        email: String, mobile: String,
-        countryCode: String
-    ): ResultWrapper<Response<String>>
 
     suspend fun checkUserProfile(
         email: String, mobile: String,
@@ -75,26 +68,14 @@ interface APIRepository {
     ): ResultWrapper<CheckUserProfileResponse>
 
     suspend fun resetPassword(
-        email: String, mobile: String, countryCode: String,
-        passwordRequest: PasswordRequest
-    ): ResultWrapper<Response<String>>
+        token: String, request: ForgetRequest
+    ): ResultWrapper<ForgetResponse>
 
-    suspend fun validateQuestionAnswer(
-        email: String,
-        mobile: String,
-        countryCode: String,
-        secretAnswer: String
-    ): ResultWrapper<Response<Boolean>>
-
-    suspend fun checkReferenceCode(
-        referenceCode: String
-    ): ResultWrapper<Response<String>>
 
     suspend fun sendOTP(
-        mobile: String,
-        email: String,
-        countryCode: String
-    ): ResultWrapper<Response<String>>
+        auth: String,
+        request: OtpRequest
+    ): ResultWrapper<NewOtpResponse>
 
     suspend fun EditsendOTP(
         id: String,
@@ -155,7 +136,7 @@ interface APIRepository {
 
     suspend fun onBoardTruckSupplier(authToken:String, request : PrefferLanRequest): ResultWrapper<PrefferdResponse>
 
-    suspend fun onBoardBusinessAssociate(authToken:String, request : PrefferLanRequest): ResultWrapper<PrefferdResponse>
+    suspend fun onBoardBusinessAssociate(authToken:String, request : AddBrokerRequest): ResultWrapper<AddBrokerResponse>
 
     suspend fun onBoardGrowthPartner(authToken:String, request : PrefferLanRequest): ResultWrapper<PrefferdResponse>
 

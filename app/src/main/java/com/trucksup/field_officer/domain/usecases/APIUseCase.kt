@@ -7,24 +7,28 @@ import com.logistics.trucksup.modle.PlanResponse
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryData
 import com.trucksup.field_officer.data.model.AutoImageSlideResponse
 import com.trucksup.field_officer.data.model.CheckUserProfileResponse
-import com.trucksup.field_officer.data.model.NewResisterRequest
 import com.trucksup.field_officer.data.model.NewUserProfile
-import com.trucksup.field_officer.data.model.PasswordRequest
 import com.trucksup.field_officer.data.model.PinCodeRequest
 import com.trucksup.field_officer.data.model.PinCodeResponse
 import com.trucksup.field_officer.data.model.Response
-import com.trucksup.field_officer.data.model.TokenZ
-import com.trucksup.field_officer.data.model.User
+import com.trucksup.field_officer.data.model.authModel.ForgetRequest
+import com.trucksup.field_officer.data.model.authModel.ForgetResponse
+import com.trucksup.field_officer.data.model.authModel.LoginRequest
+import com.trucksup.field_officer.data.model.authModel.LoginResponse
+import com.trucksup.field_officer.data.model.authModel.SignRequest
+import com.trucksup.field_officer.data.model.authModel.SignResponse
 import com.trucksup.field_officer.data.model.category.CategoryAllResponse
 import com.trucksup.field_officer.data.model.deleteResponse.DeleteProfileResponse
 import com.trucksup.field_officer.data.model.image.ImageResponse
-import com.trucksup.field_officer.data.model.image.UploadImageResponse
 import com.trucksup.field_officer.data.model.insurance.InquiryHistoryResponse
+import com.trucksup.field_officer.data.model.otp.NewOtpResponse
+import com.trucksup.field_officer.data.model.otp.OtpRequest
 import com.trucksup.field_officer.data.model.user.UpdateProfileRequest
 import com.trucksup.field_officer.data.model.user.UpdateProfileResponse
 import com.trucksup.field_officer.data.network.ResultWrapper
-import com.trucksup.field_officer.data.network.safeApiCall
 import com.trucksup.field_officer.data.repository.APIRepository
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.AddBrokerRequest
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.AddBrokerResponse
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinaceDataSubmitResponse
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinanceDataLiatRequest
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinanceDataLiatResponse
@@ -32,28 +36,24 @@ import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.I
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.LoanDataSubmitRequest
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryRequest
 import com.trucksup.field_officer.presenter.view.activity.subscription.model.PlanRequest
-import com.trucksup.field_officer.presenter.view.activity.truck_supplier.model.AddLoadFilterRequest
-import com.trucksup.field_officer.presenter.view.activity.truck_supplier.model.AddLoadFilterResponse
-import com.trucksup.field_officer.presenter.view.activity.truck_supplier.model.RcRequest
-import com.trucksup.field_officer.presenter.view.activity.truck_supplier.model.RcResponse
-import com.trucksup.field_officer.presenter.view.activity.truck_supplier.model.VerifyTruckResponse
-import kotlinx.coroutines.Dispatchers
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.AddLoadFilterRequest
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.AddLoadFilterResponse
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.RcRequest
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.RcResponse
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.VerifyTruckResponse
 import okhttp3.MultipartBody
 import javax.inject.Inject
 
-class APIUseCase @Inject constructor(val apiRepository: APIRepository) {
+class APIUseCase @Inject constructor(private val apiRepository: APIRepository) {
 
     suspend fun loginUser(
-        username: String,
-        Password: String,
-        type: String,
-        countryCode: String
-    ): ResultWrapper<TokenZ> {
-        return apiRepository.loginUser(username, Password, type, countryCode)
+        token: String, request: LoginRequest
+    ): ResultWrapper<LoginResponse> {
+        return apiRepository.loginUser(token,request)
     }
 
-    suspend fun registerUser(registerUserRequest: NewResisterRequest): ResultWrapper<Response<User>> {
-        return apiRepository.registerUser(registerUserRequest)
+    suspend fun registerUser(token: String, request: SignRequest): ResultWrapper<SignResponse> {
+        return apiRepository.registerUser(token,request)
     }
 
     suspend fun verifyOTP(
@@ -75,14 +75,6 @@ class APIUseCase @Inject constructor(val apiRepository: APIRepository) {
         return apiRepository.verifyUserOTP(otp, email, mobileNumber, mobileCode, userId)
     }
 
-    //    suspend fun refreshToken(grant_type: String, refresh_token: String)
-    suspend fun forgotPassword(
-        email: String,
-        mobile: String,
-        countryCode: String
-    ): ResultWrapper<Response<String>> {
-        return apiRepository.forgotPassword(email, mobile, countryCode)
-    }
 
     suspend fun checkUserProfile(
         email: String,
@@ -93,33 +85,18 @@ class APIUseCase @Inject constructor(val apiRepository: APIRepository) {
     }
 
     suspend fun resetPassword(
-        email: String,
-        mobile: String,
-        countryCode: String,
-        passwordRequest: PasswordRequest
-    ): ResultWrapper<Response<String>> {
-        return apiRepository.resetPassword(email, mobile, countryCode, passwordRequest)
+        token: String, request: ForgetRequest
+    ): ResultWrapper<ForgetResponse> {
+        return apiRepository.resetPassword(token,request)
     }
 
-    suspend fun validateQuestionAnswer(
-        email: String,
-        mobile: String,
-        countryCode: String,
-        secretAnswer: String
-    ): ResultWrapper<Response<Boolean>> {
-        return apiRepository.validateQuestionAnswer(email, mobile, countryCode, secretAnswer)
-    }
 
-    suspend fun checkReferenceCode(referenceCode: String): ResultWrapper<Response<String>> {
-        return apiRepository.checkReferenceCode(referenceCode)
-    }
 
     suspend fun sendOTP(
-        mobile: String,
-        email: String,
-        countryCode: String
-    ): ResultWrapper<Response<String>> {
-        return apiRepository.sendOTP(mobile, email, countryCode)
+        auth: String,
+        request: OtpRequest
+    ): ResultWrapper<NewOtpResponse> {
+        return apiRepository.sendOTP(auth, request)
     }
 
     suspend fun EditsendOTP(
@@ -242,8 +219,8 @@ class APIUseCase @Inject constructor(val apiRepository: APIRepository) {
 
     suspend fun onBoardBusinessAssociate(
         authToken: String,
-        request: PrefferLanRequest
-    ): ResultWrapper<PrefferdResponse> {
+        request: AddBrokerRequest
+    ): ResultWrapper<AddBrokerResponse> {
         return apiRepository.onBoardBusinessAssociate(authToken, request)
     }
 

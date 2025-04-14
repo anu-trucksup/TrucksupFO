@@ -1,11 +1,12 @@
 package com.trucksup.field_officer.presenter.view.activity.auth.forget
 
-import android.app.Application
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.trucksup.field_officer.data.model.CheckUserProfileResponse
+import androidx.lifecycle.ViewModel
+import com.trucksup.field_officer.data.model.Response
+import com.trucksup.field_officer.data.model.otp.NewOtpResponse
+import com.trucksup.field_officer.data.model.otp.OtpRequest
 import com.trucksup.field_officer.data.network.ResponseModel
 import com.trucksup.field_officer.data.network.ResultWrapper
 import com.trucksup.field_officer.domain.usecases.APIUseCase
@@ -16,42 +17,27 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ResetPasswordViewModel @Inject constructor(val apiUseCase: APIUseCase,
-                                                 application: Application) : AndroidViewModel(application)  {
+class ResetPasswordViewModel @Inject constructor(val apiUseCase: APIUseCase) : ViewModel() {
 
-    var resultReset: MutableLiveData<ResponseModel<String>> = MutableLiveData<ResponseModel<String>>()
-    val resultResetLD: LiveData<ResponseModel<String>> = resultReset
+    private var resultSendOTP: MutableLiveData<ResponseModel<NewOtpResponse>> =
+        MutableLiveData<ResponseModel<NewOtpResponse>>()
+    val resultSendOTPLD: LiveData<ResponseModel<NewOtpResponse>> = resultSendOTP
 
-    var checkUserProfile: MutableLiveData<ResponseModel<CheckUserProfileResponse>> = MutableLiveData<ResponseModel<CheckUserProfileResponse>>()
-    val checkUserProfileLD: LiveData<ResponseModel<CheckUserProfileResponse>> = checkUserProfile
-
-
-    fun forgotPassword(email: String, mobile: String, countryCode: String) {
+    fun sendOTP(auth: String, request: OtpRequest) {
         CoroutineScope(Dispatchers.IO).launch {
-            when (val response = apiUseCase.forgotPassword(email, mobile, countryCode)) {
+            when (val response = apiUseCase.sendOTP(auth, request)) {
                 is ResultWrapper.ServerResponseError -> {
                     Log.e("API Error", response.error ?: "")
-                    resultReset.postValue(ResponseModel<String>(serverError = response.error))
+                    resultSendOTP.postValue(ResponseModel(serverError = response.error))
                 }
+
                 is ResultWrapper.Success -> {
-                    resultReset.postValue(ResponseModel<String>(success = response.value.payload))
+                    resultSendOTP.postValue(ResponseModel(success = response.value))
+                    /*  increaseDisableTime()
+                      startTimer(disableTime)*/
                 }
             }
         }
     }
 
-
-    fun checkUserProfile(email: String, mobile: String, countryCode: String) {
-        CoroutineScope(Dispatchers.IO).launch {
-            when (val response = apiUseCase.checkUserProfile(email, mobile, countryCode)) {
-                is ResultWrapper.ServerResponseError -> {
-                    Log.e("API Error", response.error ?: "")
-                    checkUserProfile.postValue(ResponseModel<CheckUserProfileResponse>(serverError = response.error))
-                }
-                is ResultWrapper.Success -> {
-                    checkUserProfile.postValue(ResponseModel<CheckUserProfileResponse>(success = response.value))
-                }
-            }
-        }
-    }
 }

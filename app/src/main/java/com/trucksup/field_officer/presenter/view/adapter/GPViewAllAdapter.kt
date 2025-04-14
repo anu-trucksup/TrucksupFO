@@ -5,12 +5,8 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.trucksup.field_officer.databinding.ItemActiveBaBinding
 import com.trucksup.field_officer.databinding.ItemGpViewallBinding
-import com.trucksup.field_officer.databinding.ItemMyTeamTsActiveBinding
-import com.trucksup.field_officer.presenter.view.activity.business_associate.BAStatusViewAllActivity
-import com.trucksup.field_officer.presenter.view.activity.growth_partner.MyTeamGPDetailsActivity
-import com.trucksup.field_officer.presenter.view.activity.truck_supplier.TSPerformanceActivity
+import com.trucksup.field_officer.presenter.view.activity.growthPartner.MyTeamGPDetailsActivity
 
 class GPViewAllAdapter(var context: Context?, var list: ArrayList<String>) :
     RecyclerView.Adapter<GPViewAllAdapter.ViewHolder>() {

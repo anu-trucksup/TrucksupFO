@@ -1,6 +1,5 @@
 package com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml
 
-import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -13,7 +12,6 @@ import com.trucksup.field_officer.domain.usecases.APIUseCase
 import com.trucksup.field_officer.presenter.cityPicker.ApiClient
 import com.trucksup.field_officer.presenter.common.image_picker.TrucksFOImageController
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
-import com.trucksup.field_officer.presenter.view.activity.financeInsurance.InsuranceActivity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -81,7 +79,7 @@ class InsuranceViewModel @Inject constructor(val apiUseCase: APIUseCase) : ViewM
         fileWaterMark: MultipartBody.Part,
         imgRes: TrucksFOImageController) {
         val apiInterface = ApiClient().getClient
-        apiInterface.trucksupImageUpload(token, documentType, file, fileWaterMark)
+        apiInterface.uploadImages(token, documentType, file, fileWaterMark)
 
             ?.enqueue(object : Callback<TrucksupImageUploadResponse> {
                 override fun onResponse(

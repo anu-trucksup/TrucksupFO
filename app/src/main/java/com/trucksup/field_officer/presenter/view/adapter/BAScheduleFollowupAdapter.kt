@@ -7,8 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.TsScheduledItemBinding
-import com.trucksup.field_officer.presenter.view.activity.business_associate.BAStartTripActivity
-import com.trucksup.field_officer.presenter.view.activity.truck_supplier.TSStartTripActivity
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.TSStartTripActivity
 
 class BAScheduleFollowupAdapter(var context: Context?, var list: ArrayList<String>) :
     RecyclerView.Adapter<BAScheduleFollowupAdapter.ViewHolder>() {

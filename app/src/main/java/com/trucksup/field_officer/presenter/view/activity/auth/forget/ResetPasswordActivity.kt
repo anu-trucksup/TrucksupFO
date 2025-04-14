@@ -5,18 +5,22 @@ import android.graphics.Color
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.trucksup.field_officer.R
+import com.trucksup.field_officer.data.model.otp.OtpRequest
 import com.trucksup.field_officer.databinding.ActivityResetPasswordBinding
 import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
+import com.trucksup.field_officer.presenter.utils.PreferenceManager
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Random
 
 @AndroidEntryPoint
 class ResetPasswordActivity : BaseActivity(), View.OnClickListener {
-    var mBinding: ActivityResetPasswordBinding? = null
+    private var mBinding: ActivityResetPasswordBinding? = null
     private var mViewModel: ResetPasswordViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +32,7 @@ class ResetPasswordActivity : BaseActivity(), View.OnClickListener {
         mBinding?.otpUpBtn?.setOnClickListener(this)
         mBinding?.tvVerify?.setOnClickListener(this)
 
-        mViewModel = ViewModelProvider(this).get(ResetPasswordViewModel::class.java)
+        mViewModel = ViewModelProvider(this)[ResetPasswordViewModel::class.java]
         // mBinding?.setViewModel(mViewModel);
 
         setupObserver()
@@ -36,30 +40,25 @@ class ResetPasswordActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun setupObserver() {
-        mViewModel!!.resultResetLD.observe(this@ResetPasswordActivity) { responseModel ->
-            if (responseModel.serverError != null) {
-                dismissProgressDialog()
+              mViewModel!!.resultSendOTPLD.observe(this@ResetPasswordActivity) { responseModel ->
+                 if (responseModel.serverError != null) {
+                     dismissProgressDialog()
 
-                val abx =
-                    AlertBoxDialog(
-                        this@ResetPasswordActivity,
-                        responseModel.serverError.toString(),
-                        "m"
-                    )
-                abx.show()
-            }  else {
-                dismissProgressDialog()
+                     val abx = AlertBoxDialog(
+                             this@ResetPasswordActivity,
+                             responseModel.serverError.toString(),
+                             "m"
+                         )
+                     abx.show()
+                 } else if (responseModel.success != null) {
+                     dismissProgressDialog()
+                     Toast.makeText(this, "OTP sent to your email id", Toast.LENGTH_SHORT).show()
 
-                val intent = Intent(
-                    this@ResetPasswordActivity,
-                    CreatePasswordActivity::class.java
-                )
-
-                intent.putExtra("phoneNo", mBinding?.phoneNoTxt?.text.toString())
-                intent.putExtra("countryCode", "+91")
-
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                startActivity(intent)
+                     val intent = Intent(this@ResetPasswordActivity,
+                         CreatePasswordActivity::class.java)
+                     intent.putExtra("phoneNo", mBinding?.phoneNoTxt?.text.toString())
+                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                     startActivity(intent)
 
             }
         }
@@ -87,18 +86,29 @@ class ResetPasswordActivity : BaseActivity(), View.OnClickListener {
             }
 
             if (isValidMobile(mBinding?.phoneNoTxt?.text.toString())) {
-                //showProgressDialog()
-                /*mBinding?.otpUpBtn?.isEnabled = true
-                mBinding?.otpUpBtn?.setBackgroundDrawable(resources.getDrawable(R.drawable.background_1_1))
-                mBinding?.otpUpBtn?.setTextColor(Color.parseColor("#FFFFFF"))*/
 
                 mBinding?.otpUpBtn?.isEnabled = false
                 mBinding?.otpUpBtn?.setBackgroundColor(Color.parseColor("#C2C2C2"))
                 mBinding?.otpUpBtn?.setTextColor(Color.parseColor("#6A6A6A"))
 
                 mBinding?.otpLayout?.visibility = View.VISIBLE
-                // mViewModel.checkUserProfile("", mBinding?.phoneNoTxt.getText().toString(), "+91");
-               // mViewModel!!.forgotPassword("", mBinding?.phoneNoTxt?.text.toString(), "+91")
+
+                //val ask: String = appSignatureHelper?.substring(1, 12).toString()
+
+                val otpRequest = OtpRequest(
+                    actionType = "I",
+                    appSignatureKey = "",
+                    networkId = packageName,
+                    otp = 6555,
+                    recipients = "91",
+                    requestType = "TrucksUpOtp",
+                    requestedBy = PreferenceManager.getPhoneNo(this),
+                    unicode = false,
+                    variables = "string",
+                    stringOtp = PreferenceManager.getRequestNo(),
+                    deviceId = PreferenceManager.getAndroiDeviceId(this)
+                )
+                mViewModel?.sendOTP("", otpRequest)
 
             } else {
                 LoggerMessage.onSNACK(

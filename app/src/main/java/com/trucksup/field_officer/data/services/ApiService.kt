@@ -2,30 +2,38 @@ package com.trucksup.field_officer.data.services
 
 import com.logistics.trucksup.activities.preferre.modle.PrefferLanRequest
 import com.logistics.trucksup.activities.preferre.modle.PrefferdResponse
+import com.trucksup.field_officer.data.model.otp.OTPResponse
 import com.logistics.trucksup.modle.PlanResponse
+import com.trucksup.field_officer.data.model.otp.SmsRequest
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryData
 import com.trucksup.field_officer.data.model.AutoImageSlideResponse
 import com.trucksup.field_officer.data.model.CheckUserProfileResponse
 import com.trucksup.field_officer.data.model.CountryResponse
 import com.trucksup.field_officer.data.model.GenerateJWTtokenRequest
 import com.trucksup.field_officer.data.model.GenerateJWTtokenResponse
-import com.trucksup.field_officer.data.model.NewResisterRequest
 import com.trucksup.field_officer.data.model.NewUserProfile
-import com.trucksup.field_officer.data.model.PasswordRequest
 import com.trucksup.field_officer.data.model.PinCodeRequest
 import com.trucksup.field_officer.data.model.PinCodeResponse
 import com.trucksup.field_officer.data.model.Response
-import com.trucksup.field_officer.data.model.TokenZ
-import com.trucksup.field_officer.data.model.User
+import com.trucksup.field_officer.data.model.authModel.ForgetRequest
+import com.trucksup.field_officer.data.model.authModel.ForgetResponse
+import com.trucksup.field_officer.data.model.authModel.LoginRequest
+import com.trucksup.field_officer.data.model.authModel.LoginResponse
+import com.trucksup.field_officer.data.model.authModel.SignRequest
+import com.trucksup.field_officer.data.model.authModel.SignResponse
 import com.trucksup.field_officer.data.model.category.CategoryAllResponse
 import com.trucksup.field_officer.data.model.deleteResponse.DeleteProfileResponse
 import com.trucksup.field_officer.data.model.image.ImageResponse
 import com.trucksup.field_officer.data.model.image.TrucksupImageUploadResponse
 import com.trucksup.field_officer.data.model.insurance.InquiryHistoryResponse
+import com.trucksup.field_officer.data.model.otp.NewOtpResponse
+import com.trucksup.field_officer.data.model.otp.OtpRequest
 import com.trucksup.field_officer.data.model.user.UpdateProfileRequest
 import com.trucksup.field_officer.data.model.user.UpdateProfileResponse
 import com.trucksup.field_officer.presenter.cityPicker.CityListbySearchRequest
 import com.trucksup.field_officer.presenter.cityPicker.CitySearchRequest
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.AddBrokerRequest
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.AddBrokerResponse
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinaceDataSubmitResponse
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinanceDataLiatRequest
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinanceDataLiatResponse
@@ -33,11 +41,11 @@ import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.I
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.LoanDataSubmitRequest
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryRequest
 import com.trucksup.field_officer.presenter.view.activity.subscription.model.PlanRequest
-import com.trucksup.field_officer.presenter.view.activity.truck_supplier.model.AddLoadFilterRequest
-import com.trucksup.field_officer.presenter.view.activity.truck_supplier.model.AddLoadFilterResponse
-import com.trucksup.field_officer.presenter.view.activity.truck_supplier.model.RcRequest
-import com.trucksup.field_officer.presenter.view.activity.truck_supplier.model.RcResponse
-import com.trucksup.field_officer.presenter.view.activity.truck_supplier.model.VerifyTruckResponse
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.AddLoadFilterRequest
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.AddLoadFilterResponse
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.RcRequest
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.RcResponse
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.VerifyTruckResponse
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.Body
@@ -62,17 +70,19 @@ interface ApiService {
     ): Call<GenerateJWTtokenResponse>?
 
 
-    @POST("global/user/login?platform=mobile")
+    @POST("BOAppApiGateway/apiateway/Login")
     @Headers("Accept: application/json")
     suspend fun loginUser(
-        @Query("userName") username: String,
-        @Query("password") Password: String,
-        @Query("countryCode") countryCode: String
-    ): TokenZ
+        @Header("Authorization") credentials: String,
+        @Body loginRequest: LoginRequest
+    ): LoginResponse
 
-    @POST("global/user/register")
+    @POST("BOAppApiGateway/apiateway/SignUp")
     @Headers("Accept: application/json")
-    suspend fun registerUser(@Body registerUserRequest: NewResisterRequest): Response<User>
+    suspend fun registerUser(
+        @Header("Authorization") credentials: String,
+        @Body signRequest: SignRequest
+    ): SignResponse
 
     @POST("global/user/verify/otp")
     @Headers("Accept: application/json")
@@ -84,46 +94,25 @@ interface ApiService {
     @FormUrlEncoded
     suspend fun verifyUserOTP(@FieldMap params: Map<String, String>): Response<String>
 
-
-    @POST("global/user/forgot/password")
-    @Headers("Accept: application/json")
-    suspend fun forgotPassword(
-        @Query("email") email: String,
-        @Query("mobile") mobile: String,
-        @Query("countryCode") countryCode: String
-    ): Response<String>
-
-    @POST("global/user/reset/password")
+    @POST("BOAppApiGateway/apiateway/ResetPassword")
     @Headers("Accept: application/json")
     suspend fun resetPassword(
-        @Query("email") email: String,
-        @Query("mobile") mobile: String,
-        @Query("countryCode") countryCode: String,
-        @Body passwordRequest: PasswordRequest
-    ): Response<String>
+        @Header("Authorization") credentials: String,
+        @Body forgetRequest: ForgetRequest
+    ): ForgetResponse
 
-    @POST("global/user/validate/secret/answer")
-    @Headers("Accept: application/json")
-    suspend fun validateQuestionAnswer(
-        @Query("email") email: String,
-        @Query("mobile") mobile: String,
-        @Query("countryCode") countryCode: String,
-        @Query("secretAnswer") secretAnswer: String
-    ): Response<Boolean>
+    @POST("Apigateway/Gateway/Auth/Code")
+    fun sendSms(
+        @Header("Authorization") auth: String,
+        @Body request: SmsRequest
+    ): OTPResponse
 
-    @GET("global/user/check/referenceCode")
-    @Headers("Accept: application/json")
-    suspend fun checkReferenceCode(
-        @Query("referenceCode") referenceCode: String
-    ): Response<String>
-
-    @POST("global/user/send/otp")
+    @POST("MessagaeService/api/Message/SendOTP")
     @Headers("Accept: application/json")
     suspend fun sendOTP(
-        @Query("mobile") mobile: String,
-        @Query("email") email: String,
-        @Query("countryCode") countryCode: String
-    ): Response<String>
+        @Header("Authorization") auth: String,
+        @Body request: OtpRequest
+    ): NewOtpResponse
 
     @POST("global/user/send/user/otp")
     @Headers("Accept: application/json")
@@ -159,7 +148,7 @@ interface ApiService {
       ): Response<UserProfile>*/
 
 
-    @GET("category/all")
+    @GET("BOAppApiGateway/apiateway/BOUpdateDutyStatus")
     @Headers("Accept: application/json")
     suspend fun getAllCategoryList(): CategoryAllResponse
 
@@ -247,7 +236,7 @@ interface ApiService {
     @Multipart
     @POST("Apigateway/Gateway/TrucksupImageUpload")
     @Headers("Accept: application/json")
-    fun trucksupImageUpload(
+    fun uploadImages(
         @Header("Authorization") auth: String,
         @Query("filetype") filetype: String?,
         @Part imageFile: MultipartBody.Part?,
@@ -281,12 +270,12 @@ interface ApiService {
         @Body request: PrefferLanRequest
     ): PrefferdResponse
 
-    @POST("Apigateway/Gateway/AddOwnerData")
+    @POST("Apigateway/Gateway/AddBroker")
     @Headers("Accept: application/json")
     suspend fun onBoardBusinessAssociate(
         @Header("Authorization") auth: String,
-        @Body request: PrefferLanRequest
-    ): PrefferdResponse
+        @Body request: AddBrokerRequest
+    ): AddBrokerResponse
 
     @POST("Apigateway/Gateway/AddOwnerData")
     @Headers("Accept: application/json")
@@ -294,5 +283,4 @@ interface ApiService {
         @Header("Authorization") auth: String,
         @Body request: PrefferLanRequest
     ): PrefferdResponse
-
 }

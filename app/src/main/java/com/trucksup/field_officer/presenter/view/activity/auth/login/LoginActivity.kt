@@ -1,8 +1,11 @@
 package com.trucksup.field_officer.presenter.view.activity.auth.login
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.provider.Settings
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
@@ -11,12 +14,14 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.trucksup.field_officer.R
+import com.trucksup.field_officer.data.model.authModel.LoginRequest
 import com.trucksup.field_officer.databinding.ActivityLoginBinding
 import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.Utils
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.utils.CommonApplication
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
+import com.trucksup.field_officer.presenter.utils.PreferenceManager
 import com.trucksup.field_officer.presenter.view.activity.auth.forget.ResetPasswordActivity
 import com.trucksup.field_officer.presenter.view.activity.auth.signup.SignUpActivity
 import com.trucksup.field_officer.presenter.view.activity.other.WelcomeLocationActivity
@@ -63,15 +68,15 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         mLoginBinding?.setViewModel(mViewModel)
 
 
-       /* // set listener on radio button
-        mLoginBinding?.rbRemember?.setOnCheckedChangeListener { compoundButton, isCheck ->
-            // check condition
-            if (isCheck) {
-                mLoginBinding?.rbRemember?.isChecked = false
-            }else{
-                mLoginBinding?.rbRemember?.isChecked = true
-            }
-        }*/
+        /* // set listener on radio button
+         mLoginBinding?.rbRemember?.setOnCheckedChangeListener { compoundButton, isCheck ->
+             // check condition
+             if (isCheck) {
+                 mLoginBinding?.rbRemember?.isChecked = false
+             }else{
+                 mLoginBinding?.rbRemember?.isChecked = true
+             }
+         }*/
 
         setupObserver()
 
@@ -79,42 +84,37 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun setupObserver() {
-        mViewModel!!.resultLoginLD.observe(this@LoginActivity) { responseModel ->                     // login function observe
-          if (responseModel.serverError != null) {
+        mViewModel?.resultLoginLD?.observe(this@LoginActivity) { responseModel ->                     // login function observe
+            if (responseModel.serverError != null) {
                 dismissProgressDialog()
 
-              val abx =
-                  AlertBoxDialog(
-                      this@LoginActivity,
-                      responseModel.serverError.toString(),
-                      "m"
-                  )
-              abx.show()
+                val abx = AlertBoxDialog(
+                    this@LoginActivity,
+                    responseModel.serverError.toString(),
+                    "m"
+                )
+                abx.show()
             } else {
                 dismissProgressDialog()
 
-                if (responseModel.success?.payload != null) {
+                if (responseModel.success != null) {
                     Toast.makeText(this, "Log in Successfully.", Toast.LENGTH_SHORT).show()
                     // move to home screen
-                    Log.d(
-                        "MYTAG",
-                        "bearear token ==> " + responseModel.success.payload.access_token
-                    )
-                    /* val intent = Intent(
-                         this@LoginActivity,
-                         MainActivity::class.java
-                     )
-                     intent.putExtra("status", 1)
-                     //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                     startActivity(intent)*/
+                    Log.d("MYTAG",
+                        "bearer token ==> " + responseModel.success.loginDetails.token)
+                    val intent = Intent(this@LoginActivity, WelcomeLocationActivity::class.java)
+                    intent.putExtra("status", 1)
+                    //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent)
 
                 } else {
-                    if (!responseModel.success!!.message.isEmpty()) {
-                        //  Utils.showToastDialog(mViewModel.getLabel(responseModel.getSuccess().getMessage().toString()),this,"Ok");
-                        dismissProgressDialog()
-                        /* mLoginBinding?.passwordErrorText?.visibility = View.VISIBLE
-                         mLoginBinding?.passwordErrorText?.text = "Your Password is Incorrect."*/
-                    }
+
+                    val abx = AlertBoxDialog(
+                        this@LoginActivity,
+                        responseModel.success?.message.toString(),
+                        "m"
+                    )
+                    abx.show()
                 }
             }
         }
@@ -123,19 +123,18 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
     override fun onClick(view: View) {
         if (view.id == R.id.iv_back_arrow_login) {
             System.exit(0)
-        } else if (view.id == R.id.create_account_txt) {
 
+        } else if (view.id == R.id.create_account_txt) {
             val signIntent = Intent(this@LoginActivity, SignUpActivity::class.java)
             startActivity(signIntent)
-            // finish()
-        } else if (view.id == R.id.forget_password_txt) {
 
+        } else if (view.id == R.id.forget_password_txt) {
             val resetPassword = Intent(this@LoginActivity, ResetPasswordActivity::class.java)
             // resetPassword.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(resetPassword)
-            //finish()
+
         } else if (view.id == R.id.login_btn) {
-            startActivity(Intent(this, WelcomeLocationActivity::class.java))
+
             if (isOnline(this)) {
                 if (TextUtils.isEmpty(mLoginBinding?.phoneTxt?.text.toString().trim())) {
                     mLoginBinding?.phoneTxt?.error = "Please enter mobile no."
@@ -148,7 +147,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                     return
                 }
 
-                if(mLoginBinding?.phoneTxt?.text.toString().length > 10){
+                if (mLoginBinding?.phoneTxt?.text.toString().length > 10) {
                     mLoginBinding?.phoneTxt?.error = "Please enter mobile no."
                     mLoginBinding?.phoneTxt?.requestFocus()
                 }
@@ -160,7 +159,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                         applicationContext
                     )
 
-                   // mLoginBinding?.passwordTxt?.error = "Password should not empty."
+                    // mLoginBinding?.passwordTxt?.error = "Password should not empty."
                     mLoginBinding?.passwordTxt?.requestFocus()
                     return
                 }
@@ -168,26 +167,36 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
 
                 if (mLoginBinding?.rbRemember?.isChecked!!) {
                     loginPrefsEditor?.putBoolean("saveLogin", true);
-                    loginPrefsEditor?.putString("username", mLoginBinding?.phoneTxt?.text.toString())
-                    loginPrefsEditor?.putString("password", mLoginBinding?.passwordTxt?.text.toString())
+                    loginPrefsEditor?.putString(
+                        "username",
+                        mLoginBinding?.phoneTxt?.text.toString()
+                    )
+                    loginPrefsEditor?.putString(
+                        "password",
+                        mLoginBinding?.passwordTxt?.text.toString()
+                    )
                     loginPrefsEditor?.commit();
                 } else {
                     loginPrefsEditor?.clear();
                     loginPrefsEditor?.commit();
                 }
 
-
                 if (isValidMobile(mLoginBinding?.phoneTxt?.text.toString())) {
+                    val request = LoginRequest(
+                        requestedBy = PreferenceManager.getPhoneNo(this),
+                        requestId = PreferenceManager.getRequestNo().toInt(),
+                        requestDatetime = PreferenceManager.getServerDateUtc(),
+                        deviceid = PreferenceManager.getAndroiDeviceId(this),
+                        appVersion = "",
+                        androidVersion = "",
+                        profilename = PreferenceManager.getUserName(this),
+                        profilephoto = "",
+                        mobilenumber = mLoginBinding?.phoneTxt?.text.toString(),
+                        password = mLoginBinding?.passwordTxt?.text.toString()
+                    )
 
-                    val intent = Intent(this@LoginActivity, WelcomeLocationActivity::class.java)
-                    startActivity(intent)
-                    showProgressDialog(this,false)
-                 /*   mViewModel!!.loginUser(
-                        mLoginBinding?.phoneTxt?.text.toString(),
-                        mLoginBinding?.passwordTxt?.text.toString(),
-                        "password",
-                        "+91"
-                    )*/
+                    showProgressDialog(this, false)
+                    mViewModel?.loginUser(PreferenceManager.getAuthToken(), request)
                 } else {
                     LoggerMessage.onSNACK(
                         mLoginBinding?.phoneTxt!!,
@@ -211,7 +220,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         val passwordPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$"
         return password.matches(passwordPattern.toRegex())
 
-      //  tvPasswordError.text = "Password must be at least 8 characters, include a digit, an uppercase letter, and a special character."
+        //  tvPasswordError.text = "Password must be at least 8 characters, include a digit, an uppercase letter, and a special character."
 
     }
 

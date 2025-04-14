@@ -97,7 +97,7 @@ class HistorySmartFuelFragment(val status: String) : Fragment() {
         val request = InquiryHistoryRequest(
             requestId = PreferenceManager.getRequestNo(),
             requestedBy = PreferenceManager.getPhoneNo(aContext!!),
-            requestDatetime = PreferenceManager.getServerDateUtc(""),
+            requestDatetime = PreferenceManager.getServerDateUtc(),
             mobilenumber = PreferenceManager.getPhoneNo(aContext!!),
             referralCode = "7B4C18",
             historyType = historyType!!

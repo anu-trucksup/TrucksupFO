@@ -51,8 +51,6 @@ class FinanceHistoryActivity : BaseActivity() {
             binding.tvAddNew.text = getText(R.string.add_new_insurance)
         }
 
-
-
         enquiryHistory()
         setupObserver()
 
@@ -196,7 +194,7 @@ class FinanceHistoryActivity : BaseActivity() {
         val request = InquiryHistoryRequest(
             requestId = PreferenceManager.getRequestNo(),
             requestedBy = PreferenceManager.getPhoneNo(this),
-            requestDatetime = PreferenceManager.getServerDateUtc(""),
+            requestDatetime = PreferenceManager.getServerDateUtc(),
             mobilenumber = PreferenceManager.getPhoneNo(this),
             referralCode = "7B4C18",
             historyType = historyType!!

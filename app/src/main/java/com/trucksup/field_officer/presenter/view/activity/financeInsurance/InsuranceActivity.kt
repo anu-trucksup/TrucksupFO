@@ -522,7 +522,7 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
 
                         var requestData = SubmitInsuranceInquiryRequest(
                             PreferenceManager.getRequestNo(),
-                            PreferenceManager.getServerDateUtc(""),
+                            PreferenceManager.getServerDateUtc(),
                             PreferenceManager.getPhoneNo(this),
                             binding.etFullName.text.toString(),
                             PreferenceManager.getProfileType(this).toString(),
@@ -581,9 +581,9 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
                                 )
                             )
 
-                            var requestData = SubmitInsuranceInquiryRequest(
+                            val requestData = SubmitInsuranceInquiryRequest(
                                 PreferenceManager.getRequestNo(),
-                                PreferenceManager.getServerDateUtc(""),
+                                PreferenceManager.getServerDateUtc(),
                                 PreferenceManager.getPhoneNo(this),
                                 binding.etFullName.text.toString(),
                                 PreferenceManager.getProfileType(this).toString(),
@@ -791,7 +791,7 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
                             )
                             var requestData = SubmitInsuranceInquiryRequest(
                                 PreferenceManager.getRequestNo(),
-                                PreferenceManager.getServerDateUtc(""),
+                                PreferenceManager.getServerDateUtc(),
                                 PreferenceManager.getPhoneNo(this),
                                 binding.etFullName.text.toString(),
                                 PreferenceManager.getProfileType(this).toString(),
@@ -851,7 +851,7 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
 
                                 var requestData = SubmitInsuranceInquiryRequest(
                                     PreferenceManager.getRequestNo(),
-                                    PreferenceManager.getServerDateUtc(""),
+                                    PreferenceManager.getServerDateUtc(),
                                     PreferenceManager.getPhoneNo(this),
                                     binding.etFullName.text.toString(),
                                     PreferenceManager.getProfileType(this).toString(),
@@ -1015,7 +1015,7 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
                     else {
                         var requestData = SubmitInsuranceInquiryRequest(
                             PreferenceManager.getRequestNo(),
-                            PreferenceManager.getServerDateUtc(""),
+                            PreferenceManager.getServerDateUtc(),
                             PreferenceManager.getPhoneNo(this),
                             binding.etFullName.text.toString(),
                             PreferenceManager.getProfileType(this).toString(),

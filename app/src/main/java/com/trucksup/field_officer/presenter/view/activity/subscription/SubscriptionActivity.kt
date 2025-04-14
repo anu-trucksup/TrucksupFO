@@ -554,7 +554,7 @@ class SubscriptionActivity : BaseActivity(), PaySubscribtion, PlanCantroler {
             "TUPlatform",
             PreferenceManager.getPhoneNo(this),
             PreferenceManager.getPhoneNo(this),
-            "" + PreferenceManager.getServerDateUtc(""),
+            "" + PreferenceManager.getServerDateUtc(),
             PreferenceManager.getLanguage(this)
         )
 

@@ -1,14 +1,12 @@
 package com.trucksup.field_officer.presenter.view.activity.auth.signup
 
-import android.app.Application
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.trucksup.field_officer.data.model.NewResisterRequest
+import androidx.lifecycle.ViewModel
 import com.trucksup.field_officer.data.model.Response
-import com.trucksup.field_officer.data.model.TokenZ
-import com.trucksup.field_officer.data.model.User
+import com.trucksup.field_officer.data.model.authModel.SignRequest
+import com.trucksup.field_officer.data.model.authModel.SignResponse
 import com.trucksup.field_officer.data.network.ResponseModel
 import com.trucksup.field_officer.data.network.ResultWrapper
 import com.trucksup.field_officer.domain.usecases.APIUseCase
@@ -19,28 +17,31 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SignupViewModel @Inject constructor(val apiUseCase: APIUseCase,
-                                          application: Application) : AndroidViewModel(application) {
+class SignupViewModel @Inject constructor(val apiUseCase: APIUseCase) : ViewModel() {
 
-    var resultSendOTP: MutableLiveData<ResponseModel<Response<String>>> = MutableLiveData<ResponseModel<Response<String>>>()
+    private var resultSendOTP: MutableLiveData<ResponseModel<Response<String>>> =
+        MutableLiveData<ResponseModel<Response<String>>>()
     val resultSendOTPLD: LiveData<ResponseModel<Response<String>>> = resultSendOTP
 
-    var verifyOTPResult: MutableLiveData<ResponseModel<Response<String>>> = MutableLiveData<ResponseModel<Response<String>>>()
+    private var verifyOTPResult: MutableLiveData<ResponseModel<Response<String>>> =
+        MutableLiveData<ResponseModel<Response<String>>>()
     val verifyOTPResultLD: LiveData<ResponseModel<Response<String>>> = verifyOTPResult
 
-    var registerUser: MutableLiveData<ResponseModel<Response<User>>> = MutableLiveData<ResponseModel<Response<User>>>()
-    val registerUserLD: LiveData<ResponseModel<Response<User>>> = registerUser
+    private var registerUser: MutableLiveData<ResponseModel<SignResponse>> =
+        MutableLiveData<ResponseModel<SignResponse>>()
+    val registerUserLD: LiveData<ResponseModel<SignResponse>> = registerUser
 
 
-    fun signUp(registerUserRequest: NewResisterRequest) {
+    fun signUp(token: String, request: SignRequest) {
         CoroutineScope(Dispatchers.IO).launch {
-            when (val response = apiUseCase.registerUser(registerUserRequest)) {
+            when (val response = apiUseCase.registerUser(token, request)) {
                 is ResultWrapper.ServerResponseError -> {
                     Log.e("API Error", response.error ?: "")
-                    registerUser.postValue(ResponseModel<Response<User>>(serverError = response.error))
+                    registerUser.postValue(ResponseModel(serverError = response.error))
                 }
+
                 is ResultWrapper.Success -> {
-                    registerUser.postValue(ResponseModel<Response<User>>(success = response.value))
+                    registerUser.postValue(ResponseModel(success = response.value))
                 }
             }
         }

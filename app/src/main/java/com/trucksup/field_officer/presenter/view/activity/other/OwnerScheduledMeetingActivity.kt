@@ -25,7 +25,7 @@ import com.trucksup.field_officer.databinding.AddNewTruckLayoutBinding
 import com.trucksup.field_officer.databinding.PreferredLaneDialogBinding
 import com.trucksup.field_officer.presenter.common.CameraActivity
 import com.trucksup.field_officer.presenter.view.adapter.TrucksDetailsAdap
-import com.trucksup.fieldofficer.adapter.PreferredLaneAdap
+import com.trucksup.field_officer.presenter.view.adapter.PreferredLaneAdap
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException

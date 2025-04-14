@@ -703,5 +703,6 @@
     <string name="search">Search</string>
     <string name="Vehicle_Size">Vehicle Size</string>
     <string name="tyre_">Tyre</string>
+    <string name="select_city">Select city</string>
 
 </resources>

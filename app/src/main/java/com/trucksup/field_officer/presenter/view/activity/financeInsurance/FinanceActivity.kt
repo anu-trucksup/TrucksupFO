@@ -48,6 +48,7 @@ class FinanceActivity : BaseActivity(), ChipController, CityPicker {
         //binding.etReferralCode.setText(PreferenceManager.getUserData(this)?.salesCode)
 
         binding.etReferralCode.setText("7BGHJ9")
+
         getData()
     }
 
@@ -130,7 +131,7 @@ class FinanceActivity : BaseActivity(), ChipController, CityPicker {
         val request = FinanceDataLiatRequest(
             PreferenceManager.getPhoneNo(this),
             "Required Loan Amount",
-            PreferenceManager.getServerDateUtc(""),
+            PreferenceManager.getServerDateUtc(),
             PreferenceManager.getRequestNo(),
             PreferenceManager.getPhoneNo(this)
         )
@@ -252,7 +253,7 @@ class FinanceActivity : BaseActivity(), ChipController, CityPicker {
             binding.mobileNumber.text.toString(),
             binding.name.text.toString(),
             PreferenceManager.getProfileType(this).toString(),
-            PreferenceManager.getServerDateUtc(""),
+            PreferenceManager.getServerDateUtc(),
             PreferenceManager.getRequestNo(),
             PreferenceManager.getPhoneNo(this),
             binding.state.text.toString(),
