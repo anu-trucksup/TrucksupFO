@@ -24,6 +24,8 @@ import com.trucksup.field_officer.data.model.image.ImageResponse
 import com.trucksup.field_officer.data.model.insurance.InquiryHistoryResponse
 import com.trucksup.field_officer.data.model.otp.NewOtpResponse
 import com.trucksup.field_officer.data.model.otp.OtpRequest
+import com.trucksup.field_officer.data.model.smartfuel.AddSmartFuelLeadRequest
+import com.trucksup.field_officer.data.model.smartfuel.AddSmartFuelLeadResponse
 import com.trucksup.field_officer.data.model.user.UpdateProfileRequest
 import com.trucksup.field_officer.data.model.user.UpdateProfileResponse
 import com.trucksup.field_officer.data.network.ResultWrapper
@@ -139,5 +141,8 @@ interface APIRepository {
     suspend fun onBoardBusinessAssociate(authToken:String, request : AddBrokerRequest): ResultWrapper<AddBrokerResponse>
 
     suspend fun onBoardGrowthPartner(authToken:String, request : PrefferLanRequest): ResultWrapper<PrefferdResponse>
+
+    suspend fun addSmartFuelLead(authToken:String, request : AddSmartFuelLeadRequest): ResultWrapper<AddSmartFuelLeadResponse>
+
 
 }

@@ -6,6 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.trucksup.field_officer.data.model.image.ImageResponse
 import com.trucksup.field_officer.data.model.image.TrucksupImageUploadResponse
+import com.trucksup.field_officer.data.model.smartfuel.AddSmartFuelLeadRequest
+import com.trucksup.field_officer.data.model.smartfuel.AddSmartFuelLeadResponse
 import com.trucksup.field_officer.data.network.ResponseModel
 import com.trucksup.field_officer.data.network.ResultWrapper
 import com.trucksup.field_officer.domain.usecases.APIUseCase
@@ -27,29 +29,29 @@ import javax.inject.Inject
 @HiltViewModel
 class SmartFuelViewModel @Inject constructor(val apiUseCase: APIUseCase) : ViewModel() {
 
-    private var resultsubmitInsurance: MutableLiveData<ResponseModel<SubmitInsuranceInquiryData>> =
-        MutableLiveData<ResponseModel<SubmitInsuranceInquiryData>>()
-    val resultsubmitInsuranceLD: LiveData<ResponseModel<SubmitInsuranceInquiryData>> =
-        resultsubmitInsurance
+    private var resultSubmitSmartFuel: MutableLiveData<ResponseModel<AddSmartFuelLeadResponse>> =
+        MutableLiveData<ResponseModel<AddSmartFuelLeadResponse>>()
+    val resultSubmitSmartFuelLD: LiveData<ResponseModel<AddSmartFuelLeadResponse>> =
+        resultSubmitSmartFuel
 
     private var imgUploadResult: MutableLiveData<ResponseModel<ImageResponse>> =
         MutableLiveData<ResponseModel<ImageResponse>>()
     val imgUploadResultLD: LiveData<ResponseModel<ImageResponse>> = imgUploadResult
 
 
-    fun submitInsuranceData(request: SubmitInsuranceInquiryRequest) {
+    fun submitSmartFuel(request: AddSmartFuelLeadRequest) {
         CoroutineScope(Dispatchers.IO).launch {
-            when (val response = apiUseCase.submitInsuranceInquiry(
+            when (val response = apiUseCase.addSmartFuelLead(
                 PreferenceManager.getAuthToken(),
                 request
             )) {
                 is ResultWrapper.ServerResponseError -> {
                     Log.e("API Error", response.error ?: "")
-                    resultsubmitInsurance.postValue(ResponseModel(serverError = response.error))
+                    resultSubmitSmartFuel.postValue(ResponseModel(serverError = response.error))
                 }
 
                 is ResultWrapper.Success -> {
-                    resultsubmitInsurance.postValue(ResponseModel(success = response.value))
+                    resultSubmitSmartFuel.postValue(ResponseModel(success = response.value))
                 }
             }
         }

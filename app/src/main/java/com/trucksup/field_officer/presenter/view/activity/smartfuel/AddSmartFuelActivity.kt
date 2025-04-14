@@ -123,7 +123,7 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
 
 
     private fun setupObserver() {
-        mViewModel?.resultsubmitInsuranceLD?.observe(this@AddSmartFuelActivity) { responseModel ->                     // login function observe
+        mViewModel?.resultSubmitSmartFuelLD?.observe(this@AddSmartFuelActivity) { responseModel ->                     // login function observe
             if (responseModel.serverError != null) {
                 dismissProgressDialog()
 
@@ -140,7 +140,7 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
                 if (responseModel.success?.message != null) {
                     val abx = FinaceSubmitBox(
                         this, responseModel.success.message,
-                        responseModel.success.message1, "cl"
+                        responseModel.success.message, "cl"
                     )
                     abx.show()
 
