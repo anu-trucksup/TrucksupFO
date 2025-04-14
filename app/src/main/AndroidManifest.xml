@@ -9,10 +9,9 @@
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
-
     <uses-feature
         android:glEsVersion="0x00020000"
-        android:required="true"/>
+        android:required="true" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -25,9 +24,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION" />
-
-    <!-- Needed for Android 10+ -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION" /> <!-- Needed for Android 10+ -->
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
     <application
@@ -45,6 +42,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".presenter.view.activity.addLoads.TotalAddActivity"
+            android:exported="false" />
+        <activity
             android:name=".presenter.view.activity.growth_partner.MyTeamGPDetailsActivity"
             android:exported="false" />
         <activity
@@ -53,7 +53,6 @@
         <activity
             android:name=".presenter.view.activity.profile.TotalAddLoadActivity"
             android:exported="false" />
-
         <activity
             android:name=".presenter.view.activity.profile.TotalDownloadsActivity"
             android:exported="false" />
@@ -66,29 +65,24 @@
         <activity
             android:name=".presenter.view.activity.other.WelcomeLocationActivity"
             android:exported="false" />
-
         <activity
             android:name=".presenter.view.activity.auth.forget.ResetPasswordActivity"
             android:exported="false" />
         <activity
             android:name=".presenter.view.activity.auth.signup.SignUpActivity"
             android:exported="false" />
-
         <activity
             android:name=".presenter.view.activity.profile.MyEarningActivity"
             android:exported="false" />
         <activity
             android:name=".presenter.view.activity.profile.EditProfileActivity"
             android:exported="false" />
-
         <activity
             android:name=".presenter.view.activity.auth.forget.CreatePasswordActivity"
-            android:exported="true"
-            />
+            android:exported="true" />
         <activity
             android:name=".presenter.view.activity.other.MainActivity"
             android:exported="false" />
-
         <activity
             android:name=".presenter.view.activity.business_associate.BAOnboardingUploadDocActivity"
             android:exported="false" />
@@ -110,79 +104,57 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".presenter.view.activity.auth.login.LoginActivity"
             android:exported="false" />
-
         <activity
             android:name=".presenter.view.activity.financeInsurance.FinanceActivity"
             android:exported="false" />
-
         <activity
             android:name=".presenter.view.activity.financeInsurance.FinanceHistoryActivity"
             android:exported="false" />
-
         <activity
             android:name=".presenter.view.activity.financeInsurance.InsuranceActivity"
             android:exported="false" />
-
         <activity
             android:name=".presenter.view.activity.profile.MyTeamScreen"
             android:exported="false" />
-
         <activity
             android:name=".presenter.view.activity.profile.MyTargetScreen"
             android:exported="false" />
-
-
         <activity
             android:name=".presenter.view.activity.business_associate.MyBATeamActivity"
             android:exported="false" />
-
         <activity
             android:name=".presenter.view.activity.truck_supplier.MyTSTeamActivity"
             android:exported="false" />
-
         <activity
             android:name=".presenter.view.activity.growth_partner.MyGPTeamActivity"
             android:exported="false" />
-
         <activity
             android:name=".presenter.view.activity.business_associate.BAStartTripActivity"
             android:exported="false" />
-
         <activity
             android:name=".presenter.view.activity.truck_supplier.TSStartTripActivity"
             android:exported="false" />
-
-
         <activity
             android:name=".presenter.view.activity.growth_partner.GPStartTripActivity"
             android:exported="false" />
-
-
         <activity
             android:name=".presenter.view.activity.truck_supplier.TSScheduledMeetingActivity"
             android:exported="false" />
-
         <activity
             android:name=".presenter.view.activity.business_associate.BAScheduleMeetingActivity"
             android:exported="false" />
-
         <activity
             android:name=".presenter.view.activity.growth_partner.GPScheduleMeetingActivity"
             android:exported="false" />
-
         <activity
             android:name=".presenter.common.yCamera.CameraXActivity"
             android:exported="false" />
-
-
         <activity
             android:name=".presenter.common.CameraActivity"
             android:exported="false" />
-
         <activity
             android:name=".presenter.view.activity.truck_supplier.TSOnboardingActivity"
             android:exported="false" />
@@ -192,7 +164,6 @@
         <activity
             android:name=".presenter.view.activity.business_associate.BAnOnboardingActivity"
             android:exported="false" />
-
         <activity
             android:name=".presenter.view.activity.growth_partner.GPOnboardingActivity"
             android:exported="false" />
@@ -202,7 +173,6 @@
         <activity
             android:name=".presenter.view.activity.growth_partner.GPOnboardingKYCActivity"
             android:exported="false" />
-
         <activity
             android:name=".presenter.view.activity.growth_partner.GPOnBoardStoreProofActivity"
             android:exported="false" />
@@ -212,57 +182,46 @@
         <activity
             android:name=".presenter.view.activity.growth_partner.GpOnboardingPreviewActivity"
             android:exported="false" />
-
         <activity
             android:name=".presenter.view.activity.miscellaneous.MiscActivity"
             android:exported="false" />
-
         <activity
             android:name=".presenter.view.activity.subscription.SubscriptionActivity"
             android:exported="false" />
-
         <activity
             android:name=".presenter.view.activity.truck_supplier.TSPerformanceActivity"
             android:exported="false" />
-
         <activity
             android:name=".presenter.view.activity.truck_supplier.TSViewAllActivity"
             android:exported="false" />
-
         <activity
             android:name=".presenter.view.activity.truck_supplier.unassigned_ts_ba.activity.UnAssignedTSBAActivity"
             android:exported="false" />
-
         <activity
             android:name=".presenter.view.activity.business_associate.BAPerformanceActivity"
             android:exported="false" />
-
         <activity
             android:name=".presenter.view.activity.business_associate.BAStatusViewAllActivity"
             android:exported="false" />
-
         <activity
             android:name=".presenter.view.activity.growth_partner.GPPerformanceActivity"
             android:exported="false" />
-
         <activity
             android:name=".presenter.view.activity.growth_partner.GPViewAllActivity"
             android:exported="false" />
-
         <activity
             android:name=".presenter.view.activity.other.ViewPdfScreen"
             android:exported="false" />
-
         <activity
             android:name=".presenter.view.activity.smartfuel.SmartFuelHistoryActivity"
             android:exported="false" />
-
         <activity
             android:name=".presenter.view.activity.smartfuel.AddSmartFuelActivity"
             android:exported="false" />
         <activity
             android:name=".presenter.view.activity.truck_supplier.EndTripActivity"
             android:exported="false" />
+
         <service
             android:name=".presenter.utils.MyFirebaseMessagingService"
             android:exported="false">
@@ -270,14 +229,12 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-
         <service
             android:name=".presenter.view.service.LocationService"
             android:enabled="true"
             android:exported="false"
             android:foregroundServiceType="location"
             tools:ignore="ForegroundServicePermission" />
-
 
         <meta-data
             android:name="com.google.android.gms.version"
