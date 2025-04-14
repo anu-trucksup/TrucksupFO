@@ -79,7 +79,7 @@ class InsuranceViewModel @Inject constructor(val apiUseCase: APIUseCase) : ViewM
         fileWaterMark: MultipartBody.Part,
         imgRes: TrucksFOImageController) {
         val apiInterface = ApiClient().getClient
-        apiInterface.uploadImages(token, documentType, file, fileWaterMark)
+        apiInterface.uploadImages(token, documentType,"Insurance", file, fileWaterMark)
 
             ?.enqueue(object : Callback<TrucksupImageUploadResponse> {
                 override fun onResponse(

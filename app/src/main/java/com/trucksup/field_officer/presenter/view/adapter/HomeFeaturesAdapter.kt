@@ -10,7 +10,7 @@ import com.trucksup.field_officer.databinding.ItemFeaturesBinding
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.BAPerformanceActivity
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.FinanceHistoryActivity
 import com.trucksup.field_officer.presenter.view.activity.growthPartner.GPPerformanceActivity
-import com.trucksup.field_officer.presenter.view.activity.profile.TotalAddLoadActivity
+import com.trucksup.field_officer.presenter.view.activity.addLoads.TotalAddLoadActivity
 import com.trucksup.field_officer.presenter.view.activity.profile.TotalDownloadsActivity
 import com.trucksup.field_officer.presenter.view.activity.smartfuel.SmartFuelHistoryActivity
 import com.trucksup.field_officer.presenter.view.activity.subscription.SubscriptionActivity

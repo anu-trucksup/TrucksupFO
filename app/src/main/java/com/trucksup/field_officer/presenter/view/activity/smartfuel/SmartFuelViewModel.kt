@@ -34,10 +34,6 @@ class SmartFuelViewModel @Inject constructor(val apiUseCase: APIUseCase) : ViewM
     val resultSubmitSmartFuelLD: LiveData<ResponseModel<AddSmartFuelLeadResponse>> =
         resultSubmitSmartFuel
 
-    private var imgUploadResult: MutableLiveData<ResponseModel<ImageResponse>> =
-        MutableLiveData<ResponseModel<ImageResponse>>()
-    val imgUploadResultLD: LiveData<ResponseModel<ImageResponse>> = imgUploadResult
-
 
     fun submitSmartFuel(request: AddSmartFuelLeadRequest) {
         CoroutineScope(Dispatchers.IO).launch {
@@ -57,33 +53,13 @@ class SmartFuelViewModel @Inject constructor(val apiUseCase: APIUseCase) : ViewM
         }
     }
 
-    fun uploadImage(
-        bucketName: String?, id: Int?, position: Int?, requestId: Int?, file: MultipartBody.Part?
-    ) {
-        CoroutineScope(Dispatchers.IO).launch {
-            when (val response = apiUseCase.uploadImage(
-                bucketName, id, position, requestId, file
-            )) {
-                is ResultWrapper.ServerResponseError -> {
-                    Log.e("API Error", response.error ?: "")
-                    imgUploadResult.postValue(ResponseModel(serverError = response.error))
-                }
-
-                is ResultWrapper.Success -> {
-                    imgUploadResult.postValue(ResponseModel(success = response.value))
-                }
-            }
-        }
-
-
-    }
 
     fun trucksupImageUpload(token: String,
         documentType: String, file: MultipartBody.Part,
         fileWaterMark: MultipartBody.Part,
         imgRes: TrucksFOImageController) {
         val apiInterface = ApiClient().getClient
-        apiInterface.uploadImages(token, documentType, file, fileWaterMark)
+        apiInterface.uploadImages(token, documentType,"SmartFuel", file, fileWaterMark)
 
             ?.enqueue(object : Callback<TrucksupImageUploadResponse> {
                 override fun onResponse(

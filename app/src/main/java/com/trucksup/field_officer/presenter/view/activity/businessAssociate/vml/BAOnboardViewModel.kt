@@ -86,7 +86,7 @@ class BAOnboardViewModel @Inject constructor(val apiUseCase: APIUseCase) : ViewM
         imgRes: TrucksFOImageController
     ) {
         val apiInterface = ApiClient().getClient
-        apiInterface.uploadImages(token, documentType, file, fileWaterMark)
+        apiInterface.uploadImages(token, documentType, "BusinessOfficer", file, fileWaterMark)
 
             ?.enqueue(object : Callback<TrucksupImageUploadResponse> {
                 override fun onResponse(

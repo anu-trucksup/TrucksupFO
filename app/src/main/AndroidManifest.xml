@@ -67,7 +67,7 @@
             android:name=".presenter.view.activity.truckSupplier.TSDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".presenter.view.activity.profile.TotalAddLoadActivity"
+            android:name=".presenter.view.activity.addLoads.TotalAddLoadActivity"
             android:exported="false" />
 
         <activity
