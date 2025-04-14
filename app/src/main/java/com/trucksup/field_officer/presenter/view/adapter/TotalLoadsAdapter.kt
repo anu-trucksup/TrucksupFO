@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.trucksup.field_officer.databinding.TotalLoadsAddedItemBinding
-import com.trucksup.field_officer.presenter.view.activity.addLoads.TotalAddActivity
+import com.trucksup.field_officer.presenter.view.activity.addLoads.TotalAddDetailsActivity
 
 class TotalLoadsAdapter(var context: Context, var list: ArrayList<String>) :
     RecyclerView.Adapter<TotalLoadsAdapter.ViewHolder>() {
@@ -26,7 +26,7 @@ class TotalLoadsAdapter(var context: Context, var list: ArrayList<String>) :
       /*  holder.binding.tvTitle.text = "BA 1"
         holder.binding.tvSubTitle.text = "2"*/
         holder.itemView.setOnClickListener {
-            var intent= Intent(context,TotalAddActivity::class.java)
+            var intent= Intent(context,TotalAddDetailsActivity::class.java)
             context.startActivity(intent)
         }
     }

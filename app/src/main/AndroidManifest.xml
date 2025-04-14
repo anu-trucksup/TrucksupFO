@@ -71,6 +71,10 @@
             android:exported="false" />
 
         <activity
+            android:name=".presenter.view.activity.addLoads.TotalAddDetailsActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".presenter.view.activity.profile.TotalDownloadsActivity"
             android:exported="false" />
         <activity
