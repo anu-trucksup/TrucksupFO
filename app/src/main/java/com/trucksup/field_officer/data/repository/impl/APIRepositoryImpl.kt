@@ -195,25 +195,6 @@ class APIRepositoryImpl constructor(private val apiService: ApiService) : APIRep
     }
 
 
-    override suspend fun uploadImage(
-        bucketName: String?,
-        id: Int?,
-        position: Int?,
-        requestId: Int?,
-        file: MultipartBody.Part?
-    ): ResultWrapper<ImageResponse> {
-        return safeApiCall(Dispatchers.IO) {
-            apiService.uploadImage(
-                bucketName,
-                id,
-                position,
-                requestId,
-                file
-            )
-        }
-    }
-
-
     override suspend fun privacyDetails(name: String): ResultWrapper<PrivacyAllResponse> {
         TODO("Not yet implemented")
     }

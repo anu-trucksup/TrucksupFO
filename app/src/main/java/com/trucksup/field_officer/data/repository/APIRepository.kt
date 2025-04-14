@@ -94,9 +94,6 @@ interface APIRepository {
 
     suspend fun getAllCategoryList(): ResultWrapper<CategoryAllResponse>
 
-
-    suspend fun uploadImage(bucketName: String?, id: Int?, position: Int?, requestId: Int?, file: MultipartBody.Part?): ResultWrapper<ImageResponse>
-
     suspend fun privacyDetails(name: String): ResultWrapper<PrivacyAllResponse>
 
     suspend fun userSessionData(

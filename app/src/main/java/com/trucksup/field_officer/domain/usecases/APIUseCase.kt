@@ -122,16 +122,6 @@ class APIUseCase @Inject constructor(private val apiRepository: APIRepository) {
     }
 
 
-    suspend fun uploadImage(
-        bucketName: String?,
-        id: Int?,
-        position: Int?,
-        requestId: Int?,
-        file: MultipartBody.Part?
-    ): ResultWrapper<ImageResponse> {
-        return apiRepository.uploadImage(bucketName, id, position, requestId, file)
-    }
-
     fun logoutUser() {
         apiRepository.logoutUser()
     }
