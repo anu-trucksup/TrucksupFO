@@ -668,7 +668,7 @@
     <string name="reschedule_meeting"><u>Reschedule Meeting</u></string>
     <string name="activate_msg">You are currently not on duty. Please activate your duty status to mark your attendance and start today’s journey.</string>
 
-   //
+    //
     <string name="enter_truckno">Enter Truck No. </string>
     <string name="add_one_truck_msg">You have not added any trucks. Kindly add a truck</string>
     <string name="verify_truck">Please verify to vehicle</string>
@@ -704,5 +704,9 @@
     <string name="Vehicle_Size">Vehicle Size</string>
     <string name="tyre_">Tyre</string>
     <string name="select_city">Select city</string>
+
+    <string name="total_add_loads">Total Add Loads</string>
+    <string name="posted_on">Posted on:</string>
+    <string name="loading_date">Loading Date:</string>
 
 </resources>

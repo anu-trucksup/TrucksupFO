@@ -1,10 +1,12 @@
 package com.trucksup.field_officer.presenter.view.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.trucksup.field_officer.databinding.TotalLoadsAddedItemBinding
+import com.trucksup.field_officer.presenter.view.activity.addLoads.TotalAddActivity
 
 class TotalLoadsAdapter(var context: Context, var list: ArrayList<String>) :
     RecyclerView.Adapter<TotalLoadsAdapter.ViewHolder>() {
@@ -23,6 +25,10 @@ class TotalLoadsAdapter(var context: Context, var list: ArrayList<String>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
       /*  holder.binding.tvTitle.text = "BA 1"
         holder.binding.tvSubTitle.text = "2"*/
+        holder.itemView.setOnClickListener {
+            var intent= Intent(context,TotalAddActivity::class.java)
+            context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {

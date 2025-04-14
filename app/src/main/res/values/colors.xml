@@ -125,4 +125,7 @@
     <color name="gray_9">#cccccc</color>
     <color name="green_1">#B30D8418</color>
 
+    <color name="blue2">#3C2088</color>
+    <color name="blue2_fad">#733C2088</color>
+
 </resources>
