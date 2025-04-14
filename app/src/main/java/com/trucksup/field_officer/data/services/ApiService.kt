@@ -234,11 +234,12 @@ interface ApiService {
     fun searchCity(@Body request: CitySearchRequest): Call<CityListbySearchRequest>?
 
     @Multipart
-    @POST("Apigateway/Gateway/TrucksupImageUpload")
+    @POST("BOAppApiGateway/apiateway/BOUploadImages")
     @Headers("Accept: application/json")
     fun uploadImages(
         @Header("Authorization") auth: String,
         @Query("filetype") filetype: String?,
+        @Query("foldername") foldername: String?,
         @Part imageFile: MultipartBody.Part?,
         @Part watermarkFile: MultipartBody.Part?
     ): Call<TrucksupImageUploadResponse>?

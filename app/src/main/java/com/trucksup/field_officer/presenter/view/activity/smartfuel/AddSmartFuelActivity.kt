@@ -150,28 +150,6 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
             }
         }
 
-        mViewModel?.imgUploadResultLD?.observe(this@AddSmartFuelActivity) { responseModel ->                     // login function observe
-            if (responseModel.serverError != null) {
-                dismissProgressDialog()
-
-                val abx =
-                    AlertBoxDialog(
-                        this@AddSmartFuelActivity,
-                        responseModel.serverError.toString(),
-                        "m"
-                    )
-                abx.show()
-            } else {
-                dismissProgressDialog()
-
-                if (responseModel.success?.imagekey != null) {
-
-
-                } else {
-
-                }
-            }
-        }
     }
 
     private var activitypdfLauncher =
