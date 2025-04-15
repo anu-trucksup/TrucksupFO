@@ -55,7 +55,7 @@ class SplashScreenActivity : BaseActivity() {
                 }
 
                 1 -> {
-                    val intent2 = Intent(this@SplashScreenActivity, MainActivity::class.java)
+                    val intent2 = Intent(this@SplashScreenActivity, HomeActivity::class.java)
                     intent2.putExtra("status", 1)
                     //intent2.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent2)

@@ -9,7 +9,6 @@ import com.trucksup.field_officer.data.model.GenerateJWTtokenResponse
 import com.trucksup.field_officer.data.services.ApiService
 import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
-import com.trucksup.field_officer.presenter.utils.PreferenceManager
 import com.trucksup.field_officer.presenter.common.JWTtoken
 import dagger.hilt.android.lifecycle.HiltViewModel
 import retrofit2.Call
@@ -20,16 +19,15 @@ import javax.inject.Inject
 @HiltViewModel
 class TokenViewModel @Inject constructor(private val apiService: ApiService) : ViewModel()  {
 
-    fun generateJWTtoken(
+    fun generateJWToken(
         request: GenerateJWTtokenRequest,
         controller: JWTtoken,
         context: Context
     ) {
 
-        apiService.generateJWTtoken(
-            PreferenceManager.getAccesHeader(context).toString(),
-            request,
-            "JwtAuth/api/Auth/GenerateJWTtoken"
+        apiService.generateJWToken(
+            "7400a08e-c89c-4256-ad4f-d624c2d73a7c",
+            request
         )
             ?.enqueue(object : Callback<GenerateJWTtokenResponse> {
                 override fun onResponse(
