@@ -2,6 +2,7 @@ package com.trucksup.field_officer.presenter.view.activity.auth.forget
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
@@ -13,6 +14,7 @@ import com.trucksup.field_officer.data.model.authModel.ForgetRequest
 import com.trucksup.field_officer.data.model.authModel.LoginRequest
 import com.trucksup.field_officer.databinding.ActivityCreatePasswordBinding
 import com.trucksup.field_officer.presenter.common.AlertBoxDialog
+import com.trucksup.field_officer.presenter.common.AppVersionUtils
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
@@ -91,7 +93,7 @@ class CreatePasswordActivity : BaseActivity(), View.OnClickListener {
 
                 val abx = AlertBoxDialog(
                     this@CreatePasswordActivity,
-                    responseModel.serverError.toString(),
+                    responseModel.success?.message.toString(),
                     "m"
                 )
                 abx.show()
@@ -100,6 +102,7 @@ class CreatePasswordActivity : BaseActivity(), View.OnClickListener {
                 Toast.makeText(this, "Password Changed Successfully", Toast.LENGTH_SHORT).show()
                 // start home screen
                 val intent = Intent(this@CreatePasswordActivity, LoginActivity::class.java)
+                intent.putExtra("mobile", "")
                 startActivity(intent)
                 finish()
             }
@@ -159,43 +162,30 @@ class CreatePasswordActivity : BaseActivity(), View.OnClickListener {
                         customErrorDrawable
                     )
 
-
-                    startActivity(Intent(this, WelcomeLocationActivity::class.java))
-                    /* // Set drawables for left, top, right, and bottom - send 0 for nothing
-                     mBinding!!.confirmPasswordTxt.setCompoundDrawablesWithIntrinsicBounds(R.drawable.locked,
-                         0, R.drawable.error_confirm, 0 )
-
-                     LoggerMessage.onSNACK(
-                         mBinding!!.updatepassBtn,
-                         "Password match.",
-                         applicationContext
-                     )*/
-
-                    //mSignUpBinding!!.confirmPasswordTxt.setdrawa("", customErrorDrawable)
-
-                    //return
                 }
 
-            } else if (!p.matcher(password).matches()) {
+            }
 
-                    showProgressDialog(this, false)
-                    passWord = mBinding!!.confirmPasswordTxt.text.toString()
+            if (!p.matcher(password).matches()) {
 
-                    val request = ForgetRequest(
-                        requestedBy = PreferenceManager.getPhoneNo(this),
-                        requestId = PreferenceManager.getRequestNo().toInt(),
-                        requestDatetime = PreferenceManager.getServerDateUtc(),
-                        deviceid = PreferenceManager.getAndroiDeviceId(this),
-                        appVersion = "",
-                        androidVersion = "",
-                        profilename = PreferenceManager.getUserName(this),
-                        profilephoto = "",
-                        mobilenumber = mobileNumber.toString(),
-                        password = mBinding?.passwordTxt?.text.toString()
-                    )
-                    mViewModel!!.resetPassword(
-                        PreferenceManager.getAuthToken(), request
-                    )
+                showProgressDialog(this, false)
+                passWord = mBinding!!.confirmPasswordTxt.text.toString()
+
+                val request = ForgetRequest(
+                    requestedBy = mobileNumber.toString(),
+                    requestId = PreferenceManager.getRequestNo().toInt(),
+                    requestDatetime = PreferenceManager.getServerDateUtc(),
+                    deviceid = PreferenceManager.getAndroiDeviceId(this),
+                    appVersion = AppVersionUtils.getAppVersionName(this),
+                    androidVersion = Build.VERSION.SDK_INT.toString(),
+                    profilename = "",
+                    profilephoto = "",
+                    mobilenumber = mobileNumber.toString(),
+                    password = mBinding?.passwordTxt?.text.toString()
+                )
+                mViewModel!!.resetPassword(
+                    PreferenceManager.getAuthToken(), request
+                )
 
             } else {
                 LoggerMessage.onSNACK(
@@ -208,13 +198,13 @@ class CreatePasswordActivity : BaseActivity(), View.OnClickListener {
     }
 
 
-  /*  private fun sendOTP() {
-        if (isEmailType) {
-            showProgressDialog(this, false)
-            mViewModel!!.sendOTP(email!!, "", "")
-        } else if (!isEmailType && isResendEnabled) {
-            showProgressDialog(this, false)
-            mViewModel!!.sendOTP("", phoneNo!!, countryCode!!)
-        }
-    }*/
+    /*  private fun sendOTP() {
+          if (isEmailType) {
+              showProgressDialog(this, false)
+              mViewModel!!.sendOTP(email!!, "", "")
+          } else if (!isEmailType && isResendEnabled) {
+              showProgressDialog(this, false)
+              mViewModel!!.sendOTP("", phoneNo!!, countryCode!!)
+          }
+      }*/
 }

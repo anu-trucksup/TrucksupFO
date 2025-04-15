@@ -203,7 +203,7 @@
                             android:layout_marginTop="@dimen/_8sdp"
                             android:fontFamily="@font/roboto_regular"
                             android:text="@string/doc_disc_new"
-                            android:textColor="@color/secondry_text"
+                            android:textColor="@color/secondary_text"
                             android:textSize="@dimen/_11ssp"/>
 
 

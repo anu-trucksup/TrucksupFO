@@ -17,9 +17,12 @@ import android.os.Build
 import android.provider.MediaStore
 import android.provider.OpenableColumns
 import android.provider.Settings
+import android.text.TextUtils
 import android.util.Log
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
+import com.google.gson.Gson
+import com.trucksup.field_officer.data.model.authModel.LoginDetails
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -181,7 +184,7 @@ object PreferenceManager {
         return sharedPreferences.getInt(PEREFRREDLAN, 0)!!
     }
 
-    fun setAccesUserInssur(path: String, myContext: Context) {
+    fun setAccessUserInssur(path: String, myContext: Context) {
 
         val sharedPreferences: SharedPreferences =
             myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
@@ -191,14 +194,14 @@ object PreferenceManager {
         editor.commit()
     }
 
-    fun getAccesUserInssur(myContext: Context): String {
+    fun getAccessUserInssur(myContext: Context): String {
 
         val sharedPreferences: SharedPreferences =
             myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         return sharedPreferences.getString(accessUserIssuer, "")!!
     }
 
-    fun setAccesUserName(path: String, myContext: Context) {
+    fun setAccessUserName(path: String, myContext: Context) {
 
         val sharedPreferences: SharedPreferences =
             myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
@@ -208,14 +211,14 @@ object PreferenceManager {
         editor.commit()
     }
 
-    fun getAccesUserName(myContext: Context): String {
+    fun getAccessUserName(myContext: Context): String {
 
         val sharedPreferences: SharedPreferences =
             myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         return sharedPreferences.getString(accessUserName, "")!!
     }
 
-    fun setAccesKey(path: String, myContext: Context) {
+    fun setAccessKey(path: String, myContext: Context) {
 
         val sharedPreferences: SharedPreferences =
             myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
@@ -249,7 +252,7 @@ object PreferenceManager {
         return sharedPreferences.getString(BACKGROUNDAPP, "")!!
     }
 
-    fun setAccesPassword(path: String, myContext: Context) {
+    fun setAccessPassword(path: String, myContext: Context) {
 
         val sharedPreferences: SharedPreferences =
             myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
@@ -259,14 +262,14 @@ object PreferenceManager {
         editor.commit()
     }
 
-    fun getAccesPassword(myContext: Context): String {
+    fun getAccessPassword(myContext: Context): String {
 
         val sharedPreferences: SharedPreferences =
             myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         return sharedPreferences.getString(accessPassword, "")!!
     }
 
-    fun setAccesUserAgaint(path: String, myContext: Context) {
+    fun setAccessUserAgent(path: String, myContext: Context) {
 
         val sharedPreferences: SharedPreferences =
             myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
@@ -276,14 +279,14 @@ object PreferenceManager {
         editor.commit()
     }
 
-    fun getAccesUserAgaint(myContext: Context): String {
+    fun getAccessUserAgent(myContext: Context): String {
 
         val sharedPreferences: SharedPreferences =
             myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         return sharedPreferences.getString(accessUserAgaint, "")!!
     }
 
-    fun setAccesHeader(path: String, myContext: Context) {
+    fun setAccessHeader(path: String, myContext: Context) {
 
         val sharedPreferences: SharedPreferences =
             myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
@@ -293,7 +296,7 @@ object PreferenceManager {
         editor.commit()
     }
 
-    fun getAccesHeader(myContext: Context): String {
+    fun getAccessHeader(myContext: Context): String {
 
         val sharedPreferences: SharedPreferences =
             myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
@@ -855,6 +858,25 @@ object PreferenceManager {
 
     }*/
 
+
+
+    fun getUserData(myContext: Context): LoginDetails? {
+        val sharedPreferences: SharedPreferences =
+            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+        var profile: LoginDetails? = null
+        val jsonString: String = sharedPreferences.getString(USER_DATA, "")!!
+        if (!TextUtils.isEmpty(jsonString)) {
+            val gson = Gson()
+            profile = gson.fromJson(jsonString, LoginDetails::class.java)
+        }
+        if (profile != null) {
+            return profile
+        } else {
+            return null
+        }
+
+    }
+
     fun setVisitingCardData(data: String, myContext: Context) {
         val sharedPreferences: SharedPreferences =
             myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
@@ -1068,23 +1090,9 @@ object PreferenceManager {
         return imageString
     }
 
-    fun prepareFilePart(uploadImageFilefront: File): MultipartBody.Part {
-        // https://github.com/iPaulPro/aFileChooser/blob/master/aFileChooser/src/com/ipaulpro/afilechooser/utils/FileUtils.java
-        // use the FileUtils to get the actual file by uri
-        val file: File = uploadImageFilefront
-
-        // create RequestBody instance from file
-        val requestFile: RequestBody = RequestBody.create(
-            "file/*".toMediaTypeOrNull(),
-            file
-        )
-
-        // MultipartBody.Part is used to send also the actual file name
-        return MultipartBody.Part.createFormData("file", file.getName(), requestFile)
-    }
 
     fun prepareFilePartTrucksHum(uploadImageFilefront: File, name: String): MultipartBody.Part {
-        // https://github.com/iPaulPro/aFileChooser/blob/master/aFileChooser/src/com/ipaulpro/afilechooser/utils/FileUtils.java
+
         // use the FileUtils to get the actual file by uri
         val file: File = uploadImageFilefront
 

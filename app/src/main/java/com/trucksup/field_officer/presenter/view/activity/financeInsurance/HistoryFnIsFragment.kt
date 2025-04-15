@@ -36,7 +36,6 @@ class HistoryFnIsFragment(val status: String, private val historyList: ArrayList
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentHistoryInfnsBinding.inflate(inflater, container, false)
-
         return binding.root
     }
 

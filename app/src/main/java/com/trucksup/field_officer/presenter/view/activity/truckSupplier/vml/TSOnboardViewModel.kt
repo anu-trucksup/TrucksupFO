@@ -30,10 +30,6 @@ class TSOnboardViewModel @Inject constructor(val apiUseCase: APIUseCase) : ViewM
         MutableLiveData<ResponseModel<PinCodeResponse>>()
     val resultSCbyPincodeLD: LiveData<ResponseModel<PinCodeResponse>> = resultSCbyPincode
 
-    private var imgUploadResult: MutableLiveData<ResponseModel<ImageResponse>> =
-        MutableLiveData<ResponseModel<ImageResponse>>()
-    val imgUploadResultLD: LiveData<ResponseModel<ImageResponse>> = imgUploadResult
-
 
     fun getCityStateByPin(token: String, request: PinCodeRequest) {
         CoroutineScope(Dispatchers.IO).launch {
@@ -51,26 +47,6 @@ class TSOnboardViewModel @Inject constructor(val apiUseCase: APIUseCase) : ViewM
                 }
             }
         }
-    }
-
-    fun uploadImage(
-        bucketName: String?, id: Int?, position: Int?, requestId: Int?, file: MultipartBody.Part?
-    ) {
-        CoroutineScope(Dispatchers.IO).launch {
-            when (val response = apiUseCase.uploadImage(
-                bucketName, id, position, requestId, file
-            )) {
-                is ResultWrapper.ServerResponseError -> {
-                    Log.e("API Error", response.error ?: "")
-                    imgUploadResult.postValue(ResponseModel(serverError = response.error))
-                }
-
-                is ResultWrapper.Success -> {
-                    imgUploadResult.postValue(ResponseModel(success = response.value))
-                }
-            }
-        }
-
     }
 
     fun trucksupImageUpload(

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.trucksup.field_officer.presenter.view.activity.auth.login.LoginViewModel" />
@@ -126,14 +127,13 @@
 
                                     <EditText
                                         android:id="@+id/phone_txt"
+                                        style="@style/edit_text_m"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:background="@drawable/edit_box"
-                                        style="@style/edit_text_m"
-                                        android:hint="@string/mobile_number"
                                         android:inputType="phone"
-                                        android:paddingHorizontal="@dimen/_10sdp"
-                                        android:maxLength="10" />
+                                        android:maxLength="10"
+                                        android:paddingHorizontal="@dimen/_10sdp" />
                                 </com.google.android.material.card.MaterialCardView>
 
 
@@ -151,7 +151,6 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="@dimen/_4sdp"
                                     android:text="@string/password" />
-
 
 
                                 <com.google.android.material.card.MaterialCardView
@@ -180,33 +179,33 @@
 
                                         <EditText
                                             android:id="@+id/password_txt"
+                                            style="@style/edit_text_m"
                                             android:layout_width="match_parent"
                                             android:layout_height="match_parent"
                                             android:background="@drawable/edit_box"
-                                            android:inputType="textPassword"
                                             android:drawableStart="@drawable/locked"
-                                            android:maxLines="1"
-                                            style="@style/edit_text_m"
-                                            android:hint="@string/password"
                                             android:drawablePadding="@dimen/_2sdp"
+                                            android:hint="@string/password_hint"
+                                            android:inputType="textPassword"
+                                            android:maxLines="1"
                                             android:padding="@dimen/_4sdp" />
 
                                     </com.google.android.material.textfield.TextInputLayout>
-                                   <!-- <EditText
-                                        android:id="@+id/password_txt"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:background="@drawable/edit_box"
-                                        android:fontFamily="@font/bai_jamjuree_medium"
-                                        android:hint="@string/password"
-                                        android:inputType="textPassword"
-                                        android:paddingLeft="@dimen/_10sdp"
-                                        android:textColor="@color/secondry_text"
-                                        android:textColorHint="@color/secondry_text"
-                                        android:textSize="@dimen/_12sdp" />-->
+                                    <!-- <EditText
+                                         android:id="@+id/password_txt"
+                                         android:layout_width="match_parent"
+                                         android:layout_height="match_parent"
+                                         android:background="@drawable/edit_box"
+                                         android:fontFamily="@font/bai_jamjuree_medium"
+                                         android:hint="@string/password"
+                                         android:inputType="textPassword"
+                                         android:paddingLeft="@dimen/_10sdp"
+                                         android:textColor="@color/secondry_text"
+                                         android:textColorHint="@color/secondry_text"
+                                         android:textSize="@dimen/_12sdp" />-->
                                 </com.google.android.material.card.MaterialCardView>
 
-                                 </LinearLayout>
+                            </LinearLayout>
 
                             <RelativeLayout
                                 android:layout_width="match_parent"
@@ -237,6 +236,7 @@
 
                             <TextView
                                 android:id="@+id/login_btn"
+                                style="@style/label_semi_w"
                                 android:layout_width="@dimen/_70sdp"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
@@ -244,12 +244,9 @@
                                 android:layout_marginTop="@dimen/_15sdp"
                                 android:layout_marginBottom="@dimen/_20sdp"
                                 android:background="@drawable/background_1_1"
-                                android:fontFamily="@font/bai_jamjuree_semi_bold"
                                 android:gravity="center"
                                 android:paddingVertical="@dimen/_6sdp"
-                                android:text="@string/log_in"
-                                android:textColor="@color/white"
-                                android:textSize="@dimen/_14ssp" />
+                                android:text="@string/log_in" />
 
 
                         </LinearLayout>

@@ -1,4 +1,4 @@
-package com.trucksup.field_officer.presenter.view.activity.dashboard
+package com.trucksup.field_officer.presenter.view.activity.other
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.location.Geocoder
 import android.location.Location
+import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.view.LayoutInflater
@@ -35,6 +36,12 @@ import com.trucksup.field_officer.presenter.common.HelplineBox
 import com.trucksup.field_officer.presenter.common.LoadingUtils
 import com.trucksup.field_officer.presenter.common.dialog.DialogBoxes
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
+import com.trucksup.field_officer.presenter.utils.LoggerMessage
+import com.trucksup.field_officer.presenter.utils.PreferenceManager
+import com.trucksup.field_officer.presenter.view.activity.auth.login.LoginActivity
+import com.trucksup.field_officer.presenter.view.activity.auth.logout.LogoutAlertBox
+import com.trucksup.field_officer.presenter.view.activity.auth.logout.LogoutManager
+import com.trucksup.field_officer.presenter.view.activity.auth.logout.LogoutRequest
 import com.trucksup.field_officer.presenter.view.activity.dashboard.vml.DashBoardViewModel
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.FinanceActivity
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.InsuranceActivity
@@ -54,6 +61,8 @@ import com.trucksup.field_officer.presenter.view.adapter.NavigationMenuItem
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
 
+
+class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
 @AndroidEntryPoint
 class HomeActivity : BaseActivity(), OnItemClickListener {
     private lateinit var binding: ActivityHomeBinding
@@ -78,7 +87,7 @@ class HomeActivity : BaseActivity(), OnItemClickListener {
         enableEdgeToEdge()
         adjustFontScale(getResources().configuration, 1.0f)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home)
-        setContentView( binding.root)
+        setContentView(binding.root)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
         mViewModel = ViewModelProvider(this)[DashBoardViewModel::class.java]
@@ -128,7 +137,7 @@ class HomeActivity : BaseActivity(), OnItemClickListener {
         val dialog: AlertDialog = builder.create()
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
 
-        binding.imgCancel.setOnClickListener{
+        binding.imgCancel.setOnClickListener {
             dialog.dismiss()
         }
         setDialogRvList(binding)
@@ -168,7 +177,14 @@ class HomeActivity : BaseActivity(), OnItemClickListener {
         binding.nn.btnEditProfile.setOnClickListener {
             val intent = Intent(this@HomeActivity, EditProfileActivity::class.java)
             startActivity(intent)
-            overridePendingTransition( R.anim.slide_in_up, R.anim.slide_out_up );
+            overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
+        }
+
+        //Logout button
+        binding.navLogout.setOnClickListener {
+            val logoutBox = LogoutAlertBox(this, this)
+            logoutBox.show()
+            binding.drawerLay.close()
         }
 
         binding.llHome.setOnClickListener {
@@ -288,9 +304,21 @@ class HomeActivity : BaseActivity(), OnItemClickListener {
 
     private fun setNavigationMenu() {
         val list = ArrayList<NavItems>()
-        list.add(NavItems(R.drawable.nav_my_business,"My Business","To view the details of my onboarded team."))
-        list.add(NavItems(R.drawable.nav_targets,"Targets","To view my daily targets."))
-        list.add(NavItems(R.drawable.travel_exp,"Travel Expenses","To request for travel expenses."))
+        list.add(
+            NavItems(
+                R.drawable.nav_my_business,
+                "My Business",
+                "To view the details of my onboarded team."
+            )
+        )
+        list.add(NavItems(R.drawable.nav_targets, "Targets", "To view my daily targets."))
+        list.add(
+            NavItems(
+                R.drawable.travel_exp,
+                "Travel Expenses",
+                "To request for travel expenses."
+            )
+        )
 
         binding.listSlidermenu.apply {
             layoutManager = LinearLayoutManager(this@HomeActivity, RecyclerView.VERTICAL, false)
@@ -299,29 +327,83 @@ class HomeActivity : BaseActivity(), OnItemClickListener {
         }
     }
 
-    override fun onItemClick(pos : Int) {
+    override fun onItemClick(pos: Int) {
 
         when (pos) {
             0 -> {
                 openFeatureDialog(this)
             }
+
             1 -> {
                 val intent = Intent(this, FinanceActivity::class.java)
                 startActivity(intent)
             }
+
             2 -> {
                 val intent = Intent(this, InsuranceActivity::class.java)
                 startActivity(intent)
             }
+
             3 -> {
                 val intent = Intent(this, AddSmartFuelActivity::class.java)
                 startActivity(intent)
             }
+
             else -> {
                 Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show()
             }
         }
     }
+
+    override fun onClickLogout() {
+        val request = LogoutRequest(
+            true,
+            PreferenceManager.getPhoneNo(this),
+            PreferenceManager.getRequestNo(),
+            PreferenceManager.getPhoneNo(this)
+        )
+       showProgressDialog(this,false)
+       /* var volley: VollyRequests = VollyRequests()
+        var data: PathsModle = PreferenceManager.stringToPath(PreferenceManager.getApiPath(this!!))
+        volley.logout(
+            this,
+            request,
+            this,
+            PreferenceManager.getAuthToken(),
+            data?.logout!!,
+            "out"
+        )*/
+
+
+    }
+
+    override fun logout(type: String) {
+        if (type == "out") {
+          dismissProgressDialog()
+
+            /*if (isMyServiceRunning(LocationService::class.java)) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    stopService(Intent(this, LocationService::class.java))
+                } else {
+                    stopService(Intent(this, LocationService::class.java))
+
+                }
+            }*/
+            PreferenceManager.removeData(this)
+            PreferenceManager.setLogout(false, this)
+
+            val loginIntent = Intent(this, LoginActivity::class.java)
+            startActivity(loginIntent)
+            finishAffinity()
+        } else { }
+
+    }
+
+    override fun logoutError(error: String) {
+        dismissProgressDialog()
+        LoggerMessage.toastPrint(error, this)
+    }
+
 
     private fun setupObserver() {
         mViewModel?.resultDutyStatusLD?.observe(this) { responseModel ->                     // login function observe

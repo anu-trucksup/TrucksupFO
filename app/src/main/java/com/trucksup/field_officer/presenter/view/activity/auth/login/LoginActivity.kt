@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.text.TextUtils
@@ -13,10 +14,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import com.google.gson.Gson
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.data.model.authModel.LoginRequest
 import com.trucksup.field_officer.databinding.ActivityLoginBinding
 import com.trucksup.field_officer.presenter.common.AlertBoxDialog
+import com.trucksup.field_officer.presenter.common.AppVersionUtils
 import com.trucksup.field_officer.presenter.common.Utils
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.utils.CommonApplication
@@ -41,7 +44,6 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mLoginBinding = DataBindingUtil.setContentView(this, R.layout.activity_login)
-        //Utils.setStatusBarColorAndIcons(this)
 
         loginPreferences = CommonApplication.getSharedPreferences()
         loginPrefsEditor = loginPreferences?.edit();
@@ -51,11 +53,10 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
             mLoginBinding?.phoneTxt?.setText(loginPreferences?.getString("username", ""));
             mLoginBinding?.passwordTxt?.setText(loginPreferences?.getString("password", ""));
             mLoginBinding?.rbRemember?.setChecked(true);
+        }else{
+            mLoginBinding?.phoneTxt?.setText(intent?.getStringExtra("mobile"))
         }
-//        Show Password:
-        //mLoginBinding?.passwordTxt?.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-//        Hide Password:
-//        mLoginBinding?.passwordTxt?.setTransformationMethod(PasswordTransformationMethod.getInstance());
+
 
         //click Listener
         mLoginBinding?.ivBackArrowLogin?.setOnClickListener(this)
@@ -64,7 +65,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
 
         mLoginBinding?.loginBtn?.setOnClickListener(this)
 
-        mViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
+        mViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
         mLoginBinding?.setViewModel(mViewModel)
 
 
@@ -97,25 +98,26 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
             } else {
                 dismissProgressDialog()
 
-                if (responseModel.success != null) {
-                    Toast.makeText(this, "Log in Successfully.", Toast.LENGTH_SHORT).show()
-                    // move to home screen
-                    Log.d("MYTAG",
-                        "bearer token ==> " + responseModel.success.loginDetails.token)
-                    val intent = Intent(this@LoginActivity, WelcomeLocationActivity::class.java)
-                    intent.putExtra("status", 1)
-                    //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent)
-
-                } else {
+                if (responseModel.success?.statuscode == 201) {
 
                     val abx = AlertBoxDialog(
                         this@LoginActivity,
-                        responseModel.success?.message.toString(),
-                        "m"
+                        responseModel.success.message.toString(),
+                        "sign"
                     )
                     abx.show()
+                } else {
+
+                    val jsonString = Gson().toJson(responseModel.success?.loginDetails)
+                    PreferenceManager.setUserData(jsonString, this)
+
+                    Toast.makeText(this, "Log in Successfully.", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this@LoginActivity, WelcomeLocationActivity::class.java)
+                    //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                    startActivity(intent)
+                    finish()
                 }
+
             }
         }
     }
@@ -182,14 +184,15 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                 }
 
                 if (isValidMobile(mLoginBinding?.phoneTxt?.text.toString())) {
+
                     val request = LoginRequest(
-                        requestedBy = PreferenceManager.getPhoneNo(this),
+                        requestedBy = mLoginBinding?.phoneTxt?.text.toString(),
                         requestId = PreferenceManager.getRequestNo().toInt(),
                         requestDatetime = PreferenceManager.getServerDateUtc(),
                         deviceid = PreferenceManager.getAndroiDeviceId(this),
-                        appVersion = "",
-                        androidVersion = "",
-                        profilename = PreferenceManager.getUserName(this),
+                        appVersion = AppVersionUtils.getAppVersionName(this),
+                        androidVersion = Build.VERSION.SDK_INT.toString(),
+                        profilename = "",
                         profilephoto = "",
                         mobilenumber = mLoginBinding?.phoneTxt?.text.toString(),
                         password = mLoginBinding?.passwordTxt?.text.toString()

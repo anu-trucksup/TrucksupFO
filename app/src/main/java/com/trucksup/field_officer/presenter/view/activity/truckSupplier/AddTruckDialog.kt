@@ -478,7 +478,7 @@ class AddTruckDialog(
         return true
     }
 
-    private fun generateToken() {
+   /* private fun generateToken() {
         LoadingUtils.showDialog(context, false)
         val request = GenerateJWTtokenRequest(
             apiSecreteKey = PreferenceManager.getAccessKey(context),
@@ -487,10 +487,10 @@ class AddTruckDialog(
             username = PreferenceManager.getAccesUserName(context),
             issuer = PreferenceManager.getAccesUserInssur(context)
         )
-        tokenViewModel.generateJWTtoken(request, this, context)
+        tokenViewModel.generateJWToken(request, this, context)
         Log.e(" volley main url ", PreferenceManager.getServerUrl(context))
         // getFilter(id, loadType, "Bearer " + data?.accessToken.toString())
-    }
+    }*/
 
     private fun getFilter(id: Int, loadType: Int) {
 

@@ -590,7 +590,7 @@
     <string name="suggested_vehicle">Suggested vehicle</string>
 
     <string name="add1">ADD</string>
-    <string name="load_notfound">Sorry ! Load not found</string>
+    <string name="load_not_found">Sorry ! Load not found</string>
     <string name="khata_notfound">Sorry ! Records not found</string>
     <string name="search_verified_dl">Search verified driving license..</string>
     <string name="search_truck_m">Search my truck(Only 3 months)</string>
@@ -612,12 +612,12 @@
     <string name="tu_kawach">
     <font color="#3E2089">TU</font>
     <font color="#DB5015">Kawach</font>
+    </string>
 
-</string>
-    <string name="enter_password">\"Please Enter Password.\"</string>
-    <string name="validnameformate">Enter valid name format.</string>
+    <string name="enter_password">Please Enter Password.</string>
+    <string name="valid_name_format">Enter valid name format.</string>
     <string name="enterProfileName">Enter Profile name</string>
-    <string name="enter_valid_mobile">\"Enter valid mobile number.\"</string>
+    <string name="enter_valid_mobile">Enter valid mobile number.</string>
 
     <string name="business_document">Business document</string>
     <string name="visiting_card">Visiting card</string>
@@ -708,6 +708,9 @@
     <string name="total_add_loads">Total Add Loads</string>
     <string name="posted_on">Posted on:</string>
     <string name="loading_date">Loading Date:</string>
+    <string name="no_internet">No internet connection.</string>
+    <string name="error_mobile">Enter Mobile Number</string>
+    <string name="password_hint">*************</string>
     <string name="pan_photo_">PAN Photo <font color='#FF0000'>*</font></string>
 
 </resources>

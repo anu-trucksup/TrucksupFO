@@ -228,7 +228,7 @@
                                         android:fontFamily="@font/bai_jamjuree_semi_bold"
                                         android:paddingStart="@dimen/_5sdp"
                                         android:gravity="center_vertical"
-                                        android:textColor="@color/secondry_text"/>
+                                        android:textColor="@color/secondary_text"/>
                                     <TextView
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
@@ -261,7 +261,7 @@
                                             android:fontFamily="@font/bai_jamjuree_semi_bold"
                                             android:paddingStart="@dimen/_5sdp"
                                             android:gravity="center_vertical"
-                                            android:textColor="@color/secondry_text"/>
+                                            android:textColor="@color/secondary_text"/>
                                         <TextView
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
@@ -303,7 +303,7 @@
                                         android:fontFamily="@font/bai_jamjuree_semi_bold"
                                         android:paddingStart="@dimen/_5sdp"
                                         android:gravity="center_vertical"
-                                        android:textColor="@color/secondry_text"/>
+                                        android:textColor="@color/secondary_text"/>
                                     <TextView
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
@@ -336,7 +336,7 @@
                                             android:fontFamily="@font/bai_jamjuree_semi_bold"
                                             android:paddingStart="@dimen/_5sdp"
                                             android:gravity="center_vertical"
-                                            android:textColor="@color/secondry_text"/>
+                                            android:textColor="@color/secondary_text"/>
                                         <TextView
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
@@ -443,7 +443,7 @@
                             android:fontFamily="@font/bai_jamjuree_semi_bold"
                             android:paddingStart="@dimen/_5sdp"
                             android:gravity="center_vertical"
-                            android:textColor="@color/secondry_text"/>
+                            android:textColor="@color/secondary_text"/>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
