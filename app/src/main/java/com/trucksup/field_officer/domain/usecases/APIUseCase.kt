@@ -7,6 +7,8 @@ import com.logistics.trucksup.modle.PlanResponse
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryData
 import com.trucksup.field_officer.data.model.AutoImageSlideResponse
 import com.trucksup.field_officer.data.model.CheckUserProfileResponse
+import com.trucksup.field_officer.data.model.DutyStatusRequest
+import com.trucksup.field_officer.data.model.DutyStatusResponse
 import com.trucksup.field_officer.data.model.NewUserProfile
 import com.trucksup.field_officer.data.model.PinCodeRequest
 import com.trucksup.field_officer.data.model.PinCodeResponse
@@ -25,6 +27,8 @@ import com.trucksup.field_officer.data.model.otp.NewOtpResponse
 import com.trucksup.field_officer.data.model.otp.OtpRequest
 import com.trucksup.field_officer.data.model.smartfuel.AddSmartFuelLeadRequest
 import com.trucksup.field_officer.data.model.smartfuel.AddSmartFuelLeadResponse
+import com.trucksup.field_officer.data.model.smartfuel.SmartFuelHistoryRequest
+import com.trucksup.field_officer.data.model.smartfuel.SmartFuelHistoryResponse
 import com.trucksup.field_officer.data.model.user.UpdateProfileRequest
 import com.trucksup.field_officer.data.model.user.UpdateProfileResponse
 import com.trucksup.field_officer.data.network.ResultWrapper
@@ -238,5 +242,19 @@ class APIUseCase @Inject constructor(private val apiRepository: APIRepository) {
         request: AddSmartFuelLeadRequest
     ): ResultWrapper<AddSmartFuelLeadResponse> {
         return apiRepository.addSmartFuelLead(authToken, request)
+    }
+
+    suspend fun getSmartFuelHistory(
+        authToken: String,
+        request: SmartFuelHistoryRequest
+    ): ResultWrapper<SmartFuelHistoryResponse> {
+        return apiRepository.getSmartFuelHistory(authToken, request)
+    }
+
+    suspend fun dutyStatus(
+        authToken: String,
+        request: DutyStatusRequest
+    ): ResultWrapper<DutyStatusResponse> {
+        return apiRepository.dutyStatus(authToken, request)
     }
 }

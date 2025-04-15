@@ -1,4 +1,4 @@
-package com.trucksup.field_officer.presenter.view.activity.other
+package com.trucksup.field_officer.presenter.view.activity.dashboard
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -14,6 +14,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -29,26 +30,40 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ActivityHomeBinding
 import com.trucksup.field_officer.databinding.HomeMainServicesDialogBinding
+import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.HelplineBox
+import com.trucksup.field_officer.presenter.common.LoadingUtils
 import com.trucksup.field_officer.presenter.common.dialog.DialogBoxes
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
+import com.trucksup.field_officer.presenter.view.activity.dashboard.vml.DashBoardViewModel
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.FinanceActivity
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.InsuranceActivity
+import com.trucksup.field_officer.presenter.view.activity.other.FollowUpActivity
+import com.trucksup.field_officer.presenter.view.activity.other.NavItems
+import com.trucksup.field_officer.presenter.view.activity.other.NewOnboardingSelection
 import com.trucksup.field_officer.presenter.view.activity.profile.EditProfileActivity
 import com.trucksup.field_officer.presenter.view.activity.profile.MyEarningActivity
 import com.trucksup.field_officer.presenter.view.activity.smartfuel.AddSmartFuelActivity
+import com.trucksup.field_officer.presenter.view.activity.smartfuel.SmartFuelViewModel
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.unassigned_ts_ba.activity.UnAssignedTSBAActivity
 import com.trucksup.field_officer.presenter.view.adapter.HomeFeaturesAdapter
 import com.trucksup.field_officer.presenter.view.adapter.ServicesMainAdapter
 import com.trucksup.field_officer.presenter.view.adapter.OnItemClickListener
 import com.trucksup.field_officer.presenter.view.adapter.TUKawachDialogAdapter
 import com.trucksup.field_officer.presenter.view.adapter.NavigationMenuItem
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
 
-
+@AndroidEntryPoint
 class HomeActivity : BaseActivity(), OnItemClickListener {
     private lateinit var binding: ActivityHomeBinding
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private var mViewModel: DashBoardViewModel? = null
+    private var latitude:String?=null
+    private var longitude:String?=null
+    private var address:String?=null
+    private var dutyStatus:Boolean=false
+
 
     override fun onStart() {
         super.onStart()
@@ -66,17 +81,21 @@ class HomeActivity : BaseActivity(), OnItemClickListener {
         setContentView( binding.root)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
+        mViewModel = ViewModelProvider(this)[DashBoardViewModel::class.java]
+
+
         setListonService()
 
         setSecondRvList()
 
         setListener()
 
+        setupObserver()
+
         setNavigationMenu()
     }
 
     private fun setListonService() {
-
         binding.rvServices.apply {
             binding.rvServices.layoutManager = GridLayoutManager(this@HomeActivity, 3)
             adapter = ServicesMainAdapter(this@HomeActivity)
@@ -124,17 +143,20 @@ class HomeActivity : BaseActivity(), OnItemClickListener {
         }
 
         binding.OnSwitchBtn.setOnCheckedChangeListener { compoundButton, b ->
-            if (b) {
-                binding.txtOnDuty.text = "On Duty"
-                binding.txtOnDuty.setTextColor(resources.getColor(R.color.on_duty_color))
-                binding.OnSwitchBtn.trackTintList =
-                    resources.getColorStateList(R.color.on_duty_color)
-            } else {
-                binding.txtOnDuty.text = "Off Duty"
-                binding.txtOnDuty.setTextColor(resources.getColor(R.color.red))
-                binding.OnSwitchBtn.trackTintList = resources.getColorStateList(R.color.red)
+            dutyStatus=b
+//            if (b) {
+//                binding.txtOnDuty.text = "On Duty"
+//                binding.txtOnDuty.setTextColor(resources.getColor(R.color.on_duty_color))
+//                binding.OnSwitchBtn.trackTintList =
+//                    resources.getColorStateList(R.color.on_duty_color)
+//            } else {
+//                binding.txtOnDuty.text = "Off Duty"
+//                binding.txtOnDuty.setTextColor(resources.getColor(R.color.red))
+//                binding.OnSwitchBtn.trackTintList = resources.getColorStateList(R.color.red)
+//            }
+            if(!latitude.isNullOrEmpty() && !longitude.isNullOrEmpty() && !address.isNullOrEmpty()) {
+                DialogBoxes.onOffDuty(this, dutyStatus, mViewModel, latitude, longitude, address)
             }
-            DialogBoxes.onOffDuty(this)
         }
 
         //close drawer
@@ -216,6 +238,11 @@ class HomeActivity : BaseActivity(), OnItemClickListener {
                                         addresses?.get(0)?.getAddressLine(0)
                                     binding.addressShimmer.visibility = View.GONE
                                     binding.addressUpdate.visibility = View.VISIBLE
+
+                                    latitude=location.latitude.toString()
+                                    longitude=location.longitude.toString()
+                                    address=addresses?.get(0)?.getAddressLine(0).toString()
+
                                 } catch (e: Exception) {
 //                                    val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
 //                                    startActivity(intent)
@@ -292,6 +319,32 @@ class HomeActivity : BaseActivity(), OnItemClickListener {
             }
             else -> {
                 Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun setupObserver() {
+        mViewModel?.resultDutyStatusLD?.observe(this) { responseModel ->                     // login function observe
+            if (responseModel.serverError != null) {
+                LoadingUtils.hideDialog()
+
+                val abx = AlertBoxDialog(this, responseModel.serverError.toString(), "m")
+                abx.show()
+            } else {
+                LoadingUtils.hideDialog()
+                if (responseModel.success != null) {
+                    if (dutyStatus==true) {
+                        binding.txtOnDuty.text = "On Duty"
+                        binding.txtOnDuty.setTextColor(resources.getColor(R.color.on_duty_color))
+                        binding.OnSwitchBtn.trackTintList =
+                            resources.getColorStateList(R.color.on_duty_color)
+                    } else {
+                        binding.txtOnDuty.text = "Off Duty"
+                        binding.txtOnDuty.setTextColor(resources.getColor(R.color.red))
+                        binding.OnSwitchBtn.trackTintList = resources.getColorStateList(R.color.red)
+                    }
+                } else {
+                }
             }
         }
     }

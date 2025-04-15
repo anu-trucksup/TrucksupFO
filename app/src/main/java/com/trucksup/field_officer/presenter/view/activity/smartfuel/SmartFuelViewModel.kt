@@ -8,6 +8,8 @@ import com.trucksup.field_officer.data.model.image.ImageResponse
 import com.trucksup.field_officer.data.model.image.TrucksupImageUploadResponse
 import com.trucksup.field_officer.data.model.smartfuel.AddSmartFuelLeadRequest
 import com.trucksup.field_officer.data.model.smartfuel.AddSmartFuelLeadResponse
+import com.trucksup.field_officer.data.model.smartfuel.SmartFuelHistoryRequest
+import com.trucksup.field_officer.data.model.smartfuel.SmartFuelHistoryResponse
 import com.trucksup.field_officer.data.network.ResponseModel
 import com.trucksup.field_officer.data.network.ResultWrapper
 import com.trucksup.field_officer.domain.usecases.APIUseCase
@@ -29,11 +31,11 @@ import javax.inject.Inject
 @HiltViewModel
 class SmartFuelViewModel @Inject constructor(val apiUseCase: APIUseCase) : ViewModel() {
 
-    private var resultSubmitSmartFuel: MutableLiveData<ResponseModel<AddSmartFuelLeadResponse>> =
-        MutableLiveData<ResponseModel<AddSmartFuelLeadResponse>>()
-    val resultSubmitSmartFuelLD: LiveData<ResponseModel<AddSmartFuelLeadResponse>> =
-        resultSubmitSmartFuel
+    private var resultSubmitSmartFuel: MutableLiveData<ResponseModel<AddSmartFuelLeadResponse>> = MutableLiveData<ResponseModel<AddSmartFuelLeadResponse>>()
+    val resultSubmitSmartFuelLD: LiveData<ResponseModel<AddSmartFuelLeadResponse>> = resultSubmitSmartFuel
 
+    private var resultSmartFuelHistory: MutableLiveData<ResponseModel<SmartFuelHistoryResponse>> = MutableLiveData<ResponseModel<SmartFuelHistoryResponse>>()
+    val resultSmartFuelHistoryLD: LiveData<ResponseModel<SmartFuelHistoryResponse>> = resultSmartFuelHistory
 
     fun submitSmartFuel(request: AddSmartFuelLeadRequest) {
         CoroutineScope(Dispatchers.IO).launch {
@@ -53,8 +55,25 @@ class SmartFuelViewModel @Inject constructor(val apiUseCase: APIUseCase) : ViewM
         }
     }
 
+    fun getSmartFuelHistory(request: SmartFuelHistoryRequest) {
+        CoroutineScope(Dispatchers.IO).launch {
+            when (val response = apiUseCase.getSmartFuelHistory(
+                PreferenceManager.getAuthToken(),
+                request
+            )) {
+                is ResultWrapper.ServerResponseError -> {
+                    Log.e("API Error", response.error ?: "")
+                    resultSmartFuelHistory.postValue(ResponseModel(serverError = response.error))
+                }
 
-    fun trucksupImageUpload(token: String,
+                is ResultWrapper.Success -> {
+                    resultSmartFuelHistory.postValue(ResponseModel(success = response.value))
+                }
+            }
+        }
+    }
+
+    fun uploadImages(token: String,
         documentType: String, file: MultipartBody.Part,
         fileWaterMark: MultipartBody.Part,
         imgRes: TrucksFOImageController) {
@@ -88,6 +107,7 @@ class SmartFuelViewModel @Inject constructor(val apiUseCase: APIUseCase) : ViewM
                 }
             })
     }
+
 
 
 }

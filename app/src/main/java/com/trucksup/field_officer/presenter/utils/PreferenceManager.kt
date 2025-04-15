@@ -1028,7 +1028,7 @@ object PreferenceManager {
     @SuppressLint("NewApi", "SuspiciousIndentation")
     fun getAuthToken(): String {
 
-        val authPayload = "DevUser:Dev@123"
+        val authPayload = "BOAPISERVICES:BOAPISERVICES@2025"
         val data = authPayload.toByteArray()
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -1042,6 +1042,7 @@ object PreferenceManager {
         }
 
     }
+
 
     @SuppressLint("NewApi")
     fun getHelpAuthToken(): String {

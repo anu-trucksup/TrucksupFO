@@ -35,7 +35,7 @@ data class AddSmartFuelLeadRequest(
     @SerializedName("requestDatetime")
     val requestDatetime: String,
     @SerializedName("requestId")
-    val requestId: Int,
+    val requestId: String,
     @SerializedName("requestedBy")
     val requestedBy: String,
     @SerializedName("salesCode")

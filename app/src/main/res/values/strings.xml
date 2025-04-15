@@ -306,7 +306,7 @@
     <string name="truck_details_validity">Truck Details <font color='#FF0000'>*</font></string>
 
     <string name="active">Active</string>
-    <string name="vehicle_details">Vehicle Details</string>
+    <string name="vehicle_details">Vehicle Details <font color='#FF0000'>*</font></string>
     <string name="rc_front_image">RC Front Image</string>
     <string name="rc_back_image">RC Back Image</string>
     <string name="previous_policy_document">Previous Policy Document</string>
@@ -708,5 +708,6 @@
     <string name="total_add_loads">Total Add Loads</string>
     <string name="posted_on">Posted on:</string>
     <string name="loading_date">Loading Date:</string>
+    <string name="pan_photo_">PAN Photo <font color='#FF0000'>*</font></string>
 
 </resources>

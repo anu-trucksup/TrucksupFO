@@ -82,7 +82,6 @@ class FinanceHistoryActivity : BaseActivity() {
     }
 
     private fun setupViewPager() {
-
         try {
             val adapter = FragmentAdapter(this)
            fragment1 = HistoryFnIsFragment("active",activehistoryList)

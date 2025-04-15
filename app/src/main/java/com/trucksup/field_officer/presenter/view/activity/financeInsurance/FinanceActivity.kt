@@ -126,7 +126,6 @@ class FinanceActivity : BaseActivity(), ChipController, CityPicker {
     }
 
     private fun getData() {
-
         showProgressDialog(this, true)
         val request = FinanceDataLiatRequest(
             PreferenceManager.getPhoneNo(this),

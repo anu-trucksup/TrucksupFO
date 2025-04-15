@@ -24,6 +24,7 @@ import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.trucksup.field_officer.databinding.ActivityWelcomeLocationBinding
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
+import com.trucksup.field_officer.presenter.view.activity.dashboard.HomeActivity
 import java.util.Locale
 
 class WelcomeLocationActivity : BaseActivity() {
