@@ -19,9 +19,9 @@ import com.trucksup.field_officer.data.model.authModel.LoginRequest
 import com.trucksup.field_officer.data.model.authModel.LoginResponse
 import com.trucksup.field_officer.data.model.authModel.SignRequest
 import com.trucksup.field_officer.data.model.authModel.SignResponse
-import com.trucksup.field_officer.data.model.category.CategoryAllResponse
 import com.trucksup.field_officer.data.model.deleteResponse.DeleteProfileResponse
-import com.trucksup.field_officer.data.model.image.ImageResponse
+import com.trucksup.field_officer.data.model.home.HomeCountRequest
+import com.trucksup.field_officer.data.model.home.HomeCountResponse
 import com.trucksup.field_officer.data.model.insurance.InquiryHistoryResponse
 import com.trucksup.field_officer.data.model.otp.NewOtpResponse
 import com.trucksup.field_officer.data.model.otp.OtpRequest
@@ -48,7 +48,6 @@ import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.Rc
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.RcResponse
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.VerifyTruckResponse
 import kotlinx.coroutines.Dispatchers
-import okhttp3.MultipartBody
 
 
 class APIRepositoryImpl constructor(private val apiService: ApiService) : APIRepository {
@@ -58,23 +57,6 @@ class APIRepositoryImpl constructor(private val apiService: ApiService) : APIRep
         request: LoginRequest
     ): ResultWrapper<LoginResponse> {
         val response = safeApiCall(Dispatchers.IO) { apiService.loginUser(token, request) }
-        when (response) {
-            is ResultWrapper.Success -> {
-                if (response.value.loginDetails != null) {
-                    val details = response.value.loginDetails
-                    val srdp = CommonApplication.getSharedPreferences()
-                    srdp?.edit()?.putString("access_token", details.token)
-                        ?.putString("user_name", details.profilename)
-                        ?.putString("user_image", details.profilephoto)
-                        ?.putString("user_password", details.password)
-                        ?.putString("user_referral", details.referralcode)
-                        ?.putString("user_email", details.email)?.apply()
-
-                }
-            }
-
-            else -> {}
-        }
 
         return response
     }
@@ -206,8 +188,8 @@ class APIRepositoryImpl constructor(private val apiService: ApiService) : APIRep
         TODO("Not yet implemented")
     }
 
-    override suspend fun getAllCategoryList(): ResultWrapper<CategoryAllResponse> {
-        return safeApiCall(Dispatchers.IO) { apiService.getAllCategoryList() }
+    override suspend fun getAllHomeCountStatus(authToken: String,homeCountRequest: HomeCountRequest): ResultWrapper<HomeCountResponse> {
+        return safeApiCall(Dispatchers.IO) { apiService.getAllHomeCountStatus(authToken,homeCountRequest) }
     }
 
 
@@ -215,11 +197,11 @@ class APIRepositoryImpl constructor(private val apiService: ApiService) : APIRep
         return safeApiCall(Dispatchers.IO) { apiService.deleteUserProfile() }
     }
 
-    override suspend fun deleteUserReview(
+    override suspend fun logoutAccount(
         reviewid: Int,
         shopId: Int
     ): ResultWrapper<DeleteProfileResponse> {
-        return safeApiCall(Dispatchers.IO) { apiService.deleteUserReview(reviewid, shopId) }
+        return safeApiCall(Dispatchers.IO) { apiService.logoutAccount(reviewid, shopId) }
     }
 
     override suspend fun autoImageSlide(): ResultWrapper<AutoImageSlideResponse> {

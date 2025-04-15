@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import com.google.gson.Gson
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.data.model.authModel.LoginRequest
 import com.trucksup.field_officer.databinding.ActivityLoginBinding
@@ -106,6 +107,10 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                     )
                     abx.show()
                 } else {
+
+                    val jsonString = Gson().toJson(responseModel.success?.loginDetails)
+                    PreferenceManager.setUserData(jsonString, this)
+
                     Toast.makeText(this, "Log in Successfully.", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this@LoginActivity, WelcomeLocationActivity::class.java)
                     //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK)

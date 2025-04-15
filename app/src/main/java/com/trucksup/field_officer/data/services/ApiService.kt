@@ -21,9 +21,9 @@ import com.trucksup.field_officer.data.model.authModel.LoginRequest
 import com.trucksup.field_officer.data.model.authModel.LoginResponse
 import com.trucksup.field_officer.data.model.authModel.SignRequest
 import com.trucksup.field_officer.data.model.authModel.SignResponse
-import com.trucksup.field_officer.data.model.category.CategoryAllResponse
 import com.trucksup.field_officer.data.model.deleteResponse.DeleteProfileResponse
-import com.trucksup.field_officer.data.model.image.ImageResponse
+import com.trucksup.field_officer.data.model.home.HomeCountRequest
+import com.trucksup.field_officer.data.model.home.HomeCountResponse
 import com.trucksup.field_officer.data.model.image.TrucksupImageUploadResponse
 import com.trucksup.field_officer.data.model.insurance.InquiryHistoryResponse
 import com.trucksup.field_officer.data.model.otp.NewOtpResponse
@@ -58,15 +58,13 @@ import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
 import retrofit2.http.Query
-import retrofit2.http.Url
 
 interface ApiService {
 
-    @POST()
-    fun generateJWTtoken(
+    @POST("JwtAuth/api/Auth/GenerateJWTtoken")
+    fun generateJWToken(
         @Header("x-api-key") auth: String,
-        @Body request: GenerateJWTtokenRequest,
-        @Url url: String
+        @Body request: GenerateJWTtokenRequest
     ): Call<GenerateJWTtokenResponse>?
 
 
@@ -140,17 +138,11 @@ interface ApiService {
         @Query("countryCode") countryCode: String
     ): CheckUserProfileResponse
 
-    /*  @PUT("global/user/profile")
-      @Headers("Accept: application/json")
-      suspend fun updateUserProfile(
-          @Query("profileId") profileId: Int,
-          @Body userProfile: UserUpdateProfile
-      ): Response<UserProfile>*/
 
-
-    @GET("BOAppApiGateway/apiateway/BOUpdateDutyStatus")
+    @GET("BOAppApiGateway/apiateway/BOHomeMenuItems")
     @Headers("Accept: application/json")
-    suspend fun getAllCategoryList(): CategoryAllResponse
+    suspend fun getAllHomeCountStatus( @Header("Authorization") credentials: String,
+                                       @Body homeCountRequest: HomeCountRequest): HomeCountResponse
 
 
     @GET("global/city/by-country")
@@ -160,9 +152,9 @@ interface ApiService {
     ): CountryResponse
 
 
-    @GET("shop/delete/review")
+    @GET("Apigateway/Gateway/Logout")
     @Headers("Accept: application/json")
-    suspend fun deleteUserReview(
+    suspend fun logoutAccount(
         @Query("id") id: Int,
         @Query("shopId") shopId: Int
     ): DeleteProfileResponse

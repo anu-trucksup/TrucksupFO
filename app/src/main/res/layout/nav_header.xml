@@ -79,7 +79,7 @@
                     android:layout_marginEnd="@dimen/_10sdp"
                     android:orientation="horizontal">
 
-                    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                    <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/nav_user_img"
                         android:layout_width="@dimen/_70sdp"
                         android:layout_height="@dimen/_70sdp"
@@ -105,7 +105,6 @@
                             android:fontFamily="@font/bai_jamjuree_semi_bold"
                             android:lines="1"
                             android:maxLines="1"
-                            android:text="User Name "
                             android:textColor="@color/black"
                             android:textSize="@dimen/_15ssp" />
 
@@ -116,14 +115,13 @@
 
                             <TextView
                                 android:id="@+id/_nav_mobile_no"
-                                android:layout_width="match_parent"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1.5"
                                 android:ellipsize="end"
                                 android:fontFamily="@font/bai_jamjuree_semi_bold"
                                 android:lines="1"
                                 android:maxLines="1"
-                                android:text="9999999999"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_9ssp" />
 

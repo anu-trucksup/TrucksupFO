@@ -93,7 +93,7 @@ class CreatePasswordActivity : BaseActivity(), View.OnClickListener {
 
                 val abx = AlertBoxDialog(
                     this@CreatePasswordActivity,
-                    responseModel.serverError.toString(),
+                    responseModel.success?.message.toString(),
                     "m"
                 )
                 abx.show()

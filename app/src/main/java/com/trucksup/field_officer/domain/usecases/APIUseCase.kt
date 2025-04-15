@@ -17,9 +17,9 @@ import com.trucksup.field_officer.data.model.authModel.LoginRequest
 import com.trucksup.field_officer.data.model.authModel.LoginResponse
 import com.trucksup.field_officer.data.model.authModel.SignRequest
 import com.trucksup.field_officer.data.model.authModel.SignResponse
-import com.trucksup.field_officer.data.model.category.CategoryAllResponse
 import com.trucksup.field_officer.data.model.deleteResponse.DeleteProfileResponse
-import com.trucksup.field_officer.data.model.image.ImageResponse
+import com.trucksup.field_officer.data.model.home.HomeCountRequest
+import com.trucksup.field_officer.data.model.home.HomeCountResponse
 import com.trucksup.field_officer.data.model.insurance.InquiryHistoryResponse
 import com.trucksup.field_officer.data.model.otp.NewOtpResponse
 import com.trucksup.field_officer.data.model.otp.OtpRequest
@@ -41,7 +41,6 @@ import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.Ad
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.RcRequest
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.RcResponse
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.VerifyTruckResponse
-import okhttp3.MultipartBody
 import javax.inject.Inject
 
 class APIUseCase @Inject constructor(private val apiRepository: APIRepository) {
@@ -110,8 +109,8 @@ class APIUseCase @Inject constructor(private val apiRepository: APIRepository) {
         return apiRepository.getUserProfile()
     }
 
-    suspend fun getAllCategoryList(): ResultWrapper<CategoryAllResponse> {
-        return apiRepository.getAllCategoryList()
+    suspend fun getAllHomeCountStatus(authToken: String,homeCountRequest: HomeCountRequest): ResultWrapper<HomeCountResponse> {
+        return apiRepository.getAllHomeCountStatus(authToken,homeCountRequest)
     }
 
 
@@ -128,8 +127,8 @@ class APIUseCase @Inject constructor(private val apiRepository: APIRepository) {
         return apiRepository.isUserLoggedIn()
     }
 
-    suspend fun deleteUserReview(reviewid: Int, shopId: Int): ResultWrapper<DeleteProfileResponse> {
-        return apiRepository.deleteUserReview(reviewid, shopId)
+    suspend fun logoutAccount(reviewid: Int, shopId: Int): ResultWrapper<DeleteProfileResponse> {
+        return apiRepository.logoutAccount(reviewid, shopId)
     }
 
     suspend fun deleteUserProfile(): ResultWrapper<DeleteProfileResponse> {
