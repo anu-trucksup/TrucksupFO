@@ -33,6 +33,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.data.model.VehicleDetail
+import com.trucksup.field_officer.data.model.smartfuel.AddSmartFuelLeadRequest
 import com.trucksup.field_officer.data.model.smartfuel.CustomerDetailsSubmitRequest
 import com.trucksup.field_officer.data.model.smartfuel.CustomerDocList
 import com.trucksup.field_officer.databinding.ActivityAddSmartfuelBinding
@@ -100,30 +101,29 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
 
         adjustFontScale(getResources().configuration, 1.0f);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_smartfuel)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+//            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+//            insets
+//        }
 
         mViewModel = ViewModelProvider(this)[SmartFuelViewModel::class.java]
-        PreferenceManager.setPhoneNo("9870009988", this)
-        //binding.etCustomerFullname.setText("Anupam")
 
+        PreferenceManager.setPhoneNo("9870009988", this)
         binding.etCustomerMobile.setText(PreferenceManager.getPhoneNo(this))
+        binding.etReferralCode.setText("7BGHJ9")
 
         //referral code or sales code
         // binding.etReferralCode.setText(PreferenceManager.getUserData(this)?.salesCode)
-        binding.etReferralCode.setText("7BGHJ9")
+
         disableEmojiInTitle()
         setListener()
         setupObserver()
         cameraLauncher()
     }
 
-
     private fun setupObserver() {
-        mViewModel?.resultsubmitInsuranceLD?.observe(this@AddSmartFuelActivity) { responseModel ->                     // login function observe
+        mViewModel?.resultSubmitSmartFuelLD?.observe(this@AddSmartFuelActivity) { responseModel ->                     // login function observe
             if (responseModel.serverError != null) {
                 dismissProgressDialog()
 
@@ -140,7 +140,7 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
                 if (responseModel.success?.message != null) {
                     val abx = FinaceSubmitBox(
                         this, responseModel.success.message,
-                        responseModel.success.message1, "cl"
+                        responseModel.success.message, "cl"
                     )
                     abx.show()
 
@@ -152,8 +152,7 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
 
     }
 
-    private var activitypdfLauncher =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+    private var activitypdfLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
 
                 val orFile: File = FileHelp().getFile(this, result.data?.data)!!
@@ -221,43 +220,6 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
             }
         }
 
-
-       /* //previous policy
-        binding.imgPrevPolicyDoc.setOnClickListener {
-            if (prevPolicyDocsImgKey.isNullOrEmpty()) {
-                imageT = 3
-                getImage()
-            }
-        }*/
-
-
-       /* //cut button
-        binding.btnCut.setOnClickListener {
-
-            binding.vehicleDetailsCard.visibility = View.GONE
-            binding.btnAddImage.visibility = View.VISIBLE
-            binding.etCustomerVehicleNumber.getText().clear()
-            binding.etInsValidity.text = ""
-
-            //clear rc front image
-            binding.cutFrontBtn.visibility = View.GONE
-            binding.imgFrontCamera.setImageDrawable(getDrawable(R.drawable.camera_new))
-            rcFrontImgKey = ""
-            rcFrontImgUrl = ""
-
-            //clear rc back image
-            binding.cutBackBtn.visibility = View.GONE
-            binding.imgBackCamera.setImageDrawable(getDrawable(R.drawable.camera_new))
-            rcBackImgKey = ""
-            rcBackImgUrl = ""
-
-            //clear previous policy docs image image
-            binding.cutPrevPolicyBtn.visibility = View.GONE
-            binding.imgPrevPolicyDoc.setImageDrawable(getDrawable(R.drawable.camera_new))
-            prevPolicyDocsImgKey = ""
-            prevPolicyDocsImgUrl = ""
-        }*/
-
         //cut front
         binding.cutFrontBtn.setOnClickListener {
             //clear rc front image
@@ -322,50 +284,37 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
             declarationImgUrl = ""
         }
 
-       /* //cut previous policy docs
-        binding.cutPrevPolicyBtn.setOnClickListener {
-            //clear previous policy docs image image
-            binding.cutPrevPolicyBtn.visibility = View.GONE
-            binding.imgPrevPolicyDoc.setImageDrawable(getDrawable(R.drawable.camera_new))
-            prevPolicyDocsImgKey = ""
-            prevPolicyDocsImgUrl = ""
-        }*/
-
-
         //submit button
         binding.btnSumbit.setOnClickListener {
-        checkValidation()
+            checkValidation()
+        }
     }
 
-
-    }
-
-    private fun ApiOnSubmitted(){
-        list.add(
-            CustomerDocList(
-                rcFrontImgKey ?: "",
-                rcBackImgKey ?: "",
-                panImgKey ?: "",
-                AddressFrontImgKey ?: "",
-                AddressBackImgKey ?: "",
-                cancelChequeImgKey ?: "",
-                declarationImgKey ?: "",
-            )
-        )
-
-        val requestData = CustomerDetailsSubmitRequest(
-            "",
-            "",
-            binding.etCustomerFullname.toString(),
-            binding.etCustomerMobile.toString(),
-            binding.etCustomerEmail.toString(),
-            binding.etCustomerVehicleNumber.toString(),
-            binding.etPanNumber.toString(),
-            "",
-            "",
-        )
+    private fun ApiOnSubmitted() {
         showProgressDialog(this, false)
-        //mViewModel?.submitInsuranceData(requestData)
+        val request = AddSmartFuelLeadRequest(
+            ""+binding.acsAddressProof.selectedItem?:"",
+            "" + AddressBackImgKey ?: "",
+            "" + AddressFrontImgKey ?: "",
+            "" + PreferenceManager.getPhoneNo(this),
+            "" + cancelChequeImgKey ?: "",
+            "" + binding.etCustomerEmail.text.toString(),
+            "" + binding.etCustomerFullname.text.toString(),
+            "" + binding.etCustomerMobile.text.toString(),
+            "" + binding.etCustomerVehicleNumber.text.toString(),
+            "" + declarationImgKey ?: "",
+            "" + binding.etPanNumber.text.toString(),
+            "" + panImgKey ?: "",
+            "" + rcBackImgKey ?: "",
+            "" + rcFrontImgKey ?: "",
+            "" + PreferenceManager.getServerDateUtc(),
+            "" + PreferenceManager.getRequestNo(),
+            "" + PreferenceManager.getPhoneNo(this),
+            ""+binding.etReferralCode.text.toString(),
+            "BO",
+            "" + PreferenceManager.getPhoneNo(this)
+        )
+        mViewModel?.submitSmartFuel(request)
     }
 
     private fun checkValidation() {
@@ -375,101 +324,101 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
                 resources.getString(R.string.enterYourName),
                 this
             )
-        }else if(getSpecialCharacterCount(binding.etCustomerFullname?.text.toString()) == 0){
+        } else if (getSpecialCharacterCount(binding.etCustomerFullname?.text.toString()) == 0) {
             LoggerMessage.onSNACK(
                 binding.etCustomerFullname,
                 resources.getString(R.string.enterYourrightName),
                 this
             )
-        }else if(binding.etCustomerMobile.text.isNullOrEmpty()){
+        } else if (binding.etCustomerMobile.text.isNullOrEmpty()) {
             LoggerMessage.onSNACK(
                 binding.etCustomerMobile,
                 resources.getString(R.string.enter_mobile_no),
                 this
             )
-        }else if(isValidPhoneNumber(binding.etCustomerMobile.text.toString()) == false){
+        } else if (isValidPhoneNumber(binding.etCustomerMobile.text.toString()) == false) {
             LoggerMessage.onSNACK(
                 binding.etCustomerMobile,
                 resources.getString(R.string.enter_right_number_v),
                 this
             )
-        }else if(binding.etCustomerEmail.text.isNullOrEmpty()){
+        } else if (binding.etCustomerEmail.text.isNullOrEmpty()) {
             LoggerMessage.onSNACK(
                 binding.etCustomerEmail,
                 resources.getString(R.string.email),
                 this
             )
-        }else if(isValidEmail(binding.etCustomerEmail.text) == false){
+        } else if (isValidEmail(binding.etCustomerEmail.text) == false) {
             LoggerMessage.onSNACK(
                 binding.etCustomerEmail,
                 resources.getString(R.string.valid_email),
                 this
             )
-        }else if(binding.etCustomerVehicleNumber.text.isNullOrEmpty()){
+        } else if (binding.etCustomerVehicleNumber.text.isNullOrEmpty()) {
             LoggerMessage.onSNACK(
                 binding.etCustomerVehicleNumber,
                 resources.getString(R.string.enterVehicle),
                 this
             )
-        }else if(checkVehicleNumber(binding.etCustomerVehicleNumber.text.toString())){
+        } else if (checkVehicleNumber(binding.etCustomerVehicleNumber.text.toString())==false) {
             LoggerMessage.onSNACK(
                 binding.etCustomerVehicleNumber,
                 resources.getString(R.string.enterVehicle),
                 this
             )
-        }else if(rcFrontImgKey.isNullOrEmpty()){
+        } else if (rcFrontImgKey.isNullOrEmpty()) {
             LoggerMessage.onSNACK(
                 binding.etCustomerVehicleNumber,
                 resources.getString(R.string.valid_vehicle_front_photo),
                 this
             )
-        }else if(rcBackImgKey.isNullOrEmpty()){
+        } else if (rcBackImgKey.isNullOrEmpty()) {
             LoggerMessage.onSNACK(
                 binding.etCustomerVehicleNumber,
                 resources.getString(R.string.valid_vehicle_back_photo),
                 this
             )
-        }else if(binding.etPanNumber.text.isNullOrEmpty()){
+        } else if (binding.etPanNumber.text.isNullOrEmpty()) {
             LoggerMessage.onSNACK(
                 binding.etCustomerVehicleNumber,
                 resources.getString(R.string.pan),
                 this
             )
-        }else if(isValidPanNumber(binding.etPanNumber.text.toString()) == false){
+        } else if (isValidPanNumber(binding.etPanNumber.text.toString()) == false) {
             LoggerMessage.onSNACK(
                 binding.etCustomerVehicleNumber,
                 resources.getString(R.string.valid_pan),
                 this
             )
-        }else if(panImgKey.isNullOrEmpty()){
+        } else if (panImgKey.isNullOrEmpty()) {
             LoggerMessage.onSNACK(
                 binding.etCustomerVehicleNumber,
                 resources.getString(R.string.pan_photo),
                 this
             )
-        }else if(AddressFrontImgKey.isNullOrEmpty()){
+        }
+//        else if (binding.acsAddressProof.selectedItem)
+//        {
+//
+//        }
+        else if (AddressFrontImgKey.isNullOrEmpty()) {
             LoggerMessage.onSNACK(
                 binding.etCustomerVehicleNumber,
                 resources.getString(R.string.address_front_photo),
                 this
             )
-        }else if(AddressBackImgKey.isNullOrEmpty()){
+        } else if (AddressBackImgKey.isNullOrEmpty()) {
             LoggerMessage.onSNACK(
                 binding.etCustomerVehicleNumber,
                 resources.getString(R.string.address_back_photo),
                 this
             )
-        }else{
-            LoggerMessage.onSNACK(
-                binding.etCustomerVehicleNumber, resources.getString(R.string.transactionSuccessful),
-                this
-            )
-
+        } else {
             ApiOnSubmitted()
         }
     }
 
-    fun isValidPanNumber(panNumber: String): Boolean{
+    fun isValidPanNumber(panNumber: String): Boolean {
         val pattern = Pattern.compile("[A-Z]{5}[0-9]{4}[A-Z]{1}")
         val matcher = pattern.matcher(panNumber)
         // Check if pattern matches
@@ -481,13 +430,13 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
     }
 
     fun isValidEmail(target: CharSequence?): Boolean {
-        return  Patterns.EMAIL_ADDRESS.matcher(target).matches()
+        return Patterns.EMAIL_ADDRESS.matcher(target).matches()
     }
+
     private fun checkVehicleNumber(vehicleNumber: String): Boolean {
         val regex = "^[A-Z]{2}[ -]?[0-9|A-Z]{2}[ -]?[A-Z]{1,2}[ -]?[0-9]{4}$"
         return vehicleNumber.matches(regex.toRegex())
     }
-
 
     fun backScreen(v: View) {
         onBackPressed()
@@ -562,7 +511,6 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
         }
         binding.etCustomerFullname?.filters = arrayOf(emojiFilter)
     }
-
 
     private fun getImage() {
         if (ActivityCompat.checkSelfPermission(
@@ -659,11 +607,7 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
 
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray,
-    ) {
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray, ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == 1010) {
             if (grantResults.isNotEmpty()) {
@@ -697,8 +641,7 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
          startActivity(intent)*/
     }
 
-    private val pickMedia =
-        registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+    private val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
             // Callback is invoked after the user selects a media item or closes the
             // photo picker.
             if (uri != null) {
@@ -717,8 +660,6 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
 //            var bitmap: Bitmap = FileHelp().FileToBitmap(orFile)
 //            var newBitmap: Bitmap = FileHelp().resizeImage(bitmap, 500, 500)!!
 //            var newFile: File = FileHelp().bitmapTofile(newBitmap, this)!!
-
-                uploadImage(newFile, "")
 
 
             } else {
@@ -756,167 +697,13 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
     }
 
     override fun fromCamara() {
-
         launchCamera(true, 1, false)
     }
-
-
-    private fun viewVehicleDetails(data: VehicleDetail) {
-        val builder = AlertDialog.Builder(this@AddSmartFuelActivity)
-        val binding =
-            VehicleDetailsDialogLayoutBinding.inflate(LayoutInflater.from(this@AddSmartFuelActivity))
-        builder.setView(binding.root)
-        val dialog: AlertDialog = builder.create()
-        dialog.setCancelable(false)
-        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
-        dialog.show()
-
-        //vehicle number
-        binding.etVehicleNo.text = data.vehicleNumber
-
-        //insurance validity
-        binding.etInsValidity.text = data.insuranceValidity
-
-        //rc front image
-        if (data.rcFrontImgUrl.isNullOrEmpty()) {
-            binding.lRcFrontImage.visibility = View.GONE
-        } else {
-            binding.lRcFrontImage.visibility = View.VISIBLE
-            try {
-                Glide.with(this)
-                    .load(data.rcFrontImgUrl).placeholder(R.drawable.placeholder_image2)
-                    .error(R.drawable.placeholder_image2)
-                    .into(binding.imgFrontCamera)
-            } catch (e: Exception) {
-
-            }
-        }
-
-        //rc back image
-        if (data.rcBackImgUrl.isNullOrEmpty()) {
-            binding.lRcBackImage.visibility = View.GONE
-        } else {
-            binding.lRcBackImage.visibility = View.VISIBLE
-            try {
-                Glide.with(this)
-                    .load(data.rcBackImgUrl).placeholder(R.drawable.placeholder_image2)
-                    .error(R.drawable.placeholder_image2)
-                    .into(binding.imgBackCamera)
-            } catch (e: Exception) {
-
-            }
-        }
-
-        //previous policy docs image
-        if (data.policyDocUrl.isNullOrEmpty()) {
-            binding.lPrevPolicyDocImg.visibility = View.GONE
-        } else {
-            binding.lPrevPolicyDocImg.visibility = View.VISIBLE
-            try {
-//                Glide.with(this)
-//                    .load(MyResponse.imagePathUrl + data.PolicyDoc + "&Position=1").placeholder(R.drawable.placeholder_image2).error(R.drawable.placeholder_image2)
-//                    .into(binding.imgPrevPolicyDoc)
-                Glide.with(this)
-                    .load(R.drawable.pdf_icon)
-                    .placeholder(R.drawable.placeholder_image2)
-                    .error(R.drawable.placeholder_image2)
-                    .into(binding.imgPrevPolicyDoc)
-            } catch (e: Exception) {
-            }
-        }
-
-        binding.imgPrevPolicyDoc.setOnClickListener {
-            val intent: Intent = Intent(this, ViewPdfScreen::class.java)
-            intent.putExtra(
-                "pdf",
-                data.policyDocUrl
-            )
-            intent.putExtra("button", "n")
-            startActivity(intent)
-        }
-
-        //ok button
-        binding.btnOk.setOnClickListener {
-            dialog.dismiss()
-        }
-    }
-
-    /* fun getImageToken(file: File) {
-         LoadingUtils.showDialog(this, false)
-         var apiInterface: ApiInterface =
-             ApiClient(PreferenceManager.getServerUrl(this)).getClient
-         var req: TrucksHubAuthJWTtokenRequest = TrucksHubAuthJWTtokenRequest(
-             PreferenceManager.trucksHubAuthData(this)?.apiSecreteKey.toString(),
-             PreferenceManager.trucksHubAuthData(this)?.issuer.toString(),
-             PreferenceManager.trucksHubAuthData(this)?.password.toString(),
-             PreferenceManager.trucksHubAuthData(this)?.userAgent.toString(),
-             PreferenceManager.trucksHubAuthData(this)?.userName.toString()
-         )
-
-         apiInterface.generateTrucksHubJWTtoken(
-             PreferenceManager.trucksHubAuthData(this)?.headerKey.toString().toString(),
-             req,
-             "JwtAuth/api/Auth/GenerateJWTtoken"
-         )
-             ?.enqueue(object : Callback<TrucksHubAuthJWTtokenResponse> {
-                 override fun onResponse(
-                     call: Call<TrucksHubAuthJWTtokenResponse>,
-                     response: Response<TrucksHubAuthJWTtokenResponse>
-                 ) {
-                     if (response.isSuccessful) {
-
-                         if (response.body()?.statusCode == 200) {
-
-                             //   controller.trucksHubAuthTokken(response.body()!!.accessToken,requestFor)
-
- //                            uploadImage(file,"Bearer " + response.body()!!.accessToken)
-                         } else {
-
-                             LoadingUtils.hideDialog()
-                             var abx: MyAlartBox =
-                                 MyAlartBox(
-                                     this@InsuranceScreen,
-                                     response.body()?.message.toString(),
-                                     "m"
-                                 )
-                             abx?.show()
-
-                         }
-                     } else {
-                         LoadingUtils.hideDialog()
-                         var abx: MyAlartBox =
-                             MyAlartBox(
-                                 this@InsuranceScreen,
-                                 resources.getString(R.string.no_data_found),
-                                 "m"
-                             )
-                         abx?.show()
-                     }
-
-
-                 }
-
-                 override fun onFailure(call: Call<TrucksHubAuthJWTtokenResponse>, t: Throwable) {
-                     LoggerMessage.LogErrorMsg("Error", "" + t.message)
-                     LoadingUtils.hideDialog()
-                     val data: ErrorModel = ErrorModel(
-                         "" + t.message,
-                         "" + PreferenceManager.getPhoneNo(this@InsuranceScreen),
-                         "" + PreferenceManager.getUserData(this@InsuranceScreen)?.profileName,
-                         "" + DeviceInfoUtils.getDeviceModel(this@InsuranceScreen),
-                         "API",
-                         "JwtAuth/api/Auth/GenerateJWTtoken"
-                     )
-                     ErrorStore().StoreError(data)
-                 }
-             })
-
-     }*/
 
     fun uploadImage(file: File, token: String) {
         LoadingUtils.showDialog(this, false)
         if (imageT == 3) {
-            mViewModel?.trucksupImageUpload(
+            mViewModel?.uploadImages(
                 PreferenceManager.getAuthToken(),
                 "pdf",
                 PreferenceManager.prepareFilePartTrucksHum(file, "imageFile"),
@@ -924,7 +711,7 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
                 this
             )
         } else {
-            mViewModel?.trucksupImageUpload(
+            mViewModel?.uploadImages(
                 PreferenceManager.getAuthToken(),
                 "image",
                 PreferenceManager.prepareFilePartTrucksHum(file!!, "imageFile"),
@@ -956,7 +743,7 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
                     .into(binding.imgBackCamera)
             } catch (e: Exception) {
             }
-        } else if(imageT == 4){
+        } else if (imageT == 4) {
             panImgKey = value
             panImgUrl = url
             binding.cutPanBtn.visibility = View.VISIBLE
@@ -966,7 +753,7 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
                     .into(binding.imgPanDoc)
             } catch (e: Exception) {
             }
-        }else if(imageT == 5){
+        } else if (imageT == 5) {
             AddressFrontImgKey = value
             AddressFrontImgUrl = url
             binding.cutFrontAddressBtn.visibility = View.VISIBLE
@@ -976,7 +763,7 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
                     .into(binding.imgFrontAddressCamera)
             } catch (e: Exception) {
             }
-        }else if(imageT == 6){
+        } else if (imageT == 6) {
             AddressBackImgKey = value
             AddressBackImgUrl = url
             binding.cutAddressBackBtn.visibility = View.VISIBLE
@@ -986,7 +773,7 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
                     .into(binding.imgBackCamera1)
             } catch (e: Exception) {
             }
-        }else if(imageT == 7){
+        } else if (imageT == 7) {
             cancelChequeImgKey = value
             cancelChequeImgUrl = url
             binding.cutChequeImgCard.visibility = View.VISIBLE
@@ -996,7 +783,7 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
                     .into(binding.imgchequeDoc)
             } catch (e: Exception) {
             }
-        }else if(imageT == 8){
+        } else if (imageT == 8) {
             declarationImgKey = value
             declarationImgUrl = url
             binding.cutDeclareBtn.visibility = View.VISIBLE
@@ -1006,7 +793,7 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
                     .into(binding.imgDeclareDoc)
             } catch (e: Exception) {
             }
-        }else if (imageT == 3) {
+        } else if (imageT == 3) {
             prevPolicyDocsImgKey = value
             prevPolicyDocsImgUrl = url
             binding.cutDeclareBtn.visibility = View.VISIBLE
@@ -1026,14 +813,11 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
         LoggerMessage.onSNACK(binding.main, error, this)
     }
 
-
     fun viewPreviousEnquiry(v: View) {
-        //Insurance
         val intent = Intent(this, SmartFuelHistoryActivity::class.java)
         startActivity(intent)
     }
 
-    //add by me
     private fun cameraLauncher() {
         launcher = registerForActivityResult<Intent, ActivityResult>(
             ActivityResultContracts.StartActivityForResult()
@@ -1043,7 +827,10 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
 
                 try {
                     val imageUris: Uri = data!!.getStringExtra("result")!!.toUri()
-                    val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(imageUris.toString()))
+                    val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(
+                        getContentResolver(),
+                        Uri.parse(imageUris.toString())
+                    )
                     // Set the image in imageview for display
                     val newBitmap: Bitmap = FileHelp().resizeImage(bitmap, 500, 500)!!
                     val newFile: File = FileHelp().bitmapTofile(newBitmap, this)!!
@@ -1056,13 +843,13 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
             }
         }
     }
-    private fun launchCamera(flipCamera: Boolean, cameraOpen: Int, focusView: Boolean){
+
+    private fun launchCamera(flipCamera: Boolean, cameraOpen: Int, focusView: Boolean) {
         val intent = Intent(this, CameraActivity::class.java)
         intent.putExtra("flipCamera", flipCamera)
         intent.putExtra("cameraOpen", cameraOpen)
         intent.putExtra("focusView", focusView)
         launcher?.launch(intent)
     }
-    //add by me
 
 }

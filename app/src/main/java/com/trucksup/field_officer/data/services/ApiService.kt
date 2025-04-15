@@ -9,6 +9,8 @@ import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.S
 import com.trucksup.field_officer.data.model.AutoImageSlideResponse
 import com.trucksup.field_officer.data.model.CheckUserProfileResponse
 import com.trucksup.field_officer.data.model.CountryResponse
+import com.trucksup.field_officer.data.model.DutyStatusRequest
+import com.trucksup.field_officer.data.model.DutyStatusResponse
 import com.trucksup.field_officer.data.model.GenerateJWTtokenRequest
 import com.trucksup.field_officer.data.model.GenerateJWTtokenResponse
 import com.trucksup.field_officer.data.model.NewUserProfile
@@ -28,6 +30,10 @@ import com.trucksup.field_officer.data.model.image.TrucksupImageUploadResponse
 import com.trucksup.field_officer.data.model.insurance.InquiryHistoryResponse
 import com.trucksup.field_officer.data.model.otp.NewOtpResponse
 import com.trucksup.field_officer.data.model.otp.OtpRequest
+import com.trucksup.field_officer.data.model.smartfuel.AddSmartFuelLeadRequest
+import com.trucksup.field_officer.data.model.smartfuel.AddSmartFuelLeadResponse
+import com.trucksup.field_officer.data.model.smartfuel.SmartFuelHistoryRequest
+import com.trucksup.field_officer.data.model.smartfuel.SmartFuelHistoryResponse
 import com.trucksup.field_officer.data.model.user.UpdateProfileRequest
 import com.trucksup.field_officer.data.model.user.UpdateProfileResponse
 import com.trucksup.field_officer.presenter.cityPicker.CityListbySearchRequest
@@ -188,7 +194,6 @@ interface ApiService {
         @Body request: FinanceDataLiatRequest
     ): FinanceDataLiatResponse
 
-
     @POST("Apigateway/Gateway/SubmitFinanceInquiry")
     @Headers("Accept: application/json")
     suspend fun submitFinanceData(
@@ -266,4 +271,25 @@ interface ApiService {
         @Header("Authorization") auth: String,
         @Body request: PrefferLanRequest
     ): PrefferdResponse
+
+    @POST("BOAppApiGateway/apiateway/BOAddSmartFuelLeads")
+    @Headers("Accept: application/json")
+    suspend fun addSmartFuelLead(
+        @Header("Authorization") auth: String,
+        @Body request: AddSmartFuelLeadRequest
+    ): AddSmartFuelLeadResponse
+
+    @POST("BOAppApiGateway/apiateway/BOGetLeadsHistories")
+    @Headers("Accept: application/json")
+    suspend fun getSmartFuelHistory(
+        @Header("Authorization") auth: String,
+        @Body request: SmartFuelHistoryRequest
+    ): SmartFuelHistoryResponse
+
+    @POST("BOAppApiGateway/apiateway/BOUpdateDutyStatus")
+    @Headers("Accept: application/json")
+    suspend fun dutyStatus(
+        @Header("Authorization") auth: String,
+        @Body request: DutyStatusRequest
+    ): DutyStatusResponse
 }

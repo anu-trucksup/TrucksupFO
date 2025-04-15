@@ -8,6 +8,8 @@ import com.logistics.trucksup.activities.preferre.modle.PrefferdResponse
 import com.logistics.trucksup.modle.PlanResponse
 import com.trucksup.field_officer.data.model.AutoImageSlideResponse
 import com.trucksup.field_officer.data.model.CheckUserProfileResponse
+import com.trucksup.field_officer.data.model.DutyStatusRequest
+import com.trucksup.field_officer.data.model.DutyStatusResponse
 import com.trucksup.field_officer.data.model.NewUserProfile
 import com.trucksup.field_officer.data.model.PinCodeRequest
 import com.trucksup.field_officer.data.model.PinCodeResponse
@@ -25,6 +27,10 @@ import com.trucksup.field_officer.data.model.home.HomeCountResponse
 import com.trucksup.field_officer.data.model.insurance.InquiryHistoryResponse
 import com.trucksup.field_officer.data.model.otp.NewOtpResponse
 import com.trucksup.field_officer.data.model.otp.OtpRequest
+import com.trucksup.field_officer.data.model.smartfuel.AddSmartFuelLeadRequest
+import com.trucksup.field_officer.data.model.smartfuel.AddSmartFuelLeadResponse
+import com.trucksup.field_officer.data.model.smartfuel.SmartFuelHistoryRequest
+import com.trucksup.field_officer.data.model.smartfuel.SmartFuelHistoryResponse
 import com.trucksup.field_officer.data.model.user.UpdateProfileRequest
 import com.trucksup.field_officer.data.model.user.UpdateProfileResponse
 import com.trucksup.field_officer.data.network.ResultWrapper
@@ -319,6 +325,27 @@ class APIRepositoryImpl constructor(private val apiService: ApiService) : APIRep
                 request
             )
         }
+    }
+
+    override suspend fun addSmartFuelLead(
+        authToken: String,
+        request: AddSmartFuelLeadRequest
+    ): ResultWrapper<AddSmartFuelLeadResponse> {
+        return safeApiCall(Dispatchers.IO) { apiService.addSmartFuelLead(authToken, request) }
+    }
+
+    override suspend fun getSmartFuelHistory(
+        authToken: String,
+        request: SmartFuelHistoryRequest
+    ): ResultWrapper<SmartFuelHistoryResponse> {
+        return safeApiCall(Dispatchers.IO) { apiService.getSmartFuelHistory(authToken, request) }
+    }
+
+    override suspend fun dutyStatus(
+        authToken: String,
+        request: DutyStatusRequest
+    ): ResultWrapper<DutyStatusResponse> {
+        return safeApiCall(Dispatchers.IO) { apiService.dutyStatus(authToken, request) }
     }
 
 }
