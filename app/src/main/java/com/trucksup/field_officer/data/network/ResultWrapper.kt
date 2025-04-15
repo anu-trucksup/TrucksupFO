@@ -1,17 +1,14 @@
 package com.trucksup.field_officer.data.network
 
-import android.util.Log
 import com.trucksup.field_officer.data.model.Response
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
-import org.json.JSONObject
 import retrofit2.HttpException
 import java.io.IOException
 
 sealed class ResultWrapper<out T> {
     data class Success<out T>(val value: T) : ResultWrapper<T>()
     data class ServerResponseError(val error: String?) : ResultWrapper<Nothing>()
-
 }
 
 class ServerException constructor(var status: String? = null, var messageLabel: String? = null) :
@@ -44,12 +41,12 @@ suspend fun <T> safeApiCall(
                         )
 
                     } else {
-                        ResultWrapper.ServerResponseError("ErrorMessage_ServerEncounteredError")
+                        ResultWrapper.ServerResponseError("Something went wrong! Server Error")
                     }
                 }
 
                 else -> {
-                    ResultWrapper.ServerResponseError("ErrorMessage_ServerEncounteredError" + throwable.message + "" + throwable.stackTraceToString())
+                    ResultWrapper.ServerResponseError("Something went wrong! Server Error" + throwable.message + "" + throwable.stackTraceToString())
                 }
             }
         }

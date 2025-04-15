@@ -48,8 +48,8 @@ class WelcomeLocationActivity : BaseActivity() {
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
-      /*  Handler().postDelayed({ startActivity(Intent(baseContext,
-            HomeActivity::class.java)) }, 3000)*/
+        /*  Handler().postDelayed({ startActivity(Intent(baseContext,
+              HomeActivity::class.java)) }, 3000)*/
 
     }
 
@@ -70,8 +70,7 @@ class WelcomeLocationActivity : BaseActivity() {
                                 CancellationTokenSource().token
                             ).addOnSuccessListener { location: Location? ->
                                 try {
-                                    val geocoder =
-                                        Geocoder(this@WelcomeLocationActivity, Locale.getDefault())
+                                    val geocoder = Geocoder(this@WelcomeLocationActivity, Locale.getDefault())
                                     val addresses = geocoder.getFromLocation(
                                         location!!.latitude,
                                         location!!.longitude,
@@ -79,12 +78,20 @@ class WelcomeLocationActivity : BaseActivity() {
                                     )
                                     binding.addressUpdate.text =
                                         addresses?.get(0)?.getAddressLine(0)
-                                    Log.e("location","location:"+addresses?.get(0))
+                                    Log.e("location", "location:" + addresses?.get(0))
                                     binding.addressShimmer.visibility = View.GONE
                                     binding.addressUpdate.visibility = View.VISIBLE
 
-                                    Handler().postDelayed({ startActivity(Intent(baseContext,
-                                        HomeActivity::class.java)) }, 3000)
+                                    Handler().postDelayed({
+                                        startActivity(
+                                            Intent(
+                                                baseContext,
+                                                HomeActivity::class.java
+                                            )
+                                        )
+
+                                        finish()
+                                    }, 3000)
                                 } catch (e: Exception) {
 //                                    val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
 //                                    startActivity(intent)

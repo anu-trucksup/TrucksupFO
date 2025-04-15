@@ -45,6 +45,7 @@ class SplashScreenActivity : BaseActivity() {
             when (status) {
                 0 -> {
                     val intent = Intent(this@SplashScreenActivity, LoginActivity::class.java)
+                    intent.putExtra("mobile", "")
                     intent.putExtra("status", 0)
                     //   intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     //   intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

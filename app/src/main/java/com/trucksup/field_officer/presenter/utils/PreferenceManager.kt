@@ -1028,7 +1028,7 @@ object PreferenceManager {
     @SuppressLint("NewApi", "SuspiciousIndentation")
     fun getAuthToken(): String {
 
-        val authPayload = "DevUser:Dev@123"
+        val authPayload = "BOAPISERVICES:BOAPISERVICES@2025"
         val data = authPayload.toByteArray()
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -1067,23 +1067,9 @@ object PreferenceManager {
         return imageString
     }
 
-    fun prepareFilePart(uploadImageFilefront: File): MultipartBody.Part {
-        // https://github.com/iPaulPro/aFileChooser/blob/master/aFileChooser/src/com/ipaulpro/afilechooser/utils/FileUtils.java
-        // use the FileUtils to get the actual file by uri
-        val file: File = uploadImageFilefront
-
-        // create RequestBody instance from file
-        val requestFile: RequestBody = RequestBody.create(
-            "file/*".toMediaTypeOrNull(),
-            file
-        )
-
-        // MultipartBody.Part is used to send also the actual file name
-        return MultipartBody.Part.createFormData("file", file.getName(), requestFile)
-    }
 
     fun prepareFilePartTrucksHum(uploadImageFilefront: File, name: String): MultipartBody.Part {
-        // https://github.com/iPaulPro/aFileChooser/blob/master/aFileChooser/src/com/ipaulpro/afilechooser/utils/FileUtils.java
+
         // use the FileUtils to get the actual file by uri
         val file: File = uploadImageFilefront
 

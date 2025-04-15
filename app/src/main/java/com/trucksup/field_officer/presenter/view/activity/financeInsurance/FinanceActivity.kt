@@ -30,7 +30,7 @@ class FinanceActivity : BaseActivity(), ChipController, CityPicker {
     private var mViewModel: FinanceViewModel? = null
     private var loanFor: String = "other"
     private var loanAmount: String = ""
-    private var sourceValue: String? = "Trucksup"
+    private var sourceValue: String? = "BO"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

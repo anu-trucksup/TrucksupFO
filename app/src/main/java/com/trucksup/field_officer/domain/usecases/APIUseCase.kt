@@ -90,8 +90,6 @@ class APIUseCase @Inject constructor(private val apiRepository: APIRepository) {
         return apiRepository.resetPassword(token,request)
     }
 
-
-
     suspend fun sendOTP(
         auth: String,
         request: OtpRequest

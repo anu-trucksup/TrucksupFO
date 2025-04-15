@@ -33,32 +33,33 @@ class ResetPasswordActivity : BaseActivity(), View.OnClickListener {
         mBinding?.tvVerify?.setOnClickListener(this)
 
         mViewModel = ViewModelProvider(this)[ResetPasswordViewModel::class.java]
-        // mBinding?.setViewModel(mViewModel);
 
         setupObserver()
 
     }
 
     private fun setupObserver() {
-              mViewModel!!.resultSendOTPLD.observe(this@ResetPasswordActivity) { responseModel ->
-                 if (responseModel.serverError != null) {
-                     dismissProgressDialog()
+        mViewModel?.resultSendOTPLD?.observe(this@ResetPasswordActivity) { responseModel ->
+            if (responseModel.serverError != null) {
+                dismissProgressDialog()
 
-                     val abx = AlertBoxDialog(
-                             this@ResetPasswordActivity,
-                             responseModel.serverError.toString(),
-                             "m"
-                         )
-                     abx.show()
-                 } else if (responseModel.success != null) {
-                     dismissProgressDialog()
-                     Toast.makeText(this, "OTP sent to your email id", Toast.LENGTH_SHORT).show()
+                val abx = AlertBoxDialog(
+                    this@ResetPasswordActivity,
+                    responseModel.serverError.toString(),
+                    "m"
+                )
+                abx.show()
+            } else if (responseModel.success != null) {
+                dismissProgressDialog()
+                Toast.makeText(this, "OTP sent to your email id", Toast.LENGTH_SHORT).show()
 
-                     val intent = Intent(this@ResetPasswordActivity,
-                         CreatePasswordActivity::class.java)
-                     intent.putExtra("phoneNo", mBinding?.phoneNoTxt?.text.toString())
-                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                     startActivity(intent)
+                val intent = Intent(
+                    this@ResetPasswordActivity,
+                    CreatePasswordActivity::class.java
+                )
+                intent.putExtra("phoneNo", mBinding?.phoneNoTxt?.text.toString())
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                startActivity(intent)
 
             }
         }
@@ -80,7 +81,7 @@ class ResetPasswordActivity : BaseActivity(), View.OnClickListener {
         } else if (view.id == R.id.otp_up_btn) {
 
             if (TextUtils.isEmpty(mBinding?.phoneNoTxt?.text.toString().trim())) {
-                mBinding?.phoneNoTxt?.setError("Enter Mobile Number")
+                mBinding?.phoneNoTxt?.error = getString(R.string.error_mobile)
                 mBinding?.phoneNoTxt?.requestFocus()
                 return
             }
@@ -111,9 +112,7 @@ class ResetPasswordActivity : BaseActivity(), View.OnClickListener {
                 mViewModel?.sendOTP("", otpRequest)
 
             } else {
-                LoggerMessage.onSNACK(
-                    mBinding!!.phoneNoTxt,
-                    "Enter valid mobile number.",
+                LoggerMessage.onSNACK(mBinding!!.phoneNoTxt, getString(R.string.enter_valid_mobile),
                     applicationContext
                 )
             }

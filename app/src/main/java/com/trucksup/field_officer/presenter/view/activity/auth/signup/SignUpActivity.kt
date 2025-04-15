@@ -4,9 +4,10 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.Environment
+import android.provider.MediaStore
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
@@ -18,51 +19,47 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.trucksup.field_officer.R
-import com.trucksup.field_officer.data.model.NewResisterRequest
-import com.trucksup.field_officer.data.model.Response
 import com.trucksup.field_officer.data.model.authModel.SignRequest
-import com.trucksup.field_officer.data.network.ResponseModel
 import com.trucksup.field_officer.databinding.ActivitySignUpBinding
 import com.trucksup.field_officer.presenter.common.CameraActivity
 import com.trucksup.field_officer.presenter.common.FileHelp
 import com.trucksup.field_officer.presenter.common.AlertBoxDialog
-import com.trucksup.field_officer.presenter.common.Utils
+import com.trucksup.field_officer.presenter.common.AppVersionUtils
+import com.trucksup.field_officer.presenter.common.image_picker.TrucksFOImageController
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
 import com.trucksup.field_officer.presenter.view.activity.auth.login.LoginActivity
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
-import java.io.FileOutputStream
-import java.io.OutputStream
 import java.util.regex.Pattern
 
 @AndroidEntryPoint
-class SignUpActivity : BaseActivity(), View.OnClickListener {
-    private  var mSignUpBinding: ActivitySignUpBinding? = null
+class SignUpActivity : BaseActivity(), View.OnClickListener, TrucksFOImageController {
+    private var mSignUpBinding: ActivitySignUpBinding? = null
     private var signupViewModel: SignupViewModel? = null
     private var launcher: ActivityResultLauncher<Intent>? = null
-    private var imageUri:String = ""
+    private var frontImgKey: String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        mSignUpBinding = DataBindingUtil.setContentView(this, R.layout.activity_sign_up)
+        mSignUpBinding = ActivitySignUpBinding.inflate(layoutInflater)
         adjustFontScale(resources.configuration, 1.0f)
+        setContentView(mSignUpBinding?.root)
+
         enableEdgeToEdge()
         //click Listener
         mSignUpBinding!!.topView.ivBack.setOnClickListener(this)
 
-        mSignUpBinding!!.loginTxt.setOnClickListener(this)
-        mSignUpBinding!!.signUpBtn.setOnClickListener(this)
-        mSignUpBinding!!.cvCamera.setOnClickListener(this)
-        // mSignUpBinding!!.signUpButtonView.setEnabled(false);
+        mSignUpBinding?.loginTxt?.setOnClickListener(this)
+        mSignUpBinding?.signUpBtn?.setOnClickListener(this)
+        mSignUpBinding?.cvCamera?.setOnClickListener(this)
         signupViewModel = ViewModelProvider(this)[SignupViewModel::class.java]
-        mSignUpBinding!!.setViewModel(signupViewModel)
+
 
         /* mSignUpBinding!!.confirmPasswordTxt.addTextChangedListener(object : TextWatcher {
              override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
@@ -104,11 +101,11 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
          })*/
 
         setupObserver()
-        cameraListener()
+        cameraLauncher()
 
     }
 
-    private fun cameraListener() {
+    private fun cameraLauncher() {
         launcher = registerForActivityResult<Intent, ActivityResult>(
             ActivityResultContracts.StartActivityForResult()
         ) { result: ActivityResult ->
@@ -116,41 +113,17 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
                 val data = result.data
 
                 try {
-                    imageUri = data!!.getStringExtra("result").toString()
-                    mSignUpBinding?.profileImage?.let {
-                        Glide.with(getApplicationContext())
-                            .load(data!!.getStringExtra("result")?.toUri())
-                            .into(it)
-                    }
-                    //profileImage?.setRotation(270F)
-                    var orFile: File =
-                        FileHelp().getFile(this, data!!.getStringExtra("result")?.toUri())!!
-                    var newBitmap: Bitmap = FileHelp().FileToBitmap(orFile)
+                    val imageUris: Uri = data!!.getStringExtra("result")!!.toUri()
+                    val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(
+                        contentResolver,
+                        Uri.parse(imageUris.toString())
+                    )
+                    // Set the image in imageview for display
+                    val newBitmap: Bitmap = FileHelp().resizeImage(bitmap, 500, 500)!!
+                    val newFile: File = FileHelp().bitmapTofile(newBitmap, this)
+                    uploadImage(newFile)
 
-
-                    val name = "trucksUp_image" + System.currentTimeMillis() + ".jpg"
-                    val pt = Environment.DIRECTORY_PICTURES //+  "/trucksUp";
-                    val MEDIA_PATH = Environment.getExternalStorageDirectory().absolutePath + "/" + pt + "/"
-
-                    val filesDir: File = getFilesDir()
-                    val imageFile = File(filesDir, name)
-
-                    val os: OutputStream
-                    os = FileOutputStream(imageFile)
-                    newBitmap.compress(Bitmap.CompressFormat.JPEG, 99, os)
-                    os.flush()
-                    os.close()
-
-                    //LoadingUtils?.showDialog(this, false)
-                    //LoadingUtils.showDialog(this, false)
-                    /*MyResponse()?.uploadImage(
-                        "jpg",
-                        "DOC" + PreferenceManager.getRequestNo(),
-                        "" + PreferenceManager.getPhoneNo(this),
-                        PreferenceManager.prepareFilePart(imageFile!!),
-                        this,
-                        this
-                    )*/
+                    //handleImageCapture(bitmap)
                 } catch (ex: Exception) {
                     ex.printStackTrace()
                 }
@@ -158,26 +131,34 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
-    private fun launchCamera(){
+    private fun launchCamera() {
         val intent = Intent(this, CameraActivity::class.java)
         intent.putExtra("flipCamera", true)
         intent.putExtra("cameraOpen", 0)
-        launcher!!.launch(intent)
+        launcher?.launch(intent)
+    }
+
+    fun uploadImage(file: File) {
+        showProgressDialog(this, false)
+
+        signupViewModel?.uploadImages(
+            PreferenceManager.getAuthToken(),
+            "image",
+            PreferenceManager.prepareFilePartTrucksHum(file, "imageFile"),
+            PreferenceManager.prepareFilePartTrucksHum(file, "watermarkFile"),
+            this
+        )
     }
 
     private fun setupObserver() {
         signupViewModel?.resultSendOTPLD?.observe(
             this@SignUpActivity
-        ) { responseModel: ResponseModel<Response<String>> ->                   // send otp observer
+        ) { responseModel ->
             if (responseModel.serverError != null) {
                 dismissProgressDialog()
 
                 val abx =
-                    AlertBoxDialog(
-                        this@SignUpActivity,
-                        responseModel.serverError.toString(),
-                        "m"
-                    )
+                    AlertBoxDialog(this@SignUpActivity, responseModel.serverError.toString(), "m")
                 abx.show()
             } else {
                 dismissProgressDialog()
@@ -188,14 +169,12 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
             if (responseModel.serverError != null) {
                 dismissProgressDialog()
 
-                val abx =
-                    AlertBoxDialog(
-                        this@SignUpActivity,
-                        responseModel.serverError.toString(),
-                        "m"
-                    )
+                val abx = AlertBoxDialog(
+                    this@SignUpActivity,
+                    responseModel.serverError.toString(), "m"
+                )
                 abx.show()
-            }  else {
+            } else {
                 mSignUpBinding!!.otpErrorText.visibility = View.GONE
                 mSignUpBinding!!.otpTxt.background =
                     getDrawable(R.drawable.edit_text_background_view)
@@ -211,19 +190,30 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
                 dismissProgressDialog()
 
                 val abx = AlertBoxDialog(
-                        this@SignUpActivity,
-                        responseModel.serverError.toString(),
+                    this@SignUpActivity,
+                    responseModel.serverError.toString(),
+                    "m"
+                )
+                abx.show()
+            } else {
+                dismissProgressDialog()
+
+                if (responseModel.success?.statuscode == 201) {
+                    val abx = AlertBoxDialog(
+                        this@SignUpActivity, responseModel.success.message.toString(),
                         "m"
                     )
-                abx.show()
-            }  else {
-                dismissProgressDialog()
-                Toast.makeText(this, "Signup successfully", Toast.LENGTH_SHORT).show()
-                // move to home screen
-                val intent = Intent(this@SignUpActivity, LoginActivity::class.java)
-                //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                startActivity(intent)
-                finish()
+                    abx.show()
+                   // Utils.showToastDialog(""+responseModel.success.message, this,"Ok" )
+                } else {
+                    Toast.makeText(this, "Signup successfully", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this@SignUpActivity, LoginActivity::class.java)
+                    intent.putExtra("mobile", mSignUpBinding?.phoneNoTxt?.text.toString())
+                    //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                    startActivity(intent)
+                    finish()
+                }
+
             }
         }
 
@@ -238,20 +228,22 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
             setResult(RESULT_OK, intent)
             finish()
         } else if (view.id == R.id.sign_up_btn) {
+
             if (isOnline(this)) {
-
-
                 if (TextUtils.isEmpty(mSignUpBinding?.profileName?.text.toString().trim())) {
-                    mSignUpBinding?.profileName?.error = resources.getString(R.string.enterProfileName)
+                    mSignUpBinding?.profileName?.error =
+                        resources.getString(R.string.enterProfileName)
                     mSignUpBinding?.profileName?.requestFocus()
                     return
                 }
                 if (isValidName(mSignUpBinding?.profileName?.text.toString().trim())) {
-                    mSignUpBinding?.profileName?.error = resources.getString(R.string.validnameformate)
+                    mSignUpBinding?.profileName?.error =
+                        resources.getString(R.string.valid_name_format)
                     return
                 }
                 if (getSpecialCharacterCount(mSignUpBinding?.profileName?.text.toString()) == 0) {
-                    mSignUpBinding?.profileName?.error = resources.getString(R.string.validnameformate)
+                    mSignUpBinding?.profileName?.error =
+                        resources.getString(R.string.valid_name_format)
                     return
                 }
 
@@ -262,13 +254,16 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
                 }
 
                 if (TextUtils.isEmpty(mSignUpBinding?.phoneNoTxt?.text.toString().trim())) {
-                    mSignUpBinding?.phoneNoTxt?.error = resources.getString(R.string.enter_mobile_no)
+                    mSignUpBinding?.phoneNoTxt?.error =
+                        resources.getString(R.string.enter_mobile_no)
                     mSignUpBinding?.phoneNoTxt?.requestFocus()
                     return
                 }
                 if (mSignUpBinding!!.passwordTxt.text.toString().isEmpty()) {
-                    LoggerMessage.onSNACK(mSignUpBinding!!.passwordTxt,
-                        resources.getString(R.string.enter_password), applicationContext)
+                    LoggerMessage.onSNACK(
+                        mSignUpBinding!!.passwordTxt,
+                        resources.getString(R.string.enter_password), applicationContext
+                    )
                     return
                 }
 
@@ -276,12 +271,14 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
                     LoggerMessage.onSNACK(
                         mSignUpBinding!!.confirmPasswordTxt,
                         "Please Enter Confirm Password.",
-                        applicationContext)
+                        applicationContext
+                    )
                     return
                 }
 
                 val password: String = mSignUpBinding!!.passwordTxt.getText().toString()
-                val confirmpassword: String = mSignUpBinding!!.confirmPasswordTxt.getText().toString()
+                val confirmpassword: String =
+                    mSignUpBinding!!.confirmPasswordTxt.getText().toString()
 
                 if (confirmpassword.length > 0 && password.length > 0) {
                     if (!confirmpassword.equals(password)) {
@@ -293,10 +290,8 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
                             customErrorDrawable.intrinsicHeight
                         )
 
-                        mSignUpBinding!!.confirmPasswordTxt.setError(
-                            "Password and Confirm Password should be same.",
-                            customErrorDrawable
-                        )
+                        mSignUpBinding!!.confirmPasswordTxt.setError("Password and Confirm Password should be same.",
+                            customErrorDrawable)
 
                         //  mSignUpBinding!!.confirmPasswordTxt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.error_confirm, 0);
 
@@ -311,12 +306,8 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
                             customErrorDrawable.intrinsicHeight
                         )
 
-                        mSignUpBinding!!.confirmPasswordTxt.setError(
-                            "Both Password are same.",
-                            customErrorDrawable
-                        )
+                        mSignUpBinding!!.confirmPasswordTxt.setError("", customErrorDrawable)
 
-                        return
                     }
                 }
 
@@ -325,22 +316,22 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
                 ) {
                     if (isValidMobile(mSignUpBinding?.phoneNoTxt?.text.toString())) {
 
-                        showProgressDialog(this,false)
+                        showProgressDialog(this, false)
 
                         val request = SignRequest(
-                            requestedBy = PreferenceManager.getPhoneNo(this),
+                            requestedBy = mSignUpBinding?.phoneNoTxt?.text.toString(),
                             requestId = PreferenceManager.getRequestNo().toInt(),
                             requestDatetime = PreferenceManager.getServerDateUtc(),
                             deviceid = PreferenceManager.getAndroiDeviceId(this),
-                            appVersion = "",
-                            androidVersion = "",
-                            profilename = PreferenceManager.getUserName(this),
-                            profilephoto = "",
+                            appVersion = AppVersionUtils.getAppVersionName(this),
+                            androidVersion = Build.VERSION.SDK_INT.toString(),
+                            profilename = mSignUpBinding?.profileName?.text.toString(),
+                            profilephoto = frontImgKey ?: "",
                             mobilenumber = mSignUpBinding?.phoneNoTxt?.text.toString(),
                             password = mSignUpBinding?.passwordTxt?.text.toString()
                         )
 
-                        signupViewModel?.signUp(PreferenceManager.getAuthToken(),request)
+                        signupViewModel?.signUp(PreferenceManager.getAuthToken(), request)
 
                     } else {
 
@@ -354,31 +345,25 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
 
                 } else {
                     LoggerMessage.onSNACK(
-                        mSignUpBinding!!.phoneNoTxt,resources.getString(R.string.enter_valid_mobile),
+                        mSignUpBinding!!.phoneNoTxt,
+                        resources.getString(R.string.enter_valid_mobile),
                         applicationContext
                     )
 
-                    /* Utils.showToastDialog(
-                         "Fill Your Details",
-                         this,
-                         "Ok"
-                     )*/
                 }
 
             } else {
-                Utils.showToastDialog(
-                    "no internet connection.",
-                    this,
-                    "Ok"
+
+                LoggerMessage.onSNACK(
+                    mSignUpBinding!!.signUpBtn,
+                    resources.getString(R.string.no_internet),
+                    applicationContext
                 )
+
             }
-        }else if(view.id == R.id.cvCamera){
+        } else if (view.id == R.id.cvCamera) {
             launchCamera()
         }
-    }
-
-    private fun isSignupValidatation(): Boolean {
-        TODO("Not yet implemented")
     }
 
     fun getProfileImage(v: View) {
@@ -401,7 +386,6 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
             startForResult?.launch(intent)*/
         }
     }
-
 
     private fun checkLocationPermission() {
 
@@ -482,14 +466,12 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
         LoadingUtils?.hideDialog()
     }*/
 
-
     private fun isValidName(phone: String): Boolean {
 
         val p = Pattern.compile("[_0-9](.*)")
         val m = p.matcher(phone)
         return (m.find() && m.group() == phone)
     }
-
 
     private fun getSpecialCharacterCount(s: String?): Int {
 
@@ -512,4 +494,24 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
 
 
     }
+
+    override fun getImage(valuekey: String, url: String) {
+        dismissProgressDialog()
+        Glide.with(this)
+            .load(url)
+            .into(mSignUpBinding?.profileImage!!)
+        mSignUpBinding?.profileImage?.tag = "y"
+
+        frontImgKey = valuekey
+    }
+
+    override fun dataSubmitted(message: String) {
+    }
+
+    override fun imageError(error: String) {
+        dismissProgressDialog()
+        LoggerMessage.onSNACK(mSignUpBinding?.profileImage!!, error, this)
+    }
+
+
 }

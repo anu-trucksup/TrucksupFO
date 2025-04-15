@@ -132,7 +132,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/bai_jamjuree_semi_bold"
                     android:text="@string/finace_msg"
-                    android:textColor="@color/secondry_text"
+                    android:textColor="@color/secondary_text"
                     android:textSize="@dimen/_10ssp"
                     android:visibility="gone" />
 
@@ -186,7 +186,7 @@
                             android:gravity="center"
                             android:paddingVertical="@dimen/_3sdp"
                             android:text="@string/other"
-                            android:textColor="@color/secondry_text"
+                            android:textColor="@color/secondary_text"
                             android:textSize="@dimen/_11ssp"
                             android:textStyle="bold" />
 
@@ -202,7 +202,7 @@
                     android:fontFamily="@font/bai_jamjuree_semi_bold"
                     android:maxLines="1"
                     android:text="@string/name_customer"
-                    android:textColor="@color/secondry_text"
+                    android:textColor="@color/secondary_text"
                     android:textSize="@dimen/_11ssp" />
 
                 <com.google.android.material.card.MaterialCardView
@@ -245,7 +245,7 @@
                         android:fontFamily="@font/bai_jamjuree_semi_bold"
                         android:maxLines="1"
                         android:text="@string/mobile_customer"
-                        android:textColor="@color/secondry_text"
+                        android:textColor="@color/secondary_text"
                         android:textSize="@dimen/_11ssp" />
 
                 </LinearLayout>
@@ -286,7 +286,7 @@
                     android:fontFamily="@font/bai_jamjuree_semi_bold"
                     android:maxLines="1"
                     android:text="@string/email_customer"
-                    android:textColor="@color/secondry_text"
+                    android:textColor="@color/secondary_text"
                     android:textSize="@dimen/_11ssp" />
 
                 <com.google.android.material.card.MaterialCardView
@@ -330,7 +330,7 @@
                         android:fontFamily="@font/bai_jamjuree_semi_bold"
                         android:maxLines="1"
                         android:text="@string/customer_vehicle_no"
-                        android:textColor="@color/secondry_text"
+                        android:textColor="@color/secondary_text"
                         android:textSize="@dimen/_11ssp" />
 
                     <com.google.android.material.card.MaterialCardView
@@ -378,7 +378,7 @@
                         android:fontFamily="@font/bai_jamjuree_semi_bold"
                         android:maxLines="1"
                         android:text="@string/vehicle_details"
-                        android:textColor="@color/secondry_text"
+                        android:textColor="@color/secondary_text"
                         android:textSize="@dimen/_11ssp" />
 
 
@@ -426,7 +426,7 @@
                                     android:fontFamily="@font/bai_jamjuree_semi_bold"
                                     android:maxLines="1"
                                     android:text="@string/vrc_front_image"
-                                    android:textColor="@color/secondry_text"
+                                    android:textColor="@color/secondary_text"
                                     android:textSize="@dimen/_11ssp"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent" />
@@ -460,7 +460,7 @@
                                     android:fontFamily="@font/bai_jamjuree_semi_bold"
                                     android:maxLines="1"
                                     android:text="@string/choose_file"
-                                    android:textColor="@color/secondry_text"
+                                    android:textColor="@color/secondary_text"
                                     android:textSize="@dimen/_9ssp"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintEnd_toEndOf="@+id/frontImgCard"
@@ -498,7 +498,7 @@
                                     android:fontFamily="@font/bai_jamjuree_semi_bold"
                                     android:maxLines="1"
                                     android:text="@string/vrc_back_image"
-                                    android:textColor="@color/secondry_text"
+                                    android:textColor="@color/secondary_text"
                                     android:textSize="@dimen/_11ssp"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent" />
@@ -532,7 +532,7 @@
                                     android:fontFamily="@font/bai_jamjuree_semi_bold"
                                     android:maxLines="1"
                                     android:text="@string/choose_file"
-                                    android:textColor="@color/secondry_text"
+                                    android:textColor="@color/secondary_text"
                                     android:textSize="@dimen/_9ssp"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintEnd_toEndOf="@+id/backImgCard"
@@ -575,7 +575,7 @@
                         android:fontFamily="@font/bai_jamjuree_semi_bold"
                         android:maxLines="1"
                         android:text="@string/pan_details"
-                        android:textColor="@color/secondry_text"
+                        android:textColor="@color/secondary_text"
                         android:textSize="@dimen/_11ssp" />
 
 
@@ -607,7 +607,7 @@
                             android:fontFamily="@font/bai_jamjuree_semi_bold"
                             android:maxLines="1"
                             android:text="@string/pan_number_s"
-                            android:textColor="@color/secondry_text"
+                            android:textColor="@color/secondary_text"
                             android:textSize="@dimen/_11ssp" />
 
                         <com.google.android.material.card.MaterialCardView
@@ -651,7 +651,7 @@
                                 android:fontFamily="@font/bai_jamjuree_semi_bold"
                                 android:maxLines="1"
                                 android:text="PAN Photo *"
-                                android:textColor="@color/secondry_text"
+                                android:textColor="@color/secondary_text"
                                 android:textSize="@dimen/_11ssp"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
@@ -686,7 +686,7 @@
                                 android:fontFamily="@font/bai_jamjuree_semi_bold"
                                 android:maxLines="1"
                                 android:text="@string/choose_file"
-                                android:textColor="@color/secondry_text"
+                                android:textColor="@color/secondary_text"
                                 android:textSize="@dimen/_9ssp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="@+id/panImgCard"
@@ -727,7 +727,7 @@
                         android:fontFamily="@font/bai_jamjuree_semi_bold"
                         android:maxLines="1"
                         android:text="@string/add_details"
-                        android:textColor="@color/secondry_text"
+                        android:textColor="@color/secondary_text"
                         android:textSize="@dimen/_11ssp" />
 
 
@@ -766,7 +766,7 @@
                                 android:fontFamily="@font/bai_jamjuree_semi_bold"
                                 android:maxLines="1"
                                 android:text="@string/select_address_proof"
-                                android:textColor="@color/secondry_text"
+                                android:textColor="@color/secondary_text"
                                 android:textSize="@dimen/_11ssp" />
 
                             <com.google.android.material.card.MaterialCardView
@@ -822,7 +822,7 @@
                                     android:fontFamily="@font/bai_jamjuree_semi_bold"
                                     android:maxLines="1"
                                     android:text="@string/add_front_image"
-                                    android:textColor="@color/secondry_text"
+                                    android:textColor="@color/secondary_text"
                                     android:textSize="@dimen/_11ssp"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent" />
@@ -856,7 +856,7 @@
                                     android:fontFamily="@font/bai_jamjuree_semi_bold"
                                     android:maxLines="1"
                                     android:text="@string/choose_file"
-                                    android:textColor="@color/secondry_text"
+                                    android:textColor="@color/secondary_text"
                                     android:textSize="@dimen/_9ssp"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintEnd_toEndOf="@+id/frontAddImgCard"
@@ -894,7 +894,7 @@
                                     android:fontFamily="@font/bai_jamjuree_semi_bold"
                                     android:maxLines="1"
                                     android:text="@string/add_back_image"
-                                    android:textColor="@color/secondry_text"
+                                    android:textColor="@color/secondary_text"
                                     android:textSize="@dimen/_11ssp"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent" />
@@ -928,7 +928,7 @@
                                     android:fontFamily="@font/bai_jamjuree_semi_bold"
                                     android:maxLines="1"
                                     android:text="@string/choose_file"
-                                    android:textColor="@color/secondry_text"
+                                    android:textColor="@color/secondary_text"
                                     android:textSize="@dimen/_9ssp"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintEnd_toEndOf="@+id/backAddImgCard"
@@ -971,7 +971,7 @@
                         android:fontFamily="@font/bai_jamjuree_semi_bold"
                         android:maxLines="1"
                         android:text="@string/bank_details"
-                        android:textColor="@color/secondry_text"
+                        android:textColor="@color/secondary_text"
                         android:textSize="@dimen/_11ssp" />
 
 
@@ -1008,7 +1008,7 @@
                                 android:fontFamily="@font/bai_jamjuree_semi_bold"
                                 android:maxLines="1"
                                 android:text="@string/cancelled_cheque_photo"
-                                android:textColor="@color/secondry_text"
+                                android:textColor="@color/secondary_text"
                                 android:textSize="@dimen/_11ssp"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
@@ -1042,7 +1042,7 @@
                                 android:fontFamily="@font/bai_jamjuree_semi_bold"
                                 android:maxLines="1"
                                 android:text="@string/choose_file"
-                                android:textColor="@color/secondry_text"
+                                android:textColor="@color/secondary_text"
                                 android:textSize="@dimen/_9ssp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="@+id/chequeImgCard"
@@ -1083,7 +1083,7 @@
                         android:fontFamily="@font/bai_jamjuree_semi_bold"
                         android:maxLines="1"
                         android:text="@string/declaration_form"
-                        android:textColor="@color/secondry_text"
+                        android:textColor="@color/secondary_text"
                         android:textSize="@dimen/_11ssp" />
 
 
@@ -1120,7 +1120,7 @@
                                 android:fontFamily="@font/bai_jamjuree_semi_bold"
                                 android:maxLines="2"
                                 android:text="@string/declare_document"
-                                android:textColor="@color/secondry_text"
+                                android:textColor="@color/secondary_text"
                                 android:textSize="@dimen/_11ssp"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
@@ -1154,7 +1154,7 @@
                                 android:fontFamily="@font/bai_jamjuree_semi_bold"
                                 android:maxLines="1"
                                 android:text="@string/choose_file"
-                                android:textColor="@color/secondry_text"
+                                android:textColor="@color/secondary_text"
                                 android:textSize="@dimen/_9ssp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="@+id/declareImgCard"
@@ -1189,7 +1189,7 @@
                     android:fontFamily="@font/bai_jamjuree_semi_bold"
                     android:maxLines="1"
                     android:text="@string/Referral_Code"
-                    android:textColor="@color/secondry_text"
+                    android:textColor="@color/secondary_text"
                     android:textSize="@dimen/_11ssp" />
 
                 <com.google.android.material.card.MaterialCardView

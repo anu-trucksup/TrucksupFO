@@ -9,10 +9,8 @@ import android.graphics.Bitmap
 import android.graphics.ImageDecoder
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.Environment
 import android.provider.MediaStore
 import android.text.InputFilter
 import android.text.TextUtils
@@ -57,7 +55,6 @@ import com.trucksup.field_officer.presenter.view.activity.other.ViewPdfScreen
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.io.FileOutputStream
-import java.io.OutputStream
 import java.util.Locale
 import java.util.regex.Pattern
 
@@ -77,10 +74,11 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
     private var prevPolicyDocsImgKey: String? = ""
     private var prevPolicyDocsImgUrl: String? = ""
     private var imageT: Int = 0//0 default,1 front image,2 back image,3 previous policy docs image
-    private var sourceValue: String? = "Trucksup"
+    private var sourceValue: String? = "BO"
 
     private var launcher: ActivityResultLauncher<Intent>? = null
     private var imageUri:String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -355,7 +353,7 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
                 setStrokeColor(resources.getColor(R.color.border_color))
                 setCardBackgroundColor(resources.getColor(R.color.chipColor))
             }
-            binding.tvOther.setTextColor(resources.getColor(R.color.secondry_text))
+            binding.tvOther.setTextColor(resources.getColor(R.color.secondary_text))
 
             //clear full name
             // binding.etFullName.setText(PreferenceManager.getUserData(this)?.profileName)
@@ -413,7 +411,7 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
                 setStrokeColor(resources.getColor(R.color.border_color))
                 setCardBackgroundColor(resources.getColor(R.color.chipColor))
             }
-            binding.tvSelf.setTextColor(resources.getColor(R.color.secondry_text))
+            binding.tvSelf.setTextColor(resources.getColor(R.color.secondary_text))
 
             //clear full name
             binding.etFullName.getText().clear()
@@ -1458,7 +1456,7 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
         if (resultCode == Activity.RESULT_OK && requestCode == 11 && data != null) {
 
             if (data.extras?.get("data") != null) {
-                var newBitmap: Bitmap =
+                val newBitmap: Bitmap =
                     data.extras?.get("data") as Bitmap  // FileHelp().resizeImage(data.extras?.get("data") as Bitmap, 500, 500)!!
                 val newFile: File = FileHelp().bitmapTofile(newBitmap, this)!!
 
@@ -1479,49 +1477,8 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
 
     override fun fromCamara() {
 
-        //new 2
-//        var intent=Intent(this,CameraXActivity::class.java)
-//        startActivity(intent)
-
-        //new 6
-        /*val intent = Intent(this, CameraXActivity::class.java)
-        intent.putExtra("FRONT", "n")
-        intent.putExtra("BACK", "y")
-        startForResult.launch(intent)*/
         launchCamera(false, 0)
     }
-
-    private val startForResult =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
-            if (result.resultCode == 100) {
-
-                if (Uri.parse(result.data?.getStringExtra("image")) != null) {
-//                    var orFile: File =
-//                        FileHelp().getFile(this, Uri.parse(result.data?.getStringExtra("image")))!!
-//                    var bitmap: Bitmap = FileHelp().FileToBitmap(orFile)
-//                    var newBitmap: Bitmap = FileHelp().resizeImage(bitmap, 500, 500)!!
-//                    var newFile: File = FileHelp().bitmapTofile(newBitmap, this)!!
-
-                    val bitmap = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                        ImageDecoder.decodeBitmap(
-                            ImageDecoder.createSource(
-                                contentResolver,
-                                Uri.parse(result.data?.getStringExtra("image"))
-                            )
-                        )
-                    } else {
-                        MediaStore.Images.Media.getBitmap(
-                            contentResolver,
-                            Uri.parse(result.data?.getStringExtra("image"))
-                        )
-                    }
-                    val newBitmap: Bitmap = FileHelp().resizeImage(bitmap, 500, 500)!!
-                    val newFile: File = FileHelp().bitmapTofile(newBitmap, this)!!
-
-                    uploadImage(newFile, "")
-                }
-            }
-        }
 
 
     private fun viewVehicleDetails(data: VehicleDetail) {
@@ -1632,8 +1589,7 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
                 Glide.with(this)
                     .load(url)
                     .into(binding.imgFrontCamera)
-            } catch (e: Exception) {
-            }
+            } catch (_: Exception) { }
         } else if (imageT == 2) {
             rcBackImgKey = value
             rcBackImgUrl = url
@@ -1642,8 +1598,7 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
                 Glide.with(this)
                     .load(url)
                     .into(binding.imgBackCamera)
-            } catch (e: Exception) {
-            }
+            } catch (_: Exception) { }
         } else if (imageT == 3) {
             prevPolicyDocsImgKey = value
             prevPolicyDocsImgUrl = url
@@ -1652,8 +1607,7 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
                 Glide.with(this)
                     .load(R.drawable.pdf_icon)
                     .into(binding.imgPrevPolicyDoc)
-            } catch (e: Exception) {
-            }
+            } catch (_: Exception) { }
         }
     }
 
@@ -1680,20 +1634,15 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
                             .into(it)
                     }
                     //profileImage?.setRotation(270F)
-                    val orFile: File =
-                        FileHelp().getFile(this, data!!.getStringExtra("result")?.toUri())!!
+                    val orFile: File = FileHelp().getFile(this, data.getStringExtra("result")?.toUri())!!
                     val newBitmap: Bitmap = FileHelp().FileToBitmap(orFile)
 
 
-                    val name = "trucksUp_image" + System.currentTimeMillis() + ".jpg"
-                    val pt = Environment.DIRECTORY_PICTURES //+  "/trucksUp";
-                    val MEDIA_PATH = Environment.getExternalStorageDirectory().absolutePath + "/" + pt + "/"
+                    val name = "bo_image" + System.currentTimeMillis() + ".jpg"
 
-                    val filesDir: File = getFilesDir()
                     val imageFile = File(filesDir, name)
 
-                    val os: OutputStream
-                    os = FileOutputStream(imageFile)
+                    val os = FileOutputStream(imageFile)
                     newBitmap.compress(Bitmap.CompressFormat.JPEG, 99, os)
                     os.flush()
                     os.close()
@@ -1704,13 +1653,13 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
             }
         }
     }
+
     private fun launchCamera(flipCamera: Boolean, cameraOpen: Int){
         val intent = Intent(this, CameraActivity::class.java)
         intent.putExtra("flipCamera", flipCamera)
         intent.putExtra("cameraOpen", cameraOpen)
-        launcher!!.launch(intent)
+        launcher?.launch(intent)
     }
-    //test
 
     fun viewPreviousEnquiry(v: View) {
         //Insurance

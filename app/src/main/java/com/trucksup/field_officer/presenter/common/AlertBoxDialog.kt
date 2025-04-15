@@ -3,6 +3,7 @@ package com.trucksup.field_officer.presenter.common
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Dialog
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -13,8 +14,11 @@ import android.view.Window
 import android.view.WindowManager
 import android.widget.TextView
 import com.trucksup.field_officer.R
+import com.trucksup.field_officer.presenter.view.activity.auth.login.LoginActivity
+import com.trucksup.field_officer.presenter.view.activity.auth.signup.SignUpActivity
 
-class AlertBoxDialog(var context: Activity, var message: String, var type: String) : Dialog(context) {
+class AlertBoxDialog(var context: Activity, var message: String, var type: String) :
+    Dialog(context) {
     private var msgText: TextView? = null
     private var okButton: TextView? = null
     private var verifymessagetxt: TextView? = null
@@ -56,9 +60,11 @@ class AlertBoxDialog(var context: Activity, var message: String, var type: Strin
 
         okButton?.setOnClickListener {
             Log.e("type", ">>>>>" + type)
-            if (type == "m") {
+            if (type == "m" || type == "p") {
                 this.dismiss()
-            } else if (type == "p") {
+            } else if (type == "sign") {
+                val intent = Intent(context, SignUpActivity::class.java)
+                context.startActivity(intent)
                 this.dismiss()
             } /*else if (type == "verifymsgadhar") {
                 var intent: Intent = Intent(context, MainActivity::class.java)

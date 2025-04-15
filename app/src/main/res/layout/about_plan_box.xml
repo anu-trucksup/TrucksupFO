@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:text=""
             android:id="@+id/text"
-            android:textColor="@color/secondry_text"
+            android:textColor="@color/secondary_text"
             android:fontFamily="@font/bai_jamjuree_medium"
             android:textSize="@dimen/_13ssp" />
 

@@ -219,16 +219,6 @@ interface ApiService {
     ): SubmitInsuranceInquiryData
 
 
-    @Multipart
-    @POST("upload-imagefile")
-    suspend fun uploadImage(
-        @Query("bucketName") bucketName: String?,
-        @Query("ID") id: Int?,
-        @Query("Position") position: Int?,
-        @Query("RequestId") requestId: Int?,
-        @Part file: MultipartBody.Part?,
-    ): ImageResponse
-
     @POST("TrucksUpAPIGateway/gateway/CitySearch")
     @Headers("Accept: application/json")
     fun searchCity(@Body request: CitySearchRequest): Call<CityListbySearchRequest>?

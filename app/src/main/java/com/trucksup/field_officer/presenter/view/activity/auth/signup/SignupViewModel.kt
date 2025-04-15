@@ -53,10 +53,8 @@ class SignupViewModel @Inject constructor(val apiUseCase: APIUseCase) : ViewMode
         }
     }
 
-
     fun uploadImages(token: String, documentType: String, file: MultipartBody.Part,
-        fileWaterMark: MultipartBody.Part,
-        imgRes: TrucksFOImageController
+        fileWaterMark: MultipartBody.Part, imgRes: TrucksFOImageController
     ) {
         val apiInterface = ApiClient().getClient
         apiInterface.uploadImages(token, documentType, "BusinessOfficer", file, fileWaterMark)

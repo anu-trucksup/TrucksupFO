@@ -108,13 +108,9 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:background="@drawable/edit_box"
-                                android:fontFamily="@font/bai_jamjuree_medium"
-                                android:hint="@string/type"
+                                style="@style/edit_text_m"
                                 android:inputType="textCapWords"
-                                android:paddingHorizontal="@dimen/_10sdp"
-                                android:textColor="@color/secondry_text"
-                                android:textColorHint="@color/secondry_text"
-                                android:textSize="@dimen/_12sdp" />
+                                android:paddingHorizontal="@dimen/_10sdp" />
                         </com.google.android.material.card.MaterialCardView>
 
                         <LinearLayout
@@ -208,14 +204,10 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:background="@drawable/edit_box"
-                                android:fontFamily="@font/bai_jamjuree_medium"
-                                android:hint="@string/mobile_number"
+                                style="@style/edit_text_m"
                                 android:inputType="phone"
                                 android:maxLength="10"
-                                android:paddingHorizontal="@dimen/_10sdp"
-                                android:textColor="@color/secondry_text"
-                                android:textColorHint="@color/secondry_text"
-                                android:textSize="@dimen/_12sdp" />
+                                android:paddingHorizontal="@dimen/_10sdp" />
                         </com.google.android.material.card.MaterialCardView>
 
                     </LinearLayout>
@@ -253,7 +245,7 @@
                                 android:drawableStart="@drawable/locked"
                                 android:maxLines="1"
                                 style="@style/edit_text_m"
-                                android:hint="@string/password"
+                                android:hint="@string/password_hint"
                                 android:drawablePadding="@dimen/_2sdp"
                                 android:paddingHorizontal="@dimen/_10sdp"/>
                         </com.google.android.material.card.MaterialCardView>
@@ -293,7 +285,7 @@
                                 android:drawableEnd="@drawable/transparent_view"
                                 android:maxLines="1"
                                 style="@style/edit_text_m"
-                                android:hint="@string/confirm_password"
+                                android:hint="@string/password_hint"
                                 android:drawablePadding="@dimen/_2sdp"
                                 android:paddingHorizontal="@dimen/_10sdp"
                                 />
@@ -390,12 +382,10 @@
                         android:layout_marginHorizontal="@dimen/_20sdp"
                         android:layout_marginTop="@dimen/_20sdp"
                         android:background="@drawable/background_1_1"
-                        android:fontFamily="@font/bai_jamjuree_semi_bold"
+                        style="@style/label_semi_w"
                         android:gravity="center"
                         android:paddingVertical="@dimen/_6sdp"
-                        android:text="@string/sign_up"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_14ssp" />
+                        android:text="@string/sign_up"/>
                 </LinearLayout>
 
                 //bottom text
