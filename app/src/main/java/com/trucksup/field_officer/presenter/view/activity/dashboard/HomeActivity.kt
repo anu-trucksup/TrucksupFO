@@ -333,17 +333,25 @@ class HomeActivity : BaseActivity(), OnItemClickListener {
             } else {
                 LoadingUtils.hideDialog()
                 if (responseModel.success != null) {
-                    if (dutyStatus==true) {
-                        binding.txtOnDuty.text = "On Duty"
-                        binding.txtOnDuty.setTextColor(resources.getColor(R.color.on_duty_color))
-                        binding.OnSwitchBtn.trackTintList =
-                            resources.getColorStateList(R.color.on_duty_color)
-                    } else {
-                        binding.txtOnDuty.text = "Off Duty"
-                        binding.txtOnDuty.setTextColor(resources.getColor(R.color.red))
-                        binding.OnSwitchBtn.trackTintList = resources.getColorStateList(R.color.red)
+                    if (responseModel.success.statuscode==200) {
+                        if (dutyStatus == true) {
+                            binding.txtOnDuty.text = "On Duty"
+                            binding.txtOnDuty.setTextColor(resources.getColor(R.color.on_duty_color))
+                            binding.OnSwitchBtn.trackTintList = resources.getColorStateList(R.color.on_duty_color)
+                        } else {
+                            binding.txtOnDuty.text = "Off Duty"
+                            binding.txtOnDuty.setTextColor(resources.getColor(R.color.red))
+                            binding.OnSwitchBtn.trackTintList = resources.getColorStateList(R.color.red)
+                        }
                     }
-                } else {
+                    else
+                    {
+
+                    }
+                }
+                else
+                {
+
                 }
             }
         }

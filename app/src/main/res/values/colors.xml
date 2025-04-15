@@ -127,5 +127,6 @@
 
     <color name="blue2">#3C2088</color>
     <color name="blue2_fad">#733C2088</color>
+    <color name="grey4">#80848383</color>
 
 </resources>

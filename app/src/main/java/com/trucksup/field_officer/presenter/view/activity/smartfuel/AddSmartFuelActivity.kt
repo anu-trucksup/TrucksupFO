@@ -137,13 +137,18 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
             } else {
                 dismissProgressDialog()
 
-                if (responseModel.success?.message != null) {
-                    val abx = FinaceSubmitBox(
-                        this, responseModel.success.message,
-                        responseModel.success.message, "cl"
-                    )
-                    abx.show()
+                if (responseModel.success != null) {
+                    if (responseModel.success.statuscode == 200) {
+                        val abx = FinaceSubmitBox(
+                            this, responseModel.success.message,
+                            responseModel.success.message, "cl"
+                        )
+                        abx.show()
+                    }
+                    else
+                    {
 
+                    }
                 } else {
 
                 }
@@ -152,7 +157,8 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
 
     }
 
-    private var activitypdfLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+    private var activitypdfLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
 
                 val orFile: File = FileHelp().getFile(this, result.data?.data)!!
@@ -293,7 +299,7 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
     private fun ApiOnSubmitted() {
         showProgressDialog(this, false)
         val request = AddSmartFuelLeadRequest(
-            ""+binding.acsAddressProof.selectedItem?:"",
+            "" + binding.acsAddressProof.selectedItem ?: "",
             "" + AddressBackImgKey ?: "",
             "" + AddressFrontImgKey ?: "",
             "" + PreferenceManager.getPhoneNo(this),
@@ -310,7 +316,7 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
             "" + PreferenceManager.getServerDateUtc(),
             "" + PreferenceManager.getRequestNo(),
             "" + PreferenceManager.getPhoneNo(this),
-            ""+binding.etReferralCode.text.toString(),
+            "" + binding.etReferralCode.text.toString(),
             "BO",
             "" + PreferenceManager.getPhoneNo(this)
         )
@@ -360,7 +366,7 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
                 resources.getString(R.string.enterVehicle),
                 this
             )
-        } else if (checkVehicleNumber(binding.etCustomerVehicleNumber.text.toString())==false) {
+        } else if (checkVehicleNumber(binding.etCustomerVehicleNumber.text.toString()) == false) {
             LoggerMessage.onSNACK(
                 binding.etCustomerVehicleNumber,
                 resources.getString(R.string.enterVehicle),
@@ -607,7 +613,11 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
 
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray, ) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray,
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == 1010) {
             if (grantResults.isNotEmpty()) {
@@ -641,7 +651,8 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
          startActivity(intent)*/
     }
 
-    private val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+    private val pickMedia =
+        registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
             // Callback is invoked after the user selects a media item or closes the
             // photo picker.
             if (uri != null) {

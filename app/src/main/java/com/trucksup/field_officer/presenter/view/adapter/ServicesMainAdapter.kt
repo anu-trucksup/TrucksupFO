@@ -32,6 +32,7 @@ class ServicesMainAdapter(var context: Context?) :
         holder.binding.serviceName.text = serviceList[position]
 
         if (position == 5 || position == 4) {
+            holder.binding.materialCardView.setCardForegroundColor(context!!.getColorStateList(R.color.grey4))
             holder.binding.serviceImg.isEnabled = false
         }
 
