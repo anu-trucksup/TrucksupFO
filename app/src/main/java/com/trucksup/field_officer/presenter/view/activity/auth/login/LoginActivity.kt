@@ -208,14 +208,17 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                     showProgressDialog(this, false)
                     mViewModel?.loginUser(PreferenceManager.getAuthToken(), request)
                 } else {
-                    mLoginBinding?.passwordTxt?.error = "Password must be at least 8 characters, include upper, lower, number & special character."
+                    mLoginBinding?.passwordTxt?.error = getString(R.string.password_validation)
                 }
 
             } else {
-                Utils.showToastDialog(
-                    "No Internet connection.",
-                    this, "Ok"
+
+                val abx = AlertBoxDialog(
+                    this@LoginActivity,
+                    getString(R.string.no_internet),
+                    "m"
                 )
+                abx.show()
             }
         }
     }
