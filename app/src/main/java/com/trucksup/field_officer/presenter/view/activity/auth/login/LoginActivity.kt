@@ -209,6 +209,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                     mViewModel?.loginUser(PreferenceManager.getAuthToken(), request)
                 } else {
                     mLoginBinding?.passwordTxt?.error = getString(R.string.password_validation)
+                    return
                 }
 
             } else {

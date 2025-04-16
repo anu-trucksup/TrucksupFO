@@ -222,7 +222,6 @@ class ResetPasswordActivity : BaseActivity(), View.OnClickListener, JWTtoken {
             issuer = "TrucksupOtpIssuer"
         )
         mTokenViewModel?.generateJWToken(request, this, this)
-        Log.e(" volley main url ", PreferenceManager.getServerUrl(this))
 
     }
 
@@ -232,7 +231,7 @@ class ResetPasswordActivity : BaseActivity(), View.OnClickListener, JWTtoken {
         } else if (view.id == R.id.tv_verify) {
 
             if (TextUtils.isEmpty(mBinding?.otpPinview?.text.toString().trim())) {
-                mBinding?.otpPinview?.error = "Please Enter OTP"
+                mBinding?.otpPinview?.error = "Please Enter OTP."
                 mBinding?.otpPinview?.visibility = View.VISIBLE
             } else {
                 verifyOTP()

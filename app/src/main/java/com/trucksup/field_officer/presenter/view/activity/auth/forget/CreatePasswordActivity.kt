@@ -28,8 +28,6 @@ class CreatePasswordActivity : BaseActivity(), View.OnClickListener {
     private var mBinding: ActivityCreatePasswordBinding? = null
     private var mViewModel: CreatePasswordViewModel? = null
     private var mobileNumber: String? = null
-    private var isResendEnabled: Boolean = false
-    private var passWord: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -126,78 +124,93 @@ class CreatePasswordActivity : BaseActivity(), View.OnClickListener {
         if (view.id == R.id.iv_back) {
             onBackPressed()
         } else if (view.id == R.id.updatepass_btn) {
-            startActivity(Intent(this, WelcomeLocationActivity::class.java))
+
             if (TextUtils.isEmpty(mBinding?.passwordTxt?.text.toString().trim())) {
-                mBinding?.passwordTxt?.error = "Please Enter Password"
+                mBinding?.passwordTxt?.error = getString(R.string.enter_password)
                 mBinding?.passwordTxt?.requestFocus()
                 return
             }
 
             val password = mBinding!!.passwordTxt.text.toString()
-            val confirmpassword = mBinding!!.confirmPasswordTxt.text.toString()
-            // regex
-            val regex = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$"
-            val p = Pattern.compile(regex)
 
-            if (confirmpassword.length > 0 && password.length > 0) {
-                if (!confirmpassword.equals(password)) {
-                    val customErrorDrawable = resources.getDrawable(R.drawable.error_warn)
-                    customErrorDrawable.setBounds(0, 0,
-                        customErrorDrawable.intrinsicWidth, customErrorDrawable.intrinsicHeight)
+            if (isValidPassword(password)) {
 
-                    mBinding?.confirmPasswordTxt?.setError(
-                        "Password and Confirm Password should be same.", customErrorDrawable)
-                    //  mSignUpBinding!!.confirmPasswordTxt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.error_confirm, 0);
+                if (mBinding?.confirmPasswordTxt?.text.toString().isEmpty()) {
+                    LoggerMessage.onSNACK(
+                        mBinding!!.confirmPasswordTxt,
+                        getString(R.string.enter_confirm_password),
+                        applicationContext
+                    )
                     return
-                } else {
+                }
+                val confirmpassword = mBinding!!.confirmPasswordTxt.text.toString()
 
-                    val customErrorDrawable = resources.getDrawable(R.drawable.error_confirm)
-                    customErrorDrawable.setBounds(
-                        0,
-                        0,
-                        customErrorDrawable.intrinsicWidth,
-                        customErrorDrawable.intrinsicHeight
-                    )
+                if (confirmpassword.length > 0 && password.length > 0) {
+                    if (!confirmpassword.equals(password)) {
+                        val customErrorDrawable = resources.getDrawable(R.drawable.error_warn)
+                        customErrorDrawable.setBounds(
+                            0, 0,
+                            customErrorDrawable.intrinsicWidth, customErrorDrawable.intrinsicHeight
+                        )
 
-                    mBinding!!.confirmPasswordTxt.setError(
-                        "Both Password are same.",
-                        customErrorDrawable
-                    )
+                        mBinding?.confirmPasswordTxt?.setError(
+                            "Password and Confirm Password should be same.", customErrorDrawable
+                        )
+                        //  mSignUpBinding!!.confirmPasswordTxt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.error_confirm, 0);
+                        return
+                    } else {
+
+                        val customErrorDrawable = resources.getDrawable(R.drawable.error_confirm)
+                        customErrorDrawable.setBounds(
+                            0,
+                            0,
+                            customErrorDrawable.intrinsicWidth,
+                            customErrorDrawable.intrinsicHeight
+                        )
+
+                        mBinding!!.confirmPasswordTxt.setError(
+                            "Both Password are same.",
+                            customErrorDrawable
+                        )
+
+                    }
 
                 }
-
-            }
-
-            if (!p.matcher(password).matches()) {
-
-                showProgressDialog(this, false)
-                passWord = mBinding!!.confirmPasswordTxt.text.toString()
-
-                val request = ForgetRequest(
-                    requestedBy = mobileNumber.toString(),
-                    requestId = PreferenceManager.getRequestNo().toInt(),
-                    requestDatetime = PreferenceManager.getServerDateUtc(),
-                    deviceid = PreferenceManager.getAndroiDeviceId(this),
-                    appVersion = AppVersionUtils.getAppVersionName(this),
-                    androidVersion = Build.VERSION.SDK_INT.toString(),
-                    profilename = "",
-                    profilephoto = "",
-                    mobilenumber = mobileNumber.toString(),
-                    password = mBinding?.passwordTxt?.text.toString()
-                )
-                mViewModel?.resetPassword(
-                    PreferenceManager.getAuthToken(), request
-                )
-
             } else {
-                LoggerMessage.onSNACK(
-                    mBinding!!.updatepassBtn,
-                    "Enter a valid password format.", applicationContext
-                )
+                mBinding?.passwordTxt?.error = getString(R.string.password_validation)
+                return
             }
+
+            // Proceed
+
+            showProgressDialog(this, false)
+
+            val request = ForgetRequest(
+                requestedBy = mobileNumber.toString(),
+                requestId = PreferenceManager.getRequestNo().toInt(),
+                requestDatetime = PreferenceManager.getServerDateUtc(),
+                deviceid = PreferenceManager.getAndroiDeviceId(this),
+                appVersion = AppVersionUtils.getAppVersionName(this),
+                androidVersion = Build.VERSION.SDK_INT.toString(),
+                profilename = "",
+                profilephoto = "",
+                mobilenumber = mobileNumber.toString(),
+                password = password.toString()
+            )
+            mViewModel?.resetPassword(
+                PreferenceManager.getAuthToken(), request
+            )
+
+
         }
     }
 
+    private fun isValidPassword(password: String): Boolean {
+        val passwordRegex = Regex(
+            "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#\$%^&+=!])(?=\\S+\$).{8,}\$"
+        )
+        return passwordRegex.matches(password)
+    }
 
     /*  private fun sendOTP() {
           if (isEmailType) {

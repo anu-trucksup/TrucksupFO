@@ -261,7 +261,9 @@ class SignUpActivity : BaseActivity(), View.OnClickListener, TrucksFOImageContro
                     mSignUpBinding?.phoneNoTxt?.requestFocus()
                     return
                 }
-                if (mSignUpBinding!!.passwordTxt.text.toString().isEmpty()) {
+
+                val password = mSignUpBinding!!.passwordTxt.text.toString()
+                if (password.isEmpty()) {
                     LoggerMessage.onSNACK(
                         mSignUpBinding!!.passwordTxt,
                         resources.getString(R.string.enter_password), applicationContext
@@ -269,51 +271,56 @@ class SignUpActivity : BaseActivity(), View.OnClickListener, TrucksFOImageContro
                     return
                 }
 
-                if (mSignUpBinding!!.confirmPasswordTxt.text.toString().isEmpty()) {
-                    LoggerMessage.onSNACK(
-                        mSignUpBinding!!.confirmPasswordTxt,
-                        "Please Enter Confirm Password.",
-                        applicationContext
-                    )
+                if (isValidPassword(password)) {
+
+                    if (mSignUpBinding!!.confirmPasswordTxt.text.toString().isEmpty()) {
+                        LoggerMessage.onSNACK(
+                            mSignUpBinding!!.confirmPasswordTxt,
+                            getString(R.string.enter_confirm_password),
+                            applicationContext
+                        )
+                        return
+                    }
+
+                    val confirmPassword = mSignUpBinding!!.confirmPasswordTxt.text.toString()
+
+                    if (confirmPassword.length > 0 && password.length > 0) {
+                        if (!confirmPassword.equals(password)) {
+                            val customErrorDrawable = resources.getDrawable(R.drawable.error_warn)
+                            customErrorDrawable.setBounds(
+                                0, 0,
+                                customErrorDrawable.intrinsicWidth, customErrorDrawable.intrinsicHeight
+                            )
+
+                            mSignUpBinding?.confirmPasswordTxt?.setError(
+                                "Password and Confirm Password should be same.", customErrorDrawable
+                            )
+                            //  mSignUpBinding!!.confirmPasswordTxt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.error_confirm, 0);
+                            return
+                        } else {
+
+                            val customErrorDrawable = resources.getDrawable(R.drawable.error_confirm)
+                            customErrorDrawable.setBounds(
+                                0,
+                                0,
+                                customErrorDrawable.intrinsicWidth,
+                                customErrorDrawable.intrinsicHeight
+                            )
+
+                            mSignUpBinding!!.confirmPasswordTxt.setError(
+                                "Both Password are same.",
+                                customErrorDrawable
+                            )
+
+                        }
+
+                    }
+                } else {
+                    mSignUpBinding?.passwordTxt?.error = getString(R.string.password_validation)
                     return
                 }
 
-                val password: String = mSignUpBinding!!.passwordTxt.getText().toString()
-                val confirmpassword: String =
-                    mSignUpBinding!!.confirmPasswordTxt.getText().toString()
 
-                if (confirmpassword.length > 0 && password.length > 0) {
-                    if (!confirmpassword.equals(password)) {
-                        val customErrorDrawable = resources.getDrawable(R.drawable.error_warn)
-                        customErrorDrawable.setBounds(
-                            0,
-                            0,
-                            customErrorDrawable.intrinsicWidth,
-                            customErrorDrawable.intrinsicHeight
-                        )
-
-                        mSignUpBinding!!.confirmPasswordTxt.setError(
-                            "Password and Confirm Password should be same.",
-                            customErrorDrawable
-                        )
-
-                        //  mSignUpBinding!!.confirmPasswordTxt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.error_confirm, 0);
-
-                        return
-                    } else {
-
-                        val customErrorDrawable = resources.getDrawable(R.drawable.error_confirm)
-                        customErrorDrawable.setBounds(
-                            0,
-                            0,
-                            customErrorDrawable.intrinsicWidth,
-                            customErrorDrawable.intrinsicHeight
-                        )
-
-                        mSignUpBinding!!.confirmPasswordTxt.setError("", customErrorDrawable)
-
-                    }
-                }
 
                 if (mSignUpBinding?.phoneNoTxt?.text.toString().isNotEmpty()
                     && mSignUpBinding?.passwordTxt?.text.toString().isNotEmpty()
@@ -490,13 +497,7 @@ class SignUpActivity : BaseActivity(), View.OnClickListener, TrucksFOImageContro
                 break
             }
         }
-
-
-
-
         return 1
-
-
     }
 
     override fun getImage(valuekey: String, url: String) {
@@ -517,5 +518,11 @@ class SignUpActivity : BaseActivity(), View.OnClickListener, TrucksFOImageContro
         LoggerMessage.onSNACK(mSignUpBinding?.profileImage!!, error, this)
     }
 
+    private fun isValidPassword(password: String): Boolean {
+        val passwordRegex = Regex(
+            "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#\$%^&+=!])(?=\\S+\$).{8,}\$"
+        )
+        return passwordRegex.matches(password)
+    }
 
 }
