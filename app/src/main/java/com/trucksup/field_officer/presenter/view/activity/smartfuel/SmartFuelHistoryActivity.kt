@@ -1,5 +1,6 @@
 package com.trucksup.field_officer.presenter.view.activity.smartfuel
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -201,8 +202,17 @@ class SmartFuelHistoryActivity : BaseActivity() {
                 dismissProgressDialog()
 
                 if (responseModel.success != null) {
-                    inquiryHistorySuccess(responseModel.success)
-                } else {
+                    if (responseModel.success.statuscode==200) {
+                        inquiryHistorySuccess(responseModel.success)
+                    }
+                    else
+                    {
+
+                    }
+                }
+                else
+                {
+
                 }
             }
         }

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.trucksup.field_officer.R
+import com.trucksup.field_officer.data.model.HomeServicesModel
 import com.trucksup.field_officer.databinding.ItemFeaturesBinding
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.BAPerformanceActivity
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.FinanceHistoryActivity
@@ -17,31 +18,31 @@ import com.trucksup.field_officer.presenter.view.activity.subscription.Subscript
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.TSPerformanceActivity
 
 
-class HomeFeaturesAdapter(var context: Context?) :
+class HomeFeaturesAdapter(var context: Context?,var list:ArrayList<HomeServicesModel>) :
     RecyclerView.Adapter<HomeFeaturesAdapter.ViewHolder>() {
 
-    private val serviceList = arrayListOf(
-        "Truck Suppliers",
-        "Business Associates",
-        "Growth Partners",
-        "Total Add Loads",
-        "Total downloads",
-        "Subscription Plans",
-        "Finance Leads",
-        "Insurance Leads",
-        "Smart Fuel Leads"
-    )
-    private val imageList = arrayListOf(
-        R.drawable.truck_img,
-        R.drawable.ba_ic,
-        R.drawable.growth_part,
-        R.drawable.load_feature,
-        R.drawable.down_feature,
-        R.drawable.subscribe_feature,
-        R.drawable.finance_feature,
-        R.drawable.insure_feature,
-        R.drawable.fuel_feature
-    )
+//    private val serviceList = arrayListOf(
+//        "Truck Suppliers",
+//        "Business Associates",
+//        "Growth Partners",
+//        "Total Add Loads",
+//        "Total downloads",
+//        "Subscription Plans",
+//        "Finance Leads",
+//        "Insurance Leads",
+//        "Smart Fuel Leads"
+//    )
+//    private val imageList = arrayListOf(
+//        R.drawable.truck_img,
+//        R.drawable.ba_ic,
+//        R.drawable.growth_part,
+//        R.drawable.load_feature,
+//        R.drawable.down_feature,
+//        R.drawable.subscribe_feature,
+//        R.drawable.finance_feature,
+//        R.drawable.insure_feature,
+//        R.drawable.fuel_feature
+//    )
 
     inner class ViewHolder(var binding: ItemFeaturesBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -52,8 +53,16 @@ class HomeFeaturesAdapter(var context: Context?) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        holder.binding.ivImage.setImageResource(imageList[position])
-        holder.binding.tvName.text = serviceList[position]
+        holder.binding.ivImage.setImageResource(list[position].serviceImage)
+        holder.binding.tvName.text = list[position].service
+        if (list[position].serviceCount.isNullOrEmpty())
+        {
+            holder.binding.tvCount.text="0"
+        }
+        else
+        {
+            holder.binding.tvCount.text=list[position].serviceCount
+        }
 
         holder.binding.root.setOnClickListener {
             //Toast.makeText(context,"Under Development", Toast.LENGTH_SHORT).show()
@@ -78,13 +87,11 @@ class HomeFeaturesAdapter(var context: Context?) :
                     val intent = Intent(context, TotalDownloadsActivity::class.java)
                     context?.startActivity(intent)
                 }
-
                 5 -> {
                     val intent = Intent(context, SubscriptionActivity::class.java)
                     context?.startActivity(intent)
                 }
                 6 -> {
-
                     //Finance
                     val intent = Intent(context, FinanceHistoryActivity::class.java)
                     intent.putExtra("HISTORY_TYPE", "Finance")
@@ -100,14 +107,11 @@ class HomeFeaturesAdapter(var context: Context?) :
                     val intent = Intent(context, SmartFuelHistoryActivity::class.java)
                     context?.startActivity(intent)
                 }
-
             }
-
-
         }
     }
 
     override fun getItemCount(): Int {
-        return serviceList.size
+        return list.size
     }
 }

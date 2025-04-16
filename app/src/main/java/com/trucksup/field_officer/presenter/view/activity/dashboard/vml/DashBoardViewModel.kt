@@ -6,6 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.trucksup.field_officer.data.model.DutyStatusRequest
 import com.trucksup.field_officer.data.model.DutyStatusResponse
+import com.trucksup.field_officer.data.model.home.HomeCountRequest
+import com.trucksup.field_officer.data.model.home.HomeCountResponse
 import com.trucksup.field_officer.data.model.smartfuel.AddSmartFuelLeadRequest
 import com.trucksup.field_officer.data.model.smartfuel.AddSmartFuelLeadResponse
 import com.trucksup.field_officer.data.network.ResponseModel
@@ -28,6 +30,10 @@ class DashBoardViewModel @Inject constructor(val apiUseCase: APIUseCase) : ViewM
 
     private var logoutStatus: MutableLiveData<ResponseModel<LogoutResponse>> = MutableLiveData<ResponseModel<LogoutResponse>>()
     val logoutStatusLD: LiveData<ResponseModel<LogoutResponse>> = logoutStatus
+
+    private var resultAllHomeCountStatus: MutableLiveData<ResponseModel<HomeCountResponse>> = MutableLiveData<ResponseModel<HomeCountResponse>>()
+    val resultAllHomeCountStatusLD: LiveData<ResponseModel<HomeCountResponse>> = resultAllHomeCountStatus
+
 
     fun dutyStatus(request: DutyStatusRequest) {
         CoroutineScope(Dispatchers.IO).launch {
@@ -66,5 +72,24 @@ class DashBoardViewModel @Inject constructor(val apiUseCase: APIUseCase) : ViewM
             }
         }
     }
+
+    fun getAllHomeCountStatus(request: HomeCountRequest) {
+        CoroutineScope(Dispatchers.IO).launch {
+            when (val response = apiUseCase.getAllHomeCountStatus(
+                PreferenceManager.getAuthToken(),
+                request
+            )) {
+                is ResultWrapper.ServerResponseError -> {
+                    Log.e("API Error", response.error ?: "")
+                    resultAllHomeCountStatus.postValue(ResponseModel(serverError = response.error))
+                }
+
+                is ResultWrapper.Success -> {
+                    resultAllHomeCountStatus.postValue(ResponseModel(success = response.value))
+                }
+            }
+        }
+    }
+
 
 }

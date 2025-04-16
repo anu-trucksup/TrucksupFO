@@ -26,6 +26,7 @@ import com.trucksup.field_officer.databinding.CityDialogBinding
 import com.trucksup.field_officer.databinding.FilterLayoutBinding
 import com.trucksup.field_officer.databinding.MessageDialogLayoutBinding
 import com.trucksup.field_officer.databinding.OnOffDutyBinding
+import com.trucksup.field_officer.presenter.common.LoadingUtils
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
 import com.trucksup.field_officer.presenter.view.activity.dashboard.vml.DashBoardViewModel
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinanceDataLiatRequest
@@ -271,6 +272,8 @@ object DialogBoxes {
 
         //ok button
         binding.confirm.setOnClickListener {
+            LoadingUtils.showDialog(context,false)
+
             val request = DutyStatusRequest(
                 1234,
                 ""+PreferenceManager.getPhoneNo(context),

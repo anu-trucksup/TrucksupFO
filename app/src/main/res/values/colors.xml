@@ -60,7 +60,7 @@
     <color name="text_color">#ff000000</color>
     <color name="text_color2">#848383</color>
     <color name="editbox_bg_color">#E5E5E5</color>
-    <color name="shimmerColor">#593E2089</color>
+    <color name="shimmerColor">#FFFFFF</color>
     <color name="border_color">#9C9A9A</color>
     <color name="chipColor">#EEECEC</color>
     <color name="grey">#848383</color>
@@ -127,6 +127,7 @@
 
     <color name="blue2">#3C2088</color>
     <color name="blue2_fad">#733C2088</color>
-    <color name="secondry_text">#848383</color>
+    <color name="grey4">#80848383</color>
+    <color name="secondry_text">#000000</color>
 
 </resources>
