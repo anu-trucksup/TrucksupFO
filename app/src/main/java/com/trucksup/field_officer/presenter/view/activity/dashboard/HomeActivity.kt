@@ -7,7 +7,6 @@ import android.content.Context
 import android.content.Intent
 import android.location.Geocoder
 import android.location.Location
-import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.view.LayoutInflater
@@ -56,7 +55,6 @@ import com.trucksup.field_officer.presenter.view.activity.other.NewOnboardingSel
 import com.trucksup.field_officer.presenter.view.activity.profile.EditProfileActivity
 import com.trucksup.field_officer.presenter.view.activity.profile.MyEarningActivity
 import com.trucksup.field_officer.presenter.view.activity.smartfuel.AddSmartFuelActivity
-import com.trucksup.field_officer.presenter.view.activity.smartfuel.SmartFuelViewModel
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.unassigned_ts_ba.activity.UnAssignedTSBAActivity
 import com.trucksup.field_officer.presenter.view.adapter.HomeFeaturesAdapter
 import com.trucksup.field_officer.presenter.view.adapter.ServicesMainAdapter
@@ -65,7 +63,6 @@ import com.trucksup.field_officer.presenter.view.adapter.TUKawachDialogAdapter
 import com.trucksup.field_officer.presenter.view.adapter.NavigationMenuItem
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
-
 
 @AndroidEntryPoint
 class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
@@ -110,6 +107,12 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
         setupObserver()
 
         setNavigationMenu()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        //dashboard api hit
+        setDashboardApi()
     }
 
     private fun setDashboardApi() {
@@ -351,12 +354,6 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        //dashboard api hit
-        setDashboardApi()
-    }
-
     override fun onClickLogout() {
 
         val profileDetail = PreferenceManager.getUserData(this)
@@ -397,7 +394,6 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
         dismissProgressDialog()
         LoggerMessage.toastPrint(error, this)
     }
-
 
     private fun setupObserver() {
         mViewModel?.resultDutyStatusLD?.observe(this) { responseModel ->                     // login function observe

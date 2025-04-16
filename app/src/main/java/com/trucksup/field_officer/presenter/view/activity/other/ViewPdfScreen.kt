@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.os.Environment
 import android.view.View
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.ProgressBar
 import com.mindev.mindev_pdfviewer.MindevPDFViewer
 import com.mindev.mindev_pdfviewer.PdfScope
@@ -20,7 +21,7 @@ class ViewPdfScreen : BaseActivity() {
     var progressBar: ProgressBar? = null
     var url: String? = null
     var downloadVisibal: String = "y"
-    var download_B: ImageButton? = null
+    var download_B: ImageView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

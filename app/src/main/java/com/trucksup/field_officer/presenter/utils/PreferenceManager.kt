@@ -1064,6 +1064,24 @@ object PreferenceManager {
     fun getAuthToken(): String {
 
         val authPayload = "BOAPISERVICES:BOAPISERVICES@2025"
+//        val authPayload = "DevUser:Dev@123"
+        val data = authPayload.toByteArray()
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val encoder: Base64.Encoder = Base64.getEncoder()
+            val encoded: String = encoder.encodeToString(data)
+
+            return "Basic " + encoded
+        } else {
+            val encode = android.util.Base64.encodeToString(data, android.util.Base64.DEFAULT);
+            return "Basic " + encode
+        }
+
+    }
+
+    @SuppressLint("NewApi", "SuspiciousIndentation")
+    fun getAuthTokenOld(): String {
+        val authPayload = "DevUser:Dev@123"
         val data = authPayload.toByteArray()
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

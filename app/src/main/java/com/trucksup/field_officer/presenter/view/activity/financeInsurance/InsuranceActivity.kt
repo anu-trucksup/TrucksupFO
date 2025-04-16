@@ -92,8 +92,8 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
         }
 
         mViewModel = ViewModelProvider(this)[InsuranceViewModel::class.java]
-        PreferenceManager.setPhoneNo("8303871415", this)
-        binding.etFullName.setText("Anupam")
+        PreferenceManager.setPhoneNo("9999370747", this)
+        binding.etFullName.setText("Yash")
 
         binding.etMobile.setText(PreferenceManager.getPhoneNo(this))
 
@@ -124,7 +124,6 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
         binding.rvInsList.adapter = adapter
     }
 
-
     private fun setupObserver() {
         mViewModel?.resultsubmitInsuranceLD?.observe(this@InsuranceActivity) { responseModel ->                     // login function observe
             if (responseModel.serverError != null) {
@@ -153,32 +152,31 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
             }
         }
 
-        mViewModel?.imgUploadResultLD?.observe(this@InsuranceActivity) { responseModel ->                     // login function observe
-            if (responseModel.serverError != null) {
-                dismissProgressDialog()
-
-                val abx =
-                    AlertBoxDialog(
-                        this@InsuranceActivity,
-                        responseModel.serverError.toString(),
-                        "m"
-                    )
-                abx.show()
-            } else {
-                dismissProgressDialog()
-
-                if (responseModel.success?.imagekey != null) {
-
-
-                } else {
-
-                }
-            }
-        }
+//        mViewModel?.imgUploadResultLD?.observe(this@InsuranceActivity) { responseModel ->                     // login function observe
+//            if (responseModel.serverError != null) {
+//                dismissProgressDialog()
+//
+//                val abx =
+//                    AlertBoxDialog(
+//                        this@InsuranceActivity,
+//                        responseModel.serverError.toString(),
+//                        "m"
+//                    )
+//                abx.show()
+//            } else {
+//                dismissProgressDialog()
+//
+//                if (responseModel.success?.imagekey != null) {
+//
+//
+//                } else {
+//
+//                }
+//            }
+//        }
     }
 
-    private var activitypdfLauncher =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+    private var activitypdfLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
 
                 val orFile: File = FileHelp().getFile(this, result.data?.data)!!
@@ -1285,7 +1283,6 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
         binding.etFullName?.filters = arrayOf(emojiFilter)
     }
 
-
     private fun getImage() {
         if (imageT == 3) {
             var chooseFile = Intent(Intent.ACTION_GET_CONTENT)
@@ -1325,111 +1322,110 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
         }*/
     }
 
-    private fun checkLocationPermission() {
-        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA)
-            != PackageManager.PERMISSION_GRANTED
-        ) {
+//    private fun checkLocationPermission() {
+//        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA)
+//            != PackageManager.PERMISSION_GRANTED
+//        ) {
+//
+//            // Should we show an explanation?
+//            if (ActivityCompat.shouldShowRequestPermissionRationale(
+//                    this,
+//                    android.Manifest.permission.CAMERA
+//                )
+//            ) {
+//
+//                // Show an explanation to the user *asynchronously* -- don't block
+//                // this thread waiting for the user's response! After the user
+//                // sees the explanation, try again to request the permission.
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+//                    ActivityCompat.requestPermissions(
+//                        this,
+//                        arrayOf(
+//                            android.Manifest.permission.CAMERA,
+//                            android.Manifest.permission.READ_MEDIA_IMAGES,
+//                            android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+//                        ),
+//                        1010
+//                    )
+//                } else {
+//                    ActivityCompat.requestPermissions(
+//                        this,
+//                        arrayOf(
+//                            android.Manifest.permission.CAMERA,
+//                            android.Manifest.permission.READ_EXTERNAL_STORAGE,
+//                            android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+//                        ),
+//                        1010
+//                    )
+//                }
+//
+//            } else {
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+//                    ActivityCompat.requestPermissions(
+//                        this,
+//                        arrayOf(
+//                            android.Manifest.permission.CAMERA,
+//                            android.Manifest.permission.READ_MEDIA_IMAGES,
+//                            android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+//                        ),
+//                        1010
+//                    )
+//                } else {
+//                    ActivityCompat.requestPermissions(
+//                        this,
+//                        arrayOf(
+//                            android.Manifest.permission.CAMERA,
+//                            android.Manifest.permission.READ_EXTERNAL_STORAGE,
+//                            android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+//                        ),
+//                        1010
+//                    )
+//                }
+//
+//            }
+//        }
+//
+//    }
 
-            // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(
-                    this,
-                    android.Manifest.permission.CAMERA
-                )
-            ) {
+//    override fun onRequestPermissionsResult(
+//        requestCode: Int,
+//        permissions: Array<out String>,
+//        grantResults: IntArray
+//    ) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+//        if (requestCode == 1010) {
+//            if (grantResults.isNotEmpty()) {
+//                val locationAccepted: Boolean =
+//                    grantResults[0] === PackageManager.PERMISSION_GRANTED
+//                // val cameraAccepted:Boolean = grantResults[1] === PackageManager.PERMISSION_GRANTED
+//
+//                if (locationAccepted == true) {
+//                    if (imageT == 3) {
+//                        var chooseFile = Intent(Intent.ACTION_GET_CONTENT)
+//                        chooseFile.setType("application/pdf");
+//                        chooseFile = Intent.createChooser(chooseFile, "Choose a file")
+//                        activitypdfLauncher.launch(chooseFile)
+//                    } /*else {
+//                        val imagePickerDailog = ImagePickerDailog(this, this)
+//                        imagePickerDailog.show()
+//                    }*/
+//                } else {
+//
+//                    divPer()
+//                }
+//            } else {
+//                divPer()
+//            }
+//
+//        }
+//    }
 
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    ActivityCompat.requestPermissions(
-                        this,
-                        arrayOf(
-                            android.Manifest.permission.CAMERA,
-                            android.Manifest.permission.READ_MEDIA_IMAGES,
-                            android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-                        ),
-                        1010
-                    )
-                } else {
-                    ActivityCompat.requestPermissions(
-                        this,
-                        arrayOf(
-                            android.Manifest.permission.CAMERA,
-                            android.Manifest.permission.READ_EXTERNAL_STORAGE,
-                            android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-                        ),
-                        1010
-                    )
-                }
+//    private fun divPer() {
+//        /* val intent = Intent(this, DevicePermitioins::class.java)
+//         startActivity(intent)*/
+//    }
 
-            } else {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    ActivityCompat.requestPermissions(
-                        this,
-                        arrayOf(
-                            android.Manifest.permission.CAMERA,
-                            android.Manifest.permission.READ_MEDIA_IMAGES,
-                            android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-                        ),
-                        1010
-                    )
-                } else {
-                    ActivityCompat.requestPermissions(
-                        this,
-                        arrayOf(
-                            android.Manifest.permission.CAMERA,
-                            android.Manifest.permission.READ_EXTERNAL_STORAGE,
-                            android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-                        ),
-                        1010
-                    )
-                }
-
-            }
-        }
-
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == 1010) {
-            if (grantResults.isNotEmpty()) {
-                val locationAccepted: Boolean =
-                    grantResults[0] === PackageManager.PERMISSION_GRANTED
-                // val cameraAccepted:Boolean = grantResults[1] === PackageManager.PERMISSION_GRANTED
-
-                if (locationAccepted == true) {
-                    if (imageT == 3) {
-                        var chooseFile = Intent(Intent.ACTION_GET_CONTENT)
-                        chooseFile.setType("application/pdf");
-                        chooseFile = Intent.createChooser(chooseFile, "Choose a file")
-                        activitypdfLauncher.launch(chooseFile)
-                    } /*else {
-                        val imagePickerDailog = ImagePickerDailog(this, this)
-                        imagePickerDailog.show()
-                    }*/
-                } else {
-
-                    divPer()
-                }
-            } else {
-                divPer()
-            }
-
-        }
-    }
-
-    private fun divPer() {
-        /* val intent = Intent(this, DevicePermitioins::class.java)
-         startActivity(intent)*/
-    }
-
-    private val pickMedia =
-        registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+    private val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
             // Callback is invoked after the user selects a media item or closes the
             // photo picker.
             if (uri != null) {
@@ -1444,32 +1440,31 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
 
                 uploadImage(newFile, "")
 
-
             } else {
                 Log.d("PhotoPicker", "No media selected")
             }
         }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (resultCode == Activity.RESULT_OK && requestCode == 11 && data != null) {
-
-            if (data.extras?.get("data") != null) {
-                val newBitmap: Bitmap =
-                    data.extras?.get("data") as Bitmap  // FileHelp().resizeImage(data.extras?.get("data") as Bitmap, 500, 500)!!
-                val newFile: File = FileHelp().bitmapTofile(newBitmap, this)!!
-
-                uploadImage(newFile, "")
-            } else {
-                LoggerMessage.toastPrint("Please Retake", this)
-            }
-
-
-        } else {
-            //  LoggerMessage.tostPrint( "Request cancelled or something went wrong.",baseContext)
-        }
-    }
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//
+//        if (resultCode == Activity.RESULT_OK && requestCode == 11 && data != null) {
+//
+//            if (data.extras?.get("data") != null) {
+//                val newBitmap: Bitmap =
+//                    data.extras?.get("data") as Bitmap  // FileHelp().resizeImage(data.extras?.get("data") as Bitmap, 500, 500)!!
+//                val newFile: File = FileHelp().bitmapTofile(newBitmap, this)!!
+//
+//                uploadImage(newFile, "")
+//            } else {
+//                LoggerMessage.toastPrint("Please Retake", this)
+//            }
+//
+//
+//        } else {
+//            //  LoggerMessage.tostPrint( "Request cancelled or something went wrong.",baseContext)
+//        }
+//    }
 
     override fun fromGallery() {
         pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
@@ -1479,7 +1474,6 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
 
         launchCamera(false, 0)
     }
-
 
     private fun viewVehicleDetails(data: VehicleDetail) {
         val builder = AlertDialog.Builder(this@InsuranceActivity)
@@ -1618,7 +1612,6 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
         LoggerMessage.onSNACK(binding.main, error, this)
     }
 
-    //test
     private fun cameraActivityresult() {
         launcher = registerForActivityResult<Intent, ActivityResult>(
             ActivityResultContracts.StartActivityForResult()
@@ -1628,11 +1621,11 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
 
                 try {
                     imageUri = data!!.getStringExtra("result").toString()
-                    binding.imgFrontCamera.let {
-                        Glide.with(applicationContext)
-                            .load(data.getStringExtra("result")?.toUri())
-                            .into(it)
-                    }
+//                    binding.imgFrontCamera.let {
+//                        Glide.with(applicationContext)
+//                            .load(data.getStringExtra("result")?.toUri())
+//                            .into(it)
+//                    }
                     //profileImage?.setRotation(270F)
                     val orFile: File = FileHelp().getFile(this, data.getStringExtra("result")?.toUri())!!
                     val newBitmap: Bitmap = FileHelp().FileToBitmap(orFile)
@@ -1646,6 +1639,8 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
                     newBitmap.compress(Bitmap.CompressFormat.JPEG, 99, os)
                     os.flush()
                     os.close()
+
+                    uploadImage(orFile, "")
 
                 } catch (ex: Exception) {
                     ex.printStackTrace()
