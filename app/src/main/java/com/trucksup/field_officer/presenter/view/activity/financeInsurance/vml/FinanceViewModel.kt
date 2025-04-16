@@ -30,7 +30,7 @@ class FinanceViewModel @Inject constructor(val apiUseCase: APIUseCase) : ViewMod
     fun getFinanceData(request: FinanceDataLiatRequest) {
         CoroutineScope(Dispatchers.IO).launch {
             when (val response = apiUseCase.getFinanceData(
-                PreferenceManager.getAuthToken(),
+                PreferenceManager.getAuthTokenOld(),
                 request
             )) {
                 is ResultWrapper.ServerResponseError -> {
@@ -48,7 +48,7 @@ class FinanceViewModel @Inject constructor(val apiUseCase: APIUseCase) : ViewMod
     fun submitFinanceData(request: LoanDataSubmitRequest) {
         CoroutineScope(Dispatchers.IO).launch {
             when (val response = apiUseCase.submitFinanceData(
-                PreferenceManager.getAuthToken(),
+                PreferenceManager.getAuthTokenOld(),
                 request
             )) {
                 is ResultWrapper.ServerResponseError -> {
