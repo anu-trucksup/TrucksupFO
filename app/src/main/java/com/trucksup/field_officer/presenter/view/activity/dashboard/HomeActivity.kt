@@ -105,9 +105,6 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
         //today's performance
         todayPerformance(null)
 
-        //dashboard api hit
-        setDashboardApi()
-
         setListener()
 
         setupObserver()
@@ -354,25 +351,23 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        //dashboard api hit
+        setDashboardApi()
+    }
+
     override fun onClickLogout() {
+
+        val profileDetail = PreferenceManager.getUserData(this)
         val request = LogoutRequest(
-            true,
-            PreferenceManager.getPhoneNo(this),
-            PreferenceManager.getRequestNo(),
+            profileDetail?.boUserid?.toInt() ?: 0,
+            PreferenceManager.getServerDateUtc(),
+            PreferenceManager.getRequestNo().toInt(),
             PreferenceManager.getPhoneNo(this)
         )
-       showProgressDialog(this,false)
-       /* var volley: VollyRequests = VollyRequests()
-        var data: PathsModle = PreferenceManager.stringToPath(PreferenceManager.getApiPath(this!!))
-        volley.logout(
-            this,
-            request,
-            this,
-            PreferenceManager.getAuthToken(),
-            data?.logout!!,
-            "out"
-        )*/
-
+        showProgressDialog(this, false)
+        mViewModel?.logoutUser(request)
 
     }
 
@@ -493,8 +488,7 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
         }
     }
 
-    private fun mainServices(serviceCounts: MenuItemsCount?)
-    {
+    private fun mainServices(serviceCounts: MenuItemsCount?) {
         var serviceList=ArrayList<HomeServicesModel>()
         serviceList.add(HomeServicesModel("TU Kawach",R.drawable.ic_kawach,serviceCounts?.tuKawach))
         serviceList.add(HomeServicesModel("Finance",R.drawable.ic_finanace,serviceCounts?.finance))
@@ -509,15 +503,14 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
         }
     }
 
-    private fun earningCounts(earningCounts: OtherItemsCount?)
-    {
+    private fun earningCounts(earningCounts: OtherItemsCount?) {
         //total earning
         if (earningCounts?.totalEarning.isNullOrEmpty())
         {
             binding.homeEarnings.tvTotalEarn.text="₹ 0"
         }
         else {
-            binding.homeEarnings.tvTotalEarn.text = "₹" + earningCounts?.totalEarning
+            binding.homeEarnings.tvTotalEarn.text = "₹ " + earningCounts?.totalEarning
         }
 
         //today followup
@@ -541,8 +534,7 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
         }
     }
 
-    private fun todayPerformance(featureCount: TodayPerformanceCount?)
-    {
+    private fun todayPerformance(featureCount: TodayPerformanceCount?) {
         var featuresList=ArrayList<HomeServicesModel>()
         featuresList.add(HomeServicesModel("Truck Suppliers",R.drawable.truck_img,featureCount?.truckSuppliers))
         featuresList.add(HomeServicesModel("Business Associates",R.drawable.ba_ic,featureCount?.businessAssociates))
