@@ -713,5 +713,6 @@
     <string name="password_hint">*************</string>
     <string name="pan_photo_">PAN Photo <font color='#FF0000'>*</font></string>
     <string name="mobile_no_validation">Enter a valid 10-digit mobile number</string>
+    <string name="password_validation"><![CDATA[Password must be at least 8 characters, include upper, lower, number & special character.]]></string>
 
 </resources>
