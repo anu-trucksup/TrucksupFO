@@ -282,7 +282,7 @@ class SignUpActivity : BaseActivity(), View.OnClickListener, TrucksFOImageContro
                         return
                     }
 
-                    val confirmPassword = mSignUpBinding!!.confirmPasswordTxt.text.toString()
+                    val confirmPassword = mSignUpBinding?.confirmPasswordTxt?.text.toString()
 
                     if (confirmPassword.length > 0 && password.length > 0) {
                         if (!confirmPassword.equals(password)) {

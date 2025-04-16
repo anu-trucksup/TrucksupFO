@@ -2,13 +2,19 @@ package com.trucksup.field_officer.presenter.view.activity.profile
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
+import androidx.lifecycle.ViewModelProvider
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ActivityMyTargetBinding
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
+import com.trucksup.field_officer.presenter.view.activity.profile.vml.EditProfileViewModel
+import com.trucksup.field_officer.presenter.view.activity.profile.vml.MyTargetViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MyTargetScreen : BaseActivity() {
     private lateinit var binding: ActivityMyTargetBinding
     private var flag: Boolean = false
+    private var mViewModel: MyTargetViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -16,6 +22,7 @@ class MyTargetScreen : BaseActivity() {
         binding = ActivityMyTargetBinding.inflate(layoutInflater)
         adjustFontScale(resources.configuration, 1.0f);
         setContentView(binding.root)
+        mViewModel = ViewModelProvider(this)[MyTargetViewModel::class.java]
 
         //back button
         binding.ivBack.setOnClickListener {

@@ -330,7 +330,7 @@ class AddTruckDialog(
 
             idLoad = id
             getFilter(id, loadType)
-           // generateToken()
+            // generateToken()
 
 
         }
@@ -478,19 +478,19 @@ class AddTruckDialog(
         return true
     }
 
-   /* private fun generateToken() {
-        LoadingUtils.showDialog(context, false)
-        val request = GenerateJWTtokenRequest(
-            apiSecreteKey = PreferenceManager.getAccessKey(context),
-            password = PreferenceManager.getAccesPassword(context),
-            userAgent = PreferenceManager.getAccesUserAgaint(context),
-            username = PreferenceManager.getAccesUserName(context),
-            issuer = PreferenceManager.getAccesUserInssur(context)
-        )
-        tokenViewModel.generateJWToken(request, this, context)
-        Log.e(" volley main url ", PreferenceManager.getServerUrl(context))
-        // getFilter(id, loadType, "Bearer " + data?.accessToken.toString())
-    }*/
+    /* private fun generateToken() {
+         LoadingUtils.showDialog(context, false)
+         val request = GenerateJWTtokenRequest(
+             apiSecreteKey = PreferenceManager.getAccessKey(context),
+             password = PreferenceManager.getAccesPassword(context),
+             userAgent = PreferenceManager.getAccesUserAgaint(context),
+             username = PreferenceManager.getAccesUserName(context),
+             issuer = PreferenceManager.getAccesUserInssur(context)
+         )
+         tokenViewModel.generateJWToken(request, this, context)
+         Log.e(" volley main url ", PreferenceManager.getServerUrl(context))
+         // getFilter(id, loadType, "Bearer " + data?.accessToken.toString())
+     }*/
 
     private fun getFilter(id: Int, loadType: Int) {
 
@@ -507,7 +507,7 @@ class AddTruckDialog(
 
     override fun onTokenSuccess(response: GenerateJWTtokenResponse) {
         if (response.accessToken.isNotEmpty()) {
-          //  getFilter(idLoad, loadType, "Bearer " + response.accessToken.toString())
+            //  getFilter(idLoad, loadType, "Bearer " + response.accessToken.toString())
         }
 
     }
