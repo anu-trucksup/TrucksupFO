@@ -66,16 +66,12 @@ class APIRepositoryImpl constructor(private val apiService: ApiService) : APIRep
         request: LoginRequest
     ): ResultWrapper<LoginResponse> {
         val response = safeApiCall(Dispatchers.IO) { apiService.loginUser(token, request) }
-
         return response
     }
 
     override fun logoutUser() {
         val srdp = CommonApplication.getSharedPreferences()
         srdp?.edit()?.remove("access_token")?.apply()
-        srdp?.edit()?.remove("expires_in")?.apply();
-        srdp?.edit()?.remove("refresh_token")?.apply();
-        srdp?.edit()?.remove("token_type")?.apply()
     }
 
     override suspend fun isUserLoggedIn(): Boolean {

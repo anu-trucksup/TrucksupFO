@@ -61,6 +61,7 @@ class DashBoardViewModel @Inject constructor(val apiUseCase: APIUseCase) : ViewM
 
                 is ResultWrapper.Success -> {
                     logoutStatus.postValue(ResponseModel(success = response.value))
+                    apiUseCase.logoutUser()
                 }
             }
         }

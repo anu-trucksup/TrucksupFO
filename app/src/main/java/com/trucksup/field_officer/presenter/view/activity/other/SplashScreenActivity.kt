@@ -1,5 +1,6 @@
 package com.trucksup.field_officer.presenter.view.activity.other
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -12,11 +13,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ActivitySplashBinding
+import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.view.activity.auth.login.LoginActivity
 import com.trucksup.field_officer.presenter.view.activity.dashboard.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 
+@SuppressLint("CustomSplashScreen")
 @AndroidEntryPoint
 class SplashScreenActivity : BaseActivity() {
     private var mSplashBinding: ActivitySplashBinding? = null
@@ -24,20 +27,23 @@ class SplashScreenActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mSplashBinding = DataBindingUtil.setContentView(this, R.layout.activity_splash)
-        setStatusBarColorAndIcons(this);
-        splashViewModel = ViewModelProvider(this).get(SplashViewModel::class.java)
-        //splashViewModel.engLangDefault(this);
-        //splashViewModel!!.syncLanguageLabels()
+        mSplashBinding = ActivitySplashBinding.inflate(layoutInflater)
+        setContentView(mSplashBinding?.root)
+
+        splashViewModel = ViewModelProvider(this)[SplashViewModel::class.java]
 
         if (isOnline(this)) {
             callMainScreen()
             // splashViewModel.getForceUpdate();                // force update call
-            //splashViewModel.getCancellationPolicy();
+
             setupObserver()
         } else {
-            //showToastDialogg("Please Check your Internet Connectivity.", this, "Ok");
-            // Toast.makeText(this, "Please Check your Internet Connectivity.", Toast.LENGTH_SHORT).show();
+            val abx = AlertBoxDialog(
+                this@SplashScreenActivity,
+                "Please Check your Internet Connectivity.",
+                "m"
+            )
+            abx.show()
         }
     }
 
@@ -47,20 +53,13 @@ class SplashScreenActivity : BaseActivity() {
                 0 -> {
                     val intent = Intent(this@SplashScreenActivity, LoginActivity::class.java)
                     intent.putExtra("mobile", "")
-                    intent.putExtra("status", 0)
-                    //   intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    //   intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent)
-                    showInAnimation()
                     finish()
                 }
 
                 1 -> {
                     val intent2 = Intent(this@SplashScreenActivity, HomeActivity::class.java)
-                    intent2.putExtra("status", 1)
-                    //intent2.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent2)
-                    showInAnimation()
                     finish()
                 }
 
@@ -107,7 +106,7 @@ class SplashScreenActivity : BaseActivity() {
 
 
     private fun callMainScreen() {                // call main screen
-        Handler().postDelayed({ splashViewModel!!.checkLoggedInStatus() }, 4000)
+        Handler().postDelayed({ splashViewModel?.checkLoggedInStatus() }, 2000)
     }
 
     override fun onBackPressed() {
@@ -115,24 +114,5 @@ class SplashScreenActivity : BaseActivity() {
         finish()
         // System.exit(0);
     }
-
-
-    private fun setStatusBarColorAndIcons(activity: AppCompatActivity) {
-        val window = activity.window
-        val colorPrimary = ContextCompat.getColor(activity, R.color.colorPrimary)
-        window.statusBarColor = colorPrimary
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            val isLightColor = ColorUtils.calculateLuminance(colorPrimary) > 0.5
-            var flags = window.decorView.systemUiVisibility
-            flags = if (isLightColor) {
-                flags or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-            } else {
-                flags and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
-            }
-            window.decorView.systemUiVisibility = flags
-        }
-    }
-
 
 }

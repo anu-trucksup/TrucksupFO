@@ -198,20 +198,22 @@ class SignUpActivity : BaseActivity(), View.OnClickListener, TrucksFOImageContro
             } else {
                 dismissProgressDialog()
 
-                if (responseModel.success?.statuscode == 201) {
-                    val abx = AlertBoxDialog(
-                        this@SignUpActivity, responseModel.success.message.toString(),
-                        "m"
-                    )
-                    abx.show()
-                   // Utils.showToastDialog(""+responseModel.success.message, this,"Ok" )
-                } else {
+                if (responseModel.success?.statuscode == 200) {
+
                     Toast.makeText(this, "Signup successfully", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this@SignUpActivity, LoginActivity::class.java)
                     intent.putExtra("mobile", mSignUpBinding?.phoneNoTxt?.text.toString())
                     //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK)
                     startActivity(intent)
                     finish()
+
+
+                } else {
+                    val abx = AlertBoxDialog(
+                        this@SignUpActivity, responseModel.success?.message.toString(),
+                        "m"
+                    )
+                    abx.show()
                 }
 
             }
@@ -290,8 +292,10 @@ class SignUpActivity : BaseActivity(), View.OnClickListener, TrucksFOImageContro
                             customErrorDrawable.intrinsicHeight
                         )
 
-                        mSignUpBinding!!.confirmPasswordTxt.setError("Password and Confirm Password should be same.",
-                            customErrorDrawable)
+                        mSignUpBinding!!.confirmPasswordTxt.setError(
+                            "Password and Confirm Password should be same.",
+                            customErrorDrawable
+                        )
 
                         //  mSignUpBinding!!.confirmPasswordTxt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.error_confirm, 0);
 

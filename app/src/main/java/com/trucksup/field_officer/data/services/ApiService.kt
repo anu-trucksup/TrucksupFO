@@ -149,7 +149,7 @@ interface ApiService {
 
     @GET("BOAppApiGateway/apiateway/BOHomeMenuItems")
     @Headers("Accept: application/json")
-    suspend fun getAllHomeCountStatus( @Header("Authorization") credentials: String,
+    suspend fun getAllHomeCountStatus(@Header("Authorization") credentials: String,
                                        @Body homeCountRequest: HomeCountRequest): HomeCountResponse
 
 
@@ -160,7 +160,7 @@ interface ApiService {
     ): CountryResponse
 
 
-    @GET("BOAppApiGateway/apiateway/BOUserLogOut")
+    @POST("BOAppApiGateway/apiateway/BOUserLogOut")
     @Headers("Accept: application/json")
     suspend fun logoutAccount(
         @Header("Authorization") auth: String,

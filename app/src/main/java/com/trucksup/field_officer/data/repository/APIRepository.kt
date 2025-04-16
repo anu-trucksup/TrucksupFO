@@ -99,7 +99,10 @@ interface APIRepository {
 
     suspend fun updateUserProfile(updateProfileRequest: UpdateProfileRequest): ResultWrapper<UpdateProfileResponse>
 
-    suspend fun getAllHomeCountStatus(authToken: String,homeCountRequest: HomeCountRequest): ResultWrapper<HomeCountResponse>
+    suspend fun getAllHomeCountStatus(
+        authToken: String,
+        homeCountRequest: HomeCountRequest
+    ): ResultWrapper<HomeCountResponse>
 
     suspend fun privacyDetails(name: String): ResultWrapper<PrivacyAllResponse>
 
@@ -127,30 +130,64 @@ interface APIRepository {
         request: LoanDataSubmitRequest
     ): ResultWrapper<FinaceDataSubmitResponse>
 
-    suspend fun getInquiryHistory(authToken: String, request: InquiryHistoryRequest): ResultWrapper<InquiryHistoryResponse>
+    suspend fun getInquiryHistory(
+        authToken: String,
+        request: InquiryHistoryRequest
+    ): ResultWrapper<InquiryHistoryResponse>
 
-    suspend fun submitInsuranceInquiry(authToken: String, request: SubmitInsuranceInquiryRequest): ResultWrapper<SubmitInsuranceInquiryData>
+    suspend fun submitInsuranceInquiry(
+        authToken: String,
+        request: SubmitInsuranceInquiryRequest
+    ): ResultWrapper<SubmitInsuranceInquiryData>
 
-    suspend fun getSubscriptionPlanData(authToken: String, planRequest: PlanRequest): ResultWrapper<PlanResponse>
+    suspend fun getSubscriptionPlanData(
+        authToken: String,
+        planRequest: PlanRequest
+    ): ResultWrapper<PlanResponse>
 
-    suspend fun getCityStateByPin(authToken: String, request: PinCodeRequest): ResultWrapper<PinCodeResponse>
+    suspend fun getCityStateByPin(
+        authToken: String,
+        request: PinCodeRequest
+    ): ResultWrapper<PinCodeResponse>
 
-    suspend fun verifyTruck(authToken: String,vehicleRegNo: String?, mobileNo: String?): ResultWrapper<VerifyTruckResponse>
+    suspend fun verifyTruck(
+        authToken: String,
+        vehicleRegNo: String?,
+        mobileNo: String?
+    ): ResultWrapper<VerifyTruckResponse>
 
     suspend fun getRcDetails(authToken: String, rcRequest: RcRequest): ResultWrapper<RcResponse>
 
     suspend fun getAddLoadFilter(request: AddLoadFilterRequest): ResultWrapper<AddLoadFilterResponse>
 
-    suspend fun onBoardTruckSupplier(authToken:String, request : PrefferLanRequest): ResultWrapper<PrefferdResponse>
+    suspend fun onBoardTruckSupplier(
+        authToken: String,
+        request: PrefferLanRequest
+    ): ResultWrapper<PrefferdResponse>
 
-    suspend fun onBoardBusinessAssociate(authToken:String, request : AddBrokerRequest): ResultWrapper<AddBrokerResponse>
+    suspend fun onBoardBusinessAssociate(
+        authToken: String,
+        request: AddBrokerRequest
+    ): ResultWrapper<AddBrokerResponse>
 
-    suspend fun onBoardGrowthPartner(authToken:String, request : PrefferLanRequest): ResultWrapper<PrefferdResponse>
+    suspend fun onBoardGrowthPartner(
+        authToken: String,
+        request: PrefferLanRequest
+    ): ResultWrapper<PrefferdResponse>
 
-    suspend fun addSmartFuelLead(authToken:String, request : AddSmartFuelLeadRequest): ResultWrapper<AddSmartFuelLeadResponse>
+    suspend fun addSmartFuelLead(
+        authToken: String,
+        request: AddSmartFuelLeadRequest
+    ): ResultWrapper<AddSmartFuelLeadResponse>
 
-    suspend fun getSmartFuelHistory(authToken:String, request : SmartFuelHistoryRequest): ResultWrapper<SmartFuelHistoryResponse>
+    suspend fun getSmartFuelHistory(
+        authToken: String,
+        request: SmartFuelHistoryRequest
+    ): ResultWrapper<SmartFuelHistoryResponse>
 
-    suspend fun dutyStatus(authToken:String, request : DutyStatusRequest): ResultWrapper<DutyStatusResponse>
+    suspend fun dutyStatus(
+        authToken: String,
+        request: DutyStatusRequest
+    ): ResultWrapper<DutyStatusResponse>
 
 }

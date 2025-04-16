@@ -352,8 +352,10 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
     }
 
     override fun onClickLogout() {
+
+        val profileDetail = PreferenceManager.getUserData(this)
         val request = LogoutRequest(
-            1,
+            profileDetail?.boUserid?.toInt() ?: 0,
             PreferenceManager.getServerDateUtc(),
             PreferenceManager.getRequestNo().toInt(),
             PreferenceManager.getPhoneNo(this)
