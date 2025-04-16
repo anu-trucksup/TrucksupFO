@@ -712,5 +712,6 @@
     <string name="error_mobile">Enter Mobile Number</string>
     <string name="password_hint">*************</string>
     <string name="pan_photo_">PAN Photo <font color='#FF0000'>*</font></string>
+    <string name="mobile_no_validation">Enter a valid 10-digit mobile number</string>
 
 </resources>
