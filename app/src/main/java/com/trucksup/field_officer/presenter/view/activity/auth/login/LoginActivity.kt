@@ -98,7 +98,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                 dismissProgressDialog()
 
                 if (responseModel.success?.statuscode == 200) {
-                    if (responseModel.success?.loginDetails != null) {
+                    if (responseModel.success.loginDetails != null) {
                         val details = responseModel.success.loginDetails
                         val srdp = CommonApplication.getSharedPreferences()
                         srdp?.edit()?.putString("access_token", details.token)
@@ -144,7 +144,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
 
             if (isOnline(this)) {
                 if (TextUtils.isEmpty(mLoginBinding?.phoneTxt?.text.toString().trim())) {
-                    mLoginBinding?.phoneTxt?.error = "Please enter mobile no."
+                    mLoginBinding?.phoneTxt?.error = getString(R.string.enter_mobile_number)
                     mLoginBinding?.phoneTxt?.requestFocus()
                     /*LoggerMessage.onSNACK(
                         this.mLoginBinding?.phoneTxt!!,
@@ -154,19 +154,19 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                     return
                 }
 
-                if (mLoginBinding?.phoneTxt?.text.toString().length > 10) {
-                    mLoginBinding?.phoneTxt?.error = "Please enter mobile no."
+                if (!isValidMobile(mLoginBinding?.phoneTxt?.text.toString())) {
+                    mLoginBinding?.phoneTxt?.error = getString(R.string.mobile_no_validation)
                     mLoginBinding?.phoneTxt?.requestFocus()
+                    return
                 }
-
-                if (TextUtils.isEmpty(mLoginBinding?.passwordTxt?.text.toString().trim())) {
+                val password =  mLoginBinding?.passwordTxt?.text.toString().trim()
+                if (TextUtils.isEmpty(password)) {
                     LoggerMessage.onSNACK(
                         mLoginBinding?.passwordTxt!!,
-                        "Password should not empty.",
+                        getString(R.string.enter_password),
                         applicationContext
                     )
 
-                    // mLoginBinding?.passwordTxt?.error = "Password should not empty."
                     mLoginBinding?.passwordTxt?.requestFocus()
                     return
                 }
@@ -188,7 +188,9 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                     loginPrefsEditor?.commit();
                 }
 
-                if (isValidMobile(mLoginBinding?.phoneTxt?.text.toString())) {
+
+                if (isValidPassword(password)) {
+                    // Proceed
 
                     val request = LoginRequest(
                         requestedBy = mLoginBinding?.phoneTxt?.text.toString(),
@@ -200,17 +202,13 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                         profilename = "",
                         profilephoto = "",
                         mobilenumber = mLoginBinding?.phoneTxt?.text.toString(),
-                        password = mLoginBinding?.passwordTxt?.text.toString()
+                        password = password
                     )
 
                     showProgressDialog(this, false)
                     mViewModel?.loginUser(PreferenceManager.getAuthToken(), request)
                 } else {
-                    LoggerMessage.onSNACK(
-                        mLoginBinding?.phoneTxt!!,
-                        "Mobile no should be 10 digit.",
-                        applicationContext
-                    )
+                    mLoginBinding?.passwordTxt?.error = "Password must be at least 8 characters, include upper, lower, number & special character."
                 }
 
             } else {
@@ -222,14 +220,11 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
-    // Function to validate password
     private fun isValidPassword(password: String): Boolean {
-        // Regular expression for password validation
-        val passwordPattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$"
-        return password.matches(passwordPattern.toRegex())
-
-        //  tvPasswordError.text = "Password must be at least 8 characters, include a digit, an uppercase letter, and a special character."
-
+        val passwordRegex = Regex(
+            "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#\$%^&+=!])(?=\\S+\$).{8,}\$"
+        )
+        return passwordRegex.matches(password)
     }
 
     override fun onBackPressed() {

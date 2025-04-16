@@ -117,12 +117,9 @@ class CreatePasswordActivity : BaseActivity(), View.OnClickListener {
                     abx.show()
                 }
 
-
             }
         }
-
     }
-
 
     @SuppressLint("UseCompatLoadingForDrawables")
     override fun onClick(view: View) {
@@ -145,20 +142,12 @@ class CreatePasswordActivity : BaseActivity(), View.OnClickListener {
             if (confirmpassword.length > 0 && password.length > 0) {
                 if (!confirmpassword.equals(password)) {
                     val customErrorDrawable = resources.getDrawable(R.drawable.error_warn)
-                    customErrorDrawable.setBounds(
-                        0,
-                        0,
-                        customErrorDrawable.intrinsicWidth,
-                        customErrorDrawable.intrinsicHeight
-                    )
+                    customErrorDrawable.setBounds(0, 0,
+                        customErrorDrawable.intrinsicWidth, customErrorDrawable.intrinsicHeight)
 
                     mBinding?.confirmPasswordTxt?.setError(
-                        "Password and Confirm Password should be same.",
-                        customErrorDrawable
-                    )
-
+                        "Password and Confirm Password should be same.", customErrorDrawable)
                     //  mSignUpBinding!!.confirmPasswordTxt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.error_confirm, 0);
-
                     return
                 } else {
 

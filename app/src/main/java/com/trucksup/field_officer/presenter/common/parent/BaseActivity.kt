@@ -91,7 +91,11 @@ open class BaseActivity : AppCompatActivity() {
         baseContext.resources.updateConfiguration(configuration, metrics)
     }
 
-    fun isValidMobile(phone: String): Boolean {
+   /* fun isValidMobile(phone: String): Boolean {
         return Patterns.PHONE.matcher(phone).matches() && phone.length == 10
+    }*/
+    fun isValidMobile(number: String): Boolean {
+        val mobileRegex = Regex("^[6-9]\\d{9}\$")
+        return mobileRegex.matches(number)
     }
 }
