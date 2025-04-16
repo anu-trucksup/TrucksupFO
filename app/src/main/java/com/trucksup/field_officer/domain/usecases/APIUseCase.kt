@@ -33,6 +33,8 @@ import com.trucksup.field_officer.data.model.user.UpdateProfileRequest
 import com.trucksup.field_officer.data.model.user.UpdateProfileResponse
 import com.trucksup.field_officer.data.network.ResultWrapper
 import com.trucksup.field_officer.data.repository.APIRepository
+import com.trucksup.field_officer.presenter.view.activity.auth.logout.LogoutRequest
+import com.trucksup.field_officer.presenter.view.activity.auth.logout.LogoutResponse
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.AddBrokerRequest
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.AddBrokerResponse
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinaceDataSubmitResponse
@@ -54,11 +56,11 @@ class APIUseCase @Inject constructor(private val apiRepository: APIRepository) {
     suspend fun loginUser(
         token: String, request: LoginRequest
     ): ResultWrapper<LoginResponse> {
-        return apiRepository.loginUser(token,request)
+        return apiRepository.loginUser(token, request)
     }
 
     suspend fun registerUser(token: String, request: SignRequest): ResultWrapper<SignResponse> {
-        return apiRepository.registerUser(token,request)
+        return apiRepository.registerUser(token, request)
     }
 
     suspend fun verifyOTP(
@@ -92,7 +94,7 @@ class APIUseCase @Inject constructor(private val apiRepository: APIRepository) {
     suspend fun resetPassword(
         token: String, request: ForgetRequest
     ): ResultWrapper<ForgetResponse> {
-        return apiRepository.resetPassword(token,request)
+        return apiRepository.resetPassword(token, request)
     }
 
     suspend fun sendOTP(
@@ -115,8 +117,11 @@ class APIUseCase @Inject constructor(private val apiRepository: APIRepository) {
         return apiRepository.getUserProfile()
     }
 
-    suspend fun getAllHomeCountStatus(authToken: String,homeCountRequest: HomeCountRequest): ResultWrapper<HomeCountResponse> {
-        return apiRepository.getAllHomeCountStatus(authToken,homeCountRequest)
+    suspend fun getAllHomeCountStatus(
+        authToken: String,
+        homeCountRequest: HomeCountRequest
+    ): ResultWrapper<HomeCountResponse> {
+        return apiRepository.getAllHomeCountStatus(authToken, homeCountRequest)
     }
 
 
@@ -133,8 +138,11 @@ class APIUseCase @Inject constructor(private val apiRepository: APIRepository) {
         return apiRepository.isUserLoggedIn()
     }
 
-    suspend fun logoutAccount(reviewid: Int, shopId: Int): ResultWrapper<DeleteProfileResponse> {
-        return apiRepository.logoutAccount(reviewid, shopId)
+    suspend fun logoutAccount(
+        auth: String,
+        request: LogoutRequest
+    ): ResultWrapper<LogoutResponse> {
+        return apiRepository.logoutAccount(auth, request)
     }
 
     suspend fun deleteUserProfile(): ResultWrapper<DeleteProfileResponse> {

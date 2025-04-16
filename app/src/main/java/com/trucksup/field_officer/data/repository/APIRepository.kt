@@ -33,6 +33,8 @@ import com.trucksup.field_officer.data.model.smartfuel.SmartFuelHistoryResponse
 import com.trucksup.field_officer.data.model.user.UpdateProfileRequest
 import com.trucksup.field_officer.data.model.user.UpdateProfileResponse
 import com.trucksup.field_officer.data.network.ResultWrapper
+import com.trucksup.field_officer.presenter.view.activity.auth.logout.LogoutRequest
+import com.trucksup.field_officer.presenter.view.activity.auth.logout.LogoutResponse
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.AddBrokerRequest
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.AddBrokerResponse
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinaceDataSubmitResponse
@@ -106,7 +108,10 @@ interface APIRepository {
         email: String?
     ): ResultWrapper<UserSessionResponse>
 
-    suspend fun logoutAccount(reviewid: Int, shopId: Int): ResultWrapper<DeleteProfileResponse>
+    suspend fun logoutAccount(
+        auth: String,
+        request: LogoutRequest
+    ): ResultWrapper<LogoutResponse>
 
     suspend fun deleteUserProfile(): ResultWrapper<DeleteProfileResponse>
 

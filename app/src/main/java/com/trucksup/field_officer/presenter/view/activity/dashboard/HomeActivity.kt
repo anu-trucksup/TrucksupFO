@@ -1,4 +1,4 @@
-package com.trucksup.field_officer.presenter.view.activity.other
+package com.trucksup.field_officer.presenter.view.activity.dashboard
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -7,7 +7,6 @@ import android.content.Context
 import android.content.Intent
 import android.location.Geocoder
 import android.location.Location
-import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.view.LayoutInflater
@@ -51,7 +50,6 @@ import com.trucksup.field_officer.presenter.view.activity.other.NewOnboardingSel
 import com.trucksup.field_officer.presenter.view.activity.profile.EditProfileActivity
 import com.trucksup.field_officer.presenter.view.activity.profile.MyEarningActivity
 import com.trucksup.field_officer.presenter.view.activity.smartfuel.AddSmartFuelActivity
-import com.trucksup.field_officer.presenter.view.activity.smartfuel.SmartFuelViewModel
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.unassigned_ts_ba.activity.UnAssignedTSBAActivity
 import com.trucksup.field_officer.presenter.view.adapter.HomeFeaturesAdapter
 import com.trucksup.field_officer.presenter.view.adapter.ServicesMainAdapter
@@ -61,17 +59,15 @@ import com.trucksup.field_officer.presenter.view.adapter.NavigationMenuItem
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
 
-
-class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
 @AndroidEntryPoint
-class HomeActivity : BaseActivity(), OnItemClickListener {
+class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
     private lateinit var binding: ActivityHomeBinding
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private var mViewModel: DashBoardViewModel? = null
-    private var latitude:String?=null
-    private var longitude:String?=null
-    private var address:String?=null
-    private var dutyStatus:Boolean=false
+    private var latitude: String? = null
+    private var longitude: String? = null
+    private var address: String? = null
+    private var dutyStatus: Boolean = false
 
 
     override fun onStart() {
@@ -152,7 +148,7 @@ class HomeActivity : BaseActivity(), OnItemClickListener {
         }
 
         binding.OnSwitchBtn.setOnCheckedChangeListener { compoundButton, b ->
-            dutyStatus=b
+            dutyStatus = b
 //            if (b) {
 //                binding.txtOnDuty.text = "On Duty"
 //                binding.txtOnDuty.setTextColor(resources.getColor(R.color.on_duty_color))
@@ -163,7 +159,7 @@ class HomeActivity : BaseActivity(), OnItemClickListener {
 //                binding.txtOnDuty.setTextColor(resources.getColor(R.color.red))
 //                binding.OnSwitchBtn.trackTintList = resources.getColorStateList(R.color.red)
 //            }
-            if(!latitude.isNullOrEmpty() && !longitude.isNullOrEmpty() && !address.isNullOrEmpty()) {
+            if (!latitude.isNullOrEmpty() && !longitude.isNullOrEmpty() && !address.isNullOrEmpty()) {
                 DialogBoxes.onOffDuty(this, dutyStatus, mViewModel, latitude, longitude, address)
             }
         }
@@ -255,9 +251,9 @@ class HomeActivity : BaseActivity(), OnItemClickListener {
                                     binding.addressShimmer.visibility = View.GONE
                                     binding.addressUpdate.visibility = View.VISIBLE
 
-                                    latitude=location.latitude.toString()
-                                    longitude=location.longitude.toString()
-                                    address=addresses?.get(0)?.getAddressLine(0).toString()
+                                    latitude = location.latitude.toString()
+                                    longitude = location.longitude.toString()
+                                    address = addresses?.get(0)?.getAddressLine(0).toString()
 
                                 } catch (e: Exception) {
 //                                    val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
@@ -357,29 +353,19 @@ class HomeActivity : BaseActivity(), OnItemClickListener {
 
     override fun onClickLogout() {
         val request = LogoutRequest(
-            true,
-            PreferenceManager.getPhoneNo(this),
-            PreferenceManager.getRequestNo(),
+            1,
+            PreferenceManager.getServerDateUtc(),
+            PreferenceManager.getRequestNo().toInt(),
             PreferenceManager.getPhoneNo(this)
         )
-       showProgressDialog(this,false)
-       /* var volley: VollyRequests = VollyRequests()
-        var data: PathsModle = PreferenceManager.stringToPath(PreferenceManager.getApiPath(this!!))
-        volley.logout(
-            this,
-            request,
-            this,
-            PreferenceManager.getAuthToken(),
-            data?.logout!!,
-            "out"
-        )*/
-
+        showProgressDialog(this, false)
+        mViewModel?.logoutUser(request)
 
     }
 
     override fun logout(type: String) {
         if (type == "out") {
-          dismissProgressDialog()
+            dismissProgressDialog()
 
             /*if (isMyServiceRunning(LocationService::class.java)) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -395,7 +381,8 @@ class HomeActivity : BaseActivity(), OnItemClickListener {
             val loginIntent = Intent(this, LoginActivity::class.java)
             startActivity(loginIntent)
             finishAffinity()
-        } else { }
+        } else {
+        }
 
     }
 
@@ -415,7 +402,7 @@ class HomeActivity : BaseActivity(), OnItemClickListener {
             } else {
                 LoadingUtils.hideDialog()
                 if (responseModel.success != null) {
-                    if (dutyStatus==true) {
+                    if (dutyStatus == true) {
                         binding.txtOnDuty.text = "On Duty"
                         binding.txtOnDuty.setTextColor(resources.getColor(R.color.on_duty_color))
                         binding.OnSwitchBtn.trackTintList =
@@ -425,6 +412,26 @@ class HomeActivity : BaseActivity(), OnItemClickListener {
                         binding.txtOnDuty.setTextColor(resources.getColor(R.color.red))
                         binding.OnSwitchBtn.trackTintList = resources.getColorStateList(R.color.red)
                     }
+                } else {
+                }
+            }
+        }
+
+        mViewModel?.logoutStatusLD?.observe(this) { responseModel ->                     // login function observe
+            if (responseModel.serverError != null) {
+                dismissProgressDialog()
+
+                val abx = AlertBoxDialog(this, responseModel.serverError.toString(), "m")
+                abx.show()
+            } else {
+                dismissProgressDialog()
+                if (responseModel.success != null) {
+                    PreferenceManager.removeData(this)
+                    PreferenceManager.setLogout(false, this)
+
+                    val loginIntent = Intent(this, LoginActivity::class.java)
+                    startActivity(loginIntent)
+                    finishAffinity()
                 } else {
                 }
             }

@@ -56,8 +56,7 @@ import com.trucksup.field_officer.presenter.common.Utils.ORIENT_PORTRAIT
 import com.trucksup.field_officer.presenter.common.Utils.appSettingOpen
 import com.trucksup.field_officer.presenter.common.Utils.warningPermissionDialog
 import com.trucksup.field_officer.presenter.view.activity.auth.signup.SignUpActivity
-import com.trucksup.field_officer.presenter.view.activity.other.HomeActivity
-import kotlinx.serialization.Required
+import com.trucksup.field_officer.presenter.view.activity.dashboard.HomeActivity
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Locale
