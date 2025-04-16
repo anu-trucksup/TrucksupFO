@@ -146,11 +146,6 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                 if (TextUtils.isEmpty(mLoginBinding?.phoneTxt?.text.toString().trim())) {
                     mLoginBinding?.phoneTxt?.error = getString(R.string.enter_mobile_number)
                     mLoginBinding?.phoneTxt?.requestFocus()
-                    /*LoggerMessage.onSNACK(
-                        this.mLoginBinding?.phoneTxt!!,
-                        "Please enter mobile no.",
-                        this
-                    )*/
                     return
                 }
 
@@ -208,7 +203,12 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                     showProgressDialog(this, false)
                     mViewModel?.loginUser(PreferenceManager.getAuthToken(), request)
                 } else {
-                    mLoginBinding?.passwordTxt?.error = getString(R.string.password_validation)
+                    LoggerMessage.onSNACK(
+                        mLoginBinding?.passwordTxt!!,
+                        getString(R.string.password_validation),
+                        applicationContext
+                    )
+
                     return
                 }
 

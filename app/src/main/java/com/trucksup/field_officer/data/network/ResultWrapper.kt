@@ -26,7 +26,6 @@ suspend fun <T> safeApiCall(
                 is IOException -> ResultWrapper.ServerResponseError("Server not Reachable.")
                 is HttpException -> {
                     if (throwable.code() == 400) {
-                        val error_description: String
                         // Log.e("msgBodyResponse",""+ (throwable.response()?.errorBody()?.byteString().toString()))
                         /*  val response1 = throwable.apply {
                               val response: String = this.response()?.errorBody()?.string()!!

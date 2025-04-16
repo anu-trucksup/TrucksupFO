@@ -61,16 +61,20 @@ class ResetPasswordActivity : BaseActivity(), View.OnClickListener, JWTtoken {
         mViewModel = ViewModelProvider(this)[ResetPasswordViewModel::class.java]
         mTokenViewModel = ViewModelProvider(this)[TokenViewModel::class.java]
 
+        if (!PreferenceManager.getPhoneNo(this).isNullOrEmpty()) {
+            mBinding?.phoneNoTxt?.setText(""+PreferenceManager.getPhoneNo(this))
+        }
+
         smsClient = SmsRetriever.getClient(this)
 
-         mBinding?.resendVerificationCodeTxt?.setOnClickListener {
-             if (isTimer == false) {
-                 mBinding?.otpPinview?.setText("")
-                 setTimer()
-                 //generateToken()
+        mBinding?.resendVerificationCodeTxt?.setOnClickListener {
+            if (isTimer == false) {
+                mBinding?.otpPinview?.setText("")
+                setTimer()
+                //generateToken()
 
-             }
-         }
+            }
+        }
         setupObserver()
 
     }
@@ -253,7 +257,7 @@ class ResetPasswordActivity : BaseActivity(), View.OnClickListener, JWTtoken {
             }
 
             if (isValidMobile(mBinding?.phoneNoTxt?.text.toString())) {
-               // generateToken()
+                // generateToken()
 
                 val intent = Intent(this@ResetPasswordActivity, CreatePasswordActivity::class.java)
                 intent.putExtra("phoneNo", mBinding?.phoneNoTxt?.text.toString())
@@ -262,7 +266,7 @@ class ResetPasswordActivity : BaseActivity(), View.OnClickListener, JWTtoken {
 
             } else {
                 LoggerMessage.onSNACK(
-                    mBinding!!.phoneNoTxt, getString(R.string.enter_valid_mobile),
+                    mBinding!!.phoneNoTxt, getString(R.string.mobile_no_validation),
                     applicationContext
                 )
             }

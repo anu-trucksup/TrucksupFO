@@ -154,7 +154,7 @@ class CreatePasswordActivity : BaseActivity(), View.OnClickListener {
                         )
 
                         mBinding?.confirmPasswordTxt?.setError(
-                            "Password and Confirm Password should be same.", customErrorDrawable
+                            getString(R.string.password_match), customErrorDrawable
                         )
                         //  mSignUpBinding!!.confirmPasswordTxt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.error_confirm, 0);
                         return
@@ -169,7 +169,7 @@ class CreatePasswordActivity : BaseActivity(), View.OnClickListener {
                         )
 
                         mBinding!!.confirmPasswordTxt.setError(
-                            "Both Password are same.",
+                            "",
                             customErrorDrawable
                         )
 
@@ -177,7 +177,12 @@ class CreatePasswordActivity : BaseActivity(), View.OnClickListener {
 
                 }
             } else {
-                mBinding?.passwordTxt?.error = getString(R.string.password_validation)
+                LoggerMessage.onSNACK(
+                    mBinding?.passwordTxt!!,
+                    getString(R.string.password_validation),
+                    applicationContext
+                )
+
                 return
             }
 

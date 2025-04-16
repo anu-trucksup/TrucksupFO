@@ -288,18 +288,21 @@ class SignUpActivity : BaseActivity(), View.OnClickListener, TrucksFOImageContro
                         if (!confirmPassword.equals(password)) {
                             val customErrorDrawable = resources.getDrawable(R.drawable.error_warn)
                             customErrorDrawable.setBounds(
-                                0, 0,
-                                customErrorDrawable.intrinsicWidth, customErrorDrawable.intrinsicHeight
+                                0,
+                                0,
+                                customErrorDrawable.intrinsicWidth,
+                                customErrorDrawable.intrinsicHeight
                             )
 
                             mSignUpBinding?.confirmPasswordTxt?.setError(
-                                "Password and Confirm Password should be same.", customErrorDrawable
+                                getString(R.string.password_match), customErrorDrawable
                             )
                             //  mSignUpBinding!!.confirmPasswordTxt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.error_confirm, 0);
                             return
                         } else {
 
-                            val customErrorDrawable = resources.getDrawable(R.drawable.error_confirm)
+                            val customErrorDrawable =
+                                resources.getDrawable(R.drawable.error_confirm)
                             customErrorDrawable.setBounds(
                                 0,
                                 0,
@@ -308,7 +311,7 @@ class SignUpActivity : BaseActivity(), View.OnClickListener, TrucksFOImageContro
                             )
 
                             mSignUpBinding!!.confirmPasswordTxt.setError(
-                                "Both Password are same.",
+                                "",
                                 customErrorDrawable
                             )
 
@@ -316,52 +319,42 @@ class SignUpActivity : BaseActivity(), View.OnClickListener, TrucksFOImageContro
 
                     }
                 } else {
-                    mSignUpBinding?.passwordTxt?.error = getString(R.string.password_validation)
+                    LoggerMessage.onSNACK(
+                        mSignUpBinding?.passwordTxt!!,
+                        getString(R.string.password_validation),
+                        applicationContext
+                    )
                     return
                 }
 
+                if (isValidMobile(mSignUpBinding?.phoneNoTxt?.text.toString())) {
 
+                    showProgressDialog(this, false)
 
-                if (mSignUpBinding?.phoneNoTxt?.text.toString().isNotEmpty()
-                    && mSignUpBinding?.passwordTxt?.text.toString().isNotEmpty()
-                ) {
-                    if (isValidMobile(mSignUpBinding?.phoneNoTxt?.text.toString())) {
-
-                        showProgressDialog(this, false)
-
-                        val request = SignRequest(
-                            requestedBy = mSignUpBinding?.phoneNoTxt?.text.toString(),
-                            requestId = PreferenceManager.getRequestNo().toInt(),
-                            requestDatetime = PreferenceManager.getServerDateUtc(),
-                            deviceid = PreferenceManager.getAndroiDeviceId(this),
-                            appVersion = AppVersionUtils.getAppVersionName(this),
-                            androidVersion = Build.VERSION.SDK_INT.toString(),
-                            profilename = mSignUpBinding?.profileName?.text.toString(),
-                            profilephoto = frontImgKey ?: "",
-                            mobilenumber = mSignUpBinding?.phoneNoTxt?.text.toString(),
-                            password = mSignUpBinding?.passwordTxt?.text.toString()
-                        )
-
-                        signupViewModel?.signUp(PreferenceManager.getAuthToken(), request)
-
-                    } else {
-
-                        LoggerMessage.onSNACK(
-                            mSignUpBinding!!.phoneNoTxt,
-                            resources.getString(R.string.enter_valid_mobile),
-                            applicationContext
-                        )
-                    }
-
-
-                } else {
-                    LoggerMessage.onSNACK(
-                        mSignUpBinding!!.phoneNoTxt,
-                        resources.getString(R.string.enter_valid_mobile),
-                        applicationContext
+                    val request = SignRequest(
+                        requestedBy = mSignUpBinding?.phoneNoTxt?.text.toString(),
+                        requestId = PreferenceManager.getRequestNo().toInt(),
+                        requestDatetime = PreferenceManager.getServerDateUtc(),
+                        deviceid = PreferenceManager.getAndroiDeviceId(this),
+                        appVersion = AppVersionUtils.getAppVersionName(this),
+                        androidVersion = Build.VERSION.SDK_INT.toString(),
+                        profilename = mSignUpBinding?.profileName?.text.toString(),
+                        profilephoto = frontImgKey ?: "",
+                        mobilenumber = mSignUpBinding?.phoneNoTxt?.text.toString(),
+                        password = mSignUpBinding?.passwordTxt?.text.toString()
                     )
 
+                    signupViewModel?.signUp(PreferenceManager.getAuthToken(), request)
+
+                } else {
+
+                    LoggerMessage.onSNACK(
+                        mSignUpBinding!!.phoneNoTxt,
+                        resources.getString(R.string.mobile_no_validation),
+                        applicationContext
+                    )
                 }
+
 
             } else {
 
