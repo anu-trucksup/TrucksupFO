@@ -119,11 +119,9 @@ class APIUseCase @Inject constructor(private val apiRepository: APIRepository) {
         return apiRepository.getAllHomeCountStatus(authToken,homeCountRequest)
     }
 
-
     suspend fun updateUserProfile(updateProfileRequest: UpdateProfileRequest): ResultWrapper<UpdateProfileResponse> {
         return apiRepository.updateUserProfile(updateProfileRequest)
     }
-
 
     fun logoutUser() {
         apiRepository.logoutUser()

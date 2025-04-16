@@ -100,7 +100,8 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_30sdp"
-                android:layout_marginHorizontal="@dimen/_12sdp">
+                android:layout_marginHorizontal="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_10sdp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -131,7 +132,7 @@
                 android:id="@+id/lays"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_8sdp"
+                android:layout_marginHorizontal="@dimen/_16sdp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/blue_border_box"
                 android:orientation="horizontal"

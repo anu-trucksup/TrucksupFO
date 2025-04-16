@@ -149,7 +149,9 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
                     {
 
                     }
-                } else {
+                }
+                else
+                {
 
                 }
             }

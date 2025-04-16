@@ -29,6 +29,11 @@ import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.trucksup.field_officer.R
+import com.trucksup.field_officer.data.model.HomeServicesModel
+import com.trucksup.field_officer.data.model.home.HomeCountRequest
+import com.trucksup.field_officer.data.model.home.MenuItemsCount
+import com.trucksup.field_officer.data.model.home.OtherItemsCount
+import com.trucksup.field_officer.data.model.home.TodayPerformanceCount
 import com.trucksup.field_officer.databinding.ActivityHomeBinding
 import com.trucksup.field_officer.databinding.HomeMainServicesDialogBinding
 import com.trucksup.field_officer.presenter.common.AlertBoxDialog
@@ -45,13 +50,9 @@ import com.trucksup.field_officer.presenter.view.activity.auth.logout.LogoutRequ
 import com.trucksup.field_officer.presenter.view.activity.dashboard.vml.DashBoardViewModel
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.FinanceActivity
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.InsuranceActivity
-import com.trucksup.field_officer.presenter.view.activity.other.FollowUpActivity
-import com.trucksup.field_officer.presenter.view.activity.other.NavItems
-import com.trucksup.field_officer.presenter.view.activity.other.NewOnboardingSelection
 import com.trucksup.field_officer.presenter.view.activity.profile.EditProfileActivity
 import com.trucksup.field_officer.presenter.view.activity.profile.MyEarningActivity
 import com.trucksup.field_officer.presenter.view.activity.smartfuel.AddSmartFuelActivity
-import com.trucksup.field_officer.presenter.view.activity.smartfuel.SmartFuelViewModel
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.unassigned_ts_ba.activity.UnAssignedTSBAActivity
 import com.trucksup.field_officer.presenter.view.adapter.HomeFeaturesAdapter
 import com.trucksup.field_officer.presenter.view.adapter.ServicesMainAdapter
@@ -61,10 +62,8 @@ import com.trucksup.field_officer.presenter.view.adapter.NavigationMenuItem
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
 
-
-class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
 @AndroidEntryPoint
-class HomeActivity : BaseActivity(), OnItemClickListener {
+class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
     private lateinit var binding: ActivityHomeBinding
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private var mViewModel: DashBoardViewModel? = null
@@ -72,7 +71,6 @@ class HomeActivity : BaseActivity(), OnItemClickListener {
     private var longitude:String?=null
     private var address:String?=null
     private var dutyStatus:Boolean=false
-
 
     override fun onStart() {
         super.onStart()
@@ -92,10 +90,17 @@ class HomeActivity : BaseActivity(), OnItemClickListener {
 
         mViewModel = ViewModelProvider(this)[DashBoardViewModel::class.java]
 
+        //main services
+        mainServices(null)
 
-        setListonService()
+        //earnings
+        earningCounts(null)
 
-        setSecondRvList()
+        //today's performance
+        todayPerformance(null)
+
+        //dashboard api hit
+        setDashboardApi()
 
         setListener()
 
@@ -104,25 +109,13 @@ class HomeActivity : BaseActivity(), OnItemClickListener {
         setNavigationMenu()
     }
 
-    private fun setListonService() {
-        binding.rvServices.apply {
-            binding.rvServices.layoutManager = GridLayoutManager(this@HomeActivity, 3)
-            adapter = ServicesMainAdapter(this@HomeActivity)
-            hasFixedSize()
-        }
-    }
-
-
-    private fun setSecondRvList() {
-        binding.rvFeatures.apply {
-            layoutManager = GridLayoutManager(this@HomeActivity, 3)
-            adapter = HomeFeaturesAdapter(this@HomeActivity)
-            hasFixedSize()
-        }
+    private fun setDashboardApi() {
+        showProgressDialog(this,false)
+        var request= HomeCountRequest(PreferenceManager.getServerDateUtc(),PreferenceManager.getRequestNo(),PreferenceManager.getPhoneNo(this))
+        mViewModel?.getAllHomeCountStatus(request)
     }
 
     private fun setDialogRvList(binding: HomeMainServicesDialogBinding) {
-
         binding.rvMainServicesDialog.apply {
             layoutManager = GridLayoutManager(this@HomeActivity, 2)
             adapter = TUKawachDialogAdapter(this@HomeActivity)
@@ -188,7 +181,6 @@ class HomeActivity : BaseActivity(), OnItemClickListener {
         }
 
         binding.llHome.setOnClickListener {
-
             setSelectionNav()
         }
 
@@ -436,6 +428,108 @@ class HomeActivity : BaseActivity(), OnItemClickListener {
 
                 }
             }
+        }
+
+        mViewModel?.resultAllHomeCountStatusLD?.observe(this) { responseModel ->                     // login function observe
+            if (responseModel.serverError != null) {
+                dismissProgressDialog()
+
+                val abx = AlertBoxDialog(this, responseModel.serverError.toString(), "m")
+                abx.show()
+            } else {
+                dismissProgressDialog()
+                if (responseModel.success != null) {
+                    if (responseModel.success.statuscode==200) {
+                        var serviceCounts:MenuItemsCount?=responseModel.success.homeMenuItems?.menuItemsCount
+                        var earningCounts:OtherItemsCount?=responseModel.success.homeMenuItems?.otherItemsCount
+                        var featureCount:TodayPerformanceCount?=responseModel.success.homeMenuItems?.todayPerformanceCount
+
+                        //main services
+                        mainServices(serviceCounts)
+
+                        //earning counts
+                        earningCounts(earningCounts)
+
+                        //today's performance
+                        todayPerformance(featureCount)
+                    }
+                    else
+                    {
+
+                    }
+                }
+                else
+                {
+
+                }
+            }
+        }
+    }
+
+    private fun mainServices(serviceCounts: MenuItemsCount?)
+    {
+        var serviceList=ArrayList<HomeServicesModel>()
+        serviceList.add(HomeServicesModel("TU Kawach",R.drawable.ic_kawach,serviceCounts?.tuKawach))
+        serviceList.add(HomeServicesModel("Finance",R.drawable.ic_finanace,serviceCounts?.finance))
+        serviceList.add(HomeServicesModel("Insurance",R.drawable.ic_insurance,serviceCounts?.insurance))
+        serviceList.add(HomeServicesModel("Smart Fuel",R.drawable.ic_smart_fuel,serviceCounts?.smartFuel))
+        serviceList.add(HomeServicesModel("GPS",R.drawable.ic_gps,serviceCounts?.gps))
+        serviceList.add(HomeServicesModel("FASTag",R.drawable.ic_fasttag,serviceCounts?.gps))
+        binding.rvServices.apply {
+            binding.rvServices.layoutManager = GridLayoutManager(this@HomeActivity, 3)
+            adapter = ServicesMainAdapter(this@HomeActivity,serviceList)
+            hasFixedSize()
+        }
+    }
+
+    private fun earningCounts(earningCounts: OtherItemsCount?)
+    {
+        //total earning
+        if (earningCounts?.totalEarning.isNullOrEmpty())
+        {
+            binding.homeEarnings.tvTotalEarn.text="₹ 0"
+        }
+        else {
+            binding.homeEarnings.tvTotalEarn.text = "₹" + earningCounts?.totalEarning
+        }
+
+        //today followup
+        if (earningCounts?.todayFollowUp.isNullOrEmpty())
+        {
+            binding.homeEarnings.tvFollowupCount.text="0"
+        }
+        else
+        {
+            binding.homeEarnings.tvFollowupCount.text=earningCounts?.todayFollowUp
+        }
+
+        //tsba
+        if (earningCounts?.unassignedTSBA.isNullOrEmpty())
+        {
+            binding.homeEarnings.unassignedTsBaCount.text="0"
+        }
+        else
+        {
+            binding.homeEarnings.unassignedTsBaCount.text=earningCounts?.unassignedTSBA
+        }
+    }
+
+    private fun todayPerformance(featureCount: TodayPerformanceCount?)
+    {
+        var featuresList=ArrayList<HomeServicesModel>()
+        featuresList.add(HomeServicesModel("Truck Suppliers",R.drawable.truck_img,featureCount?.truckSuppliers))
+        featuresList.add(HomeServicesModel("Business Associates",R.drawable.ba_ic,featureCount?.businessAssociates))
+        featuresList.add(HomeServicesModel("Growth Partners",R.drawable.growth_part,featureCount?.growthPartners))
+        featuresList.add(HomeServicesModel("Total Add Loads",R.drawable.load_feature,featureCount?.totalAddLoads))
+        featuresList.add(HomeServicesModel("Total downloads",R.drawable.down_feature,featureCount?.totalDownloads))
+        featuresList.add(HomeServicesModel("Subscription Plans",R.drawable.subscribe_feature,featureCount?.subsriptionPlans))
+        featuresList.add(HomeServicesModel("Finance Leads",R.drawable.finance_feature,featureCount?.financeLeads))
+        featuresList.add(HomeServicesModel("Insurance Leads",R.drawable.insure_feature,featureCount?.insuranceLeads))
+        featuresList.add(HomeServicesModel("Smart Fuel Leads",R.drawable.fuel_feature,featureCount?.smartFuelLeads))
+        binding.rvFeatures.apply {
+            layoutManager = GridLayoutManager(this@HomeActivity, 3)
+            adapter = HomeFeaturesAdapter(this@HomeActivity,featuresList)
+            hasFixedSize()
         }
     }
 

@@ -14,7 +14,6 @@ import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ActivitySplashBinding
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.view.activity.auth.login.LoginActivity
-import com.trucksup.field_officer.presenter.view.activity.dashboard.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

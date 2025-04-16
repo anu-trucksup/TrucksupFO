@@ -145,11 +145,9 @@ interface ApiService {
     ): CheckUserProfileResponse
 
 
-    @GET("BOAppApiGateway/apiateway/BOHomeMenuItems")
+    @POST("BOAppApiGateway/apiateway/BOHomeMenuItems")
     @Headers("Accept: application/json")
-    suspend fun getAllHomeCountStatus( @Header("Authorization") credentials: String,
-                                       @Body homeCountRequest: HomeCountRequest): HomeCountResponse
-
+    suspend fun getAllHomeCountStatus(@Header("Authorization") credentials: String, @Body homeCountRequest: HomeCountRequest): HomeCountResponse
 
     @GET("global/city/by-country")
     @Headers("Accept: application/json")
