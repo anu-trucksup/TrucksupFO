@@ -43,17 +43,18 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
     //  private FirebaseAnalytics mFirebaseAnalytics;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mLoginBinding = DataBindingUtil.setContentView(this, R.layout.activity_login)
+        mLoginBinding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(mLoginBinding?.root)
 
         loginPreferences = CommonApplication.getSharedPreferences()
-        loginPrefsEditor = loginPreferences?.edit();
+        loginPrefsEditor = loginPreferences?.edit()
 
         saveLogin = loginPreferences?.getBoolean("saveLogin", false);
         if (saveLogin == true) {
             mLoginBinding?.phoneTxt?.setText(loginPreferences?.getString("username", ""));
             mLoginBinding?.passwordTxt?.setText(loginPreferences?.getString("password", ""));
             mLoginBinding?.rbRemember?.setChecked(true);
-        }else{
+        } else {
             mLoginBinding?.phoneTxt?.setText(intent?.getStringExtra("mobile"))
         }
 
@@ -66,8 +67,6 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         mLoginBinding?.loginBtn?.setOnClickListener(this)
 
         mViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
-        mLoginBinding?.setViewModel(mViewModel)
-
 
         /* // set listener on radio button
          mLoginBinding?.rbRemember?.setOnCheckedChangeListener { compoundButton, isCheck ->
@@ -98,24 +97,30 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
             } else {
                 dismissProgressDialog()
 
-                if (responseModel.success?.statuscode == 201) {
-
-                    val abx = AlertBoxDialog(
-                        this@LoginActivity,
-                        responseModel.success.message.toString(),
-                        "sign"
-                    )
-                    abx.show()
-                } else {
-
-                    val jsonString = Gson().toJson(responseModel.success?.loginDetails)
-                    PreferenceManager.setUserData(jsonString, this)
+                if (responseModel.success?.statuscode == 200) {
+                    if (responseModel.success?.loginDetails != null) {
+                        val details = responseModel.success.loginDetails
+                        val srdp = CommonApplication.getSharedPreferences()
+                        srdp?.edit()?.putString("access_token", details.token)
+                            ?.apply()
+                        val jsonString = Gson().toJson(responseModel.success.loginDetails)
+                        PreferenceManager.setUserData(jsonString, this)
+                        PreferenceManager.setPhoneNo(mLoginBinding?.phoneTxt?.text.toString(), this)
+                    }
 
                     Toast.makeText(this, "Log in Successfully.", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this@LoginActivity, WelcomeLocationActivity::class.java)
                     //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK)
                     startActivity(intent)
                     finish()
+
+                } else {
+                    val abx = AlertBoxDialog(
+                        this@LoginActivity,
+                        responseModel.success?.message.toString(),
+                        "sign"
+                    )
+                    abx.show()
                 }
 
             }
@@ -225,6 +230,11 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
 
         //  tvPasswordError.text = "Password must be at least 8 characters, include a digit, an uppercase letter, and a special character."
 
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        System.exit(0)
     }
 
 }

@@ -1,4 +1,4 @@
-package com.trucksup.field_officer.presenter.view.activity.other
+package com.trucksup.field_officer.presenter.view.activity.dashboard
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -50,9 +50,13 @@ import com.trucksup.field_officer.presenter.view.activity.auth.logout.LogoutRequ
 import com.trucksup.field_officer.presenter.view.activity.dashboard.vml.DashBoardViewModel
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.FinanceActivity
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.InsuranceActivity
+import com.trucksup.field_officer.presenter.view.activity.other.FollowUpActivity
+import com.trucksup.field_officer.presenter.view.activity.other.NavItems
+import com.trucksup.field_officer.presenter.view.activity.other.NewOnboardingSelection
 import com.trucksup.field_officer.presenter.view.activity.profile.EditProfileActivity
 import com.trucksup.field_officer.presenter.view.activity.profile.MyEarningActivity
 import com.trucksup.field_officer.presenter.view.activity.smartfuel.AddSmartFuelActivity
+import com.trucksup.field_officer.presenter.view.activity.smartfuel.SmartFuelViewModel
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.unassigned_ts_ba.activity.UnAssignedTSBAActivity
 import com.trucksup.field_officer.presenter.view.adapter.HomeFeaturesAdapter
 import com.trucksup.field_officer.presenter.view.adapter.ServicesMainAdapter
@@ -61,6 +65,7 @@ import com.trucksup.field_officer.presenter.view.adapter.TUKawachDialogAdapter
 import com.trucksup.field_officer.presenter.view.adapter.NavigationMenuItem
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
+
 
 @AndroidEntryPoint
 class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
@@ -71,6 +76,7 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
     private var longitude:String?=null
     private var address:String?=null
     private var dutyStatus:Boolean=false
+
 
     override fun onStart() {
         super.onStart()
@@ -116,6 +122,7 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
     }
 
     private fun setDialogRvList(binding: HomeMainServicesDialogBinding) {
+
         binding.rvMainServicesDialog.apply {
             layoutManager = GridLayoutManager(this@HomeActivity, 2)
             adapter = TUKawachDialogAdapter(this@HomeActivity)
@@ -464,6 +471,26 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
                 }
             }
         }
+
+        mViewModel?.logoutStatusLD?.observe(this) { responseModel ->                     // login function observe
+            if (responseModel.serverError != null) {
+                dismissProgressDialog()
+
+                val abx = AlertBoxDialog(this, responseModel.serverError.toString(), "m")
+                abx.show()
+            } else {
+                dismissProgressDialog()
+                if (responseModel.success != null) {
+                    PreferenceManager.removeData(this)
+                    PreferenceManager.setLogout(false, this)
+
+                    val loginIntent = Intent(this, LoginActivity::class.java)
+                    startActivity(loginIntent)
+                    finishAffinity()
+                } else {
+                }
+            }
+        }
     }
 
     private fun mainServices(serviceCounts: MenuItemsCount?)
@@ -531,6 +558,7 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
             adapter = HomeFeaturesAdapter(this@HomeActivity,featuresList)
             hasFixedSize()
         }
+
     }
 
 }

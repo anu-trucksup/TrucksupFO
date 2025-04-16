@@ -58,6 +58,7 @@ object PreferenceManager {
     var FASTIVEL: String = "fastivel"
     var CongratulationsHome: String = "CongratulationsHome"
     var LOGOUT: String = "logout"
+    var LOGIN: String = "login"
     var USER_DATA: String = "data"
     var SUBDATA: String = "SUBDATA"
     var VisitingCard: String = "visiting"
@@ -795,6 +796,18 @@ object PreferenceManager {
         val sharedPreferences: SharedPreferences =
             myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         return sharedPreferences.getBoolean(LOGOUT, false)
+    }
+
+    fun isUserLoggedIn(): Boolean {
+        val srdp = CommonApplication.getSharedPreferences()
+        val token = srdp?.getString("access_token", null)
+        return token != null
+    }
+
+    fun setUserLoggedIn(): Boolean {
+        val srdp = CommonApplication.getSharedPreferences()
+        val token = srdp?.getString("access_token", null)
+        return token != null
     }
 
 
@@ -1826,10 +1839,6 @@ object PreferenceManager {
         return sharedPreferences.getString("VEHICLE_DETAILS", null)!!
     }
 
-    fun getUserData(finance: Activity): Any {
-        // TODO("Not yet implemented")
-        return 0
-    }
 
     fun getAndroiDeviceId(context: Context): String {
         val androidId =

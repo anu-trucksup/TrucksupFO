@@ -46,12 +46,7 @@
         tools:targetApi="31">
 
         <activity
-            android:name=".presenter.view.activity.auth.login.LoginActivity"
-            android:exported="false">
-        </activity>
-
-        <activity
-            android:name=".presenter.view.activity.other.HomeActivity"
+            android:name=".presenter.view.activity.other.SplashScreenActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -59,6 +54,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".presenter.view.activity.auth.login.LoginActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".presenter.view.activity.dashboard.HomeActivity"
+            android:exported="false" />
 
         <activity
             android:name=".presenter.view.activity.growthPartner.MyTeamGPDetailsActivity"
@@ -105,9 +108,15 @@
             android:name=".presenter.view.activity.auth.forget.CreatePasswordActivity"
             android:exported="true"
             />
-        <activity
-            android:name=".presenter.view.activity.other.MainActivity"
-            android:exported="false" />
+
+        <receiver
+            android:name=".presenter.common.smsReader.MySMSBroadcastReceiver"
+            android:exported="true"
+            android:permission="com.google.android.gms.auth.api.phone.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.gms.auth.api.phone.SMS_RETRIEVED" />
+            </intent-filter>
+        </receiver>
 
         <activity
             android:name=".presenter.view.activity.businessAssociate.BAOnboardingUploadDocActivity"

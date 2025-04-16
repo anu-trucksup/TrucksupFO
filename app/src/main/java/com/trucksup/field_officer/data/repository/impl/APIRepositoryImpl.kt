@@ -38,6 +38,8 @@ import com.trucksup.field_officer.data.network.safeApiCall
 import com.trucksup.field_officer.data.repository.APIRepository
 import com.trucksup.field_officer.data.services.ApiService
 import com.trucksup.field_officer.presenter.utils.CommonApplication
+import com.trucksup.field_officer.presenter.view.activity.auth.logout.LogoutRequest
+import com.trucksup.field_officer.presenter.view.activity.auth.logout.LogoutResponse
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.AddBrokerRequest
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.AddBrokerResponse
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinaceDataSubmitResponse
@@ -54,6 +56,7 @@ import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.Rc
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.RcResponse
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.VerifyTruckResponse
 import kotlinx.coroutines.Dispatchers
+import retrofit2.http.Body
 
 
 class APIRepositoryImpl constructor(private val apiService: ApiService) : APIRepository {
@@ -63,16 +66,12 @@ class APIRepositoryImpl constructor(private val apiService: ApiService) : APIRep
         request: LoginRequest
     ): ResultWrapper<LoginResponse> {
         val response = safeApiCall(Dispatchers.IO) { apiService.loginUser(token, request) }
-
         return response
     }
 
     override fun logoutUser() {
         val srdp = CommonApplication.getSharedPreferences()
         srdp?.edit()?.remove("access_token")?.apply()
-        srdp?.edit()?.remove("expires_in")?.apply();
-        srdp?.edit()?.remove("refresh_token")?.apply();
-        srdp?.edit()?.remove("token_type")?.apply()
     }
 
     override suspend fun isUserLoggedIn(): Boolean {
@@ -204,10 +203,10 @@ class APIRepositoryImpl constructor(private val apiService: ApiService) : APIRep
     }
 
     override suspend fun logoutAccount(
-        reviewid: Int,
-        shopId: Int
-    ): ResultWrapper<DeleteProfileResponse> {
-        return safeApiCall(Dispatchers.IO) { apiService.logoutAccount(reviewid, shopId) }
+        auth: String,
+       request: LogoutRequest
+    ): ResultWrapper<LogoutResponse> {
+        return safeApiCall(Dispatchers.IO) { apiService.logoutAccount(auth,request) }
     }
 
     override suspend fun autoImageSlide(): ResultWrapper<AutoImageSlideResponse> {

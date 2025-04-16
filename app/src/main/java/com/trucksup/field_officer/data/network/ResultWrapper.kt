@@ -23,7 +23,7 @@ suspend fun <T> safeApiCall(
             ResultWrapper.Success(checkSuccessStatus(apiCall.invoke()))
         } catch (throwable: Throwable) {
             when (throwable) {
-                is IOException -> ResultWrapper.ServerResponseError("No internet connection")
+                is IOException -> ResultWrapper.ServerResponseError("Server not Reachable.")
                 is HttpException -> {
                     if (throwable.code() == 400) {
                         val error_description: String
@@ -41,12 +41,12 @@ suspend fun <T> safeApiCall(
                         )
 
                     } else {
-                        ResultWrapper.ServerResponseError("Something went wrong! Server Error")
+                        ResultWrapper.ServerResponseError("Something went wrong! \n Server Error")
                     }
                 }
 
                 else -> {
-                    ResultWrapper.ServerResponseError("Something went wrong! Server Error" + throwable.message + "" + throwable.stackTraceToString())
+                    ResultWrapper.ServerResponseError("Something went wrong! Server Error \n" + throwable.message + "" + throwable.stackTraceToString())
                 }
             }
         }

@@ -40,10 +40,10 @@ class CreatePasswordActivity : BaseActivity(), View.OnClickListener {
 
         mBinding?.topView?.ivBack?.setOnClickListener(this)
         mBinding?.updatepassBtn?.setOnClickListener(this)
-        setupObserver()
+
         mobileNumber = intent.extras!!.getString("phoneNo", "")
 
-
+        setupObserver()
         /* mBinding!!.confirmPasswordTxt.addTextChangedListener(object : TextWatcher {
              override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
              }
@@ -93,18 +93,31 @@ class CreatePasswordActivity : BaseActivity(), View.OnClickListener {
 
                 val abx = AlertBoxDialog(
                     this@CreatePasswordActivity,
-                    responseModel.success?.message.toString(),
+                    responseModel.serverError.toString(),
                     "m"
                 )
                 abx.show()
             } else {
                 dismissProgressDialog()
-                Toast.makeText(this, "Password Changed Successfully", Toast.LENGTH_SHORT).show()
-                // start home screen
-                val intent = Intent(this@CreatePasswordActivity, LoginActivity::class.java)
-                intent.putExtra("mobile", "")
-                startActivity(intent)
-                finish()
+
+                if (responseModel.success?.statuscode == 200) {
+                    Toast.makeText(this, "Password Changed Successfully", Toast.LENGTH_SHORT).show()
+                    // start home screen
+                    val intent = Intent(this@CreatePasswordActivity, LoginActivity::class.java)
+                    intent.putExtra("mobile", "")
+                    startActivity(intent)
+                    finish()
+
+                } else {
+                    val abx = AlertBoxDialog(
+                        this@CreatePasswordActivity,
+                        responseModel.success?.message.toString(),
+                        "m"
+                    )
+                    abx.show()
+                }
+
+
             }
         }
 
@@ -183,15 +196,14 @@ class CreatePasswordActivity : BaseActivity(), View.OnClickListener {
                     mobilenumber = mobileNumber.toString(),
                     password = mBinding?.passwordTxt?.text.toString()
                 )
-                mViewModel!!.resetPassword(
+                mViewModel?.resetPassword(
                     PreferenceManager.getAuthToken(), request
                 )
 
             } else {
                 LoggerMessage.onSNACK(
                     mBinding!!.updatepassBtn,
-                    "Enter a valid password format.",
-                    applicationContext
+                    "Enter a valid password format.", applicationContext
                 )
             }
         }

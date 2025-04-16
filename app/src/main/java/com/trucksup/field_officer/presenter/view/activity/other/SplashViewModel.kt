@@ -15,7 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SplashViewModel @Inject constructor(val apiUseCase: APIUseCase,
                                           application: Application): AndroidViewModel(application) {
-    var loggedInStatus: MutableLiveData<Int> = MutableLiveData<Int>()
+    private var loggedInStatus: MutableLiveData<Int> = MutableLiveData<Int>()
     val loggedInStatusLD: LiveData<Int> = loggedInStatus
 
     @SuppressLint("SuspiciousIndentation")

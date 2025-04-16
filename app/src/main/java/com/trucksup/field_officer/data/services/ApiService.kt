@@ -38,6 +38,8 @@ import com.trucksup.field_officer.data.model.user.UpdateProfileRequest
 import com.trucksup.field_officer.data.model.user.UpdateProfileResponse
 import com.trucksup.field_officer.presenter.cityPicker.CityListbySearchRequest
 import com.trucksup.field_officer.presenter.cityPicker.CitySearchRequest
+import com.trucksup.field_officer.presenter.view.activity.auth.logout.LogoutRequest
+import com.trucksup.field_officer.presenter.view.activity.auth.logout.LogoutResponse
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.AddBrokerRequest
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.AddBrokerResponse
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinaceDataSubmitResponse
@@ -156,12 +158,12 @@ interface ApiService {
     ): CountryResponse
 
 
-    @GET("Apigateway/Gateway/Logout")
+    @POST("BOAppApiGateway/apiateway/BOUserLogOut")
     @Headers("Accept: application/json")
     suspend fun logoutAccount(
-        @Query("id") id: Int,
-        @Query("shopId") shopId: Int
-    ): DeleteProfileResponse
+        @Header("Authorization") auth: String,
+        @Body request: LogoutRequest
+    ): LogoutResponse
 
     @GET("global/user/delete/user/account")
     @Headers("Accept: application/json")
