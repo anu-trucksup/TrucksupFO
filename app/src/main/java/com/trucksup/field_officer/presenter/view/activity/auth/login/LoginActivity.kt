@@ -15,6 +15,7 @@ import com.trucksup.field_officer.data.model.authModel.LoginRequest
 import com.trucksup.field_officer.databinding.ActivityLoginBinding
 import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.AppVersionUtils
+import com.trucksup.field_officer.presenter.common.location.LocationHelper
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.utils.CommonApplication
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
@@ -74,6 +75,9 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         setupObserver()
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
+        Toast.makeText(this, "Location :"+latitude +"-"+longitude, Toast.LENGTH_SHORT).show()
+
     }
 
     private fun setupObserver() {
