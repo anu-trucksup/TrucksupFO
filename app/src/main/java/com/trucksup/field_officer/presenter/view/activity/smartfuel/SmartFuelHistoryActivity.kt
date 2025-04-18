@@ -1,6 +1,5 @@
 package com.trucksup.field_officer.presenter.view.activity.smartfuel
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -9,18 +8,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.trucksup.field_officer.R
-import com.trucksup.field_officer.data.model.insurance.InquiryHistoryResponse
 import com.trucksup.field_officer.data.model.smartfuel.SmartFuelHistoryRequest
 import com.trucksup.field_officer.data.model.smartfuel.SmartFuelHistoryResponse
-import com.trucksup.field_officer.databinding.ActivityFinanceHistoryBinding
 import com.trucksup.field_officer.databinding.ActivitySmartfuelHistoryBinding
 import com.trucksup.field_officer.presenter.common.AlertBoxDialog
-import com.trucksup.field_officer.presenter.common.LoadingUtils
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
-import com.trucksup.field_officer.presenter.view.activity.financeInsurance.HistoryFnIsFragment
-import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinanceHistoryViewModel
-import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.InquiryHistoryRequest
 import com.trucksup.field_officer.presenter.view.adapter.FragmentAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.ArrayList
@@ -34,9 +27,9 @@ class SmartFuelHistoryActivity : BaseActivity() {
     private var activatedHistoryList: ArrayList<SmartFuelHistoryResponse.LeadsHistory> = arrayListOf()
     private var currentHistoryList: ArrayList<SmartFuelHistoryResponse.LeadsHistory> = arrayListOf()
     private var rejectedHistoryList: ArrayList<SmartFuelHistoryResponse.LeadsHistory> = arrayListOf()
-    private lateinit var fragment1: HistorySmartFuelFragment
-    private lateinit var fragment2: HistorySmartFuelFragment
-    private lateinit var fragment3: HistorySmartFuelFragment
+    private var fragment1: HistorySmartFuelFragment?=null
+    private var fragment2: HistorySmartFuelFragment?=null
+    private var fragment3: HistorySmartFuelFragment?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,7 +52,7 @@ class SmartFuelHistoryActivity : BaseActivity() {
     private fun setListener() {
         //back button
         binding.btnBack.setOnClickListener {
-            onBackPressed()
+            onBackPressedDispatcher.onBackPressed()
         }
 
         //active button
@@ -81,13 +74,10 @@ class SmartFuelHistoryActivity : BaseActivity() {
     private fun setupViewPager() {
         try {
             val adapter = FragmentAdapter(this)
-//            val fragment1 = HistorySmartFuelFragment("active")
-//            val fragment2 = HistorySmartFuelFragment("complete")
-//            val fragment3 = HistorySmartFuelFragment("reject")
 
-            fragment1 = HistorySmartFuelFragment("current",currentHistoryList)//current
+            fragment1 = HistorySmartFuelFragment("current",currentHistoryList)    //current
             fragment2 = HistorySmartFuelFragment("activated",activatedHistoryList)//activated
-            fragment3 = HistorySmartFuelFragment("reject",rejectedHistoryList)//rejected
+            fragment3 = HistorySmartFuelFragment("reject",rejectedHistoryList)    //rejected
 
             adapter.addFragment(fragment1)
             adapter.addFragment(fragment2)
@@ -183,7 +173,7 @@ class SmartFuelHistoryActivity : BaseActivity() {
         showProgressDialog(this,false)
         val request = SmartFuelHistoryRequest(
             ""+PreferenceManager.getPhoneNo(this),
-            ""+"456789",
+            ""+PreferenceManager.getUserData(this)?.referralcode,
             ""+PreferenceManager.getServerDateUtc(),
             ""+PreferenceManager.getRequestNo(),
             ""+PreferenceManager.getPhoneNo(this),
@@ -223,12 +213,12 @@ class SmartFuelHistoryActivity : BaseActivity() {
             run {
                 inquiryHistory.leadDetails.forEachIndexed { _, historyDetails ->
                     run {
-                        if (historyDetails.cardStatus.equals("Amount Disbursed")) {
+                        if (historyDetails.cardStatus.equals("Card Activated")) {
                             activatedHistoryList.add(inquiryHistory)
-                        }else  if (historyDetails.cardStatus.equals("Rejected")) {
+                        }else  if (historyDetails.cardStatus.equals("Card Rejected")) {
                             rejectedHistoryList.add(inquiryHistory)
                         }else{
-                            activatedHistoryList.add(inquiryHistory)
+                            currentHistoryList.add(inquiryHistory)
                         }
                     }
                 }
@@ -239,6 +229,5 @@ class SmartFuelHistoryActivity : BaseActivity() {
         binding.tvTotalEnquiry.text = "${inquiryHistoryResponse?.leadsHistory?.size} Enquiries"
         setupViewPager()
     }
-
 
 }

@@ -18,7 +18,7 @@ import com.trucksup.field_officer.presenter.view.activity.subscription.Subscript
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.TSPerformanceActivity
 
 
-class HomeFeaturesAdapter(var context: Context?,var list:ArrayList<HomeServicesModel>) :
+class HomeFeaturesAdapter(var context: Context?, var list: ArrayList<HomeServicesModel>) :
     RecyclerView.Adapter<HomeFeaturesAdapter.ViewHolder>() {
 
 //    private val serviceList = arrayListOf(
@@ -55,14 +55,7 @@ class HomeFeaturesAdapter(var context: Context?,var list:ArrayList<HomeServicesM
 
         holder.binding.ivImage.setImageResource(list[position].serviceImage)
         holder.binding.tvName.text = list[position].service
-        if (list[position].serviceCount.isNullOrEmpty())
-        {
-            holder.binding.tvCount.text="0"
-        }
-        else
-        {
-            holder.binding.tvCount.text=list[position].serviceCount
-        }
+        holder.binding.tvCount.text = list[position].serviceCount ?: "0"
 
         holder.binding.root.setOnClickListener {
             //Toast.makeText(context,"Under Development", Toast.LENGTH_SHORT).show()
@@ -71,38 +64,46 @@ class HomeFeaturesAdapter(var context: Context?,var list:ArrayList<HomeServicesM
                     val intent = Intent(context, TSPerformanceActivity::class.java)
                     context?.startActivity(intent)
                 }
+
                 1 -> {
                     val intent = Intent(context, BAPerformanceActivity::class.java)
                     context?.startActivity(intent)
                 }
+
                 2 -> {
                     val intent = Intent(context, GPPerformanceActivity::class.java)
                     context?.startActivity(intent)
                 }
+
                 3 -> {
                     val intent = Intent(context, TotalAddLoadActivity::class.java)
                     context?.startActivity(intent)
                 }
+
                 4 -> {
                     val intent = Intent(context, TotalDownloadsActivity::class.java)
                     context?.startActivity(intent)
                 }
+
                 5 -> {
                     val intent = Intent(context, SubscriptionActivity::class.java)
                     context?.startActivity(intent)
                 }
+
                 6 -> {
                     //Finance
                     val intent = Intent(context, FinanceHistoryActivity::class.java)
                     intent.putExtra("HISTORY_TYPE", "Finance")
                     context?.startActivity(intent)
                 }
+
                 7 -> {
                     //Insurance
                     val intent = Intent(context, FinanceHistoryActivity::class.java)
                     intent.putExtra("HISTORY_TYPE", "Insurance")
                     context?.startActivity(intent)
                 }
+
                 8 -> {
                     val intent = Intent(context, SmartFuelHistoryActivity::class.java)
                     context?.startActivity(intent)
