@@ -2,6 +2,7 @@ package com.trucksup.field_officer.presenter.view.activity.smartfuel
 
 import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -84,14 +85,13 @@ class SmartFuelViewModel @Inject constructor(val apiUseCase: APIUseCase) : ViewM
         imgRes: TrucksFOImageController) {
         val apiInterface = ApiClient().getClient
         apiInterface.trucksupImageUpload(token, documentType, file, fileWaterMark)
-
             ?.enqueue(object : Callback<TrucksupImageUploadResponse> {
                 override fun onResponse(
                     call: Call<TrucksupImageUploadResponse>,
                     response: Response<TrucksupImageUploadResponse>
                 ) {
-
                     if (response.isSuccessful) {
+                        println("kfjdkjf=")
                         if (response.body()?.s3FileName != null) {
                             imgRes.getImage(
                                 response.body()?.s3FileName.toString(),

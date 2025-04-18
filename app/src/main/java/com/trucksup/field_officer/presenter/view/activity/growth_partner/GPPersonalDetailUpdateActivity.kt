@@ -129,7 +129,7 @@ class GPPersonalDetailUpdateActivity : BaseActivity(), View.OnClickListener {
             binding.ETGpBusinessAddress.requestFocus()
             binding.ETGpBusinessAddress.setError(getString(R.string.PleaseBusinessAddress))
         } else {
-            startActivity(Intent(this, GPOnboardingKYCActivity::class.java))
+            startActivity(Intent(this, GPKYCActivity::class.java))
             //binding.ETPanNumberNOB.requestFocus()
             /*val customErrorDrawable = resources.getDrawable(com.trucksup.fieldofficer.R.drawable.ic_phone)
             customErrorDrawable.setBounds(

@@ -188,6 +188,7 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
     private fun setListener() {
         //rc front camera
         binding.imgFrontCamera.setOnClickListener {
+
             if (rcFrontImgKey.isNullOrEmpty()) {
                 imageT = 1
                 getImage()
@@ -585,7 +586,6 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
         binding.etCustomerFullname?.filters = arrayOf(emojiFilter)
     }
 
-
     private fun getImage() {
         if (ActivityCompat.checkSelfPermission(
                 this,
@@ -824,7 +824,6 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
             }
         }
 
-
     private fun viewVehicleDetails(data: VehicleDetail) {
         val builder = AlertDialog.Builder(this@AddSmartFuelActivity)
         val binding =
@@ -904,6 +903,9 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
             dialog.dismiss()
         }
     }
+
+
+
 
     /* fun getImageToken(file: File) {
          LoadingUtils.showDialog(this, false)

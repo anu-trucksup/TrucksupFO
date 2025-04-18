@@ -372,6 +372,8 @@
     <string name="no_verified_dl">No verified driving license</string>
     <string name="enterDLNo">Please enter driving license number.</string>
     <string name="enterDOB">Please enter date of birth.</string>
+    <string name="enter_DOB">Enter Date of Birth</string>
+    <string name="selectDOB">Select Date of Birth</string>
     <string name="date_of_expiry2">Date Of Expiry:</string>
     <string name="check_out_extra_plan_title">You can buy Vehicle Tracking and Vehicle Verification service too.</string>
     <string name="check_out_extra_plan_title2">You can buy Vehicle Tracking and  driving license Verification service too.</string>
@@ -390,6 +392,7 @@
 
     <string name="enter_otp">Enter Verification Code</string>
     <string name="SkipAadhaar">Skip Aadhaar KYC for now</string>
+    <string name="SkipKyc">Skip KYC for now</string>
     <string name="EnterAadhaarNumber">Enter Aadhaar Number</string>
     <string name="SkipAadhaarItspaperless">It’s paperless and just takes 2 clicks to complete the KYC.</string>
     <string name="email_address">Email Address</string>
@@ -484,6 +487,7 @@
     <string name="purchasedPlan">Purchased Plan</string>
     <string name="free">Free</string>
     <string name="recommended">Recommended</string>
+    <string name="recommend">Recommend</string>
     <string name="status">Status</string>
     <string name="share">Share</string>
     <string name="remove">Remove</string>
@@ -668,7 +672,7 @@
     <string name="reschedule_meeting"><u>Reschedule Meeting</u></string>
     <string name="activate_msg">You are currently not on duty. Please activate your duty status to mark your attendance and start today’s journey.</string>
 
-   //
+    //
     <string name="enter_truckno">Enter Truck No. </string>
     <string name="add_one_truck_msg">You have not added any trucks. Kindly add a truck</string>
     <string name="verify_truck">Please verify to vehicle</string>
@@ -703,5 +707,12 @@
     <string name="search">Search</string>
     <string name="Vehicle_Size">Vehicle Size</string>
     <string name="tyre_">Tyre</string>
+    <string name="kyc_title">KYC title</string>
+    <string name="kyc_verified">KYC Verified</string>
+    <string name="name_kyc">Name as per KYC :</string>
+    <string name="aadhar_number">Aadhaar Number :</string>
+    <string name="city_">City :</string>
+    <string name="selfie_yourself">Take a selfie of yourself</string>
+    <string name="selfie_identity">Selfie with your front camera \n to verify your identity</string>
 
 </resources>
