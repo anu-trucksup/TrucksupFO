@@ -46,7 +46,6 @@ open class CommonApplication: Application() {
             //onTokenReceived(token)
         }
 
-
         LocationHelper.init(this)
     }
 

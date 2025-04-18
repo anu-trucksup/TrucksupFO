@@ -306,17 +306,7 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
              .check()
      }*/
 
-    private fun showLocationDisabledDialog() {
-        AlertDialog.Builder(this)
-            .setTitle("Location Services Disabled")
-            .setMessage("Location services are required for this app. Please enable them in the settings.")
-            .setPositiveButton("Open Settings") { _, _ ->
-                val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-                startActivity(intent)
-            }
-            .setCancelable(false)
-            .show()
-    }
+
 
     private fun setNavigationMenu() {
         val list = ArrayList<NavItems>()
@@ -552,7 +542,7 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
     }
 
     private fun mainServices(serviceCounts: MenuItemsCount?) {
-        var serviceList = ArrayList<HomeServicesModel>()
+        val serviceList = ArrayList<HomeServicesModel>()
         serviceList.add(
             HomeServicesModel(
                 "TU Kawach",
