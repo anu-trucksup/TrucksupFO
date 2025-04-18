@@ -21,7 +21,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import com.bumptech.glide.Glide
 import com.trucksup.field_officer.R
-import com.trucksup.field_officer.databinding.ActivityBaonboardingUploadDocBinding
+import com.trucksup.field_officer.databinding.ActivityBaonboardDocBinding
 import com.trucksup.field_officer.presenter.common.FileHelp
 import com.trucksup.field_officer.presenter.common.image_picker.GetImage
 import com.trucksup.field_officer.presenter.common.image_picker.ImagePickerDailog
@@ -32,8 +32,8 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
 
-class BAOnboardingUploadDocActivity : BaseActivity(), GetImage {
-    private lateinit var binding: ActivityBaonboardingUploadDocBinding
+class BAOnboardDocActivity : BaseActivity(), GetImage {
+    private lateinit var binding: ActivityBaonboardDocBinding
     private var launcher: ActivityResultLauncher<Intent>? = null
     private var imageUri: String = ""
     private var docType: String = ""
@@ -41,7 +41,7 @@ class BAOnboardingUploadDocActivity : BaseActivity(), GetImage {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        binding = ActivityBaonboardingUploadDocBinding.inflate(layoutInflater)
+        binding = ActivityBaonboardDocBinding.inflate(layoutInflater)
         adjustFontScale(resources.configuration, 1.0f);
         setContentView(binding.root)
 
@@ -308,29 +308,30 @@ class BAOnboardingUploadDocActivity : BaseActivity(), GetImage {
         }
     }
 
-    private val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-        // Callback is invoked after the user selects a media item or closes the
-        // photo picker.
-        if (uri != null) {
-            // image?.setImageURI(uri)
+    private val pickMedia =
+        registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+            // Callback is invoked after the user selects a media item or closes the
+            // photo picker.
+            if (uri != null) {
+                // image?.setImageURI(uri)
 
-            var orFile: File = FileHelper().getFile(this, uri)!!
-            var bitmap: Bitmap = FileHelper().FileToBitmap(orFile)
-            var newBitmap: Bitmap = FileHelper().resizeImage(bitmap, 500, 500)!!
-            var newFile: File = FileHelper().bitmapTofile(newBitmap, this)!!
-
-
-            //progressBarr?.show()
-            /*myResponse?.uploadImage(
-                "jpg", "DOC" + PreferenceManager.getRequestNo(), "" + name,
-                PreferenceManager.prepareFilePart(newFile!!), this, this
-            )*/
+                var orFile: File = FileHelper().getFile(this, uri)!!
+                var bitmap: Bitmap = FileHelper().FileToBitmap(orFile)
+                var newBitmap: Bitmap = FileHelper().resizeImage(bitmap, 500, 500)!!
+                var newFile: File = FileHelper().bitmapTofile(newBitmap, this)!!
 
 
-        } else {
-            Log.d("PhotoPicker", "No media selected")
+                //progressBarr?.show()
+                /*myResponse?.uploadImage(
+                    "jpg", "DOC" + PreferenceManager.getRequestNo(), "" + name,
+                    PreferenceManager.prepareFilePart(newFile!!), this, this
+                )*/
+
+
+            } else {
+                Log.d("PhotoPicker", "No media selected")
+            }
         }
-    }
 
     override fun fromGallery() {
         pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))

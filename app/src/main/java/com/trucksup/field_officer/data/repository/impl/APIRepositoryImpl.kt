@@ -42,6 +42,9 @@ import com.trucksup.field_officer.presenter.view.activity.auth.logout.LogoutRequ
 import com.trucksup.field_officer.presenter.view.activity.auth.logout.LogoutResponse
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.AddBrokerRequest
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.AddBrokerResponse
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.CompleteMeetingBARequest
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.ScheduleMeetingBARequest
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.ScheduleMeetingResponse
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinaceDataSubmitResponse
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinanceDataLiatRequest
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinanceDataLiatResponse
@@ -49,11 +52,14 @@ import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.I
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.LoanDataSubmitRequest
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryData
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryRequest
+import com.trucksup.field_officer.presenter.view.activity.growthPartner.model.CompleteMeetingGPRequest
+import com.trucksup.field_officer.presenter.view.activity.growthPartner.model.ScheduleMeetingGPRequest
 import com.trucksup.field_officer.presenter.view.activity.subscription.model.PlanRequest
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.AddLoadFilterRequest
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.AddLoadFilterResponse
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.RcRequest
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.RcResponse
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.ScheduleMeetTSRequest
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.VerifyTruckResponse
 import kotlinx.coroutines.Dispatchers
 import retrofit2.http.Body
@@ -345,6 +351,48 @@ class APIRepositoryImpl constructor(private val apiService: ApiService) : APIRep
         request: DutyStatusRequest
     ): ResultWrapper<DutyStatusResponse> {
         return safeApiCall(Dispatchers.IO) { apiService.dutyStatus(authToken, request) }
+    }
+
+    override suspend fun scheduleMeetingTS(
+        authToken: String,
+        request: ScheduleMeetTSRequest
+    ): ResultWrapper<ScheduleMeetingResponse> {
+        return safeApiCall(Dispatchers.IO) { apiService.scheduleMeetingTS(authToken, request) }
+    }
+
+    override suspend fun completeTSMeeting(
+        authToken: String,
+        request: CompleteMeetingBARequest
+    ): ResultWrapper<ScheduleMeetingResponse> {
+        return safeApiCall(Dispatchers.IO) { apiService.completeTSMeeting(authToken, request) }
+    }
+
+    override suspend fun scheduleMeetingBA(
+        authToken: String,
+        request: ScheduleMeetingBARequest
+    ): ResultWrapper<ScheduleMeetingResponse> {
+        return safeApiCall(Dispatchers.IO) { apiService.scheduleMeetingBA(authToken, request) }
+    }
+
+    override suspend fun completeBAMeeting(
+        authToken: String,
+        request: CompleteMeetingBARequest
+    ): ResultWrapper<ScheduleMeetingResponse> {
+        return safeApiCall(Dispatchers.IO) { apiService.completeBAMeeting(authToken, request) }
+    }
+
+    override suspend fun scheduleMeetingGP(
+        authToken: String,
+        request: ScheduleMeetingGPRequest
+    ): ResultWrapper<ScheduleMeetingResponse> {
+        return safeApiCall(Dispatchers.IO) { apiService.scheduleMeetingGP(authToken, request) }
+    }
+
+    override suspend fun completeGPMeeting(
+        authToken: String,
+        request: CompleteMeetingGPRequest
+    ): ResultWrapper<ScheduleMeetingResponse> {
+        return safeApiCall(Dispatchers.IO) { apiService.completeGPMeeting(authToken, request) }
     }
 
 }

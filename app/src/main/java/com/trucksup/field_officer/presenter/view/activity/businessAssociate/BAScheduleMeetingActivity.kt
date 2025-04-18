@@ -14,10 +14,12 @@ import androidx.core.net.toUri
 import com.trucksup.field_officer.databinding.ActivityBaSchedulemeetingBinding
 import com.trucksup.field_officer.presenter.common.CameraActivity
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
+import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 
+@AndroidEntryPoint
 class BAScheduleMeetingActivity : BaseActivity() {
 
     private lateinit var binding: ActivityBaSchedulemeetingBinding
