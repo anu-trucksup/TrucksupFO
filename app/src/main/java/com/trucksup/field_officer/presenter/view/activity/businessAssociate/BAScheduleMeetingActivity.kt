@@ -7,13 +7,24 @@ import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.net.toUri
+import androidx.lifecycle.ViewModelProvider
+import com.google.gson.Gson
 import com.trucksup.field_officer.databinding.ActivityBaSchedulemeetingBinding
+import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.CameraActivity
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
+import com.trucksup.field_officer.presenter.utils.CommonApplication
+import com.trucksup.field_officer.presenter.utils.PreferenceManager
+import com.trucksup.field_officer.presenter.view.activity.auth.login.LoginViewModel
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.CompleteMeetingBARequest
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.ScheduleMeetingBARequest
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.vml.BAScheduleMeetingVM
+import com.trucksup.field_officer.presenter.view.activity.other.WelcomeLocationActivity
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.io.FileOutputStream
@@ -23,43 +34,74 @@ import java.io.IOException
 class BAScheduleMeetingActivity : BaseActivity() {
 
     private lateinit var binding: ActivityBaSchedulemeetingBinding
-    private var photo1:Boolean=false
-    private var photo2:Boolean=false
+    private var photo1: Boolean = false
+    private var photo2: Boolean = false
     private var launcher: ActivityResultLauncher<Intent>? = null
+    private var mViewModel: BAScheduleMeetingVM? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityBaSchedulemeetingBinding.inflate(layoutInflater)
-        adjustFontScale(resources.configuration, 1.0f);
+        adjustFontScale(resources.configuration, 1.0f)
         setContentView(binding.root)
 
+        mViewModel = ViewModelProvider(this)[BAScheduleMeetingVM::class.java]
+
         setListeners()
-        camera()
+        setupObserver()
+        cameraListener()
     }
 
     private fun setListeners() {
         binding.ivBack.setOnClickListener {
-           onBackPressed()
+            onBackPressed()
         }
 
         binding.selfiPic.setOnClickListener {
-            photo1=true
-            photo2=false
+            photo1 = true
+            photo2 = false
             launchCamera(false, 0, true)
-           /* val camera_intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            startForResult.launch(camera_intent)*/
+            /* val camera_intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+             startForResult.launch(camera_intent)*/
         }
 
         binding.officePic.setOnClickListener {
-            photo2=true
-            photo1=false
+            photo2 = true
+            photo1 = false
             launchCamera(true, 1, false)
-           /* val camera_intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            startForResult.launch(camera_intent)*/
+            /* val camera_intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+             startForResult.launch(camera_intent)*/
         }
 
         binding.btnSubmit.setOnClickListener {
-            startActivity(Intent(this, BAFollowupActivity::class.java))
+            val request = CompleteMeetingBARequest(
+                boid = 1,
+                contact_MobileNo = "7355689120",
+                contact_Person = "test",
+                currAddress = "test",
+                currLocation = "test",
+                cust_Meeting = true,
+                face_ImageKey = "test",
+                fastTag = true,
+                finance = true,
+                followUpDate = "2025-04-17T04:33:07.250Z",
+                gift = true,
+                gps = true,
+                id = 2,
+                insurance = true,
+                isLoadGiven = true,
+                latitude = "122.12",
+                longitude = "222.22",
+                office_ImageKey = "test",
+                remarks = "test",
+                requestDatetime = "2025-04-17T04:33:07.250Z",
+                requestId = 12,
+                requestedBy = "8527257606",
+                smartFuel = true,
+                subscription_Plan = true,
+                trucksHub = true
+            )
+            mViewModel?.onCompleteMeetingBA(request)
         }
 
         binding.btnCancel.setOnClickListener {
@@ -67,9 +109,42 @@ class BAScheduleMeetingActivity : BaseActivity() {
         }
     }
 
+    private fun setupObserver() {
+        mViewModel?.onCompleteMeetingBAResponseLD?.observe(this@BAScheduleMeetingActivity) { responseModel ->                     // login function observe
+            if (responseModel.serverError != null) {
+                dismissProgressDialog()
+
+                val abx = AlertBoxDialog(
+                    this@BAScheduleMeetingActivity,
+                    responseModel.serverError.toString(),
+                    "m"
+                )
+                abx.show()
+            } else {
+                dismissProgressDialog()
+
+                if (responseModel.success?.statuscode == 200) {
+
+                    Toast.makeText(this, "Meeting Scheduled Successfully.", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this@BAScheduleMeetingActivity, BAFollowupActivity::class.java)
+                    startActivity(intent)
+                    finish()
+
+                } else {
+                    val abx = AlertBoxDialog(
+                        this@BAScheduleMeetingActivity,
+                        responseModel.success?.message.toString(),
+                        "m"
+                    )
+                    abx.show()
+                }
+
+            }
+        }
+    }
 
     //add by me
-    private fun camera() {
+    private fun cameraListener() {
         launcher = registerForActivityResult<Intent, ActivityResult>(
             ActivityResultContracts.StartActivityForResult()
         ) { result: ActivityResult ->
@@ -78,7 +153,9 @@ class BAScheduleMeetingActivity : BaseActivity() {
 
                 try {
                     val imageUris: Uri = data!!.getStringExtra("result")!!.toUri()
-                    val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.parse(imageUris.toString()))
+                    val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(
+                        contentResolver, Uri.parse(imageUris.toString()))
+
                     // Set the image in imageview for display
                     handleImageCapture(bitmap)
                 } catch (ex: Exception) {
@@ -87,7 +164,8 @@ class BAScheduleMeetingActivity : BaseActivity() {
             }
         }
     }
-    private fun launchCamera(flipCamera: Boolean, cameraOpen: Int, focusView: Boolean){
+
+    private fun launchCamera(flipCamera: Boolean, cameraOpen: Int, focusView: Boolean) {
         val intent = Intent(this, CameraActivity::class.java)
         intent.putExtra("flipCamera", flipCamera)
         intent.putExtra("cameraOpen", cameraOpen)
@@ -97,32 +175,30 @@ class BAScheduleMeetingActivity : BaseActivity() {
     //add by me
 
 
-   /* val startForResult =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
-            try {
-                val photo = result.data?.extras?.get("data") as Bitmap?
-                // Set the image in imageview for display
-                handleImageCapture(photo!!)
-            }
-            catch (e:Exception)
-            {
+    /* val startForResult =
+         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+             try {
+                 val photo = result.data?.extras?.get("data") as Bitmap?
+                 // Set the image in imageview for display
+                 handleImageCapture(photo!!)
+             }
+             catch (e:Exception)
+             {
 
-            }
-        }*/
+             }
+         }*/
 
     private fun handleImageCapture(bitmap: Bitmap) {
         try {
-            if (photo1==true)
-            {
+            if (photo1 == true) {
                 binding.selfiPic.setImageBitmap(bitmap)
-                photo1=false
-                photo2=false
+                photo1 = false
+                photo2 = false
             }
-            if (photo2==true)
-            {
+            if (photo2 == true) {
                 binding.officePic.setImageBitmap(bitmap)
-                photo1=false
-                photo2=false
+                photo1 = false
+                photo2 = false
             }
             bitmap?.let {
                 val resizedBitmap = resizeBitmap(it, 800)

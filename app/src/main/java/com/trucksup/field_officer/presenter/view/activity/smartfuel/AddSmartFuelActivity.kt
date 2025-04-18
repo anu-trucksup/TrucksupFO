@@ -92,7 +92,7 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
     private var prevPolicyDocsImgUrl: String? = ""
 
     private var imageT: Int = 0 //0 default,1 front image,2 back image,3 previous policy docs image
-    private var sourceValue: String? = "Trucksup"
+    private var sourceValue: String? = "BO"
     private var launcher: ActivityResultLauncher<Intent>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -109,12 +109,11 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
 
         mViewModel = ViewModelProvider(this)[SmartFuelViewModel::class.java]
 
-        PreferenceManager.setPhoneNo("9870009988", this)
         binding.etCustomerMobile.setText(PreferenceManager.getPhoneNo(this))
-        binding.etReferralCode.setText("7BGHJ9")
+
 
         //referral code or sales code
-        // binding.etReferralCode.setText(PreferenceManager.getUserData(this)?.salesCode)
+         binding.etReferralCode.setText(PreferenceManager.getUserData(this)?.referralcode)
 
         disableEmojiInTitle()
         setListener()
