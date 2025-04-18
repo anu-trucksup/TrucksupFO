@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.trucksup.field_officer.databinding.ItemMyTeamBaInactiveBinding
-import com.trucksup.field_officer.presenter.view.activity.truck_supplier.TSDetailActivity
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.TSDetailActivity
 
 class MyTeamBAInActiveAdapter(var context: Context?, var list: ArrayList<String>) :
     RecyclerView.Adapter<MyTeamBAInActiveAdapter.ViewHolder>() {

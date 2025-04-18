@@ -25,27 +25,25 @@
 
             <ImageButton
                 android:id="@+id/btnBack"
-                android:layout_width="@dimen/_25sdp"
-                android:layout_height="@dimen/_25sdp"
+                android:layout_width="@dimen/_27sdp"
+                android:layout_height="@dimen/_27sdp"
                 android:background="@drawable/circal_weight"
                 android:src="@drawable/back_icon" />
 
             <TextView
-                android:id="@+id/appBarTitle"
+                style="@style/label_semi18"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_12sdp"
                 android:layout_weight="1"
-                android:fontFamily="@font/bai_jamjuree_semi_bold"
                 android:gravity="center"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_14ssp"
-                android:text="@string/smart_fuel" />
+                android:text="@string/smart_fuel"
+                android:textColor="@color/white" />
 
             <ImageView
                 android:id="@+id/btnTransactionHis"
-                android:layout_width="@dimen/_25sdp"
-                android:layout_height="@dimen/_25sdp"
+                android:layout_width="@dimen/_27sdp"
+                android:layout_height="@dimen/_27sdp"
                 android:src="@drawable/transaction_his_icon"
                 android:visibility="invisible" />
 
@@ -102,7 +100,8 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_30sdp"
-                android:layout_marginHorizontal="@dimen/_12sdp">
+                android:layout_marginHorizontal="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_10sdp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -124,7 +123,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerInParent="true"
                     android:textAlignment="center"
-                    android:text="10 Enquiries"
+                    android:text=""
                     />
 
             </RelativeLayout>
@@ -133,7 +132,7 @@
                 android:id="@+id/lays"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_8sdp"
+                android:layout_marginHorizontal="@dimen/_16sdp"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/blue_border_box"
                 android:orientation="horizontal"

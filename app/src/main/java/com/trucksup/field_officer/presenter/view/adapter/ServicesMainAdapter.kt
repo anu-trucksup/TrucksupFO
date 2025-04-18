@@ -2,20 +2,18 @@ package com.trucksup.field_officer.presenter.view.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.trucksup.field_officer.R
+import com.trucksup.field_officer.data.model.HomeServicesModel
 import com.trucksup.field_officer.databinding.ItemServicesMainBinding
 
-class ServicesMainAdapter(var context: Context?) :
+class ServicesMainAdapter(var context: Context?, var serviceList:ArrayList<HomeServicesModel>) :
     RecyclerView.Adapter<ServicesMainAdapter.ViewHolder>() {
 
-    private val serviceList =
-        arrayListOf("TU Kawach", "Finance", "Insurance", "Smart Fuel", "GPS", "FASTag")
-    private val imageList = arrayListOf(
-        R.drawable.ic_kawach, R.drawable.ic_finanace, R.drawable.ic_insurance,
-        R.drawable.ic_smart_fuel, R.drawable.ic_gps, R.drawable.ic_fasttag,
-    )
+//    private val serviceList = arrayListOf("TU Kawach", "Finance", "Insurance", "Smart Fuel", "GPS", "FASTag")
+//    private val imageList = arrayListOf(R.drawable.ic_kawach, R.drawable.ic_finanace, R.drawable.ic_insurance, R.drawable.ic_smart_fuel, R.drawable.ic_gps, R.drawable.ic_fasttag,)
 
     private val itemClickListener: OnItemClickListener = context as OnItemClickListener
 
@@ -28,24 +26,30 @@ class ServicesMainAdapter(var context: Context?) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.binding.serviceImg.setImageResource(imageList[position])
-        holder.binding.serviceName.text = serviceList[position]
+        holder.binding.serviceImg.setImageResource(serviceList[position].serviceImage)
+        holder.binding.serviceName.text = serviceList[position].service
+        if (serviceList[position].serviceCount.isNullOrEmpty())
+        {
+            holder.binding.tvCount.text="0"
+        }
+        else
+        {
+            holder.binding.tvCount.text=serviceList[position].serviceCount
+        }
 
         if (position == 5 || position == 4) {
+            holder.binding.materialCardView.setCardForegroundColor(context!!.getColorStateList(R.color.grey4))
             holder.binding.serviceImg.isEnabled = false
         }
 
         holder.binding.root.setOnClickListener {
-
             itemClickListener.onItemClick(position)
-
         }
     }
 
     override fun getItemCount(): Int {
         return serviceList.size
     }
-
 
 }
 

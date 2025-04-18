@@ -6,11 +6,10 @@ import android.view.View
 import androidx.activity.enableEdgeToEdge
 import com.trucksup.field_officer.databinding.ActivityNewOnboardingBinding
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
-import com.trucksup.field_officer.presenter.view.activity.business_associate.BAOnboardingUploadDocActivity
-import com.trucksup.field_officer.presenter.view.activity.business_associate.BAnOnboardingActivity
-import com.trucksup.field_officer.presenter.view.activity.growth_partner.GPOnboardingActivity
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.BAOnboardDocActivity
+import com.trucksup.field_officer.presenter.view.activity.growthPartner.GPOnboardingActivity
 import com.trucksup.field_officer.presenter.view.activity.miscellaneous.MiscActivity
-import com.trucksup.field_officer.presenter.view.activity.truck_supplier.TSOnboardingActivity
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.TSOnBoardStep2Activity
 
 class NewOnboardingSelection : BaseActivity() {
     private lateinit var binding: ActivityNewOnboardingBinding
@@ -31,11 +30,11 @@ class NewOnboardingSelection : BaseActivity() {
     }
 
     fun truck_supplier(view: View) {
-        startActivity(Intent(this, TSOnboardingActivity::class.java))
+        startActivity(Intent(this, TSOnBoardStep2Activity::class.java))
     }
 
     fun business_associate(view: View) {
-        startActivity(Intent(this, BAOnboardingUploadDocActivity::class.java))
+        startActivity(Intent(this, BAOnboardDocActivity::class.java))
     }
 
     fun growth_partner(view: View) {

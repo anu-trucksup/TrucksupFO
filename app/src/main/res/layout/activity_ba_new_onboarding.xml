@@ -97,7 +97,7 @@
                     android:text="@string/ContactName_star"/>
 
                 <EditText
-                    android:id="@+id/ETAccountHolderName"
+                    android:id="@+id/eTContactName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_10sdp"
@@ -176,7 +176,7 @@
                     android:text="@string/ContactNumber_star"/>
 
                 <EditText
-                    android:id="@+id/ETAccountHolderNumber"
+                    android:id="@+id/eTContactNumber"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_10sdp"
@@ -199,7 +199,7 @@
                     android:text="@string/BusinessName_star"/>
 
                 <EditText
-                    android:id="@+id/ETBusinessName"
+                    android:id="@+id/eTBusinessName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_10sdp"
@@ -243,7 +243,7 @@
                     android:text="@string/Pincode_star"/>
 
                 <EditText
-                    android:id="@+id/ETPincode"
+                    android:id="@+id/eTPinCode"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_10sdp"
@@ -266,7 +266,7 @@
                     android:text="@string/City_star"/>
 
                 <EditText
-                    android:id="@+id/ETcity"
+                    android:id="@+id/eTCity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_10sdp"
@@ -288,7 +288,7 @@
                     android:text="@string/sub_City_star"/>
 
                 <EditText
-                    android:id="@+id/ETSubcity"
+                    android:id="@+id/eTSubcity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_10sdp"
@@ -310,7 +310,7 @@
                     android:text="@string/State_star"/>
 
                 <EditText
-                    android:id="@+id/ETState"
+                    android:id="@+id/eTState"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_10sdp"

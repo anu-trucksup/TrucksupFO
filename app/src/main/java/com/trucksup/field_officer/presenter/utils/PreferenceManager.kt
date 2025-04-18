@@ -16,11 +16,13 @@ import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
 import android.provider.OpenableColumns
+import android.provider.Settings
+import android.text.TextUtils
 import android.util.Log
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.gson.Gson
-import com.trucksup.field_officer.presenter.view.activity.financeInsurance.FinanceActivity
+import com.trucksup.field_officer.data.model.authModel.LoginDetails
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -36,8 +38,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-object
-PreferenceManager {
+object PreferenceManager {
 
     var FIRSTTIME: String = "FIRSTTIME"
     var TABLEFIRST: String = "table_trucksup_firstlogin"
@@ -57,6 +58,7 @@ PreferenceManager {
     var FASTIVEL: String = "fastivel"
     var CongratulationsHome: String = "CongratulationsHome"
     var LOGOUT: String = "logout"
+    var LOGIN: String = "login"
     var USER_DATA: String = "data"
     var SUBDATA: String = "SUBDATA"
     var VisitingCard: String = "visiting"
@@ -95,16 +97,17 @@ PreferenceManager {
     var KYCDATE: String = "kycdate"
     var TRUCKCOUNT: String = "truckcount"
     var PEREFRREDLAN: String = "PEREFRREDLAN"
+
     fun isFirstTime(myContext: Context): Boolean {
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLEFIRST, Context.MODE_PRIVATE)
-        return sharedPreferences.getBoolean(FIRSTTIME, true)!!
+            myContext.getSharedPreferences(TABLEFIRST, MODE_PRIVATE)
+        return sharedPreferences.getBoolean(FIRSTTIME, true)
     }
 
 
     fun setFirstTime(phone: Boolean, myContext: Context) {
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLEFIRST, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLEFIRST, MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.putBoolean(FIRSTTIME, phone)
 
@@ -114,14 +117,14 @@ PreferenceManager {
 
     fun isKyc(myContext: Context): Boolean {
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLEFIRST, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLEFIRST, MODE_PRIVATE)
         return sharedPreferences.getBoolean(KYC, true)!!
     }
 
 
     fun setKyc(kyc: Boolean, myContext: Context) {
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLEFIRST, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLEFIRST, MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.putBoolean(KYC, kyc)
 
@@ -132,7 +135,7 @@ PreferenceManager {
     fun setApiPath(path: String, myContext: Context) {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.putString(PATH, path)
         editor.apply()
@@ -142,7 +145,7 @@ PreferenceManager {
     fun getApiPath(myContext: Context): String {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         return sharedPreferences.getString(PATH, "")!!
     }
 
@@ -150,7 +153,7 @@ PreferenceManager {
     fun setCongrtulationHome(path: Boolean, myContext: Context) {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.putBoolean(CongratulationsHome, path)
         editor.apply()
@@ -160,7 +163,7 @@ PreferenceManager {
     fun getCongrtulationHome(myContext: Context): Boolean {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         return sharedPreferences.getBoolean(CongratulationsHome, true)!!
     }
 
@@ -168,7 +171,7 @@ PreferenceManager {
     fun setPereferredLanCount(path: Int, myContext: Context) {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.putInt(PEREFRREDLAN, path)
         editor.apply()
@@ -178,48 +181,48 @@ PreferenceManager {
     fun getPereferredLanTruckCount(myContext: Context): Int {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         return sharedPreferences.getInt(PEREFRREDLAN, 0)!!
     }
 
-    fun setAccesUserInssur(path: String, myContext: Context) {
+    fun setAccessUserInssur(path: String, myContext: Context) {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.putString(accessUserIssuer, path)
         editor.apply()
         editor.commit()
     }
 
-    fun getAccesUserInssur(myContext: Context): String {
+    fun getAccessUserInssur(myContext: Context): String {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         return sharedPreferences.getString(accessUserIssuer, "")!!
     }
 
-    fun setAccesUserName(path: String, myContext: Context) {
+    fun setAccessUserName(path: String, myContext: Context) {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.putString(accessUserName, path)
         editor.apply()
         editor.commit()
     }
 
-    fun getAccesUserName(myContext: Context): String {
+    fun getAccessUserName(myContext: Context): String {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         return sharedPreferences.getString(accessUserName, "")!!
     }
 
-    fun setAccesKey(path: String, myContext: Context) {
+    fun setAccessKey(path: String, myContext: Context) {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.putString(accessKey, path)
         editor.apply()
@@ -229,14 +232,14 @@ PreferenceManager {
     fun getAccessKey(myContext: Context): String {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         return sharedPreferences.getString(accessKey, "")!!
     }
 
     fun setBackGroundApp(path: String, myContext: Context) {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.putString(BACKGROUNDAPP, path)
         editor.apply()
@@ -246,65 +249,65 @@ PreferenceManager {
     fun getBackGroundApp(myContext: Context): String {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         return sharedPreferences.getString(BACKGROUNDAPP, "")!!
     }
 
-    fun setAccesPassword(path: String, myContext: Context) {
+    fun setAccessPassword(path: String, myContext: Context) {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.putString(accessPassword, path)
         editor.apply()
         editor.commit()
     }
 
-    fun getAccesPassword(myContext: Context): String {
+    fun getAccessPassword(myContext: Context): String {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         return sharedPreferences.getString(accessPassword, "")!!
     }
 
-    fun setAccesUserAgaint(path: String, myContext: Context) {
+    fun setAccessUserAgent(path: String, myContext: Context) {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.putString(accessUserAgaint, path)
         editor.apply()
         editor.commit()
     }
 
-    fun getAccesUserAgaint(myContext: Context): String {
+    fun getAccessUserAgent(myContext: Context): String {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         return sharedPreferences.getString(accessUserAgaint, "")!!
     }
 
-    fun setAccesHeader(path: String, myContext: Context) {
+    fun setAccessHeader(path: String, myContext: Context) {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.putString(accessHeader, path)
         editor.apply()
         editor.commit()
     }
 
-    fun getAccesHeader(myContext: Context): String {
+    fun getAccessHeader(myContext: Context): String {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         return sharedPreferences.getString(accessHeader, "")!!
     }
 
     fun setTruckCount(path: Int, myContext: Context) {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.putInt(TRUCKCOUNT, path)
         editor.apply()
@@ -314,14 +317,14 @@ PreferenceManager {
     fun getTruckCount(myContext: Context): Int {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         return sharedPreferences.getInt(TRUCKCOUNT, 0)!!
     }
 
     fun setMenuList(path: String, myContext: Context) {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.putString(MENULIST, path)
         editor.apply()
@@ -331,14 +334,14 @@ PreferenceManager {
     fun getMenuList(myContext: Context): String {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         return sharedPreferences.getString(MENULIST, "")!!
     }
 
     fun setSubData(path: String, myContext: Context) {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.putString(SUBDATA, path)
         editor.apply()
@@ -349,7 +352,7 @@ PreferenceManager {
     fun setAuthOtp(path: String, myContext: Context) {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.putString(AUTHTOKENOTP, path)
         editor.apply()
@@ -359,7 +362,7 @@ PreferenceManager {
     fun getAuthOtpNew(myContext: Context): String {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         return sharedPreferences.getString(AUTHTOKENOTPNEW, "")!!
     }
 
@@ -367,7 +370,7 @@ PreferenceManager {
     fun setAuthOtpNew(path: String, myContext: Context) {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.putString(AUTHTOKENOTPNEW, path)
         editor.apply()
@@ -377,14 +380,14 @@ PreferenceManager {
     fun getAuthOtp(myContext: Context): String {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         return sharedPreferences.getString(AUTHTOKENOTP, "")!!
     }
 
     fun setTrucksHubAith(path: String, myContext: Context) {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.putString(TRUCKSHUBAUTHTOKE, path)
         editor.apply()
@@ -395,7 +398,7 @@ PreferenceManager {
 
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         return sharedPreferences.getString(TRUCKSHUBAUTHTOKE, "")!!
     }
 
@@ -403,7 +406,7 @@ PreferenceManager {
     fun setFastivel(path: String, myContext: Context) {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.putString(FASTIVEL, path)
         editor.apply()
@@ -413,7 +416,7 @@ PreferenceManager {
     fun getFastivel(myContext: Context): String {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         return sharedPreferences.getString(FASTIVEL, "")!!
     }
 
@@ -421,7 +424,7 @@ PreferenceManager {
     fun setOtp(path: String, myContext: Context) {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.putString(OTP, path)
         editor.apply()
@@ -431,14 +434,14 @@ PreferenceManager {
     fun getOtp(myContext: Context): String {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         return sharedPreferences.getString(OTP, "")!!
     }
 
     fun setKycDate(path: String, myContext: Context) {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.putString(KYCDATE, path)
         editor.apply()
@@ -448,14 +451,14 @@ PreferenceManager {
     fun getKycDate(myContext: Context): String {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         return sharedPreferences.getString(KYCDATE, "")!!
     }
 
     fun setMsgLineEn(path: String, myContext: Context) {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.putString(MSGLINE, path)
         editor.apply()
@@ -464,30 +467,15 @@ PreferenceManager {
 
     fun getMsgLineEn(myContext: Context): String {
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         return sharedPreferences.getString(MSGLINE, "")!!
     }
 
-    fun setMsgLineHi(path: String, myContext: Context) {
-
-        val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
-        val editor: SharedPreferences.Editor = sharedPreferences.edit()
-        editor.putString(MSGLINEHI, path)
-        editor.apply()
-        editor.commit()
-    }
-
-    fun getMsgLineHi(myContext: Context): String {
-        val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
-        return sharedPreferences.getString(MSGLINEHI, "")!!
-    }
 
     fun setServerUrl(path: String, myContext: Context) {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.putString(SERVERURL, path)
         editor.apply()
@@ -497,14 +485,14 @@ PreferenceManager {
 
     fun getServerUrl(myContext: Context): String {
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         return sharedPreferences.getString(SERVERURL, "")!!
     }
 
     fun setProfileStates(path: String, myContext: Context) {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(PROFILE_STATES, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(PROFILE_STATES, MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.putString(PATH, path)
         editor.apply()
@@ -515,25 +503,25 @@ PreferenceManager {
     fun getProfileStates(myContext: Context): String {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(PROFILE_STATES, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(PROFILE_STATES, MODE_PRIVATE)
         return sharedPreferences.getString(PATH, "")!!
     }
 
 
-    fun setReffralCode(path: String, myContext: Context) {
+    fun setReferralCode(path: String, myContext: Context) {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(REFRALCODE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(REFRALCODE, MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.putString(PATH, path)
         editor.apply()
         editor.commit()
     }
 
-    fun getReffralCode(myContext: Context): String {
+    fun getReferralCode(myContext: Context): String {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(REFRALCODE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(REFRALCODE, MODE_PRIVATE)
         return sharedPreferences.getString(PATH, "")!!
     }
 
@@ -566,7 +554,7 @@ PreferenceManager {
     fun setFCM(token: String, myContext: Context) {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.putString(FCM, token)
         editor.apply()
@@ -576,14 +564,14 @@ PreferenceManager {
     fun getNotificationCount(myContext: Context): Int {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         return sharedPreferences.getInt(NOTIFICATIONCOUNT, 0)!!
     }
 
     fun setNotificationCount(value: Int, myContext: Context) {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.putInt(NOTIFICATIONCOUNT, value)
         editor.apply()
@@ -593,14 +581,14 @@ PreferenceManager {
     fun getFCM(myContext: Context): String {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         return sharedPreferences.getString(FCM, "")!!
     }
 
     fun setToken(phone: String, myContext: Context) {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.putString(TOKEN, phone)
         editor.apply()
@@ -610,13 +598,13 @@ PreferenceManager {
     fun getUserName(myContext: Context): String {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         return sharedPreferences.getString(USERNAME, "")!!
     }
 
     fun setWindowDAte(data: String, myContext: Context) {
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.putString(WINDOWDATE, data)
         editor.apply()
@@ -626,14 +614,14 @@ PreferenceManager {
     fun getVeryWindowDAte(myContext: Context): String {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         return sharedPreferences.getString(VERYWINDOWDATE, "n")!!
     }
 
 
     fun setKycWindowDAte(data: String, myContext: Context) {
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.putString(KYCWINDOW, data)
         editor.apply()
@@ -643,14 +631,14 @@ PreferenceManager {
     fun getKycVeryWindowDAte(myContext: Context): String {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         return sharedPreferences.getString(KYCWINDOW, "n")!!
     }
 
 
     fun setVeryWindowDAte(data: String, myContext: Context) {
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.putString(VERYWINDOWDATE, data)
         editor.apply()
@@ -660,13 +648,13 @@ PreferenceManager {
     fun getGraceTime(myContext: Context): Int {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         return sharedPreferences.getInt(GRACETIME, 0)!!
     }
 
     fun setGraceTime(data: Int, myContext: Context) {
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.putInt(GRACETIME, data)
         editor.apply()
@@ -676,13 +664,13 @@ PreferenceManager {
     fun getWindowDAte(myContext: Context): String {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         return sharedPreferences.getString(WINDOWDATE, "n")!!
     }
 
     fun setUserName(data: String, myContext: Context) {
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.putString(USERNAME, data)
         editor.apply()
@@ -691,7 +679,7 @@ PreferenceManager {
 
     fun setProfileId(data: String, myContext: Context) {
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.putString(PROFILEID, data)
         editor.apply()
@@ -701,13 +689,13 @@ PreferenceManager {
     fun getProfileId(myContext: Context): String {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         return sharedPreferences.getString(PROFILEID, "")!!
     }
 
     fun setAlartWindowDAte(data: String, myContext: Context) {
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.putString(ALART_DATE, data)
         editor.apply()
@@ -717,20 +705,20 @@ PreferenceManager {
     fun getAlartWindowDAte(myContext: Context): String {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         return sharedPreferences.getString(ALART_DATE, "n")!!
     }
 
     fun getBrokerIsVerified(myContext: Context): Boolean {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         return sharedPreferences.getBoolean(BrokerVerify, false)!!
     }
 
     fun setBrokerIsVerified(data: Boolean, myContext: Context) {
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.putBoolean(BrokerVerify, data)
         editor.apply()
@@ -740,13 +728,13 @@ PreferenceManager {
     fun getLockedProfile(myContext: Context): Boolean {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         return sharedPreferences.getBoolean(PROFILELOCKED, false)!!
     }
 
     fun setLockedProfile(data: Boolean, myContext: Context) {
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.putBoolean(PROFILELOCKED, data)
         editor.apply()
@@ -756,13 +744,13 @@ PreferenceManager {
     fun getUserImage(myContext: Context): String {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         return sharedPreferences.getString(USERIMG, "")!!
     }
 
     fun setUserImage(data: String, myContext: Context) {
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.putString(USERIMG, data)
         editor.apply()
@@ -773,13 +761,13 @@ PreferenceManager {
     fun getProfileVerify(myContext: Context): String {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         return sharedPreferences.getString(PROFILEVERIFY, "")!!
     }
 
     fun setProfileVerify(data: String, myContext: Context) {
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.putString(PROFILEVERIFY, data)
         editor.apply()
@@ -789,13 +777,13 @@ PreferenceManager {
     fun getPostLock(myContext: Context): String {
 
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         return sharedPreferences.getString(POSTLOCK, "")!!
     }
 
     fun setPostLock(data: String, myContext: Context) {
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.putString(POSTLOCK, data)
         editor.apply()
@@ -806,14 +794,26 @@ PreferenceManager {
     fun isLogout(myContext: Context): Boolean {
         // LoggerMessage.LogErrorMsg("Start", "is logout")
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         return sharedPreferences.getBoolean(LOGOUT, false)
+    }
+
+    fun isUserLoggedIn(): Boolean {
+        val srdp = CommonApplication.getSharedPreferences()
+        val token = srdp?.getString("access_token", null)
+        return token != null
+    }
+
+    fun setUserLoggedIn(): Boolean {
+        val srdp = CommonApplication.getSharedPreferences()
+        val token = srdp?.getString("access_token", null)
+        return token != null
     }
 
 
     fun setLogout(phone: Boolean, myContext: Context) {
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.putBoolean(LOGOUT, phone)
 
@@ -823,14 +823,14 @@ PreferenceManager {
 
     fun getToken(myContext: Context): String {
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         return sharedPreferences.getString(TOKEN, "")!!
     }
 
 
     fun setPhoneNo(phone: String, myContext: Context) {
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.putString(PHONENO, phone)
         editor.apply()
@@ -871,9 +871,28 @@ PreferenceManager {
 
     }*/
 
-    fun setVisitingCardData(data: String, myContext: Context) {
+
+
+    fun getUserData(myContext: Context): LoginDetails? {
         val sharedPreferences: SharedPreferences =
             myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+        var profile: LoginDetails? = null
+        val jsonString: String = sharedPreferences.getString(USER_DATA, "")!!
+        if (!TextUtils.isEmpty(jsonString)) {
+            val gson = Gson()
+            profile = gson.fromJson(jsonString, LoginDetails::class.java)
+        }
+        if (profile != null) {
+            return profile
+        } else {
+            return null
+        }
+
+    }
+
+    fun setVisitingCardData(data: String, myContext: Context) {
+        val sharedPreferences: SharedPreferences =
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.putString(VisitingCard, data)
         editor.apply()
@@ -882,47 +901,13 @@ PreferenceManager {
 
     fun setUserData(data: String, myContext: Context) {
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.putString(USER_DATA, data)
         editor.apply()
         editor.commit()
     }
 
-    /* fun getProdectType(myContext: Context): List<LoadUploadItomes>? {
-         val sharedPreferences: SharedPreferences =
-             myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
-         var profile = ArrayList<LoadUploadItomes>()
-         var jsonString: String = sharedPreferences.getString(PRODECTTYPE, "")!!
-         if (!TextUtils.isEmpty(jsonString)) {
-             val jsonArray = JSONArray(jsonString)
-             for (i in 0 until jsonArray.length()) {
-                 val pro: LoadUploadItomes =
-                     Gson().fromJson(jsonArray.get(i).toString(), LoadUploadItomes::class.java)
-                 profile.add(pro)
-             }
-
-         }
-         if (profile != null) {
-             return profile!!
-         } else {
-             return null
-         }
-     }
-
-     fun setBodyType(myContext: Context, bodyType: String) {
-         val preferences: SharedPreferences = myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
-         val editor = preferences.edit()
-         editor.putString(BODYTYPE, bodyType) // Replace "key_name" with a unique key for your data
-         editor.apply()
-     }
-
-     fun getBodyType(myContext: Context): String? {
-         val preferences: SharedPreferences = myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
-         return preferences.getString(BODYTYPE, null)
-
-     }
- */
     fun setVehicleNo(myContext: Context, vehicleNo: String) {
         val preferences: SharedPreferences = myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         val editor = preferences.edit()
@@ -955,7 +940,7 @@ PreferenceManager {
 
     fun setProdectType(data: String, myContext: Context) {
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.putString(PRODECTTYPE, data)
         editor.apply()
@@ -964,23 +949,17 @@ PreferenceManager {
 
     fun getPhoneNo(myContext: Context): String {
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         return sharedPreferences.getString(PHONENO, "")!!
     }
 
-    fun getCurantDate(): String {
+    fun getCurrentDateTime(): String {
         val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
         val currentDate = sdf.format(Date())
         System.out.println(" C DATE is  " + currentDate)
         return currentDate.toString()
     }
 
-    fun getCurantDateWithFormate(formate: String): String {
-        val sdf = SimpleDateFormat(formate)
-        val currentDate = sdf.format(Date())
-        System.out.println(" C DATE is  " + currentDate)
-        return currentDate.toString()
-    }
 
     fun getCurantDateTime(): String {
         val sdf = SimpleDateFormat("dd-MM-yyyy")
@@ -1014,7 +993,7 @@ PreferenceManager {
 
     fun setTokenTime(phone: String, myContext: Context) {
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.putString(STRINGTIME, phone)
         editor.apply()
@@ -1023,7 +1002,7 @@ PreferenceManager {
 
     fun getTokenTime(myContext: Context): String {
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         return sharedPreferences.getString(STRINGTIME, "")!!
     }
 
@@ -1033,33 +1012,16 @@ PreferenceManager {
         return otp
     }
 
-    fun setLanguage(lag: String, myContext: Context) {
-        val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE_LAND, Context.MODE_PRIVATE)
-        val editor: SharedPreferences.Editor = sharedPreferences.edit()
-        editor.putString(LANGUAGE, lag)
-        editor.apply()
-        editor.commit()
-    }
-
-    fun setRoal(roal: String, myContext: Context) {
-        val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
-        val editor: SharedPreferences.Editor = sharedPreferences.edit()
-        editor.putString(ROAL, roal)
-        editor.apply()
-        editor.commit()
-    }
 
     fun getProfileType(myContext: Context): Int {
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         return sharedPreferences.getInt(PROFILETYPE, 1)!!
     }
 
     fun setProfileType(roal: Int, myContext: Context) {
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
         editor.putInt(PROFILETYPE, roal)
         editor.apply()
@@ -1068,20 +1030,20 @@ PreferenceManager {
 
     fun getRoal(myContext: Context): String {
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE, MODE_PRIVATE)
         return sharedPreferences.getString(ROAL, "")!!
     }
 
     fun getLanguage(myContext: Context): String {
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences(TABLE_LAND, Context.MODE_PRIVATE)
+            myContext.getSharedPreferences(TABLE_LAND, MODE_PRIVATE)
         return sharedPreferences.getString(LANGUAGE, "en")!!
     }
 
     fun removeData(context: Context) {
 
         val sharedPreferences: SharedPreferences =
-            context.getSharedPreferences(TABLE, Context.MODE_PRIVATE)
+            context.getSharedPreferences(TABLE, MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.clear()
         editor.apply()
@@ -1101,6 +1063,24 @@ PreferenceManager {
     @SuppressLint("NewApi", "SuspiciousIndentation")
     fun getAuthToken(): String {
 
+        val authPayload = "BOAPISERVICES:BOAPISERVICES@2025"
+//        val authPayload = "DevUser:Dev@123"
+        val data = authPayload.toByteArray()
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val encoder: Base64.Encoder = Base64.getEncoder()
+            val encoded: String = encoder.encodeToString(data)
+
+            return "Basic " + encoded
+        } else {
+            val encode = android.util.Base64.encodeToString(data, android.util.Base64.DEFAULT);
+            return "Basic " + encode
+        }
+
+    }
+
+    @SuppressLint("NewApi", "SuspiciousIndentation")
+    fun getAuthTokenOld(): String {
         val authPayload = "DevUser:Dev@123"
         val data = authPayload.toByteArray()
 
@@ -1115,6 +1095,7 @@ PreferenceManager {
         }
 
     }
+
 
     @SuppressLint("NewApi")
     fun getHelpAuthToken(): String {
@@ -1140,23 +1121,9 @@ PreferenceManager {
         return imageString
     }
 
-    fun prepareFilePart(uploadImageFilefront: File): MultipartBody.Part {
-        // https://github.com/iPaulPro/aFileChooser/blob/master/aFileChooser/src/com/ipaulpro/afilechooser/utils/FileUtils.java
-        // use the FileUtils to get the actual file by uri
-        val file: File = uploadImageFilefront
-
-        // create RequestBody instance from file
-        val requestFile: RequestBody = RequestBody.create(
-            "file/*".toMediaTypeOrNull(),
-            file
-        )
-
-        // MultipartBody.Part is used to send also the actual file name
-        return MultipartBody.Part.createFormData("file", file.getName(), requestFile)
-    }
 
     fun prepareFilePartTrucksHum(uploadImageFilefront: File, name: String): MultipartBody.Part {
-        // https://github.com/iPaulPro/aFileChooser/blob/master/aFileChooser/src/com/ipaulpro/afilechooser/utils/FileUtils.java
+
         // use the FileUtils to get the actual file by uri
         val file: File = uploadImageFilefront
 
@@ -1405,7 +1372,7 @@ PreferenceManager {
         var curDate: String = PreferenceManager.getDateFormet(
             "yyyy-MM-dd",
             "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
-            PreferenceManager.getCurantDate()
+            PreferenceManager.getCurrentDateTime()
         )
         val dateMy = sdf.parse(my_date)
         val datecut = sdf.parse(curDate)
@@ -1418,7 +1385,7 @@ PreferenceManager {
                 PreferenceManager.getDateFormet(
                     "yyyy-MM-dd",
                     "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
-                    PreferenceManager.getCurantDate()
+                    PreferenceManager.getCurrentDateTime()
                 )
             }"
         )
@@ -1560,7 +1527,7 @@ PreferenceManager {
     }
 
     fun logRegToken(context: Context): String {
-      //  LoggerMessage.LogErrorMsg("Start", "Firebace Token")
+        //  LoggerMessage.LogErrorMsg("Start", "Firebace Token")
         // [START log_reg_token]
         var token: String = ""
         FirebaseMessaging.getInstance().token
@@ -1876,25 +1843,25 @@ PreferenceManager {
         return filePath
     }
 
-    fun getServerDateUtc(formet: String): String {
-
+    fun getServerDateUtc(): String {
         val date = Date() // current date and time
         val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
         sdf.timeZone = TimeZone.getDefault()
-
         val isoDate = sdf.format(date).toString()
         return isoDate
     }
 
     fun getVehicleDetails(myContext: Context): String {
         val sharedPreferences: SharedPreferences =
-            myContext.getSharedPreferences("VEHICLE_DETAILS_TABLE", Context.MODE_PRIVATE)
+            myContext.getSharedPreferences("VEHICLE_DETAILS_TABLE", MODE_PRIVATE)
         return sharedPreferences.getString("VEHICLE_DETAILS", null)!!
     }
 
-    fun getUserData(finance: Activity): Any {
-       // TODO("Not yet implemented")
-        return 0
+
+    fun getAndroiDeviceId(context: Context): String {
+        val androidId =
+            Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID)
+        return androidId
     }
 
 }

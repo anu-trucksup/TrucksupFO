@@ -1,6 +1,5 @@
 package com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml
 
-import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -13,7 +12,6 @@ import com.trucksup.field_officer.domain.usecases.APIUseCase
 import com.trucksup.field_officer.presenter.cityPicker.ApiClient
 import com.trucksup.field_officer.presenter.common.image_picker.TrucksFOImageController
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
-import com.trucksup.field_officer.presenter.view.activity.financeInsurance.InsuranceActivity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -40,7 +38,7 @@ class InsuranceViewModel @Inject constructor(val apiUseCase: APIUseCase) : ViewM
     fun submitInsuranceData(request: SubmitInsuranceInquiryRequest) {
         CoroutineScope(Dispatchers.IO).launch {
             when (val response = apiUseCase.submitInsuranceInquiry(
-                PreferenceManager.getAuthToken(),
+                PreferenceManager.getAuthTokenOld(),
                 request
             )) {
                 is ResultWrapper.ServerResponseError -> {
@@ -55,33 +53,13 @@ class InsuranceViewModel @Inject constructor(val apiUseCase: APIUseCase) : ViewM
         }
     }
 
-    fun uploadImage(
-        bucketName: String?, id: Int?, position: Int?, requestId: Int?, file: MultipartBody.Part?
-    ) {
-        CoroutineScope(Dispatchers.IO).launch {
-            when (val response = apiUseCase.uploadImage(
-                bucketName, id, position, requestId, file
-            )) {
-                is ResultWrapper.ServerResponseError -> {
-                    Log.e("API Error", response.error ?: "")
-                    imgUploadResult.postValue(ResponseModel(serverError = response.error))
-                }
-
-                is ResultWrapper.Success -> {
-                    imgUploadResult.postValue(ResponseModel(success = response.value))
-                }
-            }
-        }
-
-
-    }
 
     fun trucksupImageUpload(token: String,
         documentType: String, file: MultipartBody.Part,
         fileWaterMark: MultipartBody.Part,
         imgRes: TrucksFOImageController) {
         val apiInterface = ApiClient().getClient
-        apiInterface.trucksupImageUpload(token, documentType, file, fileWaterMark)
+        apiInterface.uploadImages(token, documentType,"Insurance", file, fileWaterMark)
 
             ?.enqueue(object : Callback<TrucksupImageUploadResponse> {
                 override fun onResponse(

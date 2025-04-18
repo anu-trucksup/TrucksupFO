@@ -13,13 +13,13 @@ open class CommonApplication: Application() {
     companion object {
         var BASE_API_URL: String = "https://testapi.trucksups.in/"
         var appContext: CommonApplication? = null
-        var shared_pref: SharedPreferences? = null
+        private var sharedPreferences: SharedPreferences? = null
         var token: String? = ""
 
         fun getSharedPreferences(): SharedPreferences? {
             if(appContext != null) {
-                shared_pref = appContext!!.getSharedPreferences("trucksupfo_pref", Context.MODE_PRIVATE)
-                return shared_pref
+                sharedPreferences = appContext?.getSharedPreferences("trucksupfo_pref", Context.MODE_PRIVATE)
+                return sharedPreferences
             }
             throw Exception("Application Class not extended from BaseApplication class")
         }

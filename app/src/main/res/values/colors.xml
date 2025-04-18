@@ -60,7 +60,7 @@
     <color name="text_color">#ff000000</color>
     <color name="text_color2">#848383</color>
     <color name="editbox_bg_color">#E5E5E5</color>
-    <color name="shimmerColor">#593E2089</color>
+    <color name="shimmerColor">#FFFFFF</color>
     <color name="border_color">#9C9A9A</color>
     <color name="chipColor">#EEECEC</color>
     <color name="grey">#848383</color>
@@ -70,7 +70,7 @@
     <color name="cir_gray">#D9D9D9</color>
     <color name="dark_gray">#6A6A6A</color>
     <color name="dark_gray1">#585858</color>
-    <color name="secondry_text">#848383</color>
+    <color name="secondary_text">#848383</color>
     <color name="violet">#F5F1FF</color>
     <color name="gray10">#A7A5AC</color>
     <color name="holo_red_light">#ffff4444</color>
@@ -127,5 +127,10 @@
     <color name="light_blue_1">#F3F8FF</color>
     <color name="light_gray_8">#504B5A</color>
     <color name="light_green_1">#61b07f</color>
+
+    <color name="blue2">#3C2088</color>
+    <color name="blue2_fad">#733C2088</color>
+    <color name="grey4">#80848383</color>
+    <color name="secondry_text">#000000</color>
 
 </resources>

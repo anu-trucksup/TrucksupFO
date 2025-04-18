@@ -1,12 +1,11 @@
 package com.trucksup.field_officer.presenter.view.activity.auth.login
 
-import android.app.Application
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.trucksup.field_officer.data.model.CheckUserProfileResponse
-import com.trucksup.field_officer.data.model.TokenZ
+import androidx.lifecycle.ViewModel
+import com.trucksup.field_officer.data.model.authModel.LoginRequest
+import com.trucksup.field_officer.data.model.authModel.LoginResponse
 import com.trucksup.field_officer.data.network.ResponseModel
 import com.trucksup.field_officer.data.network.ResultWrapper
 import com.trucksup.field_officer.domain.usecases.APIUseCase
@@ -17,22 +16,21 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(val apiUseCase: APIUseCase,
-                                         application: Application) : AndroidViewModel(application)  {
+class LoginViewModel @Inject constructor(val apiUseCase: APIUseCase) : ViewModel()  {
 
-    var resultLogin: MutableLiveData<ResponseModel<TokenZ>> = MutableLiveData<ResponseModel<TokenZ>>()
-    val resultLoginLD: LiveData<ResponseModel<TokenZ>> = resultLogin
+    private var resultLogin: MutableLiveData<ResponseModel<LoginResponse>> = MutableLiveData<ResponseModel<LoginResponse>>()
+    val resultLoginLD: LiveData<ResponseModel<LoginResponse>> = resultLogin
 
 
-    fun loginUser(username: String, Password: String, type: String,countryCode:String) {
+    fun loginUser(token: String, request: LoginRequest) {
         CoroutineScope(Dispatchers.IO).launch {
-            when (val response = apiUseCase.loginUser(username, Password, type,"91")) {
+            when (val response = apiUseCase.loginUser(token, request)) {
                 is ResultWrapper.ServerResponseError -> {
                     Log.e("API Error", response.error ?: "")
-                    resultLogin.postValue(ResponseModel<TokenZ>(serverError = response.error))
+                    resultLogin.postValue(ResponseModel<LoginResponse>(serverError = response.error))
                 }
                 is ResultWrapper.Success -> {
-                    resultLogin.postValue(ResponseModel<TokenZ>(success = response.value))
+                    resultLogin.postValue(ResponseModel<LoginResponse>(success = response.value))
                 }
             }
         }

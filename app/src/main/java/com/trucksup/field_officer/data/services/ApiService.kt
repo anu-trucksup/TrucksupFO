@@ -2,42 +2,64 @@ package com.trucksup.field_officer.data.services
 
 import com.logistics.trucksup.activities.preferre.modle.PrefferLanRequest
 import com.logistics.trucksup.activities.preferre.modle.PrefferdResponse
+import com.trucksup.field_officer.data.model.otp.OTPResponse
 import com.logistics.trucksup.modle.PlanResponse
+import com.trucksup.field_officer.data.model.otp.SmsRequest
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryData
 import com.trucksup.field_officer.data.model.AutoImageSlideResponse
 import com.trucksup.field_officer.data.model.CheckUserProfileResponse
 import com.trucksup.field_officer.data.model.CountryResponse
+import com.trucksup.field_officer.data.model.DutyStatusRequest
+import com.trucksup.field_officer.data.model.DutyStatusResponse
 import com.trucksup.field_officer.data.model.GenerateJWTtokenRequest
 import com.trucksup.field_officer.data.model.GenerateJWTtokenResponse
-import com.trucksup.field_officer.data.model.NewResisterRequest
 import com.trucksup.field_officer.data.model.NewUserProfile
-import com.trucksup.field_officer.data.model.PasswordRequest
 import com.trucksup.field_officer.data.model.PinCodeRequest
 import com.trucksup.field_officer.data.model.PinCodeResponse
 import com.trucksup.field_officer.data.model.Response
-import com.trucksup.field_officer.data.model.TokenZ
-import com.trucksup.field_officer.data.model.User
-import com.trucksup.field_officer.data.model.category.CategoryAllResponse
+import com.trucksup.field_officer.data.model.authModel.ForgetRequest
+import com.trucksup.field_officer.data.model.authModel.ForgetResponse
+import com.trucksup.field_officer.data.model.authModel.LoginRequest
+import com.trucksup.field_officer.data.model.authModel.LoginResponse
+import com.trucksup.field_officer.data.model.authModel.SignRequest
+import com.trucksup.field_officer.data.model.authModel.SignResponse
 import com.trucksup.field_officer.data.model.deleteResponse.DeleteProfileResponse
-import com.trucksup.field_officer.data.model.image.ImageResponse
+import com.trucksup.field_officer.data.model.home.HomeCountRequest
+import com.trucksup.field_officer.data.model.home.HomeCountResponse
 import com.trucksup.field_officer.data.model.image.TrucksupImageUploadResponse
 import com.trucksup.field_officer.data.model.insurance.InquiryHistoryResponse
+import com.trucksup.field_officer.data.model.otp.NewOtpResponse
+import com.trucksup.field_officer.data.model.otp.OtpRequest
+import com.trucksup.field_officer.data.model.smartfuel.AddSmartFuelLeadRequest
+import com.trucksup.field_officer.data.model.smartfuel.AddSmartFuelLeadResponse
+import com.trucksup.field_officer.data.model.smartfuel.SmartFuelHistoryRequest
+import com.trucksup.field_officer.data.model.smartfuel.SmartFuelHistoryResponse
 import com.trucksup.field_officer.data.model.user.UpdateProfileRequest
 import com.trucksup.field_officer.data.model.user.UpdateProfileResponse
 import com.trucksup.field_officer.presenter.cityPicker.CityListbySearchRequest
 import com.trucksup.field_officer.presenter.cityPicker.CitySearchRequest
+import com.trucksup.field_officer.presenter.view.activity.auth.logout.LogoutRequest
+import com.trucksup.field_officer.presenter.view.activity.auth.logout.LogoutResponse
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.AddBrokerRequest
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.AddBrokerResponse
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.CompleteMeetingBARequest
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.ScheduleMeetingBARequest
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.ScheduleMeetingResponse
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinaceDataSubmitResponse
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinanceDataLiatRequest
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinanceDataLiatResponse
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.InquiryHistoryRequest
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.LoanDataSubmitRequest
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryRequest
+import com.trucksup.field_officer.presenter.view.activity.growthPartner.model.CompleteMeetingGPRequest
+import com.trucksup.field_officer.presenter.view.activity.growthPartner.model.ScheduleMeetingGPRequest
 import com.trucksup.field_officer.presenter.view.activity.subscription.model.PlanRequest
-import com.trucksup.field_officer.presenter.view.activity.truck_supplier.model.AddLoadFilterRequest
-import com.trucksup.field_officer.presenter.view.activity.truck_supplier.model.AddLoadFilterResponse
-import com.trucksup.field_officer.presenter.view.activity.truck_supplier.model.RcRequest
-import com.trucksup.field_officer.presenter.view.activity.truck_supplier.model.RcResponse
-import com.trucksup.field_officer.presenter.view.activity.truck_supplier.model.VerifyTruckResponse
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.AddLoadFilterRequest
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.AddLoadFilterResponse
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.RcRequest
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.RcResponse
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.ScheduleMeetTSRequest
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.VerifyTruckResponse
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.Body
@@ -50,29 +72,31 @@ import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
 import retrofit2.http.Query
-import retrofit2.http.Url
 
 interface ApiService {
 
-    @POST()
-    fun generateJWTtoken(
+    //User Auth Module
+
+    @POST("JwtAuth/api/Auth/GenerateJWTtoken")
+    fun generateJWToken(
         @Header("x-api-key") auth: String,
-        @Body request: GenerateJWTtokenRequest,
-        @Url url: String
+        @Body request: GenerateJWTtokenRequest
     ): Call<GenerateJWTtokenResponse>?
 
 
-    @POST("global/user/login?platform=mobile")
+    @POST("BOAppApiGateway/apiateway/Login")
     @Headers("Accept: application/json")
     suspend fun loginUser(
-        @Query("userName") username: String,
-        @Query("password") Password: String,
-        @Query("countryCode") countryCode: String
-    ): TokenZ
+        @Header("Authorization") credentials: String,
+        @Body loginRequest: LoginRequest
+    ): LoginResponse
 
-    @POST("global/user/register")
+    @POST("BOAppApiGateway/apiateway/SignUp")
     @Headers("Accept: application/json")
-    suspend fun registerUser(@Body registerUserRequest: NewResisterRequest): Response<User>
+    suspend fun registerUser(
+        @Header("Authorization") credentials: String,
+        @Body signRequest: SignRequest
+    ): SignResponse
 
     @POST("global/user/verify/otp")
     @Headers("Accept: application/json")
@@ -84,46 +108,25 @@ interface ApiService {
     @FormUrlEncoded
     suspend fun verifyUserOTP(@FieldMap params: Map<String, String>): Response<String>
 
-
-    @POST("global/user/forgot/password")
-    @Headers("Accept: application/json")
-    suspend fun forgotPassword(
-        @Query("email") email: String,
-        @Query("mobile") mobile: String,
-        @Query("countryCode") countryCode: String
-    ): Response<String>
-
-    @POST("global/user/reset/password")
+    @POST("BOAppApiGateway/apiateway/ResetPassword")
     @Headers("Accept: application/json")
     suspend fun resetPassword(
-        @Query("email") email: String,
-        @Query("mobile") mobile: String,
-        @Query("countryCode") countryCode: String,
-        @Body passwordRequest: PasswordRequest
-    ): Response<String>
+        @Header("Authorization") credentials: String,
+        @Body forgetRequest: ForgetRequest
+    ): ForgetResponse
 
-    @POST("global/user/validate/secret/answer")
-    @Headers("Accept: application/json")
-    suspend fun validateQuestionAnswer(
-        @Query("email") email: String,
-        @Query("mobile") mobile: String,
-        @Query("countryCode") countryCode: String,
-        @Query("secretAnswer") secretAnswer: String
-    ): Response<Boolean>
+    @POST("Apigateway/Gateway/Auth/Code")
+    fun sendSms(
+        @Header("Authorization") auth: String,
+        @Body request: SmsRequest
+    ): OTPResponse
 
-    @GET("global/user/check/referenceCode")
-    @Headers("Accept: application/json")
-    suspend fun checkReferenceCode(
-        @Query("referenceCode") referenceCode: String
-    ): Response<String>
-
-    @POST("global/user/send/otp")
+    @POST("MessagaeService/api/Message/SendOTP")
     @Headers("Accept: application/json")
     suspend fun sendOTP(
-        @Query("mobile") mobile: String,
-        @Query("email") email: String,
-        @Query("countryCode") countryCode: String
-    ): Response<String>
+        @Header("Authorization") auth: String,
+        @Body request: OtpRequest
+    ): NewOtpResponse
 
     @POST("global/user/send/user/otp")
     @Headers("Accept: application/json")
@@ -151,18 +154,6 @@ interface ApiService {
         @Query("countryCode") countryCode: String
     ): CheckUserProfileResponse
 
-    /*  @PUT("global/user/profile")
-      @Headers("Accept: application/json")
-      suspend fun updateUserProfile(
-          @Query("profileId") profileId: Int,
-          @Body userProfile: UserUpdateProfile
-      ): Response<UserProfile>*/
-
-
-    @GET("category/all")
-    @Headers("Accept: application/json")
-    suspend fun getAllCategoryList(): CategoryAllResponse
-
 
     @GET("global/city/by-country")
     @Headers("Accept: application/json")
@@ -171,12 +162,12 @@ interface ApiService {
     ): CountryResponse
 
 
-    @GET("shop/delete/review")
+    @POST("BOAppApiGateway/apiateway/BOUserLogOut")
     @Headers("Accept: application/json")
-    suspend fun deleteUserReview(
-        @Query("id") id: Int,
-        @Query("shopId") shopId: Int
-    ): DeleteProfileResponse
+    suspend fun logoutAccount(
+        @Header("Authorization") auth: String,
+        @Body request: LogoutRequest
+    ): LogoutResponse
 
     @GET("global/user/delete/user/account")
     @Headers("Accept: application/json")
@@ -200,13 +191,14 @@ interface ApiService {
         @Body planRequest: PlanRequest
     ): PlanResponse
 
+    //Finance & Insurance
+
     @POST("Apigateway/Gateway/GetInquiryOptions")
     @Headers("Accept: application/json")
     suspend fun getFinanceData(
         @Header("Authorization") auth: String,
         @Body request: FinanceDataLiatRequest
     ): FinanceDataLiatResponse
-
 
     @POST("Apigateway/Gateway/SubmitFinanceInquiry")
     @Headers("Accept: application/json")
@@ -230,26 +222,50 @@ interface ApiService {
     ): SubmitInsuranceInquiryData
 
 
-    @Multipart
-    @POST("upload-imagefile")
-    suspend fun uploadImage(
-        @Query("bucketName") bucketName: String?,
-        @Query("ID") id: Int?,
-        @Query("Position") position: Int?,
-        @Query("RequestId") requestId: Int?,
-        @Part file: MultipartBody.Part?,
-    ): ImageResponse
+    //SmartFuel
+
+    @POST("BOAppApiGateway/apiateway/BOAddSmartFuelLeads")
+    @Headers("Accept: application/json")
+    suspend fun addSmartFuelLead(
+        @Header("Authorization") auth: String,
+        @Body request: AddSmartFuelLeadRequest
+    ): AddSmartFuelLeadResponse
+
+    @POST("BOAppApiGateway/apiateway/BOGetLeadsHistories")
+    @Headers("Accept: application/json")
+    suspend fun getSmartFuelHistory(
+        @Header("Authorization") auth: String,
+        @Body request: SmartFuelHistoryRequest
+    ): SmartFuelHistoryResponse
+
+    //HomeScreen
+
+    @POST("BOAppApiGateway/apiateway/BOUpdateDutyStatus")
+    @Headers("Accept: application/json")
+    suspend fun dutyStatus(
+        @Header("Authorization") auth: String,
+        @Body request: DutyStatusRequest
+    ): DutyStatusResponse
+
+    @POST("BOAppApiGateway/apiateway/BOHomeMenuItems")
+    @Headers("Accept: application/json")
+    suspend fun getAllHomeCountStatus(
+        @Header("Authorization") credentials: String,
+        @Body homeCountRequest: HomeCountRequest
+    ): HomeCountResponse
+
 
     @POST("TrucksUpAPIGateway/gateway/CitySearch")
     @Headers("Accept: application/json")
     fun searchCity(@Body request: CitySearchRequest): Call<CityListbySearchRequest>?
 
     @Multipart
-    @POST("Apigateway/Gateway/TrucksupImageUpload")
+    @POST("BOAppApiGateway/apiateway/BOUploadImages")
     @Headers("Accept: application/json")
-    fun trucksupImageUpload(
+    fun uploadImages(
         @Header("Authorization") auth: String,
         @Query("filetype") filetype: String?,
+        @Query("foldername") foldername: String?,
         @Part imageFile: MultipartBody.Part?,
         @Part watermarkFile: MultipartBody.Part?
     ): Call<TrucksupImageUploadResponse>?
@@ -273,6 +289,7 @@ interface ApiService {
     @Headers("Accept: application/json")
     suspend fun getAddLoadFilter(@Body request: AddLoadFilterRequest): AddLoadFilterResponse
 
+    //New OnBoarding TS/BA/GP
 
     @POST("Apigateway/Gateway/AddOwnerData")
     @Headers("Accept: application/json")
@@ -281,12 +298,12 @@ interface ApiService {
         @Body request: PrefferLanRequest
     ): PrefferdResponse
 
-    @POST("Apigateway/Gateway/AddOwnerData")
+    @POST("Apigateway/Gateway/AddBroker")
     @Headers("Accept: application/json")
     suspend fun onBoardBusinessAssociate(
         @Header("Authorization") auth: String,
-        @Body request: PrefferLanRequest
-    ): PrefferdResponse
+        @Body request: AddBrokerRequest
+    ): AddBrokerResponse
 
     @POST("Apigateway/Gateway/AddOwnerData")
     @Headers("Accept: application/json")
@@ -294,5 +311,50 @@ interface ApiService {
         @Header("Authorization") auth: String,
         @Body request: PrefferLanRequest
     ): PrefferdResponse
+
+    //Schedule Meeting TS
+    @POST("BOAppApiGateway/apiateway/TSMeetSchedule")
+    @Headers("Accept: application/json")
+    suspend fun scheduleMeetingTS(
+        @Header("Authorization") auth: String,
+        @Body request: ScheduleMeetTSRequest
+    ): ScheduleMeetingResponse
+
+    @POST("BOAppApiGateway/apiateway/BAMeetComplete")
+    @Headers("Accept: application/json")
+    suspend fun completeTSMeeting(
+        @Header("Authorization") auth: String,
+        @Body request: CompleteMeetingBARequest
+    ): ScheduleMeetingResponse
+
+    //Schedule Meeting BA
+    @POST("BOAppApiGateway/apiateway/BAMeetSchedule")
+    @Headers("Accept: application/json")
+    suspend fun scheduleMeetingBA(
+        @Header("Authorization") auth: String,
+        @Body request: ScheduleMeetingBARequest
+    ): ScheduleMeetingResponse
+
+    @POST("BOAppApiGateway/apiateway/BAMeetComplete")
+    @Headers("Accept: application/json")
+    suspend fun completeBAMeeting(
+        @Header("Authorization") auth: String,
+        @Body request: CompleteMeetingBARequest
+    ): ScheduleMeetingResponse
+
+    //Schedule Meeting GP
+    @POST("BOAppApiGateway/apiateway/GPMeetSchedule")
+    @Headers("Accept: application/json")
+    suspend fun scheduleMeetingGP(
+        @Header("Authorization") auth: String,
+        @Body request: ScheduleMeetingGPRequest
+    ): ScheduleMeetingResponse
+
+    @POST("BOAppApiGateway/apiateway/GPMeetComplete")
+    @Headers("Accept: application/json")
+    suspend fun completeGPMeeting(
+        @Header("Authorization") auth: String,
+        @Body request: CompleteMeetingGPRequest
+    ): ScheduleMeetingResponse
 
 }

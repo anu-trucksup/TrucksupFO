@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.trucksup.field_officer.databinding.ItemMyTeamTsInactiveBinding
-import com.trucksup.field_officer.presenter.view.activity.truck_supplier.TSDetailActivity
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.TSDetailActivity
 
 class MyTeamTSInActiveAdapter(var context: Context?, var list: ArrayList<String>) :
     RecyclerView.Adapter<MyTeamTSInActiveAdapter.ViewHolder>() {

@@ -1,10 +1,10 @@
 package com.trucksup.field_officer.presenter.common.dialog
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Context
 import android.graphics.Bitmap
-import android.icu.text.DateFormat
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
 import android.view.LayoutInflater
@@ -13,10 +13,12 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.trucksup.field_officer.R
+import com.trucksup.field_officer.data.model.DutyStatusRequest
 import com.trucksup.field_officer.databinding.AddLeadLayoutBinding
 import com.trucksup.field_officer.databinding.AddMiscLayoutBinding
 import com.trucksup.field_officer.databinding.AttendDialogLayoutBinding
@@ -24,6 +26,10 @@ import com.trucksup.field_officer.databinding.CityDialogBinding
 import com.trucksup.field_officer.databinding.FilterLayoutBinding
 import com.trucksup.field_officer.databinding.MessageDialogLayoutBinding
 import com.trucksup.field_officer.databinding.OnOffDutyBinding
+import com.trucksup.field_officer.presenter.common.LoadingUtils
+import com.trucksup.field_officer.presenter.utils.PreferenceManager
+import com.trucksup.field_officer.presenter.view.activity.dashboard.vml.DashBoardViewModel
+import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinanceDataLiatRequest
 import com.trucksup.field_officer.presenter.view.adapter.ImageAdapter
 import com.trucksup.field_officer.presenter.view.interfaces.AddLeadInterface
 import com.trucksup.field_officer.presenter.view.interfaces.AddMiscInterface
@@ -73,7 +79,7 @@ object DialogBoxes {
         dialog.show()
     }
 
-    fun onOffDuty(context: Context) {
+    fun onOffDuty(context: Context,dutyStatus:Boolean,dashBoardViewModel:DashBoardViewModel?,latitude:String?,longitude:String?,address:String?) {
         val builder = AlertDialog.Builder(context)
         val binding = OnOffDutyBinding.inflate(LayoutInflater.from(context))
         builder.setView(binding.root)
@@ -82,7 +88,7 @@ object DialogBoxes {
 
         //activate button
         binding.btnActivate.setOnClickListener {
-            attendanceDialog(context)
+            attendanceDialog(context,dutyStatus,dashBoardViewModel,latitude,longitude,address)
             dialog.dismiss()
         }
 
@@ -247,7 +253,7 @@ object DialogBoxes {
         datePickerDialog.show()
     }
 
-    private fun attendanceDialog(context: Context) {
+    private fun attendanceDialog(context: Context,dutyStatus: Boolean,dashBoardViewModel:DashBoardViewModel?,latitude:String?,longitude:String?,address:String?) {
         val builder = AlertDialog.Builder(context)
         val binding = AttendDialogLayoutBinding.inflate(LayoutInflater.from(context))
         builder.setView(binding.root)
@@ -266,6 +272,20 @@ object DialogBoxes {
 
         //ok button
         binding.confirm.setOnClickListener {
+            LoadingUtils.showDialog(context,false)
+
+            val request = DutyStatusRequest(
+                1234,
+                ""+PreferenceManager.getPhoneNo(context),
+                dutyStatus,
+                latitude?:"",
+                address?:"",
+                longitude?:"",
+                ""+PreferenceManager.getServerDateUtc(),
+                PreferenceManager.getRequestNo().toInt(),
+                ""+PreferenceManager.getPhoneNo(context)
+            )
+            dashBoardViewModel?.dutyStatus(request)
             dialog.dismiss()
         }
 

@@ -143,6 +143,10 @@ dependencies {
     implementation(libs.maps.ktx)
     // KTX for the Maps SDK for Android Utility Library
     implementation(libs.maps.utils.ktx)
-
+    //Pdf reader
     implementation (libs.mindevpdfviewer)
+
+    //Auto Sms Reader
+    implementation (libs.play.services.auth)
+    implementation (libs.play.services.auth.api.phone)
 }

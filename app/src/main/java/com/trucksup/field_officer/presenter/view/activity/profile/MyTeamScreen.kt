@@ -6,10 +6,9 @@ import android.view.View
 import androidx.activity.enableEdgeToEdge
 import com.trucksup.field_officer.databinding.ActivityMyTeamsBinding
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
-import com.trucksup.field_officer.presenter.view.activity.business_associate.MyBATeamActivity
-import com.trucksup.field_officer.presenter.view.activity.growth_partner.GPViewAllActivity
-import com.trucksup.field_officer.presenter.view.activity.growth_partner.MyGPTeamActivity
-import com.trucksup.field_officer.presenter.view.activity.truck_supplier.MyTSTeamActivity
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.MyBATeamActivity
+import com.trucksup.field_officer.presenter.view.activity.growthPartner.GPViewAllActivity
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.MyTSTeamActivity
 
 class MyTeamScreen : BaseActivity() {
     private lateinit var binding: ActivityMyTeamsBinding

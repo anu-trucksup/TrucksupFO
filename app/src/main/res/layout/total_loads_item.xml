@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardUseCompatPadding="true"
+    app:strokeWidth="@dimen/_1sdp"
+    app:strokeColor="@color/blue2_fad"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="@dimen/_8sdp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/_6sdp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_marginEnd="@dimen/_2sdp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tvPostedOn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/posted_on"
+                    android:textSize="@dimen/_10ssp"
+                    android:fontFamily="@font/bai_jamjuree_semi_bold"
+                    android:lines="1"
+                    android:textColor="@color/dark_gray"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tvPostedOn"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvPostedOn"
+                    app:layout_constraintStart_toEndOf="@+id/tvPostedOn"
+                    android:lines="1"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="@dimen/_9ssp"
+                    android:text="05-Apr-25 02: 30 PM"
+                    android:fontFamily="@font/bai_jamjuree_medium"
+                    android:layout_marginStart="@dimen/_2sdp"/>
+
+                <ImageView
+                    android:id="@+id/loc_green"
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:src="@drawable/map_pin_green_17"
+                    app:layout_constraintTop_toBottomOf="@+id/tvPostedOn"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginTop="@dimen/_2sdp"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toEndOf="@+id/loc_green"
+                    app:layout_constraintTop_toTopOf="@id/loc_green"
+                    app:layout_constraintBottom_toBottomOf="@id/loc_green"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:text="Panipat"
+                    android:textSize="@dimen/_12ssp"
+                    android:fontFamily="@font/bai_jamjuree_bold"
+                    android:textColor="@color/blue2"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_marginStart="@dimen/_2sdp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tvLoadingData"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/loading_date"
+                    android:textSize="@dimen/_10ssp"
+                    android:fontFamily="@font/bai_jamjuree_semi_bold"
+                    android:lines="1"
+                    android:textColor="@color/dark_gray"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tvLoadingData"
+                    app:layout_constraintBottom_toBottomOf="@+id/tvLoadingData"
+                    app:layout_constraintStart_toEndOf="@+id/tvLoadingData"
+                    android:lines="1"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="@dimen/_9ssp"
+                    android:text="27-Jan-25"
+                    android:fontFamily="@font/bai_jamjuree_medium"
+                    android:layout_marginStart="@dimen/_2sdp"/>
+
+                <ImageView
+                    android:id="@+id/loc_red"
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:src="@drawable/map_pin_red_17"
+                    app:layout_constraintTop_toBottomOf="@+id/tvLoadingData"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginTop="@dimen/_2sdp"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toEndOf="@+id/loc_red"
+                    app:layout_constraintTop_toTopOf="@id/loc_red"
+                    app:layout_constraintBottom_toBottomOf="@id/loc_red"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:text="Surat"
+                    android:textSize="@dimen/_12ssp"
+                    android:fontFamily="@font/bai_jamjuree_bold"
+                    android:textColor="@color/blue2"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

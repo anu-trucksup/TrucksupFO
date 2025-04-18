@@ -56,8 +56,7 @@ import com.trucksup.field_officer.presenter.common.Utils.ORIENT_PORTRAIT
 import com.trucksup.field_officer.presenter.common.Utils.appSettingOpen
 import com.trucksup.field_officer.presenter.common.Utils.warningPermissionDialog
 import com.trucksup.field_officer.presenter.view.activity.auth.signup.SignUpActivity
-import com.trucksup.field_officer.presenter.view.activity.other.MainActivity
-import kotlinx.serialization.Required
+import com.trucksup.field_officer.presenter.view.activity.dashboard.HomeActivity
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -355,7 +354,7 @@ class CameraActivity: AppCompatActivity() {
         imageCapture = ImageCapture.Builder()
             .setResolutionSelector(resolutionSelector)
             //.setTargetRotation(camera_binding.previewview.display.rotation)
-            .setTargetRotation(0)
+            .setTargetRotation(Surface.ROTATION_0)
             .build()
         Log.e(
             "CameraResolutionsTAG",
@@ -549,7 +548,7 @@ class CameraActivity: AppCompatActivity() {
                     val height = exif.getAttributeInt(ExifInterface.TAG_IMAGE_LENGTH, -1)
                     Log.e("CameraResolutionsTAG", "ExifInterface width: $width height: $height")
 
-                    val intents = Intent(this@CameraActivity, MainActivity::class.java)
+                    val intents = Intent(this@CameraActivity, HomeActivity::class.java)
                     intents.putExtra("result", savedUri.toString())
                     setResult(RESULT_OK, intents)
                     finish()

@@ -83,7 +83,10 @@ object Utils {
         title.text = msg
         yesButton.text = "Login"
         yesButton.setOnClickListener {
-            context.startActivity(Intent(context, LoginActivity::class.java))
+            val intent = Intent(context, LoginActivity::class.java)
+            intent.putExtra("mobile", "")
+            context.startActivity(intent)
+
             deleteDialog.dismiss()
         }
         cancelButton.setOnClickListener { view: View? ->

@@ -49,7 +49,7 @@
                         android:fontFamily="@font/roboto_medium"
                         android:gravity="center_vertical"
                         android:text="@string/vehicleDetails_msg"
-                        android:textColor="@color/secondry_text"
+                        android:textColor="@color/secondary_text"
                         android:textSize="@dimen/_12ssp" />
 
                     <LinearLayout
@@ -75,7 +75,7 @@
                                 android:fontFamily="@font/roboto_medium"
                                 android:gravity="center_vertical"
                                 android:text="@string/registrationNo"
-                                android:textColor="@color/secondry_text"
+                                android:textColor="@color/secondary_text"
                                 android:textSize="@dimen/_11ssp" />
 
                             <TextView
@@ -107,7 +107,7 @@
                                 android:fontFamily="@font/roboto_medium"
                                 android:gravity="center_vertical"
                                 android:text="@string/year"
-                                android:textColor="@color/secondry_text"
+                                android:textColor="@color/secondary_text"
                                 android:textSize="@dimen/_11ssp" />
 
                             <TextView
@@ -146,7 +146,7 @@
                                 android:fontFamily="@font/roboto_medium"
                                 android:gravity="center_vertical"
                                 android:text="@string/brand"
-                                android:textColor="@color/secondry_text"
+                                android:textColor="@color/secondary_text"
                                 android:textSize="@dimen/_11ssp" />
 
                             <TextView
@@ -178,7 +178,7 @@
                                 android:fontFamily="@font/roboto_medium"
                                 android:gravity="center_vertical"
                                 android:text="@string/model"
-                                android:textColor="@color/secondry_text"
+                                android:textColor="@color/secondary_text"
                                 android:textSize="@dimen/_11ssp" />
 
                             <TextView
@@ -217,7 +217,7 @@
                                 android:fontFamily="@font/roboto_medium"
                                 android:gravity="center_vertical"
                                 android:text="@string/vehicleType"
-                                android:textColor="@color/secondry_text"
+                                android:textColor="@color/secondary_text"
                                 android:textSize="@dimen/_11ssp" />
 
                             <TextView
@@ -257,7 +257,7 @@
                                 android:fontFamily="@font/roboto_medium"
                                 android:gravity="center_vertical"
                                 android:text="@string/permitType"
-                                android:textColor="@color/secondry_text"
+                                android:textColor="@color/secondary_text"
                                 android:textSize="@dimen/_11ssp" />
 
                             <TextView
@@ -289,7 +289,7 @@
                                 android:fontFamily="@font/roboto_medium"
                                 android:gravity="center_vertical"
                                 android:text="@string/fuelType"
-                                android:textColor="@color/secondry_text"
+                                android:textColor="@color/secondary_text"
                                 android:textSize="@dimen/_11ssp" />
 
                             <TextView
@@ -328,7 +328,7 @@
                                 android:fontFamily="@font/roboto_medium"
                                 android:gravity="center_vertical"
                                 android:text="@string/engine_number"
-                                android:textColor="@color/secondry_text"
+                                android:textColor="@color/secondary_text"
                                 android:textSize="@dimen/_11ssp" />
 
                             <TextView
@@ -360,7 +360,7 @@
                                 android:fontFamily="@font/roboto_medium"
                                 android:gravity="center_vertical"
                                 android:text="@string/chassis_number"
-                                android:textColor="@color/secondry_text"
+                                android:textColor="@color/secondary_text"
                                 android:textSize="@dimen/_11ssp" />
 
                             <TextView
@@ -401,7 +401,7 @@
                                 android:fontFamily="@font/roboto_medium"
                                 android:gravity="center_vertical"
                                 android:text="@string/uploadCopy"
-                                android:textColor="@color/secondry_text"
+                                android:textColor="@color/secondary_text"
                                 android:textSize="@dimen/_11ssp" />
 
                             <TextView
@@ -436,7 +436,7 @@
                                 android:fontFamily="@font/roboto_medium"
                                 android:gravity="center_vertical"
                                 android:text="@string/uploadCopy"
-                                android:textColor="@color/secondry_text"
+                                android:textColor="@color/secondary_text"
                                 android:textSize="@dimen/_11ssp" />
 
                             <TextView
@@ -480,7 +480,7 @@
                                 android:fontFamily="@font/roboto_medium"
                                 android:gravity="center_vertical"
                                 android:text="@string/anyClaimTaken"
-                                android:textColor="@color/secondry_text"
+                                android:textColor="@color/secondary_text"
                                 android:textSize="@dimen/_11ssp" />
 
                             <RelativeLayout
@@ -533,7 +533,7 @@
                                 android:fontFamily="@font/roboto_medium"
                                 android:gravity="center_vertical"
                                 android:text="@string/ownershipTransfer"
-                                android:textColor="@color/secondry_text"
+                                android:textColor="@color/secondary_text"
                                 android:textSize="@dimen/_11ssp" />
 
                             <RelativeLayout
@@ -595,7 +595,7 @@
                                 android:fontFamily="@font/roboto_medium"
                                 android:gravity="center_vertical"
                                 android:text="@string/geographicalArea"
-                                android:textColor="@color/secondry_text"
+                                android:textColor="@color/secondary_text"
                                 android:textSize="@dimen/_11ssp" />
 
                             <RelativeLayout

@@ -53,7 +53,7 @@
                         android:fontFamily="@font/bai_jamjuree_semi_bold"
                         android:maxLines="1"
                         android:text="@string/insurance_vehicle_no_"
-                        android:textColor="@color/secondry_text"
+                        android:textColor="@color/secondary_text"
                         android:textSize="@dimen/_11ssp" />
 
                     <com.google.android.material.card.MaterialCardView
@@ -101,7 +101,7 @@
                         android:fontFamily="@font/bai_jamjuree_semi_bold"
                         android:maxLines="1"
                         android:text="@string/insurance_validity_"
-                        android:textColor="@color/secondry_text"
+                        android:textColor="@color/secondary_text"
                         android:textSize="@dimen/_11ssp" />
 
                     <com.google.android.material.card.MaterialCardView
@@ -182,7 +182,7 @@
                         android:fontFamily="@font/bai_jamjuree_semi_bold"
                         android:maxLines="1"
                         android:text="@string/rc_front_image_"
-                        android:textColor="@color/secondry_text"
+                        android:textColor="@color/secondary_text"
                         android:textSize="@dimen/_11ssp"
                         android:layout_marginStart="@dimen/_3sdp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -227,7 +227,7 @@
                         android:fontFamily="@font/bai_jamjuree_semi_bold"
                         android:maxLines="1"
                         android:text="@string/rc_back_image_"
-                        android:textColor="@color/secondry_text"
+                        android:textColor="@color/secondary_text"
                         android:textSize="@dimen/_11ssp"
                         android:layout_marginStart="@dimen/_3sdp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -272,7 +272,7 @@
                     android:fontFamily="@font/bai_jamjuree_semi_bold"
                     android:maxLines="1"
                     android:text="@string/previous_policy_document"
-                    android:textColor="@color/secondry_text"
+                    android:textColor="@color/secondary_text"
                     android:textSize="@dimen/_11ssp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>

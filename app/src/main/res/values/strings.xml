@@ -306,7 +306,7 @@
     <string name="truck_details_validity">Truck Details <font color='#FF0000'>*</font></string>
 
     <string name="active">Active</string>
-    <string name="vehicle_details">Vehicle Details</string>
+    <string name="vehicle_details">Vehicle Details <font color='#FF0000'>*</font></string>
     <string name="rc_front_image">RC Front Image</string>
     <string name="rc_back_image">RC Back Image</string>
     <string name="previous_policy_document">Previous Policy Document</string>
@@ -594,7 +594,7 @@
     <string name="suggested_vehicle">Suggested vehicle</string>
 
     <string name="add1">ADD</string>
-    <string name="load_notfound">Sorry ! Load not found</string>
+    <string name="load_not_found">Sorry ! Load not found</string>
     <string name="khata_notfound">Sorry ! Records not found</string>
     <string name="search_verified_dl">Search verified driving license..</string>
     <string name="search_truck_m">Search my truck(Only 3 months)</string>
@@ -616,12 +616,11 @@
     <string name="tu_kawach">
     <font color="#3E2089">TU</font>
     <font color="#DB5015">Kawach</font>
+    </string>
 
-</string>
-    <string name="enter_password">\"Please Enter Password.\"</string>
-    <string name="validnameformate">Enter valid name format.</string>
-    <string name="enterProfileName">Enter Profile name</string>
-    <string name="enter_valid_mobile">\"Enter valid mobile number.\"</string>
+    <string name="enter_password">Please input password.</string>
+    <string name="valid_name_format">Enter valid profile name format.</string>
+    <string name="enterProfileName">Please input profile name.</string>
 
     <string name="business_document">Business document</string>
     <string name="visiting_card">Visiting card</string>
@@ -707,6 +706,19 @@
     <string name="search">Search</string>
     <string name="Vehicle_Size">Vehicle Size</string>
     <string name="tyre_">Tyre</string>
+    <string name="select_city">Select city</string>
+
+    <string name="total_add_loads">Total Add Loads</string>
+    <string name="posted_on">Posted on:</string>
+    <string name="loading_date">Loading Date:</string>
+    <string name="no_internet">No internet connection.</string>
+    <string name="error_mobile">Enter Mobile Number</string>
+    <string name="password_hint">*************</string>
+    <string name="pan_photo_">PAN Photo <font color='#FF0000'>*</font></string>
+    <string name="mobile_no_validation">Please enter correct mobile number.</string>
+    <string name="password_validation">Password must be at least 8 characters, include upper, lower, number &amp; special character.</string>
+    <string name="enter_confirm_password">Please Enter Confirm Password.</string>
+    <string name="password_match">Passwords do not match. Please try again.</string>
     <string name="kyc_title">KYC title</string>
     <string name="kyc_verified">KYC Verified</string>
     <string name="name_kyc">Name as per KYC :</string>

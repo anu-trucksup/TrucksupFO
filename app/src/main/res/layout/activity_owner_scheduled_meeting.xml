@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:background="@color/white"
-    tools:context=".presenter.view.activity.truck_supplier.TSScheduledMeetingActivity">
+    tools:context=".presenter.view.activity.truckSupplier.TSScheduledMeetingActivity">
 
 
     <LinearLayout

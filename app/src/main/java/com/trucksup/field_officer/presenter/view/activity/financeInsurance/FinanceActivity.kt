@@ -30,7 +30,7 @@ class FinanceActivity : BaseActivity(), ChipController, CityPicker {
     private var mViewModel: FinanceViewModel? = null
     private var loanFor: String = "other"
     private var loanAmount: String = ""
-    private var sourceValue: String? = "Trucksup"
+    private var sourceValue: String? = "BO"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,16 +38,13 @@ class FinanceActivity : BaseActivity(), ChipController, CityPicker {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_finance)
 
         mViewModel = ViewModelProvider(this)[FinanceViewModel::class.java]
-        //binding.name.setText(PreferenceManager.getUserData(this)?.profileName)
 
-        PreferenceManager.setPhoneNo("8303871415", this)
-
+        binding.name.setText(PreferenceManager.getUserData(this)?.profilename)
         binding.mobileNumber.setText(PreferenceManager.getPhoneNo(this))
+        binding.etReferralCode.setText(PreferenceManager.getUserData(this)?.referralcode)
 
         setupObserver()
-        //binding.etReferralCode.setText(PreferenceManager.getUserData(this)?.salesCode)
 
-        binding.etReferralCode.setText("7BGHJ9")
         getData()
     }
 
@@ -57,12 +54,11 @@ class FinanceActivity : BaseActivity(), ChipController, CityPicker {
             if (responseModel.serverError != null) {
                 dismissProgressDialog()
 
-                val abx =
-                    AlertBoxDialog(
-                        this@FinanceActivity,
-                        responseModel.serverError.toString(),
-                        "m"
-                    )
+                val abx = AlertBoxDialog(
+                    this@FinanceActivity,
+                    responseModel.serverError.toString(),
+                    "m"
+                )
                 abx.show()
             } else {
                 dismissProgressDialog()
@@ -71,8 +67,8 @@ class FinanceActivity : BaseActivity(), ChipController, CityPicker {
 
                     val inquiryList = responseModel.success.inquiryDetails as ArrayList<chipData>
                     dataList(inquiryList)
-
-                } else { }
+                } else {
+                }
             }
         }
 
@@ -81,10 +77,11 @@ class FinanceActivity : BaseActivity(), ChipController, CityPicker {
             if (responseModel.serverError != null) {
                 dismissProgressDialog()
 
-                val abx = AlertBoxDialog(this@FinanceActivity,
-                        responseModel.serverError.toString(),
-                        "m"
-                    )
+                val abx = AlertBoxDialog(
+                    this@FinanceActivity,
+                    responseModel.serverError.toString(),
+                    "m"
+                )
                 abx.show()
             } else {
                 dismissProgressDialog()
@@ -97,7 +94,6 @@ class FinanceActivity : BaseActivity(), ChipController, CityPicker {
                     )
 
                 } else {
-
                 }
             }
         }
@@ -125,12 +121,11 @@ class FinanceActivity : BaseActivity(), ChipController, CityPicker {
     }
 
     private fun getData() {
-
         showProgressDialog(this, true)
         val request = FinanceDataLiatRequest(
             PreferenceManager.getPhoneNo(this),
             "Required Loan Amount",
-            PreferenceManager.getServerDateUtc(""),
+            PreferenceManager.getServerDateUtc(),
             PreferenceManager.getRequestNo(),
             PreferenceManager.getPhoneNo(this)
         )
@@ -252,7 +247,7 @@ class FinanceActivity : BaseActivity(), ChipController, CityPicker {
             binding.mobileNumber.text.toString(),
             binding.name.text.toString(),
             PreferenceManager.getProfileType(this).toString(),
-            PreferenceManager.getServerDateUtc(""),
+            PreferenceManager.getServerDateUtc(),
             PreferenceManager.getRequestNo(),
             PreferenceManager.getPhoneNo(this),
             binding.state.text.toString(),

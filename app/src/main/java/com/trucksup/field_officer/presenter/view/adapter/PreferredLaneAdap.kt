@@ -1,4 +1,4 @@
-package com.trucksup.fieldofficer.adapter
+package com.trucksup.field_officer.presenter.view.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -19,18 +19,17 @@ class PreferredLaneAdap(
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): PreferredLaneAdap.ViewHolder {
-        var v = PreferredLaneItemBinding.inflate(LayoutInflater.from(context), parent, false)
+    ): ViewHolder {
+        val v = PreferredLaneItemBinding.inflate(LayoutInflater.from(context), parent, false)
         return ViewHolder(v)
     }
 
-    override fun onBindViewHolder(holder: PreferredLaneAdap.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        holder.binding.tvLane.text = list[position].from + ">>" + list[position].to
+        holder.binding.tvLane.text = list[position].from + " >> " + list[position].to
 
         holder.binding.btnDelete.setOnClickListener {
-//            notifyItemRemoved(position)
-            controllerListener?.onDelete(position)
+            controllerListener.onDelete(position)
         }
 
     }
@@ -39,12 +38,6 @@ class PreferredLaneAdap(
         return list.size
     }
 
-//    var controllerListener:ControllerListener?=null
-//
-//    fun setOnControllerListener(controllerListener:ControllerListener)
-//    {
-//        this.controllerListener=controllerListener
-//    }
 
     interface ControllerListener {
         fun onDelete(position: Int)

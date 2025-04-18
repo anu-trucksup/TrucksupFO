@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ItemFeaturesBinding
-import com.trucksup.field_officer.presenter.view.activity.business_associate.BAFollowupActivity
-import com.trucksup.field_officer.presenter.view.activity.growth_partner.GPFollowupActivity
-import com.trucksup.field_officer.presenter.view.activity.truck_supplier.TSFollowupActivity
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.BAFollowupActivity
+import com.trucksup.field_officer.presenter.view.activity.growthPartner.GPFollowupActivity
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.TSFollowupActivity
 
 
 class FollowupSelectionAdapter(var context: Context?) :

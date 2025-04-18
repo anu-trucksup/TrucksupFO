@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ItemEarnBinding
-import com.trucksup.field_officer.presenter.view.activity.other.MainActivity
 
 class MyEarningAdapter(var context: Context?/*, var list: ArrayList<String>*/) :
     RecyclerView.Adapter<MyEarningAdapter.ViewHolder>() {

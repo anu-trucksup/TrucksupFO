@@ -20,7 +20,7 @@ import java.util.Locale
 class FileHelp {
 
 
-    fun bitmapTofile(imageBitmap: Bitmap, context: Context): File? {
+    fun bitmapTofile(imageBitmap: Bitmap, context: Context): File {
         val name = "trucksUp_image" + System.currentTimeMillis() + ".jpg"
         val pt = Environment.DIRECTORY_PICTURES //+  "/trucksUp";
         val MEDIA_PATH = Environment.getExternalStorageDirectory().absolutePath + "/" + pt + "/"
@@ -50,7 +50,7 @@ class FileHelp {
 //            // LoggerMessage.LogErrorMsg("uri of logo",path)
 //            val file = getFile(context, Uri.parse(path))
 //            imageBitmap.recycle()
-            return imageFile
+        return imageFile
 
     }
 
@@ -73,8 +73,8 @@ class FileHelp {
     }
 
 
-    fun storePhotoOnDisk(capturedBitmap: Bitmap) :File{
-        var photoFile:File ?=null
+    fun storePhotoOnDisk(capturedBitmap: Bitmap): File {
+        var photoFile: File? = null
         Thread {
             val pt = Environment.DIRECTORY_PICTURES //+  "/trucksUp";
             val MEDIA_PATH = Environment.getExternalStorageDirectory().absolutePath + "/" + pt + "/"
@@ -106,6 +106,7 @@ class FileHelp {
 
         return photoFile!!
     }
+
     private fun queryName(context: Context, uri: Uri): String? {
         val returnCursor = context.contentResolver.query(uri, null, null, null, null)!!
         val nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
@@ -114,6 +115,7 @@ class FileHelp {
         returnCursor.close()
         return name
     }
+
     fun createFileFromStream(ins: InputStream, destination: File?) {
         try {
             FileOutputStream(destination).use { os ->
@@ -129,6 +131,7 @@ class FileHelp {
             ex.printStackTrace()
         }
     }
+
     fun resizeImage(originalBitmap: Bitmap?, maxWidth: Int, maxHeight: Int): Bitmap? {
         var resizedBitmap: Bitmap? = null
 
@@ -138,14 +141,14 @@ class FileHelp {
             // Get the original width and height of the image
             val originalWidth = originalBitmap?.width
             val originalHeight = originalBitmap?.height
-            Log.e("Org h","hhhhhhhh >>>>>> "+originalHeight)
-            if ( 500<originalHeight!! ) {
+            Log.e("Org h", "hhhhhhhh >>>>>> " + originalHeight)
+            if (500 < originalHeight!!) {
 
 
                 // Calculate the scale factor to resize the image while maintaining the aspect ratio
                 val scaleFactor = Math.min(
                     maxWidth.toFloat() / originalWidth!!,
-                    maxHeight.toFloat() / originalHeight!!
+                    maxHeight.toFloat() / originalHeight
                 )
 
                 // Calculate the new width and height based on the scale factor
@@ -155,9 +158,8 @@ class FileHelp {
                 // Resize the original bitmap to the new dimensions
                 resizedBitmap = Bitmap.createScaledBitmap(originalBitmap, newWidth, newHeight, true)
                 originalBitmap.recycle()
-            }
-            else{
-                resizedBitmap =originalBitmap
+            } else {
+                resizedBitmap = originalBitmap
             }
 
             // Recycle the original bitmap to free up memory
@@ -167,6 +169,7 @@ class FileHelp {
         }
         return resizedBitmap
     }
+
     private fun compressBitmapToFile(bitmap: Bitmap?, file: File) {
         if (bitmap != null && !bitmap.isRecycled) {
             var outputStream: FileOutputStream? = null
@@ -194,15 +197,15 @@ class FileHelp {
             Log.e("Comp Img", "Bitmap is null or already recycled! Compression skipped.")
         }
     }
-    fun FileToBitmap(file: File) :Bitmap
-    {var myBitmap:Bitmap?=null
-        if (file.exists()) {
-            myBitmap = resizeImage(BitmapFactory.decodeFile(file.absolutePath),500,500)
 
-                return myBitmap!!
-        }
-        else {
-           return myBitmap!!
+    fun FileToBitmap(file: File): Bitmap {
+        var myBitmap: Bitmap? = null
+        if (file.exists()) {
+            myBitmap = resizeImage(BitmapFactory.decodeFile(file.absolutePath), 500, 500)
+
+            return myBitmap!!
+        } else {
+            return myBitmap!!
         }
 
     }
