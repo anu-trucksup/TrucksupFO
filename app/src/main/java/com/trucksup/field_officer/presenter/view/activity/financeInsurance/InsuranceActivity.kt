@@ -1,10 +1,8 @@
 package com.trucksup.field_officer.presenter.view.activity.financeInsurance
 
-import android.app.Activity
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
 import android.icu.text.SimpleDateFormat
@@ -17,14 +15,11 @@ import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.EditText
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -92,14 +87,14 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
         }
 
         mViewModel = ViewModelProvider(this)[InsuranceViewModel::class.java]
-        PreferenceManager.setPhoneNo("9999370747", this)
-        binding.etFullName.setText("Yash")
+
+        binding.etFullName.setText(PreferenceManager.getUserData(this)?.profilename)
 
         binding.etMobile.setText(PreferenceManager.getPhoneNo(this))
 
         //referral code or sales code
-        // binding.etReferralCode.setText(PreferenceManager.getUserData(this)?.salesCode)
-        binding.etReferralCode.setText("7BGHJ9")
+        binding.etReferralCode.setText(PreferenceManager.getUserData(this)?.referralcode)
+
         disableEmojiInTitle()
         setListener()
         setupObserver()
@@ -152,31 +147,9 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
             }
         }
 
-//        mViewModel?.imgUploadResultLD?.observe(this@InsuranceActivity) { responseModel ->                     // login function observe
-//            if (responseModel.serverError != null) {
-//                dismissProgressDialog()
-//
-//                val abx =
-//                    AlertBoxDialog(
-//                        this@InsuranceActivity,
-//                        responseModel.serverError.toString(),
-//                        "m"
-//                    )
-//                abx.show()
-//            } else {
-//                dismissProgressDialog()
-//
-//                if (responseModel.success?.imagekey != null) {
-//
-//
-//                } else {
-//
-//                }
-//            }
-//        }
     }
 
-    private var activitypdfLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+    private var activityPdfLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
 
                 val orFile: File = FileHelp().getFile(this, result.data?.data)!!
@@ -336,126 +309,6 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
             }
         }
 
-        //self button
-        binding.btnSelf.setOnClickListener {
-            //self
-            insuFor = "self"
-            binding.btnSelf.apply {
-                setStrokeColor(resources.getColor(R.color.blue))
-                setCardBackgroundColor(resources.getColor(R.color.blue))
-            }
-            binding.tvSelf.setTextColor(resources.getColor(R.color.white))
-
-            //other
-            binding.btnOther.apply {
-                setStrokeColor(resources.getColor(R.color.border_color))
-                setCardBackgroundColor(resources.getColor(R.color.chipColor))
-            }
-            binding.tvOther.setTextColor(resources.getColor(R.color.secondary_text))
-
-            //clear full name
-            // binding.etFullName.setText(PreferenceManager.getUserData(this)?.profileName)
-            binding.etMobile.setText(PreferenceManager.getPhoneNo(this))
-            // binding.etReferralCode.setText(PreferenceManager.getUserData(this)?.salesCode)
-
-            binding.etInsValidity.text = ""
-            binding.etFullName.isFocusable = false
-            binding.etFullName.isClickable = false  // optional, to disable click events
-            binding.etFullName.isFocusableInTouchMode = false
-            binding.etFullName.isCursorVisible = false  // optional, hide the cursor
-            binding.etFullName.keyListener = null
-
-            //referral code or sales code
-            binding.etReferralCode.isFocusable = false
-            binding.etReferralCode.isClickable = false  // optional, to disable click events
-            binding.etReferralCode.isFocusableInTouchMode = false
-            binding.etReferralCode.isCursorVisible = false  // optional, hide the cursor
-//            binding.etReferralCode.keyListener = null
-
-            //clear rc front image
-            binding.cutFrontBtn.visibility = View.GONE
-            binding.imgFrontCamera.setImageDrawable(getDrawable(R.drawable.camera_new))
-            rcFrontImgKey = ""
-            rcFrontImgUrl = ""
-
-            //clear rc back image
-            binding.cutBackBtn.visibility = View.GONE
-            binding.imgBackCamera.setImageDrawable(getDrawable(R.drawable.camera_new))
-            rcBackImgKey = ""
-            rcBackImgUrl = ""
-
-            //clear previous policy docs image image
-            binding.cutPrevPolicyBtn.visibility = View.GONE
-            binding.imgPrevPolicyDoc.setImageDrawable(getDrawable(R.drawable.camera_new))
-            prevPolicyDocsImgKey = ""
-            prevPolicyDocsImgUrl = ""
-
-            list.clear()
-            setRecyclerView()
-        }
-
-        //other button
-        binding.btnOther.setOnClickListener {
-            //other
-            insuFor = "other"
-            binding.btnOther.apply {
-                setStrokeColor(resources.getColor(R.color.blue))
-                setCardBackgroundColor(resources.getColor(R.color.blue))
-            }
-            binding.tvOther.setTextColor(resources.getColor(R.color.white))
-
-            //self
-            binding.btnSelf.apply {
-                setStrokeColor(resources.getColor(R.color.border_color))
-                setCardBackgroundColor(resources.getColor(R.color.chipColor))
-            }
-            binding.tvSelf.setTextColor(resources.getColor(R.color.secondary_text))
-
-            //clear full name
-            binding.etFullName.getText().clear()
-            //clear mobile
-            binding.etMobile.getText().clear()
-            //clear vehicle no.
-            binding.etVehicleNo.getText().clear()
-            //clear Insurance Validity
-            binding.etInsValidity.text = ""
-            //clear referral code
-            binding.etReferralCode.getText().clear()
-
-            binding.etFullName.isFocusable = true
-            binding.etFullName.isClickable = true  // optional, to re-enable click events
-            binding.etFullName.isFocusableInTouchMode = true
-            binding.etFullName.isCursorVisible = true  // optional, show the cursor
-            binding.etFullName.keyListener = EditText(this).keyListener
-
-            //referral code or sales code
-            binding.etReferralCode.isFocusable = true
-            binding.etReferralCode.isClickable = true  // optional, to re-enable click events
-            binding.etReferralCode.isFocusableInTouchMode = true
-            binding.etReferralCode.isCursorVisible = true  // optional, show the cursor
-//            binding.etReferralCode.keyListener = EditText(this).keyListener
-
-            //clear rc front image
-            binding.cutFrontBtn.visibility = View.GONE
-            binding.imgFrontCamera.setImageDrawable(getDrawable(R.drawable.camera_new))
-            rcFrontImgKey = ""
-            rcFrontImgUrl = ""
-
-            //clear rc back image
-            binding.cutBackBtn.visibility = View.GONE
-            binding.imgBackCamera.setImageDrawable(getDrawable(R.drawable.camera_new))
-            rcBackImgKey = ""
-            rcBackImgUrl = ""
-
-            //clear previous policy docs image image
-            binding.cutPrevPolicyBtn.visibility = View.GONE
-            binding.imgPrevPolicyDoc.setImageDrawable(getDrawable(R.drawable.camera_new))
-            prevPolicyDocsImgKey = ""
-            prevPolicyDocsImgUrl = ""
-
-            list.clear()
-            setRecyclerView()
-        }
 
         //insurance validity button
         binding.etInsValidity.setOnClickListener {
@@ -1288,7 +1141,7 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
             var chooseFile = Intent(Intent.ACTION_GET_CONTENT)
             chooseFile.setType("application/pdf");
             chooseFile = Intent.createChooser(chooseFile, "Choose a file")
-            activitypdfLauncher.launch(chooseFile)
+            activityPdfLauncher.launch(chooseFile)
         } else {
             val imagePickerDialog = ImagePickerDailog(this, this)
             imagePickerDialog.show()

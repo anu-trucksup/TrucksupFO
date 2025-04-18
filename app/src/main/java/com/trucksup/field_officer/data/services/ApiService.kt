@@ -69,6 +69,8 @@ import retrofit2.http.Query
 
 interface ApiService {
 
+    //User Auth Module
+
     @POST("JwtAuth/api/Auth/GenerateJWTtoken")
     fun generateJWToken(
         @Header("x-api-key") auth: String,
@@ -147,10 +149,6 @@ interface ApiService {
     ): CheckUserProfileResponse
 
 
-    @POST("BOAppApiGateway/apiateway/BOHomeMenuItems")
-    @Headers("Accept: application/json")
-    suspend fun getAllHomeCountStatus(@Header("Authorization") credentials: String, @Body homeCountRequest: HomeCountRequest): HomeCountResponse
-
     @GET("global/city/by-country")
     @Headers("Accept: application/json")
     suspend fun getcountryDetails(
@@ -187,6 +185,8 @@ interface ApiService {
         @Body planRequest: PlanRequest
     ): PlanResponse
 
+    //Finance & Insurance
+
     @POST("Apigateway/Gateway/GetInquiryOptions")
     @Headers("Accept: application/json")
     suspend fun getFinanceData(
@@ -214,6 +214,39 @@ interface ApiService {
         @Header("Authorization") auth: String,
         @Body request: SubmitInsuranceInquiryRequest
     ): SubmitInsuranceInquiryData
+
+
+    //SmartFuel
+
+    @POST("BOAppApiGateway/apiateway/BOAddSmartFuelLeads")
+    @Headers("Accept: application/json")
+    suspend fun addSmartFuelLead(
+        @Header("Authorization") auth: String,
+        @Body request: AddSmartFuelLeadRequest
+    ): AddSmartFuelLeadResponse
+
+    @POST("BOAppApiGateway/apiateway/BOGetLeadsHistories")
+    @Headers("Accept: application/json")
+    suspend fun getSmartFuelHistory(
+        @Header("Authorization") auth: String,
+        @Body request: SmartFuelHistoryRequest
+    ): SmartFuelHistoryResponse
+
+    //HomeScreen
+
+    @POST("BOAppApiGateway/apiateway/BOUpdateDutyStatus")
+    @Headers("Accept: application/json")
+    suspend fun dutyStatus(
+        @Header("Authorization") auth: String,
+        @Body request: DutyStatusRequest
+    ): DutyStatusResponse
+
+    @POST("BOAppApiGateway/apiateway/BOHomeMenuItems")
+    @Headers("Accept: application/json")
+    suspend fun getAllHomeCountStatus(
+        @Header("Authorization") credentials: String,
+        @Body homeCountRequest: HomeCountRequest
+    ): HomeCountResponse
 
 
     @POST("TrucksUpAPIGateway/gateway/CitySearch")
@@ -250,6 +283,7 @@ interface ApiService {
     @Headers("Accept: application/json")
     suspend fun getAddLoadFilter(@Body request: AddLoadFilterRequest): AddLoadFilterResponse
 
+    //New OnBoarding TS/BA/GP
 
     @POST("Apigateway/Gateway/AddOwnerData")
     @Headers("Accept: application/json")
@@ -272,24 +306,7 @@ interface ApiService {
         @Body request: PrefferLanRequest
     ): PrefferdResponse
 
-    @POST("BOAppApiGateway/apiateway/BOAddSmartFuelLeads")
-    @Headers("Accept: application/json")
-    suspend fun addSmartFuelLead(
-        @Header("Authorization") auth: String,
-        @Body request: AddSmartFuelLeadRequest
-    ): AddSmartFuelLeadResponse
+    //Schedule Meeting
 
-    @POST("BOAppApiGateway/apiateway/BOGetLeadsHistories")
-    @Headers("Accept: application/json")
-    suspend fun getSmartFuelHistory(
-        @Header("Authorization") auth: String,
-        @Body request: SmartFuelHistoryRequest
-    ): SmartFuelHistoryResponse
 
-    @POST("BOAppApiGateway/apiateway/BOUpdateDutyStatus")
-    @Headers("Accept: application/json")
-    suspend fun dutyStatus(
-        @Header("Authorization") auth: String,
-        @Body request: DutyStatusRequest
-    ): DutyStatusResponse
 }

@@ -1,18 +1,13 @@
 package com.trucksup.field_officer.presenter.view.activity.auth.login
 
-import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
-import android.provider.Settings
 import android.text.TextUtils
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.google.gson.Gson
 import com.trucksup.field_officer.R
@@ -20,7 +15,6 @@ import com.trucksup.field_officer.data.model.authModel.LoginRequest
 import com.trucksup.field_officer.databinding.ActivityLoginBinding
 import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.AppVersionUtils
-import com.trucksup.field_officer.presenter.common.Utils
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.utils.CommonApplication
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
@@ -40,7 +34,6 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
     private var loginPrefsEditor: SharedPreferences.Editor? = null
     private var saveLogin: Boolean? = null
 
-    //  private FirebaseAnalytics mFirebaseAnalytics;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mLoginBinding = ActivityLoginBinding.inflate(layoutInflater)
@@ -146,11 +139,6 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                 if (TextUtils.isEmpty(mLoginBinding?.phoneTxt?.text.toString().trim())) {
                     mLoginBinding?.phoneTxt?.error = getString(R.string.enter_mobile_number)
                     mLoginBinding?.phoneTxt?.requestFocus()
-                    /*LoggerMessage.onSNACK(
-                        this.mLoginBinding?.phoneTxt!!,
-                        "Please enter mobile no.",
-                        this
-                    )*/
                     return
                 }
 
@@ -208,7 +196,13 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                     showProgressDialog(this, false)
                     mViewModel?.loginUser(PreferenceManager.getAuthToken(), request)
                 } else {
-                    mLoginBinding?.passwordTxt?.error = getString(R.string.password_validation)
+                    LoggerMessage.onSNACK(
+                        mLoginBinding?.passwordTxt!!,
+                        getString(R.string.password_validation),
+                        applicationContext
+                    )
+
+                    return
                 }
 
             } else {

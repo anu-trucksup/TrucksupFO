@@ -38,16 +38,12 @@ class FinanceActivity : BaseActivity(), ChipController, CityPicker {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_finance)
 
         mViewModel = ViewModelProvider(this)[FinanceViewModel::class.java]
-        //binding.name.setText(PreferenceManager.getUserData(this)?.profileName)
 
-        PreferenceManager.setPhoneNo("8303871415", this)
-
+        binding.name.setText(PreferenceManager.getUserData(this)?.profilename)
         binding.mobileNumber.setText(PreferenceManager.getPhoneNo(this))
+        binding.etReferralCode.setText(PreferenceManager.getUserData(this)?.referralcode)
 
         setupObserver()
-        //binding.etReferralCode.setText(PreferenceManager.getUserData(this)?.salesCode)
-
-        binding.etReferralCode.setText("7BGHJ9")
 
         getData()
     }
@@ -58,12 +54,11 @@ class FinanceActivity : BaseActivity(), ChipController, CityPicker {
             if (responseModel.serverError != null) {
                 dismissProgressDialog()
 
-                val abx =
-                    AlertBoxDialog(
-                        this@FinanceActivity,
-                        responseModel.serverError.toString(),
-                        "m"
-                    )
+                val abx = AlertBoxDialog(
+                    this@FinanceActivity,
+                    responseModel.serverError.toString(),
+                    "m"
+                )
                 abx.show()
             } else {
                 dismissProgressDialog()
@@ -72,8 +67,8 @@ class FinanceActivity : BaseActivity(), ChipController, CityPicker {
 
                     val inquiryList = responseModel.success.inquiryDetails as ArrayList<chipData>
                     dataList(inquiryList)
-
-                } else { }
+                } else {
+                }
             }
         }
 
@@ -82,10 +77,11 @@ class FinanceActivity : BaseActivity(), ChipController, CityPicker {
             if (responseModel.serverError != null) {
                 dismissProgressDialog()
 
-                val abx = AlertBoxDialog(this@FinanceActivity,
-                        responseModel.serverError.toString(),
-                        "m"
-                    )
+                val abx = AlertBoxDialog(
+                    this@FinanceActivity,
+                    responseModel.serverError.toString(),
+                    "m"
+                )
                 abx.show()
             } else {
                 dismissProgressDialog()
@@ -98,7 +94,6 @@ class FinanceActivity : BaseActivity(), ChipController, CityPicker {
                     )
 
                 } else {
-
                 }
             }
         }

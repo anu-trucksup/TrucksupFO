@@ -19,13 +19,13 @@ import okhttp3.MultipartBody
 import javax.inject.Inject
 
 @HiltViewModel
-class EditProfileViewModel @Inject constructor(val apiUseCase: APIUseCase) : ViewModel() {
+class TotalDownloadViewModel @Inject constructor(val apiUseCase: APIUseCase) : ViewModel() {
 
-    private var resultProfile: MutableLiveData<ResponseModel<PinCodeResponse>> =
+    private var resultSCbyPinCode: MutableLiveData<ResponseModel<PinCodeResponse>> =
         MutableLiveData<ResponseModel<PinCodeResponse>>()
-    val resultProfileLD: LiveData<ResponseModel<PinCodeResponse>> = resultProfile
+    val resultSCbyPinCodeLD: LiveData<ResponseModel<PinCodeResponse>> = resultSCbyPinCode
 
-    fun updateProfile(token: String, request: PinCodeRequest) {
+    fun getCityStateByPin(token: String, request: PinCodeRequest) {
         CoroutineScope(Dispatchers.IO).launch {
             when (val response = apiUseCase.getCityStateByPin(
                 token,
@@ -33,11 +33,11 @@ class EditProfileViewModel @Inject constructor(val apiUseCase: APIUseCase) : Vie
             )) {
                 is ResultWrapper.ServerResponseError -> {
                     Log.e("API Error", response.error ?: "")
-                    resultProfile.postValue(ResponseModel(serverError = response.error))
+                    resultSCbyPinCode.postValue(ResponseModel(serverError = response.error))
                 }
 
                 is ResultWrapper.Success -> {
-                    resultProfile.postValue(ResponseModel(success = response.value))
+                    resultSCbyPinCode.postValue(ResponseModel(success = response.value))
                 }
             }
         }

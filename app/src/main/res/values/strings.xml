@@ -614,10 +614,9 @@
     <font color="#DB5015">Kawach</font>
     </string>
 
-    <string name="enter_password">Please Enter Password.</string>
-    <string name="valid_name_format">Enter valid name format.</string>
-    <string name="enterProfileName">Enter Profile name</string>
-    <string name="enter_valid_mobile">Enter valid mobile number.</string>
+    <string name="enter_password">Please input password.</string>
+    <string name="valid_name_format">Enter valid profile name format.</string>
+    <string name="enterProfileName">Please input profile name.</string>
 
     <string name="business_document">Business document</string>
     <string name="visiting_card">Visiting card</string>
@@ -712,7 +711,9 @@
     <string name="error_mobile">Enter Mobile Number</string>
     <string name="password_hint">*************</string>
     <string name="pan_photo_">PAN Photo <font color='#FF0000'>*</font></string>
-    <string name="mobile_no_validation">Enter a valid 10-digit mobile number</string>
-    <string name="password_validation"><![CDATA[Password must be at least 8 characters, include upper, lower, number & special character.]]></string>
+    <string name="mobile_no_validation">Please enter correct mobile number.</string>
+    <string name="password_validation">Password must be at least 8 characters, include upper, lower, number &amp; special character.</string>
+    <string name="enter_confirm_password">Please Enter Confirm Password.</string>
+    <string name="password_match">Passwords do not match. Please try again.</string>
 
 </resources>

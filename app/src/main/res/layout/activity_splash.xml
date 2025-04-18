@@ -13,30 +13,31 @@
         android:layout_height="match_parent"
         android:background="#ccffffff">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:paddingHorizontal="@dimen/_30sdp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:layout_width="@dimen/_150sdp"
-                android:layout_height="@dimen/_150sdp"
-                android:src="@drawable/welcom_en_lg" />
+                android:id="@+id/iv_log"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_120sdp"
+               android:src="@drawable/logo_blue" />
 
             <TextView
+                style="@style/label_semi18"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/bai_jamjuree_bold"
-                android:gravity="center"
-                android:text="@string/field_officer"
-                android:textColor="#2e318a"
-                android:textSize="@dimen/_19sdp" />
+                android:layout_below="@+id/iv_log"
+                android:layout_centerInParent="true"
+                android:text="@string/field_officer" />
 
-        </LinearLayout>
+        </RelativeLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
