@@ -477,21 +477,6 @@ class SignUpActivity : BaseActivity(), View.OnClickListener, TrucksFOImageContro
         return (m.find() && m.group() == phone)
     }
 
-    private fun getSpecialCharacterCount(s: String?): Int {
-
-        val blockCharacterSet =
-            "~#^&|$%*!@/()[]-'\":;,?{}+=!$^';,?×÷<>{}€£¥₩%~`¤♡♥_|《》¡¿°•○●□■◇◆♧♣▲▼▶◀↑↓←→☆★▪"
-        blockCharacterSet.toCharArray()
-
-        for (b in blockCharacterSet) {
-            if (s!!.contains(b)) {
-
-                return 0
-                break
-            }
-        }
-        return 1
-    }
 
     override fun getImage(valuekey: String, url: String) {
         dismissProgressDialog()

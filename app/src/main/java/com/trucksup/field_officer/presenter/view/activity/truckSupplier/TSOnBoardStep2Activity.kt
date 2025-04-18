@@ -406,21 +406,6 @@ class TSOnBoardStep2Activity : BaseActivity(), PreferredLaneAdap.ControllerListe
 
     }
 
-    private fun getSpecialCharacterCount(s: String?): Int {
-
-        val blockCharacterSet =
-            "~#^&|$%*!@/()[]-'\":;,?{}+=!$^';,?×÷<>{}€£¥₩%~`¤♡♥_|《》¡¿°•○●□■◇◆♧♣▲▼▶◀↑↓←→☆★▪"
-        blockCharacterSet.toCharArray()
-
-        for (b in blockCharacterSet) {
-            if (!TextUtils.isEmpty(s) && s!!.contains(b)) {
-                return 0
-                break
-            }
-        }
-        return 1
-    }
-
     private fun addPreferredLane(context: Context) {
         val builder = AlertDialog.Builder(context)
         val binding = PreferredLaneDialogBinding.inflate(LayoutInflater.from(context))

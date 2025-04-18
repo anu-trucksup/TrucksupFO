@@ -101,7 +101,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/bai_jamjuree_medium"
-                    android:text="Test Business"
+                    android:text="NA"
                     android:textColor="@color/blue"
                     android:textSize="@dimen/_11sdp" />
             </LinearLayout>
@@ -127,7 +127,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/bai_jamjuree_medium"
-                    android:text="+91-9999999999"
+                    android:text="-"
                     android:textColor="@color/blue"
                     android:textSize="@dimen/_11sdp" />
 
@@ -144,7 +144,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1.5"
                 android:fontFamily="@font/bai_jamjuree_medium"
-                android:text="Did you meet the BA today?"
+                android:text="@string/meet_the_ba_today"
                 android:textColor="@color/blue"
                 android:textSize="@dimen/_11sdp" />
 
@@ -157,7 +157,7 @@
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:cardBackgroundColor="@color/green_1"
+                    app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="@dimen/_6sdp"
                     app:strokeColor="#0D8418"
                     app:strokeWidth="1dp">
@@ -166,17 +166,15 @@
                         android:id="@+id/metWithShipperYes"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/_25sdp"
+                        android:background="@color/green_1"
                         android:drawableStart="@drawable/yes_icon"
                         android:drawablePadding="@dimen/_3sdp"
-                        android:fontFamily="@font/bai_jamjuree_medium"
+                        style="@style/text_medium"
                         android:gravity="center"
                         android:paddingStart="@dimen/_10sdp"
                         android:paddingEnd="@dimen/_10sdp"
-                        android:text="Yes"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_14sdp"
-                        app:drawableTint="@color/white"
-                        android:background="@color/green_1"/>
+                        android:text="@string/yes"
+                        app:drawableTint="@color/primery_text" />
 
                 </com.google.android.material.card.MaterialCardView>
 
@@ -195,13 +193,11 @@
                         android:layout_height="@dimen/_25sdp"
                         android:drawableStart="@drawable/no_icon"
                         android:drawablePadding="@dimen/_3sdp"
-                        android:fontFamily="@font/bai_jamjuree_medium"
+                        style="@style/text_medium"
                         android:gravity="center"
                         android:paddingStart="@dimen/_10sdp"
                         android:paddingEnd="@dimen/_10sdp"
-                        android:text="No"
-                        android:textColor="@color/primery_text"
-                        android:textSize="@dimen/_14sdp"
+                        android:text="@string/no"
                         app:drawableTint="@color/primery_text" />
 
                 </com.google.android.material.card.MaterialCardView>
@@ -224,7 +220,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1.5"
                     android:fontFamily="@font/bai_jamjuree_medium"
-                    android:text="Whom did you meet?"
+                    android:text="@string/whom_did_you_meet"
                     android:textColor="@color/blue"
                     android:textSize="@dimen/_11sdp" />
 
@@ -240,7 +236,7 @@
                         android:layout_weight="2"
                         android:fontFamily="@font/bai_jamjuree_medium"
                         android:maxLines="1"
-                        android:text="Name*"
+                        android:text="@string/name_star_"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_11ssp" />
 
@@ -272,7 +268,7 @@
                         android:layout_weight="2"
                         android:fontFamily="@font/bai_jamjuree_medium"
                         android:maxLines="1"
-                        android:text="Mobile Number*"
+                        android:text="@string/mobile_number_"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_11ssp" />
 
@@ -331,17 +327,15 @@
                         android:layout_centerInParent="true"
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
+                        android:background="@color/green_1"
                         android:drawableStart="@drawable/yes_icon"
                         android:drawablePadding="@dimen/_3sdp"
-                        android:drawableTint="@color/white"
-                        android:fontFamily="@font/bai_jamjuree_medium"
+                        android:drawableTint="@color/primery_text"
+                        style="@style/text_medium"
                         android:gravity="center"
                         android:paddingStart="@dimen/_10sdp"
                         android:paddingEnd="@dimen/_10sdp"
-                        android:text="Yes"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_14sdp"
-                        android:background="@color/green_1"/>
+                        android:text="@string/yes"/>
 
                 </com.google.android.material.card.MaterialCardView>
 
@@ -362,13 +356,11 @@
                         android:drawableStart="@drawable/no_icon"
                         android:drawablePadding="@dimen/_3sdp"
                         android:drawableTint="@color/primery_text"
-                        android:fontFamily="@font/bai_jamjuree_medium"
+                        style="@style/text_medium"
                         android:gravity="center"
                         android:paddingStart="@dimen/_10sdp"
                         android:paddingEnd="@dimen/_10sdp"
-                        android:text="No"
-                        android:textColor="@color/primery_text"
-                        android:textSize="@dimen/_14sdp" />
+                        android:text="@string/no"/>
 
                 </com.google.android.material.card.MaterialCardView>
 
@@ -383,8 +375,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-              >
+                android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -493,10 +484,10 @@
 
                     <CheckBox
                         android:id="@+id/gps"
+                        style="@style/label_semi16"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="GPS"
-                        style="@style/label_semi16"
                         app:buttonTint="@color/theme_color" />
                 </RelativeLayout>
 
@@ -507,10 +498,10 @@
 
                     <CheckBox
                         android:id="@+id/insurance"
+                        style="@style/label_semi16"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Insurance"
-                        style="@style/label_semi16"
                         app:buttonTint="@color/theme_color" />
                 </RelativeLayout>
             </LinearLayout>
@@ -527,10 +518,10 @@
 
                     <CheckBox
                         android:id="@+id/fastag"
+                        style="@style/label_semi16"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="FASTag"
-                        style="@style/label_semi16"
                         app:buttonTint="@color/theme_color" />
                 </RelativeLayout>
 
@@ -541,10 +532,10 @@
 
                     <CheckBox
                         android:id="@+id/finance"
+                        style="@style/label_semi16"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Finance"
-                        style="@style/label_semi16"
                         app:buttonTint="@color/theme_color" />
                 </RelativeLayout>
 
@@ -563,10 +554,10 @@
 
                     <CheckBox
                         android:id="@+id/sell_buy"
+                        style="@style/label_semi16"
                         android:layout_width="@dimen/_minus5sdp"
                         android:layout_height="wrap_content"
                         android:text="TrucksHUb"
-                        style="@style/label_semi16"
                         app:buttonTint="@color/theme_color" />
 
 
@@ -579,10 +570,10 @@
 
                     <CheckBox
                         android:id="@+id/cb_smartfuel"
+                        style="@style/label_semi16"
                         android:layout_width="@dimen/_minus5sdp"
                         android:layout_height="wrap_content"
                         android:text="Smart Fuel"
-                        style="@style/label_semi16"
                         app:buttonTint="@color/theme_color" />
                 </RelativeLayout>
 
@@ -592,18 +583,18 @@
 
             <CheckBox
                 android:id="@+id/subscriptionPlan"
+                style="@style/label_semi16"
                 android:layout_width="@dimen/_minus5sdp"
                 android:layout_height="wrap_content"
                 android:text="Subscription Plan"
-                style="@style/label_semi16"
                 app:buttonTint="@color/theme_color" />
 
             <CheckBox
                 android:id="@+id/Gift"
+                style="@style/label_semi16"
                 android:layout_width="@dimen/_minus5sdp"
                 android:layout_height="wrap_content"
                 android:text="Gift"
-                style="@style/label_semi16"
                 app:buttonTint="@color/theme_color" />
 
             <TextView
@@ -611,12 +602,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:fontFamily="@font/bai_jamjuree_medium"
-                android:text="Remarks*"
+                android:text="@string/remarks"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_11ssp" />
 
             <EditText
-                android:id="@+id/remark"
+                android:id="@+id/eTRemark"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
@@ -711,7 +702,7 @@
                     android:fontFamily="@font/bai_jamjuree_medium"
                     android:paddingHorizontal="@dimen/_30sdp"
                     android:paddingVertical="@dimen/_4sdp"
-                    android:text="Submit"
+                    android:text="@string/submit"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_12ssp" />
 

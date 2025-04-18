@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.text.TextUtils
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
@@ -14,11 +15,13 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.net.toUri
 import androidx.lifecycle.ViewModelProvider
 import com.google.gson.Gson
+import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ActivityBaSchedulemeetingBinding
 import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.CameraActivity
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.utils.CommonApplication
+import com.trucksup.field_officer.presenter.utils.LoggerMessage
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
 import com.trucksup.field_officer.presenter.view.activity.auth.login.LoginViewModel
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.CompleteMeetingBARequest
@@ -39,6 +42,9 @@ class BAScheduleMeetingActivity : BaseActivity() {
     private var launcher: ActivityResultLauncher<Intent>? = null
     private var mViewModel: BAScheduleMeetingVM? = null
 
+    private var isMeetBAToday: Boolean = false
+    private var isLoadAddedToday: Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityBaSchedulemeetingBinding.inflate(layoutInflater)
@@ -46,6 +52,9 @@ class BAScheduleMeetingActivity : BaseActivity() {
         setContentView(binding.root)
 
         mViewModel = ViewModelProvider(this)[BAScheduleMeetingVM::class.java]
+
+        binding.firmName.text = "" + PreferenceManager.getUserData(this)?.profilename
+        binding.mobile.text = "" + PreferenceManager.getPhoneNo(this)
 
         setListeners()
         setupObserver()
@@ -73,40 +82,148 @@ class BAScheduleMeetingActivity : BaseActivity() {
              startForResult.launch(camera_intent)*/
         }
 
+        binding.metWithShipperYes.setOnClickListener {
+            isMeetBAToday = true
+            resetSelectionMeetBA()
+            binding.metWithShipperYes.setBackgroundColor(resources.getColor(R.color.green_1))
+        }
+
+        binding.metWithShipperNo.setOnClickListener {
+            isMeetBAToday = false
+            resetSelectionMeetBA()
+            binding.metWithShipperNo.setBackgroundColor(resources.getColor(R.color.green_1))
+        }
+
+        binding.loadYesButton.setOnClickListener {
+            isLoadAddedToday = true
+            resetLoadAdded()
+            binding.loadYesButton.setBackgroundColor(resources.getColor(R.color.green_1))
+        }
+
+        binding.loadNoButton.setOnClickListener {
+            isLoadAddedToday = false
+            resetLoadAdded()
+            binding.loadNoButton.setBackgroundColor(resources.getColor(R.color.green_1))
+        }
+
         binding.btnSubmit.setOnClickListener {
-            val request = CompleteMeetingBARequest(
-                boid = 1,
-                contact_MobileNo = "7355689120",
-                contact_Person = "test",
-                currAddress = "test",
-                currLocation = "test",
-                cust_Meeting = true,
-                face_ImageKey = "test",
-                fastTag = true,
-                finance = true,
-                followUpDate = "2025-04-17T04:33:07.250Z",
-                gift = true,
-                gps = true,
-                id = 2,
-                insurance = true,
-                isLoadGiven = true,
-                latitude = "122.12",
-                longitude = "222.22",
-                office_ImageKey = "test",
-                remarks = "test",
-                requestDatetime = "2025-04-17T04:33:07.250Z",
-                requestId = 12,
-                requestedBy = "8527257606",
-                smartFuel = true,
-                subscription_Plan = true,
-                trucksHub = true
-            )
-            mViewModel?.onCompleteMeetingBA(request)
+
+         val profileDetail = PreferenceManager.getUserData(this)
+            if (validateFields()) {
+                val request = CompleteMeetingBARequest(
+                    boid = profileDetail?.boUserid?.toInt()!!,
+                    contact_MobileNo = binding.etMobileNumber.text.toString(),
+                    contact_Person = binding.etName.text.toString(),
+                    currAddress = "test",
+                    currLocation = "test",
+                    cust_Meeting = true,
+                    face_ImageKey = "test",
+                    fastTag = true,
+                    finance = true,
+                    followUpDate = PreferenceManager.getServerDateUtc(),
+                    gift = true,
+                    gps = true,
+                    id = 2,
+                    insurance = true,
+                    isLoadGiven = true,
+                    latitude = "122.12",
+                    longitude = "222.22",
+                    office_ImageKey = "test",
+                    remarks = binding.eTRemark.text.toString(),
+                    requestDatetime = PreferenceManager.getServerDateUtc(),
+                    requestId = PreferenceManager.getRequestNo().toInt(),
+                    requestedBy = PreferenceManager.getPhoneNo(this),
+                    smartFuel = true,
+                    subscription_Plan = true,
+                    trucksHub = true
+                )
+                mViewModel?.onCompleteMeetingBA(request)
+            }
+
         }
 
         binding.btnCancel.setOnClickListener {
             finish()
         }
+    }
+
+    private fun validateFields(): Boolean {
+        if (TextUtils.isEmpty(binding.etName.text)) {
+            LoggerMessage.onSNACK(
+                binding.etName,
+                resources.getString(R.string.enterYourName),
+                this
+            )
+            return false
+        }
+
+
+        if (getSpecialCharacterCount(binding.etName?.text.toString()) == 0) {
+            LoggerMessage.onSNACK(
+                binding.etName,
+                resources.getString(R.string.enterYourrightName),
+                this
+            )
+            return false
+        }
+
+        if (TextUtils.isEmpty(binding.etMobileNumber.text)) {
+            LoggerMessage.onSNACK(
+                binding.etMobileNumber,
+                resources.getString(R.string.enter_mobile_no),
+                this
+            )
+            return false
+        }
+
+        if (binding.etMobileNumber.text.length < 10) {
+            LoggerMessage.onSNACK(
+                binding.etMobileNumber,
+                resources.getString(R.string.enter_right_number_v),
+                this
+            )
+            return false
+        }
+
+        if (!isValidMobile(binding.etMobileNumber.text.toString())) {
+            LoggerMessage.onSNACK(
+                binding.etMobileNumber,
+                resources.getString(R.string.enter_right_number_v),
+                this
+            )
+            return false
+        }
+
+        if (TextUtils.isEmpty(binding.eTRemark.text)) {
+            LoggerMessage.onSNACK(
+                binding.eTRemark,
+                resources.getString(R.string.enterCommercialVehical),
+                this
+            )
+            return false
+        }
+
+     /*   if (TextUtils.isEmpty(binding.etInsValidity.text) && list.size == 0) {
+            LoggerMessage.onSNACK(
+                binding.etInsValidity,
+                resources.getString(R.string.insurance_validity_error),
+                this
+            )
+            return false
+        }*/
+
+
+        return true
+    }
+
+    private fun resetSelectionMeetBA() {
+        binding.metWithShipperYes.setBackgroundColor(resources.getColor(R.color.white))
+        binding.metWithShipperNo.setBackgroundColor(resources.getColor(R.color.white))
+    }
+
+    private fun resetLoadAdded() {
+        binding.loadYesButton.setBackgroundColor(resources.getColor(R.color.white))
+        binding.loadNoButton.setBackgroundColor(resources.getColor(R.color.white))
     }
 
     private fun setupObserver() {
@@ -125,8 +242,10 @@ class BAScheduleMeetingActivity : BaseActivity() {
 
                 if (responseModel.success?.statuscode == 200) {
 
-                    Toast.makeText(this, "Meeting Scheduled Successfully.", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this@BAScheduleMeetingActivity, BAFollowupActivity::class.java)
+                    Toast.makeText(this, "Meeting Scheduled Successfully.", Toast.LENGTH_SHORT)
+                        .show()
+                    val intent =
+                        Intent(this@BAScheduleMeetingActivity, BAFollowupActivity::class.java)
                     startActivity(intent)
                     finish()
 
@@ -154,7 +273,8 @@ class BAScheduleMeetingActivity : BaseActivity() {
                 try {
                     val imageUris: Uri = data!!.getStringExtra("result")!!.toUri()
                     val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(
-                        contentResolver, Uri.parse(imageUris.toString()))
+                        contentResolver, Uri.parse(imageUris.toString())
+                    )
 
                     // Set the image in imageview for display
                     handleImageCapture(bitmap)

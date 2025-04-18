@@ -3,6 +3,7 @@
     <string name="app_name">Field Officer</string>
 
     <string name="mobile_number">Mobile number</string>
+    <string name="mobile_number_">Mobile number <font color='#FF0000'>*</font></string>
     <string name="welcome_back">Welcome Back</string>
     <string name="resend_in_3_30">Resend in 3:30</string>
     <string name="log_in">Log in </string>
@@ -54,7 +55,7 @@
         <item>Passport</item>
     </string-array>
 
-
+    <string name="name_star_">Name <font color='#FF0000'>*</font></string>
     <string name="password">Password</string>
     <string name="get_started_with_sign">Get started with sign up or log in.</string>
     <string name="confirm_password">Confirm Password</string>
@@ -325,7 +326,7 @@
     <string name="owner_office_photo">Owner office photo</string>
     <string name="gps">GPS</string>
     <string name="subscription_plan">Subscription Plan</string>
-    <string name="remarks">Remarks*</string>
+    <string name="remarks">Remarks <font color='#FF0000'>*</font></string>
     <string name="select_follow_up_date">Select Follow-up date</string>
     <string name="owned_truck">Owned</string>
 
@@ -333,9 +334,9 @@
     <string name="enter_dL_number_and_dob_for_verification">For verification enter your DL number and DOB</string>
     <string name="balance_dl_verification">Balance DL Verification</string>
     <string name="buy_dl_verification">Buy DL Verification</string>
-    <string name="dl_number">Driving License Number *</string>
+    <string name="dl_number">Driving License Number <font color='#FF0000'>*</font></string>
     <string name="enter_dl_number">Enter Driving License Number</string>
-    <string name="dl_date_of_birth">Date Of Birth *</string>
+    <string name="dl_date_of_birth">Date Of Birth <font color='#FF0000'>*</font></string>
     <string name="verified_driving_licence">Verified Driving Licenses</string>
     <string name="view_all"><u>View All</u></string>
     <string name="dl_name">Driving License Name</string>
@@ -715,5 +716,7 @@
     <string name="password_validation">Password must be at least 8 characters, include upper, lower, number &amp; special character.</string>
     <string name="enter_confirm_password">Please Enter Confirm Password.</string>
     <string name="password_match">Passwords do not match. Please try again.</string>
+    <string name="meet_the_ba_today">Did you meet the BA today?</string>
+    <string name="whom_did_you_meet">Whom did you meet?</string>
 
 </resources>

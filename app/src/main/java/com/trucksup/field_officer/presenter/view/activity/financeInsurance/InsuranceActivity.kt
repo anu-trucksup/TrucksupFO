@@ -1073,21 +1073,6 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
         return (m.find() && m.group() == phone)
     }
 
-    private fun getSpecialCharacterCount(s: String?): Int {
-        val blockCharacterSet =
-            "1234567890~#^&|$%*!@/()[]-'\":;,?{}+=!$^';,?×÷<>{}€£¥₩%~`¤♡♥_|《》¡¿°•○●□■◇◆♧♣▲▼▶◀↑↓←→☆★▪"
-        blockCharacterSet.toCharArray()
-
-        for (b in blockCharacterSet) {
-            if (s!!.contains(b)) {
-
-                return 0
-                break
-            }
-        }
-        return 1
-    }
-
     private fun disableEmojiInTitle() {
         val emojiFilter = InputFilter { source, start, end, dest, dstart, dend ->
             for (index in start until end) {

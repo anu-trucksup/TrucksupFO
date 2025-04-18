@@ -355,19 +355,4 @@ class FinanceActivity : BaseActivity(), ChipController, CityPicker {
         return (m.find() && m.group() == phone)
     }
 
-    private fun getSpecialCharacterCount(s: String?): Int {
-        val blockCharacterSet =
-            "1234567890~#^&|$%*!@/()[]-'\":;,?{}+=!$^';,?×÷<>{}€£¥₩%~`¤♡♥_|《》¡¿°•○●□■◇◆♧♣▲▼▶◀↑↓←→☆★▪"
-        blockCharacterSet.toCharArray()
-
-        for (b in blockCharacterSet) {
-            if (s!!.contains(b)) {
-
-                return 0
-                break
-            }
-        }
-        return 1
-    }
-
 }
