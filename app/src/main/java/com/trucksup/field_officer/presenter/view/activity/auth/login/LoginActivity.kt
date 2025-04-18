@@ -137,7 +137,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
 
             if (isOnline(this)) {
                 if (TextUtils.isEmpty(mLoginBinding?.phoneTxt?.text.toString().trim())) {
-                    mLoginBinding?.phoneTxt?.error = getString(R.string.enter_mobile_number)
+                    mLoginBinding?.phoneTxt?.error = getString(R.string.enter_mobile_no)
                     mLoginBinding?.phoneTxt?.requestFocus()
                     return
                 }
@@ -190,7 +190,10 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                         profilename = "",
                         profilephoto = "",
                         mobilenumber = mLoginBinding?.phoneTxt?.text.toString(),
-                        password = password
+                        password = password,
+                        latitude = getString(R.string.demoLatitude),
+                        longitude = getString(R.string.demoLongitude),
+                        confirmPassword = password
                     )
 
                     showProgressDialog(this, false)
@@ -228,5 +231,6 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         super.onBackPressed()
         System.exit(0)
     }
+
 
 }

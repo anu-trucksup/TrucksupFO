@@ -1,21 +1,39 @@
 package com.trucksup.field_officer.presenter.common.parent
 
+import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
 import android.content.res.Configuration
+import android.location.Geocoder
+import android.location.Location
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
-import android.util.Patterns
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.Priority
+import com.google.android.gms.tasks.CancellationTokenSource
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.MultiplePermissionsReport
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.trucksup.field_officer.presenter.common.dialog.ProgressDialogBox
+import java.util.Locale
 
 open class BaseActivity : AppCompatActivity() {
     private var progressDialog: ProgressDialogBox? = null
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
     }
 
 
@@ -98,4 +116,5 @@ open class BaseActivity : AppCompatActivity() {
         val mobileRegex = Regex("^[6-9]\\d{9}\$")
         return mobileRegex.matches(number)
     }
+
 }

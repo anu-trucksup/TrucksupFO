@@ -103,8 +103,8 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginBottom="@dimen/_4sdp"
-                                    android:text="@string/mobile_number"
-                                    tools:text="@string/mobile_number" />
+                                    android:text="@string/mobile_number_r"
+                                    tools:text="@string/mobile_number_r" />
 
                                 <com.google.android.material.card.MaterialCardView
                                     android:layout_width="match_parent"

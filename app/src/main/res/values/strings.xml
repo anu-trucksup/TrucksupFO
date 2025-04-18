@@ -3,10 +3,11 @@
     <string name="app_name">Field Officer</string>
 
     <string name="mobile_number">Mobile number</string>
+    <string name="mobile_number_r">Mobile number <font color='#FF0000'>*</font></string>
     <string name="welcome_back">Welcome Back</string>
     <string name="resend_in_3_30">Resend in 3:30</string>
-    <string name="log_in">Log in </string>
-    <string name="sign_up">Sign up</string>
+    <string name="log_in">Log In </string>
+    <string name="sign_up">Sign Up</string>
     <string name="pin_code">Pin Code</string>
     <string name="address">Address</string>
     <string name="city">City</string>
@@ -55,22 +56,22 @@
     </string-array>
 
 
-    <string name="password">Password</string>
+    <string name="password">Password <font color='#FF0000'>*</font></string>
     <string name="get_started_with_sign">Get started with sign up or log in.</string>
-    <string name="confirm_password">Confirm Password</string>
+    <string name="confirm_password">Confirm Password <font color='#FF0000'>*</font></string>
     <string name="recover_your_password">Recover Your Password</string>
     <string name="reset_tag">Enter your mobile number to recover your password.</string>
     <string name="otp_tag">Generate Verification Code</string>
     <string name="update">Update</string>
-    <string name="sign_up_here">Sign up Here.</string>
+    <string name="sign_up_here">Sign Up Here.</string>
     <string name="don_t_have_an_account">Don’t have an account?</string>
-    <string name="lets_get_started">Lets get started</string>
-    <string name="forgot_password">Forgot password?</string>
+    <string name="lets_get_started">Let\'s get started</string>
+    <string name="forgot_password">Forgot Password?</string>
     <string name="remember_me">Remember Me</string>
     <string name="name_star">Profile Name <font color='#FF0000'>*</font></string>
     <string name="type">Type here..</string>
     <string name="profilePhoto_star">Profile Photo <font color='#FF0000'>*</font></string>
-    <string name="enterProfilePhoto">Please add the profile photo</string>
+    <string name="enterProfilePhoto">Please upload the profile photo.</string>
     <string name="ok">Ok</string>
     <string name="log_in_here">Log In Here</string>
     <string name="you_already_have_an_account">You already have an account?</string>
@@ -245,8 +246,8 @@
     <string name="enterYourrightName">Please input a valid name.</string>
     <string name="insurance_mobileNo">Mobile Number <font color='#FF0000'>*</font></string>
     <string name="insurance_vehicle_no">Vehicle No. <font color='#FF0000'>*</font></string>
-    <string name="enter_right_number_v">Please input a valid mobile number.</string>
-    <string name="enter_mobile_no">Please input mobile number.</string>
+    <string name="enter_right_number_v">Please enter the correct mobile number.</string>
+    <string name="enter_mobile_no">Please input your registered mobile number.</string>
     <string name="slectCity">Please input the city.</string>
     <string name="enterState">Please input the state.</string>
     <string name="enterRightCommercialVehical">Please input a valid vehicle number.</string>
@@ -615,8 +616,8 @@
     </string>
 
     <string name="enter_password">Please input password.</string>
-    <string name="valid_name_format">Enter valid profile name format.</string>
-    <string name="enterProfileName">Please input profile name.</string>
+    <string name="valid_name_format">Please input valid profile name.</string>
+    <string name="enterProfileName">Please input your profile name.</string>
 
     <string name="business_document">Business document</string>
     <string name="visiting_card">Visiting card</string>
@@ -713,7 +714,9 @@
     <string name="pan_photo_">PAN Photo <font color='#FF0000'>*</font></string>
     <string name="mobile_no_validation">Please enter correct mobile number.</string>
     <string name="password_validation">Password must be at least 8 characters, include upper, lower, number &amp; special character.</string>
-    <string name="enter_confirm_password">Please Enter Confirm Password.</string>
-    <string name="password_match">Passwords do not match. Please try again.</string>
+    <string name="enter_confirm_password">Please input confirm password.</string>
+    <string name="password_match">The confirm password does not match the original password.</string>
+    <string name="demoLatitude">28.3388° N</string>
+    <string name="demoLongitude">77.3206° E</string>
 
 </resources>

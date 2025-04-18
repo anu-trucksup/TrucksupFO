@@ -51,7 +51,7 @@ class SignUpActivity : BaseActivity(), View.OnClickListener, TrucksFOImageContro
         adjustFontScale(resources.configuration, 1.0f)
         setContentView(mSignUpBinding?.root)
 
-        enableEdgeToEdge()
+//        enableEdgeToEdge()
         //click Listener
         mSignUpBinding!!.topView.ivBack.setOnClickListener(this)
 
@@ -262,6 +262,14 @@ class SignUpActivity : BaseActivity(), View.OnClickListener, TrucksFOImageContro
                     return
                 }
 
+                if (!isValidMobile(mSignUpBinding?.phoneNoTxt?.text.toString()))
+                {
+                    mSignUpBinding?.phoneNoTxt?.error =
+                        resources.getString(R.string.mobile_no_validation)
+                    mSignUpBinding?.phoneNoTxt?.requestFocus()
+                    return
+                }
+
                 val password = mSignUpBinding!!.passwordTxt.text.toString()
                 if (password.isEmpty()) {
                     LoggerMessage.onSNACK(
@@ -341,7 +349,10 @@ class SignUpActivity : BaseActivity(), View.OnClickListener, TrucksFOImageContro
                         profilename = mSignUpBinding?.profileName?.text.toString(),
                         profilephoto = frontImgKey ?: "",
                         mobilenumber = mSignUpBinding?.phoneNoTxt?.text.toString(),
-                        password = mSignUpBinding?.passwordTxt?.text.toString()
+                        password = mSignUpBinding?.passwordTxt?.text.toString(),
+                        latitude = getString(R.string.demoLatitude),
+                        longitude = getString(R.string.demoLongitude),
+                        confirmPassword = mSignUpBinding?.confirmPasswordTxt?.text.toString()
                     )
 
                     signupViewModel?.signUp(PreferenceManager.getAuthToken(), request)
@@ -495,9 +506,15 @@ class SignUpActivity : BaseActivity(), View.OnClickListener, TrucksFOImageContro
 
     override fun getImage(valuekey: String, url: String) {
         dismissProgressDialog()
-        Glide.with(this)
-            .load(url)
-            .into(mSignUpBinding?.profileImage!!)
+        try {
+            Glide.with(this)
+                .load(url)
+                .into(mSignUpBinding?.profileImage!!)
+        }
+        catch (e:Exception)
+        {
+
+        }
         mSignUpBinding?.profileImage?.tag = "y"
 
         frontImgKey = valuekey
