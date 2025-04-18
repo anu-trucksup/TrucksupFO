@@ -6,15 +6,16 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.trucksup.field_officer.R
+import com.trucksup.field_officer.data.model.HomeServicesModel
 import com.trucksup.field_officer.databinding.ItemServicesDialogBinding
 
-class TUKawachDialogAdapter(var context: Context?) :
+class TUKawachDialogAdapter(var context: Context?, var tuKawachList:ArrayList<HomeServicesModel>) :
     RecyclerView.Adapter<TUKawachDialogAdapter.ViewHolder>() {
 
-    private val serviceList = arrayListOf("Vehicle Tracking","Vehicle Verification", "Driving License"
-    /*,"EMI Check", "Bank Account Verification","UPI Verification"*/)
-    private val imageList = arrayListOf(R.drawable.veh_track, R.drawable.veh_verify, R.drawable.dl_verify
-       /* R.drawable.emi_check, R.drawable.bank_verify, R.drawable.upi_verify*/)
+//    private val serviceList = arrayListOf("Vehicle Tracking","Vehicle Verification", "Driving License"
+//    /*,"EMI Check", "Bank Account Verification","UPI Verification"*/)
+//    private val imageList = arrayListOf(R.drawable.veh_track, R.drawable.veh_verify, R.drawable.dl_verify
+//       /* R.drawable.emi_check, R.drawable.bank_verify, R.drawable.upi_verify*/)
 
 
     inner class ViewHolder(var binding: ItemServicesDialogBinding) :
@@ -30,8 +31,9 @@ class TUKawachDialogAdapter(var context: Context?) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        holder.binding.ivImage.setImageResource(imageList[position])
-        holder.binding.tvTitle.text = serviceList[position]
+        holder.binding.ivImage.setImageResource(tuKawachList[position].serviceImage)
+        holder.binding.tvTitle.text = tuKawachList[position].service
+        holder.binding.tvCount.text= tuKawachList[position].serviceCount?:"0"
         holder.binding.root.setOnClickListener {
            /* val intent = Intent(context, MainActivity::class.java)
             context?.startActivity(intent)*/
@@ -39,6 +41,6 @@ class TUKawachDialogAdapter(var context: Context?) :
     }
 
     override fun getItemCount(): Int {
-        return imageList.size
+        return tuKawachList.size
     }
 }

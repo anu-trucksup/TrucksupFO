@@ -93,39 +93,43 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_16sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
                         android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/_nav_user_name"
+                            android:id="@+id/nav_user_name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_8sdp"
                             android:ellipsize="end"
-                            android:fontFamily="@font/bai_jamjuree_semi_bold"
+                            android:fontFamily="@font/bai_jamjuree_bold"
                             android:lines="1"
                             android:maxLines="1"
+                            android:text=""
                             android:textColor="@color/black"
-                            android:textSize="@dimen/_15ssp" />
+                            android:textSize="@dimen/_16ssp" />
 
-                        <LinearLayout
+                        <TextView
+                            android:id="@+id/nav_mobile_no"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:ellipsize="end"
+                            android:fontFamily="@font/bai_jamjuree_bold"
+                            android:lines="1"
+                            android:maxLines="1"
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_11ssp" />
 
-                            <TextView
-                                android:id="@+id/_nav_mobile_no"
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1.5"
-                                android:ellipsize="end"
-                                android:fontFamily="@font/bai_jamjuree_semi_bold"
-                                android:lines="1"
-                                android:maxLines="1"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/_9ssp" />
-
-                        </LinearLayout>
+                        <TextView
+                            android:id="@+id/nav_referral_code"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/bai_jamjuree_bold"
+                            android:lines="1"
+                            android:maxLines="1"
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_10ssp" />
 
                     </LinearLayout>
                 </LinearLayout>

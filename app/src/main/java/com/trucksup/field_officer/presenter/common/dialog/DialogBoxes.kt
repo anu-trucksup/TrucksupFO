@@ -1,6 +1,5 @@
 package com.trucksup.field_officer.presenter.common.dialog
 
-import android.app.Activity
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Context
@@ -13,7 +12,6 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -29,7 +27,6 @@ import com.trucksup.field_officer.databinding.OnOffDutyBinding
 import com.trucksup.field_officer.presenter.common.LoadingUtils
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
 import com.trucksup.field_officer.presenter.view.activity.dashboard.vml.DashBoardViewModel
-import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinanceDataLiatRequest
 import com.trucksup.field_officer.presenter.view.adapter.ImageAdapter
 import com.trucksup.field_officer.presenter.view.interfaces.AddLeadInterface
 import com.trucksup.field_officer.presenter.view.interfaces.AddMiscInterface
@@ -276,7 +273,7 @@ object DialogBoxes {
 
             val request = DutyStatusRequest(
                 1234,
-                ""+PreferenceManager.getPhoneNo(context),
+                123456,
                 dutyStatus,
                 latitude?:"",
                 address?:"",

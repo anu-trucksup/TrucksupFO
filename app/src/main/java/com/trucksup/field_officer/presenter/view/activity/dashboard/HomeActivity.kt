@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
@@ -33,6 +34,7 @@ import com.trucksup.field_officer.data.model.home.HomeCountRequest
 import com.trucksup.field_officer.data.model.home.MenuItemsCount
 import com.trucksup.field_officer.data.model.home.OtherItemsCount
 import com.trucksup.field_officer.data.model.home.TodayPerformanceCount
+import com.trucksup.field_officer.data.model.home.UserDetails
 import com.trucksup.field_officer.databinding.ActivityHomeBinding
 import com.trucksup.field_officer.databinding.HomeMainServicesDialogBinding
 import com.trucksup.field_officer.presenter.common.AlertBoxDialog
@@ -73,6 +75,9 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
     private var longitude:String?=null
     private var address:String?=null
     private var dutyStatus:Boolean=false
+    private var trackingCount:String?=null
+    private var verificationCount:String?=null
+    private var dlCount:String?=null
 
 
     override fun onStart() {
@@ -121,15 +126,6 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
         mViewModel?.getAllHomeCountStatus(request)
     }
 
-    private fun setDialogRvList(binding: HomeMainServicesDialogBinding) {
-
-        binding.rvMainServicesDialog.apply {
-            layoutManager = GridLayoutManager(this@HomeActivity, 2)
-            adapter = TUKawachDialogAdapter(this@HomeActivity)
-            hasFixedSize()
-        }
-    }
-
     private fun openFeatureDialog(context: Context) {
         val builder = AlertDialog.Builder(context)
         val binding = HomeMainServicesDialogBinding.inflate(LayoutInflater.from(context))
@@ -137,15 +133,26 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
         val dialog: AlertDialog = builder.create()
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
 
+        //tukawach list
+        var tuKawachList=ArrayList<HomeServicesModel>()
+        tuKawachList.add(HomeServicesModel("Vehicle Tracking",R.drawable.veh_track,trackingCount))
+        tuKawachList.add(HomeServicesModel("Vehicle Verification",R.drawable.veh_verify,verificationCount))
+        tuKawachList.add(HomeServicesModel("Driving License",R.drawable.dl_verify,dlCount))
+        binding.rvMainServicesDialog.apply {
+            layoutManager = GridLayoutManager(this@HomeActivity, 2)
+            adapter = TUKawachDialogAdapter(this@HomeActivity,tuKawachList)
+            hasFixedSize()
+        }
+
+        //cancel button
         binding.imgCancel.setOnClickListener {
             dialog.dismiss()
         }
-        setDialogRvList(binding)
+
         dialog.show()
     }
 
     private fun setListener() {
-
         //close drawer
         binding.navOpenBtn.setOnClickListener {
             binding.drawerLay.open()
@@ -440,7 +447,55 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
                     if (responseModel.success.statuscode==200) {
                         var serviceCounts:MenuItemsCount?=responseModel.success.homeMenuItems?.menuItemsCount
                         var earningCounts:OtherItemsCount?=responseModel.success.homeMenuItems?.otherItemsCount
-                        var featureCount:TodayPerformanceCount?=responseModel.success.homeMenuItems?.todayPerformanceCount
+                        var todayPerformanceCounts:TodayPerformanceCount?=responseModel.success.homeMenuItems?.todayPerformanceCount
+                        var userDetail:UserDetails?=responseModel.success.homeMenuItems?.userDetails
+
+                        //tracking count
+                        trackingCount=serviceCounts?.vehicleTracking
+
+                        //verification count
+                        verificationCount=serviceCounts?.vehicleVerification
+
+                        //dl count
+                        dlCount=serviceCounts?.dl
+
+                        //home title
+                        binding.homeTitle.text=userDetail?.msg?:""
+
+                        //nav name
+                        binding.nn.navUserName.text=userDetail?.name?:""
+
+                        //nav mobile
+                        binding.nn.navMobileNo.text=userDetail?.mobileNo?:""
+
+                        //nav referral code
+                        if (!userDetail?.refcode.isNullOrEmpty()) {
+                            binding.nn.navReferralCode.text = "Referral Code: " + userDetail?.refcode ?: ""
+                        }
+
+                        //nav user image
+                        try {
+                            Glide.with(this)
+                                .load(userDetail?.image)
+                                .placeholder(R.drawable.profile)
+                                .error(R.drawable.profile)
+                                .into(binding.nn.navUserImg)
+                        } catch (e: Exception) {
+                        }
+
+                        //duty status
+                        dutyStatus=userDetail!!.dutyStatus
+                        if (dutyStatus == true) {
+                            binding.OnSwitchBtn.isChecked=true
+                            binding.txtOnDuty.text = "On Duty"
+                            binding.txtOnDuty.setTextColor(resources.getColor(R.color.on_duty_color))
+                            binding.OnSwitchBtn.trackTintList = resources.getColorStateList(R.color.on_duty_color)
+                        } else {
+                            binding.OnSwitchBtn.isChecked=false
+                            binding.txtOnDuty.text = "Off Duty"
+                            binding.txtOnDuty.setTextColor(resources.getColor(R.color.red))
+                            binding.OnSwitchBtn.trackTintList = resources.getColorStateList(R.color.red)
+                        }
 
                         //main services
                         mainServices(serviceCounts)
@@ -449,7 +504,7 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
                         earningCounts(earningCounts)
 
                         //today's performance
-                        todayPerformance(featureCount)
+                        todayPerformance(todayPerformanceCounts)
                     }
                     else
                     {
