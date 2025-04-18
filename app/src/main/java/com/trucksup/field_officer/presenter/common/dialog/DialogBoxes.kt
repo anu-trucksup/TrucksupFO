@@ -273,7 +273,7 @@ object DialogBoxes {
 
             val request = DutyStatusRequest(
                 1234,
-                123456,
+                PreferenceManager.getUserData(context)?.boUserid?.toInt() ?: 0,
                 dutyStatus,
                 latitude?:"",
                 address?:"",

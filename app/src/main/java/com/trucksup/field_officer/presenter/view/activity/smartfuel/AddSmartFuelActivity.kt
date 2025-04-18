@@ -109,9 +109,9 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
 
         mViewModel = ViewModelProvider(this)[SmartFuelViewModel::class.java]
 
-        PreferenceManager.setPhoneNo("9870009988", this)
+//        PreferenceManager.setPhoneNo("9870009988", this)
         binding.etCustomerMobile.setText(PreferenceManager.getPhoneNo(this))
-        binding.etReferralCode.setText("7BGHJ9")
+        binding.etReferralCode.setText(PreferenceManager.getUserData(this)?.referralcode)
 
         //referral code or sales code
         // binding.etReferralCode.setText(PreferenceManager.getUserData(this)?.salesCode)

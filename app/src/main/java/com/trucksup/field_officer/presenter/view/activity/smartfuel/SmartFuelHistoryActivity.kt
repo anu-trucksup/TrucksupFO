@@ -173,7 +173,7 @@ class SmartFuelHistoryActivity : BaseActivity() {
         showProgressDialog(this,false)
         val request = SmartFuelHistoryRequest(
             ""+PreferenceManager.getPhoneNo(this),
-            ""+"456789",
+            ""+PreferenceManager.getUserData(this)?.referralcode,
             ""+PreferenceManager.getServerDateUtc(),
             ""+PreferenceManager.getRequestNo(),
             ""+PreferenceManager.getPhoneNo(this),
