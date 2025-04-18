@@ -42,17 +42,23 @@ import com.trucksup.field_officer.presenter.view.activity.auth.logout.LogoutRequ
 import com.trucksup.field_officer.presenter.view.activity.auth.logout.LogoutResponse
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.AddBrokerRequest
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.AddBrokerResponse
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.CompleteMeetingBARequest
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.ScheduleMeetingBARequest
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.ScheduleMeetingResponse
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinaceDataSubmitResponse
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinanceDataLiatRequest
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinanceDataLiatResponse
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.InquiryHistoryRequest
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.LoanDataSubmitRequest
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryRequest
+import com.trucksup.field_officer.presenter.view.activity.growthPartner.model.CompleteMeetingGPRequest
+import com.trucksup.field_officer.presenter.view.activity.growthPartner.model.ScheduleMeetingGPRequest
 import com.trucksup.field_officer.presenter.view.activity.subscription.model.PlanRequest
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.AddLoadFilterRequest
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.AddLoadFilterResponse
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.RcRequest
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.RcResponse
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.ScheduleMeetTSRequest
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.VerifyTruckResponse
 import okhttp3.MultipartBody
 import retrofit2.Call
@@ -306,7 +312,49 @@ interface ApiService {
         @Body request: PrefferLanRequest
     ): PrefferdResponse
 
-    //Schedule Meeting
+    //Schedule Meeting TS
+    @POST("BOAppApiGateway/apiateway/TSMeetSchedule")
+    @Headers("Accept: application/json")
+    suspend fun scheduleMeetingTS(
+        @Header("Authorization") auth: String,
+        @Body request: ScheduleMeetTSRequest
+    ): ScheduleMeetingResponse
 
+    @POST("BOAppApiGateway/apiateway/BAMeetComplete")
+    @Headers("Accept: application/json")
+    suspend fun completeTSMeeting(
+        @Header("Authorization") auth: String,
+        @Body request: CompleteMeetingBARequest
+    ): ScheduleMeetingResponse
+
+    //Schedule Meeting BA
+    @POST("BOAppApiGateway/apiateway/BAMeetSchedule")
+    @Headers("Accept: application/json")
+    suspend fun scheduleMeetingBA(
+        @Header("Authorization") auth: String,
+        @Body request: ScheduleMeetingBARequest
+    ): ScheduleMeetingResponse
+
+    @POST("BOAppApiGateway/apiateway/BAMeetComplete")
+    @Headers("Accept: application/json")
+    suspend fun completeBAMeeting(
+        @Header("Authorization") auth: String,
+        @Body request: CompleteMeetingBARequest
+    ): ScheduleMeetingResponse
+
+    //Schedule Meeting GP
+    @POST("BOAppApiGateway/apiateway/GPMeetSchedule")
+    @Headers("Accept: application/json")
+    suspend fun scheduleMeetingGP(
+        @Header("Authorization") auth: String,
+        @Body request: ScheduleMeetingGPRequest
+    ): ScheduleMeetingResponse
+
+    @POST("BOAppApiGateway/apiateway/GPMeetComplete")
+    @Headers("Accept: application/json")
+    suspend fun completeGPMeeting(
+        @Header("Authorization") auth: String,
+        @Body request: CompleteMeetingGPRequest
+    ): ScheduleMeetingResponse
 
 }

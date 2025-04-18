@@ -121,7 +121,7 @@
         </receiver>
 
         <activity
-            android:name=".presenter.view.activity.businessAssociate.BAOnboardingUploadDocActivity"
+            android:name=".presenter.view.activity.businessAssociate.BAOnboardDocActivity"
             android:exported="false" />
         <activity
             android:name=".presenter.view.activity.businessAssociate.BAFollowupActivity"

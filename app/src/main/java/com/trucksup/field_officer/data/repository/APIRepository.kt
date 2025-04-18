@@ -33,22 +33,30 @@ import com.trucksup.field_officer.data.model.smartfuel.SmartFuelHistoryResponse
 import com.trucksup.field_officer.data.model.user.UpdateProfileRequest
 import com.trucksup.field_officer.data.model.user.UpdateProfileResponse
 import com.trucksup.field_officer.data.network.ResultWrapper
+import com.trucksup.field_officer.data.network.safeApiCall
 import com.trucksup.field_officer.presenter.view.activity.auth.logout.LogoutRequest
 import com.trucksup.field_officer.presenter.view.activity.auth.logout.LogoutResponse
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.AddBrokerRequest
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.AddBrokerResponse
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.CompleteMeetingBARequest
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.ScheduleMeetingBARequest
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.ScheduleMeetingResponse
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinaceDataSubmitResponse
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinanceDataLiatRequest
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinanceDataLiatResponse
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.InquiryHistoryRequest
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.LoanDataSubmitRequest
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryRequest
+import com.trucksup.field_officer.presenter.view.activity.growthPartner.model.CompleteMeetingGPRequest
+import com.trucksup.field_officer.presenter.view.activity.growthPartner.model.ScheduleMeetingGPRequest
 import com.trucksup.field_officer.presenter.view.activity.subscription.model.PlanRequest
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.AddLoadFilterRequest
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.AddLoadFilterResponse
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.RcRequest
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.RcResponse
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.ScheduleMeetTSRequest
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.VerifyTruckResponse
+import kotlinx.coroutines.Dispatchers
 
 interface APIRepository {
 
@@ -190,4 +198,33 @@ interface APIRepository {
         request: DutyStatusRequest
     ): ResultWrapper<DutyStatusResponse>
 
+    suspend fun scheduleMeetingTS(
+        authToken: String,
+        request: ScheduleMeetTSRequest
+    ): ResultWrapper<ScheduleMeetingResponse>
+
+    suspend fun completeTSMeeting(
+        authToken: String,
+        request: CompleteMeetingBARequest
+    ): ResultWrapper<ScheduleMeetingResponse>
+
+    suspend fun scheduleMeetingBA(
+        authToken: String,
+        request: ScheduleMeetingBARequest
+    ): ResultWrapper<ScheduleMeetingResponse>
+
+     suspend fun completeBAMeeting(
+        authToken: String,
+        request: CompleteMeetingBARequest
+    ): ResultWrapper<ScheduleMeetingResponse>
+
+    suspend fun scheduleMeetingGP(
+        authToken: String,
+        request: ScheduleMeetingGPRequest
+    ): ResultWrapper<ScheduleMeetingResponse>
+
+    suspend fun completeGPMeeting(
+        authToken: String,
+        request: CompleteMeetingGPRequest
+    ): ResultWrapper<ScheduleMeetingResponse>
 }

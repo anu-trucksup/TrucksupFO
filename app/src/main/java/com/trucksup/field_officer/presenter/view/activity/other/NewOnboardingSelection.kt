@@ -6,7 +6,7 @@ import android.view.View
 import androidx.activity.enableEdgeToEdge
 import com.trucksup.field_officer.databinding.ActivityNewOnboardingBinding
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
-import com.trucksup.field_officer.presenter.view.activity.businessAssociate.BAOnboardingUploadDocActivity
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.BAOnboardDocActivity
 import com.trucksup.field_officer.presenter.view.activity.growthPartner.GPOnboardingActivity
 import com.trucksup.field_officer.presenter.view.activity.miscellaneous.MiscActivity
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.TSOnBoardStep2Activity
@@ -34,7 +34,7 @@ class NewOnboardingSelection : BaseActivity() {
     }
 
     fun business_associate(view: View) {
-        startActivity(Intent(this, BAOnboardingUploadDocActivity::class.java))
+        startActivity(Intent(this, BAOnboardDocActivity::class.java))
     }
 
     fun growth_partner(view: View) {
