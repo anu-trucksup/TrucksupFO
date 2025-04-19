@@ -377,7 +377,10 @@ class ResetPasswordActivity : BaseActivity(), View.OnClickListener {
                     profilename = "",
                     profilephoto = "",
                     mobilenumber = mBinding?.phoneNoTxt?.text.toString(),
-                    password = ""
+                    password = "",
+                    latitude = latitude,
+                    longitude = longitude,
+                    confirmPassword = ""
                 )
                 mCreateViewModel?.resetPassword(
                     PreferenceManager.getAuthToken(), request
@@ -399,7 +402,7 @@ class ResetPasswordActivity : BaseActivity(), View.OnClickListener {
             otp = mBinding?.otpPinview?.text.toString(),
             mobileNumber = mBinding?.phoneNoTxt?.text.toString(),
             appVersion = AppVersionUtils.getAppVersionName(this),
-            oStype = "Android",
+            oStype = "A",
             deviceId = PreferenceManager.getAndroiDeviceId(this),
             appSignatureKey = "SFDSYT",
             appPkgName = packageName,

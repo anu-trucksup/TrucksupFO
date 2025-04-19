@@ -6,7 +6,9 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Configuration
+import android.location.Address
 import android.location.Geocoder
+import android.location.Location
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Bundle
@@ -22,6 +24,7 @@ import androidx.core.content.ContextCompat
 import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.dialog.ProgressDialogBox
 import com.trucksup.field_officer.presenter.common.location.LocationHelper
+import java.io.IOException
 import java.util.Locale
 
 open class BaseActivity : AppCompatActivity() {
@@ -71,7 +74,6 @@ open class BaseActivity : AppCompatActivity() {
         super.onBackPressed()
     }
 
-
     fun isLocationEnable(context: Context): Boolean {
         val fineLocationGranted = ContextCompat.checkSelfPermission(
             this,
@@ -98,7 +100,6 @@ open class BaseActivity : AppCompatActivity() {
         }
     }
 
-
     fun enableLocationPermission() {
         // Request permissions
         locationPermissionLauncher.launch(
@@ -108,7 +109,6 @@ open class BaseActivity : AppCompatActivity() {
             )
         )
     }
-
 
     fun isOnline(context: Context): Boolean {
         val connectivityManager =
@@ -161,7 +161,7 @@ open class BaseActivity : AppCompatActivity() {
         return 1
     }
 
-    private fun checkLocationPermission() {
+    fun checkLocationPermission(onLocationReady: (() -> Unit)? = null) {
         val fineLocationGranted = ContextCompat.checkSelfPermission(
             this,
             Manifest.permission.ACCESS_FINE_LOCATION
@@ -174,12 +174,18 @@ open class BaseActivity : AppCompatActivity() {
 
         if (fineLocationGranted || coarseLocationGranted) {
             // Already granted
-            // getLocation()
-
             LocationHelper.getLastKnownLocation(this) { location ->
                 location?.let {
-                    val lat = it.latitude
-                    val lon = it.longitude
+                    latitude = it.latitude.toString()
+                    longitude = it.longitude.toString()
+
+                    try {
+                        fetchAddressFromLocation(location)
+                        onLocationReady?.invoke()
+
+                    } catch (_ex: Exception) {
+                        Log.e("", "" + _ex)
+                    }
                     // Use location
                 } ?: run {
                     // Handle null location
@@ -193,6 +199,23 @@ open class BaseActivity : AppCompatActivity() {
                     Manifest.permission.ACCESS_COARSE_LOCATION
                 )
             )
+        }
+    }
+
+    private fun fetchAddressFromLocation(location: Location) {
+        val geocoder = Geocoder(this, Locale.getDefault())
+        try {
+            val addresses: List<Address>? = geocoder.getFromLocation(
+                location.latitude,
+                location.longitude,
+                1
+            )
+
+            if (!addresses.isNullOrEmpty()) {
+                address = addresses[0].getAddressLine(0)
+            }
+        } catch (e: IOException) {
+            e.printStackTrace()
         }
     }
 
@@ -215,13 +238,13 @@ open class BaseActivity : AppCompatActivity() {
                         val geocoder =
                             Geocoder(this, Locale.getDefault())
                         val addresses = geocoder.getFromLocation(
-                            location.latitude,
-                            location.longitude,
+                            it.latitude,
+                            it.longitude,
                             1
                         )
                         address = addresses?.get(0)?.getAddressLine(0).toString()
-                    } catch (_: Exception) {
-
+                    } catch (_ex: Exception) {
+                        Log.e("", "" + _ex)
                     }
                     // Use location
                 } ?: run {
