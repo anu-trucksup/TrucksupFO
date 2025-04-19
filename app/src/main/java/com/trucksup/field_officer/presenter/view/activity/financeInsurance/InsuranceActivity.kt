@@ -1273,8 +1273,8 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
                 } else {
                     MediaStore.Images.Media.getBitmap(contentResolver, uri)
                 }
-                val newBitmap: Bitmap = FileHelp().resizeImage(bitmap, 500, 500)!!
-                val newFile: File = FileHelp().bitmapTofile(newBitmap, this)!!
+                val newBitmap: Bitmap = FileHelp().resizeImage(bitmap, 500)
+                val newFile: File = FileHelp().bitmapTofile(this,newBitmap)
 
                 uploadImage(newFile, "")
 
@@ -1466,7 +1466,7 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
 //                    }
                     //profileImage?.setRotation(270F)
                     val orFile: File = FileHelp().getFile(this, data.getStringExtra("result")?.toUri())!!
-                    val newBitmap: Bitmap = FileHelp().FileToBitmap(orFile)
+                    val newBitmap: Bitmap = FileHelp().fileToBitmap(orFile)
 
 
                     val name = "bo_image" + System.currentTimeMillis() + ".jpg"

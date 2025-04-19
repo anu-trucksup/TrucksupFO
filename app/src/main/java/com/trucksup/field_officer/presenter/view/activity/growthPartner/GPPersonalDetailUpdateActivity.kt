@@ -62,7 +62,7 @@ class GPPersonalDetailUpdateActivity : BaseActivity(), View.OnClickListener {
                     //profileImage?.setRotation(270F)
                     var orFile: File =
                         FileHelp().getFile(this, data!!.getStringExtra("result")?.toUri())!!
-                    var newBitmap: Bitmap = FileHelp().FileToBitmap(orFile)
+                    var newBitmap: Bitmap = FileHelp().fileToBitmap(orFile)
 
 
                     val name = "trucksUp_image" + System.currentTimeMillis() + ".jpg"

@@ -629,8 +629,8 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
                 } else {
                     MediaStore.Images.Media.getBitmap(contentResolver, uri)
                 }
-                var newBitmap: Bitmap = FileHelp().resizeImage(bitmap, 500, 500)!!
-                var newFile: File = FileHelp().bitmapTofile(newBitmap, this)!!
+                val newBitmap: Bitmap = FileHelp().resizeImage(bitmap, 500)
+                val newFile: File = FileHelp().bitmapTofile(this,newBitmap)
 
                 uploadImage(newFile, "")
 
@@ -651,15 +651,11 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
         if (resultCode == Activity.RESULT_OK && requestCode == 11 && data != null) {
 
             if (data.extras?.get("data") != null) {
-                var newBitmap: Bitmap =
+                val newBitmap: Bitmap =
                     data.extras?.get("data") as Bitmap  // FileHelp().resizeImage(data.extras?.get("data") as Bitmap, 500, 500)!!
-                var newFile: File = FileHelp().bitmapTofile(newBitmap, this)!!
+                val newFile: File = FileHelp().bitmapTofile(this,newBitmap)
 
-//                getImageToken(newFile)
                 uploadImage(newFile, "")
-//                LoadingUtils.showDialog(this,false)
-//                MyResponse().uploadImage("jpg","DOC"+ PreferenceManager.getRequestNo(),"",
-//                    PreferenceManager.prepareFilePart(newFile!!),this,this)
             } else {
                 LoggerMessage.toastPrint("Please Retake", this)
             }
@@ -810,8 +806,8 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
                         Uri.parse(imageUris.toString())
                     )
                     // Set the image in imageview for display
-                    val newBitmap: Bitmap = FileHelp().resizeImage(bitmap, 500, 500)!!
-                    val newFile: File = FileHelp().bitmapTofile(newBitmap, this)!!
+                    val newBitmap: Bitmap = FileHelp().resizeImage(bitmap, 500)
+                    val newFile: File = FileHelp().bitmapTofile(this,newBitmap)
                     uploadImage(newFile, "")
 
                     //handleImageCapture(bitmap)

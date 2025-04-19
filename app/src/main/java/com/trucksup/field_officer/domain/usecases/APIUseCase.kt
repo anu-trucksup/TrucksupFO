@@ -23,8 +23,10 @@ import com.trucksup.field_officer.data.model.deleteResponse.DeleteProfileRespons
 import com.trucksup.field_officer.data.model.home.HomeCountRequest
 import com.trucksup.field_officer.data.model.home.HomeCountResponse
 import com.trucksup.field_officer.data.model.insurance.InquiryHistoryResponse
-import com.trucksup.field_officer.data.model.otp.NewOtpResponse
 import com.trucksup.field_officer.data.model.otp.OtpRequest
+import com.trucksup.field_officer.data.model.otp.OtpResponse
+import com.trucksup.field_officer.data.model.otp.VerifyOtpRequest
+import com.trucksup.field_officer.data.model.otp.VerifyOtpResponse
 import com.trucksup.field_officer.data.model.smartfuel.AddSmartFuelLeadRequest
 import com.trucksup.field_officer.data.model.smartfuel.AddSmartFuelLeadResponse
 import com.trucksup.field_officer.data.model.smartfuel.SmartFuelHistoryRequest
@@ -72,31 +74,9 @@ class APIUseCase @Inject constructor(private val apiRepository: APIRepository) {
     }
 
     suspend fun verifyOTP(
-        otp: String,
-        email: String,
-        mobileNumber: String,
-        mobileCode: String
-    ): ResultWrapper<Response<String>> {
-        return apiRepository.verifyOTP(otp, email, mobileNumber, mobileCode)
-    }
-
-    suspend fun verifyUserOTP(
-        otp: String,
-        email: String,
-        mobileNumber: String,
-        mobileCode: String,
-        userId: Int
-    ): ResultWrapper<Response<String>> {
-        return apiRepository.verifyUserOTP(otp, email, mobileNumber, mobileCode, userId)
-    }
-
-
-    suspend fun checkUserProfile(
-        email: String,
-        mobile: String,
-        countryCode: String
-    ): ResultWrapper<CheckUserProfileResponse> {
-        return apiRepository.checkUserProfile(email, mobile, countryCode)
+        token: String, request: VerifyOtpRequest
+    ): ResultWrapper<VerifyOtpResponse> {
+        return apiRepository.verifyOTP(token,request)
     }
 
     suspend fun resetPassword(
@@ -108,18 +88,10 @@ class APIUseCase @Inject constructor(private val apiRepository: APIRepository) {
     suspend fun sendOTP(
         auth: String,
         request: OtpRequest
-    ): ResultWrapper<NewOtpResponse> {
+    ): ResultWrapper<OtpResponse> {
         return apiRepository.sendOTP(auth, request)
     }
 
-    suspend fun EditsendOTP(
-        id: String,
-        mobile: String,
-        email: String,
-        countryCode: String
-    ): ResultWrapper<Response<String>> {
-        return apiRepository.EditsendOTP(id, mobile, email, countryCode)
-    }
 
     suspend fun getUserProfile(): ResultWrapper<Response<NewUserProfile>> {
         return apiRepository.getUserProfile()

@@ -7,11 +7,11 @@ import android.net.Uri
 import android.os.Environment
 import android.provider.OpenableColumns
 import android.util.Log
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.InputStream
-import java.io.OutputStream
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -20,46 +20,33 @@ import java.util.Locale
 class FileHelp {
 
 
-    fun bitmapTofile(imageBitmap: Bitmap, context: Context): File {
-        val name = "trucksUp_image" + System.currentTimeMillis() + ".jpg"
-        val pt = Environment.DIRECTORY_PICTURES //+  "/trucksUp";
-        val MEDIA_PATH = Environment.getExternalStorageDirectory().absolutePath + "/" + pt + "/"
+    fun bitmapTofile(context: Context, bitmap: Bitmap): File {
+        val fileName = "bo_image" + System.currentTimeMillis() + ".png"
+        // Create a file in the cache directory
+        val file = File(context.cacheDir, fileName)
+        file.createNewFile()
 
-        val filesDir: File = context.getFilesDir()
-        val imageFile = File(MEDIA_PATH, name)
+        // Convert bitmap to byte array
+        val bos = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos) // or PNG/WebP
+        val bitmapData = bos.toByteArray()
 
-        val os: OutputStream
-        try {
-            os = FileOutputStream(imageFile)
-            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 99, os)
-            os.flush()
-            os.close()
-        } catch (e: java.lang.Exception) {
-            Log.e(javaClass.simpleName, "Error writing bitmap", e)
+        // Write the bytes to file
+        FileOutputStream(file).use { fos ->
+            fos.write(bitmapData)
+            fos.flush()
         }
 
-//            val bytes = ByteArrayOutputStream()
-//            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-//            val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-//            val path = MediaStore.Images.Media.insertImage(
-//                context.contentResolver,
-//                imageBitmap,
-//                timeStamp + ".jpeg",
-//                null
-//            )
-//            // LoggerMessage.LogErrorMsg("uri of logo",path)
-//            val file = getFile(context, Uri.parse(path))
-//            imageBitmap.recycle()
-        return imageFile
-
+        return file
     }
 
+
     @Throws(IOException::class)
-    fun getFile(context: Context, uri: Uri?): File? {
+    fun getFile(context: Context, uri: Uri?): File {
         val destinationFilename =
             File(context.filesDir.path + File.separatorChar + queryName(context, uri!!))
         try {
-            context.contentResolver.openInputStream(uri!!).use { ins ->
+            context.contentResolver.openInputStream(uri).use { ins ->
                 createFileFromStream(
                     ins!!,
                     destinationFilename
@@ -132,42 +119,11 @@ class FileHelp {
         }
     }
 
-    fun resizeImage(originalBitmap: Bitmap?, maxWidth: Int, maxHeight: Int): Bitmap? {
-        var resizedBitmap: Bitmap? = null
+    fun resizeImage(originalBitmap: Bitmap?, targetWidth: Int): Bitmap {
+        val aspectRatio = originalBitmap?.height?.toDouble()!! / originalBitmap.width.toDouble()
+        val targetHeight = (targetWidth * aspectRatio).toInt()
+        return Bitmap.createScaledBitmap(originalBitmap, targetWidth, targetHeight, true)
 
-        try {
-            // Decode the image file into a Bitmap object
-            // val originalBitmap = BitmapFactory.decodeFile(imagePath)
-            // Get the original width and height of the image
-            val originalWidth = originalBitmap?.width
-            val originalHeight = originalBitmap?.height
-            Log.e("Org h", "hhhhhhhh >>>>>> " + originalHeight)
-            if (500 < originalHeight!!) {
-
-
-                // Calculate the scale factor to resize the image while maintaining the aspect ratio
-                val scaleFactor = Math.min(
-                    maxWidth.toFloat() / originalWidth!!,
-                    maxHeight.toFloat() / originalHeight
-                )
-
-                // Calculate the new width and height based on the scale factor
-                val newWidth = Math.round(originalWidth * scaleFactor)
-                val newHeight = Math.round(originalHeight * scaleFactor)
-
-                // Resize the original bitmap to the new dimensions
-                resizedBitmap = Bitmap.createScaledBitmap(originalBitmap, newWidth, newHeight, true)
-                originalBitmap.recycle()
-            } else {
-                resizedBitmap = originalBitmap
-            }
-
-            // Recycle the original bitmap to free up memory
-
-        } catch (e: Exception) {
-            Log.e("ImageUtils", "Error resizing image: " + e.message)
-        }
-        return resizedBitmap
     }
 
     private fun compressBitmapToFile(bitmap: Bitmap?, file: File) {
@@ -198,12 +154,11 @@ class FileHelp {
         }
     }
 
-    fun FileToBitmap(file: File): Bitmap {
+    fun fileToBitmap(file: File): Bitmap {
         var myBitmap: Bitmap? = null
         if (file.exists()) {
-            myBitmap = resizeImage(BitmapFactory.decodeFile(file.absolutePath), 500, 500)
-
-            return myBitmap!!
+            myBitmap = resizeImage(BitmapFactory.decodeFile(file.absolutePath), 500)
+            return myBitmap
         } else {
             return myBitmap!!
         }
