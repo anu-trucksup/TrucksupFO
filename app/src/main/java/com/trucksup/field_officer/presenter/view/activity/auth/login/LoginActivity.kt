@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
@@ -76,7 +77,11 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
-        Toast.makeText(this, "Location :"+latitude +"-"+longitude, Toast.LENGTH_SHORT).show()
+        checkLocationPermission(){
+            Log.e("Location",latitude+"@"+longitude)
+            Toast.makeText(this, "Location :"+latitude +"-"+longitude, Toast.LENGTH_SHORT).show()
+        }
+
 
     }
 
@@ -235,6 +240,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         super.onBackPressed()
 //        System.exit(0)
         finishAffinity()
+       finishAffinity()
     }
 
 
