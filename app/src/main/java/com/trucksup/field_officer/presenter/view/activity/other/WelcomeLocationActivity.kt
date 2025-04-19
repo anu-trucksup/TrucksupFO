@@ -39,7 +39,6 @@ class WelcomeLocationActivity : BaseActivity() {
         setContentView(binding.root)
 
         checkLocationPermission(){
-            Log.e("Location",latitude+"@"+longitude)
             binding.addressUpdate.text = address
             Log.e("Address", "address:" + address)
             binding.addressShimmer.visibility = View.GONE

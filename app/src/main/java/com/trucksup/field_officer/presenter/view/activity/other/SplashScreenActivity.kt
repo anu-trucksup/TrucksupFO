@@ -20,7 +20,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.trucksup.field_officer.databinding.ActivitySplashBinding
 import com.trucksup.field_officer.databinding.AlartBoxBinding
 import com.trucksup.field_officer.presenter.common.AlertBoxDialog
-import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.view.activity.auth.login.LoginActivity
 import com.trucksup.field_officer.presenter.view.activity.dashboard.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -83,44 +82,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
             }
         }
-
-        /* splashViewModel!!.forceUpdateResponseLD.observe(
-            this, Observer<ResponseModel<ForceUpdateResponse>> { responseResponseModel: ResponseModel<ForceUpdateResponse> ->
-                if (responseResponseModel.networkError != null) {
-                    dismissProgressDialog()
-                    callMainScreen()
-                } else if (responseResponseModel.serverResponseError != null) {
-                    dismissProgressDialog()
-                    callMainScreen()
-                } else if (responseResponseModel.genericError != null) {
-                    dismissProgressDialog()
-                    callMainScreen()
-                } else {
-                    dismissProgressDialog()
-                    if (responseResponseModel.success?.payload != null) {
-                        initDialog(responseResponseModel.success.payload)
-                    } else {
-                        callMainScreen()
-                    }
-                }
-            })*/
     }
-
-    /*private fun initDialog(payload: ForceUpdateItem) {                         // check force update
-        val versionName = BuildConfig.VERSION_NAME
-        Log.d("versionName", versionName)
-        if (payload.version != versionName) {
-            if (payload.status == "force") {
-                //showToastDialog("Update SkipQ App with our latest version",this,payload);
-            } else if (payload.status == "update") {
-                // showToastDialogUpdate("New version availble to download",this,payload);
-            } else {
-                callMainScreen()
-            }
-        } else {
-            callMainScreen()
-        }
-    }*/
 
     override fun onResume() {
         super.onResume()
@@ -178,6 +140,7 @@ class SplashScreenActivity : AppCompatActivity() {
         if (fine == PackageManager.PERMISSION_GRANTED || coarse == PackageManager.PERMISSION_GRANTED) {
             startApp()
         } else {
+
             locationPermissionsLauncher.launch(
                 arrayOf(
                     Manifest.permission.ACCESS_FINE_LOCATION,
