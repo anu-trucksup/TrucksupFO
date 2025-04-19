@@ -74,42 +74,6 @@ open class BaseActivity : AppCompatActivity() {
         super.onBackPressed()
     }
 
-    fun isLocationEnable(context: Context): Boolean {
-        val fineLocationGranted = ContextCompat.checkSelfPermission(
-            this,
-            Manifest.permission.ACCESS_FINE_LOCATION
-        ) == PackageManager.PERMISSION_GRANTED
-
-        val coarseLocationGranted = ContextCompat.checkSelfPermission(
-            this,
-            Manifest.permission.ACCESS_COARSE_LOCATION
-        ) == PackageManager.PERMISSION_GRANTED
-
-        if (fineLocationGranted || coarseLocationGranted) {
-            // Already granted
-            return true
-        } else {
-            // Request permissions
-            /*locationPermissionLauncher.launch(
-                arrayOf(
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-                )
-            )*/
-            return false
-        }
-    }
-
-    fun enableLocationPermission() {
-        // Request permissions
-        locationPermissionLauncher.launch(
-            arrayOf(
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            )
-        )
-    }
-
     fun isOnline(context: Context): Boolean {
         val connectivityManager =
             context.getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -227,7 +191,6 @@ open class BaseActivity : AppCompatActivity() {
 
         if (fineLocationGranted || coarseLocationGranted) {
             // Permissions granted
-            // getLocation()
 
             LocationHelper.getLastKnownLocation(this) { location ->
                 location?.let {

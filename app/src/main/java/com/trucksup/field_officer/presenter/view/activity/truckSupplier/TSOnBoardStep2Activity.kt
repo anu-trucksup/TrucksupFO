@@ -145,7 +145,7 @@ class TSOnBoardStep2Activity : BaseActivity(), PreferredLaneAdap.ControllerListe
                             PreferenceManager.getPhoneNo(this),
                             binding.vehicalNo.text.toString()
                         )
-                        mViewModel?.getRcDetails(PreferenceManager.getAuthToken(), request)
+                        mViewModel?.getRcDetails(PreferenceManager.getAuthTokenOld(), request)
                     } else {
                         val abx = AlertBoxDialog(
                             this@TSOnBoardStep2Activity,
@@ -399,7 +399,7 @@ class TSOnBoardStep2Activity : BaseActivity(), PreferredLaneAdap.ControllerListe
 
     private fun verifyTruck() {
         mViewModel?.verifyTruckDetails(
-            PreferenceManager.getAuthToken(),
+            PreferenceManager.getAuthTokenOld(),
             binding.vehicalNo.text.toString(),
             PreferenceManager.getPhoneNo(this)
         )

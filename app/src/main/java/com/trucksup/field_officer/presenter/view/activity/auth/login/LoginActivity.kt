@@ -82,7 +82,6 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
 //            Toast.makeText(this, "Location :"+latitude +"-"+longitude, Toast.LENGTH_SHORT).show()
         }
 
-
     }
 
     private fun setupObserver() {
