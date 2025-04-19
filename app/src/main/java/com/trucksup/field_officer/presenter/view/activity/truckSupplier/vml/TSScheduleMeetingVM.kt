@@ -15,6 +15,9 @@ import com.trucksup.field_officer.presenter.common.image_picker.TrucksFOImageCon
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.AddBrokerRequest
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.AddBrokerResponse
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.ScheduleMeetingResponse
+import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.LoanDataSubmitRequest
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.ScheduleMeetTSRequest
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -32,10 +35,15 @@ class TSScheduleMeetingVM @Inject constructor(val apiUseCase: APIUseCase) : View
         MutableLiveData<ResponseModel<PinCodeResponse>>()
     val resultSCbyPincodeLD: LiveData<ResponseModel<PinCodeResponse>> = resultSCbyPincode
 
-
     private var onBoardBAResponse: MutableLiveData<ResponseModel<AddBrokerResponse>> =
         MutableLiveData<ResponseModel<AddBrokerResponse>>()
     val onBoardBAResponseLD: LiveData<ResponseModel<AddBrokerResponse>> = onBoardBAResponse
+
+    //by me
+    private var resultsubmitTSScheduleMeeting: MutableLiveData<ResponseModel<ScheduleMeetingResponse>> =
+        MutableLiveData<ResponseModel<ScheduleMeetingResponse>>()
+    val resultsubmitTSScheduleMeetingLD: LiveData<ResponseModel<ScheduleMeetingResponse>> = resultsubmitTSScheduleMeeting
+    //by me
 
     fun getCityStateByPin(token: String, request: PinCodeRequest) {
         CoroutineScope(Dispatchers.IO).launch {
@@ -110,5 +118,25 @@ class TSScheduleMeetingVM @Inject constructor(val apiUseCase: APIUseCase) : View
 
     }
 
+
+    //by me
+    fun SubmitTSScheduleMeetTSData(request: ScheduleMeetTSRequest) {
+        CoroutineScope(Dispatchers.IO).launch {
+            when (val response = apiUseCase.scheduleMeetingTS(
+                PreferenceManager.getAuthToken(),
+                request
+            )) {
+                is ResultWrapper.ServerResponseError -> {
+                    Log.e("API Error", response.error ?: "")
+                    resultsubmitTSScheduleMeeting.postValue(ResponseModel(serverError = response.error))
+                }
+
+                is ResultWrapper.Success -> {
+                    resultsubmitTSScheduleMeeting.postValue(ResponseModel(success = response.value))
+                }
+            }
+        }
+    }
+    //by me
 
 }

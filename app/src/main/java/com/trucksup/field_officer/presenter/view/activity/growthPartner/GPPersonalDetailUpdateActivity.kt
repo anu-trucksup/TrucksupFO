@@ -19,6 +19,7 @@ import com.trucksup.field_officer.presenter.common.CameraActivity
 import com.trucksup.field_officer.presenter.common.FileHelp
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
+import com.trucksup.field_officer.presenter.view.activity.growth_partner.GPKYCActivity
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream

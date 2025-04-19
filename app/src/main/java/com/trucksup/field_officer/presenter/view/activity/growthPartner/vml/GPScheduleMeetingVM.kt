@@ -94,6 +94,47 @@ class GPScheduleMeetingVM @Inject constructor(val apiUseCase: APIUseCase) : View
     }
 
 
+
+    fun uploadImages(
+        token: String,
+        filetype: String,
+        foldername: String,
+        file: MultipartBody.Part,
+        fileWaterMark: MultipartBody.Part,
+        imgRes: TrucksFOImageController,
+    ) {
+        val apiInterface = ApiClient().getClient
+        apiInterface.uploadImages(token, filetype, foldername, file, fileWaterMark)
+
+            ?.enqueue(object : Callback<TrucksupImageUploadResponse> {
+                override fun onResponse(
+                    call: Call<TrucksupImageUploadResponse>,
+                    response: Response<TrucksupImageUploadResponse>,
+                ) {
+
+                    if (response.isSuccessful) {
+                        if (response.body()?.s3FileName != null) {
+                            imgRes.getImage(
+                                response.body()?.s3FileName.toString(),
+                                response.body()?.url.toString()
+                            )
+                        } else {
+                            imgRes.imageError(response.body()?.message.toString())
+                        }
+
+                    } else {
+                        imgRes.imageError("Something server error")
+                    }
+                }
+
+                override fun onFailure(call: Call<TrucksupImageUploadResponse>, t: Throwable) {
+
+                    imgRes.imageError("Something server error")
+                }
+            })
+    }
+
+
     fun onBoardBusinessAssociate(request: AddBrokerRequest) {
         CoroutineScope(Dispatchers.IO).launch {
             when (val response =

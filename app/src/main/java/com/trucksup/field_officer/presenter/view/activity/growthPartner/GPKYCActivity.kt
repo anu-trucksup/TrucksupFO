@@ -28,13 +28,14 @@ import com.trucksup.field_officer.presenter.common.image_picker.TrucksFOImageCon
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
-import com.trucksup.field_officer.presenter.view.activity.smartfuel.SmartFuelViewModel
+import com.trucksup.field_officer.presenter.view.activity.growthPartner.GPOnBoardStoreProofActivity
+import com.trucksup.field_officer.presenter.view.activity.growthPartner.vml.GPScheduleMeetingVM
 import java.io.File
 
 class GPKYCActivity : BaseActivity(), TrucksFOImageController, View.OnClickListener {
     private lateinit var binding: ActivityGpkycactivityBinding
     private var launcher: ActivityResultLauncher<Intent>? = null
-    private var mViewModel: SmartFuelViewModel? = null
+    private var mViewModel: GPScheduleMeetingVM? = null
     private var imageType: Int = 0
     private var selectedIndex = -1
     private var ScreenViewPostion = 0
@@ -216,17 +217,19 @@ class GPKYCActivity : BaseActivity(), TrucksFOImageController, View.OnClickListe
     fun uploadImage(file: File, token: String) {
         LoadingUtils.showDialog(this, false)
         if (imageType == 3) {
-            mViewModel?.trucksupImageUpload(
+            mViewModel?.uploadImages(
                 PreferenceManager.getAuthToken(),
                 "pdf",
+                "GrowthPartner",
                 PreferenceManager.prepareFilePartTrucksHum(file, "imageFile"),
                 PreferenceManager.prepareFilePartTrucksHum(file, "watermarkFile"),
                 this
             )
         } else {
-            mViewModel?.trucksupImageUpload(
+            mViewModel?.uploadImages(
                 PreferenceManager.getAuthToken(),
                 "image",
+                "GrowthPartner",
                 PreferenceManager.prepareFilePartTrucksHum(file, "imageFile"),
                 PreferenceManager.prepareFilePartTrucksHum(file, "watermarkFile"),
                 this
@@ -234,7 +237,6 @@ class GPKYCActivity : BaseActivity(), TrucksFOImageController, View.OnClickListe
         }
     }
     //add by me
-
     override fun onClick(view: View) {
         when (view.id) {
             R.id.kyc_verified_continue_btn -> kyc_verified_continue()
