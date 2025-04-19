@@ -7,7 +7,6 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
@@ -16,7 +15,6 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import com.logistics.trucksup.activities.preferre.modle.TrucksDetail
 import com.trucksup.field_officer.R
-import com.trucksup.field_officer.data.model.GenerateJWTtokenRequest
 import com.trucksup.field_officer.data.model.GenerateJWTtokenResponse
 import com.trucksup.field_officer.databinding.AddNewTruckLayoutBinding
 import com.trucksup.field_officer.presenter.common.AlertBoxDialog
@@ -24,7 +22,7 @@ import com.trucksup.field_officer.presenter.common.JWTtoken
 import com.trucksup.field_officer.presenter.common.LoadingUtils
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
-import com.trucksup.field_officer.presenter.view.activity.other.TokenViewModel
+import com.trucksup.field_officer.presenter.view.activity.other.vml.TokenViewModel
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.add_truck.AddTruckInterface
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.AddLoadData
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.AddLoadFilterPayload

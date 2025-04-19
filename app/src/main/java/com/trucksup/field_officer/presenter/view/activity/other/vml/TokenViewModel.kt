@@ -1,4 +1,4 @@
-package com.trucksup.field_officer.presenter.view.activity.other
+package com.trucksup.field_officer.presenter.view.activity.other.vml
 
 import android.app.Activity
 import android.content.Context

@@ -96,8 +96,8 @@
     <string name="truckSupplier">Truck Supplier</string>
     <string name="taba">TS/BA</string>
     <string name="truckSuppliers">Truck Suppliers</string>
-    <string name="broker_new">Business Associate</string>
-    <string name="growthpartner">Growth Partner</string>
+    <string name="busAssociate">Business Associate</string>
+    <string name="growthPartner">Growth Partner</string>
     <string name="add_load">Add Loads</string>
     <string name="vas">VAS Services</string>
     <string name="vehicle_tracking">Vehicle Tracking</string>
@@ -722,5 +722,7 @@
     <string name="demoLongitude">77.3206° E</string>
     <string name="meet_the_ba_today">Did you meet the BA today?</string>
     <string name="whom_did_you_meet">Whom did you meet?</string>
+    <string name="planned_follow_up">Planned Follow-Up</string>
+    <string name="planned_follow_ups">Planned Follow-Ups</string>
 
 </resources>

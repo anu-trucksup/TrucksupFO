@@ -5,13 +5,11 @@ import com.logistics.trucksup.activities.preferre.modle.PrefferdResponse
 import com.logistics.trucksup.modle.PlanResponse
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryData
 import com.trucksup.field_officer.data.model.AutoImageSlideResponse
-import com.trucksup.field_officer.data.model.CheckUserProfileResponse
-import com.trucksup.field_officer.data.model.CountryResponse
 import com.trucksup.field_officer.data.model.DutyStatusRequest
 import com.trucksup.field_officer.data.model.DutyStatusResponse
 import com.trucksup.field_officer.data.model.GenerateJWTtokenRequest
 import com.trucksup.field_officer.data.model.GenerateJWTtokenResponse
-import com.trucksup.field_officer.data.model.NewUserProfile
+import com.trucksup.field_officer.data.model.GetUserProfileResponse
 import com.trucksup.field_officer.data.model.PinCodeRequest
 import com.trucksup.field_officer.data.model.PinCodeResponse
 import com.trucksup.field_officer.data.model.Response
@@ -34,6 +32,8 @@ import com.trucksup.field_officer.data.model.smartfuel.AddSmartFuelLeadRequest
 import com.trucksup.field_officer.data.model.smartfuel.AddSmartFuelLeadResponse
 import com.trucksup.field_officer.data.model.smartfuel.SmartFuelHistoryRequest
 import com.trucksup.field_officer.data.model.smartfuel.SmartFuelHistoryResponse
+import com.trucksup.field_officer.data.model.user.GetProfileRequest
+import com.trucksup.field_officer.data.model.user.GetProfileResponse
 import com.trucksup.field_officer.data.model.user.UpdateProfileRequest
 import com.trucksup.field_officer.data.model.user.UpdateProfileResponse
 import com.trucksup.field_officer.presenter.cityPicker.CityListbySearchRequest
@@ -63,8 +63,6 @@ import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.Ve
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.Body
-import retrofit2.http.FieldMap
-import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Headers
@@ -119,13 +117,19 @@ interface ApiService {
         @Body request: OtpRequest
     ): OtpResponse
 
-    @GET("global/user/profile")
+    @POST("BOAppApiGateway/apiateway/GetBOProfile")
     @Headers("Accept: application/json")
-    suspend fun getUserProfile(): Response<NewUserProfile>
+    suspend fun getUserProfile(
+        @Header("Authorization") auth: String,
+        @Body getProfileRequest: GetProfileRequest
+    ): GetProfileResponse
 
-    @POST("global/user/update")
+    @POST("BOAppApiGateway/apiateway/BOEditProfile")
     @Headers("Accept: application/json")
-    suspend fun updateUserProfile(@Body updateProfileRequest: UpdateProfileRequest): UpdateProfileResponse
+    suspend fun updateUserProfile(
+        @Header("Authorization") auth: String,
+        @Body updateProfileRequest: UpdateProfileRequest
+    ): UpdateProfileResponse
 
 
     @POST("BOAppApiGateway/apiateway/BOUserLogOut")

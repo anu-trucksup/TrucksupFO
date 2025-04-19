@@ -1,6 +1,7 @@
 package com.trucksup.field_officer.data.model.user
 
-data class UpdateProfileResponse(
+data class GetProfileResponse(
+    val boProfileDetails: BoProfileDetails,
     val message: String,
     val requestId: Int,
     val requestedBy: String,
