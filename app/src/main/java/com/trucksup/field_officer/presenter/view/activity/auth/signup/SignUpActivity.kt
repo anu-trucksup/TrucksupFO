@@ -113,7 +113,7 @@ class SignUpActivity : BaseActivity(), View.OnClickListener, TrucksFOImageContro
                                     )
 
                                     mSignUpBinding!!.confirmPasswordTxt.setError(
-                                        "",
+                                        getString(R.string.password_match_msg),
                                         customErrorDrawable
                                     )
                                 }
@@ -354,7 +354,7 @@ class SignUpActivity : BaseActivity(), View.OnClickListener, TrucksFOImageContro
                             )
 
                             mSignUpBinding!!.confirmPasswordTxt.setError(
-                                "",
+                                getString(R.string.password_match_msg),
                                 customErrorDrawable
                             )
 

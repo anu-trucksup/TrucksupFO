@@ -207,6 +207,7 @@
                                 style="@style/edit_text_m"
                                 android:inputType="phone"
                                 android:maxLength="10"
+                                android:importantForAutofill="no"
                                 android:paddingHorizontal="@dimen/_10sdp" />
                         </com.google.android.material.card.MaterialCardView>
 
@@ -244,6 +245,7 @@
                                 android:inputType="textPassword"
                                 android:drawableStart="@drawable/locked"
                                 android:maxLines="1"
+                                android:importantForAutofill="no"
                                 style="@style/edit_text_m"
                                 android:hint="@string/password_hint"
                                 android:drawablePadding="@dimen/_2sdp"
@@ -284,6 +286,7 @@
                                 android:drawableStart="@drawable/locked"
                                 android:drawableEnd="@drawable/transparent_view"
                                 android:maxLines="1"
+                                android:importantForAutofill="no"
                                 style="@style/edit_text_m"
                                 android:hint="@string/password_hint"
                                 android:drawablePadding="@dimen/_2sdp"
