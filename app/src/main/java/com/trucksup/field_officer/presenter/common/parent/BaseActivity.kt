@@ -1,5 +1,6 @@
 package com.trucksup.field_officer.presenter.common.parent
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -14,6 +15,7 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -23,7 +25,7 @@ import com.trucksup.field_officer.presenter.common.location.LocationHelper
 import java.util.Locale
 
 open class BaseActivity : AppCompatActivity() {
-    private var address: String = ""
+    var address: String = ""
     private var progressDialog: ProgressDialogBox? = null
     var latitude: String = ""
     var longitude: String = ""

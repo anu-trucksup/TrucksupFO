@@ -70,7 +70,7 @@ import java.util.Locale
 class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
     private lateinit var binding: ActivityHomeBinding
     private var mViewModel: DashBoardViewModel? = null
-    private var address: String? = null
+//    private var address: String? = null
     private var dutyStatus: Boolean = false
     private var trackingCount: String? = null
     private var verificationCount: String? = null
