@@ -722,6 +722,6 @@
     <string name="demoLongitude">77.3206° E</string>
     <string name="meet_the_ba_today">Did you meet the BA today?</string>
     <string name="whom_did_you_meet">Whom did you meet?</string>
-    <string name="password_match_msg">Password Matched</string>
+    <string name="password_match_msg">Password Match</string>
 
 </resources>

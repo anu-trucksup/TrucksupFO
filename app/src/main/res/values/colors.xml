@@ -130,4 +130,6 @@
     <color name="grey4">#80848383</color>
     <color name="secondry_text">#000000</color>
 
+    <color name="hint_color">#CCCCCC</color>
+
 </resources>

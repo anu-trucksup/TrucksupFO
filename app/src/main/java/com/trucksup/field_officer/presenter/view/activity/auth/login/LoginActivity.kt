@@ -79,7 +79,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
 
         checkLocationPermission(){
             Log.e("Location",latitude+"@"+longitude)
-            Toast.makeText(this, "Location :"+latitude +"-"+longitude, Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this, "Location :"+latitude +"-"+longitude, Toast.LENGTH_SHORT).show()
         }
 
 

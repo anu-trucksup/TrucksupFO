@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -42,6 +43,12 @@ class CreatePasswordActivity : BaseActivity(), View.OnClickListener {
         mobileNumber = intent.extras!!.getString("phoneNo", "")
 
         setupObserver()
+
+        checkLocationPermission(){
+            Log.e("Location",latitude+"@"+longitude)
+//            Toast.makeText(this, "Location :"+latitude +"-"+longitude, Toast.LENGTH_SHORT).show()
+        }
+
         /* mBinding!!.confirmPasswordTxt.addTextChangedListener(object : TextWatcher {
              override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
              }
