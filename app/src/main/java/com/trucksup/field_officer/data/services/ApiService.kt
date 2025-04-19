@@ -2,18 +2,14 @@ package com.trucksup.field_officer.data.services
 
 import com.logistics.trucksup.activities.preferre.modle.PrefferLanRequest
 import com.logistics.trucksup.activities.preferre.modle.PrefferdResponse
-import com.trucksup.field_officer.data.model.otp.OTPResponse
 import com.logistics.trucksup.modle.PlanResponse
-import com.trucksup.field_officer.data.model.otp.SmsRequest
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryData
 import com.trucksup.field_officer.data.model.AutoImageSlideResponse
-import com.trucksup.field_officer.data.model.CheckUserProfileResponse
-import com.trucksup.field_officer.data.model.CountryResponse
 import com.trucksup.field_officer.data.model.DutyStatusRequest
 import com.trucksup.field_officer.data.model.DutyStatusResponse
 import com.trucksup.field_officer.data.model.GenerateJWTtokenRequest
 import com.trucksup.field_officer.data.model.GenerateJWTtokenResponse
-import com.trucksup.field_officer.data.model.NewUserProfile
+import com.trucksup.field_officer.data.model.GetUserProfileResponse
 import com.trucksup.field_officer.data.model.PinCodeRequest
 import com.trucksup.field_officer.data.model.PinCodeResponse
 import com.trucksup.field_officer.data.model.Response
@@ -28,12 +24,16 @@ import com.trucksup.field_officer.data.model.home.HomeCountRequest
 import com.trucksup.field_officer.data.model.home.HomeCountResponse
 import com.trucksup.field_officer.data.model.image.TrucksupImageUploadResponse
 import com.trucksup.field_officer.data.model.insurance.InquiryHistoryResponse
-import com.trucksup.field_officer.data.model.otp.NewOtpResponse
 import com.trucksup.field_officer.data.model.otp.OtpRequest
+import com.trucksup.field_officer.data.model.otp.OtpResponse
+import com.trucksup.field_officer.data.model.otp.VerifyOtpRequest
+import com.trucksup.field_officer.data.model.otp.VerifyOtpResponse
 import com.trucksup.field_officer.data.model.smartfuel.AddSmartFuelLeadRequest
 import com.trucksup.field_officer.data.model.smartfuel.AddSmartFuelLeadResponse
 import com.trucksup.field_officer.data.model.smartfuel.SmartFuelHistoryRequest
 import com.trucksup.field_officer.data.model.smartfuel.SmartFuelHistoryResponse
+import com.trucksup.field_officer.data.model.user.GetProfileRequest
+import com.trucksup.field_officer.data.model.user.GetProfileResponse
 import com.trucksup.field_officer.data.model.user.UpdateProfileRequest
 import com.trucksup.field_officer.data.model.user.UpdateProfileResponse
 import com.trucksup.field_officer.presenter.cityPicker.CityListbySearchRequest
@@ -63,8 +63,6 @@ import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.Ve
 import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.Body
-import retrofit2.http.FieldMap
-import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Headers
@@ -98,16 +96,6 @@ interface ApiService {
         @Body signRequest: SignRequest
     ): SignResponse
 
-    @POST("global/user/verify/otp")
-    @Headers("Accept: application/json")
-    @FormUrlEncoded
-    suspend fun verifyOTP(@FieldMap params: Map<String, String>): Response<String>
-
-    @POST("global/user/verify/user/otp")
-    @Headers("Accept: application/json")
-    @FormUrlEncoded
-    suspend fun verifyUserOTP(@FieldMap params: Map<String, String>): Response<String>
-
     @POST("BOAppApiGateway/apiateway/ResetPassword")
     @Headers("Accept: application/json")
     suspend fun resetPassword(
@@ -115,51 +103,33 @@ interface ApiService {
         @Body forgetRequest: ForgetRequest
     ): ForgetResponse
 
-    @POST("Apigateway/Gateway/Auth/Code")
-    fun sendSms(
+    @POST("BOAppApiGateway/apiateway/BOVerifyOTP")
+    @Headers("Accept: application/json")
+    suspend fun verifyOTP(
         @Header("Authorization") auth: String,
-        @Body request: SmsRequest
-    ): OTPResponse
+        @Body request: VerifyOtpRequest
+    ): VerifyOtpResponse
 
-    @POST("MessagaeService/api/Message/SendOTP")
+    @POST("BOAppApiGateway/apiateway/BOSendOTP")
     @Headers("Accept: application/json")
     suspend fun sendOTP(
         @Header("Authorization") auth: String,
         @Body request: OtpRequest
-    ): NewOtpResponse
+    ): OtpResponse
 
-    @POST("global/user/send/user/otp")
+    @POST("BOAppApiGateway/apiateway/GetBOProfile")
     @Headers("Accept: application/json")
-    suspend fun EditsendOTP(
-        @Query("id") id: String,
-        @Query("mobile") mobile: String,
-        @Query("email") email: String,
-        @Query("countryCode") countryCode: String
-    ): Response<String>
+    suspend fun getUserProfile(
+        @Header("Authorization") auth: String,
+        @Body getProfileRequest: GetProfileRequest
+    ): GetProfileResponse
 
-
-    @GET("global/user/profile")
+    @POST("BOAppApiGateway/apiateway/BOEditProfile")
     @Headers("Accept: application/json")
-    suspend fun getUserProfile(): Response<NewUserProfile>
-
-    @POST("global/user/update")
-    @Headers("Accept: application/json")
-    suspend fun updateUserProfile(@Body updateProfileRequest: UpdateProfileRequest): UpdateProfileResponse
-
-    //@GET("global/admin/fetch/user/profile")
-    @Headers("Accept: application/json")
-    suspend fun checkUserProfile(
-        @Query("email") email: String,
-        @Query("mobile") mobile: String,
-        @Query("countryCode") countryCode: String
-    ): CheckUserProfileResponse
-
-
-    @GET("global/city/by-country")
-    @Headers("Accept: application/json")
-    suspend fun getcountryDetails(
-        @Query("countryId") countryId: String
-    ): CountryResponse
+    suspend fun updateUserProfile(
+        @Header("Authorization") auth: String,
+        @Body updateProfileRequest: UpdateProfileRequest
+    ): UpdateProfileResponse
 
 
     @POST("BOAppApiGateway/apiateway/BOUserLogOut")

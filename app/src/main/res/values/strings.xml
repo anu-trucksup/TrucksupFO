@@ -3,10 +3,11 @@
     <string name="app_name">Field Officer</string>
 
     <string name="mobile_number">Mobile number</string>
+    <string name="mobile_number_">Mobile number <font color='#FF0000'>*</font></string>
     <string name="welcome_back">Welcome Back</string>
     <string name="resend_in_3_30">Resend in 3:30</string>
-    <string name="log_in">Log in </string>
-    <string name="sign_up">Sign up</string>
+    <string name="log_in">Log In </string>
+    <string name="sign_up">Sign Up</string>
     <string name="pin_code">Pin Code</string>
     <string name="address">Address</string>
     <string name="city">City</string>
@@ -54,23 +55,25 @@
         <item>Passport</item>
     </string-array>
 
-
+    <string name="name_star_">Name <font color='#FF0000'>*</font></string>
     <string name="password">Password</string>
+    <string name="password_">Password <font color='#FF0000'>*</font></string>
     <string name="get_started_with_sign">Get started with sign up or log in.</string>
     <string name="confirm_password">Confirm Password</string>
+    <string name="confirm_password_">Confirm Password <font color='#FF0000'>*</font></string>
     <string name="recover_your_password">Recover Your Password</string>
     <string name="reset_tag">Enter your mobile number to recover your password.</string>
     <string name="otp_tag">Generate Verification Code</string>
     <string name="update">Update</string>
-    <string name="sign_up_here">Sign up Here.</string>
+    <string name="sign_up_here">Sign Up Here.</string>
     <string name="don_t_have_an_account">Don’t have an account?</string>
-    <string name="lets_get_started">Lets get started</string>
-    <string name="forgot_password">Forgot password?</string>
+    <string name="lets_get_started">Let\'s get started</string>
+    <string name="forgot_password">Forgot Password?</string>
     <string name="remember_me">Remember Me</string>
     <string name="name_star">Profile Name <font color='#FF0000'>*</font></string>
     <string name="type">Type here..</string>
     <string name="profilePhoto_star">Profile Photo <font color='#FF0000'>*</font></string>
-    <string name="enterProfilePhoto">Please add the profile photo</string>
+    <string name="enterProfilePhoto">Please upload the profile photo.</string>
     <string name="ok">Ok</string>
     <string name="log_in_here">Log In Here</string>
     <string name="you_already_have_an_account">You already have an account?</string>
@@ -93,8 +96,8 @@
     <string name="truckSupplier">Truck Supplier</string>
     <string name="taba">TS/BA</string>
     <string name="truckSuppliers">Truck Suppliers</string>
-    <string name="broker_new">Business Associate</string>
-    <string name="growthpartner">Growth Partner</string>
+    <string name="busAssociate">Business Associate</string>
+    <string name="growthPartner">Growth Partner</string>
     <string name="add_load">Add Loads</string>
     <string name="vas">VAS Services</string>
     <string name="vehicle_tracking">Vehicle Tracking</string>
@@ -245,8 +248,8 @@
     <string name="enterYourrightName">Please input a valid name.</string>
     <string name="insurance_mobileNo">Mobile Number <font color='#FF0000'>*</font></string>
     <string name="insurance_vehicle_no">Vehicle No. <font color='#FF0000'>*</font></string>
-    <string name="enter_right_number_v">Please input a valid mobile number.</string>
-    <string name="enter_mobile_no">Please input mobile number.</string>
+    <string name="enter_right_number_v">Please enter the correct mobile number.</string>
+    <string name="enter_mobile_no">Please input your registered mobile number.</string>
     <string name="slectCity">Please input the city.</string>
     <string name="enterState">Please input the state.</string>
     <string name="enterRightCommercialVehical">Please input a valid vehicle number.</string>
@@ -325,7 +328,7 @@
     <string name="owner_office_photo">Owner office photo</string>
     <string name="gps">GPS</string>
     <string name="subscription_plan">Subscription Plan</string>
-    <string name="remarks">Remarks*</string>
+    <string name="remarks">Remarks <font color='#FF0000'>*</font></string>
     <string name="select_follow_up_date">Select Follow-up date</string>
     <string name="owned_truck">Owned</string>
 
@@ -333,9 +336,9 @@
     <string name="enter_dL_number_and_dob_for_verification">For verification enter your DL number and DOB</string>
     <string name="balance_dl_verification">Balance DL Verification</string>
     <string name="buy_dl_verification">Buy DL Verification</string>
-    <string name="dl_number">Driving License Number *</string>
+    <string name="dl_number">Driving License Number <font color='#FF0000'>*</font></string>
     <string name="enter_dl_number">Enter Driving License Number</string>
-    <string name="dl_date_of_birth">Date Of Birth *</string>
+    <string name="dl_date_of_birth">Date Of Birth <font color='#FF0000'>*</font></string>
     <string name="verified_driving_licence">Verified Driving Licenses</string>
     <string name="view_all"><u>View All</u></string>
     <string name="dl_name">Driving License Name</string>
@@ -619,8 +622,8 @@
     </string>
 
     <string name="enter_password">Please input password.</string>
-    <string name="valid_name_format">Enter valid profile name format.</string>
-    <string name="enterProfileName">Please input profile name.</string>
+    <string name="valid_name_format">Please input valid profile name.</string>
+    <string name="enterProfileName">Please input your profile name.</string>
 
     <string name="business_document">Business document</string>
     <string name="visiting_card">Visiting card</string>
@@ -726,5 +729,13 @@
     <string name="city_">City :</string>
     <string name="selfie_yourself">Take a selfie of yourself</string>
     <string name="selfie_identity">Selfie with your front camera \n to verify your identity</string>
+    <string name="enter_confirm_password">Please input confirm password.</string>
+    <string name="password_match">The confirm password does not match the original password.</string>
+    <string name="demoLatitude">28.3388° N</string>
+    <string name="demoLongitude">77.3206° E</string>
+    <string name="meet_the_ba_today">Did you meet the BA today?</string>
+    <string name="whom_did_you_meet">Whom did you meet?</string>
+    <string name="planned_follow_up">Planned Follow-Up</string>
+    <string name="planned_follow_ups">Planned Follow-Ups</string>
 
 </resources>

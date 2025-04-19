@@ -1,16 +1,14 @@
 package com.trucksup.field_officer.data.repository.impl
 
 
-import android.text.TextUtils
 import com.glovejob.data.model.UserSessionResponse
 import com.logistics.trucksup.activities.preferre.modle.PrefferLanRequest
 import com.logistics.trucksup.activities.preferre.modle.PrefferdResponse
 import com.logistics.trucksup.modle.PlanResponse
 import com.trucksup.field_officer.data.model.AutoImageSlideResponse
-import com.trucksup.field_officer.data.model.CheckUserProfileResponse
 import com.trucksup.field_officer.data.model.DutyStatusRequest
 import com.trucksup.field_officer.data.model.DutyStatusResponse
-import com.trucksup.field_officer.data.model.NewUserProfile
+import com.trucksup.field_officer.data.model.GetUserProfileResponse
 import com.trucksup.field_officer.data.model.PinCodeRequest
 import com.trucksup.field_officer.data.model.PinCodeResponse
 import com.trucksup.field_officer.data.model.PrivacyAllResponse
@@ -25,12 +23,16 @@ import com.trucksup.field_officer.data.model.deleteResponse.DeleteProfileRespons
 import com.trucksup.field_officer.data.model.home.HomeCountRequest
 import com.trucksup.field_officer.data.model.home.HomeCountResponse
 import com.trucksup.field_officer.data.model.insurance.InquiryHistoryResponse
-import com.trucksup.field_officer.data.model.otp.NewOtpResponse
 import com.trucksup.field_officer.data.model.otp.OtpRequest
+import com.trucksup.field_officer.data.model.otp.OtpResponse
+import com.trucksup.field_officer.data.model.otp.VerifyOtpRequest
+import com.trucksup.field_officer.data.model.otp.VerifyOtpResponse
 import com.trucksup.field_officer.data.model.smartfuel.AddSmartFuelLeadRequest
 import com.trucksup.field_officer.data.model.smartfuel.AddSmartFuelLeadResponse
 import com.trucksup.field_officer.data.model.smartfuel.SmartFuelHistoryRequest
 import com.trucksup.field_officer.data.model.smartfuel.SmartFuelHistoryResponse
+import com.trucksup.field_officer.data.model.user.GetProfileRequest
+import com.trucksup.field_officer.data.model.user.GetProfileResponse
 import com.trucksup.field_officer.data.model.user.UpdateProfileRequest
 import com.trucksup.field_officer.data.model.user.UpdateProfileResponse
 import com.trucksup.field_officer.data.network.ResultWrapper
@@ -62,7 +64,6 @@ import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.Rc
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.ScheduleMeetTSRequest
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.VerifyTruckResponse
 import kotlinx.coroutines.Dispatchers
-import retrofit2.http.Body
 
 
 class APIRepositoryImpl constructor(private val apiService: ApiService) : APIRepository {
@@ -87,8 +88,7 @@ class APIRepositoryImpl constructor(private val apiService: ApiService) : APIRep
     }
 
     override suspend fun registerUser(
-        token: String,
-        request: SignRequest
+        token: String, request: SignRequest
     ): ResultWrapper<SignResponse> {
         val response = safeApiCall(Dispatchers.IO) { apiService.registerUser(token, request) }
         return response
@@ -103,88 +103,24 @@ class APIRepositoryImpl constructor(private val apiService: ApiService) : APIRep
     }
 
     override suspend fun verifyOTP(
-        otp: String,
-        email: String,
-        mobileNumber: String,
-        mobileCode: String
-    ): ResultWrapper<Response<String>> {
-        val map = HashMap<String, String>()
-        if (email != null && !TextUtils.isEmpty(email)) {
-            map["email"] = email
-        } else {
-            map["mobileNumber"] = mobileNumber
-            map["mobileCode"] = mobileCode
-        }
-//        map.put("mobile", email)
-//        map.put("countryCode", email)
-        map.put("otp", otp)
-        return safeApiCall(Dispatchers.IO) { apiService.verifyOTP(map) }
+        auth: String, request: VerifyOtpRequest
+    ): ResultWrapper<VerifyOtpResponse> {
+        return safeApiCall(Dispatchers.IO) { apiService.verifyOTP(auth, request) }
     }
-
-    override suspend fun verifyUserOTP(
-        otp: String,
-        email: String,
-        mobileNumber: String,
-        mobileCode: String,
-        userId: Int
-    ): ResultWrapper<Response<String>> {
-        val map = HashMap<String, String>()
-        if (email != null && !TextUtils.isEmpty(email)) {
-            map["email"] = email
-        } else {
-            map["mobile"] = mobileNumber
-            map["countryCode"] = mobileCode
-        }
-//        map.put("mobile", email)
-//        map.put("countryCode", email)
-        map.put("otp", otp)
-        map.put("id", userId.toString())
-        return safeApiCall(Dispatchers.IO) { apiService.verifyUserOTP(map) }
-    }
-
-
-    override suspend fun checkUserProfile(
-        email: String,
-        mobile: String,
-        countryCode: String
-    ): ResultWrapper<CheckUserProfileResponse> {
-        return safeApiCall(Dispatchers.IO) {
-            apiService.checkUserProfile(
-                email,
-                mobile,
-                countryCode
-            )
-        }
-    }
-
 
     override suspend fun sendOTP(
         auth: String,
         request: OtpRequest
-    ): ResultWrapper<NewOtpResponse> {
+    ): ResultWrapper<OtpResponse> {
         return safeApiCall(Dispatchers.IO) { apiService.sendOTP(auth, request) }
     }
 
-    override suspend fun EditsendOTP(
-        id: String, mobile: String, email: String,
-        countryCode: String
-    ): ResultWrapper<Response<String>> {
-        return safeApiCall(Dispatchers.IO) {
-            apiService.EditsendOTP(
-                id,
-                mobile,
-                email,
-                countryCode
-            )
-        }
+    override suspend fun getUserProfile(token: String,request: GetProfileRequest): ResultWrapper<GetProfileResponse> {
+        return safeApiCall(Dispatchers.IO) { apiService.getUserProfile(token,request) }
     }
 
-    override suspend fun getUserProfile(): ResultWrapper<Response<NewUserProfile>> {
-        return safeApiCall(Dispatchers.IO) { apiService.getUserProfile() }
-    }
-
-    override suspend fun updateUserProfile(updateProfileRequest: UpdateProfileRequest): ResultWrapper<UpdateProfileResponse> {
-        return safeApiCall(Dispatchers.IO) { apiService.updateUserProfile(updateProfileRequest) }
+    override suspend fun updateUserProfile(token: String,updateProfileRequest: UpdateProfileRequest): ResultWrapper<UpdateProfileResponse> {
+        return safeApiCall(Dispatchers.IO) { apiService.updateUserProfile(token,updateProfileRequest) }
     }
 
 
@@ -199,8 +135,16 @@ class APIRepositoryImpl constructor(private val apiService: ApiService) : APIRep
         TODO("Not yet implemented")
     }
 
-    override suspend fun getAllHomeCountStatus(authToken: String,homeCountRequest: HomeCountRequest): ResultWrapper<HomeCountResponse> {
-        return safeApiCall(Dispatchers.IO) { apiService.getAllHomeCountStatus(authToken,homeCountRequest) }
+    override suspend fun getAllHomeCountStatus(
+        authToken: String,
+        homeCountRequest: HomeCountRequest
+    ): ResultWrapper<HomeCountResponse> {
+        return safeApiCall(Dispatchers.IO) {
+            apiService.getAllHomeCountStatus(
+                authToken,
+                homeCountRequest
+            )
+        }
     }
 
 
@@ -210,9 +154,9 @@ class APIRepositoryImpl constructor(private val apiService: ApiService) : APIRep
 
     override suspend fun logoutAccount(
         auth: String,
-       request: LogoutRequest
+        request: LogoutRequest
     ): ResultWrapper<LogoutResponse> {
-        return safeApiCall(Dispatchers.IO) { apiService.logoutAccount(auth,request) }
+        return safeApiCall(Dispatchers.IO) { apiService.logoutAccount(auth, request) }
     }
 
     override suspend fun autoImageSlide(): ResultWrapper<AutoImageSlideResponse> {

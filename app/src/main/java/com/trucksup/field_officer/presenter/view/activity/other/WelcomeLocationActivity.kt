@@ -30,15 +30,6 @@ import java.util.Locale
 class WelcomeLocationActivity : BaseActivity() {
 
     private lateinit var binding: ActivityWelcomeLocationBinding
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
-
-    override fun onStart() {
-        super.onStart()
-        val permissionList = ArrayList<String>()
-        permissionList.add(Manifest.permission.ACCESS_FINE_LOCATION)
-        permissionList.add(Manifest.permission.ACCESS_COARSE_LOCATION)
-        checkPermissions(permissionList)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,14 +38,30 @@ class WelcomeLocationActivity : BaseActivity() {
         adjustFontScale(resources.configuration, 1.0f);
         setContentView(binding.root)
 
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        checkLocationPermission(){
+            binding.addressUpdate.text = address
+            Log.e("Address", "address:" + address)
+            binding.addressShimmer.visibility = View.GONE
+            binding.addressUpdate.visibility = View.VISIBLE
 
-        /*  Handler().postDelayed({ startActivity(Intent(baseContext,
-              HomeActivity::class.java)) }, 3000)*/
+            Handler().postDelayed({
+                startActivity(
+                    Intent(
+                        baseContext,
+                        HomeActivity::class.java
+                    )
+                )
+
+                finish()
+            }, 3000)
+        }
+
+
+
 
     }
 
-    private fun checkPermissions(permissions: ArrayList<String>) {
+   /* private fun checkPermissions(permissions: ArrayList<String>) {
         binding.addressShimmer.visibility = View.VISIBLE
         binding.addressUpdate.visibility = View.GONE
         Dexter.withContext(this@WelcomeLocationActivity)
@@ -134,6 +141,6 @@ class WelcomeLocationActivity : BaseActivity() {
             }
             .setCancelable(false)
             .show()
-    }
+    }*/
 
 }

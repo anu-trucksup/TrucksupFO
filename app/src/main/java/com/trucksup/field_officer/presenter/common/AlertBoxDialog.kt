@@ -66,7 +66,9 @@ class AlertBoxDialog(var context: Activity, var message: String, var type: Strin
                 val intent = Intent(context, SignUpActivity::class.java)
                 context.startActivity(intent)
                 this.dismiss()
-            } /*else if (type == "verifymsgadhar") {
+            } else if (type == "location") {
+                this.dismiss()
+            }/*else if (type == "verifymsgadhar") {
                 var intent: Intent = Intent(context, MainActivity::class.java)
                 intent.putExtra("type", "xxx")
                 context.startActivity(intent)

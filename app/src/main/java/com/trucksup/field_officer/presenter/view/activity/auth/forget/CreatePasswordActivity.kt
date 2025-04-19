@@ -200,7 +200,10 @@ class CreatePasswordActivity : BaseActivity(), View.OnClickListener {
                 profilename = "",
                 profilephoto = "",
                 mobilenumber = mobileNumber.toString(),
-                password = password.toString()
+                password = password.toString(),
+                latitude = latitude,
+                longitude = longitude,
+                confirmPassword = mBinding!!.confirmPasswordTxt.text.toString()
             )
             mViewModel?.resetPassword(
                 PreferenceManager.getAuthToken(), request

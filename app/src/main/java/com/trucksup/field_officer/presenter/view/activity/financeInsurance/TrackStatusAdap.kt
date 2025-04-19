@@ -27,15 +27,6 @@ class TrackStatusAdap(
     override fun onBindViewHolder(holder: TrackStatusAdap.ViewHolder, position: Int) {
         if (list.size - 1 == position) {
             holder.binding.vLine.visibility = View.GONE
-
-//            Glide.
-//            with(context).
-//            load(R.drawable.status_no).
-//            placeholder(R.drawable.placeholder_image2).
-//            error(R.drawable.placeholder_image2).
-//            into(holder.binding.image)
-//
-//            holder.binding.tvTitle.setTextColor(context.getColor(R.color.expired_color))
         }
 
         if (!list[position].status.isNullOrEmpty()) {
@@ -90,7 +81,7 @@ class TrackStatusAdap(
         return list.size
     }
 
-    var controllerListener2: ControllerListener2? = null
+    private var controllerListener2: ControllerListener2? = null
 
     fun setOnClickListener(controllerListener2: ControllerListener2) {
         this.controllerListener2 = controllerListener2

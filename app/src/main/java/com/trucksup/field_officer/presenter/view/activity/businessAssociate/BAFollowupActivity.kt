@@ -2,26 +2,31 @@ package com.trucksup.field_officer.presenter.view.activity.businessAssociate
 
 import android.os.Bundle
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.BaFollowupActivityBinding
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.vml.BAScheduleMeetingVM
 import com.trucksup.field_officer.presenter.view.fragment.ba.BACompletedFragment
 import com.trucksup.field_officer.presenter.view.fragment.ba.BAScheduledFragment
 import com.trucksup.field_officer.presenter.view.adapter.FragmentAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class BAFollowupActivity : BaseActivity() {
 
     private lateinit var binding: BaFollowupActivityBinding
+    private var mViewModel: BAScheduleMeetingVM? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = BaFollowupActivityBinding.inflate(layoutInflater)
-        adjustFontScale(resources.configuration, 1.0f);
+        adjustFontScale(resources.configuration, 1.0f)
         setContentView(binding.root)
+        mViewModel = ViewModelProvider(this)[BAScheduleMeetingVM::class.java]
 
         setupViewPager()
-
         setListener()
     }
 

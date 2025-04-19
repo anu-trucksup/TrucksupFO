@@ -23,9 +23,8 @@ import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.I
 import com.trucksup.field_officer.presenter.view.adapter.SmartFuelHisAdap
 import dagger.hilt.android.AndroidEntryPoint
 
-
 @AndroidEntryPoint
-class HistorySmartFuelFragment(val status: String, private val historyList: ArrayList<SmartFuelHistoryResponse.LeadsHistory>) : Fragment() {
+class HistorySmartFuelFragment(var status: String="", private var historyList: ArrayList<SmartFuelHistoryResponse.LeadsHistory>?=null) : Fragment() {
 
     private var aContext: Context? = null
     private lateinit var binding: FragmentHistoryInfnsBinding
@@ -63,7 +62,7 @@ class HistorySmartFuelFragment(val status: String, private val historyList: Arra
         }
     }
 
-    fun updateData(historyList: ArrayList<SmartFuelHistoryResponse.LeadsHistory>) {
+    fun updateData(historyList: ArrayList<SmartFuelHistoryResponse.LeadsHistory>?) {
 
         if (historyList.isNullOrEmpty()) {
             binding.rv.visibility = View.GONE

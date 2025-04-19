@@ -7,7 +7,7 @@ data class DutyStatusRequest(
     @SerializedName("boid")
     val boid: Int,
     @SerializedName("changedBy")
-    val changedBy: String,
+    val changedBy: Int,
     @SerializedName("isOnDuty")
     val isOnDuty: Boolean,
     @SerializedName("latitude")

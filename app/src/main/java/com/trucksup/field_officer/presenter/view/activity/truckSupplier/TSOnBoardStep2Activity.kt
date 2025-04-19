@@ -39,7 +39,7 @@ import com.trucksup.field_officer.presenter.common.image_picker.TrucksFOImageCon
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
-import com.trucksup.field_officer.presenter.view.activity.other.TokenViewModel
+import com.trucksup.field_officer.presenter.view.activity.other.vml.TokenViewModel
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.add_truck.AddTruckInterface
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.RcRequest
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.vml.TSOnboard2ViewModel
@@ -145,7 +145,7 @@ class TSOnBoardStep2Activity : BaseActivity(), PreferredLaneAdap.ControllerListe
                             PreferenceManager.getPhoneNo(this),
                             binding.vehicalNo.text.toString()
                         )
-                        mViewModel?.getRcDetails(PreferenceManager.getAuthToken(), request)
+                        mViewModel?.getRcDetails(PreferenceManager.getAuthTokenOld(), request)
                     } else {
                         val abx = AlertBoxDialog(
                             this@TSOnBoardStep2Activity,
@@ -399,26 +399,11 @@ class TSOnBoardStep2Activity : BaseActivity(), PreferredLaneAdap.ControllerListe
 
     private fun verifyTruck() {
         mViewModel?.verifyTruckDetails(
-            PreferenceManager.getAuthToken(),
+            PreferenceManager.getAuthTokenOld(),
             binding.vehicalNo.text.toString(),
             PreferenceManager.getPhoneNo(this)
         )
 
-    }
-
-    private fun getSpecialCharacterCount(s: String?): Int {
-
-        val blockCharacterSet =
-            "~#^&|$%*!@/()[]-'\":;,?{}+=!$^';,?×÷<>{}€£¥₩%~`¤♡♥_|《》¡¿°•○●□■◇◆♧♣▲▼▶◀↑↓←→☆★▪"
-        blockCharacterSet.toCharArray()
-
-        for (b in blockCharacterSet) {
-            if (!TextUtils.isEmpty(s) && s!!.contains(b)) {
-                return 0
-                break
-            }
-        }
-        return 1
     }
 
     private fun addPreferredLane(context: Context) {

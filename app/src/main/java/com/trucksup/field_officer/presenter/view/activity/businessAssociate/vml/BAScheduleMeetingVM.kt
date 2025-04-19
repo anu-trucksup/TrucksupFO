@@ -16,6 +16,9 @@ import com.trucksup.field_officer.presenter.common.image_picker.TrucksFOImageCon
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.AddBrokerRequest
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.AddBrokerResponse
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.CompleteMeetingBARequest
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.ScheduleMeetingBARequest
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.ScheduleMeetingResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -34,9 +37,13 @@ class BAScheduleMeetingVM @Inject constructor(val apiUseCase: APIUseCase) : View
     val resultSCbyPincodeLD: LiveData<ResponseModel<PinCodeResponse>> = resultSCbyPincode
 
 
-    private var onBoardBAResponse: MutableLiveData<ResponseModel<AddBrokerResponse>> =
-        MutableLiveData<ResponseModel<AddBrokerResponse>>()
-    val onBoardBAResponseLD: LiveData<ResponseModel<AddBrokerResponse>> = onBoardBAResponse
+    private var onScheduleMeetingBAResponse: MutableLiveData<ResponseModel<ScheduleMeetingResponse>> =
+        MutableLiveData<ResponseModel<ScheduleMeetingResponse>>()
+    val onScheduleMeetingBAResponseLD: LiveData<ResponseModel<ScheduleMeetingResponse>> = onScheduleMeetingBAResponse
+
+    private var onCompleteMeetingBAResponse: MutableLiveData<ResponseModel<ScheduleMeetingResponse>> =
+        MutableLiveData<ResponseModel<ScheduleMeetingResponse>>()
+    val onCompleteMeetingBAResponseLD: LiveData<ResponseModel<ScheduleMeetingResponse>> = onCompleteMeetingBAResponse
 
     fun getCityStateByPin(token: String, request: PinCodeRequest) {
         CoroutineScope(Dispatchers.IO).launch {
@@ -56,8 +63,7 @@ class BAScheduleMeetingVM @Inject constructor(val apiUseCase: APIUseCase) : View
         }
     }
 
-
-    fun trucksupImageUpload(
+    fun ImageUpload(
         token: String,
         documentType: String, file: MultipartBody.Part,
         fileWaterMark: MultipartBody.Part,
@@ -94,17 +100,34 @@ class BAScheduleMeetingVM @Inject constructor(val apiUseCase: APIUseCase) : View
     }
 
 
-    fun onBoardBusinessAssociate(request: AddBrokerRequest) {
+    fun onScheduleMeetingBA(request: ScheduleMeetingBARequest) {
         CoroutineScope(Dispatchers.IO).launch {
             when (val response =
-                apiUseCase.onBoardBusinessAssociate(PreferenceManager.getAuthToken(), request)) {
+                apiUseCase.scheduleMeetingBA(PreferenceManager.getAuthToken(), request)) {
                 is ResultWrapper.ServerResponseError -> {
                     Log.e("API Error", response.error ?: "")
-                    onBoardBAResponse.postValue(ResponseModel(serverError = response.error))
+                    onScheduleMeetingBAResponse.postValue(ResponseModel(serverError = response.error))
                 }
 
                 is ResultWrapper.Success -> {
-                    onBoardBAResponse.postValue(ResponseModel(success = response.value))
+                    onScheduleMeetingBAResponse.postValue(ResponseModel(success = response.value))
+                }
+            }
+        }
+
+    }
+
+    fun onCompleteMeetingBA(request: CompleteMeetingBARequest) {
+        CoroutineScope(Dispatchers.IO).launch {
+            when (val response =
+                apiUseCase.completeBAMeeting(PreferenceManager.getAuthToken(), request)) {
+                is ResultWrapper.ServerResponseError -> {
+                    Log.e("API Error", response.error ?: "")
+                    onCompleteMeetingBAResponse.postValue(ResponseModel(serverError = response.error))
+                }
+
+                is ResultWrapper.Success -> {
+                    onCompleteMeetingBAResponse.postValue(ResponseModel(success = response.value))
                 }
             }
         }

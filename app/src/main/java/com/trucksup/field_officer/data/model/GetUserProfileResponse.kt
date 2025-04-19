@@ -2,7 +2,7 @@ package com.trucksup.field_officer.data.model
 
 
 
-data class NewUserProfile(
+data class GetUserProfileResponse(
     val accountEnabled: Int,
     val addressMatched: Boolean,
     val agent: Boolean,

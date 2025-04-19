@@ -9,6 +9,7 @@ import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
@@ -18,6 +19,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
@@ -33,6 +35,7 @@ import com.trucksup.field_officer.data.model.home.HomeCountRequest
 import com.trucksup.field_officer.data.model.home.MenuItemsCount
 import com.trucksup.field_officer.data.model.home.OtherItemsCount
 import com.trucksup.field_officer.data.model.home.TodayPerformanceCount
+import com.trucksup.field_officer.data.model.home.UserDetails
 import com.trucksup.field_officer.databinding.ActivityHomeBinding
 import com.trucksup.field_officer.databinding.HomeMainServicesDialogBinding
 import com.trucksup.field_officer.presenter.common.AlertBoxDialog
@@ -67,12 +70,11 @@ import java.util.Locale
 @AndroidEntryPoint
 class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
     private lateinit var binding: ActivityHomeBinding
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
     private var mViewModel: DashBoardViewModel? = null
-    private var latitude:String?=null
-    private var longitude:String?=null
-    private var address:String?=null
-    private var dutyStatus:Boolean=false
+    private var dutyStatus: Boolean = false
+    private var trackingCount: String? = null
+    private var verificationCount: String? = null
+    private var dlCount: String? = null
 
 
     override fun onStart() {
@@ -80,7 +82,7 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
         val permissionList = ArrayList<String>()
         permissionList.add(Manifest.permission.ACCESS_FINE_LOCATION)
         permissionList.add(Manifest.permission.ACCESS_COARSE_LOCATION)
-        checkPermissions(permissionList)
+        //checkPermissions(permissionList)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -89,7 +91,6 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
         adjustFontScale(getResources().configuration, 1.0f)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home)
         setContentView(binding.root)
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
         mViewModel = ViewModelProvider(this)[DashBoardViewModel::class.java]
 
@@ -107,6 +108,18 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
         setupObserver()
 
         setNavigationMenu()
+
+        setLocation()
+    }
+
+    private fun setLocation() {
+        checkLocationPermission() {
+            Log.e("Location", latitude + "@" + longitude)
+            binding.addressUpdate.text = address
+            Log.e("Address", "address:" + address)
+            binding.addressShimmer.visibility = View.GONE
+            binding.addressUpdate.visibility = View.VISIBLE
+        }
     }
 
     override fun onResume() {
@@ -116,18 +129,13 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
     }
 
     private fun setDashboardApi() {
-        showProgressDialog(this,false)
-        var request= HomeCountRequest(PreferenceManager.getServerDateUtc(),PreferenceManager.getRequestNo(),PreferenceManager.getPhoneNo(this))
+        showProgressDialog(this, false)
+        val request = HomeCountRequest(
+            PreferenceManager.getServerDateUtc(),
+            PreferenceManager.getRequestNo(),
+            PreferenceManager.getPhoneNo(this)
+        )
         mViewModel?.getAllHomeCountStatus(request)
-    }
-
-    private fun setDialogRvList(binding: HomeMainServicesDialogBinding) {
-
-        binding.rvMainServicesDialog.apply {
-            layoutManager = GridLayoutManager(this@HomeActivity, 2)
-            adapter = TUKawachDialogAdapter(this@HomeActivity)
-            hasFixedSize()
-        }
     }
 
     private fun openFeatureDialog(context: Context) {
@@ -137,14 +145,35 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
         val dialog: AlertDialog = builder.create()
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
 
+        //tukawach list
+        var tuKawachList = ArrayList<HomeServicesModel>()
+        tuKawachList.add(HomeServicesModel("Vehicle Tracking", R.drawable.veh_track, trackingCount))
+        tuKawachList.add(
+            HomeServicesModel(
+                "Vehicle Verification",
+                R.drawable.veh_verify,
+                verificationCount
+            )
+        )
+        tuKawachList.add(HomeServicesModel("Driving License", R.drawable.dl_verify, dlCount))
+        binding.rvMainServicesDialog.apply {
+            layoutManager = GridLayoutManager(this@HomeActivity, 2)
+            adapter = TUKawachDialogAdapter(this@HomeActivity, tuKawachList)
+            hasFixedSize()
+        }
+
+        //cancel button
         binding.imgCancel.setOnClickListener {
             dialog.dismiss()
         }
-        setDialogRvList(binding)
+
         dialog.show()
     }
 
     private fun setListener() {
+        binding.addressUpdate.text = address
+        binding.addressShimmer.visibility = View.GONE
+        binding.addressUpdate.visibility = View.VISIBLE
 
         //close drawer
         binding.navOpenBtn.setOnClickListener {
@@ -152,7 +181,7 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
         }
 
         binding.OnSwitchBtn.setOnCheckedChangeListener { compoundButton, b ->
-            dutyStatus=b
+            dutyStatus = b
 //            if (b) {
 //                binding.txtOnDuty.text = "On Duty"
 //                binding.txtOnDuty.setTextColor(resources.getColor(R.color.on_duty_color))
@@ -163,7 +192,7 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
 //                binding.txtOnDuty.setTextColor(resources.getColor(R.color.red))
 //                binding.OnSwitchBtn.trackTintList = resources.getColorStateList(R.color.red)
 //            }
-            if(!latitude.isNullOrEmpty() && !longitude.isNullOrEmpty() && !address.isNullOrEmpty()) {
+            if (!latitude.isNullOrEmpty() && !longitude.isNullOrEmpty() && !address.isNullOrEmpty()) {
                 DialogBoxes.onOffDuty(this, dutyStatus, mViewModel, latitude, longitude, address)
             }
         }
@@ -225,81 +254,71 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
         //binding.llHome.setBackgroundColor(resources.getColor(R.color.blue));
     }
 
-    private fun checkPermissions(permissions: ArrayList<String>) {
-        binding.addressShimmer.visibility = View.VISIBLE
-        binding.addressUpdate.visibility = View.GONE
-        Dexter.withContext(this@HomeActivity)
-            .withPermissions(
-                permissions
-            )
-            .withListener(object : MultiplePermissionsListener {
-                @SuppressLint("MissingPermission")
-                override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
-                    report?.let {
-                        if (report.areAllPermissionsGranted()) {
-                            fusedLocationClient.getCurrentLocation(
-                                Priority.PRIORITY_HIGH_ACCURACY,
-                                CancellationTokenSource().token
-                            ).addOnSuccessListener { location: Location? ->
-                                try {
-                                    val geocoder =
-                                        Geocoder(this@HomeActivity, Locale.getDefault())
-                                    val addresses = geocoder.getFromLocation(
-                                        location!!.latitude,
-                                        location!!.longitude,
-                                        1
-                                    )
-                                    binding.addressUpdate.text =
-                                        addresses?.get(0)?.getAddressLine(0)
-                                    binding.addressShimmer.visibility = View.GONE
-                                    binding.addressUpdate.visibility = View.VISIBLE
+    /* private fun checkPermissions(permissions: ArrayList<String>) {
+         binding.addressShimmer.visibility = View.VISIBLE
+         binding.addressUpdate.visibility = View.GONE
+         Dexter.withContext(this@HomeActivity)
+             .withPermissions(
+                 permissions
+             )
+             .withListener(object : MultiplePermissionsListener {
+                 @SuppressLint("MissingPermission")
+                 override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
+                     report?.let {
+                         if (report.areAllPermissionsGranted()) {
+                             fusedLocationClient.getCurrentLocation(
+                                 Priority.PRIORITY_HIGH_ACCURACY,
+                                 CancellationTokenSource().token
+                             ).addOnSuccessListener { location: Location? ->
+                                 try {
+                                     val geocoder =
+                                         Geocoder(this@HomeActivity, Locale.getDefault())
+                                     val addresses = geocoder.getFromLocation(
+                                         location!!.latitude,
+                                         location!!.longitude,
+                                         1
+                                     )
+                                     binding.addressUpdate.text =
+                                         addresses?.get(0)?.getAddressLine(0)
+                                     binding.addressShimmer.visibility = View.GONE
+                                     binding.addressUpdate.visibility = View.VISIBLE
 
-                                    latitude=location.latitude.toString()
-                                    longitude=location.longitude.toString()
-                                    address=addresses?.get(0)?.getAddressLine(0).toString()
+                                     latitude = location.latitude.toString()
+                                     longitude = location.longitude.toString()
+                                     address = addresses?.get(0)?.getAddressLine(0).toString()
 
-                                } catch (e: Exception) {
-//                                    val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-//                                    startActivity(intent)
-                                    showLocationDisabledDialog()
-                                }
-                            }
-                        }
+                                 } catch (e: Exception) {
+ //                                    val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+ //                                    startActivity(intent)
+                                     showLocationDisabledDialog()
+                                 }
+                             }
+                         }
 
-                        if (report.isAnyPermissionPermanentlyDenied) {
-//                            val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-//                            startActivity(intent)
-                            showLocationDisabledDialog()
-                        }
-                    }
-                }
+                         if (report.isAnyPermissionPermanentlyDenied) {
+ //                            val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+ //                            startActivity(intent)
+                             showLocationDisabledDialog()
+                         }
+                     }
+                 }
 
-                override fun onPermissionRationaleShouldBeShown(
-                    permissions: MutableList<PermissionRequest>?,
-                    token: PermissionToken?
-                ) {
-                    // Remember to invoke this method when the custom rationale is closed
-                    // or just by default if you don't want to use any custom rationale.
-                    token?.continuePermissionRequest()
-                }
-            })
-            .withErrorListener {
-                Toast.makeText(this, it.name, Toast.LENGTH_SHORT).show()
-            }
-            .check()
-    }
+                 override fun onPermissionRationaleShouldBeShown(
+                     permissions: MutableList<PermissionRequest>?,
+                     token: PermissionToken?
+                 ) {
+                     // Remember to invoke this method when the custom rationale is closed
+                     // or just by default if you don't want to use any custom rationale.
+                     token?.continuePermissionRequest()
+                 }
+             })
+             .withErrorListener {
+                 Toast.makeText(this, it.name, Toast.LENGTH_SHORT).show()
+             }
+             .check()
+     }*/
 
-    private fun showLocationDisabledDialog() {
-        AlertDialog.Builder(this)
-            .setTitle("Location Services Disabled")
-            .setMessage("Location services are required for this app. Please enable them in the settings.")
-            .setPositiveButton("Open Settings") { _, _ ->
-                val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-                startActivity(intent)
-            }
-            .setCancelable(false)
-            .show()
-    }
+
 
     private fun setNavigationMenu() {
         val list = ArrayList<NavItems>()
@@ -370,7 +389,7 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
 
     override fun logout(type: String) {
         if (type == "out") {
-          dismissProgressDialog()
+            dismissProgressDialog()
 
             /*if (isMyServiceRunning(LocationService::class.java)) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -386,7 +405,8 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
             val loginIntent = Intent(this, LoginActivity::class.java)
             startActivity(loginIntent)
             finishAffinity()
-        } else { }
+        } else {
+        }
 
     }
 
@@ -405,24 +425,22 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
             } else {
                 LoadingUtils.hideDialog()
                 if (responseModel.success != null) {
-                    if (responseModel.success.statuscode==200) {
+                    if (responseModel.success.statuscode == 200) {
                         if (dutyStatus == true) {
                             binding.txtOnDuty.text = "On Duty"
                             binding.txtOnDuty.setTextColor(resources.getColor(R.color.on_duty_color))
-                            binding.OnSwitchBtn.trackTintList = resources.getColorStateList(R.color.on_duty_color)
+                            binding.OnSwitchBtn.trackTintList =
+                                resources.getColorStateList(R.color.on_duty_color)
                         } else {
                             binding.txtOnDuty.text = "Off Duty"
                             binding.txtOnDuty.setTextColor(resources.getColor(R.color.red))
-                            binding.OnSwitchBtn.trackTintList = resources.getColorStateList(R.color.red)
+                            binding.OnSwitchBtn.trackTintList =
+                                resources.getColorStateList(R.color.red)
                         }
-                    }
-                    else
-                    {
+                    } else {
 
                     }
-                }
-                else
-                {
+                } else {
 
                 }
             }
@@ -437,10 +455,65 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
             } else {
                 dismissProgressDialog()
                 if (responseModel.success != null) {
-                    if (responseModel.success.statuscode==200) {
-                        var serviceCounts:MenuItemsCount?=responseModel.success.homeMenuItems?.menuItemsCount
-                        var earningCounts:OtherItemsCount?=responseModel.success.homeMenuItems?.otherItemsCount
-                        var featureCount:TodayPerformanceCount?=responseModel.success.homeMenuItems?.todayPerformanceCount
+                    if (responseModel.success.statuscode == 200) {
+                        var serviceCounts: MenuItemsCount? =
+                            responseModel.success.homeMenuItems?.menuItemsCount
+                        var earningCounts: OtherItemsCount? =
+                            responseModel.success.homeMenuItems?.otherItemsCount
+                        var todayPerformanceCounts: TodayPerformanceCount? =
+                            responseModel.success.homeMenuItems?.todayPerformanceCount
+                        var userDetail: UserDetails? =
+                            responseModel.success.homeMenuItems?.userDetails
+
+                        //tracking count
+                        trackingCount = serviceCounts?.vehicleTracking
+
+                        //verification count
+                        verificationCount = serviceCounts?.vehicleVerification
+
+                        //dl count
+                        dlCount = serviceCounts?.dl
+
+                        //home title
+                        binding.homeTitle.text = userDetail?.msg ?: ""
+
+                        //nav name
+                        binding.nn.navUserName.text = userDetail?.name ?: ""
+
+                        //nav mobile
+                        binding.nn.navMobileNo.text = userDetail?.mobileNo ?: ""
+
+                        //nav referral code
+                        if (!userDetail?.refcode.isNullOrEmpty()) {
+                            binding.nn.navReferralCode.text =
+                                "Referral Code: " + userDetail?.refcode ?: ""
+                        }
+
+                        //nav user image
+                        try {
+                            Glide.with(this)
+                                .load(userDetail?.image)
+                                .placeholder(R.drawable.profile)
+                                .error(R.drawable.profile)
+                                .into(binding.nn.navUserImg)
+                        } catch (e: Exception) {
+                        }
+
+                        //duty status
+                        dutyStatus = userDetail!!.dutyStatus
+                        if (dutyStatus == true) {
+                            binding.OnSwitchBtn.isChecked = true
+                            binding.txtOnDuty.text = "On Duty"
+                            binding.txtOnDuty.setTextColor(resources.getColor(R.color.on_duty_color))
+                            binding.OnSwitchBtn.trackTintList =
+                                resources.getColorStateList(R.color.on_duty_color)
+                        } else {
+                            binding.OnSwitchBtn.isChecked = false
+                            binding.txtOnDuty.text = "Off Duty"
+                            binding.txtOnDuty.setTextColor(resources.getColor(R.color.red))
+                            binding.OnSwitchBtn.trackTintList =
+                                resources.getColorStateList(R.color.red)
+                        }
 
                         //main services
                         mainServices(serviceCounts)
@@ -449,15 +522,11 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
                         earningCounts(earningCounts)
 
                         //today's performance
-                        todayPerformance(featureCount)
-                    }
-                    else
-                    {
+                        todayPerformance(todayPerformanceCounts)
+                    } else {
 
                     }
-                }
-                else
-                {
+                } else {
 
                 }
             }
@@ -485,65 +554,135 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
     }
 
     private fun mainServices(serviceCounts: MenuItemsCount?) {
-        var serviceList=ArrayList<HomeServicesModel>()
-        serviceList.add(HomeServicesModel("TU Kawach",R.drawable.ic_kawach,serviceCounts?.tuKawach))
-        serviceList.add(HomeServicesModel("Finance",R.drawable.ic_finanace,serviceCounts?.finance))
-        serviceList.add(HomeServicesModel("Insurance",R.drawable.ic_insurance,serviceCounts?.insurance))
-        serviceList.add(HomeServicesModel("Smart Fuel",R.drawable.ic_smart_fuel,serviceCounts?.smartFuel))
-        serviceList.add(HomeServicesModel("GPS",R.drawable.ic_gps,serviceCounts?.gps))
-        serviceList.add(HomeServicesModel("FASTag",R.drawable.ic_fasttag,serviceCounts?.gps))
+        val serviceList = ArrayList<HomeServicesModel>()
+        serviceList.add(
+            HomeServicesModel(
+                "TU Kawach",
+                R.drawable.ic_kawach,
+                serviceCounts?.tuKawach
+            )
+        )
+        serviceList.add(
+            HomeServicesModel(
+                "Finance",
+                R.drawable.ic_finanace,
+                serviceCounts?.finance
+            )
+        )
+        serviceList.add(
+            HomeServicesModel(
+                "Insurance",
+                R.drawable.ic_insurance,
+                serviceCounts?.insurance
+            )
+        )
+        serviceList.add(
+            HomeServicesModel(
+                "Smart Fuel",
+                R.drawable.ic_smart_fuel,
+                serviceCounts?.smartFuel
+            )
+        )
+        serviceList.add(HomeServicesModel("GPS", R.drawable.ic_gps, serviceCounts?.gps))
+        serviceList.add(HomeServicesModel("FASTag", R.drawable.ic_fasttag, serviceCounts?.gps))
         binding.rvServices.apply {
             binding.rvServices.layoutManager = GridLayoutManager(this@HomeActivity, 3)
-            adapter = ServicesMainAdapter(this@HomeActivity,serviceList)
+            adapter = ServicesMainAdapter(this@HomeActivity, serviceList)
             hasFixedSize()
         }
     }
 
     private fun earningCounts(earningCounts: OtherItemsCount?) {
         //total earning
-        if (earningCounts?.totalEarning.isNullOrEmpty())
-        {
-            binding.homeEarnings.tvTotalEarn.text="₹ 0"
-        }
-        else {
+        if (earningCounts?.totalEarning.isNullOrEmpty()) {
+            binding.homeEarnings.tvTotalEarn.text = "₹ 0"
+        } else {
             binding.homeEarnings.tvTotalEarn.text = "₹ " + earningCounts?.totalEarning
         }
 
         //today followup
-        if (earningCounts?.todayFollowUp.isNullOrEmpty())
-        {
-            binding.homeEarnings.tvFollowupCount.text="0"
-        }
-        else
-        {
-            binding.homeEarnings.tvFollowupCount.text=earningCounts?.todayFollowUp
+        if (earningCounts?.todayFollowUp.isNullOrEmpty()) {
+            binding.homeEarnings.tvFollowupCount.text = "0"
+        } else {
+            binding.homeEarnings.tvFollowupCount.text = earningCounts?.todayFollowUp
         }
 
         //tsba
-        if (earningCounts?.unassignedTSBA.isNullOrEmpty())
-        {
-            binding.homeEarnings.unassignedTsBaCount.text="0"
-        }
-        else
-        {
-            binding.homeEarnings.unassignedTsBaCount.text=earningCounts?.unassignedTSBA
+        if (earningCounts?.unassignedTSBA.isNullOrEmpty()) {
+            binding.homeEarnings.unassignedTsBaCount.text = "0"
+        } else {
+            binding.homeEarnings.unassignedTsBaCount.text = earningCounts?.unassignedTSBA
         }
     }
 
     private fun todayPerformance(featureCount: TodayPerformanceCount?) {
-        var featuresList=ArrayList<HomeServicesModel>()
-        featuresList.add(HomeServicesModel("Truck Suppliers",R.drawable.truck_img,featureCount?.truckSuppliers))
-        featuresList.add(HomeServicesModel("Business Associates",R.drawable.ba_ic,featureCount?.businessAssociates))
-        featuresList.add(HomeServicesModel("Growth Partners",R.drawable.growth_part,featureCount?.growthPartners))
-        featuresList.add(HomeServicesModel("Total Add Loads",R.drawable.load_feature,featureCount?.totalAddLoads))
-        featuresList.add(HomeServicesModel("Total downloads",R.drawable.down_feature,featureCount?.totalDownloads))
-        featuresList.add(HomeServicesModel("Subscription Plans",R.drawable.subscribe_feature,featureCount?.subsriptionPlans))
-        featuresList.add(HomeServicesModel("Finance Leads",R.drawable.finance_feature,featureCount?.financeLeads))
-        featuresList.add(HomeServicesModel("Insurance Leads",R.drawable.insure_feature,featureCount?.insuranceLeads))
-        featuresList.add(HomeServicesModel("Smart Fuel Leads",R.drawable.fuel_feature,featureCount?.smartFuelLeads))
+        var featuresList = ArrayList<HomeServicesModel>()
+        featuresList.add(
+            HomeServicesModel(
+                "Truck Suppliers",
+                R.drawable.truck_img,
+                featureCount?.truckSuppliers
+            )
+        )
+        featuresList.add(
+            HomeServicesModel(
+                "Business Associates",
+                R.drawable.ba_ic,
+                featureCount?.businessAssociates
+            )
+        )
+        featuresList.add(
+            HomeServicesModel(
+                "Growth Partners",
+                R.drawable.growth_part,
+                featureCount?.growthPartners
+            )
+        )
+        featuresList.add(
+            HomeServicesModel(
+                "Total Add Loads",
+                R.drawable.load_feature,
+                featureCount?.totalAddLoads
+            )
+        )
+        featuresList.add(
+            HomeServicesModel(
+                "Total downloads",
+                R.drawable.down_feature,
+                featureCount?.totalDownloads
+            )
+        )
+        featuresList.add(
+            HomeServicesModel(
+                "Subscription Plans",
+                R.drawable.subscribe_feature,
+                featureCount?.subsriptionPlans
+            )
+        )
+        featuresList.add(
+            HomeServicesModel(
+                "Finance Leads",
+                R.drawable.finance_feature,
+                featureCount?.financeLeads
+            )
+        )
+        featuresList.add(
+            HomeServicesModel(
+                "Insurance Leads",
+                R.drawable.insure_feature,
+                featureCount?.insuranceLeads
+            )
+        )
+        featuresList.add(
+            HomeServicesModel(
+                "Smart Fuel Leads",
+                R.drawable.fuel_feature,
+                featureCount?.smartFuelLeads
+            )
+        )
         binding.rvFeatures.apply {
             layoutManager = GridLayoutManager(this@HomeActivity, 3)
-            adapter = HomeFeaturesAdapter(this@HomeActivity,featuresList)
+            adapter = HomeFeaturesAdapter(this@HomeActivity, featuresList)
             hasFixedSize()
         }
 

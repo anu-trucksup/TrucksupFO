@@ -230,6 +230,13 @@
         <item name="android:fontFamily">@font/bai_jamjuree_medium</item>
     </style>
 
+    <style name="text_bl_medium" parent="Base.Theme.FieldOfficer">
+        <item name="android:textSize">@dimen/_10ssp</item>
+        <item name="android:textColor">@color/blue</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">@font/bai_jamjuree_medium</item>
+    </style>
+
     <style name="text_light_16" parent="Base.Theme.FieldOfficer">
         <item name="android:textSize">@dimen/_14ssp</item>
         <item name="android:textColor">@color/text_light</item>

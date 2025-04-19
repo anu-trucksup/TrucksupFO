@@ -16,6 +16,9 @@ import com.trucksup.field_officer.presenter.common.image_picker.TrucksFOImageCon
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.AddBrokerRequest
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.AddBrokerResponse
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.CompleteMeetingBARequest
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.ScheduleMeetingResponse
+import com.trucksup.field_officer.presenter.view.activity.growthPartner.model.CompleteMeetingGPRequest
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -31,12 +34,12 @@ class GPScheduleMeetingVM @Inject constructor(val apiUseCase: APIUseCase) : View
 
     private var resultSCbyPincode: MutableLiveData<ResponseModel<PinCodeResponse>> =
         MutableLiveData<ResponseModel<PinCodeResponse>>()
-    val resultSCbyPincodeLD: LiveData<ResponseModel<PinCodeResponse>> = resultSCbyPincode
+    val resultSCbyPinCodeLD: LiveData<ResponseModel<PinCodeResponse>> = resultSCbyPincode
 
 
-    private var onBoardBAResponse: MutableLiveData<ResponseModel<AddBrokerResponse>> =
-        MutableLiveData<ResponseModel<AddBrokerResponse>>()
-    val onBoardBAResponseLD: LiveData<ResponseModel<AddBrokerResponse>> = onBoardBAResponse
+    private var onCompleteMeetingGPResponse: MutableLiveData<ResponseModel<ScheduleMeetingResponse>> =
+        MutableLiveData<ResponseModel<ScheduleMeetingResponse>>()
+    val onCompleteMeetingGPResponseLD: LiveData<ResponseModel<ScheduleMeetingResponse>> = onCompleteMeetingGPResponse
 
     fun getCityStateByPin(token: String, request: PinCodeRequest) {
         CoroutineScope(Dispatchers.IO).launch {
@@ -94,58 +97,17 @@ class GPScheduleMeetingVM @Inject constructor(val apiUseCase: APIUseCase) : View
     }
 
 
-
-    fun uploadImages(
-        token: String,
-        filetype: String,
-        foldername: String,
-        file: MultipartBody.Part,
-        fileWaterMark: MultipartBody.Part,
-        imgRes: TrucksFOImageController,
-    ) {
-        val apiInterface = ApiClient().getClient
-        apiInterface.uploadImages(token, filetype, foldername, file, fileWaterMark)
-
-            ?.enqueue(object : Callback<TrucksupImageUploadResponse> {
-                override fun onResponse(
-                    call: Call<TrucksupImageUploadResponse>,
-                    response: Response<TrucksupImageUploadResponse>,
-                ) {
-
-                    if (response.isSuccessful) {
-                        if (response.body()?.s3FileName != null) {
-                            imgRes.getImage(
-                                response.body()?.s3FileName.toString(),
-                                response.body()?.url.toString()
-                            )
-                        } else {
-                            imgRes.imageError(response.body()?.message.toString())
-                        }
-
-                    } else {
-                        imgRes.imageError("Something server error")
-                    }
-                }
-
-                override fun onFailure(call: Call<TrucksupImageUploadResponse>, t: Throwable) {
-
-                    imgRes.imageError("Something server error")
-                }
-            })
-    }
-
-
-    fun onBoardBusinessAssociate(request: AddBrokerRequest) {
+    fun onCompleteMeetingBA(request: CompleteMeetingGPRequest) {
         CoroutineScope(Dispatchers.IO).launch {
             when (val response =
-                apiUseCase.onBoardBusinessAssociate(PreferenceManager.getAuthToken(), request)) {
+                apiUseCase.completeBAMeeting(PreferenceManager.getAuthToken(), request)) {
                 is ResultWrapper.ServerResponseError -> {
                     Log.e("API Error", response.error ?: "")
-                    onBoardBAResponse.postValue(ResponseModel(serverError = response.error))
+                    onCompleteMeetingGPResponse.postValue(ResponseModel(serverError = response.error))
                 }
 
                 is ResultWrapper.Success -> {
-                    onBoardBAResponse.postValue(ResponseModel(success = response.value))
+                    onCompleteMeetingGPResponse.postValue(ResponseModel(success = response.value))
                 }
             }
         }

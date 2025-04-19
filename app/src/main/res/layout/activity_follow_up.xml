@@ -167,11 +167,10 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="8dp"
                                 android:ellipsize="end"
-                                android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                style="@style/label_semi16"
                                 android:maxLength="15"
                                 android:text="20"
                                 android:textColor="@color/black"
-                                android:textSize="@dimen/_16ssp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
@@ -216,11 +215,10 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginEnd="8dp"
                                 android:ellipsize="end"
-                                android:fontFamily="@font/bai_jamjuree_semi_bold"
+                                style="@style/label_semi16"
                                 android:maxLength="15"
                                 android:text="15"
                                 android:textColor="@color/black"
-                                android:textSize="@dimen/_16ssp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
@@ -230,7 +228,53 @@
 
                     </com.google.android.material.card.MaterialCardView>
 
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="@dimen/_8sdp"
+                        app:cardUseCompatPadding="true"
+                        app:strokeColor="@color/cir_gray"
+                        app:strokeWidth="@dimen/_1sdp">
 
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/_4sdp">
+
+                            <TextView
+                                style="@style/label_semi18"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:ellipsize="end"
+                                android:text="@string/planned_follow_up"
+                                android:textColor="@color/text_grey"
+                                android:textSize="@dimen/_16ssp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+
+                            <TextView
+                                android:id="@+id/tvPlannedFollow"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="8dp"
+                                android:ellipsize="end"
+                                style="@style/label_semi16"
+                                android:maxLength="15"
+                                android:text="15"
+                                android:textColor="@color/black"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
                 </LinearLayout>
 
 

@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import android.util.Log
 import com.google.firebase.FirebaseApp
 import com.google.firebase.messaging.FirebaseMessaging
+import com.trucksup.field_officer.presenter.common.location.LocationHelper
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
@@ -44,6 +45,8 @@ open class CommonApplication: Application() {
             // Log.d(TAG, "Device Token: $token"+ FontVariation.Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID))
             //onTokenReceived(token)
         }
+
+        LocationHelper.init(this)
     }
 
 

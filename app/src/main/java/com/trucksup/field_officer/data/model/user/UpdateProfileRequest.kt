@@ -1,13 +1,15 @@
 package com.trucksup.field_officer.data.model.user
 
 data class UpdateProfileRequest(
-    val accountEnabled: Int,
-    val builder: Boolean ?=null,
-    val individual:Boolean ?=null,
-    val agent:Boolean ?=null,
-    val userType:String,
-    val deleteAccount: Int,
+    val address: String,
+    val city: String,
     val email: String,
-    val fullName: String,
-    val mobileNumber: String
+    val mobileNo: String,
+    val pincode: String,
+    val profilephoto: String,
+    val requestDatetime: String,
+    val requestId: Int,
+    val requestedBy: String,
+    val state: String,
+    val userId: Int
 )

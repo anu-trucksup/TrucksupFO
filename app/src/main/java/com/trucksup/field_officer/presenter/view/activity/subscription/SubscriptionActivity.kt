@@ -22,7 +22,7 @@ import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
-import com.trucksup.field_officer.presenter.view.activity.other.TokenViewModel
+import com.trucksup.field_officer.presenter.view.activity.other.vml.TokenViewModel
 import com.trucksup.field_officer.presenter.view.activity.subscription.model.MyPlanData
 import com.trucksup.field_officer.presenter.view.activity.subscription.model.NavigationSubData
 import com.trucksup.field_officer.presenter.view.activity.subscription.model.PlanRequest

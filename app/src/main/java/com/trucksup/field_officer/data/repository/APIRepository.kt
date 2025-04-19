@@ -6,10 +6,9 @@ import com.logistics.trucksup.activities.preferre.modle.PrefferLanRequest
 import com.logistics.trucksup.activities.preferre.modle.PrefferdResponse
 import com.logistics.trucksup.modle.PlanResponse
 import com.trucksup.field_officer.data.model.AutoImageSlideResponse
-import com.trucksup.field_officer.data.model.CheckUserProfileResponse
 import com.trucksup.field_officer.data.model.DutyStatusRequest
 import com.trucksup.field_officer.data.model.DutyStatusResponse
-import com.trucksup.field_officer.data.model.NewUserProfile
+import com.trucksup.field_officer.data.model.GetUserProfileResponse
 import com.trucksup.field_officer.data.model.PinCodeRequest
 import com.trucksup.field_officer.data.model.PinCodeResponse
 import com.trucksup.field_officer.data.model.PrivacyAllResponse
@@ -24,16 +23,19 @@ import com.trucksup.field_officer.data.model.deleteResponse.DeleteProfileRespons
 import com.trucksup.field_officer.data.model.home.HomeCountRequest
 import com.trucksup.field_officer.data.model.home.HomeCountResponse
 import com.trucksup.field_officer.data.model.insurance.InquiryHistoryResponse
-import com.trucksup.field_officer.data.model.otp.NewOtpResponse
 import com.trucksup.field_officer.data.model.otp.OtpRequest
+import com.trucksup.field_officer.data.model.otp.OtpResponse
+import com.trucksup.field_officer.data.model.otp.VerifyOtpRequest
+import com.trucksup.field_officer.data.model.otp.VerifyOtpResponse
 import com.trucksup.field_officer.data.model.smartfuel.AddSmartFuelLeadRequest
 import com.trucksup.field_officer.data.model.smartfuel.AddSmartFuelLeadResponse
 import com.trucksup.field_officer.data.model.smartfuel.SmartFuelHistoryRequest
 import com.trucksup.field_officer.data.model.smartfuel.SmartFuelHistoryResponse
+import com.trucksup.field_officer.data.model.user.GetProfileRequest
+import com.trucksup.field_officer.data.model.user.GetProfileResponse
 import com.trucksup.field_officer.data.model.user.UpdateProfileRequest
 import com.trucksup.field_officer.data.model.user.UpdateProfileResponse
 import com.trucksup.field_officer.data.network.ResultWrapper
-import com.trucksup.field_officer.data.network.safeApiCall
 import com.trucksup.field_officer.presenter.view.activity.auth.logout.LogoutRequest
 import com.trucksup.field_officer.presenter.view.activity.auth.logout.LogoutResponse
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.AddBrokerRequest
@@ -56,7 +58,6 @@ import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.Rc
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.RcResponse
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.ScheduleMeetTSRequest
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.VerifyTruckResponse
-import kotlinx.coroutines.Dispatchers
 
 interface APIRepository {
 
@@ -64,60 +65,25 @@ interface APIRepository {
 
     suspend fun registerUser(token: String, request: SignRequest): ResultWrapper<SignResponse>
 
-    suspend fun verifyOTP(
-        otp: String,
-        email: String,
-        mobileNumber: String,
-        mobileCode: String
-    ): ResultWrapper<Response<String>>
+    suspend fun resetPassword(token: String, request: ForgetRequest): ResultWrapper<ForgetResponse>
 
-    suspend fun verifyUserOTP(
-        otp: String, email: String,
-        mobileNumber: String, mobileCode: String, userId: Int
-    ): ResultWrapper<Response<String>>
+    suspend fun sendOTP(auth: String, request: OtpRequest): ResultWrapper<OtpResponse>
 
+    suspend fun verifyOTP(auth: String, request: VerifyOtpRequest): ResultWrapper<VerifyOtpResponse>
 
-    suspend fun checkUserProfile(
-        email: String, mobile: String,
-        countryCode: String
-    ): ResultWrapper<CheckUserProfileResponse>
-
-    suspend fun resetPassword(
-        token: String, request: ForgetRequest
-    ): ResultWrapper<ForgetResponse>
-
-
-    suspend fun sendOTP(
-        auth: String,
-        request: OtpRequest
-    ): ResultWrapper<NewOtpResponse>
-
-    suspend fun EditsendOTP(
-        id: String,
-        mobile: String,
-        email: String,
-        countryCode: String
-    ): ResultWrapper<Response<String>>
-
-    suspend fun getUserProfile(): ResultWrapper<Response<NewUserProfile>>
+    suspend fun getUserProfile(token: String, request: GetProfileRequest): ResultWrapper<GetProfileResponse>
 
     fun logoutUser()
 
     suspend fun isUserLoggedIn(): Boolean
 
-    suspend fun updateUserProfile(updateProfileRequest: UpdateProfileRequest): ResultWrapper<UpdateProfileResponse>
+    suspend fun updateUserProfile(token: String, updateProfileRequest: UpdateProfileRequest): ResultWrapper<UpdateProfileResponse>
 
-    suspend fun getAllHomeCountStatus(
-        authToken: String,
-        homeCountRequest: HomeCountRequest
-    ): ResultWrapper<HomeCountResponse>
+    suspend fun getAllHomeCountStatus(authToken: String, homeCountRequest: HomeCountRequest): ResultWrapper<HomeCountResponse>
 
     suspend fun privacyDetails(name: String): ResultWrapper<PrivacyAllResponse>
 
-    suspend fun userSessionData(
-        socialOrigin: String?,
-        email: String?
-    ): ResultWrapper<UserSessionResponse>
+    suspend fun userSessionData(socialOrigin: String?, email: String?): ResultWrapper<UserSessionResponse>
 
     suspend fun logoutAccount(
         auth: String,
@@ -213,7 +179,7 @@ interface APIRepository {
         request: ScheduleMeetingBARequest
     ): ResultWrapper<ScheduleMeetingResponse>
 
-     suspend fun completeBAMeeting(
+    suspend fun completeBAMeeting(
         authToken: String,
         request: CompleteMeetingBARequest
     ): ResultWrapper<ScheduleMeetingResponse>

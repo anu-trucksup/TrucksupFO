@@ -2,21 +2,17 @@ package com.trucksup.field_officer.presenter.view.activity.smartfuel
 
 import android.Manifest
 import android.app.Activity
-import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
-import android.icu.util.Calendar
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.InputFilter
-import android.text.TextUtils
 import android.util.Log
 import android.util.Patterns
-import android.view.LayoutInflater
 import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResult
@@ -32,12 +28,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.trucksup.field_officer.R
-import com.trucksup.field_officer.data.model.VehicleDetail
 import com.trucksup.field_officer.data.model.smartfuel.AddSmartFuelLeadRequest
-import com.trucksup.field_officer.data.model.smartfuel.CustomerDetailsSubmitRequest
-import com.trucksup.field_officer.data.model.smartfuel.CustomerDocList
 import com.trucksup.field_officer.databinding.ActivityAddSmartfuelBinding
-import com.trucksup.field_officer.databinding.VehicleDetailsDialogLayoutBinding
 import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.CameraActivity
 import com.trucksup.field_officer.presenter.common.FileHelp
@@ -49,10 +41,6 @@ import com.trucksup.field_officer.presenter.common.image_picker.TrucksFOImageCon
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
-import com.trucksup.field_officer.presenter.view.activity.financeInsurance.InsuranceController
-import com.trucksup.field_officer.presenter.view.activity.financeInsurance.InsuranceListAdapter
-import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryRequest
-import com.trucksup.field_officer.presenter.view.activity.other.ViewPdfScreen
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.util.regex.Pattern
@@ -61,12 +49,8 @@ import java.util.regex.Pattern
 @AndroidEntryPoint
 class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
     private lateinit var binding: ActivityAddSmartfuelBinding
-    private var list = ArrayList<CustomerDocList>()
     private var mViewModel: SmartFuelViewModel? = null
-    private var adapter: InsuranceListAdapter? = null
-    private val calendar = Calendar.getInstance()
 
-    private var insuFor: String = "other"
     private var rcFrontImgKey: String? = ""
     private var rcFrontImgUrl: String? = ""
     private var rcBackImgKey: String? = ""
@@ -92,7 +76,7 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
     private var prevPolicyDocsImgUrl: String? = ""
 
     private var imageT: Int = 0 //0 default,1 front image,2 back image,3 previous policy docs image
-    private var sourceValue: String? = "Trucksup"
+
     private var launcher: ActivityResultLauncher<Intent>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -101,20 +85,16 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
 
         adjustFontScale(getResources().configuration, 1.0f);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_smartfuel)
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-//            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-//            insets
-//        }
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
 
         mViewModel = ViewModelProvider(this)[SmartFuelViewModel::class.java]
 
-        PreferenceManager.setPhoneNo("9870009988", this)
         binding.etCustomerMobile.setText(PreferenceManager.getPhoneNo(this))
-        binding.etReferralCode.setText("7BGHJ9")
-
-        //referral code or sales code
-        // binding.etReferralCode.setText(PreferenceManager.getUserData(this)?.salesCode)
+        binding.etReferralCode.setText(PreferenceManager.getUserData(this)?.referralcode)
 
         disableEmojiInTitle()
         setListener()
@@ -456,21 +436,6 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
         return (m.find() && m.group() == phone)
     }
 
-    private fun getSpecialCharacterCount(s: String?): Int {
-        val blockCharacterSet =
-            "1234567890~#^&|$%*!@/()[]-'\":;,?{}+=!$^';,?×÷<>{}€£¥₩%~`¤♡♥_|《》¡¿°•○●□■◇◆♧♣▲▼▶◀↑↓←→☆★▪"
-        blockCharacterSet.toCharArray()
-
-        for (b in blockCharacterSet) {
-            if (s!!.contains(b)) {
-
-                return 0
-                break
-            }
-        }
-        return 1
-    }
-
     private fun disableEmojiInTitle() {
         val emojiFilter = InputFilter { source, start, end, dest, dstart, dend ->
             for (index in start until end) {
@@ -664,8 +629,8 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
                 } else {
                     MediaStore.Images.Media.getBitmap(contentResolver, uri)
                 }
-                var newBitmap: Bitmap = FileHelp().resizeImage(bitmap, 500, 500)!!
-                var newFile: File = FileHelp().bitmapTofile(newBitmap, this)!!
+                val newBitmap: Bitmap = FileHelp().resizeImage(bitmap, 500)
+                val newFile: File = FileHelp().bitmapTofile(this,newBitmap)
 
                 uploadImage(newFile, "")
 
@@ -686,15 +651,11 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
         if (resultCode == Activity.RESULT_OK && requestCode == 11 && data != null) {
 
             if (data.extras?.get("data") != null) {
-                var newBitmap: Bitmap =
+                val newBitmap: Bitmap =
                     data.extras?.get("data") as Bitmap  // FileHelp().resizeImage(data.extras?.get("data") as Bitmap, 500, 500)!!
-                var newFile: File = FileHelp().bitmapTofile(newBitmap, this)!!
+                val newFile: File = FileHelp().bitmapTofile(this,newBitmap)
 
-//                getImageToken(newFile)
                 uploadImage(newFile, "")
-//                LoadingUtils.showDialog(this,false)
-//                MyResponse().uploadImage("jpg","DOC"+ PreferenceManager.getRequestNo(),"",
-//                    PreferenceManager.prepareFilePart(newFile!!),this,this)
             } else {
                 LoggerMessage.toastPrint("Please Retake", this)
             }
@@ -845,8 +806,8 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
                         Uri.parse(imageUris.toString())
                     )
                     // Set the image in imageview for display
-                    val newBitmap: Bitmap = FileHelp().resizeImage(bitmap, 500, 500)!!
-                    val newFile: File = FileHelp().bitmapTofile(newBitmap, this)!!
+                    val newBitmap: Bitmap = FileHelp().resizeImage(bitmap, 500)
+                    val newFile: File = FileHelp().bitmapTofile(this,newBitmap)
                     uploadImage(newFile, "")
 
                     //handleImageCapture(bitmap)

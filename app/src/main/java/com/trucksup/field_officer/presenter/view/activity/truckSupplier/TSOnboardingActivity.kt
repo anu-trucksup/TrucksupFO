@@ -29,7 +29,7 @@ import com.trucksup.field_officer.presenter.common.image_picker.TrucksFOImageCon
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
-import com.trucksup.field_officer.presenter.view.activity.other.TokenViewModel
+import com.trucksup.field_officer.presenter.view.activity.other.vml.TokenViewModel
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.vml.TSOnboardViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File

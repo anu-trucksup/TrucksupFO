@@ -28,14 +28,7 @@ class ServicesMainAdapter(var context: Context?, var serviceList:ArrayList<HomeS
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.serviceImg.setImageResource(serviceList[position].serviceImage)
         holder.binding.serviceName.text = serviceList[position].service
-        if (serviceList[position].serviceCount.isNullOrEmpty())
-        {
-            holder.binding.tvCount.text="0"
-        }
-        else
-        {
-            holder.binding.tvCount.text=serviceList[position].serviceCount
-        }
+        holder.binding.tvCount.text=serviceList[position].serviceCount?:"0"
 
         if (position == 5 || position == 4) {
             holder.binding.materialCardView.setCardForegroundColor(context!!.getColorStateList(R.color.grey4))
