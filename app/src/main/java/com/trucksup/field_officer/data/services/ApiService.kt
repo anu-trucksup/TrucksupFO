@@ -2,9 +2,7 @@ package com.trucksup.field_officer.data.services
 
 import com.logistics.trucksup.activities.preferre.modle.PrefferLanRequest
 import com.logistics.trucksup.activities.preferre.modle.PrefferdResponse
-import com.trucksup.field_officer.data.model.otp.OTPResponse
 import com.logistics.trucksup.modle.PlanResponse
-import com.trucksup.field_officer.data.model.otp.SmsRequest
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryData
 import com.trucksup.field_officer.data.model.AutoImageSlideResponse
 import com.trucksup.field_officer.data.model.CheckUserProfileResponse
@@ -28,8 +26,10 @@ import com.trucksup.field_officer.data.model.home.HomeCountRequest
 import com.trucksup.field_officer.data.model.home.HomeCountResponse
 import com.trucksup.field_officer.data.model.image.TrucksupImageUploadResponse
 import com.trucksup.field_officer.data.model.insurance.InquiryHistoryResponse
-import com.trucksup.field_officer.data.model.otp.NewOtpResponse
 import com.trucksup.field_officer.data.model.otp.OtpRequest
+import com.trucksup.field_officer.data.model.otp.OtpResponse
+import com.trucksup.field_officer.data.model.otp.VerifyOtpRequest
+import com.trucksup.field_officer.data.model.otp.VerifyOtpResponse
 import com.trucksup.field_officer.data.model.smartfuel.AddSmartFuelLeadRequest
 import com.trucksup.field_officer.data.model.smartfuel.AddSmartFuelLeadResponse
 import com.trucksup.field_officer.data.model.smartfuel.SmartFuelHistoryRequest
@@ -98,16 +98,6 @@ interface ApiService {
         @Body signRequest: SignRequest
     ): SignResponse
 
-    @POST("global/user/verify/otp")
-    @Headers("Accept: application/json")
-    @FormUrlEncoded
-    suspend fun verifyOTP(@FieldMap params: Map<String, String>): Response<String>
-
-    @POST("global/user/verify/user/otp")
-    @Headers("Accept: application/json")
-    @FormUrlEncoded
-    suspend fun verifyUserOTP(@FieldMap params: Map<String, String>): Response<String>
-
     @POST("BOAppApiGateway/apiateway/ResetPassword")
     @Headers("Accept: application/json")
     suspend fun resetPassword(
@@ -115,28 +105,19 @@ interface ApiService {
         @Body forgetRequest: ForgetRequest
     ): ForgetResponse
 
-    @POST("Apigateway/Gateway/Auth/Code")
-    fun sendSms(
+    @POST("BOAppApiGateway/apiateway/BOVerifyOTP")
+    @Headers("Accept: application/json")
+    suspend fun verifyOTP(
         @Header("Authorization") auth: String,
-        @Body request: SmsRequest
-    ): OTPResponse
+        @Body request: VerifyOtpRequest
+    ): VerifyOtpResponse
 
-    @POST("MessagaeService/api/Message/SendOTP")
+    @POST("BOAppApiGateway/apiateway/BOSendOTP")
     @Headers("Accept: application/json")
     suspend fun sendOTP(
         @Header("Authorization") auth: String,
         @Body request: OtpRequest
-    ): NewOtpResponse
-
-    @POST("global/user/send/user/otp")
-    @Headers("Accept: application/json")
-    suspend fun EditsendOTP(
-        @Query("id") id: String,
-        @Query("mobile") mobile: String,
-        @Query("email") email: String,
-        @Query("countryCode") countryCode: String
-    ): Response<String>
-
+    ): OtpResponse
 
     @GET("global/user/profile")
     @Headers("Accept: application/json")
@@ -145,21 +126,6 @@ interface ApiService {
     @POST("global/user/update")
     @Headers("Accept: application/json")
     suspend fun updateUserProfile(@Body updateProfileRequest: UpdateProfileRequest): UpdateProfileResponse
-
-    //@GET("global/admin/fetch/user/profile")
-    @Headers("Accept: application/json")
-    suspend fun checkUserProfile(
-        @Query("email") email: String,
-        @Query("mobile") mobile: String,
-        @Query("countryCode") countryCode: String
-    ): CheckUserProfileResponse
-
-
-    @GET("global/city/by-country")
-    @Headers("Accept: application/json")
-    suspend fun getcountryDetails(
-        @Query("countryId") countryId: String
-    ): CountryResponse
 
 
     @POST("BOAppApiGateway/apiateway/BOUserLogOut")

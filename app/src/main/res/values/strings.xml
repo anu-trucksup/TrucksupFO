@@ -57,8 +57,10 @@
 
     <string name="name_star_">Name <font color='#FF0000'>*</font></string>
     <string name="password">Password</string>
+    <string name="password_">Password <font color='#FF0000'>*</font></string>
     <string name="get_started_with_sign">Get started with sign up or log in.</string>
     <string name="confirm_password">Confirm Password</string>
+    <string name="confirm_password_">Confirm Password <font color='#FF0000'>*</font></string>
     <string name="recover_your_password">Recover Your Password</string>
     <string name="reset_tag">Enter your mobile number to recover your password.</string>
     <string name="otp_tag">Generate Verification Code</string>
