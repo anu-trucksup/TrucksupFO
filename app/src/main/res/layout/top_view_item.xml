@@ -18,7 +18,8 @@
             android:layout_height="wrap_content"
             android:tint="@color/black"
             android:src="@drawable/ic_back"
-            tools:ignore="UseAppTint" />
+            tools:ignore="UseAppTint"
+            android:layout_marginStart="@dimen/_15sdp"/>
 
         <ImageView
             android:layout_width="wrap_content"

@@ -10,5 +10,8 @@ data class SignRequest(
     val profilephoto: String,
     val requestDatetime: String,
     val requestId: Int,
-    val requestedBy: String
+    val requestedBy: String,
+    val latitude: String,
+    val longitude:String,
+    val confirmPassword:String
 )

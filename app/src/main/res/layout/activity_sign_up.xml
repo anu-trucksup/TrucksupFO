@@ -186,7 +186,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/_5sdp"
-                            android:text="@string/mobile_number" />
+                            android:text="@string/mobile_number_" />
 
 
                         <com.google.android.material.card.MaterialCardView
@@ -224,7 +224,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/_5sdp"
-                            android:text="@string/password" />
+                            android:text="@string/password_" />
 
                         <com.google.android.material.card.MaterialCardView
                             android:layout_width="match_parent"
@@ -263,7 +263,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="@dimen/_5sdp"
-                            android:text="@string/confirm_password" />
+                            android:text="@string/confirm_password_" />
 
                         <com.google.android.material.card.MaterialCardView
                             android:layout_width="match_parent"

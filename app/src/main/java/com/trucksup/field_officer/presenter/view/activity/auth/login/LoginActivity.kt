@@ -105,7 +105,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                         PreferenceManager.setPhoneNo(mLoginBinding?.phoneTxt?.text.toString(), this)
                     }
 
-                    Toast.makeText(this, "Log in Successfully.", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this, "Log in Successfully.", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this@LoginActivity, WelcomeLocationActivity::class.java)
                     //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK)
                     startActivity(intent)
@@ -141,7 +141,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
 
             if (isOnline(this)) {
                 if (TextUtils.isEmpty(mLoginBinding?.phoneTxt?.text.toString().trim())) {
-                    mLoginBinding?.phoneTxt?.error = getString(R.string.enter_mobile_number)
+                    mLoginBinding?.phoneTxt?.error = getString(R.string.enter_mobile_no)
                     mLoginBinding?.phoneTxt?.requestFocus()
                     return
                 }
@@ -194,7 +194,10 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                         profilename = "",
                         profilephoto = "",
                         mobilenumber = mLoginBinding?.phoneTxt?.text.toString(),
-                        password = password
+                        password = password,
+                        latitude = getString(R.string.demoLatitude),
+                        longitude = getString(R.string.demoLongitude),
+                        confirmPassword = password
                     )
 
                     showProgressDialog(this, false)
@@ -230,7 +233,10 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
 
     override fun onBackPressed() {
         super.onBackPressed()
+//        System.exit(0)
+        finishAffinity()
        finishAffinity()
     }
+
 
 }
