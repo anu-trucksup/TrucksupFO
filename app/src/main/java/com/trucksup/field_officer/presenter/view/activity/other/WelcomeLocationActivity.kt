@@ -38,21 +38,28 @@ class WelcomeLocationActivity : BaseActivity() {
         adjustFontScale(resources.configuration, 1.0f);
         setContentView(binding.root)
 
-        binding.addressUpdate.text = address
-        Log.e("location", "location:" + address)
-        binding.addressShimmer.visibility = View.GONE
-        binding.addressUpdate.visibility = View.VISIBLE
+        checkLocationPermission(){
+            Log.e("Location",latitude+"@"+longitude)
+            binding.addressUpdate.text = address
+            Log.e("Address", "address:" + address)
+            binding.addressShimmer.visibility = View.GONE
+            binding.addressUpdate.visibility = View.VISIBLE
 
-        Handler().postDelayed({
-            startActivity(
-                Intent(
-                    baseContext,
-                    HomeActivity::class.java
+            Handler().postDelayed({
+                startActivity(
+                    Intent(
+                        baseContext,
+                        HomeActivity::class.java
+                    )
                 )
-            )
 
-            finish()
-        }, 3000)
+                finish()
+            }, 3000)
+        }
+
+
+
+
     }
 
    /* private fun checkPermissions(permissions: ArrayList<String>) {

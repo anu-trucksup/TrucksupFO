@@ -9,6 +9,7 @@ import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
@@ -107,6 +108,18 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
         setupObserver()
 
         setNavigationMenu()
+
+        setLocation()
+    }
+
+    private fun setLocation() {
+        checkLocationPermission() {
+            Log.e("Location", latitude + "@" + longitude)
+            binding.addressUpdate.text = address
+            Log.e("Address", "address:" + address)
+            binding.addressShimmer.visibility = View.GONE
+            binding.addressUpdate.visibility = View.VISIBLE
+        }
     }
 
     override fun onResume() {
@@ -117,7 +130,7 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
 
     private fun setDashboardApi() {
         showProgressDialog(this, false)
-        var request = HomeCountRequest(
+        val request = HomeCountRequest(
             PreferenceManager.getServerDateUtc(),
             PreferenceManager.getRequestNo(),
             PreferenceManager.getPhoneNo(this)
