@@ -25,10 +25,11 @@ import com.trucksup.field_officer.presenter.common.location.LocationHelper
 import java.util.Locale
 
 open class BaseActivity : AppCompatActivity() {
-    private var address: String = ""
+
     private var progressDialog: ProgressDialogBox? = null
     var latitude: String = ""
     var longitude: String = ""
+    var address: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

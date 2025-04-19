@@ -115,7 +115,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                     val abx = AlertBoxDialog(
                         this@LoginActivity,
                         responseModel.success?.message.toString(),
-                        "sign"
+                        "m"
                     )
                     abx.show()
                 }
@@ -230,7 +230,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        System.exit(0)
+       finishAffinity()
     }
 
 }

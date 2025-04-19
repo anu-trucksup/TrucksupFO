@@ -25,6 +25,7 @@ import com.trucksup.field_officer.presenter.common.smsReader.MySMSBroadcastRecei
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.data.model.GenerateJWTtokenRequest
 import com.trucksup.field_officer.data.model.GenerateJWTtokenResponse
+import com.trucksup.field_officer.data.model.authModel.ForgetRequest
 import com.trucksup.field_officer.data.model.otp.OtpRequest
 import com.trucksup.field_officer.data.model.otp.VerifyOtpRequest
 import com.trucksup.field_officer.databinding.ActivityResetPasswordBinding
@@ -35,6 +36,7 @@ import com.trucksup.field_officer.presenter.common.LoadingUtils
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
+import com.trucksup.field_officer.presenter.view.activity.auth.login.LoginActivity
 import com.trucksup.field_officer.presenter.view.activity.other.TokenViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Random
@@ -46,7 +48,7 @@ class ResetPasswordActivity : BaseActivity(), View.OnClickListener {
     var isTimer: Boolean = false
     private var mBinding: ActivityResetPasswordBinding? = null
     private var mViewModel: ResetPasswordViewModel? = null
-    private var mTokenViewModel: TokenViewModel? = null
+    private var mCreateViewModel: CreatePasswordViewModel? = null
     private var otpTempCode: String? = ""
     private lateinit var smsClient: SmsRetrieverClient
     private var countDownTimer: CountDownTimer? = null
@@ -62,7 +64,7 @@ class ResetPasswordActivity : BaseActivity(), View.OnClickListener {
         mBinding?.tvVerify?.setOnClickListener(this)
 
         mViewModel = ViewModelProvider(this)[ResetPasswordViewModel::class.java]
-        mTokenViewModel = ViewModelProvider(this)[TokenViewModel::class.java]
+        mCreateViewModel = ViewModelProvider(this)[CreatePasswordViewModel::class.java]
 
         /* if (!PreferenceManager.getPhoneNo(this).isNullOrEmpty()) {
              mBinding?.phoneNoTxt?.setText("" + PreferenceManager.getPhoneNo(this))
@@ -79,7 +81,7 @@ class ResetPasswordActivity : BaseActivity(), View.OnClickListener {
                     // generateToken()
                    showProgressDialog(this,false)
                     val otpRequest = OtpRequest(
-                        actionType = "I", appSignatureKey = "SFDSYT", appPkgName = "com.logistics.trucksup",
+                        actionType = "I", appSignatureKey = "SFDSYT", appPkgName = packageName,
                         recipients = mBinding?.phoneNoTxt?.text.toString(),
                         requestType = "OTP",
                         requestedBy = mBinding?.phoneNoTxt?.text.toString(),
@@ -104,11 +106,56 @@ class ResetPasswordActivity : BaseActivity(), View.OnClickListener {
 
             }
         }
+
         setupObserver()
 
     }
 
     private fun setupObserver() {
+
+        mCreateViewModel?.resultResetLD?.observe(this@ResetPasswordActivity) { responseModel ->
+            if (responseModel.serverError != null) {
+                dismissProgressDialog()
+
+                val abx = AlertBoxDialog(
+                    this@ResetPasswordActivity,
+                    responseModel.serverError.toString(),
+                    "m"
+                )
+                abx.show()
+            } else {
+                dismissProgressDialog()
+
+                if (responseModel.success?.statuscode == 200) {
+                    showProgressDialog(this,false)
+                    val otpRequest = OtpRequest(
+                        actionType = "I", appSignatureKey = "SFDSYT", appPkgName = packageName,
+                        recipients = mBinding?.phoneNoTxt?.text.toString(),
+                        requestType = "OTP",
+                        requestedBy = mBinding?.phoneNoTxt?.text.toString(),
+                        unicode = true,
+                        variables = "string",
+                        deviceId = PreferenceManager.getAndroiDeviceId(this),
+                        mobileNumber = mBinding?.phoneNoTxt?.text.toString(),
+                        appVersion = AppVersionUtils.getAppVersionName(this),
+                        oStype = "Android",
+                        useFor = "Generate",
+                        modelName = Build.BRAND
+                    )
+                    mViewModel?.sendOTP(PreferenceManager.getAuthToken(), otpRequest)
+
+                } else {
+                    val abx = AlertBoxDialog(
+                        this@ResetPasswordActivity,
+                        responseModel.success?.message.toString(),
+                        "m"
+                    )
+                    abx.show()
+                }
+
+            }
+        }
+
         mViewModel?.resultSendOTPLD?.observe(this@ResetPasswordActivity) { responseModel ->
             if (responseModel.serverError != null) {
                 dismissProgressDialog()
@@ -306,14 +353,6 @@ class ResetPasswordActivity : BaseActivity(), View.OnClickListener {
             } else {
                 verifyOTP()
             }
-            /*val intent = Intent(this@ResetPasswordActivity, CreatePasswordActivity::class.java)
-            intent.putExtra("isValidateQuestion", true)
-            intent.putExtra("phoneNo", mBinding?.phoneNoTxt?.text.toString())
-            intent.putExtra("countryCode", "+91")
-
-            dismissProgressDialog()
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            startActivity(intent)*/
         } else if (view.id == R.id.otp_up_btn) {
 
             if (TextUtils.isEmpty(mBinding?.phoneNoTxt?.text.toString().trim())) {
@@ -323,24 +362,27 @@ class ResetPasswordActivity : BaseActivity(), View.OnClickListener {
             }
 
             if (isValidMobile(mBinding?.phoneNoTxt?.text.toString())) {
-                // generateToken()
-               showProgressDialog(this,false)
-                val otpRequest = OtpRequest(
-                    actionType = "I", appSignatureKey = "SFDSYT", appPkgName = "com.logistics.trucksup",
-                    recipients = mBinding?.phoneNoTxt?.text.toString(),
-                    requestType = "OTP",
-                    requestedBy = mBinding?.phoneNoTxt?.text.toString(),
-                    unicode = true,
-                    variables = "string",
-                    deviceId = PreferenceManager.getAndroiDeviceId(this),
-                    mobileNumber = mBinding?.phoneNoTxt?.text.toString(),
-                    appVersion = AppVersionUtils.getAppVersionName(this),
-                    oStype = "Android",
-                    useFor = "Generate",
-                    modelName = Build.BRAND
-                )
-                mViewModel?.sendOTP(PreferenceManager.getAuthToken(), otpRequest)
 
+                // Proceed
+
+                showProgressDialog(this, false)
+
+                val request = ForgetRequest(
+                    requestedBy = mBinding?.phoneNoTxt?.text.toString(),
+                    requestId = PreferenceManager.getRequestNo().toInt(),
+                    requestDatetime = PreferenceManager.getServerDateUtc(),
+                    deviceid = PreferenceManager.getAndroiDeviceId(this),
+                    appVersion = AppVersionUtils.getAppVersionName(this),
+                    androidVersion = Build.VERSION.SDK_INT.toString(),
+                    profilename = "",
+                    profilephoto = "",
+                    mobilenumber = mBinding?.phoneNoTxt?.text.toString(),
+                    password = ""
+                )
+                mCreateViewModel?.resetPassword(
+                    PreferenceManager.getAuthToken(), request
+                )
+                // generateToken()
 
             } else {
                 LoggerMessage.onSNACK(
@@ -360,7 +402,7 @@ class ResetPasswordActivity : BaseActivity(), View.OnClickListener {
             oStype = "Android",
             deviceId = PreferenceManager.getAndroiDeviceId(this),
             appSignatureKey = "SFDSYT",
-            appPkgName = "com.logistics.trucksup",
+            appPkgName = packageName,
             actionType = "I",
             requestType = "OTP",
             requestedBy = mBinding?.phoneNoTxt?.text.toString(),
