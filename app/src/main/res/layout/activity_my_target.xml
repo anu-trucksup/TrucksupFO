@@ -249,7 +249,7 @@
                                                     android:layout_width="wrap_content"
                                                     android:layout_height="wrap_content"
                                                     android:layout_gravity="center"
-                                                    android:text="@string/broker_new"
+                                                    android:text="@string/busAssociate"
                                                     android:textColor="@color/primery_text"
                                                     android:fontFamily="@font/bai_jamjuree_semi_bold"
                                                     />
@@ -281,7 +281,7 @@
                                                     android:layout_width="wrap_content"
                                                     android:layout_height="wrap_content"
                                                     android:layout_gravity="center"
-                                                    android:text="@string/growthpartner"
+                                                    android:text="@string/growthPartner"
                                                     android:textColor="@color/primery_text"
                                                     android:fontFamily="@font/bai_jamjuree_semi_bold"
                                                     />

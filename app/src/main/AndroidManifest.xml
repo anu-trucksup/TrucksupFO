@@ -149,6 +149,9 @@
             android:name=".presenter.view.activity.growthPartner.GPFollowupActivity"
             android:exported="false"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".presenter.view.activity.growth_partner.GPKYCActivity"
+            android:exported="false" />
 
         <activity
             android:name=".presenter.view.activity.financeInsurance.FinanceActivity"

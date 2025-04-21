@@ -6,10 +6,9 @@ import com.logistics.trucksup.activities.preferre.modle.PrefferdResponse
 import com.logistics.trucksup.modle.PlanResponse
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryData
 import com.trucksup.field_officer.data.model.AutoImageSlideResponse
-import com.trucksup.field_officer.data.model.CheckUserProfileResponse
 import com.trucksup.field_officer.data.model.DutyStatusRequest
 import com.trucksup.field_officer.data.model.DutyStatusResponse
-import com.trucksup.field_officer.data.model.NewUserProfile
+import com.trucksup.field_officer.data.model.GetUserProfileResponse
 import com.trucksup.field_officer.data.model.PinCodeRequest
 import com.trucksup.field_officer.data.model.PinCodeResponse
 import com.trucksup.field_officer.data.model.Response
@@ -31,10 +30,11 @@ import com.trucksup.field_officer.data.model.smartfuel.AddSmartFuelLeadRequest
 import com.trucksup.field_officer.data.model.smartfuel.AddSmartFuelLeadResponse
 import com.trucksup.field_officer.data.model.smartfuel.SmartFuelHistoryRequest
 import com.trucksup.field_officer.data.model.smartfuel.SmartFuelHistoryResponse
+import com.trucksup.field_officer.data.model.user.GetProfileRequest
+import com.trucksup.field_officer.data.model.user.GetProfileResponse
 import com.trucksup.field_officer.data.model.user.UpdateProfileRequest
 import com.trucksup.field_officer.data.model.user.UpdateProfileResponse
 import com.trucksup.field_officer.data.network.ResultWrapper
-import com.trucksup.field_officer.data.network.safeApiCall
 import com.trucksup.field_officer.data.repository.APIRepository
 import com.trucksup.field_officer.presenter.view.activity.auth.logout.LogoutRequest
 import com.trucksup.field_officer.presenter.view.activity.auth.logout.LogoutResponse
@@ -58,7 +58,6 @@ import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.Rc
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.RcResponse
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.ScheduleMeetTSRequest
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.VerifyTruckResponse
-import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 
 class APIUseCase @Inject constructor(private val apiRepository: APIRepository) {
@@ -93,8 +92,8 @@ class APIUseCase @Inject constructor(private val apiRepository: APIRepository) {
     }
 
 
-    suspend fun getUserProfile(): ResultWrapper<Response<NewUserProfile>> {
-        return apiRepository.getUserProfile()
+    suspend fun getUserProfile(token: String, request: GetProfileRequest): ResultWrapper<GetProfileResponse> {
+        return apiRepository.getUserProfile(token, request)
     }
 
     suspend fun getAllHomeCountStatus(
@@ -104,8 +103,8 @@ class APIUseCase @Inject constructor(private val apiRepository: APIRepository) {
         return apiRepository.getAllHomeCountStatus(authToken, homeCountRequest)
     }
 
-    suspend fun updateUserProfile(updateProfileRequest: UpdateProfileRequest): ResultWrapper<UpdateProfileResponse> {
-        return apiRepository.updateUserProfile(updateProfileRequest)
+    suspend fun updateUserProfile(token: String, updateProfileRequest: UpdateProfileRequest): ResultWrapper<UpdateProfileResponse> {
+        return apiRepository.updateUserProfile(token,updateProfileRequest)
     }
 
     fun logoutUser() {

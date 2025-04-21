@@ -17,8 +17,10 @@ import com.trucksup.field_officer.presenter.utils.PreferenceManager
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.AddBrokerRequest
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.AddBrokerResponse
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.CompleteMeetingBARequest
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.ScheduleMeetingBARequest
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.ScheduleMeetingResponse
 import com.trucksup.field_officer.presenter.view.activity.growthPartner.model.CompleteMeetingGPRequest
+import com.trucksup.field_officer.presenter.view.activity.growthPartner.model.ScheduleMeetingGPRequest
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -36,6 +38,9 @@ class GPScheduleMeetingVM @Inject constructor(val apiUseCase: APIUseCase) : View
         MutableLiveData<ResponseModel<PinCodeResponse>>()
     val resultSCbyPinCodeLD: LiveData<ResponseModel<PinCodeResponse>> = resultSCbyPincode
 
+    private var onScheduleMeetingGPResponse: MutableLiveData<ResponseModel<ScheduleMeetingResponse>> =
+        MutableLiveData<ResponseModel<ScheduleMeetingResponse>>()
+    val onScheduleMeetingGPResponseLD: LiveData<ResponseModel<ScheduleMeetingResponse>> = onScheduleMeetingGPResponse
 
     private var onCompleteMeetingGPResponse: MutableLiveData<ResponseModel<ScheduleMeetingResponse>> =
         MutableLiveData<ResponseModel<ScheduleMeetingResponse>>()
@@ -62,12 +67,14 @@ class GPScheduleMeetingVM @Inject constructor(val apiUseCase: APIUseCase) : View
 
     fun trucksupImageUpload(
         token: String,
-        documentType: String, file: MultipartBody.Part,
+        filetype: String,
+        foldername: String,
+        file: MultipartBody.Part,
         fileWaterMark: MultipartBody.Part,
         imgRes: TrucksFOImageController
     ) {
         val apiInterface = ApiClient().getClient
-        apiInterface.uploadImages(token, documentType, "BusinessOfficer", file, fileWaterMark)
+        apiInterface.uploadImages(token, filetype, foldername, file, fileWaterMark)
 
             ?.enqueue(object : Callback<TrucksupImageUploadResponse> {
                 override fun onResponse(
@@ -96,6 +103,22 @@ class GPScheduleMeetingVM @Inject constructor(val apiUseCase: APIUseCase) : View
             })
     }
 
+    fun onScheduleMeetingGP(request: ScheduleMeetingGPRequest) {
+        CoroutineScope(Dispatchers.IO).launch {
+            when (val response =
+                apiUseCase.scheduleMeetingGP(PreferenceManager.getAuthToken(), request)) {
+                is ResultWrapper.ServerResponseError -> {
+                    Log.e("API Error", response.error ?: "")
+                    onScheduleMeetingGPResponse.postValue(ResponseModel(serverError = response.error))
+                }
+
+                is ResultWrapper.Success -> {
+                    onScheduleMeetingGPResponse.postValue(ResponseModel(success = response.value))
+                }
+            }
+        }
+
+    }
 
     fun onCompleteMeetingBA(request: CompleteMeetingGPRequest) {
         CoroutineScope(Dispatchers.IO).launch {

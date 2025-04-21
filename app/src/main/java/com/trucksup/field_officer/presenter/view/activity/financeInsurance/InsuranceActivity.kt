@@ -1274,7 +1274,7 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
                     MediaStore.Images.Media.getBitmap(contentResolver, uri)
                 }
                 val newBitmap: Bitmap = FileHelp().resizeImage(bitmap, 500)
-                val newFile: File = FileHelp().bitmapTofile(this,newBitmap)
+                val newFile: File = FileHelp().bitmapTofile(newBitmap, this)
 
                 uploadImage(newFile, "")
 

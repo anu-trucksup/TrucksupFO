@@ -16,7 +16,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.auth.api.phone.SmsRetriever
 import com.google.android.gms.auth.api.phone.SmsRetrieverClient
@@ -24,22 +23,17 @@ import com.google.android.gms.tasks.Task
 import com.trucksup.field_officer.presenter.common.smsReader.MySMSBroadcastReceiver
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.data.model.GenerateJWTtokenRequest
-import com.trucksup.field_officer.data.model.GenerateJWTtokenResponse
 import com.trucksup.field_officer.data.model.authModel.ForgetRequest
 import com.trucksup.field_officer.data.model.otp.OtpRequest
 import com.trucksup.field_officer.data.model.otp.VerifyOtpRequest
 import com.trucksup.field_officer.databinding.ActivityResetPasswordBinding
 import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.AppVersionUtils
-import com.trucksup.field_officer.presenter.common.JWTtoken
 import com.trucksup.field_officer.presenter.common.LoadingUtils
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
-import com.trucksup.field_officer.presenter.view.activity.auth.login.LoginActivity
-import com.trucksup.field_officer.presenter.view.activity.other.TokenViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.Random
 import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint

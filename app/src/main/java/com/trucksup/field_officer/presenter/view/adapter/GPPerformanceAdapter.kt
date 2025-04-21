@@ -10,10 +10,18 @@ import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.DateFilterBinding
 import com.trucksup.field_officer.databinding.GpPerformItemBinding
 import com.trucksup.field_officer.presenter.common.dialog.HappinessCodeBox
+import com.trucksup.field_officer.presenter.view.adapter.BAPerformanceAdapter.OnItemClickListener
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 class GPPerformanceAdapter(var context: Context?, var list: ArrayList<String>) :
     RecyclerView.Adapter<GPPerformanceAdapter.ViewHolder>() {
+    private var listener: OnItemClickListener? = null
 
+    fun setOnItemClickListener(listener: GPPerformanceAdapter.OnItemClickListener) {
+        this.listener = listener
+    }
     inner class ViewHolder(var binding: GpPerformItemBinding) :
         RecyclerView.ViewHolder(binding.root)
 
@@ -39,7 +47,7 @@ class GPPerformanceAdapter(var context: Context?, var list: ArrayList<String>) :
         }
 
         holder.binding.tvAddSchedule.setOnClickListener{
-            dateFilterDialog()
+            dateFilterDialog(position)
         }
 
 
@@ -49,15 +57,41 @@ class GPPerformanceAdapter(var context: Context?, var list: ArrayList<String>) :
         return list.size
     }
 
-    private fun dateFilterDialog() {
+    private fun dateFilterDialog(pos: Int) {
         val builder = AlertDialog.Builder(context)
         val binding = DateFilterBinding.inflate(LayoutInflater.from(context))
         builder.setView(binding.root)
         val dialog: AlertDialog = builder.create()
         dialog.show()
 
+        val hour = binding.datePickerStart.hour
+        val minute = binding.datePickerStart.minute
+
+        // Create a Calendar object
+        val calendars = Calendar.getInstance()
+        calendars.set(Calendar.HOUR_OF_DAY, hour)
+        calendars.set(Calendar.MINUTE, minute)
+
+        // Format to AM/PM
+        val sdfs = SimpleDateFormat("hh:mm a", Locale.getDefault())
+        val selectedTime = sdfs.format(calendars.time)
+
+        // Get values from DatePicker
+        val day = binding.datePickerEnd.dayOfMonth
+        val month = binding.datePickerEnd.month
+        val year = binding.datePickerEnd.year
+
+        // Create Calendar object
+        val calendar = Calendar.getInstance()
+        calendar.set(year, month, day)
+
+        // Format the date
+        val sdf = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+        val selectedDate = sdf.format(calendar.time)
+
         //apply button
         binding.btnApply.setOnClickListener {
+            listener?.onItemClick(selectedDate, selectedTime)
             dialog.dismiss()
         }
 
@@ -65,5 +99,9 @@ class GPPerformanceAdapter(var context: Context?, var list: ArrayList<String>) :
         binding.btnCancel.setOnClickListener {
             dialog.dismiss()
         }
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick(selectedDate: String, selectedTime : String)
     }
 }

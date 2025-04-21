@@ -1,16 +1,14 @@
 package com.trucksup.field_officer.data.repository.impl
 
 
-import android.text.TextUtils
 import com.glovejob.data.model.UserSessionResponse
 import com.logistics.trucksup.activities.preferre.modle.PrefferLanRequest
 import com.logistics.trucksup.activities.preferre.modle.PrefferdResponse
 import com.logistics.trucksup.modle.PlanResponse
 import com.trucksup.field_officer.data.model.AutoImageSlideResponse
-import com.trucksup.field_officer.data.model.CheckUserProfileResponse
 import com.trucksup.field_officer.data.model.DutyStatusRequest
 import com.trucksup.field_officer.data.model.DutyStatusResponse
-import com.trucksup.field_officer.data.model.NewUserProfile
+import com.trucksup.field_officer.data.model.GetUserProfileResponse
 import com.trucksup.field_officer.data.model.PinCodeRequest
 import com.trucksup.field_officer.data.model.PinCodeResponse
 import com.trucksup.field_officer.data.model.PrivacyAllResponse
@@ -33,6 +31,8 @@ import com.trucksup.field_officer.data.model.smartfuel.AddSmartFuelLeadRequest
 import com.trucksup.field_officer.data.model.smartfuel.AddSmartFuelLeadResponse
 import com.trucksup.field_officer.data.model.smartfuel.SmartFuelHistoryRequest
 import com.trucksup.field_officer.data.model.smartfuel.SmartFuelHistoryResponse
+import com.trucksup.field_officer.data.model.user.GetProfileRequest
+import com.trucksup.field_officer.data.model.user.GetProfileResponse
 import com.trucksup.field_officer.data.model.user.UpdateProfileRequest
 import com.trucksup.field_officer.data.model.user.UpdateProfileResponse
 import com.trucksup.field_officer.data.network.ResultWrapper
@@ -64,7 +64,6 @@ import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.Rc
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.ScheduleMeetTSRequest
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.VerifyTruckResponse
 import kotlinx.coroutines.Dispatchers
-import retrofit2.http.Body
 
 
 class APIRepositoryImpl constructor(private val apiService: ApiService) : APIRepository {
@@ -116,12 +115,12 @@ class APIRepositoryImpl constructor(private val apiService: ApiService) : APIRep
         return safeApiCall(Dispatchers.IO) { apiService.sendOTP(auth, request) }
     }
 
-    override suspend fun getUserProfile(): ResultWrapper<Response<NewUserProfile>> {
-        return safeApiCall(Dispatchers.IO) { apiService.getUserProfile() }
+    override suspend fun getUserProfile(token: String,request: GetProfileRequest): ResultWrapper<GetProfileResponse> {
+        return safeApiCall(Dispatchers.IO) { apiService.getUserProfile(token,request) }
     }
 
-    override suspend fun updateUserProfile(updateProfileRequest: UpdateProfileRequest): ResultWrapper<UpdateProfileResponse> {
-        return safeApiCall(Dispatchers.IO) { apiService.updateUserProfile(updateProfileRequest) }
+    override suspend fun updateUserProfile(token: String,updateProfileRequest: UpdateProfileRequest): ResultWrapper<UpdateProfileResponse> {
+        return safeApiCall(Dispatchers.IO) { apiService.updateUserProfile(token,updateProfileRequest) }
     }
 
 

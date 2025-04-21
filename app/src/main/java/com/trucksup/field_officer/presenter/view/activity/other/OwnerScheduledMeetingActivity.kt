@@ -69,9 +69,9 @@ class OwnerScheduledMeetingActivity : AppCompatActivity(), PreferredLaneAdap.Con
         }
 
         //add truck details
-        binding.btnTrucksDetails.setOnClickListener {
+       /* binding.btnTrucksDetails.setOnClickListener {
             addNewTruckDialog()
-        }
+        }*/
 
         //add by me
         fun camera() {
@@ -246,7 +246,7 @@ class OwnerScheduledMeetingActivity : AppCompatActivity(), PreferredLaneAdap.Con
     private fun setRvTruckDetails() {
         binding.rvTrucksDetails.apply {
             layoutManager = LinearLayoutManager(this@OwnerScheduledMeetingActivity, RecyclerView.VERTICAL, false)
-            adapter = TrucksDetailsAdap(this@OwnerScheduledMeetingActivity, trucksDetailsList,this@OwnerScheduledMeetingActivity)
+           // adapter = TrucksDetailsAdap(this@OwnerScheduledMeetingActivity, trucksDetailsList,this@OwnerScheduledMeetingActivity)
             hasFixedSize()
         }
     }

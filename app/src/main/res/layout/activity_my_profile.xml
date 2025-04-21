@@ -131,7 +131,7 @@
                                         android:orientation="vertical">
 
                                         <TextView
-                                            android:id="@+id/_nav_user_name"
+                                            android:id="@+id/tv_user_name"
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:ellipsize="end"
@@ -148,7 +148,7 @@
                                             android:orientation="horizontal">
 
                                             <TextView
-                                                android:id="@+id/_nav_mobile_no"
+                                                android:id="@+id/tv_mobile_no"
                                                 android:layout_width="0dp"
                                                 android:layout_height="wrap_content"
                                                 android:layout_weight="1.5"
@@ -169,7 +169,7 @@
                                 </LinearLayout>
 
                                 <TextView
-                                    android:id="@+id/user_referral"
+                                    android:id="@+id/tv_referral_code"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:maxLines="1"
@@ -211,7 +211,7 @@
                                 app:strokeWidth="@dimen/_1sdp">
 
                                 <EditText
-                                    android:id="@+id/edit_phone"
+                                    android:id="@+id/eT_AlterMobile"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:background="@drawable/edit_box"
@@ -241,14 +241,14 @@
                                 app:strokeWidth="@dimen/_1sdp">
 
                                 <EditText
-                                    android:id="@+id/edit_email"
+                                    android:id="@+id/eT_email"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:background="@drawable/edit_box"
                                     style="@style/edit_text_m"
                                     android:inputType="textEmailAddress"
                                     android:paddingHorizontal="@dimen/_10sdp"
-                                    android:maxLength="10" />
+                                     />
                             </com.google.android.material.card.MaterialCardView>
 
                             <TextView
@@ -271,14 +271,14 @@
                                 app:strokeWidth="@dimen/_1sdp">
 
                                 <EditText
-                                    android:id="@+id/edit_address"
+                                    android:id="@+id/eT_address"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:background="@drawable/edit_box"
                                     style="@style/edit_text_m"
                                     android:inputType="text"
                                     android:paddingHorizontal="@dimen/_10sdp"
-                                    android:maxLength="10" />
+                                  />
                             </com.google.android.material.card.MaterialCardView>
 
                             <TextView
@@ -289,7 +289,7 @@
                                 android:text="@string/Pincode"/>
 
                             <EditText
-                                android:id="@+id/edit_pincode"
+                                android:id="@+id/eT_pincode"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/_5sdp"
@@ -318,6 +318,8 @@
                                 style="@style/edit_text_m"
                                 android:inputType="text"
                                 android:lines="1"
+                                android:clickable="false"
+                                android:focusable="false"
                                 android:paddingHorizontal="@dimen/_10sdp"
                                 android:paddingVertical="@dimen/_4sdp"
                                 android:text=""/>
@@ -336,8 +338,10 @@
                                 android:layout_marginTop="@dimen/_5sdp"
                                 android:background="@drawable/edit_box"
                                 style="@style/edit_text_m"
-                                android:inputType="phone"
+                                android:inputType="text"
                                 android:lines="1"
+                                android:clickable="false"
+                                android:focusable="false"
                                 android:paddingHorizontal="@dimen/_10sdp"
                                 android:paddingVertical="@dimen/_4sdp"
                                 android:text="" />

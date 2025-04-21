@@ -22,6 +22,7 @@ import com.trucksup.field_officer.databinding.AlartBoxBinding
 import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.view.activity.auth.login.LoginActivity
 import com.trucksup.field_officer.presenter.view.activity.dashboard.HomeActivity
+import com.trucksup.field_officer.presenter.view.activity.other.vml.SplashViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @SuppressLint("CustomSplashScreen")
