@@ -735,5 +735,8 @@
     <string name="whom_did_you_meet">Whom did you meet?</string>
     <string name="planned_follow_up">Planned Follow-Up</string>
     <string name="planned_follow_ups">Planned Follow-Ups</string>
+    <string name="today_s_commitment">Today’s Commitment</string>
+    <string name="commit_text">Please enter today’s details to update your progress toward the target.</string>
+    <string name="view_previous_commitments"><u>View Previous Commitments</u></string>
 
 </resources>

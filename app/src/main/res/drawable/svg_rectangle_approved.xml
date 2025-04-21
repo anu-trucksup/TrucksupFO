@@ -1,8 +1,0 @@
-<vector android:alpha="0.9" android:autoMirrored="true"
-    android:height="10dp" android:viewportHeight="10"
-    android:viewportWidth="10" android:width="10dp" xmlns:android="http://schemas.android.com/apk/res/android">
-    <path android:fillAlpha="0.25" android:fillColor="#ffffff" android:pathData="M2,0L8,0A2,2 0,0 1,10 2L10,8A2,2 0,0 1,8 10L2,10A2,2 0,0 1,0 8L0,2A2,2 0,0 1,2 0z"/>
-    <path android:fillColor="#00000000"
-        android:pathData="M2,0.5L8,0.5A1.5,1.5 0,0 1,9.5 2L9.5,8A1.5,1.5 0,0 1,8 9.5L2,9.5A1.5,1.5 0,0 1,0.5 8L0.5,2A1.5,1.5 0,0 1,2 0.5z"
-        android:strokeAlpha="0.25" android:strokeColor="#3E2089" android:strokeWidth="1"/>
-</vector>

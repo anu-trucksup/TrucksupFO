@@ -359,7 +359,24 @@ class ResetPasswordActivity : BaseActivity(), View.OnClickListener {
 
                 // Proceed
 
-                showProgressDialog(this, false)
+                showProgressDialog(this,false)
+                val otpRequest = OtpRequest(
+                    actionType = "I", appSignatureKey = "SFDSYT", appPkgName = packageName,
+                    recipients = mBinding?.phoneNoTxt?.text.toString(),
+                    requestType = "OTP",
+                    requestedBy = mBinding?.phoneNoTxt?.text.toString(),
+                    unicode = true,
+                    variables = "string",
+                    deviceId = PreferenceManager.getAndroiDeviceId(this),
+                    mobileNumber = mBinding?.phoneNoTxt?.text.toString(),
+                    appVersion = AppVersionUtils.getAppVersionName(this),
+                    oStype = "Android",
+                    useFor = "Generate",
+                    modelName = Build.BRAND
+                )
+                mViewModel?.sendOTP(PreferenceManager.getAuthToken(), otpRequest)
+
+               /* showProgressDialog(this, false)
 
                 val request = ForgetRequest(
                     requestedBy = mBinding?.phoneNoTxt?.text.toString(),
@@ -378,7 +395,7 @@ class ResetPasswordActivity : BaseActivity(), View.OnClickListener {
                 )
                 mCreateViewModel?.resetPassword(
                     PreferenceManager.getAuthToken(), request
-                )
+                )*/
                 // generateToken()
 
             } else {

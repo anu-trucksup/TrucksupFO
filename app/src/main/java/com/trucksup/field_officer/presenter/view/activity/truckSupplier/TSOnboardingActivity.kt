@@ -112,8 +112,6 @@ class TSOnboardingActivity : BaseActivity(), View.OnClickListener, JWTtoken,
         binding.btnCancel.setOnClickListener(this)
         binding.ivBack.setOnClickListener(this)
         binding.cvCamera.setOnClickListener(this)
-
-
         binding.eTPincode.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 if (binding.eTPincode.text.length == 6) {
@@ -124,17 +122,12 @@ class TSOnboardingActivity : BaseActivity(), View.OnClickListener, JWTtoken,
                         PreferenceManager.getPhoneNo(this@TSOnboardingActivity)
                     )
                     mViewModel?.getCityStateByPin(PreferenceManager.getAuthToken(), request)
-
                 }
             }
 
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
-            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
     }
 
@@ -225,7 +218,7 @@ class TSOnboardingActivity : BaseActivity(), View.OnClickListener, JWTtoken,
                 } else {
                     val abx = AlertBoxDialog(
                         this@TSOnboardingActivity,
-                        "no data found",
+                        responseModel.success?.message.toString(),
                         "m"
                     )
                     abx.show()

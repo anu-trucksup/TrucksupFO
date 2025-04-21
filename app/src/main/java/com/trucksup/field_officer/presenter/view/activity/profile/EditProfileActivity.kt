@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Patterns
+import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.data.model.PinCodeRequest
 import com.trucksup.field_officer.data.model.user.BoProfileDetails
@@ -15,6 +17,7 @@ import com.trucksup.field_officer.databinding.ActivityMyProfileBinding
 import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.AppVersionUtils
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
+import com.trucksup.field_officer.presenter.utils.CommonApplication
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
 import com.trucksup.field_officer.presenter.view.activity.profile.vml.EditProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -51,6 +54,8 @@ class EditProfileActivity : BaseActivity() {
                     )
                     mViewModel?.getCityStateByPin(PreferenceManager.getAuthToken(), request)
 
+                }else{
+                    setUI()
                 }
             }
 
@@ -227,6 +232,8 @@ class EditProfileActivity : BaseActivity() {
                         abx.show()
 
                         setUI()
+
+                        binding.eTPincode.setText("")
                     }
                 } else {
                     val abx = AlertBoxDialog(
@@ -246,11 +253,18 @@ class EditProfileActivity : BaseActivity() {
     }
 
     private fun updateUI(boProfileDetails: BoProfileDetails?) {
-        binding.tvUserName.text = boProfileDetails?.profilename
-        binding.tvMobileNo.text = boProfileDetails?.mobilenumber
-        binding.tvReferralCode.text = "Referral Code : " + boProfileDetails?.referralcode
+        binding.tvUserName.text = boProfileDetails?.profilename ?: "-"
+        binding.tvMobileNo.text = boProfileDetails?.mobilenumber ?: "-"
+        binding.tvReferralCode.text = "Referral Code : " + boProfileDetails?.referralcode?:"-"
 
-        //binding.ivProfile.setimage = boProfileDetails?.referralcode
+        if(!boProfileDetails?.profilephoto.isNullOrEmpty()){
+            binding.imageButton.visibility = View.INVISIBLE
+
+            Glide.with(this)
+                .load(CommonApplication.imagePathUrl + boProfileDetails?.profilephoto + "&Position=1")
+                .into(binding.ivProfile)
+        }
+
     }
 
     private fun isValidEmail(target: CharSequence?): Boolean {

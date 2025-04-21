@@ -239,6 +239,7 @@
                         app:strokeWidth="@dimen/_1sdp">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/csl_planned_followup"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:padding="@dimen/_4sdp">
