@@ -8,20 +8,35 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.net.toUri
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.logistics.trucksup.activities.preferre.modle.Preflane
+import com.logistics.trucksup.activities.preferre.modle.TrucksDetail
+import com.trucksup.field_officer.R
 import com.trucksup.field_officer.data.model.FromToModel
 import com.trucksup.field_officer.databinding.ActivityOwnerScheduledMeetingBinding
 import com.trucksup.field_officer.databinding.AddNewTruckLayoutBinding
 import com.trucksup.field_officer.databinding.PreferredLaneDialogBinding
+import com.trucksup.field_officer.presenter.cityPicker.CityPicker
+import com.trucksup.field_officer.presenter.cityPicker.CityStateDialog
+import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.CameraActivity
+import com.trucksup.field_officer.presenter.common.dialog.HappinessCodeBox
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
+import com.trucksup.field_officer.presenter.utils.LoggerMessage
+import com.trucksup.field_officer.presenter.utils.PreferenceManager
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.add_truck.AddTruckInterface
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.RcRequest
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.vml.TSOnboard2ViewModel
 import com.trucksup.field_officer.presenter.view.adapter.TrucksDetailsAdap
 import com.trucksup.field_officer.presenter.view.adapter.PreferredLaneAdap
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,17 +44,21 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import kotlin.collections.ArrayList
-
 @AndroidEntryPoint
-class TSScheduledMeetingActivity : BaseActivity(), PreferredLaneAdap.ControllerListener,
+class TSScheduledMeetingActivity : BaseActivity(), CityPicker, AddTruckInterface, PreferredLaneAdap.ControllerListener,
     TrucksDetailsAdap.ControllerListener {
 
     private lateinit var binding: ActivityOwnerScheduledMeetingBinding
     private var preferredLaneList = ArrayList<FromToModel>()
-    private var trucksDetailsList = ArrayList<String>()
+    private var trucksDetailsList = ArrayList<TrucksDetail>()
     private var photo1: Boolean = false
     private var photo2: Boolean = false
     private var launcher: ActivityResultLauncher<Intent>? = null
+    private var isfromCity: Boolean = true
+    private lateinit var PreferredLaneBindings: PreferredLaneDialogBinding
+    private lateinit var PreferredLaneDialog: AlertDialog
+    private var mViewModel: TSOnboard2ViewModel? = null
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,8 +67,12 @@ class TSScheduledMeetingActivity : BaseActivity(), PreferredLaneAdap.ControllerL
         adjustFontScale(resources.configuration, 1.0f);
         setContentView(binding.root)
 
+        PreferredLaneBindings = PreferredLaneDialogBinding.inflate(layoutInflater)
+        mViewModel = ViewModelProvider(this)[TSOnboard2ViewModel::class.java]
+
         setListener()
         cameraListener()
+        setupObserver()
     }
 
     private fun setListener() {
@@ -60,12 +83,51 @@ class TSScheduledMeetingActivity : BaseActivity(), PreferredLaneAdap.ControllerL
 
         //add preferred lane
         binding.btnPreferredLane.setOnClickListener {
-            addPreferredLane(this)
+            //addPreferredLane(this)
+            if (!TextUtils.isEmpty(binding.etFromCity.text.trim()) && !TextUtils.isEmpty(binding.etToCity.text.trim())) {
+                preferredLaneList.add(
+                    FromToModel(
+                        binding.etFromCity.getText().toString(),
+                        binding.etToCity.getText().toString()
+                    )
+                )
+                setRvPreferredLane()
+            }
         }
 
+        binding.etFromCity.setOnClickListener {
+            isfromCity = true
+            val cityDialog = CityStateDialog(this, this, "cs", binding.etFromCity, "M", true)
+            cityDialog.show()
+            //binding.vehicalNo.clearFocus()
+        }
+
+        binding.etToCity.setOnClickListener {
+            isfromCity = false
+            val cityDialog = CityStateDialog(this, this, "cs", binding.etToCity, "M", true)
+            cityDialog.show()
+            //binding.vehicalNo.clearFocus()
+        }
+
+
         //add truck details
-        binding.btnTrucksDetails.setOnClickListener {
+        /*binding.btnTrucksDetails.setOnClickListener {
             addNewTruckDialog()
+        }*/
+        binding.btnAddTrucksDetails.setOnClickListener {
+
+            binding.vehicalNo.clearFocus()
+            if (TextUtils.isEmpty(binding.vehicalNo.text)) {
+                binding.vehicalNo.error = getString(R.string.enter_truckno)
+                return@setOnClickListener
+            }
+            if (getSpecialCharacterCount(binding.vehicalNo.text.toString()) == 0) {
+                binding.vehicalNo.error = getString(R.string.enter_truckno)
+            }
+
+            showProgressDialog(this, false)
+            verifyTruck()
+            //addNewTruckDialog()
         }
 
         //selfie pic image
@@ -203,30 +265,54 @@ class TSScheduledMeetingActivity : BaseActivity(), PreferredLaneAdap.ControllerL
     }
 
     private fun addPreferredLane(context: Context) {
-        val builder = AlertDialog.Builder(context)
+        /*val builder = AlertDialog.Builder(context)
         val binding = PreferredLaneDialogBinding.inflate(LayoutInflater.from(context))
         builder.setView(binding.root)
         val dialog: AlertDialog = builder.create()
-        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)*/
 
+        PreferredLaneDialog = AlertDialog.Builder(this)
+            .setView(PreferredLaneBindings.root)
+            .setCancelable(true)
+            .setPositiveButton("OK", null)
+            .create()
+        PreferredLaneDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+
+        //text
+
+        PreferredLaneBindings.etFrom.setOnClickListener {
+            isfromCity = true
+            val cityDialog = CityStateDialog(this, this, "cs", PreferredLaneBindings.etFrom, "M", true)
+            cityDialog.show()
+            //binding.vehicalNo.clearFocus()
+        }
+        PreferredLaneBindings.etTo.setOnClickListener {
+            isfromCity = false
+            val cityDialog = CityStateDialog(this, this, "cs", PreferredLaneBindings.etTo, "M", true)
+            cityDialog.show()
+            //binding.vehicalNo.clearFocus()
+        }
+
+        //text
         //submit button
-        binding.btnSubmit.setOnClickListener {
+        PreferredLaneBindings.btnSubmit.setOnClickListener {
             preferredLaneList.add(
                 FromToModel(
-                    binding.etFrom.getText().toString(),
-                    binding.etTo.getText().toString()
+                    PreferredLaneBindings.etFrom.getText().toString(),
+                    PreferredLaneBindings.etTo.getText().toString()
                 )
             )
             setRvPreferredLane()
-            dialog.dismiss()
+            PreferredLaneDialog.dismiss()
         }
 
         //cancel button
-        binding.btnCancel.setOnClickListener {
-            dialog.dismiss()
+        PreferredLaneBindings.btnCancel.setOnClickListener {
+            PreferredLaneDialog.dismiss()
         }
 
-        dialog.show()
+        PreferredLaneDialog.show()
     }
 
     private fun setRvPreferredLane() {
@@ -240,6 +326,60 @@ class TSScheduledMeetingActivity : BaseActivity(), PreferredLaneAdap.ControllerL
             )
             hasFixedSize()
         }
+    }
+
+    private fun setupObserver() {
+
+
+        mViewModel?.resultVerifyTruckLD?.observe(this@TSScheduledMeetingActivity) { responseModel ->                     // login function observe
+            if (responseModel.serverError != null) {
+                dismissProgressDialog()
+
+                val abx = AlertBoxDialog(
+                    this@TSScheduledMeetingActivity,
+                    responseModel.serverError.toString(),
+                    "m"
+                )
+                abx.show()
+            } else {
+                dismissProgressDialog()
+
+                if (responseModel.success != null) {
+                    if (responseModel.success.statusCode == 200) {
+                        val request = RcRequest(
+                            "I",
+                            PreferenceManager.getPhoneNo(this),
+                            binding.vehicalNo.text.toString()
+                        )
+                        mViewModel?.getRcDetails(PreferenceManager.getAuthToken(), request)
+                    } else {
+                        val abx = AlertBoxDialog(
+                            this@TSScheduledMeetingActivity,
+                            responseModel.success.message,
+                            "m"
+                        )
+                        abx.show()
+                    }
+                } else {
+                    val abx = AlertBoxDialog(
+                        this@TSScheduledMeetingActivity,
+                        "No data found",
+                        "m"
+                    )
+                    abx.show()
+                }
+            }
+        }
+
+    }
+
+    private fun verifyTruck() {
+        mViewModel?.verifyTruckDetails(
+            PreferenceManager.getAuthToken(),
+            binding.vehicalNo.text.toString(),
+            "9479330184"
+        )
+
     }
 
     private fun setRvTruckDetails() {
@@ -273,11 +413,11 @@ class TSScheduledMeetingActivity : BaseActivity(), PreferredLaneAdap.ControllerL
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
 
         //activate button
-        binding.btnAddTruck.setOnClickListener {
+        /*binding.btnAddTruck.setOnClickListener {
             trucksDetailsList.add("")
             setRvTruckDetails()
             dialog.dismiss()
-        }
+        }*/
 
         //cancel button
         binding.btnCancel.setOnClickListener {
@@ -285,6 +425,65 @@ class TSScheduledMeetingActivity : BaseActivity(), PreferredLaneAdap.ControllerL
         }
 
         dialog.show()
+    }
+
+    /*private fun getSpecialCharacterCount(s: String?): Int {
+
+        val blockCharacterSet =
+            "~#^&|$%*!@/()[]-'\":;,?{}+=!$^';,?×÷<>{}€£¥₩%~`¤♡♥_|《》¡¿°•○●□■◇◆♧♣▲▼▶◀↑↓←→☆★▪"
+        blockCharacterSet.toCharArray()
+
+        for (b in blockCharacterSet) {
+            if (!TextUtils.isEmpty(s) && s!!.contains(b)) {
+                return 0
+                break
+            }
+        }
+        return 1
+    }*/
+
+    override fun setTruckDetails(vehicleDetail: TrucksDetail) {
+        binding.vehicalNo.setText("")
+        trucksDetailsList.add(vehicleDetail)
+        setRvTruckDetails()
+    }
+
+    override fun fromCity(
+        value: String,
+        valueState: String,
+        id: String,
+        type: String,
+        valueHi: String,
+        valueStateHi: String
+    ) {
+    }
+
+    override fun toCity(
+        value: String,
+        valueState: String,
+        id: String,
+        type: String,
+        valueHi: String,
+        valueStateHi: String
+    ) {
+    }
+
+    override fun cityState(
+        cityEng: String,
+        cityHi: String,
+        stateEn: String,
+        stateHi: String,
+        id: String,
+        type: String
+    ) {
+        if (isfromCity) {
+            binding.etFromCity.text = cityEng
+            binding.etFromCity.error = null
+        } else {
+            binding.etToCity.text = cityEng
+            binding.etToCity.error = null
+        }
+
     }
 
 }

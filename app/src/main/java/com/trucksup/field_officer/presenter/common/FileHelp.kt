@@ -20,7 +20,7 @@ import java.util.Locale
 class FileHelp {
 
 
-    fun bitmapTofile(context: Context, bitmap: Bitmap): File {
+    fun bitmapTofile(bitmap: Bitmap, context: Context): File {
         val fileName = "bo_image" + System.currentTimeMillis() + ".png"
         // Create a file in the cache directory
         val file = File(context.cacheDir, fileName)

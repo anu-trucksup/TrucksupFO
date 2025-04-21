@@ -31,11 +31,15 @@ import javax.inject.Inject
 @HiltViewModel
 class SmartFuelViewModel @Inject constructor(val apiUseCase: APIUseCase) : ViewModel() {
 
-    private var resultSubmitSmartFuel: MutableLiveData<ResponseModel<AddSmartFuelLeadResponse>> = MutableLiveData<ResponseModel<AddSmartFuelLeadResponse>>()
-    val resultSubmitSmartFuelLD: LiveData<ResponseModel<AddSmartFuelLeadResponse>> = resultSubmitSmartFuel
+    private var resultSubmitSmartFuel: MutableLiveData<ResponseModel<AddSmartFuelLeadResponse>> =
+        MutableLiveData<ResponseModel<AddSmartFuelLeadResponse>>()
+    val resultSubmitSmartFuelLD: LiveData<ResponseModel<AddSmartFuelLeadResponse>> =
+        resultSubmitSmartFuel
 
-    private var resultSmartFuelHistory: MutableLiveData<ResponseModel<SmartFuelHistoryResponse>> = MutableLiveData<ResponseModel<SmartFuelHistoryResponse>>()
-    val resultSmartFuelHistoryLD: LiveData<ResponseModel<SmartFuelHistoryResponse>> = resultSmartFuelHistory
+    private var resultSmartFuelHistory: MutableLiveData<ResponseModel<SmartFuelHistoryResponse>> =
+        MutableLiveData<ResponseModel<SmartFuelHistoryResponse>>()
+    val resultSmartFuelHistoryLD: LiveData<ResponseModel<SmartFuelHistoryResponse>> =
+        resultSmartFuelHistory
 
     fun submitSmartFuel(request: AddSmartFuelLeadRequest) {
         CoroutineScope(Dispatchers.IO).launch {
@@ -73,17 +77,20 @@ class SmartFuelViewModel @Inject constructor(val apiUseCase: APIUseCase) : ViewM
         }
     }
 
-    fun uploadImages(token: String,
-        documentType: String, file: MultipartBody.Part,
+    fun uploadImages(
+        token: String,
+        documentType: String,
+        file: MultipartBody.Part,
         fileWaterMark: MultipartBody.Part,
-        imgRes: TrucksFOImageController) {
+        imgRes: TrucksFOImageController,
+    ) {
         val apiInterface = ApiClient().getClient
-        apiInterface.uploadImages(token, documentType,"SmartFuel", file, fileWaterMark)
+        apiInterface.uploadImages(token, documentType, "SmartFuel", file, fileWaterMark)
 
             ?.enqueue(object : Callback<TrucksupImageUploadResponse> {
                 override fun onResponse(
                     call: Call<TrucksupImageUploadResponse>,
-                    response: Response<TrucksupImageUploadResponse>
+                    response: Response<TrucksupImageUploadResponse>,
                 ) {
 
                     if (response.isSuccessful) {
@@ -107,7 +114,6 @@ class SmartFuelViewModel @Inject constructor(val apiUseCase: APIUseCase) : ViewM
                 }
             })
     }
-
 
 
 }

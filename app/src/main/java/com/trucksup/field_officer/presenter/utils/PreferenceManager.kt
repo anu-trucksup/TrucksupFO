@@ -39,7 +39,6 @@ import java.util.*
 
 
 object PreferenceManager {
-
     var FIRSTTIME: String = "FIRSTTIME"
     var TABLEFIRST: String = "table_trucksup_firstlogin"
     var LANGUAGE: String = "language"

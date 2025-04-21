@@ -252,7 +252,7 @@ class CityStateDialog(
         progress?.visibility = View.VISIBLE
         val request = CitySearchRequest(
             s,
-            PreferenceManager.getPhoneNo(context),
+            "8527257606",
             PreferenceManager.getRequestNo(),
             lang
         )

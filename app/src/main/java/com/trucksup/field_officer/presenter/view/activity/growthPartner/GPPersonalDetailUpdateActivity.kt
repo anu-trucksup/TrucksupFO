@@ -19,6 +19,7 @@ import com.trucksup.field_officer.presenter.common.CameraActivity
 import com.trucksup.field_officer.presenter.common.FileHelp
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
+import com.trucksup.field_officer.presenter.view.activity.growth_partner.GPKYCActivity
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
@@ -127,7 +128,7 @@ class GPPersonalDetailUpdateActivity : BaseActivity(), View.OnClickListener {
             binding.ETGpBusinessAddress.requestFocus()
             binding.ETGpBusinessAddress.setError(getString(R.string.PleaseBusinessAddress))
         } else {
-            startActivity(Intent(this, GPOnboardingKYCActivity::class.java))
+            startActivity(Intent(this, GPKYCActivity::class.java))
             //binding.ETPanNumberNOB.requestFocus()
             /*val customErrorDrawable = resources.getDrawable(com.trucksup.fieldofficer.R.drawable.ic_phone)
             customErrorDrawable.setBounds(

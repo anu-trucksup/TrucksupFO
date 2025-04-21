@@ -25,9 +25,9 @@ class ApiClient() {
 
             val client = OkHttpClient.Builder()
                 .addInterceptor(interceptor)
-                .connectTimeout(100, TimeUnit.SECONDS)
+                .connectTimeout(10, TimeUnit.SECONDS)
                 .addNetworkInterceptor(provideCacheInterceptor())
-                .readTimeout(100, TimeUnit.SECONDS).build()
+                .readTimeout(10, TimeUnit.SECONDS).build()
             val retrofit = Retrofit.Builder()
                 .baseUrl(CommonApplication.BASE_API_URL)
                 .client(client)

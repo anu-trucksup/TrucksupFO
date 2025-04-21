@@ -124,6 +124,9 @@
     <color name="drop_unselect">#80B5B5B5</color>
     <color name="gray_9">#cccccc</color>
     <color name="green_1">#B30D8418</color>
+    <color name="light_blue_1">#F3F8FF</color>
+    <color name="light_gray_8">#504B5A</color>
+    <color name="light_green_1">#61b07f</color>
 
     <color name="blue2">#3C2088</color>
     <color name="blue2_fad">#733C2088</color>

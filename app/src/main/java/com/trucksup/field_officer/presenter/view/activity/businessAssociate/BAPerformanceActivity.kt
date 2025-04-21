@@ -2,19 +2,35 @@ package com.trucksup.field_officer.presenter.view.activity.businessAssociate
 
 import android.app.AlertDialog
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
+import androidx.annotation.RequiresApi
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.trucksup.field_officer.databinding.BaPerformanceActivityBinding
 import com.trucksup.field_officer.databinding.DateFilterBinding
+import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.dialog.DialogBoxes
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
+import com.trucksup.field_officer.presenter.utils.PreferenceManager
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.ScheduleMeetingBARequest
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.vml.BAScheduleMeetingVM
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.ScheduleMeetTSRequest
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.vml.TSScheduleMeetingVM
 import com.trucksup.field_officer.presenter.view.adapter.BAPerformanceAdapter
+import com.trucksup.field_officer.presenter.view.adapter.TSPerformanceAdapter
+import dagger.hilt.android.AndroidEntryPoint
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
+@AndroidEntryPoint
 class BAPerformanceActivity : BaseActivity() {
 
     private lateinit var binding: BaPerformanceActivityBinding
+    private var mViewModel: BAScheduleMeetingVM? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,9 +38,42 @@ class BAPerformanceActivity : BaseActivity() {
         adjustFontScale(resources.configuration, 1.0f);
         setContentView(binding.root)
 
-        setRvList()
+        mViewModel = ViewModelProvider(this)[BAScheduleMeetingVM::class.java]
 
+        setupObserver()
+        setRvList()
         setOnListeners()
+    }
+
+    private fun setupObserver() {
+        mViewModel?.onScheduleMeetingBAResponseLD?.observe(this@BAPerformanceActivity) { responseModel ->                     // login function observe
+            if (responseModel.serverError != null) {
+                dismissProgressDialog()
+                val abx = AlertBoxDialog(
+                    this@BAPerformanceActivity,
+                    responseModel.serverError.toString(),
+                    "m"
+                )
+                abx.show()
+            } else {
+                dismissProgressDialog()
+
+                if (responseModel.success?.message != null) {
+                    val abx = AlertBoxDialog(
+                        this@BAPerformanceActivity,
+                        responseModel.success.message,
+                        "m"
+                    )
+                    abx.show()
+                    /* updateData(
+                         responseModel.success.message.toString(),
+                         responseModel.success.message1
+                     )*/
+
+                } else {
+                }
+            }
+        }
     }
 
     private fun setRvList() {
@@ -32,11 +81,43 @@ class BAPerformanceActivity : BaseActivity() {
         list.add("")
         list.add("")
         list.add("")
-        binding.rv.apply {
-            layoutManager = LinearLayoutManager(this@BAPerformanceActivity, RecyclerView.VERTICAL, false)
-            adapter = BAPerformanceAdapter(this@BAPerformanceActivity, list)
-            hasFixedSize()
-        }
+        binding.rv.layoutManager = LinearLayoutManager(this)
+        val adapter = BAPerformanceAdapter(this@BAPerformanceActivity, list)
+        adapter.setOnItemClickListener(object : BAPerformanceAdapter.OnItemClickListener {
+            @RequiresApi(Build.VERSION_CODES.O)
+            override fun onItemClick(selectedDate: String, selectedTime: String) {
+                //dataSubmit(selectedDate, selectedTime)
+                //Toast.makeText(this@TSPerformanceActivity, "Clicked item at position $selectedTime", Toast.LENGTH_SHORT).show()
+            }
+        })
+        binding.rv.adapter = adapter
+    }
+
+
+
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun dataSubmit(selectedDate: String, selectedTime : String) {
+        val firstApiFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy")
+        val date = LocalDate.parse("21-04-2025" , firstApiFormat)
+        val request =
+            ScheduleMeetingBARequest(
+                1,
+                "test",
+                "12.33",
+                "22.33",
+                "8527257606",
+                PreferenceManager.getProfileType(this),
+                PreferenceManager.getServerDateUtc(),
+                576,
+                "8527257606",
+                selectedDate,
+                selectedTime,
+            )
+
+
+        showProgressDialog(this, false)
+        request?.let { mViewModel?.onScheduleMeetingBA(it) }
     }
 
     private fun setOnListeners() {
