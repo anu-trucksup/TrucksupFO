@@ -193,7 +193,7 @@ class GPKYCActivity : BaseActivity(), TrucksFOImageController, View.OnClickListe
                         Uri.parse(imageUris.toString())
                     )
                     // Set the image in imageview for display
-                    val newBitmap: Bitmap = FileHelp().resizeImage(bitmap, 500, 500)!!
+                    val newBitmap: Bitmap = FileHelp().resizeImage(bitmap, 500)!!
                     val bitmapConvertedImage: File = FileHelp().bitmapTofile(newBitmap, this)!!
                     uploadImage(bitmapConvertedImage, "")
 
@@ -217,7 +217,7 @@ class GPKYCActivity : BaseActivity(), TrucksFOImageController, View.OnClickListe
     fun uploadImage(file: File, token: String) {
         LoadingUtils.showDialog(this, false)
         if (imageType == 3) {
-            mViewModel?.uploadImages(
+            mViewModel?.trucksupImageUpload(
                 PreferenceManager.getAuthToken(),
                 "pdf",
                 "GrowthPartner",
@@ -226,7 +226,7 @@ class GPKYCActivity : BaseActivity(), TrucksFOImageController, View.OnClickListe
                 this
             )
         } else {
-            mViewModel?.uploadImages(
+            mViewModel?.trucksupImageUpload(
                 PreferenceManager.getAuthToken(),
                 "image",
                 "GrowthPartner",

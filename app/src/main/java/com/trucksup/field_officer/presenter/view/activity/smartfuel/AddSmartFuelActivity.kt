@@ -630,7 +630,7 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
                     MediaStore.Images.Media.getBitmap(contentResolver, uri)
                 }
                 val newBitmap: Bitmap = FileHelp().resizeImage(bitmap, 500)
-                val newFile: File = FileHelp().bitmapTofile(this,newBitmap)
+                val newFile: File = FileHelp().bitmapTofile(newBitmap, this)
 
                 uploadImage(newFile, "")
 
@@ -653,7 +653,7 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
             if (data.extras?.get("data") != null) {
                 val newBitmap: Bitmap =
                     data.extras?.get("data") as Bitmap  // FileHelp().resizeImage(data.extras?.get("data") as Bitmap, 500, 500)!!
-                val newFile: File = FileHelp().bitmapTofile(this,newBitmap)
+                val newFile: File = FileHelp().bitmapTofile(newBitmap, this)
 
                 uploadImage(newFile, "")
             } else {
@@ -807,7 +807,7 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
                     )
                     // Set the image in imageview for display
                     val newBitmap: Bitmap = FileHelp().resizeImage(bitmap, 500)
-                    val newFile: File = FileHelp().bitmapTofile(this,newBitmap)
+                    val newFile: File = FileHelp().bitmapTofile(newBitmap, this)
                     uploadImage(newFile, "")
 
                     //handleImageCapture(bitmap)

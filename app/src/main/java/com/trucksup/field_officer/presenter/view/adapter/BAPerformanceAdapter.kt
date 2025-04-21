@@ -11,9 +11,20 @@ import com.trucksup.field_officer.databinding.BaPerformItemBinding
 import com.trucksup.field_officer.databinding.DateFilterBinding
 import com.trucksup.field_officer.databinding.TsPerformItemBinding
 import com.trucksup.field_officer.presenter.common.dialog.HappinessCodeBox
+import com.trucksup.field_officer.presenter.view.adapter.TSPerformanceAdapter.OnItemClickListener
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
+import java.util.TimeZone
 
 class BAPerformanceAdapter(var context: Context?, var list: ArrayList<String>) :
     RecyclerView.Adapter<BAPerformanceAdapter.ViewHolder>() {
+    private var listener: OnItemClickListener? = null
+
+    fun setOnItemClickListener(listener: BAPerformanceAdapter.OnItemClickListener) {
+        this.listener = listener
+    }
 
     inner class ViewHolder(var binding: BaPerformItemBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -33,7 +44,7 @@ class BAPerformanceAdapter(var context: Context?, var list: ArrayList<String>) :
         }
 
         holder.binding.tvAddSchedule.setOnClickListener {
-            dateFilterDialog()
+            dateFilterDialog(position)
         }
     }
 
@@ -41,15 +52,49 @@ class BAPerformanceAdapter(var context: Context?, var list: ArrayList<String>) :
         return list.size
     }
 
-    private fun dateFilterDialog() {
+    private fun dateFilterDialog(pos: Int) {
         val builder = AlertDialog.Builder(context)
         val binding = DateFilterBinding.inflate(LayoutInflater.from(context))
         builder.setView(binding.root)
         val dialog: AlertDialog = builder.create()
         dialog.show()
 
+        val hour = binding.datePickerStart.hour
+        val minute = binding.datePickerStart.minute
+
+        // Create a Calendar object
+        val calendars = Calendar.getInstance()
+        calendars.set(Calendar.HOUR_OF_DAY, hour)
+        calendars.set(Calendar.MINUTE, minute)
+
+        // Format to AM/PM
+        val sdfs = SimpleDateFormat("hh:mm a", Locale.getDefault())
+        val selectedTime = sdfs.format(calendars.time)
+
+        // Get values from DatePicker
+        val day = binding.datePickerEnd.dayOfMonth
+        val month = binding.datePickerEnd.month
+        val year = binding.datePickerEnd.year
+
+        // Create Calendar object
+        val calendar = Calendar.getInstance()
+        calendar.set(year, month, day)
+
+        // Format the date
+        val sdf = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+        val selectedDate = sdf.format(calendar.time)
+
+
+        //test
+        /*val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+        sdf.timeZone = TimeZone.getDefault()
+        val selectedDate = sdf.format(calendar.time)*/
+        //test
+
         //apply button
         binding.btnApply.setOnClickListener {
+            println("kjkj=="+selectedDate)
+            listener?.onItemClick(selectedDate, selectedTime)
             dialog.dismiss()
         }
 
@@ -57,5 +102,9 @@ class BAPerformanceAdapter(var context: Context?, var list: ArrayList<String>) :
         binding.btnCancel.setOnClickListener {
             dialog.dismiss()
         }
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick(selectedDate: String, selectedTime : String)
     }
 }

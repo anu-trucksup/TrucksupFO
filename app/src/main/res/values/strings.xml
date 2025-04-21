@@ -720,8 +720,6 @@
     <string name="pan_photo_">PAN Photo <font color='#FF0000'>*</font></string>
     <string name="mobile_no_validation">Please enter correct mobile number.</string>
     <string name="password_validation">Password must be at least 8 characters, include upper, lower, number &amp; special character.</string>
-    <string name="enter_confirm_password">Please Enter Confirm Password.</string>
-    <string name="password_match">Passwords do not match. Please try again.</string>
     <string name="kyc_title">KYC title</string>
     <string name="kyc_verified">KYC Verified</string>
     <string name="name_kyc">Name as per KYC :</string>

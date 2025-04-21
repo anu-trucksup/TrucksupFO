@@ -427,7 +427,7 @@ class TSScheduledMeetingActivity : BaseActivity(), CityPicker, AddTruckInterface
         dialog.show()
     }
 
-    private fun getSpecialCharacterCount(s: String?): Int {
+    /*private fun getSpecialCharacterCount(s: String?): Int {
 
         val blockCharacterSet =
             "~#^&|$%*!@/()[]-'\":;,?{}+=!$^';,?×÷<>{}€£¥₩%~`¤♡♥_|《》¡¿°•○●□■◇◆♧♣▲▼▶◀↑↓←→☆★▪"
@@ -440,7 +440,7 @@ class TSScheduledMeetingActivity : BaseActivity(), CityPicker, AddTruckInterface
             }
         }
         return 1
-    }
+    }*/
 
     override fun setTruckDetails(vehicleDetail: TrucksDetail) {
         binding.vehicalNo.setText("")

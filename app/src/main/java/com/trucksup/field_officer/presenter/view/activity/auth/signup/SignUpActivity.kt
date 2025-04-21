@@ -156,7 +156,7 @@ class SignUpActivity : BaseActivity(), View.OnClickListener, TrucksFOImageContro
                     )
                     // Set the image in imageview for display
                     val newBitmap: Bitmap = FileHelp().resizeImage(bitmap, 500)
-                    val newFile: File = FileHelp().bitmapTofile(this,newBitmap)
+                    val newFile: File = FileHelp().bitmapTofile(newBitmap,this)
                     uploadImage(newFile)
 
                     //handleImageCapture(bitmap)

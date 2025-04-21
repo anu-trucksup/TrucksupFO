@@ -84,6 +84,10 @@ class TSPerformanceAdapter(var context: Context?, var list: ArrayList<String>) :
         val sdf = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
         val selectedDate = sdf.format(calendar.time)
 
+        //test
+
+        //test
+
         //apply button
         binding.btnApply.setOnClickListener {
             listener?.onItemClick(selectedDate, selectedTime)
