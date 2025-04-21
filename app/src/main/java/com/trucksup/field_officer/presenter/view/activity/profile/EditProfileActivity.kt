@@ -225,6 +225,8 @@ class EditProfileActivity : BaseActivity() {
                             "m"
                         )
                         abx.show()
+
+                        setUI()
                     }
                 } else {
                     val abx = AlertBoxDialog(
@@ -236,6 +238,11 @@ class EditProfileActivity : BaseActivity() {
                 }
             }
         }
+    }
+
+    private fun setUI() {
+        binding.editCity.setText("")
+        binding.editState.setText("")
     }
 
     private fun updateUI(boProfileDetails: BoProfileDetails?) {
