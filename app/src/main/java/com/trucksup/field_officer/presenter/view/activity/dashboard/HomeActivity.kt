@@ -22,15 +22,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
-import com.google.android.gms.location.Priority
-import com.google.android.gms.tasks.CancellationTokenSource
-import com.karumi.dexter.Dexter
-import com.karumi.dexter.MultiplePermissionsReport
-import com.karumi.dexter.PermissionToken
-import com.karumi.dexter.listener.PermissionRequest
-import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.data.model.DutyStatusRequest
 import com.trucksup.field_officer.data.model.HomeServicesModel
@@ -46,7 +37,6 @@ import com.trucksup.field_officer.databinding.OnOffDutyBinding
 import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.HelplineBox
 import com.trucksup.field_officer.presenter.common.LoadingUtils
-import com.trucksup.field_officer.presenter.common.dialog.DialogBoxes
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
@@ -71,7 +61,6 @@ import com.trucksup.field_officer.presenter.view.adapter.TUKawachDialogAdapter
 import com.trucksup.field_officer.presenter.view.adapter.NavigationMenuItem
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Date
-import java.util.Locale
 
 @AndroidEntryPoint
 class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
@@ -86,9 +75,9 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
 
     override fun onStart() {
         super.onStart()
-        val permissionList = ArrayList<String>()
-        permissionList.add(Manifest.permission.ACCESS_FINE_LOCATION)
-        permissionList.add(Manifest.permission.ACCESS_COARSE_LOCATION)
+//        val permissionList = ArrayList<String>()
+//        permissionList.add(Manifest.permission.ACCESS_FINE_LOCATION)
+//        permissionList.add(Manifest.permission.ACCESS_COARSE_LOCATION)
         //checkPermissions(permissionList)
         Location()
     }
@@ -188,6 +177,7 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
             binding.drawerLay.open()
         }
 
+        //ON OFF duty button
         binding.OnSwitchBtn.setOnCheckedChangeListener { compoundButton, b ->
             if (apiDutyStatus == false) {
                 dutyStatus = b
