@@ -146,7 +146,7 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
 
         //tukawach list
-        var tuKawachList = ArrayList<HomeServicesModel>()
+        val tuKawachList = ArrayList<HomeServicesModel>()
         tuKawachList.add(HomeServicesModel("Vehicle Tracking", R.drawable.veh_track, trackingCount))
         tuKawachList.add(
             HomeServicesModel(
@@ -182,16 +182,6 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
 
         binding.OnSwitchBtn.setOnCheckedChangeListener { compoundButton, b ->
             dutyStatus = b
-//            if (b) {
-//                binding.txtOnDuty.text = "On Duty"
-//                binding.txtOnDuty.setTextColor(resources.getColor(R.color.on_duty_color))
-//                binding.OnSwitchBtn.trackTintList =
-//                    resources.getColorStateList(R.color.on_duty_color)
-//            } else {
-//                binding.txtOnDuty.text = "Off Duty"
-//                binding.txtOnDuty.setTextColor(resources.getColor(R.color.red))
-//                binding.OnSwitchBtn.trackTintList = resources.getColorStateList(R.color.red)
-//            }
             if (!latitude.isNullOrEmpty() && !longitude.isNullOrEmpty() && !address.isNullOrEmpty()) {
                 DialogBoxes.onOffDuty(this, dutyStatus, mViewModel, latitude, longitude, address)
             }
@@ -317,7 +307,6 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
              }
              .check()
      }*/
-
 
 
     private fun setNavigationMenu() {

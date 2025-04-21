@@ -5,5 +5,5 @@ data class GetProfileRequest(
     val requestDatetime: String,
     val requestId: Int,
     val requestedBy: String,
-    val userId: Int
+    val boUserid: Int
 )

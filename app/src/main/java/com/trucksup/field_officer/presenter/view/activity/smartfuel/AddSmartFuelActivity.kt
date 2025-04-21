@@ -417,7 +417,7 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
         return false
     }
 
-    fun isValidEmail(target: CharSequence?): Boolean {
+    private fun isValidEmail(target: CharSequence?): Boolean {
         return Patterns.EMAIL_ADDRESS.matcher(target).matches()
     }
 

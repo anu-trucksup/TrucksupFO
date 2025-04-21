@@ -22,7 +22,6 @@ import com.trucksup.field_officer.presenter.common.JWTtoken
 import com.trucksup.field_officer.presenter.common.LoadingUtils
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
-import com.trucksup.field_officer.presenter.view.activity.other.vml.TokenViewModel
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.add_truck.AddTruckInterface
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.AddLoadData
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.AddLoadFilterPayload
@@ -35,19 +34,17 @@ import com.trucksup.field_officer.presenter.view.activity.truckSupplier.vml.TSOn
 class AddTruckDialog(
     var context: AppCompatActivity,
     private val lifecycleOwner: LifecycleOwner,
-    var no: String, var result: RcResponse?,
+    var vehicleNo: String, var result: RcResponse?,
     val type: String
 ) : Dialog(context), LoadItemManager, JWTtoken {
 
     private var idLoad: Int = 0
-    private lateinit var vehical_binding: AddNewTruckLayoutBinding
+    private lateinit var vehicleBinding: AddNewTruckLayoutBinding
     private val tsOnboard2ViewModel: TSOnboard2ViewModel =
         ViewModelProvider(context)[TSOnboard2ViewModel::class.java]
-    private val tokenViewModel: TokenViewModel =
-        ViewModelProvider(context)[TokenViewModel::class.java]
 
     private var bodyTypeList = ArrayList<AddLoadTyre>()
-    private var tyerTypeList = ArrayList<AddLoadTyre>()
+    private var tyreTypeList = ArrayList<AddLoadTyre>()
     private var length = ArrayList<AddLoadTyre>()
     private var materialWeight = ArrayList<AddLoadTyre>()
 
@@ -66,8 +63,8 @@ class AddTruckDialog(
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
 
-        vehical_binding = AddNewTruckLayoutBinding.inflate(layoutInflater)
-        setContentView(vehical_binding.root)
+        vehicleBinding = AddNewTruckLayoutBinding.inflate(layoutInflater)
+        setContentView(vehicleBinding.root)
         this.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         this.window?.setLayout(
             ActionBar.LayoutParams.MATCH_PARENT,
@@ -127,52 +124,44 @@ class AddTruckDialog(
 
         this.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
         if (type == "add") {
-            vehical_binding.vehicalNo.text = no
-            /*vehical_binding.ownerName.text = result?.ownername
-            vehical_binding.engineNumber.text = result?.bodytype
-
-            if (result?.bodytype == null || TextUtils.isEmpty(result?.bodytype)) {
-                vehical_binding.bodyLay.visibility = View.GONE
-            }*/
-            vehical_binding.buttonCancle.visibility = View.GONE
-            vehical_binding.butLayout.visibility = View.VISIBLE
-
+            vehicleBinding.vehicalNo.text = vehicleNo
+            vehicleBinding.buttonCancle.visibility = View.GONE
+            vehicleBinding.butLayout.visibility = View.VISIBLE
 
         } else {
-
-            vehical_binding.vehicalNo.text = no
-            vehical_binding.buttonCancle.visibility = View.VISIBLE
-            vehical_binding.butLayout.visibility = View.GONE
+            vehicleBinding.vehicalNo.text = vehicleNo
+            vehicleBinding.buttonCancle.visibility = View.VISIBLE
+            vehicleBinding.butLayout.visibility = View.GONE
 
         }
 
-        vehical_binding.buttonCancle.setOnClickListener {
+        vehicleBinding.buttonCancle.setOnClickListener {
             this.dismiss()
         }
-        vehical_binding.btnCancel.setOnClickListener {
+        vehicleBinding.btnCancel.setOnClickListener {
             this.dismiss()
         }
-        vehical_binding.mainLay.setOnClickListener {
+        vehicleBinding.mainLay.setOnClickListener {
             // this.dismiss()
         }
 
         // Listener for Checkbox One
-        vehical_binding.checkboxOwn.setOnCheckedChangeListener { _, isChecked ->
+        vehicleBinding.checkboxOwn.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                vehical_binding.checkboxAttach.isChecked = false
+                vehicleBinding.checkboxAttach.isChecked = false
             }
         }
 
         // Listener for Checkbox Two
-        vehical_binding.checkboxAttach.setOnCheckedChangeListener { _, isChecked ->
+        vehicleBinding.checkboxAttach.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                vehical_binding.checkboxOwn.isChecked = false
+                vehicleBinding.checkboxOwn.isChecked = false
             }
         }
 
-        vehical_binding.btnAddTruck.setOnClickListener {
+        vehicleBinding.btnAddTruck.setOnClickListener {
 
-            if (vehical_binding.checkboxOwn.isChecked) {
+            if (vehicleBinding.checkboxOwn.isChecked) {
                 typeofSourcing = "Owned Vehicle"
             } else {
                 typeofSourcing = "Attached Vehicle"
@@ -180,7 +169,7 @@ class AddTruckDialog(
 
             if (validationAddTruck()) {
                 val vehicleDetail = TrucksDetail(
-                    vehicleNo = vehical_binding.vehicalNo.text.toString(),
+                    vehicleNo = vehicleBinding.vehicalNo.text.toString(),
                     vehicleStatus = "",
                     mobileNo = PreferenceManager.getPhoneNo(context),
                     ownerName = result?.ownername.toString(),
@@ -200,7 +189,7 @@ class AddTruckDialog(
             }
         }
 
-        vehical_binding.bodyType.setOnClickListener {
+        vehicleBinding.bodyType.setOnClickListener {
             if (validationBodyType()) {
                 val allPick = LoadItemsBoxDialog(
                     "Body type",
@@ -212,7 +201,7 @@ class AddTruckDialog(
             }
         }
 
-        vehical_binding.vehicleSize.setOnClickListener {
+        vehicleBinding.vehicleSize.setOnClickListener {
             if (validationvehicleSize()) {
 
                 if (length.size > 0) {
@@ -225,18 +214,18 @@ class AddTruckDialog(
                     allPick.show()
                 } else {
                     val fl: String = context.resources.getString(R.string.select_tyreType)
-                    LoggerMessage.onSNACK(vehical_binding.bodyType, fl, context)
+                    LoggerMessage.onSNACK(vehicleBinding.bodyType, fl, context)
                 }
             }
 
         }
 
-        vehical_binding.tyre.setOnClickListener {
+        vehicleBinding.tyre.setOnClickListener {
             if (validateTyre()) {
                 val allPick = LoadItemsBoxDialog(
                     "Tyre",
                     context.resources.getString(R.string.tyre_),
-                    tyerTypeList,
+                    tyreTypeList,
                     context, this
                 )
                 allPick.show()
@@ -244,7 +233,7 @@ class AddTruckDialog(
             }
         }
 
-        vehical_binding.capicity.setOnClickListener {
+        vehicleBinding.capicity.setOnClickListener {
             if (isTyreTypeSelected()) {
                 if (materialWeight.size > 0) {
                     val allPick = LoadItemsBoxDialog(
@@ -256,7 +245,7 @@ class AddTruckDialog(
                     allPick.show()
                 } else {
                     val fl: String = context.resources.getString(R.string.select_tyreType)
-                    LoggerMessage.onSNACK(vehical_binding.bodyType, fl, context)
+                    LoggerMessage.onSNACK(vehicleBinding.bodyType, fl, context)
                 }
             } else {
 
@@ -287,18 +276,18 @@ class AddTruckDialog(
             capacity_value = valueEnglish
 
             if (PreferenceManager.getLanguage(context) == "en") {
-                vehical_binding.capicity.text = valueEnglish
+                vehicleBinding.capicity.text = valueEnglish
             } else {
-                vehical_binding.capicity.text = valueHindi
+                vehicleBinding.capicity.text = valueHindi
             }
 
         }
         if (type == "Body type") {
             body_type_value = valueEnglish
             if (PreferenceManager.getLanguage(context) == "en") {
-                vehical_binding.bodyType.text = valueEnglish
+                vehicleBinding.bodyType.text = valueEnglish
             } else {
-                vehical_binding.bodyType.text = valueHindi
+                vehicleBinding.bodyType.text = valueHindi
             }
 
 
@@ -307,9 +296,9 @@ class AddTruckDialog(
         if (type == "Vehicle Size") {
             vehicle_Size_value = valueEnglish
             if (PreferenceManager.getLanguage(context) == "en") {
-                vehical_binding.vehicleSize.text = valueEnglish
+                vehicleBinding.vehicleSize.text = valueEnglish
             } else {
-                vehical_binding.vehicleSize.text = valueHindi
+                vehicleBinding.vehicleSize.text = valueHindi
             }
         }
 
@@ -321,16 +310,14 @@ class AddTruckDialog(
             total_tyer_value = result.toString()
 
             if (PreferenceManager.getLanguage(context) == "en") {
-                vehical_binding.tyre.text = valueEnglish
+                vehicleBinding.tyre.text = valueEnglish
             } else {
-                vehical_binding.tyre.text = valueHindi
+                vehicleBinding.tyre.text = valueHindi
             }
 
             idLoad = id
             getFilter(id, loadType)
             // generateToken()
-
-
         }
     }
 
@@ -343,11 +330,11 @@ class AddTruckDialog(
             }
 
             if (data.tyre != null) {
-                tyerTypeList = data.tyre as ArrayList<AddLoadTyre>
+                tyreTypeList = data.tyre as ArrayList<AddLoadTyre>
             }
             if (data.materialWeight != null) {
-                vehical_binding.capicity.text = ""
-                vehical_binding.vehicleSize.text = ""
+                vehicleBinding.capicity.text = ""
+                vehicleBinding.vehicleSize.text = ""
                 materialWeight = data.materialWeight as ArrayList<AddLoadTyre>
             }
             if (data.length != null) {
@@ -359,13 +346,13 @@ class AddTruckDialog(
 
     override fun filtterError(error: String) {
         LoadingUtils.hideDialog()
-        LoggerMessage.onSNACK(vehical_binding.bodyType, error, context)
+        LoggerMessage.onSNACK(vehicleBinding.bodyType, error, context)
     }
 
     private fun isTyreTypeSelected(): Boolean {
-        if (TextUtils.isEmpty(vehical_binding.tyre.text)) {
+        if (TextUtils.isEmpty(vehicleBinding.tyre.text)) {
             val fl: String = context.resources.getString(R.string.select_tyreType)
-            LoggerMessage.onSNACK(vehical_binding.bodyType, fl, context)
+            LoggerMessage.onSNACK(vehicleBinding.bodyType, fl, context)
             return false
         }
 
@@ -374,28 +361,28 @@ class AddTruckDialog(
 
     private fun validationvehicleSize(): Boolean {
 
-        if (TextUtils.isEmpty(vehical_binding.vehicalNo.text)) {
+        if (TextUtils.isEmpty(vehicleBinding.vehicalNo.text)) {
 
             var fl: String = context.resources.getString(R.string.enterCommercialVehical)
-            LoggerMessage.onSNACK(vehical_binding.vehicalNo, fl, context)
+            LoggerMessage.onSNACK(vehicleBinding.vehicalNo, fl, context)
             return false
         }
 
-        if (TextUtils.isEmpty(vehical_binding.bodyType?.text)) {
+        if (TextUtils.isEmpty(vehicleBinding.bodyType?.text)) {
             var fl: String = context.resources.getString(R.string.select_bodyType)
-            LoggerMessage.onSNACK(vehical_binding.bodyType!!, fl, context)
+            LoggerMessage.onSNACK(vehicleBinding.bodyType!!, fl, context)
             return false
         }
 
-        if (TextUtils.isEmpty(vehical_binding.tyre?.text)) {
+        if (TextUtils.isEmpty(vehicleBinding.tyre?.text)) {
             var fl: String = context.resources.getString(R.string.select_tyreType)
-            LoggerMessage.onSNACK(vehical_binding.tyre!!, fl, context)
+            LoggerMessage.onSNACK(vehicleBinding.tyre!!, fl, context)
             return false
         }
 
-        if (TextUtils.isEmpty(vehical_binding.capicity?.text)) {
+        if (TextUtils.isEmpty(vehicleBinding.capicity?.text)) {
             var fl: String = context.resources.getString(R.string.please_select_capacity)
-            LoggerMessage.onSNACK(vehical_binding.capicity!!, fl, context)
+            LoggerMessage.onSNACK(vehicleBinding.capicity!!, fl, context)
             return false
         }
 
@@ -404,43 +391,43 @@ class AddTruckDialog(
 
     private fun validationAddTruck(): Boolean {
 
-        if (!vehical_binding.checkboxOwn.isChecked && !vehical_binding.checkboxAttach.isChecked) {
+        if (!vehicleBinding.checkboxOwn.isChecked && !vehicleBinding.checkboxAttach.isChecked) {
 
             val fl: String = context.resources.getString(R.string.enterTypeOfSource)
-            LoggerMessage.onSNACK(vehical_binding.checkboxOwn, fl, context)
+            LoggerMessage.onSNACK(vehicleBinding.checkboxOwn, fl, context)
             return false
         }
 
-        if (TextUtils.isEmpty(vehical_binding.vehicalNo.text)) {
+        if (TextUtils.isEmpty(vehicleBinding.vehicalNo.text)) {
 
             val fl: String = context.resources.getString(R.string.enterCommercialVehical)
-            LoggerMessage.onSNACK(vehical_binding.vehicalNo, fl, context)
+            LoggerMessage.onSNACK(vehicleBinding.vehicalNo, fl, context)
             return false
         }
 
 
-        if (TextUtils.isEmpty(vehical_binding.bodyType.text)) {
+        if (TextUtils.isEmpty(vehicleBinding.bodyType.text)) {
             val fl: String = context.resources.getString(R.string.select_bodyType)
-            LoggerMessage.onSNACK(vehical_binding.bodyType, fl, context)
+            LoggerMessage.onSNACK(vehicleBinding.bodyType, fl, context)
             return false
         }
 
-        if (TextUtils.isEmpty(vehical_binding.tyre.text)) {
+        if (TextUtils.isEmpty(vehicleBinding.tyre.text)) {
             val fl: String = context.resources.getString(R.string.select_tyreType)
-            LoggerMessage.onSNACK(vehical_binding.tyre, fl, context)
+            LoggerMessage.onSNACK(vehicleBinding.tyre, fl, context)
             return false
         }
 
 
-        if (TextUtils.isEmpty(vehical_binding.capicity.text)) {
+        if (TextUtils.isEmpty(vehicleBinding.capicity.text)) {
             val fl: String = context.resources.getString(R.string.please_select_capacity)
-            LoggerMessage.onSNACK(vehical_binding.capicity, fl, context)
+            LoggerMessage.onSNACK(vehicleBinding.capicity, fl, context)
             return false
         }
 
-        if (TextUtils.isEmpty(vehical_binding.vehicleSize.text)) {
+        if (TextUtils.isEmpty(vehicleBinding.vehicleSize.text)) {
             val fl: String = context.resources.getString(R.string.select_vehiclesize)
-            LoggerMessage.onSNACK(vehical_binding.vehicleSize, fl, context)
+            LoggerMessage.onSNACK(vehicleBinding.vehicleSize, fl, context)
             return false
         }
         return true
@@ -448,10 +435,10 @@ class AddTruckDialog(
 
     private fun validationBodyType(): Boolean {
 
-        if (TextUtils.isEmpty(vehical_binding.vehicalNo.text)) {
+        if (TextUtils.isEmpty(vehicleBinding.vehicalNo.text)) {
 
             val fl: String = context.resources.getString(R.string.enterCommercialVehical)
-            LoggerMessage.onSNACK(vehical_binding.vehicalNo, fl, context)
+            LoggerMessage.onSNACK(vehicleBinding.vehicalNo, fl, context)
             return false
         }
 
@@ -459,17 +446,17 @@ class AddTruckDialog(
     }
 
     private fun validateTyre(): Boolean {
-        if (TextUtils.isEmpty(vehical_binding.vehicalNo.text)) {
+        if (TextUtils.isEmpty(vehicleBinding.vehicalNo.text)) {
 
             val fl: String = context.resources.getString(R.string.enterCommercialVehical)
-            LoggerMessage.onSNACK(vehical_binding.vehicalNo, fl, context)
+            LoggerMessage.onSNACK(vehicleBinding.vehicalNo, fl, context)
             return false
         }
 
 
-        if (TextUtils.isEmpty(vehical_binding.bodyType.text)) {
+        if (TextUtils.isEmpty(vehicleBinding.bodyType.text)) {
             val fl: String = context.resources.getString(R.string.select_bodyType)
-            LoggerMessage.onSNACK(vehical_binding.bodyType, fl, context)
+            LoggerMessage.onSNACK(vehicleBinding.bodyType, fl, context)
             return false
         }
 

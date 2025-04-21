@@ -34,7 +34,6 @@ class SubscriptionActivity : BaseActivity(), PaySubscribtion, PlanCantroler {
     private lateinit var binding: ActivitySubscriptionBinding
 
     private var mViewModel: SubscriptionViewModel? = null
-    private var mTokenViewModel: TokenViewModel? = null
     private var handler: Handler? = null
     private var brokerData: Broker? = null
     private var planStatus: String? = ""
@@ -47,8 +46,7 @@ class SubscriptionActivity : BaseActivity(), PaySubscribtion, PlanCantroler {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         adjustFontScale(getResources().configuration, 1.0f);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_subscription)
-
+        binding = ActivitySubscriptionBinding.inflate(layoutInflater)
         mViewModel = ViewModelProvider(this)[SubscriptionViewModel::class.java]
 
         setupObserver()

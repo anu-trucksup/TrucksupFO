@@ -147,7 +147,7 @@ interface ApiService {
     @Headers("Accept: application/json")
     suspend fun autoImageSlide(): AutoImageSlideResponse
 
-    @POST("THAPIGateway/apiateway/GetLocationByPinCode")
+    @POST("BOAppApiGateway/apiateway/GetBOLocationByPinCode")
     @Headers("Accept: application/json")
     suspend fun getPinData(
         @Header("Authorization") auth: String,

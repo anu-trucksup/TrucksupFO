@@ -116,22 +116,16 @@ class TSOnboardingActivity : BaseActivity(), View.OnClickListener, JWTtoken,
 
         binding.eTPincode.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                /*if (binding.eTPincode.text.length == 6) {
+                if (binding.eTPincode.text.length == 6) {
                     showProgressDialog(this@TSOnboardingActivity, false)
-                    val request = GenerateJWTtokenRequest(
-                        username = PreferenceManager.getAccesUserName(this@TSOnboardingActivity),
-                        password = PreferenceManager.getAccesPassword(this@TSOnboardingActivity),
-                        apiSecreteKey = PreferenceManager.getAccesKey(this@TSOnboardingActivity),
-                        userAgent = PreferenceManager.getAccesUserAgaint(this@TSOnboardingActivity),
-                        issuer = PreferenceManager.getAccesUserInssur(this@TSOnboardingActivity)
+                    val request = PinCodeRequest(
+                        binding.eTPincode.text.toString(),
+                        PreferenceManager.getRequestNo(),
+                        PreferenceManager.getPhoneNo(this@TSOnboardingActivity)
                     )
-                    mTokenViewModel?.generateJWTtoken(
-                        request,
-                        this@TSOnboardingActivity,
-                        this@TSOnboardingActivity
-                    )
+                    mViewModel?.getCityStateByPin(PreferenceManager.getAuthToken(), request)
 
-                }*/
+                }
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
