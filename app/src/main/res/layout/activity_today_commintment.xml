@@ -89,16 +89,16 @@
                                 android:layout_height="wrap_content"
                                 android:layout_margin="@dimen/_10sdp"
                                 app:cardCornerRadius="@dimen/_12sdp"
-                                app:strokeColor="@color/cir_gray"
                                 app:cardUseCompatPadding="true"
+                                app:strokeColor="@color/cir_gray"
                                 app:strokeWidth="1dp">
 
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:padding="@dimen/_10sdp"
-                                    android:orientation="vertical">
+                                    android:orientation="vertical"
+                                    android:padding="@dimen/_10sdp">
 
                                     <TextView
                                         style="@style/text_bl_medium"
@@ -115,7 +115,7 @@
                                         android:layout_height="wrap_content"
                                         android:orientation="vertical">
 
-                                        <LinearLayout
+                                        <RelativeLayout
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:layout_marginEnd="@dimen/_12sdp"
@@ -123,90 +123,120 @@
                                             android:orientation="horizontal">
 
                                             <TextView
-                                                style="@style/regular_text_12"
+                                                style="@style/text_blue6F_medium"
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="center"
-                                                android:fontFamily="@font/bai_jamjuree_semi_bold"
-                                                android:text="@string/add_load"
-                                                android:textColor="@color/primery_text" />
+                                                android:text="@string/add_load" />
 
-                                            <TextView
-                                                android:id="@+id/tv_ts"
-                                                android:layout_width="match_parent"
+                                            <EditText
+                                                android:id="@+id/et_addload"
+                                                style="@style/edit_text_m"
+                                                android:layout_width="@dimen/_120sdp"
                                                 android:layout_height="wrap_content"
-                                                android:layout_gravity="end"
-                                                android:fontFamily="@font/bai_jamjuree_medium"
-                                                android:gravity="end"
-                                                android:text="30"
-                                                android:textAlignment="textEnd"
-                                                android:textColor="@color/blue"
-                                                android:textSize="@dimen/_12ssp" />
+                                                android:layout_alignParentRight="true"
+                                                android:background="@drawable/edit_box"
+                                                android:gravity="center"
+                                                android:inputType="number"
+                                                android:maxLength="10"
+                                                android:paddingHorizontal="@dimen/_10sdp"
+                                                android:text="70" />
 
 
-                                        </LinearLayout>
+                                        </RelativeLayout>
 
-                                        <LinearLayout
+                                        <RelativeLayout
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:layout_marginEnd="@dimen/_12sdp"
+                                            android:layout_marginTop="@dimen/_4sdp"
                                             android:layout_weight="1"
                                             android:orientation="horizontal">
 
                                             <TextView
-                                                style="@style/regular_text_12"
+                                                style="@style/text_blue6F_medium"
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="center"
-                                                android:fontFamily="@font/bai_jamjuree_semi_bold"
-                                                android:text="Unique BA"
-                                                android:textColor="@color/primery_text" />
+                                                android:text="@string/unique_ba" />
 
-                                            <TextView
-                                                android:id="@+id/tv_ba"
-                                                android:layout_width="match_parent"
+                                            <EditText
+                                                android:id="@+id/et_uniqueba"
+                                                style="@style/edit_text_m"
+                                                android:layout_width="@dimen/_120sdp"
                                                 android:layout_height="wrap_content"
-                                                android:layout_gravity="end"
-                                                android:fontFamily="@font/bai_jamjuree_medium"
-                                                android:gravity="end"
-                                                android:text="30"
-                                                android:textAlignment="textEnd"
-                                                android:textColor="@color/blue"
-                                                android:textSize="@dimen/_12ssp" />
+                                                android:layout_alignParentRight="true"
+                                                android:background="@drawable/edit_box"
+                                                android:gravity="center"
+                                                android:inputType="number"
+                                                android:maxLength="10"
+                                                android:paddingHorizontal="@dimen/_10sdp"
+                                                android:text="70" />
 
 
-                                        </LinearLayout>
+                                        </RelativeLayout>
 
-                                        <LinearLayout
+                                        <RelativeLayout
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:layout_marginEnd="@dimen/_12sdp"
+                                            android:layout_marginTop="@dimen/_4sdp"
                                             android:layout_weight="1"
                                             android:orientation="horizontal">
 
                                             <TextView
-                                                style="@style/regular_text_12"
+                                                style="@style/text_blue6F_medium"
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="center"
-                                                android:fontFamily="@font/bai_jamjuree_semi_bold"
-                                                android:text="Unique TS"
-                                                android:textColor="@color/primery_text" />
+                                                android:text="@string/unique_ts" />
+
+                                            <EditText
+                                                android:id="@+id/et_uniquets"
+                                                style="@style/edit_text_m"
+                                                android:layout_width="@dimen/_120sdp"
+                                                android:layout_height="wrap_content"
+                                                android:layout_alignParentRight="true"
+                                                android:background="@drawable/edit_box"
+                                                android:gravity="center"
+                                                android:inputType="number"
+                                                android:maxLength="10"
+                                                android:paddingHorizontal="@dimen/_10sdp"
+                                                android:text="70" />
+
+
+                                        </RelativeLayout>
+
+                                        <RelativeLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginEnd="@dimen/_12sdp"
+                                            android:layout_marginTop="@dimen/_4sdp"
+                                            android:layout_weight="1"
+                                            android:orientation="horizontal">
 
                                             <TextView
-                                                android:id="@+id/tv_gp"
-                                                android:layout_width="match_parent"
+                                                style="@style/text_blue6F_medium"
+                                                android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
-                                                android:layout_gravity="end"
-                                                android:fontFamily="@font/bai_jamjuree_medium"
-                                                android:gravity="end"
-                                                android:text="30"
-                                                android:textAlignment="textEnd"
-                                                android:textColor="@color/blue"
-                                                android:textSize="@dimen/_12ssp" />
+                                                android:layout_gravity="center"
+                                                android:text="@string/subscription_" />
+
+                                            <EditText
+                                                android:id="@+id/et_subscription_"
+                                                style="@style/edit_text_m"
+                                                android:layout_width="@dimen/_120sdp"
+                                                android:layout_height="wrap_content"
+                                                android:layout_alignParentRight="true"
+                                                android:background="@drawable/edit_box"
+                                                android:gravity="center"
+                                                android:inputType="number"
+                                                android:maxLength="10"
+                                                android:paddingHorizontal="@dimen/_10sdp"
+                                                android:text="70" />
 
 
-                                        </LinearLayout>
+                                        </RelativeLayout>
 
                                     </LinearLayout>
 
@@ -222,15 +252,15 @@
                                 android:layout_height="wrap_content"
                                 android:layout_margin="@dimen/_10sdp"
                                 app:cardCornerRadius="@dimen/_12sdp"
-                                app:strokeColor="@color/cir_gray"
                                 app:cardUseCompatPadding="true"
+                                app:strokeColor="@color/cir_gray"
                                 app:strokeWidth="1dp">
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:padding="@dimen/_10sdp"
-                                    android:orientation="vertical">
+                                    android:orientation="vertical"
+                                    android:padding="@dimen/_10sdp">
 
 
                                     <TextView
@@ -248,7 +278,7 @@
                                         android:layout_height="wrap_content"
                                         android:orientation="vertical">
 
-                                        <LinearLayout
+                                        <RelativeLayout
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:layout_marginEnd="@dimen/_12sdp"
@@ -256,183 +286,151 @@
                                             android:orientation="horizontal">
 
                                             <TextView
-                                                style="@style/regular_text_12"
+                                                style="@style/text_blue6F_medium"
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="center"
-                                                android:fontFamily="@font/bai_jamjuree_semi_bold"
-                                                android:text="@string/vehicle_tracking"
-                                                android:textColor="@color/primery_text" />
+                                                android:text="@string/tu_kawach_" />
 
-                                            <TextView
-                                                android:id="@+id/tv_vehicle_tracking"
-                                                android:layout_width="match_parent"
+                                            <EditText
+                                                android:id="@+id/et_kawach"
+                                                style="@style/edit_text_m"
+                                                android:layout_width="@dimen/_120sdp"
                                                 android:layout_height="wrap_content"
-                                                android:layout_gravity="end"
-                                                android:fontFamily="@font/bai_jamjuree_medium"
-                                                android:gravity="end"
-                                                android:text="30"
-                                                android:textAlignment="textEnd"
-                                                android:textColor="@color/blue"
-                                                android:textSize="@dimen/_12ssp" />
+                                                android:background="@drawable/edit_box"
+                                                android:inputType="number"
+                                                android:maxLength="10"
+                                                android:text="70"
+                                                android:gravity="center"
+                                                android:layout_alignParentRight="true"
+                                                android:paddingHorizontal="@dimen/_10sdp" />
 
 
-                                        </LinearLayout>
+                                        </RelativeLayout>
 
-                                        <LinearLayout
+                                        <RelativeLayout
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:layout_marginEnd="@dimen/_12sdp"
+                                            android:layout_marginTop="@dimen/_4sdp"
                                             android:layout_weight="1"
                                             android:orientation="horizontal">
 
                                             <TextView
-                                                style="@style/regular_text_12"
+                                                style="@style/text_blue6F_medium"
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="center"
-                                                android:fontFamily="@font/bai_jamjuree_semi_bold"
-                                                android:text="@string/vehicle_verify"
-                                                android:textColor="@color/primery_text" />
+                                                android:text="@string/insurance" />
 
-                                            <TextView
-                                                android:id="@+id/tv_vehicle_verify"
-                                                android:layout_width="match_parent"
+                                            <EditText
+                                                android:id="@+id/et_insurance"
+                                                style="@style/edit_text_m"
+                                                android:layout_width="@dimen/_120sdp"
                                                 android:layout_height="wrap_content"
-                                                android:layout_gravity="end"
-                                                android:fontFamily="@font/bai_jamjuree_medium"
-                                                android:gravity="end"
-                                                android:text="30"
-                                                android:textAlignment="textEnd"
-                                                android:textColor="@color/blue"
-                                                android:textSize="@dimen/_12ssp" />
+                                                android:background="@drawable/edit_box"
+                                                android:inputType="number"
+                                                android:maxLength="10"
+                                                android:text="70"
+                                                android:gravity="center"
+                                                android:layout_alignParentRight="true"
+                                                android:paddingHorizontal="@dimen/_10sdp" />
 
 
-                                        </LinearLayout>
+                                        </RelativeLayout>
 
-                                        <LinearLayout
+                                        <RelativeLayout
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:layout_marginEnd="@dimen/_12sdp"
+                                            android:layout_marginTop="@dimen/_4sdp"
                                             android:layout_weight="1"
                                             android:orientation="horizontal">
 
                                             <TextView
-                                                style="@style/regular_text_12"
+                                                style="@style/text_blue6F_medium"
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="center"
-                                                android:fontFamily="@font/bai_jamjuree_semi_bold"
-                                                android:text="@string/verify_dl"
-                                                android:textColor="@color/primery_text" />
+                                                android:text="@string/finance" />
 
-                                            <TextView
-                                                android:id="@+id/tv_verify_dl"
-                                                android:layout_width="match_parent"
+                                            <EditText
+                                                android:id="@+id/et_finance"
+                                                style="@style/edit_text_m"
+                                                android:layout_width="@dimen/_120sdp"
                                                 android:layout_height="wrap_content"
-                                                android:layout_gravity="end"
-                                                android:fontFamily="@font/bai_jamjuree_medium"
-                                                android:gravity="end"
-                                                android:text="30"
-                                                android:textAlignment="textEnd"
-                                                android:textColor="@color/blue"
-                                                android:textSize="@dimen/_12ssp" />
+                                                android:background="@drawable/edit_box"
+                                                android:inputType="number"
+                                                android:maxLength="10"
+                                                android:text="70"
+                                                android:gravity="center"
+                                                android:layout_alignParentRight="true"
+                                                android:paddingHorizontal="@dimen/_10sdp" />
 
 
-                                        </LinearLayout>
+                                        </RelativeLayout>
 
-                                        <LinearLayout
+                                        <RelativeLayout
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:layout_marginEnd="@dimen/_12sdp"
+                                            android:layout_marginTop="@dimen/_4sdp"
                                             android:layout_weight="1"
                                             android:orientation="horizontal">
 
                                             <TextView
-                                                style="@style/regular_text_12"
+                                                style="@style/text_blue6F_medium"
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="center"
-                                                android:fontFamily="@font/bai_jamjuree_semi_bold"
-                                                android:text="@string/insurance"
-                                                android:textColor="@color/primery_text" />
+                                                android:text="@string/smart_fuel" />
 
-                                            <TextView
-                                                android:id="@+id/tv_insurance"
-                                                android:layout_width="match_parent"
+                                            <EditText
+                                                android:id="@+id/et_smartfuel"
+                                                style="@style/edit_text_m"
+                                                android:layout_width="@dimen/_120sdp"
                                                 android:layout_height="wrap_content"
-                                                android:layout_gravity="end"
-                                                android:fontFamily="@font/bai_jamjuree_medium"
-                                                android:gravity="end"
-                                                android:text="30"
-                                                android:textAlignment="textEnd"
-                                                android:textColor="@color/blue"
-                                                android:textSize="@dimen/_12ssp" />
+                                                android:background="@drawable/edit_box"
+                                                android:inputType="number"
+                                                android:maxLength="10"
+                                                android:text="70"
+                                                android:gravity="center"
+                                                android:layout_alignParentRight="true"
+                                                android:paddingHorizontal="@dimen/_10sdp" />
 
 
-                                        </LinearLayout>
+                                        </RelativeLayout>
 
-                                        <LinearLayout
+                                        <RelativeLayout
                                             android:layout_width="match_parent"
                                             android:layout_height="wrap_content"
                                             android:layout_marginEnd="@dimen/_12sdp"
+                                            android:layout_marginTop="@dimen/_4sdp"
                                             android:layout_weight="1"
                                             android:orientation="horizontal">
 
                                             <TextView
-                                                style="@style/regular_text_12"
+                                                style="@style/text_blue6F_medium"
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:layout_gravity="center"
-                                                android:fontFamily="@font/bai_jamjuree_semi_bold"
-                                                android:text="@string/finance"
-                                                android:textColor="@color/primery_text" />
+                                                android:text="@string/goOnboard" />
 
-                                            <TextView
-                                                android:id="@+id/tv_finance"
-                                                android:layout_width="match_parent"
+                                            <EditText
+                                                android:id="@+id/et_gp_onboard"
+                                                style="@style/edit_text_m"
+                                                android:layout_width="@dimen/_120sdp"
                                                 android:layout_height="wrap_content"
-                                                android:layout_gravity="end"
-                                                android:fontFamily="@font/bai_jamjuree_medium"
-                                                android:gravity="end"
-                                                android:text="30"
-                                                android:textAlignment="textEnd"
-                                                android:textColor="@color/blue"
-                                                android:textSize="@dimen/_12ssp" />
+                                                android:background="@drawable/edit_box"
+                                                android:inputType="number"
+                                                android:maxLength="10"
+                                                android:text="70"
+                                                android:gravity="center"
+                                                android:layout_alignParentRight="true"
+                                                android:paddingHorizontal="@dimen/_10sdp" />
 
 
-                                        </LinearLayout>
-
-                                        <LinearLayout
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginEnd="@dimen/_12sdp"
-                                            android:layout_weight="1"
-                                            android:orientation="horizontal">
-
-                                            <TextView
-                                                style="@style/regular_text_12"
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="wrap_content"
-                                                android:layout_gravity="center"
-                                                android:fontFamily="@font/bai_jamjuree_semi_bold"
-                                                android:text="@string/smart_fuel"
-                                                android:textColor="@color/primery_text" />
-
-                                            <TextView
-                                                android:id="@+id/tv_smart_fuel"
-                                                android:layout_width="match_parent"
-                                                android:layout_height="wrap_content"
-                                                android:layout_gravity="end"
-                                                android:fontFamily="@font/bai_jamjuree_medium"
-                                                android:gravity="end"
-                                                android:text="30"
-                                                android:textAlignment="textEnd"
-                                                android:textColor="@color/blue"
-                                                android:textSize="@dimen/_12ssp" />
-
-
-                                        </LinearLayout>
+                                        </RelativeLayout>
 
                                     </LinearLayout>
 
