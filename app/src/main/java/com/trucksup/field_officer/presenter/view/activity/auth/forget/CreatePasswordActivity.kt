@@ -4,7 +4,9 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.text.Editable
 import android.text.TextUtils
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -49,44 +51,124 @@ class CreatePasswordActivity : BaseActivity(), View.OnClickListener {
 //            Toast.makeText(this, "Location :"+latitude +"-"+longitude, Toast.LENGTH_SHORT).show()
         }
 
-        /* mBinding!!.confirmPasswordTxt.addTextChangedListener(object : TextWatcher {
+        //password
+        mBinding!!.passwordTxt.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
+            }
+
+            override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
+                val password: String = mBinding!!.passwordTxt.getText().toString()
+                val confirmPassword: String = mBinding!!.confirmPasswordTxt.getText().toString()
+                mBinding?.confirmPasswordTxt?.text?.clear()
+                mBinding?.confirmPasswordTxt?.clearFocus()
+
+            }
+
+            override fun afterTextChanged(editable: Editable) {
+
+            }
+        })
+
+        //confirem password
+        mBinding!!.confirmPasswordTxt.addTextChangedListener(object : TextWatcher {
              override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
              }
 
              override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
-             }
-
-             override fun afterTextChanged(editable: Editable) {
                  val password: String = mBinding!!.passwordTxt.getText().toString()
-                 if (editable.length > 0 && password.length > 0) {
-                     if (!editable.toString().equals(password)) {
-                         val customErrorDrawable = resources.getDrawable(R.drawable.error_warn)
-                         customErrorDrawable.setBounds(
-                             0,
-                             0,
-                             customErrorDrawable.intrinsicWidth,
-                             customErrorDrawable.intrinsicHeight
-                         )
+                 val confirmPassword: String = mBinding!!.confirmPasswordTxt.getText().toString()
+                 if (password.isNullOrEmpty()) {
+                     LoggerMessage.onSNACK(mBinding!!.passwordTxt, resources.getString(R.string.enter_password), applicationContext)
+                 }
+                 else
+                 {
+                     if (isValidPassword(password)) {
+                         if (confirmPassword.isNullOrEmpty()) {
+                             LoggerMessage.onSNACK(
+                                 mBinding!!.confirmPasswordTxt,
+                                 getString(R.string.enter_confirm_password),
+                                 applicationContext
+                             )
+                         }
+                         else
+                         {
+                             if (confirmPassword.length > 0 && password.length > 0) {
+                                 if (!confirmPassword.toString().equals(password)) {
+                                     val customErrorDrawable =
+                                         resources.getDrawable(R.drawable.error_warn)
+                                     customErrorDrawable.setBounds(
+                                         0,
+                                         0,
+                                         customErrorDrawable.intrinsicWidth,
+                                         customErrorDrawable.intrinsicHeight
+                                     )
 
-                         mBinding?.confirmPasswordTxt?.setError(
-                             "Password and Confirm Password should be same.",
-                             customErrorDrawable
-                         )
+                                     mBinding?.confirmPasswordTxt?.setError(
+                                         getString(R.string.password_match), customErrorDrawable
+                                     )
 
-                         // give an error that password and confirm password not match
-                     } else {
-                         val customErrorDrawable = resources.getDrawable(R.drawable.error_confirm)
-                         customErrorDrawable.setBounds(
-                             0,
-                             0,
-                             customErrorDrawable.intrinsicWidth,
-                             customErrorDrawable.intrinsicHeight
+                                     // give an error that password and confirm password not match
+                                 }
+                                 else
+                                 {
+                                     val customErrorDrawable = resources.getDrawable(R.drawable.error_confirm)
+                                     customErrorDrawable.setBounds(
+                                         0,
+                                         0,
+                                         customErrorDrawable.intrinsicWidth,
+                                         customErrorDrawable.intrinsicHeight
+                                     )
+
+                                     mBinding!!.confirmPasswordTxt.setError(
+                                         getString(R.string.password_match_msg),
+                                         customErrorDrawable
+                                     )
+                                 }
+                             }
+                         }
+                     }
+                     else
+                     {
+                         LoggerMessage.onSNACK(
+                             mBinding?.passwordTxt!!,
+                             getString(R.string.password_validation),
+                             applicationContext
                          )
-                         mBinding?.confirmPasswordTxt?.setError("", customErrorDrawable)
                      }
                  }
              }
-         })*/
+
+             override fun afterTextChanged(editable: Editable) {
+//                 val password: String = mBinding!!.passwordTxt.getText().toString()
+//                 if (editable.length > 0 && password.length > 0) {
+//                     if (!editable.toString().equals(password)) {
+//                         val customErrorDrawable = resources.getDrawable(R.drawable.error_warn)
+//                         customErrorDrawable.setBounds(
+//                             0,
+//                             0,
+//                             customErrorDrawable.intrinsicWidth,
+//                             customErrorDrawable.intrinsicHeight
+//                         )
+//
+//                         mBinding?.confirmPasswordTxt?.setError(
+//                             "Password and Confirm Password should be same.",
+//                             customErrorDrawable
+//                         )
+//
+//                         // give an error that password and confirm password not match
+//                     } else {
+//                         val customErrorDrawable = resources.getDrawable(R.drawable.error_confirm)
+//                         customErrorDrawable.setBounds(
+//                             0,
+//                             0,
+//                             customErrorDrawable.intrinsicWidth,
+//                             customErrorDrawable.intrinsicHeight
+//                         )
+//                         mBinding?.confirmPasswordTxt?.setError("", customErrorDrawable)
+//                     }
+//                 }
+             }
+         })
     }
 
 
@@ -106,7 +188,7 @@ class CreatePasswordActivity : BaseActivity(), View.OnClickListener {
                 dismissProgressDialog()
 
                 if (responseModel.success?.statuscode == 200) {
-                    Toast.makeText(this, "Password Changed Successfully", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this, "Password Changed Successfully", Toast.LENGTH_SHORT).show()
                     // start home screen
                     val intent = Intent(this@CreatePasswordActivity, LoginActivity::class.java)
                     intent.putExtra("mobile", "")
@@ -176,7 +258,7 @@ class CreatePasswordActivity : BaseActivity(), View.OnClickListener {
                         )
 
                         mBinding!!.confirmPasswordTxt.setError(
-                            "",
+                            getString(R.string.password_match_msg),
                             customErrorDrawable
                         )
 

@@ -131,5 +131,6 @@
     <color name="secondry_text">#000000</color>
 
     <color name="hint_color">#CCCCCC</color>
+    <color name="gray_10">#C2C2C2</color>
 
 </resources>

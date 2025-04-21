@@ -14,7 +14,7 @@
     <string name="data_not_found">Data Not Found\nSorry, the data you are looking for does not exist.</string>
     <string name="cancel">Cancel</string>
     <string name="submit">Submit</string>
-    <string name="verify">verify</string>
+    <string name="verify">Verify</string>
     <string name="Complete_Now"><u>Complete Now</u></string>
 
     <string-array name="kyc_type">
@@ -83,8 +83,8 @@
 
     <string name="generate_OTP">Generate Verification Code</string>
     <string name="verify_kyc_hint">Verification Code has been sent on your registration no.</string>
-    <string name="verification_code_enter">Enter verification code</string>
-    <string name="remainingTime">Remaining time</string>
+    <string name="verification_code_enter">Enter Verification Code</string>
+    <string name="remainingTime">Remaining Time</string>
     <string name="cancle">Cancel</string>
     <string name="submit_main">Submit</string>
     <string name="resand_sms"><u>Resend Verification Code</u></string>
@@ -669,6 +669,7 @@
     <string name="meeting_alert_text">To start the scheduled meeting, kindly input the happiness code shared to the Growth Partner on the registered mobile number.</string>
     <string name="reschedule_meeting"><u>Reschedule Meeting</u></string>
     <string name="activate_msg">You are currently not on duty. Please activate your duty status to mark your attendance and start today’s journey.</string>
+    <string name="not_activate_msg">You are currently On Duty. Switching to Off Duty will end your active session and stop tracking your journey. Do you want to proceed?</string>
 
     //
     <string name="enter_truckno">Enter Truck No. </string>

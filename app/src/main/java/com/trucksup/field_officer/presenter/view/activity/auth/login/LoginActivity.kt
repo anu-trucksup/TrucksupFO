@@ -199,8 +199,8 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                         profilephoto = "",
                         mobilenumber = mLoginBinding?.phoneTxt?.text.toString(),
                         password = password,
-                        latitude = getString(R.string.demoLatitude),
-                        longitude = getString(R.string.demoLongitude),
+                        latitude = latitude?:"",
+                        longitude = longitude?:"",
                         confirmPassword = password
                     )
 
@@ -238,7 +238,6 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
     override fun onBackPressed() {
         super.onBackPressed()
 //        System.exit(0)
-        finishAffinity()
        finishAffinity()
     }
 
