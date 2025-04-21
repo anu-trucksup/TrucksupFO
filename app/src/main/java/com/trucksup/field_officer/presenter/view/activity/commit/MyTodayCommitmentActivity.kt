@@ -1,4 +1,4 @@
-package com.trucksup.field_officer.presenter.view.activity.other
+package com.trucksup.field_officer.presenter.view.activity.commit
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge

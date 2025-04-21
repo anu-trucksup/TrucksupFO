@@ -12,7 +12,7 @@
 
     <uses-feature
         android:glEsVersion="0x00020000"
-        android:required="true"/>
+        android:required="true" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -108,8 +108,7 @@
 
         <activity
             android:name=".presenter.view.activity.auth.forget.CreatePasswordActivity"
-            android:exported="true"
-            />
+            android:exported="true" />
 
         <receiver
             android:name=".presenter.common.smsReader.MySMSBroadcastReceiver"
@@ -199,7 +198,6 @@
             android:name=".presenter.common.yCamera.CameraXActivity"
             android:exported="false" />
 
-
         <activity
             android:name=".presenter.common.CameraActivity"
             android:exported="false" />
@@ -288,6 +286,15 @@
         <activity
             android:name=".presenter.view.activity.truckSupplier.EndTripActivity"
             android:exported="false" />
+
+        <activity
+            android:name=".presenter.view.activity.commit.MyTodayCommitmentActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".presenter.view.activity.commit.PreviousCommitmentActivity"
+            android:exported="false" />
+
         <service
             android:name=".presenter.utils.MyFirebaseMessagingService"
             android:exported="false">

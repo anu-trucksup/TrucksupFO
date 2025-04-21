@@ -75,10 +75,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_4sdp"
                         android:orientation="horizontal"
-                        android:layout_marginHorizontal="@dimen/_16sdp"
+                        android:layout_marginHorizontal="@dimen/_12sdp"
                         android:layout_gravity="center|center_vertical"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        tools:listitem="@layout/total_loads_added_item" />
+                        tools:listitem="@layout/prev_commit_item" />
 
                 </LinearLayout>
 
