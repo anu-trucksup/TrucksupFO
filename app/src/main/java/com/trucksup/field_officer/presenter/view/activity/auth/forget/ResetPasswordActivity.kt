@@ -15,7 +15,6 @@ import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.auth.api.phone.SmsRetriever
 import com.google.android.gms.auth.api.phone.SmsRetrieverClient
@@ -23,7 +22,6 @@ import com.google.android.gms.tasks.Task
 import com.trucksup.field_officer.presenter.common.smsReader.MySMSBroadcastReceiver
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.data.model.GenerateJWTtokenRequest
-import com.trucksup.field_officer.data.model.authModel.ForgetRequest
 import com.trucksup.field_officer.data.model.otp.OtpRequest
 import com.trucksup.field_officer.data.model.otp.VerifyOtpRequest
 import com.trucksup.field_officer.databinding.ActivityResetPasswordBinding
