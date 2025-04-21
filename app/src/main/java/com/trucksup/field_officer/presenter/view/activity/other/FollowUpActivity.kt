@@ -1,10 +1,13 @@
 package com.trucksup.field_officer.presenter.view.activity.other
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.recyclerview.widget.GridLayoutManager
 import com.trucksup.field_officer.databinding.ActivityFollowUpBinding
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.TSOnBoardStep2Activity
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.TSPlannedFollowupActivity
 import com.trucksup.field_officer.presenter.view.adapter.FollowupSelectionAdapter
 
 class FollowUpActivity : BaseActivity() {
@@ -19,6 +22,10 @@ class FollowUpActivity : BaseActivity() {
 
         binding.ivBack.setOnClickListener {
             onBackPressed()
+        }
+
+        binding.cslPlannedFollowup.setOnClickListener {
+            startActivity(Intent(this, TSPlannedFollowupActivity::class.java))
         }
         setItemList()
     }

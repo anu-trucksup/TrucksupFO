@@ -109,9 +109,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                         PreferenceManager.setPhoneNo(mLoginBinding?.phoneTxt?.text.toString(), this)
                     }
 
-//                    Toast.makeText(this, "Log in Successfully.", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this@LoginActivity, WelcomeLocationActivity::class.java)
-                    //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK)
                     startActivity(intent)
                     finish()
 

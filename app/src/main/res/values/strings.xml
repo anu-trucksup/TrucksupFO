@@ -621,6 +621,8 @@
     <font color="#DB5015">Kawach</font>
     </string>
 
+    <string name="tu_kawach_">TU Kawach</string>
+
     <string name="enter_password">Please input password.</string>
     <string name="valid_name_format">Please input valid profile name.</string>
     <string name="enterProfileName">Please input your profile name.</string>
@@ -737,5 +739,15 @@
     <string name="password_match_msg">Password Match</string>
     <string name="planned_follow_up">Planned Follow-Up</string>
     <string name="planned_follow_ups">Planned Follow-Ups</string>
+    <string name="today_s_commitment">Today’s Commitment</string>
+    <string name="commit_text">Please enter today’s details to update your progress toward the target.</string>
+    <string name="view_previous_commitments"><u>View Previous Commitments</u></string>
+    <string name="unique_ba">Unique BA</string>
+    <string name="unique_ts">Unique TS</string>
+    <string name="subscription_">Subscriptions</string>
+    <string name="goOnboard">GP Onboarding</string>
+    <string name="previous_commitments">Previous Commitments</string>
+    <string name="prev_commit_text">View the previously added commitments and the achievements.</string>
+    <string name="view"><u>View</u></string>
 
 </resources>

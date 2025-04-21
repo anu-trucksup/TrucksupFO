@@ -322,6 +322,10 @@
             android:screenOrientation="portrait"/>
 
         <activity
+            android:name=".presenter.view.activity.truckSupplier.TSPlannedFollowupActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".presenter.view.activity.other.ViewPdfScreen"
             android:exported="false"
             android:screenOrientation="portrait"/>
