@@ -79,7 +79,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
 
         checkLocationPermission(){
             Log.e("Location",latitude+"@"+longitude)
-            Toast.makeText(this, "Location :"+latitude +"-"+longitude, Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this, "Location :"+latitude +"-"+longitude, Toast.LENGTH_SHORT).show()
         }
 
     }
@@ -197,8 +197,8 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                         profilephoto = "",
                         mobilenumber = mLoginBinding?.phoneTxt?.text.toString(),
                         password = password,
-                        latitude = getString(R.string.demoLatitude),
-                        longitude = getString(R.string.demoLongitude),
+                        latitude = latitude?:"",
+                        longitude = longitude?:"",
                         confirmPassword = password
                     )
 
@@ -236,7 +236,6 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
     override fun onBackPressed() {
         super.onBackPressed()
 //        System.exit(0)
-        finishAffinity()
        finishAffinity()
     }
 

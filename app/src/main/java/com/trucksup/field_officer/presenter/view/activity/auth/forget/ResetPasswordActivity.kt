@@ -15,7 +15,6 @@ import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.auth.api.phone.SmsRetriever
 import com.google.android.gms.auth.api.phone.SmsRetrieverClient
@@ -23,7 +22,6 @@ import com.google.android.gms.tasks.Task
 import com.trucksup.field_officer.presenter.common.smsReader.MySMSBroadcastReceiver
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.data.model.GenerateJWTtokenRequest
-import com.trucksup.field_officer.data.model.authModel.ForgetRequest
 import com.trucksup.field_officer.data.model.otp.OtpRequest
 import com.trucksup.field_officer.data.model.otp.VerifyOtpRequest
 import com.trucksup.field_officer.databinding.ActivityResetPasswordBinding
@@ -165,12 +163,12 @@ class ResetPasswordActivity : BaseActivity(), View.OnClickListener {
 
 
                 if (responseModel.success.statusCode == 200) {
-                    Toast.makeText(this, "OTP sent to your Mobile no.", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this, "OTP sent to your Mobile no.", Toast.LENGTH_SHORT).show()
                     mBinding?.otpUpBtn?.isEnabled = false
                     mBinding?.phoneNoTxt?.isClickable = false
                     mBinding?.phoneNoTxt?.isFocusable = false
                     setTimer()
-                    mBinding?.otpUpBtn?.setBackgroundColor(Color.parseColor("#C2C2C2"))
+                    mBinding?.otpUpBtn?.setBackgroundResource(R.drawable.background_2_2)
                     mBinding?.otpUpBtn?.setTextColor(Color.parseColor("#6A6A6A"))
 
                     mBinding?.otpLayout?.visibility = View.VISIBLE
@@ -202,7 +200,7 @@ class ResetPasswordActivity : BaseActivity(), View.OnClickListener {
             } else if (responseModel.success != null) {
                 dismissProgressDialog()
                 if (responseModel.success.statusCode == 200) {
-                    Toast.makeText(this, "OTP Verified.", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(this, "OTP Verified.", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this@ResetPasswordActivity, CreatePasswordActivity::class.java)
                     intent.putExtra("phoneNo", mBinding?.phoneNoTxt?.text.toString())
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)

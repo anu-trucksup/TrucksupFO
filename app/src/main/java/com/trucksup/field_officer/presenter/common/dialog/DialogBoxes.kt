@@ -81,6 +81,7 @@ object DialogBoxes {
         val binding = OnOffDutyBinding.inflate(LayoutInflater.from(context))
         builder.setView(binding.root)
         val dialog: AlertDialog = builder.create()
+        dialog.setCancelable(true)
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
 
         //activate button

@@ -167,7 +167,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
     private fun startApp() {
         // All permissions granted, continue with app flow
-        Toast.makeText(this, "Location permission granted!", Toast.LENGTH_SHORT).show()
+//        Toast.makeText(this, "Location permission granted!", Toast.LENGTH_SHORT).show()
         // For example, navigate to your HomeActivity
         callMainScreen()
         setupObserver()

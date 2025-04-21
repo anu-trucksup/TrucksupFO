@@ -47,17 +47,8 @@
 
         <activity
             android:name=".presenter.view.activity.other.SplashScreenActivity"
-            android:exported="true">
-
-        </activity>
-
-        <activity
-            android:name=".presenter.view.activity.auth.login.LoginActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".presenter.view.activity.dashboard.HomeActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -66,49 +57,72 @@
         </activity>
 
         <activity
+            android:name=".presenter.view.activity.auth.login.LoginActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".presenter.view.activity.dashboard.HomeActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
+
+        <activity
             android:name=".presenter.view.activity.growthPartner.MyTeamGPDetailsActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".presenter.view.activity.truckSupplier.TSDetailActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".presenter.view.activity.addLoads.TotalAddLoadActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".presenter.view.activity.addLoads.TotalAddDetailsActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".presenter.view.activity.profile.TotalDownloadsActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".presenter.view.activity.other.NewOnboardingSelection"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".presenter.view.activity.other.FollowUpActivity"
             android:exported="false" />
         <activity
             android:name=".presenter.view.activity.other.WelcomeLocationActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".presenter.view.activity.auth.forget.ResetPasswordActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".presenter.view.activity.auth.signup.SignUpActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".presenter.view.activity.profile.MyEarningActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".presenter.view.activity.profile.EditProfileActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".presenter.view.activity.auth.forget.CreatePasswordActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:screenOrientation="portrait"
+            />
 
         <receiver
             android:name=".presenter.common.smsReader.MySMSBroadcastReceiver"
@@ -121,152 +135,190 @@
 
         <activity
             android:name=".presenter.view.activity.businessAssociate.BAOnboardDocActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".presenter.view.activity.businessAssociate.BAFollowupActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".presenter.view.activity.truckSupplier.TSFollowupActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".presenter.view.activity.growthPartner.GPFollowupActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".presenter.view.activity.growth_partner.GPKYCActivity"
             android:exported="false" />
 
         <activity
             android:name=".presenter.view.activity.financeInsurance.FinanceActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".presenter.view.activity.financeInsurance.FinanceHistoryActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".presenter.view.activity.financeInsurance.InsuranceActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".presenter.view.activity.profile.MyTeamScreen"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".presenter.view.activity.profile.MyTargetScreen"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
 
 
         <activity
             android:name=".presenter.view.activity.businessAssociate.MyBATeamActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".presenter.view.activity.truckSupplier.MyTSTeamActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".presenter.view.activity.growthPartner.MyGPTeamActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".presenter.view.activity.businessAssociate.BAStartTripActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".presenter.view.activity.truckSupplier.TSStartTripActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
 
 
         <activity
             android:name=".presenter.view.activity.growthPartner.GPStartTripActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
 
 
         <activity
             android:name=".presenter.view.activity.truckSupplier.TSScheduledMeetingActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".presenter.view.activity.businessAssociate.BAScheduleMeetingActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".presenter.view.activity.growthPartner.GPScheduleMeetingActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".presenter.common.yCamera.CameraXActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".presenter.common.CameraActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".presenter.view.activity.truckSupplier.TSOnboardingActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".presenter.view.activity.truckSupplier.TSOnBoardStep2Activity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".presenter.view.activity.businessAssociate.BAnOnboardingActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".presenter.view.activity.growthPartner.GPOnboardingActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".presenter.view.activity.growthPartner.GPPersonalDetailUpdateActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".presenter.view.activity.growthPartner.GPOnboardingKYCActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".presenter.view.activity.growthPartner.GPOnBoardStoreProofActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".presenter.view.activity.growthPartner.GPOnboardingBankActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".presenter.view.activity.growthPartner.GpOnboardingPreviewActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".presenter.view.activity.miscellaneous.MiscActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".presenter.view.activity.subscription.SubscriptionActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".presenter.view.activity.truckSupplier.TSPerformanceActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".presenter.view.activity.truckSupplier.TSViewAllActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".presenter.view.activity.truckSupplier.unassigned_ts_ba.activity.UnAssignedTSBAActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".presenter.view.activity.businessAssociate.BAPerformanceActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".presenter.view.activity.businessAssociate.BAStatusViewAllActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".presenter.view.activity.growthPartner.GPPerformanceActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".presenter.view.activity.growthPartner.GPViewAllActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".presenter.view.activity.truckSupplier.TSPlannedFollowupActivity"
@@ -274,17 +326,22 @@
 
         <activity
             android:name=".presenter.view.activity.other.ViewPdfScreen"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".presenter.view.activity.smartfuel.SmartFuelHistoryActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".presenter.view.activity.smartfuel.AddSmartFuelActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".presenter.view.activity.truckSupplier.EndTripActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"/>
             android:exported="false" />
 
         <activity

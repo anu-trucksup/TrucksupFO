@@ -62,7 +62,25 @@ class SignUpActivity : BaseActivity(), View.OnClickListener, TrucksFOImageContro
         mSignUpBinding?.cvCamera?.setOnClickListener(this)
         signupViewModel = ViewModelProvider(this)[SignupViewModel::class.java]
 
+        //password
+        mSignUpBinding!!.passwordTxt.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
+            }
 
+            override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
+                val password: String = mSignUpBinding!!.passwordTxt.getText().toString()
+                val confirmPassword: String = mSignUpBinding!!.confirmPasswordTxt.getText().toString()
+                mSignUpBinding?.confirmPasswordTxt?.text?.clear()
+                mSignUpBinding?.confirmPasswordTxt?.clearFocus()
+
+            }
+
+            override fun afterTextChanged(editable: Editable) {
+
+            }
+        })
+
+        //confirm pass
         mSignUpBinding!!.confirmPasswordTxt.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
             }
@@ -113,7 +131,7 @@ class SignUpActivity : BaseActivity(), View.OnClickListener, TrucksFOImageContro
                                     )
 
                                     mSignUpBinding!!.confirmPasswordTxt.setError(
-                                        "",
+                                        getString(R.string.password_match_msg),
                                         customErrorDrawable
                                     )
                                 }
@@ -138,6 +156,11 @@ class SignUpActivity : BaseActivity(), View.OnClickListener, TrucksFOImageContro
 
         setupObserver()
         cameraLauncher()
+
+        checkLocationPermission(){
+            Log.e("Location",latitude+"@"+longitude)
+//            Toast.makeText(this, "Location :"+latitude +"-"+longitude, Toast.LENGTH_SHORT).show()
+        }
 
     }
 
@@ -354,7 +377,7 @@ class SignUpActivity : BaseActivity(), View.OnClickListener, TrucksFOImageContro
                             )
 
                             mSignUpBinding!!.confirmPasswordTxt.setError(
-                                "",
+                                getString(R.string.password_match_msg),
                                 customErrorDrawable
                             )
 
