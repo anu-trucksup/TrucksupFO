@@ -76,7 +76,7 @@ object DialogBoxes {
         dialog.show()
     }
 
-    fun onOffDuty(context: Context,dutyStatus:Boolean,dashBoardViewModel:DashBoardViewModel?,latitude:String?,longitude:String?,address:String?) {
+    fun onOffDuty(context: Context, dutyStatus:Boolean, dashBoardViewModel: DashBoardViewModel?, latitude:String?, longitude:String?, address:String?) {
         val builder = AlertDialog.Builder(context)
         val binding = OnOffDutyBinding.inflate(LayoutInflater.from(context))
         builder.setView(binding.root)
@@ -251,7 +251,7 @@ object DialogBoxes {
         datePickerDialog.show()
     }
 
-    private fun attendanceDialog(context: Context,dutyStatus: Boolean,dashBoardViewModel:DashBoardViewModel?,latitude:String?,longitude:String?,address:String?) {
+    private fun attendanceDialog(context: Context, dutyStatus: Boolean, dashBoardViewModel: DashBoardViewModel?, latitude:String?, longitude:String?, address:String?) {
         val builder = AlertDialog.Builder(context)
         val binding = AttendDialogLayoutBinding.inflate(LayoutInflater.from(context))
         builder.setView(binding.root)

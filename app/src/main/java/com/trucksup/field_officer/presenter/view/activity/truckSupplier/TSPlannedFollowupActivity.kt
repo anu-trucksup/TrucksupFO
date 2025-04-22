@@ -36,9 +36,11 @@ class TSPlannedFollowupActivity : BaseActivity() {
         adjustFontScale(getResources().configuration, 1.0f);
         binding = ActivityTsplannedFollowupBinding.inflate(layoutInflater)
         mViewModel = ViewModelProvider(this)[FinanceHistoryViewModel::class.java]
-        historyType = intent.getStringExtra("HISTORY_TYPE")
 
-        enquiryHistory()
+        //enquiryHistory()
+
+        setupViewPager()
+
         setupObserver()
 
         setListener()

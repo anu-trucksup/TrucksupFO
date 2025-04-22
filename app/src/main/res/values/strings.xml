@@ -749,5 +749,6 @@
     <string name="previous_commitments">Previous Commitments</string>
     <string name="prev_commit_text">View the previously added commitments and the achievements.</string>
     <string name="view"><u>View</u></string>
+    <string name="addressStar">Address <font color='#FF0000'>*</font></string>
 
 </resources>

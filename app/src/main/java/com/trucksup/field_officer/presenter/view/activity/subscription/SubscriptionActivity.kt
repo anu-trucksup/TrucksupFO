@@ -86,28 +86,6 @@ class SubscriptionActivity : BaseActivity(), PaySubscribtion, PlanCantroler {
             }
         }
 
-        mViewModel?.imgUploadResultLD?.observe(this@SubscriptionActivity) { responseModel ->                     // login function observe
-            if (responseModel.serverError != null) {
-                dismissProgressDialog()
-
-                val abx =
-                    AlertBoxDialog(
-                        this@SubscriptionActivity,
-                        responseModel.serverError.toString(),
-                        "m"
-                    )
-                abx.show()
-            } else {
-                dismissProgressDialog()
-
-                if (responseModel.success?.imagekey != null) {
-
-
-                } else {
-
-                }
-            }
-        }
     }
 
     private fun setPlanList(list: ArrayList<Broker>) {

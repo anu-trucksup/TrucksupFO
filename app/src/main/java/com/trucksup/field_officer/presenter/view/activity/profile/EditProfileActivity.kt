@@ -2,6 +2,7 @@ package com.trucksup.field_officer.presenter.view.activity.profile
 
 import android.os.Bundle
 import android.text.Editable
+import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.Patterns
 import android.view.View
@@ -54,7 +55,7 @@ class EditProfileActivity : BaseActivity() {
                     )
                     mViewModel?.getCityStateByPin(PreferenceManager.getAuthToken(), request)
 
-                }else{
+                } else {
                     setUI()
                 }
             }
@@ -120,6 +121,24 @@ class EditProfileActivity : BaseActivity() {
                 return@setOnClickListener
             }
 
+            if (TextUtils.isEmpty(
+                    binding.eTAlterMobile?.text.toString().trim()
+                ) && TextUtils.isEmpty(binding.eTAddress?.text.toString().trim()) &&
+                TextUtils.isEmpty(binding.eTEmail?.text.toString().trim()) && TextUtils.isEmpty(
+                    binding.eTPincode?.text.toString().trim()
+                )
+                && TextUtils.isEmpty(binding.editCity?.text.toString().trim())
+            ) {
+                val abx = AlertBoxDialog(
+                    this@EditProfileActivity,
+                    "Please fill atleast one field", "m"
+                )
+                abx.show()
+
+                return@setOnClickListener
+            } else {
+
+            }
             showProgressDialog(this, false)
             val request = UpdateProfileRequest(
                 address = binding.eTAddress.text.toString(),
@@ -186,7 +205,7 @@ class EditProfileActivity : BaseActivity() {
                     val abx = AlertBoxDialog(
                         this@EditProfileActivity,
                         responseModel.success.message.toString(),
-                        "m"
+                        "profile"
                     )
                     abx.show()
                 } else {
@@ -219,9 +238,7 @@ class EditProfileActivity : BaseActivity() {
                     if (responseModel.success.data.isNotEmpty()) {
                         pinData(
                             responseModel.success.data[0].district,
-                            responseModel.success.data[0].hindiCity,
                             responseModel.success.data[0].stateName,
-                            responseModel.success.data[0].hindiState
                         )
                     } else {
                         val abx = AlertBoxDialog(
@@ -255,9 +272,9 @@ class EditProfileActivity : BaseActivity() {
     private fun updateUI(boProfileDetails: BoProfileDetails?) {
         binding.tvUserName.text = boProfileDetails?.profilename ?: "-"
         binding.tvMobileNo.text = boProfileDetails?.mobilenumber ?: "-"
-        binding.tvReferralCode.text = "Referral Code : " + boProfileDetails?.referralcode?:"-"
+        binding.tvReferralCode.text = "Referral Code : " + boProfileDetails?.referralcode ?: "-"
 
-        if(!boProfileDetails?.profilephoto.isNullOrEmpty()){
+        if (!boProfileDetails?.profilephoto.isNullOrEmpty()) {
             binding.imageButton.visibility = View.INVISIBLE
 
             Glide.with(this)
@@ -271,7 +288,7 @@ class EditProfileActivity : BaseActivity() {
         return Patterns.EMAIL_ADDRESS.matcher(target).matches()
     }
 
-    private fun pinData(city: String, cityHindi: String, state: String, stateHindi: String) {
+    private fun pinData(city: String, state: String) {
         dismissProgressDialog()
 
         binding.editCity.setText(city)
