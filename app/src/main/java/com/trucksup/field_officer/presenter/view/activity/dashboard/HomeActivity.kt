@@ -1,14 +1,11 @@
 package com.trucksup.field_officer.presenter.view.activity.dashboard
 
-import android.Manifest
-import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
-import android.location.Geocoder
-import android.location.Location
+import android.icu.text.SimpleDateFormat
+import android.icu.util.Calendar
 import android.os.Bundle
-import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -20,16 +17,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
-import com.google.android.gms.location.Priority
-import com.google.android.gms.tasks.CancellationTokenSource
-import com.karumi.dexter.Dexter
-import com.karumi.dexter.MultiplePermissionsReport
-import com.karumi.dexter.PermissionToken
-import com.karumi.dexter.listener.PermissionRequest
-import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.trucksup.field_officer.R
+import com.trucksup.field_officer.data.model.DutyStatusRequest
 import com.trucksup.field_officer.data.model.HomeServicesModel
 import com.trucksup.field_officer.data.model.home.HomeCountRequest
 import com.trucksup.field_officer.data.model.home.MenuItemsCount
@@ -37,11 +26,12 @@ import com.trucksup.field_officer.data.model.home.OtherItemsCount
 import com.trucksup.field_officer.data.model.home.TodayPerformanceCount
 import com.trucksup.field_officer.data.model.home.UserDetails
 import com.trucksup.field_officer.databinding.ActivityHomeBinding
+import com.trucksup.field_officer.databinding.AttendDialogLayoutBinding
 import com.trucksup.field_officer.databinding.HomeMainServicesDialogBinding
+import com.trucksup.field_officer.databinding.OnOffDutyBinding
 import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.HelplineBox
 import com.trucksup.field_officer.presenter.common.LoadingUtils
-import com.trucksup.field_officer.presenter.common.dialog.DialogBoxes
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
@@ -65,13 +55,14 @@ import com.trucksup.field_officer.presenter.view.adapter.OnItemClickListener
 import com.trucksup.field_officer.presenter.view.adapter.TUKawachDialogAdapter
 import com.trucksup.field_officer.presenter.view.adapter.NavigationMenuItem
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.Locale
+import java.util.Date
 
 @AndroidEntryPoint
 class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
     private lateinit var binding: ActivityHomeBinding
     private var mViewModel: DashBoardViewModel? = null
     private var dutyStatus: Boolean = false
+    private var apiDutyStatus: Boolean = false
     private var trackingCount: String? = null
     private var verificationCount: String? = null
     private var dlCount: String? = null
@@ -79,10 +70,11 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
 
     override fun onStart() {
         super.onStart()
-        val permissionList = ArrayList<String>()
-        permissionList.add(Manifest.permission.ACCESS_FINE_LOCATION)
-        permissionList.add(Manifest.permission.ACCESS_COARSE_LOCATION)
+//        val permissionList = ArrayList<String>()
+//        permissionList.add(Manifest.permission.ACCESS_FINE_LOCATION)
+//        permissionList.add(Manifest.permission.ACCESS_COARSE_LOCATION)
         //checkPermissions(permissionList)
+        setLocation()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -109,7 +101,6 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
 
         setNavigationMenu()
 
-        setLocation()
     }
 
     private fun setLocation() {
@@ -180,20 +171,14 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
             binding.drawerLay.open()
         }
 
+        //ON OFF duty button
         binding.OnSwitchBtn.setOnCheckedChangeListener { compoundButton, b ->
-            dutyStatus = b
-//            if (b) {
-//                binding.txtOnDuty.text = "On Duty"
-//                binding.txtOnDuty.setTextColor(resources.getColor(R.color.on_duty_color))
-//                binding.OnSwitchBtn.trackTintList =
-//                    resources.getColorStateList(R.color.on_duty_color)
-//            } else {
-//                binding.txtOnDuty.text = "Off Duty"
-//                binding.txtOnDuty.setTextColor(resources.getColor(R.color.red))
-//                binding.OnSwitchBtn.trackTintList = resources.getColorStateList(R.color.red)
-//            }
-            if (!latitude.isNullOrEmpty() && !longitude.isNullOrEmpty() && !address.isNullOrEmpty()) {
-                DialogBoxes.onOffDuty(this, dutyStatus, mViewModel, latitude, longitude, address)
+            if (apiDutyStatus == false) {
+                dutyStatus = b
+                if (!latitude.isNullOrEmpty() && !longitude.isNullOrEmpty() && !address.isNullOrEmpty()) {
+                    apiDutyStatus=true
+                    onOffDuty()
+                }
             }
         }
 
@@ -319,7 +304,6 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
      }*/
 
 
-
     private fun setNavigationMenu() {
         val list = ArrayList<NavItems>()
         list.add(
@@ -417,7 +401,15 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
 
     private fun setupObserver() {
         mViewModel?.resultDutyStatusLD?.observe(this) { responseModel ->                     // login function observe
+            apiDutyStatus=false
             if (responseModel.serverError != null) {
+                if (dutyStatus == false) {
+                    dutyStatus = true
+                    onDutyToggleChange()
+                } else {
+                    dutyStatus = false
+                    offDutyToggleChange()
+                }
                 LoadingUtils.hideDialog()
 
                 val abx = AlertBoxDialog(this, responseModel.serverError.toString(), "m")
@@ -427,21 +419,29 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
                 if (responseModel.success != null) {
                     if (responseModel.success.statuscode == 200) {
                         if (dutyStatus == true) {
-                            binding.txtOnDuty.text = "On Duty"
-                            binding.txtOnDuty.setTextColor(resources.getColor(R.color.on_duty_color))
-                            binding.OnSwitchBtn.trackTintList =
-                                resources.getColorStateList(R.color.on_duty_color)
+                            onDutyToggleChange()
                         } else {
-                            binding.txtOnDuty.text = "Off Duty"
-                            binding.txtOnDuty.setTextColor(resources.getColor(R.color.red))
-                            binding.OnSwitchBtn.trackTintList =
-                                resources.getColorStateList(R.color.red)
+                            offDutyToggleChange()
                         }
                     } else {
+                        if (dutyStatus == false) {
+                            dutyStatus = true
+                            onDutyToggleChange()
+                        } else {
+                            dutyStatus = false
+                            offDutyToggleChange()
+                        }
 
                     }
                 } else {
 
+                    if (dutyStatus == false) {
+                        dutyStatus = true
+                        onDutyToggleChange()
+                    } else {
+                        dutyStatus = false
+                        offDutyToggleChange()
+                    }
                 }
             }
         }
@@ -456,13 +456,13 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
                 dismissProgressDialog()
                 if (responseModel.success != null) {
                     if (responseModel.success.statuscode == 200) {
-                        var serviceCounts: MenuItemsCount? =
+                        val serviceCounts: MenuItemsCount? =
                             responseModel.success.homeMenuItems?.menuItemsCount
-                        var earningCounts: OtherItemsCount? =
+                        val earningCounts: OtherItemsCount? =
                             responseModel.success.homeMenuItems?.otherItemsCount
-                        var todayPerformanceCounts: TodayPerformanceCount? =
+                        val todayPerformanceCounts: TodayPerformanceCount? =
                             responseModel.success.homeMenuItems?.todayPerformanceCount
-                        var userDetail: UserDetails? =
+                        val userDetail: UserDetails? =
                             responseModel.success.homeMenuItems?.userDetails
 
                         //tracking count
@@ -501,18 +501,16 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
 
                         //duty status
                         dutyStatus = userDetail!!.dutyStatus
+                        apiDutyStatus=true
                         if (dutyStatus == true) {
-                            binding.OnSwitchBtn.isChecked = true
-                            binding.txtOnDuty.text = "On Duty"
-                            binding.txtOnDuty.setTextColor(resources.getColor(R.color.on_duty_color))
-                            binding.OnSwitchBtn.trackTintList =
-                                resources.getColorStateList(R.color.on_duty_color)
+                            onDutyToggleChange()
+                            apiDutyStatus=false
                         } else {
-                            binding.OnSwitchBtn.isChecked = false
-                            binding.txtOnDuty.text = "Off Duty"
-                            binding.txtOnDuty.setTextColor(resources.getColor(R.color.red))
-                            binding.OnSwitchBtn.trackTintList =
-                                resources.getColorStateList(R.color.red)
+                            dutyStatus = true
+                            offDutyToggleChange()
+                            if (!latitude.isNullOrEmpty() && !longitude.isNullOrEmpty() && !address.isNullOrEmpty()) {
+                                onOffDuty()
+                            }
                         }
 
                         //main services
@@ -686,6 +684,124 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
             hasFixedSize()
         }
 
+    }
+
+
+    ///////////////////////////////////////////////////////////////
+    fun onOffDuty() {
+        val builder = AlertDialog.Builder(this@HomeActivity)
+        val binding = OnOffDutyBinding.inflate(LayoutInflater.from(this@HomeActivity))
+        builder.setView(binding.root)
+        val dialog: AlertDialog = builder.create()
+        dialog.setCancelable(true)
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+        if (dutyStatus==true)
+        {
+            binding.textView6.text=getString(R.string.activate_msg)
+        }
+        else
+        {
+            binding.textView6.text=getString(R.string.not_activate_msg)
+        }
+
+        //activate button
+        binding.btnActivate.setOnClickListener {
+            attendanceDialog()
+            dialog.dismiss()
+        }
+
+        //cancel button
+        binding.btnCancel.setOnClickListener {
+            if (dutyStatus == false) {
+                dutyStatus = true
+                onDutyToggleChange()
+            } else {
+                dutyStatus = false
+                offDutyToggleChange()
+            }
+            apiDutyStatus=false
+            dialog.dismiss()
+        }
+
+        dialog.show()
+    }
+
+    //////////////////////////////////////////////////////////////
+    private fun attendanceDialog() {
+        val builder = AlertDialog.Builder(this@HomeActivity)
+        val binding = AttendDialogLayoutBinding.inflate(LayoutInflater.from(this@HomeActivity))
+        builder.setView(binding.root)
+        val dialog: AlertDialog = builder.create()
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+        val calendar = Calendar.getInstance()
+        val getCurrentDate = SimpleDateFormat("dd-MMM-yy")
+        val getCurrentTime = SimpleDateFormat("hh:mm a")
+        val currentDate = getCurrentDate.format(calendar.time)
+        val currentTime = getCurrentTime.format(Date()).toString()
+        val formattedTime = currentTime.replace("am", "AM").replace("pm", "PM");
+
+        binding.tvDate.setText("Date: " + currentDate)
+        binding.tvTime.setText("Time: " + formattedTime)
+
+        //ok button
+        binding.confirm.setOnClickListener {
+            LoadingUtils.showDialog(this@HomeActivity, false)
+
+            val request = DutyStatusRequest(
+                1234,
+                PreferenceManager.getUserData(this@HomeActivity)?.boUserid?.toInt() ?: 0,
+                dutyStatus,
+                latitude ?: "",
+                address ?: "",
+                longitude ?: "",
+                "" + PreferenceManager.getServerDateUtc(),
+                PreferenceManager.getRequestNo().toInt(),
+                "" + PreferenceManager.getPhoneNo(this@HomeActivity)
+            )
+            mViewModel?.dutyStatus(request)
+            dialog.dismiss()
+        }
+
+        //ok button
+        binding.cancle.setOnClickListener {
+            if (dutyStatus == false) {
+                dutyStatus = true
+                onDutyToggleChange()
+//                this.binding.OnSwitchBtn.isChecked = true
+//                this.binding.txtOnDuty.text = "On Duty"
+//                this.binding.txtOnDuty.setTextColor(resources.getColor(R.color.on_duty_color))
+//                this.binding.OnSwitchBtn.trackTintList = resources.getColorStateList(R.color.on_duty_color)
+            } else {
+                dutyStatus = false
+                offDutyToggleChange()
+//                this.binding.OnSwitchBtn.isChecked = false
+//                this.binding.txtOnDuty.text = "Off Duty"
+//                this.binding.txtOnDuty.setTextColor(resources.getColor(R.color.red))
+//                this.binding.OnSwitchBtn.trackTintList = resources.getColorStateList(R.color.red)
+            }
+            apiDutyStatus=false
+            dialog.dismiss()
+        }
+
+        dialog.show()
+    }
+
+    private fun onDutyToggleChange()
+    {
+        this.binding.OnSwitchBtn.isChecked = true
+        this.binding.txtOnDuty.text = "On Duty"
+        this.binding.txtOnDuty.setTextColor(resources.getColor(R.color.on_duty_color))
+        this.binding.OnSwitchBtn.trackTintList = resources.getColorStateList(R.color.on_duty_color)
+    }
+
+    private fun offDutyToggleChange()
+    {
+        this.binding.OnSwitchBtn.isChecked = false
+        this.binding.txtOnDuty.text = "Off Duty"
+        this.binding.txtOnDuty.setTextColor(resources.getColor(R.color.red))
+        this.binding.OnSwitchBtn.trackTintList = resources.getColorStateList(R.color.red)
     }
 
 }

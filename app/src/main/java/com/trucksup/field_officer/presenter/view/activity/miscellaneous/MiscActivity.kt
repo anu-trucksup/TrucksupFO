@@ -11,10 +11,12 @@ import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.net.toUri
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -23,6 +25,7 @@ import com.trucksup.field_officer.databinding.AddMiscLayoutBinding
 import com.trucksup.field_officer.databinding.DateFilterBinding
 import com.trucksup.field_officer.databinding.IncompleteDropItemBinding
 import com.trucksup.field_officer.databinding.MiscActivityBinding
+import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.CameraActivity
 import com.trucksup.field_officer.presenter.common.FileHelp
 import com.trucksup.field_officer.presenter.utils.NetworkManager
@@ -32,16 +35,23 @@ import com.trucksup.field_officer.presenter.view.adapter.ImageAdapter
 import com.trucksup.field_officer.presenter.view.interfaces.AddMiscInterface
 import com.trucksup.fieldofficer.adapter.IncompleteLead
 import com.trucksup.field_officer.presenter.common.dialog.DialogBoxes
+import com.trucksup.field_officer.presenter.common.image_picker.TrucksFOImageController
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
+import com.trucksup.field_officer.presenter.utils.LoggerMessage
+import com.trucksup.field_officer.presenter.view.activity.auth.login.LoginActivity
+import com.trucksup.field_officer.presenter.view.activity.auth.login.LoginViewModel
+import com.trucksup.field_officer.presenter.view.activity.miscellaneous.vml.MiscellaneousViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.OutputStream
 
-class MiscActivity : BaseActivity(), AddMiscInterface {
+@AndroidEntryPoint
+class MiscActivity : BaseActivity(), AddMiscInterface , TrucksFOImageController {
 
     private lateinit var binding: MiscActivityBinding
-
+    private var mViewModel: MiscellaneousViewModel? = null
     private lateinit var addMiscLayoutBinding: AddMiscLayoutBinding
     private lateinit var incompleteDropItemBinding: IncompleteDropItemBinding
     private var imageList = ArrayList<Bitmap>()
@@ -55,11 +65,13 @@ class MiscActivity : BaseActivity(), AddMiscInterface {
         binding = MiscActivityBinding.inflate(layoutInflater)
         adjustFontScale(resources.configuration, 1.0f);
         setContentView(binding.root)
+        mViewModel = ViewModelProvider(this)[MiscellaneousViewModel::class.java]
 
+        setupObserver()
         setIncompleteLead()
         setCompleteLead()
         setListener()
-        camera()
+        cameraListener()
     }
 
     private fun setListener() {
@@ -155,9 +167,45 @@ class MiscActivity : BaseActivity(), AddMiscInterface {
         }
     }
 
+    private fun setupObserver() {
+
+        mViewModel?.addMiscellaneousResultLD?.observe(this@MiscActivity) { responseModel ->
+            if (responseModel.serverError != null) {
+                dismissProgressDialog()
+
+                val abx = AlertBoxDialog(
+                    this@MiscActivity,
+                    responseModel.serverError.toString(),
+                    "m"
+                )
+                abx.show()
+            } else {
+                dismissProgressDialog()
+
+                if (responseModel.success?.statuscode == 200) {
+
+                    val intent = Intent(this@MiscActivity, LoginActivity::class.java)
+                    //intent.putExtra("mobile", mSignUpBinding?.phoneNoTxt?.text.toString())
+                    //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                    startActivity(intent)
+                    finish()
+
+
+                } else {
+                    val abx = AlertBoxDialog(
+                        this@MiscActivity, responseModel.success?.message.toString(),
+                        "m"
+                    )
+                    abx.show()
+                }
+
+            }
+        }
+
+    }
 
     //add by me
-    fun camera() {
+    private fun cameraListener() {
         launcher = registerForActivityResult<Intent, ActivityResult>(
             ActivityResultContracts.StartActivityForResult()
         ) { result: ActivityResult ->
@@ -273,7 +321,7 @@ class MiscActivity : BaseActivity(), AddMiscInterface {
         }
     }
 
-    private fun bitmapToFile(bitmap: Bitmap): File? {
+    private fun bitmapToFile(bitmap: Bitmap): File {
         val file =
             File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "temp_image.jpg")
         try {
@@ -285,6 +333,27 @@ class MiscActivity : BaseActivity(), AddMiscInterface {
             e.printStackTrace()
         }
         return file
+    }
+
+    override fun getImage(valuekey: String, url: String) {
+        dismissProgressDialog()
+      /*  try {
+            Glide.with(this)
+                .load(url)
+                .into(binding?.profileImage!!)
+        } catch (e: Exception) {
+        }
+        binding?.profileImage?.tag = "y"
+
+        frontImgKey = valuekey*/
+    }
+
+    override fun dataSubmitted(message: String) {
+    }
+
+    override fun imageError(error: String) {
+        dismissProgressDialog()
+      //  LoggerMessage.onSNACK(binding?.profileImage!!, error, this)
     }
 
 }

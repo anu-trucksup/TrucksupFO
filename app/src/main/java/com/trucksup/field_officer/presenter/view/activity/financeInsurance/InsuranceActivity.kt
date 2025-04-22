@@ -7,6 +7,7 @@ import android.graphics.Bitmap
 import android.graphics.ImageDecoder
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
@@ -1310,7 +1311,8 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
 
     override fun fromCamara() {
 
-        launchCamera(false, 0)
+//        launchCamera(false, 0)
+        launchCamera(true, 1, false)
     }
 
     private fun viewVehicleDetails(data: VehicleDetail) {
@@ -1457,29 +1459,46 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
             if (result.resultCode == RESULT_OK) {
                 val data = result.data
 
+//                try {
+//                    imageUri = data!!.getStringExtra("result").toString()
+////                    binding.imgFrontCamera.let {
+////                        Glide.with(applicationContext)
+////                            .load(data.getStringExtra("result")?.toUri())
+////                            .into(it)
+////                    }
+//                    //profileImage?.setRotation(270F)
+//                    val orFile: File = FileHelp().getFile(this, data.getStringExtra("result")?.toUri())!!
+//                    val newBitmap: Bitmap = FileHelp().fileToBitmap(orFile)
+//
+//
+//                    val name = "bo_image" + System.currentTimeMillis() + ".jpg"
+//
+//                    val imageFile = File(filesDir, name)
+//
+//                    val os = FileOutputStream(imageFile)
+//                    newBitmap.compress(Bitmap.CompressFormat.JPEG, 99, os)
+//                    os.flush()
+//                    os.close()
+//
+//                    uploadImage(orFile, "")
+//
+//                } catch (ex: Exception) {
+//                    ex.printStackTrace()
+//                }
+
+
                 try {
-                    imageUri = data!!.getStringExtra("result").toString()
-//                    binding.imgFrontCamera.let {
-//                        Glide.with(applicationContext)
-//                            .load(data.getStringExtra("result")?.toUri())
-//                            .into(it)
-//                    }
-                    //profileImage?.setRotation(270F)
-                    val orFile: File = FileHelp().getFile(this, data.getStringExtra("result")?.toUri())!!
-                    val newBitmap: Bitmap = FileHelp().fileToBitmap(orFile)
+                    val imageUris: Uri = data!!.getStringExtra("result")!!.toUri()
+                    val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(
+                        getContentResolver(),
+                        Uri.parse(imageUris.toString())
+                    )
+                    // Set the image in imageview for display
+                    val newBitmap: Bitmap = FileHelp().resizeImage(bitmap, 500)
+                    val newFile: File = FileHelp().bitmapTofile(newBitmap, this)
+                    uploadImage(newFile, "")
 
-
-                    val name = "bo_image" + System.currentTimeMillis() + ".jpg"
-
-                    val imageFile = File(filesDir, name)
-
-                    val os = FileOutputStream(imageFile)
-                    newBitmap.compress(Bitmap.CompressFormat.JPEG, 99, os)
-                    os.flush()
-                    os.close()
-
-                    uploadImage(orFile, "")
-
+                    //handleImageCapture(bitmap)
                 } catch (ex: Exception) {
                     ex.printStackTrace()
                 }
@@ -1487,10 +1506,18 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
         }
     }
 
-    private fun launchCamera(flipCamera: Boolean, cameraOpen: Int){
+//    private fun launchCamera(flipCamera: Boolean, cameraOpen: Int){
+//        val intent = Intent(this, CameraActivity::class.java)
+//        intent.putExtra("flipCamera", flipCamera)
+//        intent.putExtra("cameraOpen", cameraOpen)
+//        launcher?.launch(intent)
+//    }
+
+    private fun launchCamera(flipCamera: Boolean, cameraOpen: Int, focusView: Boolean) {
         val intent = Intent(this, CameraActivity::class.java)
         intent.putExtra("flipCamera", flipCamera)
         intent.putExtra("cameraOpen", cameraOpen)
+        intent.putExtra("focusView", focusView)
         launcher?.launch(intent)
     }
 

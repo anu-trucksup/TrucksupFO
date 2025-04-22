@@ -24,6 +24,7 @@ class FinanceHisAdap(var context: Context, var list: ArrayList<InquiryHistoryRes
 
     override fun onBindViewHolder(holder: FinanceHisAdap.ViewHolder, position: Int) {
        //  holder.setIsRecyclable(false)
+        holder.binding.cardSelfOther.visibility=View.GONE
         //name
         if (!list[position].name.isNullOrEmpty()) {
             holder.binding.tvName.text = list[position].name
@@ -57,13 +58,13 @@ class FinanceHisAdap(var context: Context, var list: ArrayList<InquiryHistoryRes
         }
 
         //self or other
-        if (list[position].inquiryBy.lowercase() == "self") {
-            holder.binding.cardSelfOther.setCardBackgroundColor(context.getColor(R.color.ins_self))
-            holder.binding.tvSelfOther.text = context.getString(R.string.self)
-        } else if (list[position].inquiryBy.lowercase() == "other") {
-            holder.binding.cardSelfOther.setCardBackgroundColor(context.getColor(R.color.ins_other))
-            holder.binding.tvSelfOther.text = context.getString(R.string.others)
-        }
+//        if (list[position].inquiryBy.lowercase() == "self") {
+//            holder.binding.cardSelfOther.setCardBackgroundColor(context.getColor(R.color.ins_self))
+//            holder.binding.tvSelfOther.text = context.getString(R.string.self)
+//        } else if (list[position].inquiryBy.lowercase() == "other") {
+//            holder.binding.cardSelfOther.setCardBackgroundColor(context.getColor(R.color.ins_other))
+//            holder.binding.tvSelfOther.text = context.getString(R.string.others)
+//        }
 
         //image
         try {

@@ -112,35 +112,22 @@ class TSOnboardingActivity : BaseActivity(), View.OnClickListener, JWTtoken,
         binding.btnCancel.setOnClickListener(this)
         binding.ivBack.setOnClickListener(this)
         binding.cvCamera.setOnClickListener(this)
-
-
         binding.eTPincode.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                /*if (binding.eTPincode.text.length == 6) {
+                if (binding.eTPincode.text.length == 6) {
                     showProgressDialog(this@TSOnboardingActivity, false)
-                    val request = GenerateJWTtokenRequest(
-                        username = PreferenceManager.getAccesUserName(this@TSOnboardingActivity),
-                        password = PreferenceManager.getAccesPassword(this@TSOnboardingActivity),
-                        apiSecreteKey = PreferenceManager.getAccesKey(this@TSOnboardingActivity),
-                        userAgent = PreferenceManager.getAccesUserAgaint(this@TSOnboardingActivity),
-                        issuer = PreferenceManager.getAccesUserInssur(this@TSOnboardingActivity)
+                    val request = PinCodeRequest(
+                        binding.eTPincode.text.toString(),
+                        PreferenceManager.getRequestNo(),
+                        PreferenceManager.getPhoneNo(this@TSOnboardingActivity)
                     )
-                    mTokenViewModel?.generateJWTtoken(
-                        request,
-                        this@TSOnboardingActivity,
-                        this@TSOnboardingActivity
-                    )
-
-                }*/
+                    mViewModel?.getCityStateByPin(PreferenceManager.getAuthToken(), request)
+                }
             }
 
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
-            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
     }
 
@@ -198,7 +185,7 @@ class TSOnboardingActivity : BaseActivity(), View.OnClickListener, JWTtoken,
     }
 
     private fun setupObserver() {
-        mViewModel?.resultSCbyPincodeLD?.observe(this@TSOnboardingActivity) { responseModel ->                     // login function observe
+        mViewModel?.resultSCbyPinCodeLD?.observe(this@TSOnboardingActivity) { responseModel ->                     // login function observe
             if (responseModel.serverError != null) {
                 dismissProgressDialog()
 
@@ -231,7 +218,7 @@ class TSOnboardingActivity : BaseActivity(), View.OnClickListener, JWTtoken,
                 } else {
                     val abx = AlertBoxDialog(
                         this@TSOnboardingActivity,
-                        "no data found",
+                        responseModel.success?.message.toString(),
                         "m"
                     )
                     abx.show()

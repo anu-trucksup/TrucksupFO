@@ -34,6 +34,10 @@ class EditProfileViewModel @Inject constructor(val apiUseCase: APIUseCase) : Vie
         MutableLiveData<ResponseModel<GetProfileResponse>>()
     val resultGetProfileLD: LiveData<ResponseModel<GetProfileResponse>> = resultGetProfile
 
+    private var resultSCbyPinCode: MutableLiveData<ResponseModel<PinCodeResponse>> =
+        MutableLiveData<ResponseModel<PinCodeResponse>>()
+    val resultSCbyPinCodeLD: LiveData<ResponseModel<PinCodeResponse>> = resultSCbyPinCode
+
     fun updateProfile(token: String, request: UpdateProfileRequest) {
         CoroutineScope(Dispatchers.IO).launch {
             when (val response = apiUseCase.updateUserProfile(
@@ -62,6 +66,24 @@ class EditProfileViewModel @Inject constructor(val apiUseCase: APIUseCase) : Vie
 
                 is ResultWrapper.Success -> {
                     resultGetProfile.postValue(ResponseModel(success = response.value))
+                }
+            }
+        }
+    }
+
+    fun getCityStateByPin(token: String, request: PinCodeRequest) {
+        CoroutineScope(Dispatchers.IO).launch {
+            when (val response = apiUseCase.getCityStateByPin(
+                token,
+                request
+            )) {
+                is ResultWrapper.ServerResponseError -> {
+                    Log.e("API Error", response.error ?: "")
+                    resultSCbyPinCode.postValue(ResponseModel(serverError = response.error))
+                }
+
+                is ResultWrapper.Success -> {
+                    resultSCbyPinCode.postValue(ResponseModel(success = response.value))
                 }
             }
         }

@@ -24,12 +24,14 @@ class SmartFuelHistoryActivity : BaseActivity() {
 
     private lateinit var binding: ActivitySmartfuelHistoryBinding
     private var mViewModel: SmartFuelViewModel? = null
+
     private var activatedHistoryList: ArrayList<SmartFuelHistoryResponse.LeadsHistory> = arrayListOf()
     private var currentHistoryList: ArrayList<SmartFuelHistoryResponse.LeadsHistory> = arrayListOf()
     private var rejectedHistoryList: ArrayList<SmartFuelHistoryResponse.LeadsHistory> = arrayListOf()
-    private var fragment1: HistorySmartFuelFragment?=null
-    private var fragment2: HistorySmartFuelFragment?=null
-    private var fragment3: HistorySmartFuelFragment?=null
+
+    private var fragment1: HistorySmartFuelFragment? = null
+    private var fragment2: HistorySmartFuelFragment? = null
+    private var fragment3: HistorySmartFuelFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,9 +77,9 @@ class SmartFuelHistoryActivity : BaseActivity() {
         try {
             val adapter = FragmentAdapter(this)
 
-            fragment1 = HistorySmartFuelFragment("current",currentHistoryList)    //current
-            fragment2 = HistorySmartFuelFragment("activated",activatedHistoryList)//activated
-            fragment3 = HistorySmartFuelFragment("reject",rejectedHistoryList)    //rejected
+            fragment1 = HistorySmartFuelFragment("current", currentHistoryList)    //current
+            fragment2 = HistorySmartFuelFragment("activated", activatedHistoryList)//activated
+            fragment3 = HistorySmartFuelFragment("reject", rejectedHistoryList)    //rejected
 
             adapter.addFragment(fragment1)
             adapter.addFragment(fragment2)
@@ -85,7 +87,8 @@ class SmartFuelHistoryActivity : BaseActivity() {
             binding.viewPager2.adapter = adapter
             binding.viewPager2.isSaveEnabled = false
 
-            binding.viewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            binding.viewPager2.registerOnPageChangeCallback(object :
+                ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
                     if (position == 0) {
@@ -170,13 +173,13 @@ class SmartFuelHistoryActivity : BaseActivity() {
     }
 
     private fun enquiryHistory() {
-        showProgressDialog(this,false)
+        showProgressDialog(this, false)
         val request = SmartFuelHistoryRequest(
-            ""+PreferenceManager.getPhoneNo(this),
-            ""+PreferenceManager.getUserData(this)?.referralcode,
-            ""+PreferenceManager.getServerDateUtc(),
-            ""+PreferenceManager.getRequestNo(),
-            ""+PreferenceManager.getPhoneNo(this),
+            "" + PreferenceManager.getPhoneNo(this),
+            "" + PreferenceManager.getUserData(this)?.referralcode,
+            "" + PreferenceManager.getServerDateUtc(),
+            "" + PreferenceManager.getRequestNo(),
+            "" + PreferenceManager.getPhoneNo(this),
         )
         mViewModel?.getSmartFuelHistory(request)
     }
@@ -192,32 +195,37 @@ class SmartFuelHistoryActivity : BaseActivity() {
                 dismissProgressDialog()
 
                 if (responseModel.success != null) {
-                    if (responseModel.success.statuscode==200) {
-                        inquiryHistorySuccess(responseModel.success)
-                    }
-                    else
-                    {
+                    if (responseModel.success.statuscode == 200) {
+                        if(responseModel.success.leadsHistory !=null && responseModel.success.leadsHistory.isNotEmpty()){
+                            inquiryHistorySuccess(responseModel.success)
+                        }else{
 
-                    }
-                }
-                else
-                {
+                            binding.tvTotalEnquiry.text = "0 Enquiries"
+                            setupViewPager()
+                        }
 
+                    } else {
+                        val abx = AlertBoxDialog(this, responseModel.success.message.toString(), "m")
+                        abx.show()
+                    }
+                } else {
+                    val abx = AlertBoxDialog(this, ""+responseModel.serverError, "m")
+                    abx.show()
                 }
             }
         }
     }
 
     private fun inquiryHistorySuccess(inquiryHistoryResponse: SmartFuelHistoryResponse) {
-        inquiryHistoryResponse?.leadsHistory?.forEachIndexed { _, inquiryHistory ->
+        inquiryHistoryResponse.leadsHistory.forEachIndexed { _, inquiryHistory ->
             run {
                 inquiryHistory.leadDetails.forEachIndexed { _, historyDetails ->
                     run {
                         if (historyDetails.cardStatus.equals("Card Activated")) {
                             activatedHistoryList.add(inquiryHistory)
-                        }else  if (historyDetails.cardStatus.equals("Card Rejected")) {
+                        } else if (historyDetails.cardStatus.equals("Card Rejected")) {
                             rejectedHistoryList.add(inquiryHistory)
-                        }else{
+                        } else {
                             currentHistoryList.add(inquiryHistory)
                         }
                     }

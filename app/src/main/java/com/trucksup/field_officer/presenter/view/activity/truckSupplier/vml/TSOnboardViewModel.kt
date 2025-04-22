@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.trucksup.field_officer.data.model.PinCodeRequest
 import com.trucksup.field_officer.data.model.PinCodeResponse
-import com.trucksup.field_officer.data.model.image.ImageResponse
 import com.trucksup.field_officer.data.model.image.TrucksupImageUploadResponse
 import com.trucksup.field_officer.data.network.ResponseModel
 import com.trucksup.field_officer.data.network.ResultWrapper
@@ -26,9 +25,9 @@ import javax.inject.Inject
 @HiltViewModel
 class TSOnboardViewModel @Inject constructor(val apiUseCase: APIUseCase) : ViewModel() {
 
-    private var resultSCbyPincode: MutableLiveData<ResponseModel<PinCodeResponse>> =
+    private var resultSCbyPinCode: MutableLiveData<ResponseModel<PinCodeResponse>> =
         MutableLiveData<ResponseModel<PinCodeResponse>>()
-    val resultSCbyPincodeLD: LiveData<ResponseModel<PinCodeResponse>> = resultSCbyPincode
+    val resultSCbyPinCodeLD: LiveData<ResponseModel<PinCodeResponse>> = resultSCbyPinCode
 
 
     fun getCityStateByPin(token: String, request: PinCodeRequest) {
@@ -39,11 +38,11 @@ class TSOnboardViewModel @Inject constructor(val apiUseCase: APIUseCase) : ViewM
             )) {
                 is ResultWrapper.ServerResponseError -> {
                     Log.e("API Error", response.error ?: "")
-                    resultSCbyPincode.postValue(ResponseModel(serverError = response.error))
+                    resultSCbyPinCode.postValue(ResponseModel(serverError = response.error))
                 }
 
                 is ResultWrapper.Success -> {
-                    resultSCbyPincode.postValue(ResponseModel(success = response.value))
+                    resultSCbyPinCode.postValue(ResponseModel(success = response.value))
                 }
             }
         }

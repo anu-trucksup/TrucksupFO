@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/rect_header_profile"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_56sdp">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:background="@drawable/circal_weight"
+                android:padding="@dimen/_4sdp"
+                android:src="@drawable/ic_back_icon" />
+
+            <TextView
+                android:id="@+id/nav_title"
+                style="@style/title_basicreg_18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/today_s_commitment"
+                android:textColor="@color/white" />
+        </RelativeLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/_12sdp"
+                app:cardElevation="@dimen/_4sdp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="@dimen/_8sdp">
+
+                    <LinearLayout
+                        android:id="@+id/mr"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/name_lay"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/_6sdp"
+                            android:background="@drawable/roal_slect_card"
+                            android:elevation="@dimen/_8sdp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="@dimen/_10sdp"
+                                android:drawablePadding="@dimen/_10sdp"
+                                android:fontFamily="@font/bai_jamjuree_medium"
+                                android:gravity="start"
+                                android:text="@string/commit_text"
+                                android:textAlignment="textStart"
+                                android:textColor="@color/purple"
+                                android:textSize="@dimen/_12ssp" />
+
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_10sdp"
+                                app:cardCornerRadius="@dimen/_12sdp"
+                                app:cardUseCompatPadding="true"
+                                app:strokeColor="@color/cir_gray"
+                                app:strokeWidth="1dp">
+
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:padding="@dimen/_10sdp">
+
+                                    <TextView
+                                        style="@style/text_bl_medium"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="start"
+                                        android:text="Load Board"
+                                        android:textAlignment="textStart"
+                                        android:textSize="@dimen/_14sdp" />
+
+                                    <LinearLayout
+                                        android:id="@+id/broker"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical">
+
+                                        <RelativeLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginEnd="@dimen/_12sdp"
+                                            android:layout_weight="1"
+                                            android:orientation="horizontal">
+
+                                            <TextView
+                                                style="@style/text_blue6F_medium"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="center"
+                                                android:text="@string/add_load" />
+
+                                            <EditText
+                                                android:id="@+id/et_addload"
+                                                style="@style/edit_text_m"
+                                                android:layout_width="@dimen/_120sdp"
+                                                android:layout_height="wrap_content"
+                                                android:layout_alignParentRight="true"
+                                                android:background="@drawable/edit_box"
+                                                android:gravity="center"
+                                                android:inputType="number"
+                                                android:maxLength="10"
+                                                android:paddingHorizontal="@dimen/_10sdp"
+                                                android:text="70" />
+
+
+                                        </RelativeLayout>
+
+                                        <RelativeLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginEnd="@dimen/_12sdp"
+                                            android:layout_marginTop="@dimen/_4sdp"
+                                            android:layout_weight="1"
+                                            android:orientation="horizontal">
+
+                                            <TextView
+                                                style="@style/text_blue6F_medium"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="center"
+                                                android:text="@string/unique_ba" />
+
+                                            <EditText
+                                                android:id="@+id/et_uniqueba"
+                                                style="@style/edit_text_m"
+                                                android:layout_width="@dimen/_120sdp"
+                                                android:layout_height="wrap_content"
+                                                android:layout_alignParentRight="true"
+                                                android:background="@drawable/edit_box"
+                                                android:gravity="center"
+                                                android:inputType="number"
+                                                android:maxLength="10"
+                                                android:paddingHorizontal="@dimen/_10sdp"
+                                                android:text="70" />
+
+
+                                        </RelativeLayout>
+
+                                        <RelativeLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginEnd="@dimen/_12sdp"
+                                            android:layout_marginTop="@dimen/_4sdp"
+                                            android:layout_weight="1"
+                                            android:orientation="horizontal">
+
+                                            <TextView
+                                                style="@style/text_blue6F_medium"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="center"
+                                                android:text="@string/unique_ts" />
+
+                                            <EditText
+                                                android:id="@+id/et_uniquets"
+                                                style="@style/edit_text_m"
+                                                android:layout_width="@dimen/_120sdp"
+                                                android:layout_height="wrap_content"
+                                                android:layout_alignParentRight="true"
+                                                android:background="@drawable/edit_box"
+                                                android:gravity="center"
+                                                android:inputType="number"
+                                                android:maxLength="10"
+                                                android:paddingHorizontal="@dimen/_10sdp"
+                                                android:text="70" />
+
+
+                                        </RelativeLayout>
+
+                                        <RelativeLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginEnd="@dimen/_12sdp"
+                                            android:layout_marginTop="@dimen/_4sdp"
+                                            android:layout_weight="1"
+                                            android:orientation="horizontal">
+
+                                            <TextView
+                                                style="@style/text_blue6F_medium"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="center"
+                                                android:text="@string/subscription_" />
+
+                                            <EditText
+                                                android:id="@+id/et_subscription_"
+                                                style="@style/edit_text_m"
+                                                android:layout_width="@dimen/_120sdp"
+                                                android:layout_height="wrap_content"
+                                                android:layout_alignParentRight="true"
+                                                android:background="@drawable/edit_box"
+                                                android:gravity="center"
+                                                android:inputType="number"
+                                                android:maxLength="10"
+                                                android:paddingHorizontal="@dimen/_10sdp"
+                                                android:text="70" />
+
+
+                                        </RelativeLayout>
+
+                                    </LinearLayout>
+
+
+                                </LinearLayout>
+
+
+                            </com.google.android.material.card.MaterialCardView>
+
+
+                            <com.google.android.material.card.MaterialCardView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_10sdp"
+                                app:cardCornerRadius="@dimen/_12sdp"
+                                app:cardUseCompatPadding="true"
+                                app:strokeColor="@color/cir_gray"
+                                app:strokeWidth="1dp">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:padding="@dimen/_10sdp">
+
+
+                                    <TextView
+                                        style="@style/text_bl_medium"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="start"
+                                        android:text="@string/vas"
+                                        android:textAlignment="textStart"
+                                        android:textSize="@dimen/_14sdp" />
+
+                                    <LinearLayout
+                                        android:id="@+id/vasBroker"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical">
+
+                                        <RelativeLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginEnd="@dimen/_12sdp"
+                                            android:layout_weight="1"
+                                            android:orientation="horizontal">
+
+                                            <TextView
+                                                style="@style/text_blue6F_medium"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="center"
+                                                android:text="@string/tu_kawach_" />
+
+                                            <EditText
+                                                android:id="@+id/et_kawach"
+                                                style="@style/edit_text_m"
+                                                android:layout_width="@dimen/_120sdp"
+                                                android:layout_height="wrap_content"
+                                                android:background="@drawable/edit_box"
+                                                android:inputType="number"
+                                                android:maxLength="10"
+                                                android:text="70"
+                                                android:gravity="center"
+                                                android:layout_alignParentRight="true"
+                                                android:paddingHorizontal="@dimen/_10sdp" />
+
+
+                                        </RelativeLayout>
+
+                                        <RelativeLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginEnd="@dimen/_12sdp"
+                                            android:layout_marginTop="@dimen/_4sdp"
+                                            android:layout_weight="1"
+                                            android:orientation="horizontal">
+
+                                            <TextView
+                                                style="@style/text_blue6F_medium"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="center"
+                                                android:text="@string/insurance" />
+
+                                            <EditText
+                                                android:id="@+id/et_insurance"
+                                                style="@style/edit_text_m"
+                                                android:layout_width="@dimen/_120sdp"
+                                                android:layout_height="wrap_content"
+                                                android:background="@drawable/edit_box"
+                                                android:inputType="number"
+                                                android:maxLength="10"
+                                                android:text="70"
+                                                android:gravity="center"
+                                                android:layout_alignParentRight="true"
+                                                android:paddingHorizontal="@dimen/_10sdp" />
+
+
+                                        </RelativeLayout>
+
+                                        <RelativeLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginEnd="@dimen/_12sdp"
+                                            android:layout_marginTop="@dimen/_4sdp"
+                                            android:layout_weight="1"
+                                            android:orientation="horizontal">
+
+                                            <TextView
+                                                style="@style/text_blue6F_medium"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="center"
+                                                android:text="@string/finance" />
+
+                                            <EditText
+                                                android:id="@+id/et_finance"
+                                                style="@style/edit_text_m"
+                                                android:layout_width="@dimen/_120sdp"
+                                                android:layout_height="wrap_content"
+                                                android:background="@drawable/edit_box"
+                                                android:inputType="number"
+                                                android:maxLength="10"
+                                                android:text="70"
+                                                android:gravity="center"
+                                                android:layout_alignParentRight="true"
+                                                android:paddingHorizontal="@dimen/_10sdp" />
+
+
+                                        </RelativeLayout>
+
+                                        <RelativeLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginEnd="@dimen/_12sdp"
+                                            android:layout_marginTop="@dimen/_4sdp"
+                                            android:layout_weight="1"
+                                            android:orientation="horizontal">
+
+                                            <TextView
+                                                style="@style/text_blue6F_medium"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="center"
+                                                android:text="@string/smart_fuel" />
+
+                                            <EditText
+                                                android:id="@+id/et_smartfuel"
+                                                style="@style/edit_text_m"
+                                                android:layout_width="@dimen/_120sdp"
+                                                android:layout_height="wrap_content"
+                                                android:background="@drawable/edit_box"
+                                                android:inputType="number"
+                                                android:maxLength="10"
+                                                android:text="70"
+                                                android:gravity="center"
+                                                android:layout_alignParentRight="true"
+                                                android:paddingHorizontal="@dimen/_10sdp" />
+
+
+                                        </RelativeLayout>
+
+                                        <RelativeLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginEnd="@dimen/_12sdp"
+                                            android:layout_marginTop="@dimen/_4sdp"
+                                            android:layout_weight="1"
+                                            android:orientation="horizontal">
+
+                                            <TextView
+                                                style="@style/text_blue6F_medium"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="center"
+                                                android:text="@string/goOnboard" />
+
+                                            <EditText
+                                                android:id="@+id/et_gp_onboard"
+                                                style="@style/edit_text_m"
+                                                android:layout_width="@dimen/_120sdp"
+                                                android:layout_height="wrap_content"
+                                                android:background="@drawable/edit_box"
+                                                android:inputType="number"
+                                                android:maxLength="10"
+                                                android:text="70"
+                                                android:gravity="center"
+                                                android:layout_alignParentRight="true"
+                                                android:paddingHorizontal="@dimen/_10sdp" />
+
+
+                                        </RelativeLayout>
+
+                                    </LinearLayout>
+
+
+                                </LinearLayout>
+
+
+                            </com.google.android.material.card.MaterialCardView>
+
+                            <TextView
+                                android:id="@+id/tv_target_achieved"
+                                style="@style/label_semi"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="@dimen/_16sdp"
+                                android:layout_marginTop="@dimen/_24sdp"
+                                android:drawablePadding="@dimen/_10sdp"
+                                android:gravity="start"
+                                android:text="@string/view_previous_commitments"
+                                android:textAlignment="textStart" />
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </androidx.core.widget.NestedScrollView>
+
+
+    </LinearLayout>
+
+</LinearLayout>

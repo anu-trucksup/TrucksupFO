@@ -8,6 +8,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -15,6 +16,7 @@ import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.trucksup.field_officer.databinding.ActivitySplashBinding
@@ -27,7 +29,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @SuppressLint("CustomSplashScreen")
 @AndroidEntryPoint
-class SplashScreenActivity : AppCompatActivity() {
+open class SplashScreenActivity : AppCompatActivity() {
     private var mSplashBinding: ActivitySplashBinding? = null
     private var splashViewModel: SplashViewModel? = null
     private val locationPermissionsLauncher =
@@ -40,9 +42,13 @@ class SplashScreenActivity : AppCompatActivity() {
                 startApp()
             } else {
                 // Show dialog or close app
-                showPermissionRequiredDialog()
+                showPermissionRequestDialog()
             }
         }
+
+    companion object {
+        const val LOCATION_PERMISSION_REQUEST_CODE = 101
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,7 +59,8 @@ class SplashScreenActivity : AppCompatActivity() {
         splashViewModel = ViewModelProvider(this)[SplashViewModel::class.java]
 
         if (isOnline(this)) {
-            checkLocationPermission()
+            checkAndRequestLocationPermissions()
+           // checkLocationPermission()
 
         } else {
             val abx = AlertBoxDialog(
@@ -118,22 +125,6 @@ class SplashScreenActivity : AppCompatActivity() {
         // System.exit(0);
     }
 
-    private fun locationDialog() {
-        val builder = AlertDialog.Builder(this@SplashScreenActivity)
-        val binding = AlartBoxBinding.inflate(LayoutInflater.from(this@SplashScreenActivity))
-        builder.setView(binding.root)
-        val dialog: AlertDialog = builder.create()
-        dialog.show()
-
-        binding.message.text = "Location permission is required to use this Application."
-
-        //apply button
-        binding.ok.setOnClickListener {
-            dialog.dismiss()
-        }
-
-    }
-
     private fun checkLocationPermission() {
         val fine = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
         val coarse = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
@@ -151,13 +142,57 @@ class SplashScreenActivity : AppCompatActivity() {
         }
     }
 
-    private fun showPermissionRequiredDialog() {
+
+    private fun checkAndRequestLocationPermissions() {
+        val permissionsNeeded = mutableListOf<String>()
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            permissionsNeeded.add(Manifest.permission.ACCESS_COARSE_LOCATION)
+        }
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            permissionsNeeded.add(Manifest.permission.ACCESS_FINE_LOCATION)
+        }
+
+        if (permissionsNeeded.isNotEmpty()) {
+            ActivityCompat.requestPermissions(this, permissionsNeeded.toTypedArray(), LOCATION_PERMISSION_REQUEST_CODE)
+        } else {
+            onLocationPermissionsGranted()
+        }
+    }
+
+    private fun onLocationPermissionsGranted() {
+        // To be overridden in child activities
+        startApp()
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
+            val deniedPermanently = permissions.indices.any {
+                grantResults[it] != PackageManager.PERMISSION_GRANTED &&
+                        !ActivityCompat.shouldShowRequestPermissionRationale(this, permissions[it])
+            }
+
+            if (grantResults.all { it == PackageManager.PERMISSION_GRANTED }) {
+                onLocationPermissionsGranted()
+            } else if (deniedPermanently) {
+                showGoToSettingsDialog()
+            } else {
+                showPermissionRequestDialog() // Try again if not permanent
+            }
+        }
+    }
+
+    private fun showPermissionRequestDialog() {
         AlertDialog.Builder(this)
             .setTitle("Permission Required")
             .setMessage("Location permission is required to use this app.")
             .setCancelable(false)
             .setPositiveButton("Grant") { _, _ ->
-                checkLocationPermission()
+                checkAndRequestLocationPermissions()
             }
             .setNegativeButton("Exit") { _, _ ->
                 finish()
@@ -167,8 +202,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
     private fun startApp() {
         // All permissions granted, continue with app flow
-        Toast.makeText(this, "Location permission granted!", Toast.LENGTH_SHORT).show()
-        // For example, navigate to your HomeActivity
+
         callMainScreen()
         setupObserver()
     }
@@ -196,5 +230,24 @@ class SplashScreenActivity : AppCompatActivity() {
 
         return false
     }
+
+
+    private fun showGoToSettingsDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("Permission Denied")
+            .setMessage("You've denied location permission permanently. Please go to settings to enable it.")
+            .setPositiveButton("Go to Settings") { _, _ ->
+                val intent = Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                val uri = Uri.fromParts("package", packageName, null)
+                intent.data = uri
+                startActivity(intent)
+            }
+            .setNegativeButton("Exit") { _, _ ->
+                finish()
+            }
+            .setCancelable(false)
+            .show()
+    }
+
 
 }

@@ -351,7 +351,7 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
         } else if (checkVehicleNumber(binding.etCustomerVehicleNumber.text.toString()) == false) {
             LoggerMessage.onSNACK(
                 binding.etCustomerVehicleNumber,
-                resources.getString(R.string.enterVehicle),
+                resources.getString(R.string.enterCommercialVehical),
                 this
             )
         } else if (rcFrontImgKey.isNullOrEmpty()) {
@@ -417,7 +417,7 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
         return false
     }
 
-    fun isValidEmail(target: CharSequence?): Boolean {
+    private fun isValidEmail(target: CharSequence?): Boolean {
         return Patterns.EMAIL_ADDRESS.matcher(target).matches()
     }
 

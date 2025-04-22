@@ -10,6 +10,5 @@ data class UpdateProfileRequest(
     val requestDatetime: String,
     val requestId: Int,
     val requestedBy: String,
-    val state: String,
-    val userId: Int
+    val state: String
 )

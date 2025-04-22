@@ -24,50 +24,6 @@ class SubscriptionViewModel @Inject constructor(val apiUseCase: APIUseCase) : Vi
     val resultSubPlanListLD: LiveData<ResponseModel<PlanResponse>> =
         resultSubPlanList
 
-    private var imgUploadResult: MutableLiveData<ResponseModel<ImageResponse>> =
-        MutableLiveData<ResponseModel<ImageResponse>>()
-    val imgUploadResultLD: LiveData<ResponseModel<ImageResponse>> = imgUploadResult
-
-
-   /* fun submitInsuranceData(request: SubmitInsuranceInquiryRequest) {
-        CoroutineScope(Dispatchers.IO).launch {
-            when (val response = apiUseCase.submitInsuranceInquiry(
-                PreferenceManager.getAuthToken(),
-                request
-            )) {
-                is ResultWrapper.ServerResponseError -> {
-                    Log.e("API Error", response.error ?: "")
-                    resultsubmitInsurance.postValue(ResponseModel(serverError = response.error))
-                }
-
-                is ResultWrapper.Success -> {
-                    resultsubmitInsurance.postValue(ResponseModel(success = response.value))
-                }
-            }
-        }
-    }
-
-    fun uploadImage(
-        bucketName: String?, id: Int?, position: Int?, requestId: Int?, file: MultipartBody.Part?
-    ) {
-        CoroutineScope(Dispatchers.IO).launch {
-            when (val response = apiUseCase.uploadImage(
-                bucketName, id, position, requestId, file
-            )) {
-                is ResultWrapper.ServerResponseError -> {
-                    Log.e("API Error", response.error ?: "")
-                    imgUploadResult.postValue(ResponseModel(serverError = response.error))
-                }
-
-                is ResultWrapper.Success -> {
-                    imgUploadResult.postValue(ResponseModel(success = response.value))
-                }
-            }
-        }
-
-
-    }*/
-
 
     fun subscriptionPlanList(
         request: PlanRequest,
