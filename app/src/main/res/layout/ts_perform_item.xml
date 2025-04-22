@@ -63,6 +63,7 @@
                             android:src="@drawable/delivery_truck_icon" />
 
                         <TextView
+                            android:id="@+id/txt_lastMeeting"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -73,7 +74,7 @@
                             android:paddingTop="@dimen/_1sdp"
                             android:paddingEnd="@dimen/_3sdp"
                             android:paddingBottom="@dimen/_1sdp"
-                            android:text="Last Meeting: Never Met "
+                            android:text=""
                             android:textColor="@color/blue_tr80"
                             android:textSize="@dimen/_9ssp" />
 
@@ -84,7 +85,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="@dimen/_5sdp"
-                        android:layout_weight=".75"
+                        android:layout_weight=".80"
                         android:gravity="center"
                         android:orientation="horizontal">
 
@@ -96,6 +97,7 @@
                             android:src="@drawable/meeting_count" />
 
                         <TextView
+                            android:id="@+id/txt_meetingCount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -106,7 +108,7 @@
                             android:paddingTop="@dimen/_1sdp"
                             android:paddingEnd="@dimen/_3sdp"
                             android:paddingBottom="@dimen/_1sdp"
-                            android:text="Meeting count : 5"
+                            android:text=""
                             android:textColor="@color/blue"
                             android:textSize="@dimen/_9ssp" />
 
@@ -165,7 +167,6 @@
                             android:layout_marginStart="@dimen/_2sdp"
                             android:fontFamily="@font/bai_jamjuree_medium"
                             android:maxLines="1"
-                            android:text="9874346734"
                             android:textColor="#4D4D4D"
                             android:textSize="@dimen/_11ssp" />
 
@@ -208,6 +209,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/lin_distance"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="@dimen/_5sdp"
@@ -227,7 +229,7 @@
                             android:layout_marginStart="@dimen/_2sdp"
                             android:fontFamily="@font/bai_jamjuree_medium"
                             android:maxLines="1"
-                            android:text="Distance: 12 KM"
+                            android:text=""
                             android:textColor="#4D4D4D"
                             android:textSize="@dimen/_11ssp" />
 
@@ -248,6 +250,7 @@
                         android:orientation="horizontal">
 
                         <TextView
+                            android:id="@+id/txt_last_call_initiated"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/_3sdp"
@@ -325,7 +328,7 @@
                             android:layout_marginStart="@dimen/_3sdp"
                             android:layout_marginEnd="@dimen/_3sdp"
                             android:maxLines="1"
-                            android:text="First time"
+                            android:text=""
                             android:textColor="@color/black_4d"
                             android:textSize="@dimen/_11ssp" />
 
@@ -375,11 +378,11 @@
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:id="@+id/img_kycStatus"
+                            android:layout_width="@dimen/_12sdp"
+                            android:layout_height="@dimen/_12sdp"
                             android:layout_gravity="center_vertical"
-                            android:layout_marginStart="@dimen/_3sdp"
-                            android:src="@drawable/kyc_done_icon_svg" />
+                            android:layout_marginStart="@dimen/_3sdp"/>
 
                         <TextView
                             android:layout_width="match_parent"
@@ -413,6 +416,7 @@
                             android:src="@drawable/delivery_truck_icon" />
 
                         <TextView
+                            android:id="@+id/txt_trucksAdded"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
@@ -423,7 +427,7 @@
                             android:paddingTop="@dimen/_1sdp"
                             android:paddingEnd="@dimen/_3sdp"
                             android:paddingBottom="@dimen/_1sdp"
-                            android:text="No. of Trucks Added : 5"
+                            android:text=""
                             android:textColor="@color/black"
                             android:textSize="@dimen/_9ssp" />
 

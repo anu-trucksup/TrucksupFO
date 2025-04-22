@@ -146,7 +146,6 @@ open class BaseActivity : AppCompatActivity() {
                     try {
                         fetchAddressFromLocation(location)
                         onLocationReady?.invoke()
-
                     } catch (_ex: Exception) {
                         Log.e("", "" + _ex)
                     }

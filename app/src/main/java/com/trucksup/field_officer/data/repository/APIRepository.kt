@@ -4,15 +4,14 @@ import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.S
 import com.glovejob.data.model.UserSessionResponse
 import com.logistics.trucksup.activities.preferre.modle.PrefferLanRequest
 import com.logistics.trucksup.activities.preferre.modle.PrefferdResponse
+import com.logistics.trucksup.activities.preferre.modle.GetMeetScheduleDetailsRequest
 import com.logistics.trucksup.modle.PlanResponse
 import com.trucksup.field_officer.data.model.AutoImageSlideResponse
 import com.trucksup.field_officer.data.model.DutyStatusRequest
 import com.trucksup.field_officer.data.model.DutyStatusResponse
-import com.trucksup.field_officer.data.model.GetUserProfileResponse
 import com.trucksup.field_officer.data.model.PinCodeRequest
 import com.trucksup.field_officer.data.model.PinCodeResponse
 import com.trucksup.field_officer.data.model.PrivacyAllResponse
-import com.trucksup.field_officer.data.model.Response
 import com.trucksup.field_officer.data.model.authModel.ForgetRequest
 import com.trucksup.field_officer.data.model.authModel.ForgetResponse
 import com.trucksup.field_officer.data.model.authModel.LoginRequest
@@ -57,6 +56,7 @@ import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.Ad
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.RcRequest
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.RcResponse
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.ScheduleMeetTSRequest
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetMeetScheduleDetailsResponse
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.VerifyTruckResponse
 
 interface APIRepository {
@@ -193,4 +193,21 @@ interface APIRepository {
         authToken: String,
         request: CompleteMeetingGPRequest
     ): ResultWrapper<ScheduleMeetingResponse>
+
+    //add by me
+    suspend fun getTSMeetScheduleData(
+        authToken: String,
+        request: GetMeetScheduleDetailsRequest
+    ): ResultWrapper<GetMeetScheduleDetailsResponse>
+
+    suspend fun getBAMeetScheduleData(
+        authToken: String,
+        request: GetMeetScheduleDetailsRequest
+    ): ResultWrapper<GetMeetScheduleDetailsResponse>
+
+    suspend fun getGPMeetScheduleData(
+        authToken: String,
+        request: GetMeetScheduleDetailsRequest
+    ): ResultWrapper<GetMeetScheduleDetailsResponse>
+    //add by me
 }

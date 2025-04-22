@@ -5,18 +5,18 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.logistics.trucksup.activities.preferre.modle.GetMeetScheduleDetailsRequest
 import com.trucksup.field_officer.databinding.DateFilterBinding
 import com.trucksup.field_officer.databinding.TsPerformanceActivityBinding
 import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.dialog.DialogBoxes
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
-import com.trucksup.field_officer.presenter.view.activity.financeInsurance.chipData
-import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinanceViewModel
-import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.LoanDataSubmitRequest
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.ScheduleMeetTSRequest
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetMeetScheduleDetailsResponse
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.vml.TSScheduleMeetingVM
 import com.trucksup.field_officer.presenter.view.adapter.TSPerformanceAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,6 +26,8 @@ class TSPerformanceActivity : BaseActivity() {
 
     private lateinit var binding: TsPerformanceActivityBinding
     private var mViewModel: TSScheduleMeetingVM? = null
+    private var getTsdetails: java.util.ArrayList<GetMeetScheduleDetailsResponse.GetTsdetails> = arrayListOf()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,10 +37,9 @@ class TSPerformanceActivity : BaseActivity() {
 
         mViewModel = ViewModelProvider(this)[TSScheduleMeetingVM::class.java]
 
-
+        getTSMeetScheduleData()
         setupObserver()
         setOnListeners()
-        setRvList()
     }
 
     private fun setupObserver() {
@@ -72,21 +73,47 @@ class TSPerformanceActivity : BaseActivity() {
                 }
             }
         }
+
+        mViewModel?.rresultGetTSScheduleMeetingDataLD?.observe(this) { responseModel ->                     // login function observe
+            if (responseModel.serverError != null) {
+                dismissProgressDialog()
+                val abx = AlertBoxDialog(this, responseModel.serverError.toString(), "m")
+                abx.show()
+            } else {
+                dismissProgressDialog()
+                if (responseModel.success != null) {
+                    if (responseModel.success.statuscode==200) {
+                        getTSDetailsDataSuccess(responseModel.success)
+                    }
+                    else
+                    {
+                        val abx = AlertBoxDialog(
+                            this@TSPerformanceActivity,
+                            responseModel.success.message,
+                            "m"
+                        )
+                        abx.show()
+
+                    }
+                }
+                else
+                {
+
+                }
+            }
+        }
     }
 
-    private fun setRvList() {
-        val list = ArrayList<String>()
-        list.add("")
-        list.add("")
-        list.add("")
+    private fun getTSDetailsDataSuccess(tSDetailsGetResponse: GetMeetScheduleDetailsResponse) {
+        tSDetailsGetResponse?.getTSDetails?.forEachIndexed { _, getTSDetailsData ->
+            run {
+                getTsdetails.add(getTSDetailsData)
+            }
+        }
+
+
         binding.rv.layoutManager = LinearLayoutManager(this)
-        val adapter = TSPerformanceAdapter(this@TSPerformanceActivity, list)
-       /* binding.rv.apply {
-            layoutManager = LinearLayoutManager(this@TSPerformanceActivity, RecyclerView.VERTICAL, false)
-            adapter = TSPerformanceAdapter(
-                this@TSPerformanceActivity,
-                list)
-        }*/
+        val adapter = TSPerformanceAdapter(this@TSPerformanceActivity, getTsdetails)
 
         adapter.setOnItemClickListener(object : TSPerformanceAdapter.OnItemClickListener {
             override fun onItemClick(selectedDate: String, selectedTime: String) {
@@ -95,20 +122,40 @@ class TSPerformanceActivity : BaseActivity() {
             }
         })
         binding.rv.adapter = adapter
+
+        // Add search or filter input
+        binding.etSearchFillter.addTextChangedListener {
+            adapter.filter(it.toString())
+        }
+
+        //binding.tvTotalEnquiry.text = "${inquiryHistoryResponse?.leadsHistory?.size} Enquiries"
+        //setupViewPager()
+    }
+
+    private fun getTSMeetScheduleData() {
+        showProgressDialog(this,false)
+        val request = GetMeetScheduleDetailsRequest(
+            PreferenceManager.getUserData(this)?.boUserid?.toInt() ?: 0,
+            PreferenceManager.getPhoneNo(this),
+            PreferenceManager.getServerDateUtc(),
+            PreferenceManager.getUserData(this)?.city.toString(),
+            PreferenceManager.getPhoneNo(this),
+        )
+        mViewModel?.getTSMeetScheduleData(request)
     }
 
     fun dataSubmit(selectedDate: String, selectedTime : String) {
         val request =
             ScheduleMeetTSRequest(
-                1,
+                PreferenceManager.getUserData(this)?.boUserid?.toInt() ?: 0,
                 "test",
                 "12.33",
                 "22.33",
-                "8527257606",
+                PreferenceManager.getPhoneNo(this),
                 PreferenceManager.getProfileType(this),
                 PreferenceManager.getServerDateUtc(),
-                1,
-                "8527257606",
+                PreferenceManager.getRequestNo().toInt(),
+                PreferenceManager.getPhoneNo(this),
                 selectedDate,
                 selectedTime,
             )
