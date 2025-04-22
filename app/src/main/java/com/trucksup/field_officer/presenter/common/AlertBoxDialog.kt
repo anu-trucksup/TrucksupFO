@@ -68,6 +68,9 @@ class AlertBoxDialog(var context: Activity, var message: String, var type: Strin
                 this.dismiss()
             } else if (type == "location") {
                 this.dismiss()
+            }else if(type == "finishActivity"){
+                this.dismiss()
+                context.finish()
             }/*else if (type == "verifymsgadhar") {
                 var intent: Intent = Intent(context, MainActivity::class.java)
                 intent.putExtra("type", "xxx")

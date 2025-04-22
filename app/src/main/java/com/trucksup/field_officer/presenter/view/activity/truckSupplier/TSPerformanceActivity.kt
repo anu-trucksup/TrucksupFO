@@ -90,7 +90,7 @@ class TSPerformanceActivity : BaseActivity() {
                         val abx = AlertBoxDialog(
                             this@TSPerformanceActivity,
                             responseModel.success.message,
-                            "m"
+                            "finishActivity"
                         )
                         abx.show()
 
@@ -133,9 +133,10 @@ class TSPerformanceActivity : BaseActivity() {
     }
 
     private fun getTSMeetScheduleData() {
+        println("wwww=="+PreferenceManager.getUserData(this)?.boUserid)
         showProgressDialog(this,false)
         val request = GetMeetScheduleDetailsRequest(
-            PreferenceManager.getUserData(this)?.boUserid?.toInt() ?: 0,
+            1,
             PreferenceManager.getPhoneNo(this),
             PreferenceManager.getServerDateUtc(),
             PreferenceManager.getUserData(this)?.city.toString(),
