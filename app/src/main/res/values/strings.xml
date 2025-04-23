@@ -74,7 +74,7 @@
     <string name="type">Type here..</string>
     <string name="profilePhoto_star">Profile Photo <font color='#FF0000'>*</font></string>
     <string name="enterProfilePhoto">Please upload the profile photo.</string>
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
     <string name="log_in_here">Log In Here</string>
     <string name="you_already_have_an_account">You already have an account?</string>
 
@@ -754,5 +754,7 @@
     <string name="other_subcity_title">Other sub-city (please specify) <font color='#FF0000'>*</font></string>
     <string name="other_subcity_hint">Please specify your Sub City</string>
     <string name="other_subcity_title_">Other sub-city (please specify)</string>
+    <string name="on_duty_confirm_msg">Please confirm the date and time to turn on the duty.</string>
+    <string name="off_duty_confirm_msg">Please confirm the date and time to turn off the duty.</string>
 
 </resources>
