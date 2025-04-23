@@ -279,27 +279,79 @@
                     android:paddingVertical="@dimen/_4sdp"
                     android:text=""/>
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    style="@style/edit_label"
-                    android:text="@string/sub_City_star"/>
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:orientation="vertical">
 
-                <EditText
-                    android:id="@+id/eTSubcity"
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/bai_jamjuree_medium"
+                        android:text="@string/sub_City_star"
+                        android:textColor="@color/black_4d"
+                        android:textSize="@dimen/_13sdp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:background="@drawable/edit_box"
+                        android:orientation="vertical">
+
+                        <Spinner
+                            android:id="@+id/spinnerSubCity"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_35sdp"
+                            android:layout_marginEnd="@dimen/_12sdp"
+                            android:background="@drawable/spinner_background"
+                            android:fontFamily="@font/roboto_regular"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="@dimen/_10sdp"
+                            android:textColor="@color/secondry_text"
+                            android:textSize="@dimen/_12sdp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- subcity other-->
+                <LinearLayout
+                    android:id="@+id/otherSubCityLay"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:background="@drawable/edit_box"
-                    style="@style/edit_text_m"
-                    android:inputType="text"
-                    android:lines="1"
-                    android:paddingHorizontal="@dimen/_10sdp"
-                    android:paddingVertical="@dimen/_4sdp"
-                    android:text=""/>
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/bai_jamjuree_medium"
+                        android:text="@string/other_subcity_title"
+                        android:textColor="@color/black_4d"
+                        android:textSize="@dimen/_13sdp" />
+
+                    <EditText
+                        android:id="@+id/etOtherCity"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_35sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:background="@drawable/edit_box_bw"
+                        android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ  1234567890  _-,.?/:"
+                        android:fontFamily="@font/roboto_regular"
+                        android:hint="@string/other_subcity_hint"
+                        android:inputType="textNoSuggestions"
+                        android:paddingLeft="@dimen/_10sdp"
+                        android:textColor="@color/secondry_text"
+                        android:textColorHint="@color/secondry_text"
+                        android:textSize="@dimen/_12sdp" />
+
+                </LinearLayout>
 
                 <TextView
                     android:layout_width="match_parent"

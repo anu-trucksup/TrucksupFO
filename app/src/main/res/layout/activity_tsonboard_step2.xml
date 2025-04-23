@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:fitsSystemWindows="true"
@@ -51,7 +50,6 @@
                     android:id="@+id/nestScroll"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-
 
 
                     <LinearLayout
@@ -263,27 +261,102 @@
                                 android:paddingVertical="@dimen/_4sdp"
                                 android:textSize="@dimen/_12ssp" />
 
-                            <TextView
-                                style="@style/edit_label"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/_10sdp"
-                                android:text="@string/sub_City_star" />
+                            <!-- <TextView
+                                 style="@style/edit_label"
+                                 android:layout_width="match_parent"
+                                 android:layout_height="wrap_content"
+                                 android:layout_marginTop="@dimen/_10sdp"
+                                 android:text="@string/sub_City_star" />
 
-                            <EditText
-                                android:id="@+id/et_subcity"
-                                style="@style/edit_text_m"
+                             <EditText
+                                 android:id="@+id/et_subcity"
+                                 style="@style/edit_text_m"
+                                 android:layout_width="match_parent"
+                                 android:layout_height="wrap_content"
+                                 android:layout_marginTop="@dimen/_5sdp"
+                                 android:background="@drawable/edit_box"
+                                 android:clickable="false"
+                                 android:focusable="false"
+                                 android:inputType="text"
+                                 android:lines="1"
+                                 android:paddingHorizontal="@dimen/_10sdp"
+                                 android:paddingVertical="@dimen/_4sdp"
+                                 android:textSize="@dimen/_12ssp" />
+ -->
+
+                            <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/_5sdp"
-                                android:background="@drawable/edit_box"
-                                android:clickable="false"
-                                android:focusable="false"
-                                android:inputType="text"
-                                android:lines="1"
-                                android:paddingHorizontal="@dimen/_10sdp"
-                                android:paddingVertical="@dimen/_4sdp"
-                                android:textSize="@dimen/_12ssp" />
+                                android:layout_centerInParent="true"
+                                android:layout_marginTop="@dimen/_12sdp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/bai_jamjuree_medium"
+                                    android:text="@string/sub_City_star"
+                                    android:textColor="@color/black_4d"
+                                    android:textSize="@dimen/_13sdp" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/_5sdp"
+                                    android:background="@drawable/edit_box"
+                                    android:orientation="vertical">
+
+                                    <Spinner
+                                        android:id="@+id/spinnerSubCity"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="@dimen/_35sdp"
+                                        android:layout_marginEnd="@dimen/_12sdp"
+                                        android:background="@drawable/spinner_background"
+                                        android:fontFamily="@font/roboto_regular"
+                                        android:gravity="center_vertical"
+                                        android:paddingLeft="@dimen/_10sdp"
+                                        android:textColor="@color/secondry_text"
+                                        android:textSize="@dimen/_12sdp" />
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <!-- subcity other-->
+                            <LinearLayout
+                                android:id="@+id/otherSubCityLay"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:layout_marginTop="@dimen/_12sdp"
+                                android:orientation="vertical"
+                                android:visibility="gone">
+
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/bai_jamjuree_medium"
+                                    android:text="@string/other_subcity_title"
+                                    android:textColor="@color/black_4d"
+                                    android:textSize="@dimen/_13sdp" />
+
+                                <EditText
+                                    android:id="@+id/etOtherCity"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_35sdp"
+                                    android:layout_marginTop="@dimen/_5sdp"
+                                    android:background="@drawable/edit_box_bw"
+                                    android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ  1234567890  _-,.?/:"
+                                    android:fontFamily="@font/roboto_regular"
+                                    android:hint="@string/other_subcity_hint"
+                                    android:inputType="textNoSuggestions"
+                                    android:paddingLeft="@dimen/_10sdp"
+                                    android:textColor="@color/secondry_text"
+                                    android:textColorHint="@color/secondry_text"
+                                    android:textSize="@dimen/_12sdp" />
+
+                            </LinearLayout>
 
                             <TextView
                                 style="@style/edit_label"
@@ -334,10 +407,10 @@
                                 android:id="@+id/btnAdd"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_15sdp"
                                 android:background="@drawable/background_1_1"
                                 android:fontFamily="@font/bai_jamjuree_medium"
                                 android:gravity="center"
-                                android:layout_marginTop="@dimen/_15sdp"
                                 android:paddingHorizontal="@dimen/_25sdp"
                                 android:paddingVertical="@dimen/_2sdp"
                                 android:text="@string/proceed"
@@ -349,11 +422,11 @@
                                 android:id="@+id/btnCancel1"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:fontFamily="@font/bai_jamjuree_medium"
-                                android:lines="1"
-                                android:gravity="center"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginTop="@dimen/_15sdp"
+                                android:fontFamily="@font/bai_jamjuree_medium"
+                                android:gravity="center"
+                                android:lines="1"
                                 android:paddingHorizontal="@dimen/_25sdp"
                                 android:paddingVertical="@dimen/_2sdp"
                                 android:text="@string/cancel_u"
@@ -367,19 +440,18 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_10sdp"
-                            android:visibility="invisible"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:visibility="invisible">
 
 
                             <TextView
+                                style="@style/edit_label"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/_10sdp"
-                                android:text="@string/truck_details_validity"
-                                style="@style/edit_label"
                                 android:drawableEnd="@drawable/add_round"
                                 android:drawablePadding="@dimen/_6sdp"
-                                />
+                                android:text="@string/truck_details_validity" />
 
                             <LinearLayout
                                 android:id="@+id/vehicalDetailsLayout"
@@ -407,12 +479,12 @@
                                     <androidx.cardview.widget.CardView
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="@dimen/_8sdp"
                                         android:layout_weight="1"
                                         app:cardBackgroundColor="@color/white"
                                         app:cardCornerRadius="@dimen/_5sdp"
-                                        app:cardElevation="@dimen/_3sdp"
-                                        android:layout_gravity="center_vertical"
-                                        android:layout_marginLeft="@dimen/_8sdp">
+                                        app:cardElevation="@dimen/_3sdp">
 
                                         <EditText
                                             android:id="@+id/vehicalNo"
@@ -452,39 +524,39 @@
                                             android:textSize="@dimen/_12ssp" />
                                     </RelativeLayout>
                                 </LinearLayout>
+
                                 <androidx.recyclerview.widget.RecyclerView
                                     android:id="@+id/rvTrucksDetails"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:visibility="visible"
-                                    tools:visibility="visible"
                                     tools:itemCount="1"
-                                    tools:listitem="@layout/add_truck_list_items" />
+                                    tools:listitem="@layout/add_truck_list_items"
+                                    tools:visibility="visible" />
                             </LinearLayout>
 
 
                             <TextView
+                                style="@style/edit_label"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/_10sdp"
-                                android:text="@string/preferred_lane"
-                                style="@style/edit_label"
                                 android:drawableEnd="@drawable/add_round"
                                 android:drawablePadding="@dimen/_6sdp"
-                                />
+                                android:text="@string/preferred_lane" />
 
                             <com.google.android.material.card.MaterialCardView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                app:cardCornerRadius="@dimen/_8sdp"
                                 app:cardBackgroundColor="@color/white"
+                                app:cardCornerRadius="@dimen/_8sdp"
                                 app:strokeWidth="0dp">
 
                                 <androidx.constraintlayout.widget.ConstraintLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:padding="@dimen/_10sdp"
-                                    android:background="#123E2089">
+                                    android:background="#123E2089"
+                                    android:padding="@dimen/_10sdp">
 
                                     <LinearLayout
                                         android:id="@+id/l1"
@@ -602,7 +674,6 @@
                                 tools:listitem="@layout/preferred_lane_item" />
 
 
-
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -618,13 +689,13 @@
                                     android:layout_height="wrap_content"
                                     android:background="@drawable/background_1_1"
                                     android:fontFamily="@font/bai_jamjuree_medium"
+                                    android:gravity="center"
                                     android:paddingHorizontal="@dimen/_30sdp"
                                     android:paddingVertical="@dimen/_4sdp"
                                     android:text="@string/onboard"
-                                    android:textColor="@color/white"
-                                    android:textSize="@dimen/_12ssp"
                                     android:textAlignment="center"
-                                    android:gravity="center"/>
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/_12ssp" />
 
                                 <TextView
                                     android:id="@+id/btnCancel"
