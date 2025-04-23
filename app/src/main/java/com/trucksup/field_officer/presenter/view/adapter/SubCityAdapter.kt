@@ -31,11 +31,10 @@ class SubCityAdapter(val context: Context, var dataSource: ArrayList<PnData>, va
 
         vh.label.text = dataSource[position].officeName
 
-
         return view
     }
 
-    override fun getItem(position: Int): Any? {
+    override fun getItem(position: Int): Any {
         return dataSource[position];
     }
 
@@ -50,11 +49,8 @@ class SubCityAdapter(val context: Context, var dataSource: ArrayList<PnData>, va
     private class ItemHolder(row: View?) {
         val label: TextView
 
-
         init {
-
-            label = row?.findViewById(R.id.text) as TextView
-
+            label = row?.findViewById<TextView>(R.id.text)!!
         }
     }
 

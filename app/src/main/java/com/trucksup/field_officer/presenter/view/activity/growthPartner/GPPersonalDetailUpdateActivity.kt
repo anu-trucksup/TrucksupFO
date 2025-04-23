@@ -46,6 +46,7 @@ class GPPersonalDetailUpdateActivity : BaseActivity(), View.OnClickListener {
         intent.putExtra("cameraOpen", 0)
         launcher!!.launch(intent)
     }
+
     fun camera() {
         launcher = registerForActivityResult<Intent, ActivityResult>(
             ActivityResultContracts.StartActivityForResult()
@@ -95,7 +96,8 @@ class GPPersonalDetailUpdateActivity : BaseActivity(), View.OnClickListener {
             }
         }
     }
-    fun CheckValidation() {
+
+    private fun checkValidation() {
         if (imageUri.isEmpty() || imageUri == null) {
             LoggerMessage.onSNACK(
                 binding.cvCamera,
@@ -143,16 +145,17 @@ class GPPersonalDetailUpdateActivity : BaseActivity(), View.OnClickListener {
         }
 
     }
+
     private fun setOnClicks() {
-        binding.btnContinue!!.setOnClickListener(this)
-        binding.cvCamera!!.setOnClickListener(this)
+        binding.btnContinue.setOnClickListener(this)
+        binding.cvCamera.setOnClickListener(this)
     }
 
 
     override fun onClick(v: View?) {
         val item_id = v?.id
         when (item_id) {
-            R.id.btnContinue -> CheckValidation()
+            R.id.btnContinue -> checkValidation()
             R.id.cvCamera -> launchCamera()
         }
     }

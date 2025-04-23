@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.ImageDecoder
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
@@ -308,41 +309,32 @@ class BAOnboardDocActivity : BaseActivity(), GetImage {
         }
     }
 
-    private val pickMedia =
-        registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-            // Callback is invoked after the user selects a media item or closes the
-            // photo picker.
-            if (uri != null) {
-                // image?.setImageURI(uri)
+    private val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+        // Callback is invoked after the user selects a media item or closes the
+        // photo picker.
+        if (uri != null) {
 
-                var orFile: File = FileHelper().getFile(this, uri)!!
-                var bitmap: Bitmap = FileHelper().FileToBitmap(orFile)
-                var newBitmap: Bitmap = FileHelper().resizeImage(bitmap, 500, 500)!!
-                var newFile: File = FileHelper().bitmapTofile(newBitmap, this)!!
-
-
-                //progressBarr?.show()
-                /*myResponse?.uploadImage(
-                    "jpg", "DOC" + PreferenceManager.getRequestNo(), "" + name,
-                    PreferenceManager.prepareFilePart(newFile!!), this, this
-                )*/
-
-
+            val bitmap = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                ImageDecoder.decodeBitmap(ImageDecoder.createSource(contentResolver, uri))
             } else {
-                Log.d("PhotoPicker", "No media selected")
+                MediaStore.Images.Media.getBitmap(contentResolver, uri)
             }
+            val newBitmap: Bitmap = FileHelp().resizeImage(bitmap, 500)
+            val newFile: File = FileHelp().bitmapTofile(newBitmap, this)
+
+            uploadImage(newFile, "")
+
+        } else {
+            Log.d("PhotoPicker", "No media selected")
         }
+    }
 
     override fun fromGallery() {
         pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
     }
 
     override fun fromCamara() {
-
-        val camera_intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        // Start the activity with camera_intent, and request pic id
-        // Start the activity with camera_intent, and request pic id
-        startActivityForResult(camera_intent, 11)
+        launchCamera(true, 1, false)
     }
 
 
