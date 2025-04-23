@@ -51,9 +51,9 @@ class TSOnboard2ViewModel @Inject constructor(val apiUseCase: APIUseCase) : View
         MutableLiveData<ResponseModel<PrefferdResponse>>()
     val onBoardTsResponseLD: LiveData<ResponseModel<PrefferdResponse>> = onBoardTsResponse
 
-    private var resultSCbyPincode: MutableLiveData<ResponseModel<PinCodeResponse>> =
+    private var resultSCbyPinCode: MutableLiveData<ResponseModel<PinCodeResponse>> =
         MutableLiveData<ResponseModel<PinCodeResponse>>()
-    val resultSCbyPincodeLD: LiveData<ResponseModel<PinCodeResponse>> = resultSCbyPincode
+    val resultSCbyPinCodeLD: LiveData<ResponseModel<PinCodeResponse>> = resultSCbyPinCode
 
 
     fun getCityStateByPin(token: String, request: PinCodeRequest) {
@@ -64,11 +64,11 @@ class TSOnboard2ViewModel @Inject constructor(val apiUseCase: APIUseCase) : View
             )) {
                 is ResultWrapper.ServerResponseError -> {
                     Log.e("API Error", response.error ?: "")
-                    resultSCbyPincode.postValue(ResponseModel(serverError = response.error))
+                    resultSCbyPinCode.postValue(ResponseModel(serverError = response.error))
                 }
 
                 is ResultWrapper.Success -> {
-                    resultSCbyPincode.postValue(ResponseModel(success = response.value))
+                    resultSCbyPinCode.postValue(ResponseModel(success = response.value))
                 }
             }
         }

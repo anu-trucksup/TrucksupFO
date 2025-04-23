@@ -185,7 +185,7 @@ class TSOnboardingActivity : BaseActivity(), View.OnClickListener, JWTtoken,
     }
 
     private fun setupObserver() {
-        mViewModel?.resultSCbyPincodeLD?.observe(this@TSOnboardingActivity) { responseModel ->                     // login function observe
+        mViewModel?.resultSCbyPinCodeLD?.observe(this@TSOnboardingActivity) { responseModel ->                     // login function observe
             if (responseModel.serverError != null) {
                 dismissProgressDialog()
 

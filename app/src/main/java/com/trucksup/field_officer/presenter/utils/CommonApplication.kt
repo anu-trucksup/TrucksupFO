@@ -12,7 +12,7 @@ import dagger.hilt.android.HiltAndroidApp
 @HiltAndroidApp
 open class CommonApplication: Application() {
     companion object {
-        val imagePathUrl: String = "https://sslapi.trucksups.in/S3ImageAPI/get-imagefile?fileName="
+        const val imagePathUrl: String = "https://sslapi.trucksups.in/S3ImageAPI/get-imagefile?fileName="
         var BASE_API_URL: String = "https://testapi.trucksups.in/"
         var appContext: CommonApplication? = null
         private var sharedPreferences: SharedPreferences? = null

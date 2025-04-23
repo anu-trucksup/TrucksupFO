@@ -3,6 +3,7 @@ package com.trucksup.field_officer.presenter.view.activity.truckSupplier
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
@@ -10,6 +11,8 @@ import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.AdapterView
+import android.widget.TextView
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -22,8 +25,8 @@ import com.logistics.trucksup.activities.preferre.modle.PrefferLanRequest
 import com.logistics.trucksup.activities.preferre.modle.Preflane
 import com.logistics.trucksup.activities.preferre.modle.TrucksDetail
 import com.trucksup.field_officer.R
-import com.trucksup.field_officer.data.model.GenerateJWTtokenResponse
 import com.trucksup.field_officer.data.model.PinCodeRequest
+import com.trucksup.field_officer.data.model.PnData
 import com.trucksup.field_officer.databinding.ActivityTsonboardStep2Binding
 import com.trucksup.field_officer.databinding.PreferredLaneDialogBinding
 import com.trucksup.field_officer.databinding.VerifyOtpDialogBinding
@@ -32,20 +35,19 @@ import com.trucksup.field_officer.presenter.cityPicker.CityStateDialog
 import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.CameraActivity
 import com.trucksup.field_officer.presenter.common.FileHelp
-import com.trucksup.field_officer.presenter.common.JWTtoken
 import com.trucksup.field_officer.presenter.common.LoadingUtils
 import com.trucksup.field_officer.presenter.common.dialog.HappinessCodeBox
 import com.trucksup.field_officer.presenter.common.image_picker.TrucksFOImageController
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
-import com.trucksup.field_officer.presenter.view.activity.other.vml.TokenViewModel
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.add_truck.AddTruckInterface
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.RcRequest
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.vml.TSOnboard2ViewModel
 import com.trucksup.field_officer.presenter.view.adapter.TSTrucksDetailsAdapter
 import com.trucksup.field_officer.presenter.view.adapter.TrucksDetailsAdap
 import com.trucksup.field_officer.presenter.view.adapter.PreferredLaneAdap
+import com.trucksup.field_officer.presenter.view.adapter.SubCityAdapter
 import com.trucksup.field_officer.presenter.view.adapter.TruckPreferredLaneAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
@@ -55,7 +57,6 @@ import java.util.concurrent.TimeUnit
 class TSOnBoardStep2Activity : BaseActivity(), PreferredLaneAdap.ControllerListener,
     TrucksDetailsAdap.ControllerListener, TSTrucksDetailsAdapter.ControllerListener,
     TruckPreferredLaneAdapter.ControllerListener, AddTruckInterface, CityPicker,
-    JWTtoken,
     TrucksFOImageController {
 
     private var isfromCity: Boolean = true
@@ -64,19 +65,22 @@ class TSOnBoardStep2Activity : BaseActivity(), PreferredLaneAdap.ControllerListe
     private var trucksDetailsList = ArrayList<TrucksDetail>()
 
     private var mViewModel: TSOnboard2ViewModel? = null
-    private var mTokenViewModel: TokenViewModel? = null
 
     private var launcher: ActivityResultLauncher<Intent>? = null
     private var imageUri: String = ""
     private var profileImgKey: String? = ""
     private var profileImgUrl: String? = ""
 
+    var subCityValue: String = ""
+    var tempSubCityList = ArrayList<PnData>()
+    private var subCity: String = ""
+    var isOtherSubCity: String="N"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTsonboardStep2Binding.inflate(layoutInflater)
         adjustFontScale(resources.configuration, 1.0f)
         setContentView(binding.root)
-        mTokenViewModel = ViewModelProvider(this)[TokenViewModel::class.java]
         mViewModel = ViewModelProvider(this)[TSOnboard2ViewModel::class.java]
 
         setListener()
@@ -85,20 +89,21 @@ class TSOnBoardStep2Activity : BaseActivity(), PreferredLaneAdap.ControllerListe
     }
 
     private fun setupObserver() {
-        mViewModel?.resultSCbyPincodeLD?.observe(this@TSOnBoardStep2Activity) { responseModel ->                     // login function observe
+        mViewModel?.resultSCbyPinCodeLD?.observe(this@TSOnBoardStep2Activity) { responseModel ->                     // login function observe
             if (responseModel.serverError != null) {
                 dismissProgressDialog()
 
-                val abx = AlertBoxDialog(
-                    this@TSOnBoardStep2Activity,
-                    responseModel.serverError.toString(),
-                    "m"
-                )
+                val abx =
+                    AlertBoxDialog(
+                        this@TSOnBoardStep2Activity,
+                        responseModel.serverError.toString(),
+                        "m"
+                    )
                 abx.show()
             } else {
                 dismissProgressDialog()
 
-                if (responseModel.success != null) {
+                if (responseModel.success?.statusCode == 200) {
                     if (responseModel.success.data.isNotEmpty()) {
                         pinData(
                             responseModel.success.data[0].district,
@@ -106,6 +111,8 @@ class TSOnBoardStep2Activity : BaseActivity(), PreferredLaneAdap.ControllerListe
                             responseModel.success.data[0].stateName,
                             responseModel.success.data[0].hindiState
                         )
+
+                        setSubCity(responseModel.success.data)
                     } else {
                         val abx = AlertBoxDialog(
                             this@TSOnBoardStep2Activity,
@@ -113,11 +120,16 @@ class TSOnBoardStep2Activity : BaseActivity(), PreferredLaneAdap.ControllerListe
                             "m"
                         )
                         abx.show()
+
+                        binding.eTcity.setText("")
+                        binding.eTState.setText("")
+
+                        binding.eTPincode.setText("")
                     }
                 } else {
                     val abx = AlertBoxDialog(
                         this@TSOnBoardStep2Activity,
-                        "no data found",
+                        responseModel.success?.message.toString(),
                         "m"
                     )
                     abx.show()
@@ -242,6 +254,41 @@ class TSOnBoardStep2Activity : BaseActivity(), PreferredLaneAdap.ControllerListe
 
     }
 
+    private fun setSubCity(data: List<PnData>) {
+        //sub city
+        tempSubCityList.clear()
+        if (subCity.isNullOrEmpty()) {
+            tempSubCityList.add(
+                PnData(
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "Select City",
+                    "",
+                    "",
+                    "",
+                    ""
+                )
+            )
+        } else {
+            tempSubCityList.add(PnData("", "", "", "", "", "", "", "", subCity, "", "", "", ""))
+
+        }
+
+        data.forEach() { pinData ->
+            tempSubCityList.add(pinData)
+        }
+
+        tempSubCityList.add(PnData("", "", "", "", "", "", "", "", "Other", "", "", "", ""))
+        val subCityAdapter = SubCityAdapter(this@TSOnBoardStep2Activity, tempSubCityList, "#ffffff")
+        binding.spinnerSubCity?.adapter = subCityAdapter
+    }
+
     private fun setListener() {
 
         binding.btnAdd.setOnClickListener {
@@ -254,22 +301,14 @@ class TSOnBoardStep2Activity : BaseActivity(), PreferredLaneAdap.ControllerListe
 
         binding.eTPincode.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                /*if (binding.eTPincode.text.length == 6) {
-                    showProgressDialog(this@TSOnboardingActivity, false)
-                    val request = GenerateJWTtokenRequest(
-                        username = PreferenceManager.getAccesUserName(this@TSOnboardingActivity),
-                        password = PreferenceManager.getAccesPassword(this@TSOnboardingActivity),
-                        apiSecreteKey = PreferenceManager.getAccesKey(this@TSOnboardingActivity),
-                        userAgent = PreferenceManager.getAccesUserAgaint(this@TSOnboardingActivity),
-                        issuer = PreferenceManager.getAccesUserInssur(this@TSOnboardingActivity)
-                    )
-                    mTokenViewModel?.generateJWTtoken(
-                        request,
-                        this@TSOnboardingActivity,
-                        this@TSOnboardingActivity
-                    )
+                if (binding.eTPincode.text.length == 6) {
+                    showProgressDialog(this@TSOnBoardStep2Activity, false)
+                    getPinData(PreferenceManager.getAuthToken())
 
-                }*/
+                } else {
+                    binding.eTcity.setText("")
+                    binding.eTState.setText("")
+                }
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -280,6 +319,51 @@ class TSOnBoardStep2Activity : BaseActivity(), PreferredLaneAdap.ControllerListe
 
             }
         })
+
+
+        binding.spinnerSubCity?.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>,
+                    view: View,
+                    position: Int,
+                    id: Long
+                ) {
+//                val selectedItem = parent.getItemAtPosition(position).toString()
+                    var tv: TextView = findViewById(view.id)
+                    tv.setBackgroundColor(Color.parseColor("#00007fff"))
+                    tv.setTextColor(resources.getColor(R.color.secondry_text))
+                    if (!tempSubCityList.isNullOrEmpty()) {
+                        if (!tempSubCityList[position].officeName.isNullOrEmpty()) {
+                            subCityValue = tempSubCityList[position].officeName.toString()
+                            isOtherSubCity = "N"
+
+                            if (subCityValue == "Select City") {
+
+                                tv.setTextColor(Color.parseColor("#c0c0c0"))
+                            } else {
+                                tv.setTextColor(resources.getColor(R.color.secondry_text))
+
+                            }
+                        }
+                    }
+                    if (subCityValue == "Other") {
+
+                        isOtherSubCity = "Y"
+
+                        // do your stuff
+                        binding.otherSubCityLay.visibility = View.VISIBLE
+                        binding.etOtherCity.setText("")
+                    } else {
+                        binding.otherSubCityLay.visibility = View.GONE
+                        binding.etOtherCity.setText("")
+                    }
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>) {
+
+                }
+            }
 
 
         //back button
@@ -380,8 +464,6 @@ class TSOnBoardStep2Activity : BaseActivity(), PreferredLaneAdap.ControllerListe
         }
 
 
-
-
         binding.etFromCity.setOnClickListener {
             isfromCity = true
             val cityDialog = CityStateDialog(this, this, "cs", binding.etFromCity, "M", true)
@@ -396,6 +478,7 @@ class TSOnBoardStep2Activity : BaseActivity(), PreferredLaneAdap.ControllerListe
             binding.vehicalNo.clearFocus()
         }
     }
+
 
     private fun verifyTruck() {
         mViewModel?.verifyTruckDetails(
@@ -666,24 +749,6 @@ class TSOnBoardStep2Activity : BaseActivity(), PreferredLaneAdap.ControllerListe
         dialog.show()
     }
 
-    override fun onTokenSuccess(response: GenerateJWTtokenResponse) {
-        if (!response.accessToken.isNullOrEmpty()) {
-            getPinData("Bearer " + response.accessToken)
-        } else {
-            val abx = AlertBoxDialog(
-                this@TSOnBoardStep2Activity,
-                "Something went wrong", "m"
-            )
-            abx.show()
-        }
-
-    }
-
-    override fun onTokenFailure(msg: String) {
-        dismissProgressDialog()
-        val abx = AlertBoxDialog(this@TSOnBoardStep2Activity, msg, "m")
-        abx.show()
-    }
 
     override fun getImage(value: String, url: String) {
         LoadingUtils.hideDialog()

@@ -7,10 +7,10 @@
     android:fitsSystemWindows="true">
 
     <LinearLayout
-        android:id="@+id/bafollowup_toolbar"
+        android:id="@+id/appBar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_60sdp"
-        android:background="@drawable/toolbar_grdient"
+        android:background="@drawable/toolbar_gradient"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -58,7 +58,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bafollowup_toolbar"
+        app:layout_constraintTop_toBottomOf="@+id/appBar"
         tools:context=".activity.BAFollowUpActivity">
 
         <LinearLayout
@@ -86,7 +86,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:text="@string/address" />
+                android:text="@string/addressStar" />
 
             <EditText
                 android:id="@+id/et_address"
@@ -107,7 +107,7 @@
                 android:layout_marginHorizontal="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:lines="1"
-                android:text="@string/pin_code" />
+                android:text="@string/Pincode_star" />
 
             <EditText
                 android:id="@+id/et_pincode"
@@ -127,7 +127,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:text="@string/city" />
+                android:text="@string/cityStar" />
 
             <EditText
                 android:id="@+id/et_city"
@@ -146,7 +146,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:text="@string/state" />
+                android:text="@string/stateStar" />
 
             <EditText
                 android:id="@+id/et_state"

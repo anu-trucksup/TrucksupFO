@@ -118,8 +118,6 @@ dependencies {
     //lottie
     implementation(libs.lottie)
 
-    //dexter permission
-    implementation(libs.dexter)
 
     //shimmer effect
     implementation(libs.shimmer)

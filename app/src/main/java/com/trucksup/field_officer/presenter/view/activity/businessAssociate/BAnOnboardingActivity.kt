@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.data.model.PinCodeRequest
+import com.trucksup.field_officer.data.model.PnData
 import com.trucksup.field_officer.databinding.ActivityBaNewOnboardingBinding
 import com.trucksup.field_officer.databinding.VerifyOtpDialogBinding
 import com.trucksup.field_officer.presenter.common.AlertBoxDialog
@@ -26,6 +27,7 @@ import com.trucksup.field_officer.presenter.utils.LoggerMessage
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.AddBrokerRequest
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.vml.BAOnboardViewModel
+import com.trucksup.field_officer.presenter.view.adapter.SubCityAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.io.FileOutputStream
@@ -39,6 +41,11 @@ class BAnOnboardingActivity : BaseActivity() {
     private var imageUri: String = ""
     private var docType: String = ""
     private var imageUrl: String = ""
+
+    var subCityValue: String = ""
+    var tempSubCityList = ArrayList<PnData>()
+    private var subCity: String = ""
+    var isOtherSubCity: String="N"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,16 +80,17 @@ class BAnOnboardingActivity : BaseActivity() {
             if (responseModel.serverError != null) {
                 dismissProgressDialog()
 
-                val abx = AlertBoxDialog(
-                    this@BAnOnboardingActivity,
-                    responseModel.serverError.toString(),
-                    "m"
-                )
+                val abx =
+                    AlertBoxDialog(
+                        this@BAnOnboardingActivity,
+                        responseModel.serverError.toString(),
+                        "m"
+                    )
                 abx.show()
             } else {
                 dismissProgressDialog()
 
-                if (responseModel.success != null) {
+                if (responseModel.success?.statusCode == 200) {
                     if (responseModel.success.data.isNotEmpty()) {
                         pinData(
                             responseModel.success.data[0].district,
@@ -90,6 +98,8 @@ class BAnOnboardingActivity : BaseActivity() {
                             responseModel.success.data[0].stateName,
                             responseModel.success.data[0].hindiState
                         )
+
+                        setSubCity(responseModel.success.data)
                     } else {
                         val abx = AlertBoxDialog(
                             this@BAnOnboardingActivity,
@@ -97,11 +107,16 @@ class BAnOnboardingActivity : BaseActivity() {
                             "m"
                         )
                         abx.show()
+
+                        binding.eTCity.setText("")
+                        binding.eTState.setText("")
+
+                        binding.eTPinCode.setText("")
                     }
                 } else {
                     val abx = AlertBoxDialog(
                         this@BAnOnboardingActivity,
-                        "no data found",
+                        responseModel.success?.message.toString(),
                         "m"
                     )
                     abx.show()
@@ -187,6 +202,42 @@ class BAnOnboardingActivity : BaseActivity() {
         }
 
 
+    }
+
+
+    private fun setSubCity(data: List<PnData>) {
+        //sub city
+        tempSubCityList.clear()
+        if (subCity.isNullOrEmpty()) {
+            tempSubCityList.add(
+                PnData(
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "",
+                    "Select City",
+                    "",
+                    "",
+                    "",
+                    ""
+                )
+            )
+        } else {
+            tempSubCityList.add(PnData("", "", "", "", "", "", "", "", subCity, "", "", "", ""))
+
+        }
+
+        data.forEach() { pinData ->
+            tempSubCityList.add(pinData)
+        }
+
+        tempSubCityList.add(PnData("", "", "", "", "", "", "", "", "Other", "", "", "", ""))
+        val subCityAdapter = SubCityAdapter(this@BAnOnboardingActivity, tempSubCityList, "#ffffff")
+        binding.spinnerSubCity.adapter = subCityAdapter
     }
 
     private fun setSubmitDialog() {

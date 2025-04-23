@@ -16,6 +16,7 @@ import android.widget.TextView
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.presenter.view.activity.auth.login.LoginActivity
 import com.trucksup.field_officer.presenter.view.activity.auth.signup.SignUpActivity
+import com.trucksup.field_officer.presenter.view.activity.dashboard.HomeActivity
 
 class AlertBoxDialog(var context: Activity, var message: String, var type: String) :
     Dialog(context) {
@@ -64,6 +65,10 @@ class AlertBoxDialog(var context: Activity, var message: String, var type: Strin
                 this.dismiss()
             } else if (type == "sign") {
                 val intent = Intent(context, SignUpActivity::class.java)
+                context.startActivity(intent)
+                this.dismiss()
+            }else if (type == "profile") {
+                val intent = Intent(context, HomeActivity::class.java)
                 context.startActivity(intent)
                 this.dismiss()
             } else if (type == "location") {

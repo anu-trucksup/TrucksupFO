@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -34,14 +35,18 @@ import com.trucksup.field_officer.presenter.common.dialog.HappinessCodeBox
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.BAScheduleMeetingActivity
 import com.trucksup.field_officer.presenter.view.activity.growthPartner.GPScheduleMeetingActivity
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.vml.TSOnboardViewModel
 import com.trucksup.field_officer.presenter.view.service.LocationService
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class EndTripActivity : BaseActivity(), OnMapReadyCallback {
     private lateinit var binding: ActivityTsEndmaptripBinding
     private lateinit var gmap: GoogleMap
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var locationCallback: LocationCallback
+    private var mViewModel: TSOnboardViewModel? = null
 
     // Define your two fixed locations
     private var startpointA = LatLng(28.510830, 77.085922)
@@ -58,6 +63,7 @@ class EndTripActivity : BaseActivity(), OnMapReadyCallback {
         mapFragment.getMapAsync(this)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        mViewModel = ViewModelProvider(this)[TSOnboardViewModel::class.java]
 
         setClickListener()
 
@@ -212,6 +218,21 @@ class EndTripActivity : BaseActivity(), OnMapReadyCallback {
             }else if (title_name.equals(getString(R.string.ts_followup), ignoreCase = true)){
                 startActivity(Intent(this, TSScheduledMeetingActivity::class.java))
             }
+        }
+    }
+
+
+    private fun setLocation() {
+        gmap.isMyLocationEnabled = true
+        checkLocationPermission() {
+            latitude.let {
+                val currentLatLng = LatLng(latitude.toDouble(), longitude.toDouble())
+                gmap.addMarker(
+                    MarkerOptions().position(currentLatLng).title("You are here")
+                )
+                gmap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15f))
+            }
+
         }
     }
 

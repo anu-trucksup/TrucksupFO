@@ -19,11 +19,6 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.tasks.CancellationTokenSource
-import com.karumi.dexter.Dexter
-import com.karumi.dexter.MultiplePermissionsReport
-import com.karumi.dexter.PermissionToken
-import com.karumi.dexter.listener.PermissionRequest
-import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ActivityGpMaptripBinding
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
@@ -39,7 +34,7 @@ class GPStartTripActivity : BaseActivity(), OnMapReadyCallback {
         val permissionList = ArrayList<String>()
         permissionList.add(Manifest.permission.ACCESS_FINE_LOCATION)
         permissionList.add(Manifest.permission.ACCESS_COARSE_LOCATION)
-        checkPermissions(permissionList)
+        //checkPermissions(permissionList)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -89,7 +84,7 @@ class GPStartTripActivity : BaseActivity(), OnMapReadyCallback {
         googleMap.addMarker(markerOptions)
     }
 
-    private fun checkPermissions(permissions: ArrayList<String>) {
+  /*  private fun checkPermissions(permissions: ArrayList<String>) {
 
         Dexter.withContext(this@GPStartTripActivity)
             .withPermissions(
@@ -137,7 +132,7 @@ class GPStartTripActivity : BaseActivity(), OnMapReadyCallback {
                 Toast.makeText(this, it.name, Toast.LENGTH_SHORT).show()
             }
             .check()
-    }
+    }*/
 
     private fun showLocationDisabledDialog() {
         AlertDialog.Builder(this)

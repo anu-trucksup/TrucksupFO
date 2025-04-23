@@ -46,7 +46,7 @@ class PlannedFollowupFragment(val status: String, private val historyList: Array
         updatedata(historyList)
 
         /*
-                if (status == "active") {
+               if (status == "active") {
                     setRvList(arrayListOf())
                 } else if (status == "complete") {
                     setRvList(arrayListOf())

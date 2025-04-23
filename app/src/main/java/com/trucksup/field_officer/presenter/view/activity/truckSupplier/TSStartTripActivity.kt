@@ -1,48 +1,37 @@
 package com.trucksup.field_officer.presenter.view.activity.truckSupplier
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.location.Location
 import android.os.Bundle
 import android.provider.Settings
+import android.text.Editable
 import android.text.TextUtils
-import android.widget.Toast
+import android.text.TextWatcher
 import androidx.activity.enableEdgeToEdge
-import androidx.core.app.ActivityCompat
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.karumi.dexter.Dexter
-import com.karumi.dexter.MultiplePermissionsReport
-import com.karumi.dexter.PermissionToken
-import com.karumi.dexter.listener.PermissionRequest
-import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.trucksup.field_officer.R
+import com.trucksup.field_officer.data.model.PinCodeRequest
 import com.trucksup.field_officer.databinding.ActivityTsMaptripBinding
+import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
+import com.trucksup.field_officer.presenter.utils.PreferenceManager
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.vml.TSOnboardViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 
+@AndroidEntryPoint
 class TSStartTripActivity : BaseActivity(), OnMapReadyCallback {
     private lateinit var binding: ActivityTsMaptripBinding
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
     private var googleMap: GoogleMap? = null
-
-    override fun onStart() {
-        super.onStart()
-        val permissionList = ArrayList<String>()
-        permissionList.add(Manifest.permission.ACCESS_FINE_LOCATION)
-        permissionList.add(Manifest.permission.ACCESS_COARSE_LOCATION)
-        checkPermissions(permissionList)
-    }
+    private var mViewModel: TSOnboardViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,8 +40,8 @@ class TSStartTripActivity : BaseActivity(), OnMapReadyCallback {
         adjustFontScale(resources.configuration, 1.0f);
         setContentView(binding.root)
 
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        // Get the SupportMapFragment and request notification
+        mViewModel = ViewModelProvider(this)[TSOnboardViewModel::class.java]
+
         // when the map is ready to be used.
         val mapFragment =
             supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
@@ -60,6 +49,30 @@ class TSStartTripActivity : BaseActivity(), OnMapReadyCallback {
 
         val title_name = intent.getStringExtra("title")
         binding.tvTitle.text = title_name
+
+
+        binding.etPincode.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                if (binding.etPincode.text.length == 6) {
+                    showProgressDialog(this@TSStartTripActivity, false)
+                    val request = PinCodeRequest(
+                        binding.etPincode.text.toString(),
+                        PreferenceManager.getRequestNo(),
+                        PreferenceManager.getPhoneNo(this@TSStartTripActivity)
+                    )
+                    mViewModel?.getCityStateByPin(PreferenceManager.getAuthToken(), request)
+
+                }else{
+                    setUI()
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+        })
 
         binding.btnSubmit.setOnClickListener {
 
@@ -73,6 +86,69 @@ class TSStartTripActivity : BaseActivity(), OnMapReadyCallback {
         binding.ivBack.setOnClickListener {
             onBackPressed()
         }
+
+        setupObserver()
+    }
+
+    private fun setUI() {
+        binding.etCity.setText("")
+        binding.etState.setText("")
+    }
+
+    private fun setupObserver() {
+        mViewModel?.resultSCbyPinCodeLD?.observe(this@TSStartTripActivity) { responseModel ->                     // login function observe
+            if (responseModel.serverError != null) {
+                dismissProgressDialog()
+
+                val abx =
+                    AlertBoxDialog(
+                        this@TSStartTripActivity,
+                        responseModel.serverError.toString(),
+                        "m"
+                    )
+                abx.show()
+            } else {
+                dismissProgressDialog()
+
+                if (responseModel.success?.statusCode == 200) {
+                    if (responseModel.success.data.isNotEmpty()) {
+                        pinData(
+                            responseModel.success.data[0].district,
+                            responseModel.success.data[0].hindiCity,
+                            responseModel.success.data[0].stateName,
+                            responseModel.success.data[0].hindiState
+                        )
+                    } else {
+                        val abx = AlertBoxDialog(
+                            this@TSStartTripActivity,
+                            responseModel.success.message,
+                            "m"
+                        )
+                        abx.show()
+
+                        setUI()
+
+                        binding.etPincode.setText("")
+                    }
+                } else {
+                    val abx = AlertBoxDialog(
+                        this@TSStartTripActivity,
+                        responseModel.success?.message.toString(),
+                        "m"
+                    )
+                    abx.show()
+                }
+            }
+        }
+
+    }
+
+    private fun pinData(city: String, cityHindi: String, state: String, stateHindi: String) {
+        dismissProgressDialog()
+
+        binding.etCity.setText(city)
+        binding.etState.setText(state)
+
     }
 
     private fun checkValidation(): Boolean {
@@ -121,10 +197,12 @@ class TSStartTripActivity : BaseActivity(), OnMapReadyCallback {
         // Add a marker in Sydney, Australia,
         // and move the map's camera to the same location.
         googleMap = gMap
-        enableMyLocation()
+        //enableMyLocation()
+
+        setLocation()
     }
 
-    private fun checkPermissions(permissions: ArrayList<String>) {
+   /* private fun checkPermissions(permissions: ArrayList<String>) {
 
         Dexter.withContext(this@TSStartTripActivity)
             .withPermissions(
@@ -159,7 +237,7 @@ class TSStartTripActivity : BaseActivity(), OnMapReadyCallback {
                 Toast.makeText(this, it.name, Toast.LENGTH_SHORT).show()
             }
             .check()
-    }
+    }*/
 
     private fun showLocationDisabledDialog() {
         AlertDialog.Builder(this)
@@ -174,7 +252,7 @@ class TSStartTripActivity : BaseActivity(), OnMapReadyCallback {
     }
 
 
-    private fun enableMyLocation() {
+   /* private fun enableMyLocation() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
             != PackageManager.PERMISSION_GRANTED
         ) {
@@ -199,5 +277,19 @@ class TSStartTripActivity : BaseActivity(), OnMapReadyCallback {
                     googleMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15f))
                 }
             }
+    }*/
+
+    private fun setLocation() {
+        googleMap?.isMyLocationEnabled = true
+        checkLocationPermission() {
+            latitude?.let {
+                val currentLatLng = LatLng(latitude.toDouble(), longitude.toDouble())
+                googleMap?.addMarker(
+                    MarkerOptions().position(currentLatLng).title("You are here")
+                )
+                googleMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15f))
+            }
+
+        }
     }
 }

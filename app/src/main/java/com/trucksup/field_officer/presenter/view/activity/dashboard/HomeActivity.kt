@@ -74,7 +74,7 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
 //        permissionList.add(Manifest.permission.ACCESS_FINE_LOCATION)
 //        permissionList.add(Manifest.permission.ACCESS_COARSE_LOCATION)
         //checkPermissions(permissionList)
-        Location()
+        setLocation()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -101,10 +101,9 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
 
         setNavigationMenu()
 
-//        setLocation()
     }
 
-    private fun Location() {
+    private fun setLocation() {
         checkLocationPermission() {
             Log.e("Location", latitude + "@" + longitude)
             binding.addressUpdate.text = address
@@ -457,13 +456,13 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
                 dismissProgressDialog()
                 if (responseModel.success != null) {
                     if (responseModel.success.statuscode == 200) {
-                        var serviceCounts: MenuItemsCount? =
+                        val serviceCounts: MenuItemsCount? =
                             responseModel.success.homeMenuItems?.menuItemsCount
-                        var earningCounts: OtherItemsCount? =
+                        val earningCounts: OtherItemsCount? =
                             responseModel.success.homeMenuItems?.otherItemsCount
-                        var todayPerformanceCounts: TodayPerformanceCount? =
+                        val todayPerformanceCounts: TodayPerformanceCount? =
                             responseModel.success.homeMenuItems?.todayPerformanceCount
-                        var userDetail: UserDetails? =
+                        val userDetail: UserDetails? =
                             responseModel.success.homeMenuItems?.userDetails
 
                         //tracking count

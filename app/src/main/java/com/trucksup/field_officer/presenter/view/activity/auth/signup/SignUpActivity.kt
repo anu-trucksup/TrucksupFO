@@ -210,39 +210,6 @@ class SignUpActivity : BaseActivity(), View.OnClickListener, TrucksFOImageContro
     }
 
     private fun setupObserver() {
-        signupViewModel?.resultSendOTPLD?.observe(
-            this@SignUpActivity
-        ) { responseModel ->
-            if (responseModel.serverError != null) {
-                dismissProgressDialog()
-
-                val abx =
-                    AlertBoxDialog(this@SignUpActivity, responseModel.serverError.toString(), "m")
-                abx.show()
-            } else {
-                dismissProgressDialog()
-            }
-        }
-
-        signupViewModel?.verifyOTPResultLD?.observe(this@SignUpActivity) { responseModel ->                // verify otp observer
-            if (responseModel.serverError != null) {
-                dismissProgressDialog()
-
-                val abx = AlertBoxDialog(
-                    this@SignUpActivity,
-                    responseModel.serverError.toString(), "m"
-                )
-                abx.show()
-            } else {
-                mSignUpBinding!!.otpErrorText.visibility = View.GONE
-                mSignUpBinding!!.otpTxt.background =
-                    getDrawable(R.drawable.edit_text_background_view)
-                dismissProgressDialog()
-                Toast.makeText(this, "OTP verified Successfully", Toast.LENGTH_SHORT).show()
-
-            }
-        }
-
 
         signupViewModel?.registerUserLD?.observe(this@SignUpActivity) { responseModel ->
             if (responseModel.serverError != null) {
