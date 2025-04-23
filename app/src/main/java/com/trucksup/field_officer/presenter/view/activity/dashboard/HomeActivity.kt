@@ -69,6 +69,9 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
     private var dialog: AlertDialog?=null
     private var dialog2: AlertDialog?=null
 
+    private var backPressedTime: Long = 0
+    private lateinit var toast: Toast
+
 
     override fun onStart() {
         super.onStart()
@@ -871,6 +874,20 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
         this.binding.txtOnDuty.text = "Off Duty"
         this.binding.txtOnDuty.setTextColor(resources.getColor(R.color.red))
         this.binding.OnSwitchBtn.trackTintList = resources.getColorStateList(R.color.red)
+    }
+
+
+    override fun onBackPressed() {
+       // super.onBackPressed()
+
+        if (backPressedTime + 2000 > System.currentTimeMillis()) {
+            toast.cancel()
+            super.onBackPressed()
+        } else {
+            toast = Toast.makeText(this, "Press back again to exit", Toast.LENGTH_SHORT)
+            toast.show()
+        }
+        backPressedTime = System.currentTimeMillis()
     }
 
 }

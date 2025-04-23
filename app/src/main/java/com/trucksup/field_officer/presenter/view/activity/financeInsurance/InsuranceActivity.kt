@@ -16,6 +16,7 @@ import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
@@ -39,7 +40,7 @@ import com.trucksup.field_officer.presenter.common.LoadingUtils
 import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.dialog.FinaceSubmitBox
 import com.trucksup.field_officer.presenter.common.image_picker.GetImage
-import com.trucksup.field_officer.presenter.common.image_picker.ImagePickerDailog
+import com.trucksup.field_officer.presenter.common.image_picker.ImagePickerDialog
 import com.trucksup.field_officer.presenter.common.image_picker.TrucksFOImageController
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
@@ -50,7 +51,6 @@ import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.S
 import com.trucksup.field_officer.presenter.view.activity.other.ViewPdfScreen
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
-import java.io.FileOutputStream
 import java.util.Locale
 import java.util.regex.Pattern
 
@@ -73,7 +73,7 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
     private var sourceValue: String? = "BO"
 
     private var launcher: ActivityResultLauncher<Intent>? = null
-    private var imageUri:String = ""
+    private var imageUri: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -99,7 +99,11 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
         disableEmojiInTitle()
         setListener()
         setupObserver()
-        cameraActivityresult()
+
+
+        requestCameraAndGalleryPermissions {
+            cameraActivityresult()
+        }
     }
 
     private fun setRecyclerView() {
@@ -150,7 +154,8 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
 
     }
 
-    private var activityPdfLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+    private var activityPdfLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == RESULT_OK) {
 
                 val orFile: File = FileHelp().getFile(this, result.data?.data)!!
@@ -288,8 +293,7 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
                     resources.getString(R.string.insurance_validity_error),
                     this
                 )
-            }
-            else {
+            } else {
                 addListItem()
             }
         }
@@ -323,8 +327,7 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
                             resources.getString(R.string.insurance_validity_error),
                             this
                         )
-                    }
-                    else {
+                    } else {
                         list.add(
                             VehicleDetail(
                                 binding.etInsValidity.text.toString(),
@@ -368,8 +371,7 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
                                 this
                             )
 
-                        }
-                        else {
+                        } else {
                             list.add(
                                 VehicleDetail(
                                     binding.etInsValidity.text.toString(),
@@ -410,8 +412,7 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
                             this
                         )
                     }
-                }
-                else {
+                } else {
                     if (!TextUtils.isEmpty(binding.etVehicleNo.text)) {
                         if (!checkVehicleNumber(binding.etVehicleNo.text.toString())) {
                             LoggerMessage.onSNACK(
@@ -426,8 +427,7 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
                                 resources.getString(R.string.insurance_validity_error),
                                 this
                             )
-                        }
-                        else {
+                        } else {
                             list.add(
                                 VehicleDetail(
                                     binding.etInsValidity.text.toString(),
@@ -469,8 +469,7 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
                                     this
                                 )
 
-                            }
-                            else {
+                            } else {
                                 list.add(
                                     VehicleDetail(
                                         binding.etInsValidity.text.toString(),
@@ -511,9 +510,7 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
                                 this
                             )
                         }
-                    }
-
-                    else {
+                    } else {
                         var requestData = SubmitInsuranceInquiryRequest(
                             PreferenceManager.getRequestNo(),
                             PreferenceManager.getServerDateUtc(),
@@ -780,12 +777,13 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
             chooseFile = Intent.createChooser(chooseFile, "Choose a file")
             activityPdfLauncher.launch(chooseFile)
         } else {
-            val imagePickerDialog = ImagePickerDailog(this, this)
+            val imagePickerDialog = ImagePickerDialog(this, this)
             imagePickerDialog.show()
         }
     }
 
-    private val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+    private val pickMedia =
+        registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
             // Callback is invoked after the user selects a media item or closes the
             // photo picker.
             if (uri != null) {
@@ -921,7 +919,8 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
                 Glide.with(this)
                     .load(url)
                     .into(binding.imgFrontCamera)
-            } catch (_: Exception) { }
+            } catch (_: Exception) {
+            }
         } else if (imageT == 2) {
             rcBackImgKey = value
             rcBackImgUrl = url
@@ -930,7 +929,8 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
                 Glide.with(this)
                     .load(url)
                     .into(binding.imgBackCamera)
-            } catch (_: Exception) { }
+            } catch (_: Exception) {
+            }
         } else if (imageT == 3) {
             prevPolicyDocsImgKey = value
             prevPolicyDocsImgUrl = url
@@ -939,7 +939,8 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
                 Glide.with(this)
                     .load(R.drawable.pdf_icon)
                     .into(binding.imgPrevPolicyDoc)
-            } catch (_: Exception) { }
+            } catch (_: Exception) {
+            }
         }
     }
 

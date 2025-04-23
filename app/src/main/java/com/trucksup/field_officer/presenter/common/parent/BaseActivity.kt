@@ -28,7 +28,7 @@ import java.io.IOException
 import java.util.Locale
 
 open class BaseActivity : AppCompatActivity() {
-
+    private val permissionCallbackMap = mutableMapOf<String, () -> Unit>()
     private var progressDialog: ProgressDialogBox? = null
     var latitude: String = ""
     var longitude: String = ""
@@ -39,10 +39,8 @@ open class BaseActivity : AppCompatActivity() {
         checkLocationPermission()
     }
 
-    fun showProgressDialog(
-        context: Context?,
-        isCancelable: Boolean
-    ) {
+    fun showProgressDialog(context: Context?,
+        isCancelable: Boolean) {
         dismissProgressDialog()
         if (context != null) {
             try {
@@ -220,6 +218,19 @@ open class BaseActivity : AppCompatActivity() {
         }
     }
 
+
+    private val permissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        permissions.entries.forEach { (permission, isGranted) ->
+            if (isGranted) {
+                permissionCallbackMap[permission]?.invoke()
+            } else {
+                Toast.makeText(this, "$permission permission denied", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
     private fun showLocationDisabledDialog() {
         AlertDialog.Builder(this)
             .setTitle("Location Services Disabled")
@@ -234,6 +245,26 @@ open class BaseActivity : AppCompatActivity() {
             }
             .setCancelable(false)
             .show()
+    }
+
+
+
+    fun requestCameraAndGalleryPermissions(onGranted: () -> Unit) {
+        val neededPermissions = listOf(
+            Manifest.permission.CAMERA,
+            Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE // Or use READ_MEDIA_IMAGES for SDK 33+
+        ).filter {
+            ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED
+        }
+
+        if (neededPermissions.isEmpty()) {
+            onGranted()
+        } else {
+            neededPermissions.forEach {
+                permissionCallbackMap[it] = onGranted
+            }
+            permissionLauncher.launch(neededPermissions.toTypedArray())
+        }
     }
 
 }

@@ -36,7 +36,7 @@ import com.trucksup.field_officer.presenter.common.FileHelp
 import com.trucksup.field_officer.presenter.common.LoadingUtils
 import com.trucksup.field_officer.presenter.common.dialog.FinaceSubmitBox
 import com.trucksup.field_officer.presenter.common.image_picker.GetImage
-import com.trucksup.field_officer.presenter.common.image_picker.ImagePickerDailog
+import com.trucksup.field_officer.presenter.common.image_picker.ImagePickerDialog
 import com.trucksup.field_officer.presenter.common.image_picker.TrucksFOImageController
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
@@ -509,7 +509,7 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
                 chooseFile = Intent.createChooser(chooseFile, "Choose a file")
                 activitypdfLauncher.launch(chooseFile)
             } else {
-                val imagePickerDialog = ImagePickerDailog(this, this)
+                val imagePickerDialog = ImagePickerDialog(this, this)
                 imagePickerDialog.show()
             }
         }
@@ -599,7 +599,7 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
                         chooseFile = Intent.createChooser(chooseFile, "Choose a file")
                         activitypdfLauncher.launch(chooseFile)
                     } else {
-                        val imagePickerDailog = ImagePickerDailog(this, this)
+                        val imagePickerDailog = ImagePickerDialog(this, this)
                         imagePickerDailog.show()
                     }
                 } else {

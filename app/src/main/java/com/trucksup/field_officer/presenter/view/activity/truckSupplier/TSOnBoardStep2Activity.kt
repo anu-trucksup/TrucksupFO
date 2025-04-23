@@ -74,7 +74,7 @@ class TSOnBoardStep2Activity : BaseActivity(), PreferredLaneAdap.ControllerListe
     var subCityValue: String = ""
     var tempSubCityList = ArrayList<PnData>()
     private var subCity: String = ""
-    var isOtherSubCity: String="N"
+    var isOtherSubCity: String = "N"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -329,9 +329,9 @@ class TSOnBoardStep2Activity : BaseActivity(), PreferredLaneAdap.ControllerListe
                     id: Long
                 ) {
 //                val selectedItem = parent.getItemAtPosition(position).toString()
-                    var tv: TextView = findViewById(view.id)
+                    val tv: TextView = findViewById(view.id)
                     tv.setBackgroundColor(Color.parseColor("#00007fff"))
-                    tv.setTextColor(resources.getColor(R.color.secondry_text))
+                    tv.setTextColor(resources.getColor(R.color.secondary_text))
                     if (!tempSubCityList.isNullOrEmpty()) {
                         if (!tempSubCityList[position].officeName.isNullOrEmpty()) {
                             subCityValue = tempSubCityList[position].officeName.toString()
@@ -341,7 +341,7 @@ class TSOnBoardStep2Activity : BaseActivity(), PreferredLaneAdap.ControllerListe
 
                                 tv.setTextColor(Color.parseColor("#c0c0c0"))
                             } else {
-                                tv.setTextColor(resources.getColor(R.color.secondry_text))
+                                tv.setTextColor(resources.getColor(R.color.secondary_text))
 
                             }
                         }
@@ -606,11 +606,11 @@ class TSOnBoardStep2Activity : BaseActivity(), PreferredLaneAdap.ControllerListe
 
                 try {
                     imageUri = data?.getStringExtra("result").toString()
-                    binding.profileImage.let {
-                        Glide.with(applicationContext)
-                            .load(data?.getStringExtra("result")?.toUri())
-                            .into(it)
-                    }
+                    /* binding.profileImage.let {
+                         Glide.with(applicationContext)
+                             .load(data?.getStringExtra("result")?.toUri())
+                             .into(it)
+                     }*/
 
                     val orFile: File = FileHelp().getFile(this, result.data?.data)!!
 
@@ -685,15 +685,10 @@ class TSOnBoardStep2Activity : BaseActivity(), PreferredLaneAdap.ControllerListe
 
     private fun pinData(city: String, cityHindi: String, state: String, stateHindi: String) {
         dismissProgressDialog()
-        if (PreferenceManager.getLanguage(this) == "en") {
-            binding.eTcity.setText(city)
-            binding.eTState.setText(state)
-            // stateProfile = state
-        } else {
-            binding.eTcity.setText(cityHindi)
-            binding.eTState.setText(stateHindi)
-            // stateProfile = state
-        }
+
+        binding.eTcity.setText(city)
+        binding.eTState.setText(state)
+
     }
 
 

@@ -757,4 +757,7 @@
     <string name="on_duty_confirm_msg">Please confirm the date and time to turn on the duty.</string>
     <string name="off_duty_confirm_msg">Please confirm the date and time to turn off the duty.</string>
 
+    <string name="select_doc_type">Please select the document type.</string>
+    <string name="select_doc_img">Please upload the document proof photo.</string>
+
 </resources>
