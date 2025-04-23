@@ -103,7 +103,7 @@ class FileHelp {
         return name
     }
 
-    fun createFileFromStream(ins: InputStream, destination: File?) {
+    private fun createFileFromStream(ins: InputStream, destination: File?) {
         try {
             FileOutputStream(destination).use { os ->
                 val buffer = ByteArray(4096)

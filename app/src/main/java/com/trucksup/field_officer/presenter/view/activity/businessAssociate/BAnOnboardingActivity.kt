@@ -4,8 +4,10 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
+import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -28,6 +30,7 @@ import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.CameraActivity
 import com.trucksup.field_officer.presenter.common.FileHelp
 import com.trucksup.field_officer.presenter.common.dialog.HappinessCodeBox
+import com.trucksup.field_officer.presenter.common.image_picker.TrucksFOImageController
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
@@ -40,18 +43,19 @@ import java.io.FileOutputStream
 import java.io.OutputStream
 
 @AndroidEntryPoint
-class BAnOnboardingActivity : BaseActivity() {
+class BAnOnboardingActivity : BaseActivity(), TrucksFOImageController {
     private lateinit var binding: ActivityBaNewOnboardingBinding
-    private var launcher: ActivityResultLauncher<Intent>? = null
+    private var cameraLauncher: ActivityResultLauncher<Intent>? = null
     private var mViewModel: BAOnboardViewModel? = null
     private var imageUri: String = ""
     private var docType: String = ""
-    private var imageUrl: String = ""
+    private var docimageUrl: String = ""
 
     var subCityValue: String = ""
     var tempSubCityList = ArrayList<PnData>()
     private var subCity: String = ""
-    var isOtherSubCity: String="N"
+    var isOtherSubCity: String = "N"
+    private var frontImgKey: String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,8 +64,8 @@ class BAnOnboardingActivity : BaseActivity() {
         adjustFontScale(resources.configuration, 1.0f);
         setContentView(binding.root)
 
-        docType = intent.getStringExtra("doc").toString()
-        imageUrl = intent.getStringExtra("img").toString()
+        docType = intent.getStringExtra("docType").toString()
+        docimageUrl = intent.getStringExtra("imgUrl").toString()
         mViewModel = ViewModelProvider(this)[BAOnboardViewModel::class.java]
 
         binding.btnAdd.setOnClickListener() {
@@ -73,12 +77,37 @@ class BAnOnboardingActivity : BaseActivity() {
         }
 
         binding.cvCamera.setOnClickListener {
-            launcher
+            callCamera()
         }
 
         setPinCode()
         setupObserver()
-        cameraListener()
+        cameraActivityResult()
+    }
+
+    private fun cameraActivityResult() {
+        cameraLauncher = registerForActivityResult<Intent, ActivityResult>(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result: ActivityResult ->
+            if (result.resultCode == RESULT_OK) {
+                val data = result.data
+
+                try {
+                    val imageUris: Uri = data!!.getStringExtra("result")!!.toUri()
+                    val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(
+                        contentResolver, Uri.parse(imageUris.toString())
+                    )
+                    // Set the image in imageview for display
+                    val newBitmap: Bitmap = FileHelp().resizeImage(bitmap, 500)
+                    val newFile: File = FileHelp().bitmapTofile(newBitmap, this)
+                    uploadImage(newFile)
+
+                    //handleImageCapture(bitmap)
+                } catch (ex: Exception) {
+                    ex.printStackTrace()
+                }
+            }
+        }
     }
 
     private fun setPinCode() {
@@ -94,9 +123,9 @@ class BAnOnboardingActivity : BaseActivity() {
                 }
             }
 
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) { }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) { }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
         binding.spinnerSubCity.onItemSelectedListener =
@@ -110,7 +139,7 @@ class BAnOnboardingActivity : BaseActivity() {
 //                val selectedItem = parent.getItemAtPosition(position).toString()
                     var tv: TextView = findViewById(view.id)
                     tv.setBackgroundColor(Color.parseColor("#00007fff"))
-                    tv.setTextColor(resources.getColor(R.color.secondry_text))
+                    tv.setTextColor(resources.getColor(R.color.secondary_text))
                     if (!tempSubCityList.isNullOrEmpty()) {
                         if (!tempSubCityList[position].officeName.isNullOrEmpty()) {
                             subCityValue = tempSubCityList[position].officeName.toString()
@@ -120,7 +149,7 @@ class BAnOnboardingActivity : BaseActivity() {
 
                                 tv.setTextColor(Color.parseColor("#c0c0c0"))
                             } else {
-                                tv.setTextColor(resources.getColor(R.color.secondry_text))
+                                tv.setTextColor(resources.getColor(R.color.secondary_text))
 
                             }
                         }
@@ -260,7 +289,7 @@ class BAnOnboardingActivity : BaseActivity() {
                 ph,
                 binding.eTState.text.toString(),
                 docType,
-                imageUrl,
+                docimageUrl,
                 "Mobile App",
                 PreferenceManager.getCurrentDateTime(),
                 "Unverified",
@@ -344,63 +373,6 @@ class BAnOnboardingActivity : BaseActivity() {
         dialog.show()
     }
 
-    private fun cameraListener() {
-        launcher = registerForActivityResult<Intent, ActivityResult>(
-            ActivityResultContracts.StartActivityForResult()
-        ) { result: ActivityResult ->
-            if (result.resultCode == RESULT_OK) {
-                val data = result.data
-
-                try {
-                    imageUri = data!!.getStringExtra("result").toString()
-                    binding.profileImage?.let {
-                        Glide.with(getApplicationContext())
-                            .load(data!!.getStringExtra("result")?.toUri())
-                            .into(it)
-                    }
-                    //profileImage?.setRotation(270F)
-                    var orFile: File =
-                        FileHelp().getFile(this, data!!.getStringExtra("result")?.toUri())!!
-                    var newBitmap: Bitmap = FileHelp().fileToBitmap(orFile)
-
-
-                    val name = "trucksUp_image" + System.currentTimeMillis() + ".jpg"
-                    val pt = Environment.DIRECTORY_PICTURES //+  "/trucksUp";
-                    val MEDIA_PATH =
-                        Environment.getExternalStorageDirectory().absolutePath + "/" + pt + "/"
-
-                    val filesDir: File = getFilesDir()
-                    val imageFile = File(filesDir, name)
-
-                    val os: OutputStream
-                    os = FileOutputStream(imageFile)
-                    newBitmap.compress(Bitmap.CompressFormat.JPEG, 99, os)
-                    os.flush()
-                    os.close()
-
-                    //LoadingUtils?.showDialog(this, false)
-                    //LoadingUtils.showDialog(this, false)
-                    /*MyResponse()?.uploadImage(
-                        "jpg",
-                        "DOC" + PreferenceManager.getRequestNo(),
-                        "" + PreferenceManager.getPhoneNo(this),
-                        PreferenceManager.prepareFilePart(imageFile!!),
-                        this,
-                        this
-                    )*/
-                } catch (ex: Exception) {
-                    ex.printStackTrace()
-                }
-            }
-        }
-    }
-
-    private fun launchCamera() {
-        val intent = Intent(this, CameraActivity::class.java)
-        intent.putExtra("flipCamera", true)
-        intent.putExtra("cameraOpen", 0)
-        launcher!!.launch(intent)
-    }
 
     private fun getPinData(token: String) {
         val request = PinCodeRequest(
@@ -416,6 +388,53 @@ class BAnOnboardingActivity : BaseActivity() {
         binding.eTCity.setText(city)
         binding.eTState.setText(state)
 
+    }
+
+    private fun callCamera() {
+        launchCamera(true, 1, false)
+    }
+
+    private fun launchCamera(flipCamera: Boolean, cameraOpen: Int, focusView: Boolean) {
+        val intent = Intent(this, CameraActivity::class.java)
+        intent.putExtra("flipCamera", flipCamera)
+        intent.putExtra("cameraOpen", cameraOpen)
+        intent.putExtra("focusView", focusView)
+        cameraLauncher?.launch(intent)
+    }
+
+
+    fun uploadImage(file: File) {
+        showProgressDialog(this, false)
+
+        mViewModel?.uploadProfileImage(
+            PreferenceManager.getAuthToken(),
+            "image",
+            PreferenceManager.prepareFilePartTrucksHum(file, "imageFile"),
+            PreferenceManager.prepareFilePartTrucksHum(file, "watermarkFile"),
+            this
+        )
+    }
+
+    override fun getImage(valuekey: String, url: String) {
+        dismissProgressDialog()
+        binding.image.visibility = View.VISIBLE
+        try {
+            Glide.with(this)
+                .load(url)
+                .into(binding.image)
+        } catch (_: Exception) {
+        }
+        binding.image.tag = "y"
+
+        frontImgKey = valuekey
+    }
+
+    override fun dataSubmitted(message: String) {
+    }
+
+    override fun imageError(error: String) {
+        dismissProgressDialog()
+        LoggerMessage.onSNACK(binding.image, error, this)
     }
 
 
