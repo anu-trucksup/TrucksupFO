@@ -93,7 +93,7 @@
             android:exported="false"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".presenter.view.activity.other.FollowUpActivity"
+            android:name=".presenter.view.activity.todayFollowup.FollowUpActivity"
             android:exported="false"
             android:screenOrientation="portrait"/>
         <activity

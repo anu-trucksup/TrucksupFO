@@ -344,14 +344,14 @@ class APIRepositoryImpl constructor(private val apiService: ApiService) : APIRep
         authToken: String,
         request: GetMeetScheduleDetailsRequest
     ): ResultWrapper<GetMeetScheduleDetailsResponse> {
-        return safeApiCall(Dispatchers.IO) { apiService.TSMeetGetSchedule(authToken, request) }
+        return safeApiCall(Dispatchers.IO) { apiService.getAllTSDetails(authToken, request) }
     }
 
     override suspend fun getBAMeetScheduleData(
         authToken: String,
         request: GetMeetScheduleDetailsRequest,
     ): ResultWrapper<GetMeetScheduleDetailsResponse> {
-        return safeApiCall(Dispatchers.IO) { apiService.BAMeetGetSchedule(authToken, request) }
+        return safeApiCall(Dispatchers.IO) { apiService.getAllBADetails(authToken, request) }
     }
 
     override suspend fun getGPMeetScheduleData(
@@ -359,7 +359,7 @@ class APIRepositoryImpl constructor(private val apiService: ApiService) : APIRep
         request: GetMeetScheduleDetailsRequest,
     ): ResultWrapper<GetMeetScheduleDetailsResponse> {
         return safeApiCall(Dispatchers.IO) {
-            apiService.GPMeetGetSchedule(authToken, request)
+            apiService.getAllGPDetails(authToken, request)
         }
         //add by me
     }
