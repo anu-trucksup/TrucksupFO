@@ -402,7 +402,7 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
 
     private fun setupObserver() {
         mViewModel?.resultDutyStatusLD?.observe(this) { responseModel ->                     // login function observe
-            apiDutyStatus = false
+//            apiDutyStatus = false
             if (responseModel.serverError != null) {
                 if (dutyStatus == false) {
                     dutyStatus = true
@@ -445,6 +445,7 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
                     }
                 }
             }
+            apiDutyStatus = false
         }
 
         mViewModel?.resultAllHomeCountStatusLD?.observe(this) { responseModel ->                     // login function observe
