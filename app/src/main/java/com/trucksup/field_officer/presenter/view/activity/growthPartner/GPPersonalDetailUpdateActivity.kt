@@ -17,6 +17,7 @@ import androidx.core.net.toUri
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.google.gson.Gson
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ActivityGpPersonalDetailUpdateBinding
 import com.trucksup.field_officer.presenter.common.CameraActivity
@@ -25,6 +26,7 @@ import com.trucksup.field_officer.presenter.common.image_picker.TrucksFOImageCon
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
+import com.trucksup.field_officer.presenter.view.activity.growthPartner.model.GPOnboardingData
 import com.trucksup.field_officer.presenter.view.activity.growthPartner.vml.GPOnboardingVM
 import com.trucksup.field_officer.presenter.view.activity.growth_partner.GPKYCActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,14 +35,25 @@ import java.util.regex.Pattern
 
 
 @AndroidEntryPoint
-class GPPersonalDetailUpdateActivity : BaseActivity(), TrucksFOImageController, View.OnClickListener {
+class GPPersonalDetailUpdateActivity : BaseActivity(), TrucksFOImageController,
+    View.OnClickListener {
     private var launcher: ActivityResultLauncher<Intent>? = null
     private lateinit var binding: ActivityGpPersonalDetailUpdateBinding
     private var onboardViewModel: GPOnboardingVM? = null
-    val businessTypeList = listOf("Select", "Brokers", "Tyre Distributors", "Lubricant Distributors", "Auto Spare Parts Shops"
-    , "Body Builders/ Body Painters", "RTO Agents/ Bank Agents", "Insurance Agent", "Bank DSN / Finance Agent / Insurance Agent")
-    var selectedbusinessType:String=""
-    private var frontImgKey: String? = ""
+    val businessTypeList = listOf(
+        "Select",
+        "Brokers",
+        "Tyre Distributors",
+        "Lubricant Distributors",
+        "Auto Spare Parts Shops",
+        "Body Builders/ Body Painters",
+        "RTO Agents/ Bank Agents",
+        "Insurance Agent",
+        "Bank DSN / Finance Agent / Insurance Agent"
+    )
+    var selectedbusinessType: String = ""
+    private var ImgKey: String? = ""
+    private var ImgKeyUrl: String? = ""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,25 +64,47 @@ class GPPersonalDetailUpdateActivity : BaseActivity(), TrucksFOImageController, 
         setContentView(view)
         onboardViewModel = ViewModelProvider(this)[GPOnboardingVM::class.java]
 
+
         setOnClicks()
         cameraLauncher()
+
+        //test
+        val gson = Gson()
+        val json = intent.getStringExtra("userDataJson")
+        val gpOnboardingData = gson.fromJson(json, GPOnboardingData::class.java)
+        //set Text
+        binding.ETSalesCode.setText(gpOnboardingData.SalesCodeofBO)
+        binding.ETGPMobileNumber.setText(gpOnboardingData.GPMobileNumber)
+        binding.ETGPName.setText(gpOnboardingData.GPName)
+        binding.ETGpBusinessName.setText(gpOnboardingData.BusinessName)
+        selectedbusinessType = gpOnboardingData.BusinessType
+        binding.ETGpPincode.setText(gpOnboardingData.Pincode)
+        //set Text
+
 
 
         //test
         binding.ETSalesCode.setText(PreferenceManager.getUserData(this)?.referralcode)
-        val categoryAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, businessTypeList)
+        val categoryAdapter =
+            ArrayAdapter(this, android.R.layout.simple_spinner_item, businessTypeList)
         categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.businessTypeSpinner.adapter = categoryAdapter
 
-        binding.businessTypeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                selectedbusinessType = businessTypeList[position]
-            }
+        binding.businessTypeSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    selectedbusinessType = businessTypeList[position]
+                }
 
-            override fun onNothingSelected(parent: AdapterView<*>) {
-                // Optional: Handle case when nothing is selected
+                override fun onNothingSelected(parent: AdapterView<*>) {
+                    // Optional: Handle case when nothing is selected
+                }
             }
-        }
         //test
     }
 
@@ -89,7 +124,7 @@ class GPPersonalDetailUpdateActivity : BaseActivity(), TrucksFOImageController, 
                     )
                     // Set the image in imageview for display
                     val newBitmap: Bitmap = FileHelp().resizeImage(bitmap, 500)
-                    val newFile: File = FileHelp().bitmapTofile(newBitmap,this)
+                    val newFile: File = FileHelp().bitmapTofile(newBitmap, this)
                     uploadImage(newFile)
 
                 } catch (ex: Exception) {
@@ -98,7 +133,6 @@ class GPPersonalDetailUpdateActivity : BaseActivity(), TrucksFOImageController, 
             }
         }
     }
-
     private fun launchCamera() {
         val intent = Intent(this, CameraActivity::class.java)
         intent.putExtra("flipCamera", true)
@@ -125,13 +159,13 @@ class GPPersonalDetailUpdateActivity : BaseActivity(), TrucksFOImageController, 
 
 
     fun CheckValidation() {
-        if (frontImgKey.isNullOrEmpty()) {
+        if (ImgKey.isNullOrEmpty()) {
             LoggerMessage.onSNACK(
                 binding.cvCamera,
                 resources.getString(R.string.PleaseSelectStorePhoto),
                 this
             )
-        }else if (binding.ETSalesCode.text.isEmpty()) {
+        } else if (binding.ETSalesCode.text.isEmpty()) {
             binding.ETSalesCode.requestFocus()
             binding.ETSalesCode.setError(getString(R.string.PleaseenterSalesCode))
         } else if (binding.ETGPMobileNumber.text.toString().isEmpty()) {
@@ -149,18 +183,46 @@ class GPPersonalDetailUpdateActivity : BaseActivity(), TrucksFOImageController, 
                 getString(R.string.input_business_type),
                 this
             )
-        }else if (binding.ETGpPincode.text.isEmpty()) {
+        } else if (binding.ETGpPincode.text.isEmpty()) {
             binding.ETGpPincode.requestFocus()
             binding.ETGpPincode.setError(getString(R.string.PleaseEnterBusinessPincode))
-        }
-        else if (binding.ETGpPincode.text.length < 6) {
+        } else if (binding.ETGpPincode.text.length < 6) {
             binding.ETGpPincode.requestFocus()
             binding.ETGpPincode.setError(getString(R.string.PleaseEnterRightPincode))
-        }else if (binding.ETGpBusinessAddress.text.isEmpty()) {
+        } else if (binding.ETGpBusinessAddress.text.isEmpty()) {
             binding.ETGpBusinessAddress.requestFocus()
             binding.ETGpBusinessAddress.setError(getString(R.string.PleaseBusinessAddress))
         } else {
-            startActivity(Intent(this, GPKYCActivity::class.java))
+
+            //test
+            val gson = Gson()
+            val json = intent.getStringExtra("userDataJson")
+            val gpOnboardingData = gson.fromJson(json, GPOnboardingData::class.java)
+
+
+            val updatedUser = gpOnboardingData.copy(
+                ProfilePhoto = ImgKey!!,
+                ProfilePhotoURL = ImgKeyUrl.toString(),
+                SalesCodeofBO = binding.ETSalesCode.text.toString(),
+                GPMobileNumber = binding.ETGPMobileNumber.text.toString(),
+                GPName = binding.ETGPName.text.toString(),
+                BusinessName = binding.ETGpBusinessName.text.toString(),
+                BusinessType = selectedbusinessType,
+                Pincode = binding.ETGpPincode.text.toString(),
+                City = binding.ETSalesCode.text.toString(),
+                State = binding.ETSalesCode.text.toString()
+            )
+
+            val updatedJson = gson.toJson(updatedUser)
+
+            //val intent = Intent(this, GpOnboardingPreviewActivity::class.java)
+            val intent = Intent(this, GPOnBoardStoreProofActivity::class.java)
+            intent.putExtra("userDataJson", updatedJson)
+            startActivity(intent)
+            //test
+
+
+            //startActivity(Intent(this, GPKYCActivity::class.java))
             //binding.ETPanNumberNOB.requestFocus()
             /*val customErrorDrawable = resources.getDrawable(com.trucksup.fieldofficer.R.drawable.ic_phone)
             customErrorDrawable.setBounds(
@@ -175,6 +237,7 @@ class GPPersonalDetailUpdateActivity : BaseActivity(), TrucksFOImageController, 
         }
 
     }
+
     private fun setOnClicks() {
         binding.btnContinue!!.setOnClickListener(this)
         binding.cvCamera!!.setOnClickListener(this)
@@ -191,10 +254,10 @@ class GPPersonalDetailUpdateActivity : BaseActivity(), TrucksFOImageController, 
 
     private fun isValidMobiles(phone: String): Boolean {
         return if (!Pattern.matches("[a-zA-Z]+", phone)) {
-            Toast.makeText(this, "HIBB",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "HIBB", Toast.LENGTH_SHORT).show()
             phone.length > 6 && phone.length <= 10
         } else {
-            Toast.makeText(this, "HIAA",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "HIAA", Toast.LENGTH_SHORT).show()
             false
         }
     }
@@ -209,7 +272,8 @@ class GPPersonalDetailUpdateActivity : BaseActivity(), TrucksFOImageController, 
         }
         binding?.profileImage?.tag = "y"
 
-        frontImgKey = valuekey
+        ImgKey = valuekey
+        ImgKeyUrl = url
     }
 
     override fun dataSubmitted(message: String) {

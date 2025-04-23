@@ -7,10 +7,12 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import com.google.gson.Gson
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ActivityGpOnboardingBinding
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
+import com.trucksup.field_officer.presenter.view.activity.growthPartner.model.GPOnboardingData
 
 class GPOnboardingActivity : BaseActivity() {
     private lateinit var binding: ActivityGpOnboardingBinding
@@ -121,7 +123,20 @@ class GPOnboardingActivity : BaseActivity() {
     }
 
     fun growth_continue() {
-        startActivity(Intent(this, GPPersonalDetailUpdateActivity::class.java))
+        val userData = GPOnboardingData(binding.ETAccountHolderName.text.toString(),
+            binding.ETAccountHolderNumber.text.toString(), selectedCategory,
+            selectedCategory,"","",""
+        ,"","","","","","",""
+        ,"","","", "",""
+        ,"","","","","") // only name filled
+
+        val gson = Gson()
+        val jsonData = gson.toJson(userData)
+        val intent = Intent(this, GPPersonalDetailUpdateActivity::class.java)
+        intent.putExtra("userDataJson", jsonData)
+        startActivity(intent)
+
+        //startActivity(Intent(this, GPPersonalDetailUpdateActivity::class.java))
     }
 
 }
