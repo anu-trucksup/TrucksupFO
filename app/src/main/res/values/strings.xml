@@ -385,13 +385,6 @@
     <string name="state2">State:</string>
     <string name="address2">Address:</string>
     <string name="SelectPartnerType_star">Select Partner Type<font color='#FF0000'>*</font></string>
-    <string-array name="select_partner">
-        <item>Select</item>
-        <item>Select Partner type</item>
-        <item>Select Partner type</item>
-        <item>Select Partner type</item>
-        <item>Select Partner type</item>
-    </string-array>
 
     <string name="enter_otp">Enter Verification Code</string>
     <string name="SkipAadhaar">Skip Aadhaar KYC for now</string>
@@ -750,5 +743,9 @@
     <string name="prev_commit_text">View the previously added commitments and the achievements.</string>
     <string name="view"><u>View</u></string>
     <string name="addressStar">Address <font color='#FF0000'>*</font></string>
+    <string name="inputGPName">Please input the growth partner name</string>
+    <string name="inputGPNumber">Please input the growth partner mobile number</string>
+    <string name="inputGPPartnerType">Please select the partner type</string>
+    <string name="input_business_type">Please select the business type</string>
 
 </resources>

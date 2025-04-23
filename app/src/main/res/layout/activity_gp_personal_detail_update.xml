@@ -40,6 +40,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="@dimen/_32sdp"
+                android:layout_marginHorizontal="@dimen/_12sdp"
                 android:orientation="vertical">
 
                 <TextView
@@ -146,7 +147,8 @@
                     android:paddingVertical="@dimen/_4sdp"
                     android:text=""
                     android:lines="1"
-                    android:textSize="@dimen/_12ssp" />
+                    android:textSize="@dimen/_12ssp"
+                    android:editable="false"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -229,20 +231,23 @@
                     android:text="@string/BusinessType_star"
                     style="@style/edit_label"/>
 
-                <EditText
-                    android:id="@+id/ETGPBusinessType"
+                <LinearLayout
+                    android:id="@+id/linearLayout1"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/_30sdp"
                     android:layout_marginHorizontal="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:background="@drawable/grey_edit_background"
-                    android:fontFamily="@font/bai_jamjuree_medium"
-                    android:inputType="phone"
-                    android:lines="1"
-                    android:paddingHorizontal="@dimen/_10sdp"
-                    android:paddingVertical="@dimen/_4sdp"
-                    android:text=""
-                    android:textSize="@dimen/_12ssp" />
+                    android:orientation="horizontal">
+
+                    <Spinner
+                        android:id="@+id/business_type_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/bai_jamjuree_medium"
+                        android:paddingHorizontal="@dimen/_3sdp" />
+
+                </LinearLayout>
 
                 <TextView
                     android:layout_width="match_parent"
