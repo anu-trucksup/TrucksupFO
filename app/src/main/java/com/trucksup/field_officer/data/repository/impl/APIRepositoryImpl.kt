@@ -4,15 +4,14 @@ package com.trucksup.field_officer.data.repository.impl
 import com.glovejob.data.model.UserSessionResponse
 import com.logistics.trucksup.activities.preferre.modle.PrefferLanRequest
 import com.logistics.trucksup.activities.preferre.modle.PrefferdResponse
+import com.logistics.trucksup.activities.preferre.modle.GetMeetScheduleDetailsRequest
 import com.logistics.trucksup.modle.PlanResponse
 import com.trucksup.field_officer.data.model.AutoImageSlideResponse
 import com.trucksup.field_officer.data.model.DutyStatusRequest
 import com.trucksup.field_officer.data.model.DutyStatusResponse
-import com.trucksup.field_officer.data.model.GetUserProfileResponse
 import com.trucksup.field_officer.data.model.PinCodeRequest
 import com.trucksup.field_officer.data.model.PinCodeResponse
 import com.trucksup.field_officer.data.model.PrivacyAllResponse
-import com.trucksup.field_officer.data.model.Response
 import com.trucksup.field_officer.data.model.authModel.ForgetRequest
 import com.trucksup.field_officer.data.model.authModel.ForgetResponse
 import com.trucksup.field_officer.data.model.authModel.LoginRequest
@@ -62,6 +61,7 @@ import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.Ad
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.RcRequest
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.RcResponse
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.ScheduleMeetTSRequest
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetMeetScheduleDetailsResponse
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.VerifyTruckResponse
 import kotlinx.coroutines.Dispatchers
 
@@ -339,4 +339,28 @@ class APIRepositoryImpl constructor(private val apiService: ApiService) : APIRep
         return safeApiCall(Dispatchers.IO) { apiService.completeGPMeeting(authToken, request) }
     }
 
+    //add by me
+    override suspend fun getTSMeetScheduleData(
+        authToken: String,
+        request: GetMeetScheduleDetailsRequest
+    ): ResultWrapper<GetMeetScheduleDetailsResponse> {
+        return safeApiCall(Dispatchers.IO) { apiService.TSMeetGetSchedule(authToken, request) }
+    }
+
+    override suspend fun getBAMeetScheduleData(
+        authToken: String,
+        request: GetMeetScheduleDetailsRequest,
+    ): ResultWrapper<GetMeetScheduleDetailsResponse> {
+        return safeApiCall(Dispatchers.IO) { apiService.BAMeetGetSchedule(authToken, request) }
+    }
+
+    override suspend fun getGPMeetScheduleData(
+        authToken: String,
+        request: GetMeetScheduleDetailsRequest,
+    ): ResultWrapper<GetMeetScheduleDetailsResponse> {
+        return safeApiCall(Dispatchers.IO) {
+            apiService.GPMeetGetSchedule(authToken, request)
+        }
+        //add by me
+    }
 }

@@ -320,8 +320,7 @@ class TSOnBoardStep2Activity : BaseActivity(), PreferredLaneAdap.ControllerListe
             }
         })
 
-
-        binding.spinnerSubCity?.onItemSelectedListener =
+        binding.spinnerSubCity.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
                     parent: AdapterView<*>,
@@ -627,7 +626,7 @@ class TSOnBoardStep2Activity : BaseActivity(), PreferredLaneAdap.ControllerListe
     fun uploadImage(file: File, token: String) {
         LoadingUtils.showDialog(this, false)
 
-        mViewModel?.trucksupImageUpload(
+        mViewModel?.uploadProfileImage(
             PreferenceManager.getAuthToken(),
             "image",
             PreferenceManager.prepareFilePartTrucksHum(file, "imageFile"),

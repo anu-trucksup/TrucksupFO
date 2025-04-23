@@ -279,6 +279,29 @@
                     android:paddingVertical="@dimen/_4sdp"
                     android:text=""/>
 
+                <!-- <TextView
+                                style="@style/edit_label"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_10sdp"
+                                android:text="@string/sub_City_star" />
+
+                            <EditText
+                                android:id="@+id/et_subcity"
+                                style="@style/edit_text_m"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:background="@drawable/edit_box"
+                                android:clickable="false"
+                                android:focusable="false"
+                                android:inputType="text"
+                                android:lines="1"
+                                android:paddingHorizontal="@dimen/_10sdp"
+                                android:paddingVertical="@dimen/_4sdp"
+                                android:textSize="@dimen/_12ssp" />
+-->
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -289,10 +312,8 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/bai_jamjuree_medium"
-                        android:text="@string/sub_City_star"
-                        android:textColor="@color/black_4d"
-                        android:textSize="@dimen/_13sdp" />
+                        style="@style/edit_label"
+                        android:text="@string/sub_City_star" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -331,10 +352,8 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/bai_jamjuree_medium"
-                        android:text="@string/other_subcity_title"
-                        android:textColor="@color/black_4d"
-                        android:textSize="@dimen/_13sdp" />
+                        style="@style/edit_label"
+                        android:text="@string/other_subcity_title" />
 
                     <EditText
                         android:id="@+id/etOtherCity"

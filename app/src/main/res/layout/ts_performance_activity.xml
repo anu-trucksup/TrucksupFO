@@ -79,6 +79,7 @@
                             android:src="@drawable/search_icon_svg" />
 
                         <EditText
+                            android:id="@+id/et_search_fillter"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@null"
@@ -87,6 +88,7 @@
                             android:imeOptions="actionSearch"
                             android:inputType="phone"
                             android:maxLines="1"
+                            android:maxLength="10"
                             android:padding="@dimen/_5sdp"
                             android:textColor="@color/black"
                             android:textColorHint="@color/text_grey"

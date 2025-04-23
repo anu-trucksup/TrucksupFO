@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.logistics.trucksup.activities.preferre.modle.GetMeetScheduleDetailsRequest
 import com.trucksup.field_officer.data.model.PinCodeRequest
 import com.trucksup.field_officer.data.model.PinCodeResponse
 import com.trucksup.field_officer.data.model.image.ImageResponse
@@ -19,6 +20,7 @@ import com.trucksup.field_officer.presenter.view.activity.businessAssociate.mode
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.CompleteMeetingBARequest
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.ScheduleMeetingBARequest
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.ScheduleMeetingResponse
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetMeetScheduleDetailsResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -37,9 +39,15 @@ class BAScheduleMeetingVM @Inject constructor(val apiUseCase: APIUseCase) : View
     val resultSCbyPincodeLD: LiveData<ResponseModel<PinCodeResponse>> = resultSCbyPincode
 
 
+    //add by me
     private var onScheduleMeetingBAResponse: MutableLiveData<ResponseModel<ScheduleMeetingResponse>> =
         MutableLiveData<ResponseModel<ScheduleMeetingResponse>>()
     val onScheduleMeetingBAResponseLD: LiveData<ResponseModel<ScheduleMeetingResponse>> = onScheduleMeetingBAResponse
+
+    private var resultGetBAScheduleMeetingData: MutableLiveData<ResponseModel<GetMeetScheduleDetailsResponse>> =
+        MutableLiveData<ResponseModel<GetMeetScheduleDetailsResponse>>()
+    val rresultGetBAScheduleMeetingDataLD: LiveData<ResponseModel<GetMeetScheduleDetailsResponse>> = resultGetBAScheduleMeetingData
+    //by me
 
     private var onCompleteMeetingBAResponse: MutableLiveData<ResponseModel<ScheduleMeetingResponse>> =
         MutableLiveData<ResponseModel<ScheduleMeetingResponse>>()
@@ -99,7 +107,7 @@ class BAScheduleMeetingVM @Inject constructor(val apiUseCase: APIUseCase) : View
             })
     }
 
-
+    //add by me
     fun onScheduleMeetingBA(request: ScheduleMeetingBARequest) {
         CoroutineScope(Dispatchers.IO).launch {
             when (val response =
@@ -116,6 +124,24 @@ class BAScheduleMeetingVM @Inject constructor(val apiUseCase: APIUseCase) : View
         }
 
     }
+    fun getBAMeetScheduleData(request: GetMeetScheduleDetailsRequest) {
+        CoroutineScope(Dispatchers.IO).launch {
+            when (val response = apiUseCase.getBAMeetSchedule(
+                PreferenceManager.getAuthToken(),
+                request
+            )) {
+                is ResultWrapper.ServerResponseError -> {
+                    Log.e("API Error", response.error ?: "")
+                    resultGetBAScheduleMeetingData.postValue(ResponseModel(serverError = response.error))
+                }
+
+                is ResultWrapper.Success -> {
+                    resultGetBAScheduleMeetingData.postValue(ResponseModel(success = response.value))
+                }
+            }
+        }
+    }
+    //add by me
 
     fun onCompleteMeetingBA(request: CompleteMeetingBARequest) {
         CoroutineScope(Dispatchers.IO).launch {

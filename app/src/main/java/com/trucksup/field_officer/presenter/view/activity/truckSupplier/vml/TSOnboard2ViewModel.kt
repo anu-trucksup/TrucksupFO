@@ -141,7 +141,7 @@ class TSOnboard2ViewModel @Inject constructor(val apiUseCase: APIUseCase) : View
 
     }
 
-    fun trucksupImageUpload(
+    fun uploadProfileImage(
         token: String,
         documentType: String, file: MultipartBody.Part,
         fileWaterMark: MultipartBody.Part,
