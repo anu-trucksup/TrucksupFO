@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
@@ -20,22 +21,29 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ActivityBaonboardDocBinding
+import com.trucksup.field_officer.presenter.common.CameraActivity
 import com.trucksup.field_officer.presenter.common.FileHelp
 import com.trucksup.field_officer.presenter.common.image_picker.GetImage
 import com.trucksup.field_officer.presenter.common.image_picker.ImagePickerDailog
+import com.trucksup.field_officer.presenter.common.image_picker.TrucksFOImageController
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.utils.FileHelper
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
+import com.trucksup.field_officer.presenter.utils.PreferenceManager
+import com.trucksup.field_officer.presenter.view.activity.auth.signup.SignupViewModel
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.vml.BAOnboardViewModel
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
 
-class BAOnboardDocActivity : BaseActivity(), GetImage {
+class BAOnboardDocActivity : BaseActivity(), GetImage, TrucksFOImageController {
     private lateinit var binding: ActivityBaonboardDocBinding
     private var launcher: ActivityResultLauncher<Intent>? = null
+    private var baonboardViewModel: BAOnboardViewModel? = null
     private var imageUri: String = ""
     private var docType: String = ""
 
@@ -45,7 +53,7 @@ class BAOnboardDocActivity : BaseActivity(), GetImage {
         binding = ActivityBaonboardDocBinding.inflate(layoutInflater)
         adjustFontScale(resources.configuration, 1.0f);
         setContentView(binding.root)
-
+        baonboardViewModel = ViewModelProvider(this)[BAOnboardViewModel::class.java]
 
         binding.vc.setOnClickListener {
             docType = "visiting card"
@@ -178,6 +186,31 @@ class BAOnboardDocActivity : BaseActivity(), GetImage {
                         this,
                         this
                     )*/
+                } catch (ex: Exception) {
+                    ex.printStackTrace()
+                }
+            }
+        }
+    }
+
+    private fun cameraActivityResult() {
+        launcher = registerForActivityResult<Intent, ActivityResult>(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result: ActivityResult ->
+            if (result.resultCode == RESULT_OK) {
+                val data = result.data
+
+                try {
+                    val imageUris: Uri = data!!.getStringExtra("result")!!.toUri()
+                    val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(
+                        contentResolver, Uri.parse(imageUris.toString())
+                    )
+                    // Set the image in imageview for display
+                    val newBitmap: Bitmap = FileHelp().resizeImage(bitmap, 500)
+                    val newFile: File = FileHelp().bitmapTofile(newBitmap, this)
+                    uploadImage(newFile)
+
+                    //handleImageCapture(bitmap)
                 } catch (ex: Exception) {
                     ex.printStackTrace()
                 }
@@ -322,7 +355,7 @@ class BAOnboardDocActivity : BaseActivity(), GetImage {
             val newBitmap: Bitmap = FileHelp().resizeImage(bitmap, 500)
             val newFile: File = FileHelp().bitmapTofile(newBitmap, this)
 
-            uploadImage(newFile, "")
+            uploadImage(newFile)
 
         } else {
             Log.d("PhotoPicker", "No media selected")
@@ -337,5 +370,37 @@ class BAOnboardDocActivity : BaseActivity(), GetImage {
         launchCamera(true, 1, false)
     }
 
+    private fun launchCamera(flipCamera: Boolean, cameraOpen: Int, focusView: Boolean) {
+        val intent = Intent(this, CameraActivity::class.java)
+        intent.putExtra("flipCamera", flipCamera)
+        intent.putExtra("cameraOpen", cameraOpen)
+        intent.putExtra("focusView", focusView)
+        launcher?.launch(intent)
+    }
+
+
+    fun uploadImage(file: File) {
+        showProgressDialog(this, false)
+
+        baonboardViewModel?.uploadProfileImage(
+            PreferenceManager.getAuthToken(),
+            "image",
+            PreferenceManager.prepareFilePartTrucksHum(file, "imageFile"),
+            PreferenceManager.prepareFilePartTrucksHum(file, "watermarkFile"),
+            this
+        )
+    }
+
+    override fun getImage(valuekey: String, url: String) {
+        TODO("Not yet implemented")
+    }
+
+    override fun dataSubmitted(message: String) {
+        TODO("Not yet implemented")
+    }
+
+    override fun imageError(error: String) {
+        TODO("Not yet implemented")
+    }
 
 }

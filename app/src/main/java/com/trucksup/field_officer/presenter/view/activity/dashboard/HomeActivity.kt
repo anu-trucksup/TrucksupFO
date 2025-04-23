@@ -124,7 +124,8 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
         val request = HomeCountRequest(
             PreferenceManager.getServerDateUtc(),
             PreferenceManager.getRequestNo(),
-            PreferenceManager.getPhoneNo(this)
+            PreferenceManager.getPhoneNo(this),
+            PreferenceManager.getUserData(this)?.boUserid?.toInt() ?: 0
         )
         mViewModel?.getAllHomeCountStatus(request)
     }
@@ -176,7 +177,7 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
             if (apiDutyStatus == false) {
                 dutyStatus = b
                 if (!latitude.isNullOrEmpty() && !longitude.isNullOrEmpty() && !address.isNullOrEmpty()) {
-                    apiDutyStatus=true
+                    apiDutyStatus = true
                     onOffDuty()
                 }
             }
@@ -401,7 +402,7 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
 
     private fun setupObserver() {
         mViewModel?.resultDutyStatusLD?.observe(this) { responseModel ->                     // login function observe
-            apiDutyStatus=false
+            apiDutyStatus = false
             if (responseModel.serverError != null) {
                 if (dutyStatus == false) {
                     dutyStatus = true
@@ -501,10 +502,10 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
 
                         //duty status
                         dutyStatus = userDetail!!.dutyStatus
-                        apiDutyStatus=true
+                        apiDutyStatus = true
                         if (dutyStatus == true) {
                             onDutyToggleChange()
-                            apiDutyStatus=false
+                            apiDutyStatus = false
                         } else {
                             dutyStatus = true
                             offDutyToggleChange()
@@ -696,13 +697,10 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
         dialog.setCancelable(true)
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
 
-        if (dutyStatus==true)
-        {
-            binding.textView6.text=getString(R.string.activate_msg)
-        }
-        else
-        {
-            binding.textView6.text=getString(R.string.not_activate_msg)
+        if (dutyStatus == true) {
+            binding.textView6.text = getString(R.string.activate_msg)
+        } else {
+            binding.textView6.text = getString(R.string.not_activate_msg)
         }
 
         //activate button
@@ -720,7 +718,7 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
                 dutyStatus = false
                 offDutyToggleChange()
             }
-            apiDutyStatus=false
+            apiDutyStatus = false
             dialog.dismiss()
         }
 
@@ -781,23 +779,21 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
 //                this.binding.txtOnDuty.setTextColor(resources.getColor(R.color.red))
 //                this.binding.OnSwitchBtn.trackTintList = resources.getColorStateList(R.color.red)
             }
-            apiDutyStatus=false
+            apiDutyStatus = false
             dialog.dismiss()
         }
 
         dialog.show()
     }
 
-    private fun onDutyToggleChange()
-    {
+    private fun onDutyToggleChange() {
         this.binding.OnSwitchBtn.isChecked = true
         this.binding.txtOnDuty.text = "On Duty"
         this.binding.txtOnDuty.setTextColor(resources.getColor(R.color.on_duty_color))
         this.binding.OnSwitchBtn.trackTintList = resources.getColorStateList(R.color.on_duty_color)
     }
 
-    private fun offDutyToggleChange()
-    {
+    private fun offDutyToggleChange() {
         this.binding.OnSwitchBtn.isChecked = false
         this.binding.txtOnDuty.text = "Off Duty"
         this.binding.txtOnDuty.setTextColor(resources.getColor(R.color.red))
