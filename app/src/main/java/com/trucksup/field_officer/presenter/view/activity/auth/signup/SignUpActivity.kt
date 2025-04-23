@@ -1,6 +1,7 @@
 package com.trucksup.field_officer.presenter.view.activity.auth.signup
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -13,6 +14,7 @@ import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResult
@@ -60,6 +62,22 @@ class SignUpActivity : BaseActivity(), View.OnClickListener, TrucksFOImageContro
         mSignUpBinding?.loginTxt?.setOnClickListener(this)
         mSignUpBinding?.signUpBtn?.setOnClickListener(this)
         mSignUpBinding?.cvCamera?.setOnClickListener(this)
+        mSignUpBinding?.phoneNoTxt?.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
+            }
+
+            override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
+            }
+
+            override fun afterTextChanged(editable: Editable) {
+                if (editable.toString().length==10)
+                {
+                    mSignUpBinding?.phoneNoTxt?.hideKeyboard()
+                }
+            }
+        })
+
+
         signupViewModel = ViewModelProvider(this)[SignupViewModel::class.java]
 
         //password
@@ -554,6 +572,11 @@ class SignUpActivity : BaseActivity(), View.OnClickListener, TrucksFOImageContro
             )
 
         }
+    }
+
+    fun View.hideKeyboard() {
+        val inputManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputManager.hideSoftInputFromWindow(windowToken, 0)
     }
 
 }

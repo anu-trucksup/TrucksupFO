@@ -1,12 +1,16 @@
 package com.trucksup.field_officer.presenter.view.activity.auth.login
 
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
+import android.text.Editable
 import android.text.TextUtils
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
@@ -58,6 +62,21 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         mLoginBinding?.ivBackArrowLogin?.setOnClickListener(this)
         mLoginBinding?.createAccountTxt?.setOnClickListener(this)
         mLoginBinding?.forgetPasswordTxt?.setOnClickListener(this)
+        mLoginBinding?.phoneTxt?.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
+            }
+
+            override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
+            }
+
+            override fun afterTextChanged(editable: Editable) {
+                if (editable.toString().length==10)
+                {
+                    mLoginBinding?.phoneTxt?.hideKeyboard()
+                }
+            }
+        })
+
 
         mLoginBinding?.loginBtn?.setOnClickListener(this)
 
@@ -251,6 +270,11 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
             )
             abx.show()
         }
+    }
+
+    fun View.hideKeyboard() {
+        val inputManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputManager.hideSoftInputFromWindow(windowToken, 0)
     }
 
 
