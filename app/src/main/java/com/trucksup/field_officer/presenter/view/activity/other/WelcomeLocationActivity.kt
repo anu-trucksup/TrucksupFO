@@ -44,7 +44,7 @@ class WelcomeLocationActivity : BaseActivity() {
                 )
 
                 finish()
-            }, 3000)
+            }, 1500)
         }
 
 

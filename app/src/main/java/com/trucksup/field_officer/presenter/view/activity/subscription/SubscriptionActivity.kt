@@ -51,7 +51,7 @@ class SubscriptionActivity : BaseActivity(), PaySubscribtion, PlanCantroler {
 
         setupObserver()
 
-        setPlanList(arrayListOf())
+       // setPlanList(arrayListOf())
     }
 
     private fun setupObserver() {
@@ -164,7 +164,7 @@ class SubscriptionActivity : BaseActivity(), PaySubscribtion, PlanCantroler {
 
         //  Collections.reverse(mainList);
 
-        val subsAdapter = SubscriptionAdapterTest(this, list!!, this)
+        val subsAdapter = SubscriptionAdapterTest(this, list, this)
 
         binding.planView.layoutManager = GridLayoutManager(this, 2)
 

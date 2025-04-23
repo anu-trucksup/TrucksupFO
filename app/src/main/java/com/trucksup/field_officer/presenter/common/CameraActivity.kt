@@ -107,12 +107,7 @@ class CameraActivity: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //test
-        //mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-
         setContentView(camera_binding.root)
-
-        //getLocation()
 
         if (checkMultiplePermission()) {
             startCamera()

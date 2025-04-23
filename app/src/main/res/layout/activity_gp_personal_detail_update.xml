@@ -298,6 +298,99 @@
                     android:text=""
                     android:textSize="@dimen/_12ssp" />
 
+                <!-- <TextView
+                                style="@style/edit_label"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_10sdp"
+                                android:text="@string/sub_City_star" />
+
+                            <EditText
+                                android:id="@+id/et_subcity"
+                                style="@style/edit_text_m"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:background="@drawable/edit_box"
+                                android:clickable="false"
+                                android:focusable="false"
+                                android:inputType="text"
+                                android:lines="1"
+                                android:paddingHorizontal="@dimen/_10sdp"
+                                android:paddingVertical="@dimen/_4sdp"
+                                android:textSize="@dimen/_12ssp" />
+-->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/edit_label"
+                        android:text="@string/sub_City_star" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:background="@drawable/edit_box"
+                        android:orientation="vertical">
+
+                        <Spinner
+                            android:id="@+id/spinnerSubCity"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_35sdp"
+                            android:layout_marginEnd="@dimen/_12sdp"
+                            android:background="@drawable/spinner_background"
+                            android:fontFamily="@font/roboto_regular"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="@dimen/_10sdp"
+                            android:textColor="@color/secondry_text"
+                            android:textSize="@dimen/_12sdp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- subcity other-->
+                <LinearLayout
+                    android:id="@+id/otherSubCityLay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/edit_label"
+                        android:text="@string/other_subcity_title" />
+
+                    <EditText
+                        android:id="@+id/etOtherCity"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_35sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:background="@drawable/edit_box_bw"
+                        android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ  1234567890  _-,.?/:"
+                        android:fontFamily="@font/roboto_regular"
+                        android:hint="@string/other_subcity_hint"
+                        android:inputType="textNoSuggestions"
+                        android:paddingLeft="@dimen/_10sdp"
+                        android:textColor="@color/secondry_text"
+                        android:textColorHint="@color/secondry_text"
+                        android:textSize="@dimen/_12sdp" />
+
+                </LinearLayout>
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
