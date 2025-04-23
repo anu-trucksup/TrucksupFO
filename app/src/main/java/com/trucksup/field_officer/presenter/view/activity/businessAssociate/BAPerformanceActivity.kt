@@ -2,13 +2,25 @@ package com.trucksup.field_officer.presenter.view.activity.businessAssociate
 
 import android.app.AlertDialog
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
+import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.Priority
 import com.trucksup.field_officer.databinding.BaPerformanceActivityBinding
 import com.trucksup.field_officer.databinding.DateFilterBinding
 import com.trucksup.field_officer.presenter.common.AlertBoxDialog
@@ -25,6 +37,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.util.jar.Manifest
 
 @AndroidEntryPoint
 class BAPerformanceActivity : BaseActivity() {
@@ -86,7 +99,7 @@ class BAPerformanceActivity : BaseActivity() {
         adapter.setOnItemClickListener(object : BAPerformanceAdapter.OnItemClickListener {
             @RequiresApi(Build.VERSION_CODES.O)
             override fun onItemClick(selectedDate: String, selectedTime: String) {
-                //dataSubmit(selectedDate, selectedTime)
+                dataSubmit(selectedDate, selectedTime)
                 //Toast.makeText(this@TSPerformanceActivity, "Clicked item at position $selectedTime", Toast.LENGTH_SHORT).show()
             }
         })

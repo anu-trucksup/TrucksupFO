@@ -1,5 +1,6 @@
 package com.trucksup.field_officer.data.services
 
+import com.logistics.trucksup.activities.preferre.modle.GetMeetScheduleDetailsRequest
 import com.logistics.trucksup.activities.preferre.modle.PrefferLanRequest
 import com.logistics.trucksup.activities.preferre.modle.PrefferdResponse
 import com.logistics.trucksup.modle.PlanResponse
@@ -9,10 +10,8 @@ import com.trucksup.field_officer.data.model.DutyStatusRequest
 import com.trucksup.field_officer.data.model.DutyStatusResponse
 import com.trucksup.field_officer.data.model.GenerateJWTtokenRequest
 import com.trucksup.field_officer.data.model.GenerateJWTtokenResponse
-import com.trucksup.field_officer.data.model.GetUserProfileResponse
 import com.trucksup.field_officer.data.model.PinCodeRequest
 import com.trucksup.field_officer.data.model.PinCodeResponse
-import com.trucksup.field_officer.data.model.Response
 import com.trucksup.field_officer.data.model.authModel.ForgetRequest
 import com.trucksup.field_officer.data.model.authModel.ForgetResponse
 import com.trucksup.field_officer.data.model.authModel.LoginRequest
@@ -59,6 +58,7 @@ import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.Ad
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.RcRequest
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.RcResponse
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.ScheduleMeetTSRequest
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetMeetScheduleDetailsResponse
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.VerifyTruckResponse
 import okhttp3.MultipartBody
 import retrofit2.Call
@@ -326,5 +326,30 @@ interface ApiService {
         @Header("Authorization") auth: String,
         @Body request: CompleteMeetingGPRequest
     ): ScheduleMeetingResponse
+
+
+    //add by me
+    @GET("BOAppApiGateway/apiateway/GetBADetails")
+    @Headers("Accept: application/json")
+    suspend fun BAMeetGetSchedule(
+        @Header("Authorization") auth: String,
+        @Body request: GetMeetScheduleDetailsRequest
+    ): GetMeetScheduleDetailsResponse
+
+    @POST("BOAppApiGateway/apiateway/GetTSDetails")
+    @Headers("Accept: application/json")
+    suspend fun TSMeetGetSchedule(
+        @Header("Authorization") auth: String,
+        @Body request: GetMeetScheduleDetailsRequest
+    ): GetMeetScheduleDetailsResponse
+
+    @GET("BOAppApiGateway/apiateway/GetGPDetails")
+    @Headers("Accept: application/json")
+    suspend fun GPMeetGetSchedule(
+        @Header("Authorization") auth: String,
+        @Body request: GetMeetScheduleDetailsRequest
+    ): GetMeetScheduleDetailsResponse
+    //add by me
+
 
 }

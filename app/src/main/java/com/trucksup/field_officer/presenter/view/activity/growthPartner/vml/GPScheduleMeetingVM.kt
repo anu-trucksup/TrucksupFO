@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.logistics.trucksup.activities.preferre.modle.GetMeetScheduleDetailsRequest
 import com.trucksup.field_officer.data.model.PinCodeRequest
 import com.trucksup.field_officer.data.model.PinCodeResponse
 import com.trucksup.field_officer.data.model.image.ImageResponse
@@ -21,6 +22,7 @@ import com.trucksup.field_officer.presenter.view.activity.businessAssociate.mode
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.ScheduleMeetingResponse
 import com.trucksup.field_officer.presenter.view.activity.growthPartner.model.CompleteMeetingGPRequest
 import com.trucksup.field_officer.presenter.view.activity.growthPartner.model.ScheduleMeetingGPRequest
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetMeetScheduleDetailsResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -38,9 +40,15 @@ class GPScheduleMeetingVM @Inject constructor(val apiUseCase: APIUseCase) : View
         MutableLiveData<ResponseModel<PinCodeResponse>>()
     val resultSCbyPinCodeLD: LiveData<ResponseModel<PinCodeResponse>> = resultSCbyPincode
 
+    //by me
     private var onScheduleMeetingGPResponse: MutableLiveData<ResponseModel<ScheduleMeetingResponse>> =
         MutableLiveData<ResponseModel<ScheduleMeetingResponse>>()
     val onScheduleMeetingGPResponseLD: LiveData<ResponseModel<ScheduleMeetingResponse>> = onScheduleMeetingGPResponse
+
+    private var resultGetGPScheduleMeetingData: MutableLiveData<ResponseModel<GetMeetScheduleDetailsResponse>> =
+        MutableLiveData<ResponseModel<GetMeetScheduleDetailsResponse>>()
+    val rresultGetGPScheduleMeetingDataLD: LiveData<ResponseModel<GetMeetScheduleDetailsResponse>> = resultGetGPScheduleMeetingData
+    //by me
 
     private var onCompleteMeetingGPResponse: MutableLiveData<ResponseModel<ScheduleMeetingResponse>> =
         MutableLiveData<ResponseModel<ScheduleMeetingResponse>>()
@@ -103,6 +111,7 @@ class GPScheduleMeetingVM @Inject constructor(val apiUseCase: APIUseCase) : View
             })
     }
 
+    //add by me
     fun onScheduleMeetingGP(request: ScheduleMeetingGPRequest) {
         CoroutineScope(Dispatchers.IO).launch {
             when (val response =
@@ -119,6 +128,24 @@ class GPScheduleMeetingVM @Inject constructor(val apiUseCase: APIUseCase) : View
         }
 
     }
+    fun getBAMeetScheduleData(request: GetMeetScheduleDetailsRequest) {
+        CoroutineScope(Dispatchers.IO).launch {
+            when (val response = apiUseCase.getGPMeetSchedule(
+                PreferenceManager.getAuthToken(),
+                request
+            )) {
+                is ResultWrapper.ServerResponseError -> {
+                    Log.e("API Error", response.error ?: "")
+                    resultGetGPScheduleMeetingData.postValue(ResponseModel(serverError = response.error))
+                }
+
+                is ResultWrapper.Success -> {
+                    resultGetGPScheduleMeetingData.postValue(ResponseModel(success = response.value))
+                }
+            }
+        }
+    }
+    //add by me
 
     fun onCompleteMeetingBA(request: CompleteMeetingGPRequest) {
         CoroutineScope(Dispatchers.IO).launch {
