@@ -753,4 +753,7 @@
     <string name="other_subcity_hint">Please specify your Sub City</string>
     <string name="other_subcity_title_">Other sub-city (please specify)</string>
 
+    <string name="select_doc_type">Please select the document type.</string>
+    <string name="select_doc_img">Please upload the document proof photo.</string>
+
 </resources>

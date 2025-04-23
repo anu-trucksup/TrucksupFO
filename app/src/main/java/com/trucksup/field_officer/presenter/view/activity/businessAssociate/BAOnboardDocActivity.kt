@@ -11,6 +11,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import androidx.activity.enableEdgeToEdge
@@ -28,24 +29,26 @@ import com.trucksup.field_officer.databinding.ActivityBaonboardDocBinding
 import com.trucksup.field_officer.presenter.common.CameraActivity
 import com.trucksup.field_officer.presenter.common.FileHelp
 import com.trucksup.field_officer.presenter.common.image_picker.GetImage
-import com.trucksup.field_officer.presenter.common.image_picker.ImagePickerDailog
+import com.trucksup.field_officer.presenter.common.image_picker.ImagePickerDialog
 import com.trucksup.field_officer.presenter.common.image_picker.TrucksFOImageController
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.utils.FileHelper
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
-import com.trucksup.field_officer.presenter.view.activity.auth.signup.SignupViewModel
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.vml.BAOnboardViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
 
+@AndroidEntryPoint
 class BAOnboardDocActivity : BaseActivity(), GetImage, TrucksFOImageController {
     private lateinit var binding: ActivityBaonboardDocBinding
     private var launcher: ActivityResultLauncher<Intent>? = null
     private var baonboardViewModel: BAOnboardViewModel? = null
-    private var imageUri: String = ""
     private var docType: String = ""
+    private var imageUrl: String = ""
+    private var frontImgKey: String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -125,11 +128,16 @@ class BAOnboardDocActivity : BaseActivity(), GetImage, TrucksFOImageController {
             getImage()
         }
 
-        binding.tvProcees.setOnClickListener {
+        binding.tvProceed.setOnClickListener {
+
+            if (!submitValidation()) {
+                return@setOnClickListener
+            }
+
             val intent1 = Intent(this, BAnOnboardingActivity::class.java)
             intent1.putExtra("data", "no")
-            intent1.putExtra("doc", docType)
-            intent1.putExtra("img", "")
+            intent1.putExtra("docType", docType)
+            intent1.putExtra("imgUrl", imageUrl)
             startActivity(intent1)
 
         }
@@ -138,59 +146,7 @@ class BAOnboardDocActivity : BaseActivity(), GetImage, TrucksFOImageController {
             onBackPressed()
         }
 
-
-    }
-
-    fun camera() {
-        launcher = registerForActivityResult<Intent, ActivityResult>(
-            ActivityResultContracts.StartActivityForResult()
-        ) { result: ActivityResult ->
-            if (result.resultCode == RESULT_OK) {
-                val data = result.data
-
-                try {
-                    imageUri = data!!.getStringExtra("result").toString()
-                    binding.image.visibility = View.VISIBLE
-                    binding.image.let {
-                        Glide.with(getApplicationContext())
-                            .load(data!!.getStringExtra("result")?.toUri())
-                            .into(it)
-                    }
-                    //profileImage?.setRotation(270F)
-                    var orFile: File =
-                        FileHelp().getFile(this, data!!.getStringExtra("result")?.toUri())!!
-                    var newBitmap: Bitmap = FileHelp().fileToBitmap(orFile)
-
-
-                    val name = "trucksUp_image" + System.currentTimeMillis() + ".jpg"
-                    val pt = Environment.DIRECTORY_PICTURES //+  "/trucksUp";
-                    val MEDIA_PATH =
-                        Environment.getExternalStorageDirectory().absolutePath + "/" + pt + "/"
-
-                    val filesDir: File = getFilesDir()
-                    val imageFile = File(filesDir, name)
-
-                    val os: OutputStream
-                    os = FileOutputStream(imageFile)
-                    newBitmap.compress(Bitmap.CompressFormat.JPEG, 99, os)
-                    os.flush()
-                    os.close()
-
-                    //LoadingUtils?.showDialog(this, false)
-                    //LoadingUtils.showDialog(this, false)
-                    /*MyResponse()?.uploadImage(
-                        "jpg",
-                        "DOC" + PreferenceManager.getRequestNo(),
-                        "" + PreferenceManager.getPhoneNo(this),
-                        PreferenceManager.prepareFilePart(imageFile!!),
-                        this,
-                        this
-                    )*/
-                } catch (ex: Exception) {
-                    ex.printStackTrace()
-                }
-            }
-        }
+        cameraActivityResult()
     }
 
     private fun cameraActivityResult() {
@@ -218,6 +174,27 @@ class BAOnboardDocActivity : BaseActivity(), GetImage, TrucksFOImageController {
         }
     }
 
+    private fun submitValidation(): Boolean {
+        if (TextUtils.isEmpty(docType)) {
+            LoggerMessage.onSNACK(
+                binding.tvProceed,
+                getString(R.string.select_doc_type),
+                this
+            )
+            return false
+        }
+        if (TextUtils.isEmpty(imageUrl)) {
+            LoggerMessage.onSNACK(
+                binding.tvProceed,
+                getString(R.string.select_doc_img),
+                this
+            )
+            return false
+        }
+        return true
+    }
+
+
     fun getImage() {
         if (ActivityCompat.checkSelfPermission(
                 this,
@@ -236,7 +213,7 @@ class BAOnboardDocActivity : BaseActivity(), GetImage, TrucksFOImageController {
 
 
         } else {
-            val imagePickerDialog = ImagePickerDailog(this, this)
+            val imagePickerDialog = ImagePickerDialog(this, this)
             imagePickerDialog.show()
         }
     }
@@ -307,60 +284,26 @@ class BAOnboardDocActivity : BaseActivity(), GetImage, TrucksFOImageController {
 
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
+    private val pickMedia =
+        registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+            // Callback is invoked after the user selects a media item or closes the
+            // photo picker.
+            if (uri != null) {
 
-        if (resultCode == Activity.RESULT_OK && requestCode == 11 && data != null) {
-            if (data.extras?.get("data") != null) {
-                var mainBitmap: Bitmap = data.extras?.get("data") as Bitmap
-                //   image?.setImageBitmap(mainBitmap)
-                if (mainBitmap != null) {
-                    var newBitmap: Bitmap = FileHelper().resizeImage(mainBitmap, 500, 500)!!
-                    var newFile: File = FileHelper().bitmapTofile(newBitmap, this)!!
-
-
-                    //progressBarr?.show()
-                    /*myResponse?.uploadImage(
-                        "jpg", "DOC" + PreferenceManager.getRequestNo(), "" + name,
-                        PreferenceManager.prepareFilePart(newFile!!), this, this
-                    )*/
-
+                val bitmap = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                    ImageDecoder.decodeBitmap(ImageDecoder.createSource(contentResolver, uri))
                 } else {
-                    LoggerMessage.onSNACK(
-                        binding.image!!,
-                        "Some Thing Wrong Please Retake Image",
-                        this
-                    )
+                    MediaStore.Images.Media.getBitmap(contentResolver, uri)
                 }
+                val newBitmap: Bitmap = FileHelp().resizeImage(bitmap, 500)
+                val newFile: File = FileHelp().bitmapTofile(newBitmap, this)
+
+                uploadImage(newFile)
+
             } else {
-                LoggerMessage.onSNACK(binding.image!!, "Some Thing Wrong Please Retake Image", this)
+                Log.d("PhotoPicker", "No media selected")
             }
-
-
-        } else {
-            //  LoggerMessage.tostPrint( "Request cancelled or something went wrong.",baseContext)
         }
-    }
-
-    private val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-        // Callback is invoked after the user selects a media item or closes the
-        // photo picker.
-        if (uri != null) {
-
-            val bitmap = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                ImageDecoder.decodeBitmap(ImageDecoder.createSource(contentResolver, uri))
-            } else {
-                MediaStore.Images.Media.getBitmap(contentResolver, uri)
-            }
-            val newBitmap: Bitmap = FileHelp().resizeImage(bitmap, 500)
-            val newFile: File = FileHelp().bitmapTofile(newBitmap, this)
-
-            uploadImage(newFile)
-
-        } else {
-            Log.d("PhotoPicker", "No media selected")
-        }
-    }
 
     override fun fromGallery() {
         pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
@@ -392,15 +335,26 @@ class BAOnboardDocActivity : BaseActivity(), GetImage, TrucksFOImageController {
     }
 
     override fun getImage(valuekey: String, url: String) {
-        TODO("Not yet implemented")
+        dismissProgressDialog()
+        binding.image.visibility = View.VISIBLE
+        imageUrl = valuekey
+        try {
+            Glide.with(this)
+                .load(url)
+                .into(binding.image)
+        } catch (_: Exception) {
+        }
+        binding.image.tag = "y"
+
+        frontImgKey = valuekey
     }
 
     override fun dataSubmitted(message: String) {
-        TODO("Not yet implemented")
     }
 
     override fun imageError(error: String) {
-        TODO("Not yet implemented")
+        dismissProgressDialog()
+        LoggerMessage.onSNACK(binding.image, error, this)
     }
 
 }

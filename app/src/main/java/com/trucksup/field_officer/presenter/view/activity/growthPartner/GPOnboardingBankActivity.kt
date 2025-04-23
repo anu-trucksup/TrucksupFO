@@ -21,7 +21,7 @@ import com.google.gson.Gson
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ActivityGponboardBankBinding
 import com.trucksup.field_officer.presenter.common.image_picker.GetImage
-import com.trucksup.field_officer.presenter.common.image_picker.ImagePickerDailog
+import com.trucksup.field_officer.presenter.common.image_picker.ImagePickerDialog
 import com.trucksup.field_officer.presenter.utils.FileHelper
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
 import com.trucksup.field_officer.presenter.view.activity.growthPartner.model.GPOnboardingData
@@ -149,7 +149,7 @@ class GPOnboardingBankActivity : AppCompatActivity(), GetImage, View.OnClickList
 
 
         } else {
-            val imagePickerDailog = ImagePickerDailog(this, this)
+            val imagePickerDailog = ImagePickerDialog(this, this)
             imagePickerDailog.show()
         }
     }
