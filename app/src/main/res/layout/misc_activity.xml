@@ -50,7 +50,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:orientation="vertical"
-                android:paddingHorizontal="@dimen/_24sdp">
+                android:paddingHorizontal="@dimen/_16sdp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/l1"

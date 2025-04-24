@@ -93,6 +93,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/businessNameLay"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/_2sdp"
@@ -104,7 +105,42 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/bai_jamjuree_medium"
                 android:maxLines="1"
-                android:text="Business Name"
+                android:text="@string/business_name"
+                android:textColor="#4D4D4D"
+                android:textSize="@dimen/_11ssp" />
+
+            <EditText
+                android:id="@+id/etBusinessName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/grey_edit_background"
+                android:fontFamily="@font/bai_jamjuree_medium"
+                android:hint="Type here.."
+                android:maxLines="1"
+                android:paddingHorizontal="@dimen/_12sdp"
+                android:paddingVertical="@dimen/_6sdp"
+                android:textColor="#4D4D4D"
+                android:textColorHint="#4D4D4D"
+                android:textSize="@dimen/_10ssp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/truckNoLay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/_2sdp"
+            android:layout_weight="1"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/bai_jamjuree_medium"
+                android:maxLines="1"
+                android:text="@string/truck_number2"
                 android:textColor="#4D4D4D"
                 android:textSize="@dimen/_11ssp" />
 
@@ -116,6 +152,8 @@
                 android:background="@drawable/grey_edit_background"
                 android:fontFamily="@font/bai_jamjuree_medium"
                 android:hint="Type here.."
+                android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
+                android:inputType="textCapCharacters"
                 android:maxLines="1"
                 android:paddingHorizontal="@dimen/_12sdp"
                 android:paddingVertical="@dimen/_6sdp"

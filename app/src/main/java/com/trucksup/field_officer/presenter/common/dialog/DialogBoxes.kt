@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -105,7 +106,7 @@ object DialogBoxes {
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
 
         var categoryType = ArrayList<String>()
-        categoryType.add("Owner")
+        categoryType.add("Truck Supplier")
         categoryType.add("Business Associate")
         val arrayAdapter = ArrayAdapter(context, R.layout.simple_text_item, categoryType)
         binding.categorySpinner.setAdapter(arrayAdapter)
@@ -118,11 +119,22 @@ object DialogBoxes {
                     id: Long,
                 ) {
                     val textView: TextView = view as TextView
-//                textView.setPadding(0,0,0,0)
+//                  textView.setPadding(0,0,0,0)
                     val typeface = ResourcesCompat.getFont(context, R.font.bai_jamjuree_medium)
                     textView.setTypeface(typeface)
-                    textView.setTextColor(context.resources.getColor(R.color.text_grey))
+                    textView.setTextColor(context.getColor(R.color.text_grey))
                     textView.setTextSize(13f)
+
+                    if (binding.categorySpinner.selectedItem.toString().lowercase()=="truck supplier")
+                    {
+                        binding.businessNameLay.visibility=View.GONE
+                        binding.truckNoLay.visibility=View.VISIBLE
+                    }
+                    else if (binding.categorySpinner.selectedItem.toString().lowercase()=="business associate")
+                    {
+                        binding.truckNoLay.visibility=View.GONE
+                        binding.businessNameLay.visibility=View.VISIBLE
+                    }
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
