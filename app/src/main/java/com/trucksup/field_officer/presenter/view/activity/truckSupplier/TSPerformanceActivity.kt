@@ -116,9 +116,8 @@ class TSPerformanceActivity : BaseActivity() {
         val adapter = TSPerformanceAdapter(this@TSPerformanceActivity, getTsdetails)
 
         adapter.setOnItemClickListener(object : TSPerformanceAdapter.OnItemClickListener {
-            override fun onItemClick(selectedDate: String, selectedTime: String) {
-                dataSubmit(selectedDate, selectedTime)
-                //Toast.makeText(this@TSPerformanceActivity, "Clicked item at position $selectedTime", Toast.LENGTH_SHORT).show()
+            override fun onItemClick(ownerName: String, selectedDate: String, selectedTime: String) {
+                dataSubmit(ownerName, selectedDate, selectedTime)
             }
         })
         binding.rv.adapter = adapter
@@ -133,10 +132,9 @@ class TSPerformanceActivity : BaseActivity() {
     }
 
     private fun getTSMeetScheduleData() {
-        println("wwww=="+PreferenceManager.getUserData(this)?.boUserid)
         showProgressDialog(this,false)
         val request = GetMeetScheduleDetailsRequest(
-            1,
+            PreferenceManager.getRequestNo().toInt(),
             PreferenceManager.getPhoneNo(this),
             PreferenceManager.getServerDateUtc(),
             PreferenceManager.getUserData(this)?.city.toString(),
@@ -145,11 +143,11 @@ class TSPerformanceActivity : BaseActivity() {
         mViewModel?.getTSMeetScheduleData(request)
     }
 
-    fun dataSubmit(selectedDate: String, selectedTime : String) {
+    fun dataSubmit(ownerName: String, selectedDate: String, selectedTime : String) {
         val request =
             ScheduleMeetTSRequest(
                 PreferenceManager.getUserData(this)?.boUserid?.toInt() ?: 0,
-                "test",
+                ownerName,
                 "12.33",
                 "22.33",
                 PreferenceManager.getPhoneNo(this),

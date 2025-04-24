@@ -7,9 +7,12 @@ import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.bumptech.glide.Glide
+import com.google.gson.Gson
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ActivityGpOnboardingPreviewBinding
 import com.trucksup.field_officer.presenter.common.dialog.HappinessCodeBox
+import com.trucksup.field_officer.presenter.view.activity.growthPartner.model.GPOnboardingData
 
 class GpOnboardingPreviewActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityGpOnboardingPreviewBinding
@@ -19,6 +22,49 @@ class GpOnboardingPreviewActivity : AppCompatActivity(), View.OnClickListener {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_gp_onboarding_preview)
         val view = binding.root
         setContentView(view)
+
+
+        //test
+        val gson = Gson()
+        val json = intent.getStringExtra("userDataJson")
+        val gpOnboardingData = gson.fromJson(json, GPOnboardingData::class.java)
+
+        val finalData = gpOnboardingData
+        //GP Basic Detail
+        binding.tvContactName.setText(finalData.ContactName)
+        binding.tvContactNumber.setText(finalData.ContactNumber)
+        binding.tvPartnerType.setText(finalData.PartnerType)
+
+        //GP Personal Detail
+        binding.tvSalesCodeofBO.setText(finalData.SalesCodeofBO)
+        binding.tvMobileNumber.setText(finalData.GPMobileNumber)
+        binding.tvName.setText(finalData.GPName)
+        binding.tvBusinessName.setText(finalData.BusinessName)
+        binding.tvBusinessType.setText(finalData.BusinessType)
+        binding.tvPincode.setText(finalData.Pincode)
+
+        //GP KYC Detail
+        binding.tvKYCStatus.setText(finalData.KYCStatus)
+        //GP Establishment
+        try {
+            Glide.with(this)
+                .load(finalData.EstablishmentPhotoURL)
+                .into(binding?.imgStorePhoto!!)
+        } catch (e: Exception) {
+        }
+
+        //Bank Account Details
+        binding.tvAccountHolderName.setText(finalData.AccountHolderName)
+        binding.tvAccountNumber.setText(finalData.AccountNumber)
+        binding.tvBankName.setText(finalData.BankName)
+        binding.tvIFSCCode.setText(finalData.IFSCCode)
+        binding.tvPANNumber.setText(finalData.PANNumber)
+
+
+        //binding.c.setText(finalData.City)
+        //binding.tvSalesCodeofBO.setText(finalData.State)
+        //test
+
 
         setOnClicks()
     }

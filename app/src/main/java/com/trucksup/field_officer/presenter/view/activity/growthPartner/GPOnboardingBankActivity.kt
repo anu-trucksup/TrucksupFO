@@ -17,12 +17,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import com.google.gson.Gson
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ActivityGponboardBankBinding
 import com.trucksup.field_officer.presenter.common.image_picker.GetImage
 import com.trucksup.field_officer.presenter.common.image_picker.ImagePickerDialog
 import com.trucksup.field_officer.presenter.utils.FileHelper
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
+import com.trucksup.field_officer.presenter.view.activity.growthPartner.model.GPOnboardingData
 import java.io.File
 import java.util.regex.Matcher
 import java.util.regex.Pattern
@@ -49,7 +51,28 @@ class GPOnboardingBankActivity : AppCompatActivity(), GetImage, View.OnClickList
     }
 
     fun CheckValidation() {
-        if (binding.etAccountHolderName.text.isEmpty()) {
+        //test
+        val gson = Gson()
+        val json = intent.getStringExtra("userDataJson")
+        val gpOnboardingData = gson.fromJson(json, GPOnboardingData::class.java)
+
+
+        val updatedUser = gpOnboardingData.copy(
+            AccountHolderName = binding.etAccountHolderName.text.toString(),
+            AccountNumber = binding.ETAccountHolderNumber.text.toString(),
+            BankName = binding.ETBankNameNOB.text.toString(),
+            IFSCCode = binding.ETIfscCodeNOB.text.toString(),
+            //UploadCheque = binding.ETGPName.text.toString(),
+            PANNumber = binding.ETPanNumberNOB.text.toString(),
+        )
+
+        val updatedJson = gson.toJson(updatedUser)
+
+        //val intent = Intent(this, GpOnboardingPreviewActivity::class.java)
+        val intent = Intent(this, GpOnboardingPreviewActivity::class.java)
+        intent.putExtra("userDataJson", updatedJson)
+        startActivity(intent)
+        /*if (binding.etAccountHolderName.text.isEmpty()) {
             binding.etAccountHolderName.requestFocus()
             binding.etAccountHolderName.setError("")
         } else if (binding.ETAccountHolderNumber.text.isEmpty()) {
@@ -78,19 +101,20 @@ class GPOnboardingBankActivity : AppCompatActivity(), GetImage, View.OnClickList
             }
         } else {
             binding.ETPanNumberNOB.requestFocus()
-            /*val customErrorDrawable = resources.getDrawable(com.trucksup.fieldofficer.R.drawable.ic_phone)
+            *//*val customErrorDrawable = resources.getDrawable(com.trucksup.fieldofficer.R.drawable.ic_phone)
             customErrorDrawable.setBounds(
                 0,
                 0,
                 customErrorDrawable.intrinsicWidth,
                 customErrorDrawable.intrinsicHeight
             )
-            binding.ETPanNumberNOB?.setError("Enter Right PAN No" , customErrorDrawable)*/
+            binding.ETPanNumberNOB?.setError("Enter Right PAN No" , customErrorDrawable)*//*
             binding.ETPanNumberNOB?.setError("Enter Right PAN No")
             binding.ETPanNumberNOB?.setText("")
+            //test
 
-            startActivity(Intent(this, GpOnboardingPreviewActivity::class.java))
-        }
+            //startActivity(Intent(this, GpOnboardingPreviewActivity::class.java))
+        }*/
 
     }
 
