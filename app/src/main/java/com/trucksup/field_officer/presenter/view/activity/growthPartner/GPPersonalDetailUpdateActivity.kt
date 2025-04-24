@@ -72,13 +72,14 @@ class GPPersonalDetailUpdateActivity : BaseActivity(), TrucksFOImageController,
         val gson = Gson()
         val json = intent.getStringExtra("userDataJson")
         val gpOnboardingData = gson.fromJson(json, GPOnboardingData::class.java)
+        val finalData = gpOnboardingData
         //set Text
-        binding.ETSalesCode.setText(gpOnboardingData.SalesCodeofBO)
-        binding.ETGPMobileNumber.setText(gpOnboardingData.GPMobileNumber)
-        binding.ETGPName.setText(gpOnboardingData.GPName)
-        binding.ETGpBusinessName.setText(gpOnboardingData.BusinessName)
-        selectedbusinessType = gpOnboardingData.BusinessType
-        binding.ETGpPincode.setText(gpOnboardingData.Pincode)
+        binding.ETSalesCode.setText(finalData.SalesCodeofBO)
+        binding.ETGPMobileNumber.setText(finalData.GPMobileNumber)
+        binding.ETGPName.setText(finalData.GPName)
+        binding.ETGpBusinessName.setText(finalData.BusinessName)
+        selectedbusinessType = finalData.BusinessType
+        binding.ETGpPincode.setText(finalData.Pincode)
         //set Text
 
 

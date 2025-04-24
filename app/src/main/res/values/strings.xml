@@ -148,9 +148,9 @@
     <string name="Onboardings">Onboardings</string>
     <string name="onboard">Onboard</string>
 
-    <string name="SalesCode">Sales Code of BO</string>
-    <string name="GPMobile">GP Mobile Number</string>
-    <string name="GPName">GP Name</string>
+    <string name="SalesCode">Sales Code of BO<font color='#FF0000'>*</font></string>
+    <string name="GPMobile">GP Mobile Number<font color='#FF0000'>*</font></string>
+    <string name="GPName">GP Name<font color='#FF0000'>*</font></string>
     <string name="PleaseenterSalesCode">Please enter Sales Code of BO</string>
     <string name="PleaseenterGPMobile">Please enter GP Mobile Number</string>
     <string name="PleaseenterGPName">Please enter GP Name</string>
