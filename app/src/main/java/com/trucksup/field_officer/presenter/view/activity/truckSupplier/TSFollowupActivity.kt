@@ -3,23 +3,45 @@ package com.trucksup.field_officer.presenter.view.activity.truckSupplier
 import android.os.Bundle
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.TsFollowupActivityBinding
+import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
+import com.trucksup.field_officer.presenter.utils.PreferenceManager
+import com.trucksup.field_officer.presenter.view.activity.todayFollowup.model.FollowUpRequest
+import com.trucksup.field_officer.presenter.view.activity.todayFollowup.vml.TodayFollowUpViewModel
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetAllMeetupTSRequest
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.vml.TSFollowUpViewModel
 import com.trucksup.field_officer.presenter.view.fragment.ts.TSCompletedFragment
 import com.trucksup.field_officer.presenter.view.fragment.ts.TSScheduledFragment
 import com.trucksup.field_officer.presenter.view.adapter.FragmentAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class TSFollowupActivity : BaseActivity() {
-
     private lateinit var binding: TsFollowupActivityBinding
+    private var mViewModel: TSFollowUpViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = TsFollowupActivityBinding.inflate(layoutInflater)
         adjustFontScale(resources.configuration, 1.0f);
         setContentView(binding.root)
+        mViewModel = ViewModelProvider(this)[TSFollowUpViewModel::class.java]
+
+        showProgressDialog(this, false)
+        val request = GetAllMeetupTSRequest(
+            requestId = PreferenceManager.getRequestNo().toInt(),
+            requestedBy = PreferenceManager.getPhoneNo(this),
+            requestDatetime = PreferenceManager.getServerDateUtc(),
+            boID = PreferenceManager.getUserData(this)?.boUserid?.toInt() ?: 0,
+            type = "Scheduled"
+        )
+        mViewModel?.getAllMeetupTS(PreferenceManager.getAuthToken(), request)
+
+        setupObserver()
 
         setupViewPager()
 
@@ -41,6 +63,37 @@ class TSFollowupActivity : BaseActivity() {
         binding.ivBack.setOnClickListener {
             onBackPressed()
         }
+    }
+
+    private fun setupObserver() {
+        mViewModel?.getAllMeetUpTSResponseLD?.observe(this@TSFollowupActivity) { responseModel ->                     // login function observe
+            if (responseModel.serverError != null) {
+                dismissProgressDialog()
+
+                val abx =
+                    AlertBoxDialog(
+                        this@TSFollowupActivity,
+                        responseModel.serverError.toString(),
+                        "m"
+                    )
+                abx.show()
+            } else {
+                dismissProgressDialog()
+
+                if (responseModel.success?.statuscode == 200) {
+                   // setItemList(responseModel.success)
+                } else {
+                    val abx =
+                        AlertBoxDialog(
+                            this@TSFollowupActivity,
+                            responseModel.success?.message.toString(),
+                            "m"
+                        )
+                    abx.show()
+                }
+            }
+        }
+
     }
 
     private fun setupViewPager() {

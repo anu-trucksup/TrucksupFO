@@ -31,6 +31,7 @@ class ServicesMainAdapter(var context: Context?, var serviceList:ArrayList<HomeS
         holder.binding.tvCount.text=serviceList[position].serviceCount?:"0"
 
         if (position == 5 || position == 4) {
+            holder.binding.countLayout.visibility=View.GONE
             holder.binding.materialCardView.setCardForegroundColor(context!!.getColorStateList(R.color.grey4))
             holder.binding.serviceImg.isEnabled = false
         }

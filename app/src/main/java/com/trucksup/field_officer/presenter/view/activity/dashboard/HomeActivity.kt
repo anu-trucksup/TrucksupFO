@@ -42,7 +42,7 @@ import com.trucksup.field_officer.presenter.view.activity.auth.logout.LogoutRequ
 import com.trucksup.field_officer.presenter.view.activity.dashboard.vml.DashBoardViewModel
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.FinanceActivity
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.InsuranceActivity
-import com.trucksup.field_officer.presenter.view.activity.other.FollowUpActivity
+import com.trucksup.field_officer.presenter.view.activity.todayFollowup.FollowUpActivity
 import com.trucksup.field_officer.presenter.view.activity.other.NavItems
 import com.trucksup.field_officer.presenter.view.activity.other.NewOnboardingSelection
 import com.trucksup.field_officer.presenter.view.activity.profile.EditProfileActivity
@@ -66,6 +66,8 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
     private var trackingCount: String? = null
     private var verificationCount: String? = null
     private var dlCount: String? = null
+    private var dialog: AlertDialog?=null
+    private var dialog2: AlertDialog?=null
 
     private var backPressedTime: Long = 0
     private lateinit var toast: Toast
@@ -118,6 +120,17 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
 
     override fun onResume() {
         super.onResume()
+        if (dialog!=null)
+        {
+            dialog?.dismiss()
+            dialog=null
+        }
+
+        if (dialog2!=null)
+        {
+            dialog2?.dismiss()
+            dialog2=null
+        }
         //dashboard api hit
         setDashboardApi()
     }
@@ -181,7 +194,8 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
                 dutyStatus = b
                 if (!latitude.isNullOrEmpty() && !longitude.isNullOrEmpty() && !address.isNullOrEmpty()) {
                     apiDutyStatus = true
-                    onOffDuty()
+//                    onOffDuty()
+                    attendanceDialog()
                 }
             }
         }
@@ -405,7 +419,7 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
 
     private fun setupObserver() {
         mViewModel?.resultDutyStatusLD?.observe(this) { responseModel ->                     // login function observe
-            apiDutyStatus = false
+//            apiDutyStatus = false
             if (responseModel.serverError != null) {
                 if (dutyStatus == false) {
                     dutyStatus = true
@@ -448,6 +462,7 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
                     }
                 }
             }
+            apiDutyStatus = false
         }
 
         mViewModel?.resultAllHomeCountStatusLD?.observe(this) { responseModel ->                     // login function observe
@@ -504,7 +519,25 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
                         }
 
                         //duty status
-                        dutyStatus = userDetail!!.dutyStatus
+                        if (userDetail?.dutyStatus.isNullOrEmpty())
+                        {
+                            dutyStatus=false
+                        }
+                        else
+                        {
+                            if (userDetail?.dutyStatus?.lowercase()=="true")
+                            {
+                                dutyStatus=true
+                            }
+                            else
+                            {
+                                dutyStatus=false
+                            }
+                        }
+
+
+
+//                        dutyStatus = userDetail!!.dutyStatus?:""
                         apiDutyStatus = true
                         if (dutyStatus == true) {
                             onDutyToggleChange()
@@ -649,7 +682,7 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
         )
         featuresList.add(
             HomeServicesModel(
-                "Total downloads",
+                "Total Downloads",
                 R.drawable.down_feature,
                 featureCount?.totalDownloads
             )
@@ -693,12 +726,17 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
 
     ///////////////////////////////////////////////////////////////
     fun onOffDuty() {
+        if (dialog!=null)
+        {
+            dialog?.dismiss()
+            dialog=null
+        }
         val builder = AlertDialog.Builder(this@HomeActivity)
         val binding = OnOffDutyBinding.inflate(LayoutInflater.from(this@HomeActivity))
         builder.setView(binding.root)
-        val dialog: AlertDialog = builder.create()
-        dialog.setCancelable(true)
-        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog = builder.create()
+        dialog?.setCancelable(false)
+        dialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
 
         if (dutyStatus == true) {
             binding.textView6.text = getString(R.string.activate_msg)
@@ -709,7 +747,7 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
         //activate button
         binding.btnActivate.setOnClickListener {
             attendanceDialog()
-            dialog.dismiss()
+            dialog?.dismiss()
         }
 
         //cancel button
@@ -722,19 +760,34 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
                 offDutyToggleChange()
             }
             apiDutyStatus = false
-            dialog.dismiss()
+            dialog?.dismiss()
         }
 
-        dialog.show()
+        dialog?.show()
     }
 
     //////////////////////////////////////////////////////////////
     private fun attendanceDialog() {
+        if (dialog2!=null)
+        {
+            dialog2?.dismiss()
+            dialog2=null
+        }
         val builder = AlertDialog.Builder(this@HomeActivity)
         val binding = AttendDialogLayoutBinding.inflate(LayoutInflater.from(this@HomeActivity))
         builder.setView(binding.root)
-        val dialog: AlertDialog = builder.create()
-        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog2 = builder.create()
+        dialog2?.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog2?.setCancelable(false)
+
+        if (dutyStatus==true)
+        {
+            binding.message.text=getString(R.string.on_duty_confirm_msg)
+        }
+        else
+        {
+            binding.message.text=getString(R.string.off_duty_confirm_msg)
+        }
 
         val calendar = Calendar.getInstance()
         val getCurrentDate = SimpleDateFormat("dd-MMM-yy")
@@ -748,21 +801,41 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
 
         //ok button
         binding.confirm.setOnClickListener {
-            LoadingUtils.showDialog(this@HomeActivity, false)
-
-            val request = DutyStatusRequest(
-                1234,
-                PreferenceManager.getUserData(this@HomeActivity)?.boUserid?.toInt() ?: 0,
-                dutyStatus,
-                latitude ?: "",
-                address ?: "",
-                longitude ?: "",
-                "" + PreferenceManager.getServerDateUtc(),
-                PreferenceManager.getRequestNo().toInt(),
-                "" + PreferenceManager.getPhoneNo(this@HomeActivity)
-            )
-            mViewModel?.dutyStatus(request)
-            dialog.dismiss()
+            if (latitude.isNullOrEmpty() || longitude.isNullOrEmpty())
+            {
+                checkLocationPermission() {
+                    LoadingUtils.showDialog(this@HomeActivity, false)
+                    val request = DutyStatusRequest(
+                        PreferenceManager.getUserData(this)?.boUserid?.toInt() ?: 0,
+                        PreferenceManager.getUserData(this@HomeActivity)?.boUserid?.toInt() ?: 0,
+                        dutyStatus,
+                        latitude ?: "",
+                        address ?: "",
+                        longitude ?: "",
+                        "" + PreferenceManager.getServerDateUtc(),
+                        PreferenceManager.getRequestNo().toInt(),
+                        "" + PreferenceManager.getPhoneNo(this@HomeActivity)
+                    )
+                    mViewModel?.dutyStatus(request)
+                }
+            }
+            else
+            {
+                LoadingUtils.showDialog(this@HomeActivity, false)
+                val request = DutyStatusRequest(
+                    PreferenceManager.getUserData(this)?.boUserid?.toInt() ?: 0,
+                    PreferenceManager.getUserData(this@HomeActivity)?.boUserid?.toInt() ?: 0,
+                    dutyStatus,
+                    latitude ?: "",
+                    address ?: "",
+                    longitude ?: "",
+                    "" + PreferenceManager.getServerDateUtc(),
+                    PreferenceManager.getRequestNo().toInt(),
+                    "" + PreferenceManager.getPhoneNo(this@HomeActivity)
+                )
+                mViewModel?.dutyStatus(request)
+            }
+            dialog2?.dismiss()
         }
 
         //ok button
@@ -783,10 +856,10 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
 //                this.binding.OnSwitchBtn.trackTintList = resources.getColorStateList(R.color.red)
             }
             apiDutyStatus = false
-            dialog.dismiss()
+            dialog2?.dismiss()
         }
 
-        dialog.show()
+        dialog2?.show()
     }
 
     private fun onDutyToggleChange() {

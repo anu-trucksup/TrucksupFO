@@ -71,7 +71,7 @@ class BAScheduleMeetingVM @Inject constructor(val apiUseCase: APIUseCase) : View
         }
     }
 
-    fun ImageUpload(
+    fun imageUpload(
         token: String,
         documentType: String, file: MultipartBody.Part,
         fileWaterMark: MultipartBody.Part,

@@ -214,90 +214,16 @@ class CreatePasswordActivity : BaseActivity(), View.OnClickListener {
             onBackPressed()
         } else if (view.id == R.id.updatepass_btn) {
 
-            if (TextUtils.isEmpty(mBinding?.passwordTxt?.text.toString().trim())) {
-                mBinding?.passwordTxt?.error = getString(R.string.enter_password)
-                mBinding?.passwordTxt?.requestFocus()
-                return
-            }
-
-            val password = mBinding!!.passwordTxt.text.toString()
-
-            if (isValidPassword(password)) {
-
-                if (mBinding?.confirmPasswordTxt?.text.toString().isEmpty()) {
-                    LoggerMessage.onSNACK(
-                        mBinding!!.confirmPasswordTxt,
-                        getString(R.string.enter_confirm_password),
-                        applicationContext
-                    )
-                    return
+            if (latitude.isNullOrEmpty() || longitude.isNullOrEmpty())
+            {
+                checkLocationPermission(){
+                    checkValidation()
                 }
-                val confirmpassword = mBinding!!.confirmPasswordTxt.text.toString()
-
-                if (confirmpassword.length > 0 && password.length > 0) {
-                    if (!confirmpassword.equals(password)) {
-                        val customErrorDrawable = resources.getDrawable(R.drawable.error_warn)
-                        customErrorDrawable.setBounds(
-                            0, 0,
-                            customErrorDrawable.intrinsicWidth, customErrorDrawable.intrinsicHeight
-                        )
-
-                        mBinding?.confirmPasswordTxt?.setError(
-                            getString(R.string.password_match), customErrorDrawable
-                        )
-                        //  mSignUpBinding!!.confirmPasswordTxt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.error_confirm, 0);
-                        return
-                    } else {
-
-                        val customErrorDrawable = resources.getDrawable(R.drawable.error_confirm)
-                        customErrorDrawable.setBounds(
-                            0,
-                            0,
-                            customErrorDrawable.intrinsicWidth,
-                            customErrorDrawable.intrinsicHeight
-                        )
-
-                        mBinding!!.confirmPasswordTxt.setError(
-                            getString(R.string.password_match_msg),
-                            customErrorDrawable
-                        )
-
-                    }
-
-                }
-            } else {
-                LoggerMessage.onSNACK(
-                    mBinding?.passwordTxt!!,
-                    getString(R.string.password_validation),
-                    applicationContext
-                )
-
-                return
             }
-
-            // Proceed
-
-            showProgressDialog(this, false)
-
-            val request = ForgetRequest(
-                requestedBy = mobileNumber.toString(),
-                requestId = PreferenceManager.getRequestNo().toInt(),
-                requestDatetime = PreferenceManager.getServerDateUtc(),
-                deviceid = PreferenceManager.getAndroiDeviceId(this),
-                appVersion = AppVersionUtils.getAppVersionName(this),
-                androidVersion = Build.VERSION.SDK_INT.toString(),
-                profilename = "",
-                profilephoto = "",
-                mobilenumber = mobileNumber.toString(),
-                password = password.toString(),
-                latitude = latitude,
-                longitude = longitude,
-                confirmPassword = mBinding!!.confirmPasswordTxt.text.toString()
-            )
-            mViewModel?.resetPassword(
-                PreferenceManager.getAuthToken(), request
-            )
-
+            else
+            {
+                checkValidation()
+            }
 
         }
     }
@@ -318,4 +244,91 @@ class CreatePasswordActivity : BaseActivity(), View.OnClickListener {
               mViewModel!!.sendOTP("", phoneNo!!, countryCode!!)
           }
       }*/
+
+    private fun checkValidation()
+    {
+        if (TextUtils.isEmpty(mBinding?.passwordTxt?.text.toString().trim())) {
+            mBinding?.passwordTxt?.error = getString(R.string.enter_password)
+            mBinding?.passwordTxt?.requestFocus()
+            return
+        }
+
+        val password = mBinding!!.passwordTxt.text.toString()
+
+        if (isValidPassword(password)) {
+
+            if (mBinding?.confirmPasswordTxt?.text.toString().isEmpty()) {
+                LoggerMessage.onSNACK(
+                    mBinding!!.confirmPasswordTxt,
+                    getString(R.string.enter_confirm_password),
+                    applicationContext
+                )
+                return
+            }
+            val confirmpassword = mBinding!!.confirmPasswordTxt.text.toString()
+
+            if (confirmpassword.length > 0 && password.length > 0) {
+                if (!confirmpassword.equals(password)) {
+                    val customErrorDrawable = resources.getDrawable(R.drawable.error_warn)
+                    customErrorDrawable.setBounds(
+                        0, 0,
+                        customErrorDrawable.intrinsicWidth, customErrorDrawable.intrinsicHeight
+                    )
+
+                    mBinding?.confirmPasswordTxt?.setError(
+                        getString(R.string.password_match), customErrorDrawable
+                    )
+                    //  mSignUpBinding!!.confirmPasswordTxt.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.error_confirm, 0);
+                    return
+                } else {
+
+                    val customErrorDrawable = resources.getDrawable(R.drawable.error_confirm)
+                    customErrorDrawable.setBounds(
+                        0,
+                        0,
+                        customErrorDrawable.intrinsicWidth,
+                        customErrorDrawable.intrinsicHeight
+                    )
+
+                    mBinding!!.confirmPasswordTxt.setError(
+                        getString(R.string.password_match_msg),
+                        customErrorDrawable
+                    )
+
+                }
+
+            }
+        }
+        else {
+            LoggerMessage.onSNACK(
+                mBinding?.passwordTxt!!,
+                getString(R.string.password_validation),
+                applicationContext
+            )
+
+            return
+        }
+
+        // Proceed
+        showProgressDialog(this, false)
+
+        val request = ForgetRequest(
+            requestedBy = mobileNumber.toString(),
+            requestId = PreferenceManager.getRequestNo().toInt(),
+            requestDatetime = PreferenceManager.getServerDateUtc(),
+            deviceid = PreferenceManager.getAndroiDeviceId(this),
+            appVersion = AppVersionUtils.getAppVersionName(this),
+            androidVersion = Build.VERSION.SDK_INT.toString(),
+            profilename = "",
+            profilephoto = "",
+            mobilenumber = mobileNumber.toString(),
+            password = password.toString(),
+            latitude = latitude?:"",
+            longitude = longitude?:"",
+            confirmPassword = mBinding!!.confirmPasswordTxt.text.toString()
+        )
+        mViewModel?.resetPassword(
+            PreferenceManager.getAuthToken(), request
+        )
+    }
 }

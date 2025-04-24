@@ -9,10 +9,14 @@ import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ItemFeaturesBinding
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.BAFollowupActivity
 import com.trucksup.field_officer.presenter.view.activity.growthPartner.GPFollowupActivity
+import com.trucksup.field_officer.presenter.view.activity.todayFollowup.model.MeetsCounts
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.TSFollowupActivity
 
 
-class FollowupSelectionAdapter(var context: Context?) :
+class FollowupSelectionAdapter(
+    var context: Context?,
+    private val todayFollowUpCounts: MeetsCounts?
+) :
     RecyclerView.Adapter<FollowupSelectionAdapter.ViewHolder>() {
 
     private val serviceList = arrayListOf(
@@ -37,7 +41,14 @@ class FollowupSelectionAdapter(var context: Context?) :
 
         holder.binding.ivImage.setImageResource(imageList[position])
         holder.binding.tvName.text = serviceList[position]
-       // holder.binding.tvCount.text = serviceList[position]
+        if (position == 0) {
+            holder.binding.tvCount.text = todayFollowUpCounts?.truckSupplier
+        } else if (position == 1) {
+            holder.binding.tvCount.text = todayFollowUpCounts?.businessAssociate
+        } else if (position == 2) {
+            holder.binding.tvCount.text = todayFollowUpCounts?.growthPartner
+        }
+
 
         holder.binding.root.setOnClickListener {
             //Toast.makeText(context,"Under Development", Toast.LENGTH_SHORT).show()

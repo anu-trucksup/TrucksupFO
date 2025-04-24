@@ -202,6 +202,62 @@ class MiscActivity : BaseActivity(), AddMiscInterface , TrucksFOImageController 
             }
         }
 
+        mViewModel?.getAllMiscResultLD?.observe(this@MiscActivity) { responseModel ->                     // login function observe
+            if (responseModel.serverError != null) {
+                dismissProgressDialog()
+
+                val abx =
+                    AlertBoxDialog(
+                        this@MiscActivity,
+                        responseModel.serverError.toString(),
+                        "m"
+                    )
+                abx.show()
+            } else {
+                dismissProgressDialog()
+
+                if (responseModel.success?.statuscode == 200) {
+                   // setItemList(responseModel.success)
+                } else {
+                    val abx =
+                        AlertBoxDialog(
+                            this@MiscActivity,
+                            responseModel.success?.message.toString(),
+                            "m"
+                        )
+                    abx.show()
+                }
+            }
+        }
+
+        mViewModel?.updateMiscLeadsResultLD?.observe(this@MiscActivity) { responseModel ->                     // login function observe
+            if (responseModel.serverError != null) {
+                dismissProgressDialog()
+
+                val abx =
+                    AlertBoxDialog(
+                        this@MiscActivity,
+                        responseModel.serverError.toString(),
+                        "m"
+                    )
+                abx.show()
+            } else {
+                dismissProgressDialog()
+
+                if (responseModel.success?.statuscode == 200) {
+                    //setItemList(responseModel.success)
+                } else {
+                    val abx =
+                        AlertBoxDialog(
+                            this@MiscActivity,
+                            responseModel.success?.message.toString(),
+                            "m"
+                        )
+                    abx.show()
+                }
+            }
+        }
+
     }
 
     //add by me

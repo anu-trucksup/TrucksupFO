@@ -15,5 +15,5 @@ data class UserDetails(
     @SerializedName("image")
     val image: String,
     @SerializedName("dutyStatus")
-    var dutyStatus: Boolean=false
+    var dutyStatus: String
 )

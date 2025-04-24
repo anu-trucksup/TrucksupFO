@@ -42,6 +42,8 @@ import com.trucksup.field_officer.presenter.view.activity.auth.logout.LogoutResp
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.AddBrokerRequest
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.AddBrokerResponse
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.CompleteMeetingBARequest
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.GetAllMeetUpBARequest
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.GetAllMeetupBAResponse
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.ScheduleMeetingBARequest
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.ScheduleMeetingResponse
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinaceDataSubmitResponse
@@ -52,9 +54,19 @@ import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.L
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryRequest
 import com.trucksup.field_officer.presenter.view.activity.growthPartner.model.CompleteMeetingGPRequest
 import com.trucksup.field_officer.presenter.view.activity.growthPartner.model.ScheduleMeetingGPRequest
+import com.trucksup.field_officer.presenter.view.activity.miscellaneous.model.AddMiscLeadRequest
+import com.trucksup.field_officer.presenter.view.activity.miscellaneous.model.AddMiscLeadsResponse
+import com.trucksup.field_officer.presenter.view.activity.miscellaneous.model.GetAllMiscLeadResponse
+import com.trucksup.field_officer.presenter.view.activity.miscellaneous.model.GetMiscLeadRequest
+import com.trucksup.field_officer.presenter.view.activity.miscellaneous.model.UpdateMiscLeadsRequest
+import com.trucksup.field_officer.presenter.view.activity.miscellaneous.model.UpdateMiscLeadsResponse
 import com.trucksup.field_officer.presenter.view.activity.subscription.model.PlanRequest
+import com.trucksup.field_officer.presenter.view.activity.todayFollowup.model.FollowUpRequest
+import com.trucksup.field_officer.presenter.view.activity.todayFollowup.model.FollowUpResponse
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.AddLoadFilterRequest
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.AddLoadFilterResponse
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetAllMeetUpTSResponse
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetAllMeetupTSRequest
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.RcRequest
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.RcResponse
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.ScheduleMeetTSRequest
@@ -329,27 +341,78 @@ interface ApiService {
 
 
     //add by me
-    @GET("BOAppApiGateway/apiateway/GetBADetails")
+    @POST("BOAppApiGateway/apiateway/GetBADetails")
     @Headers("Accept: application/json")
-    suspend fun BAMeetGetSchedule(
+    suspend fun getAllBADetails(
         @Header("Authorization") auth: String,
         @Body request: GetMeetScheduleDetailsRequest
     ): GetMeetScheduleDetailsResponse
 
     @POST("BOAppApiGateway/apiateway/GetTSDetails")
     @Headers("Accept: application/json")
-    suspend fun TSMeetGetSchedule(
+    suspend fun getAllTSDetails(
         @Header("Authorization") auth: String,
         @Body request: GetMeetScheduleDetailsRequest
     ): GetMeetScheduleDetailsResponse
 
-    @GET("BOAppApiGateway/apiateway/GetGPDetails")
+    @POST("BOAppApiGateway/apiateway/GetGPDetails")
     @Headers("Accept: application/json")
-    suspend fun GPMeetGetSchedule(
+    suspend fun getAllGPDetails(
         @Header("Authorization") auth: String,
         @Body request: GetMeetScheduleDetailsRequest
     ): GetMeetScheduleDetailsResponse
-    //add by me
 
+    //Today Followup
+    @POST("BOAppApiGateway/apiateway/GetTodaysFollowup")
+    @Headers("Accept: application/json")
+    suspend fun getTodaysFollowup(
+        @Header("Authorization") auth: String,
+        @Body request: FollowUpRequest
+    ): FollowUpResponse
+
+    @POST("BOAppApiGateway/apiateway/GetAllBAMeets")
+    @Headers("Accept: application/json")
+    suspend fun getAllMeetupBA(
+        @Header("Authorization") auth: String,
+        @Body request: GetAllMeetUpBARequest
+    ): GetAllMeetupBAResponse
+
+    @POST("BOAppApiGateway/apiateway/GetAllTSMeets")
+    @Headers("Accept: application/json")
+    suspend fun getAllMeetupTS(
+        @Header("Authorization") auth: String,
+        @Body request: GetAllMeetupTSRequest
+    ): GetAllMeetUpTSResponse
+
+    @POST("BOAppApiGateway/apiateway/GetAllGPMeets")
+    @Headers("Accept: application/json")
+    suspend fun getAllMeetupGP(
+        @Header("Authorization") auth: String,
+        @Body request: GetAllMeetupTSRequest
+    ): GetAllMeetUpTSResponse
+
+
+    //Add Misc
+    @POST("BOAppApiGateway/apiateway/GetBOMiscLeads")
+    @Headers("Accept: application/json")
+    suspend fun getBOMiscLeads(
+        @Header("Authorization") auth: String,
+        @Body request: GetMiscLeadRequest
+    ): GetAllMiscLeadResponse
+
+
+    @POST("BOAppApiGateway/apiateway/BOAddMisc")
+    @Headers("Accept: application/json")
+    suspend fun addMiscLeadsByBO(
+        @Header("Authorization") auth: String,
+        @Body request: AddMiscLeadRequest
+    ): AddMiscLeadsResponse
+
+    @POST("BOAppApiGateway/apiateway/BOAddMisc")
+    @Headers("Accept: application/json")
+    suspend fun updateMiscLeadsByBO(
+        @Header("Authorization") auth: String,
+        @Body request: UpdateMiscLeadsRequest
+    ): UpdateMiscLeadsResponse
 
 }

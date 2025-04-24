@@ -34,12 +34,15 @@ import com.trucksup.field_officer.data.model.user.GetProfileResponse
 import com.trucksup.field_officer.data.model.user.UpdateProfileRequest
 import com.trucksup.field_officer.data.model.user.UpdateProfileResponse
 import com.trucksup.field_officer.data.network.ResultWrapper
+import com.trucksup.field_officer.data.network.safeApiCall
 import com.trucksup.field_officer.data.repository.APIRepository
 import com.trucksup.field_officer.presenter.view.activity.auth.logout.LogoutRequest
 import com.trucksup.field_officer.presenter.view.activity.auth.logout.LogoutResponse
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.AddBrokerRequest
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.AddBrokerResponse
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.CompleteMeetingBARequest
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.GetAllMeetUpBARequest
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.GetAllMeetupBAResponse
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.ScheduleMeetingBARequest
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.ScheduleMeetingResponse
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinaceDataSubmitResponse
@@ -50,14 +53,25 @@ import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.L
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryRequest
 import com.trucksup.field_officer.presenter.view.activity.growthPartner.model.CompleteMeetingGPRequest
 import com.trucksup.field_officer.presenter.view.activity.growthPartner.model.ScheduleMeetingGPRequest
+import com.trucksup.field_officer.presenter.view.activity.miscellaneous.model.AddMiscLeadRequest
+import com.trucksup.field_officer.presenter.view.activity.miscellaneous.model.AddMiscLeadsResponse
+import com.trucksup.field_officer.presenter.view.activity.miscellaneous.model.GetAllMiscLeadResponse
+import com.trucksup.field_officer.presenter.view.activity.miscellaneous.model.GetMiscLeadRequest
+import com.trucksup.field_officer.presenter.view.activity.miscellaneous.model.UpdateMiscLeadsRequest
+import com.trucksup.field_officer.presenter.view.activity.miscellaneous.model.UpdateMiscLeadsResponse
 import com.trucksup.field_officer.presenter.view.activity.subscription.model.PlanRequest
+import com.trucksup.field_officer.presenter.view.activity.todayFollowup.model.FollowUpRequest
+import com.trucksup.field_officer.presenter.view.activity.todayFollowup.model.FollowUpResponse
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.AddLoadFilterRequest
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.AddLoadFilterResponse
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetAllMeetUpTSResponse
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetAllMeetupTSRequest
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.RcRequest
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.RcResponse
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.ScheduleMeetTSRequest
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetMeetScheduleDetailsResponse
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.VerifyTruckResponse
+import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 
 class APIUseCase @Inject constructor(private val apiRepository: APIRepository) {
@@ -75,7 +89,7 @@ class APIUseCase @Inject constructor(private val apiRepository: APIRepository) {
     suspend fun verifyOTP(
         token: String, request: VerifyOtpRequest
     ): ResultWrapper<VerifyOtpResponse> {
-        return apiRepository.verifyOTP(token,request)
+        return apiRepository.verifyOTP(token, request)
     }
 
     suspend fun resetPassword(
@@ -92,7 +106,10 @@ class APIUseCase @Inject constructor(private val apiRepository: APIRepository) {
     }
 
 
-    suspend fun getUserProfile(token: String, request: GetProfileRequest): ResultWrapper<GetProfileResponse> {
+    suspend fun getUserProfile(
+        token: String,
+        request: GetProfileRequest
+    ): ResultWrapper<GetProfileResponse> {
         return apiRepository.getUserProfile(token, request)
     }
 
@@ -103,8 +120,11 @@ class APIUseCase @Inject constructor(private val apiRepository: APIRepository) {
         return apiRepository.getAllHomeCountStatus(authToken, homeCountRequest)
     }
 
-    suspend fun updateUserProfile(token: String, updateProfileRequest: UpdateProfileRequest): ResultWrapper<UpdateProfileResponse> {
-        return apiRepository.updateUserProfile(token,updateProfileRequest)
+    suspend fun updateUserProfile(
+        token: String,
+        updateProfileRequest: UpdateProfileRequest
+    ): ResultWrapper<UpdateProfileResponse> {
+        return apiRepository.updateUserProfile(token, updateProfileRequest)
     }
 
     fun logoutUser() {
@@ -293,5 +313,54 @@ class APIUseCase @Inject constructor(private val apiRepository: APIRepository) {
     ): ResultWrapper<GetMeetScheduleDetailsResponse> {
         return apiRepository.getGPMeetScheduleData(authToken, request)
     }
-    //add by me
+
+    suspend fun getTodaysFollowup(
+        authToken: String,
+        request: FollowUpRequest,
+    ): ResultWrapper<FollowUpResponse> {
+        return apiRepository.getTodaysFollowup(authToken, request)
+    }
+
+    suspend fun getAllMeetupTS(
+        authToken: String,
+        request: GetAllMeetupTSRequest,
+    ): ResultWrapper<GetAllMeetUpTSResponse> {
+        return apiRepository.getAllMeetupTS(authToken, request)
+    }
+
+    suspend fun getAllMeetupBA(
+        authToken: String,
+        request: GetAllMeetUpBARequest,
+    ): ResultWrapper<GetAllMeetupBAResponse> {
+        return apiRepository.getAllMeetupBA(authToken, request)
+
+    }
+
+    suspend fun getAllMeetupGP(
+        authToken: String,
+        request: GetAllMeetupTSRequest,
+    ): ResultWrapper<GetAllMeetUpTSResponse> {
+        return apiRepository.getAllMeetupGP(authToken, request)
+    }
+
+    suspend fun getBOMiscLeads(
+        authToken: String,
+        request: GetMiscLeadRequest,
+    ): ResultWrapper<GetAllMiscLeadResponse> {
+        return apiRepository.getBOMiscLeads(authToken, request)
+    }
+
+    suspend fun addMiscLeadsByBO(
+        authToken: String,
+        request: AddMiscLeadRequest,
+    ): ResultWrapper<AddMiscLeadsResponse> {
+        return apiRepository.addMiscLeadsByBO(authToken, request)
+    }
+
+    suspend fun updateMiscLeadsByBO(
+        authToken: String,
+        request: UpdateMiscLeadsRequest,
+    ): ResultWrapper<UpdateMiscLeadsResponse> {
+        return apiRepository.updateMiscLeadsByBO(authToken, request)
+    }
 }
