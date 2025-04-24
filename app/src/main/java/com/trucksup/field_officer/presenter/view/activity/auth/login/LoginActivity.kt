@@ -1,12 +1,16 @@
 package com.trucksup.field_officer.presenter.view.activity.auth.login
 
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
+import android.text.Editable
 import android.text.TextUtils
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
@@ -58,6 +62,21 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         mLoginBinding?.ivBackArrowLogin?.setOnClickListener(this)
         mLoginBinding?.createAccountTxt?.setOnClickListener(this)
         mLoginBinding?.forgetPasswordTxt?.setOnClickListener(this)
+        mLoginBinding?.phoneTxt?.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
+            }
+
+            override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
+            }
+
+            override fun afterTextChanged(editable: Editable) {
+                if (editable.toString().length==10)
+                {
+                    mLoginBinding?.phoneTxt?.hideKeyboard()
+                }
+            }
+        })
+
 
         mLoginBinding?.loginBtn?.setOnClickListener(this)
 
@@ -141,88 +160,17 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
 
         } else if (view.id == R.id.login_btn) {
 
-            if (isOnline(this)) {
-                if (TextUtils.isEmpty(mLoginBinding?.phoneTxt?.text.toString().trim())) {
-                    mLoginBinding?.phoneTxt?.error = getString(R.string.enter_mobile_no)
-                    mLoginBinding?.phoneTxt?.requestFocus()
-                    return
+            if (latitude.isNullOrEmpty() || longitude.isNullOrEmpty()) {
+                checkLocationPermission(){
+                    Log.e("Location",latitude+"@"+longitude)
+                    checkValidations()
                 }
-
-                if (!isValidMobile(mLoginBinding?.phoneTxt?.text.toString())) {
-                    mLoginBinding?.phoneTxt?.error = getString(R.string.mobile_no_validation)
-                    mLoginBinding?.phoneTxt?.requestFocus()
-                    return
-                }
-                val password =  mLoginBinding?.passwordTxt?.text.toString().trim()
-                if (TextUtils.isEmpty(password)) {
-                    LoggerMessage.onSNACK(
-                        mLoginBinding?.passwordTxt!!,
-                        getString(R.string.enter_password),
-                        applicationContext
-                    )
-
-                    mLoginBinding?.passwordTxt?.requestFocus()
-                    return
-                }
-
-
-                if (mLoginBinding?.rbRemember?.isChecked!!) {
-                    loginPrefsEditor?.putBoolean("saveLogin", true);
-                    loginPrefsEditor?.putString(
-                        "username",
-                        mLoginBinding?.phoneTxt?.text.toString()
-                    )
-                    loginPrefsEditor?.putString(
-                        "password",
-                        mLoginBinding?.passwordTxt?.text.toString()
-                    )
-                    loginPrefsEditor?.commit();
-                } else {
-                    loginPrefsEditor?.clear();
-                    loginPrefsEditor?.commit();
-                }
-
-
-                if (isValidPassword(password)) {
-                    // Proceed
-
-                    val request = LoginRequest(
-                        requestedBy = mLoginBinding?.phoneTxt?.text.toString(),
-                        requestId = PreferenceManager.getRequestNo().toInt(),
-                        requestDatetime = PreferenceManager.getServerDateUtc(),
-                        deviceid = PreferenceManager.getAndroiDeviceId(this),
-                        appVersion = AppVersionUtils.getAppVersionName(this),
-                        androidVersion = Build.VERSION.SDK_INT.toString(),
-                        profilename = "",
-                        profilephoto = "",
-                        mobilenumber = mLoginBinding?.phoneTxt?.text.toString(),
-                        password = password,
-                        latitude = latitude?:"",
-                        longitude = longitude?:"",
-                        confirmPassword = password
-                    )
-
-                    showProgressDialog(this, false)
-                    mViewModel?.loginUser(PreferenceManager.getAuthToken(), request)
-                } else {
-                    LoggerMessage.onSNACK(
-                        mLoginBinding?.passwordTxt!!,
-                        getString(R.string.password_validation),
-                        applicationContext
-                    )
-
-                    return
-                }
-
-            } else {
-
-                val abx = AlertBoxDialog(
-                    this@LoginActivity,
-                    getString(R.string.no_internet),
-                    "m"
-                )
-                abx.show()
             }
+            else
+            {
+                checkValidations()
+            }
+
         }
     }
 
@@ -237,6 +185,96 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         super.onBackPressed()
 //        System.exit(0)
        finishAffinity()
+    }
+
+    private fun checkValidations()
+    {
+        if (isOnline(this)) {
+            if (TextUtils.isEmpty(mLoginBinding?.phoneTxt?.text.toString().trim())) {
+                mLoginBinding?.phoneTxt?.error = getString(R.string.enter_mobile_no)
+                mLoginBinding?.phoneTxt?.requestFocus()
+                return
+            }
+
+            if (!isValidMobile(mLoginBinding?.phoneTxt?.text.toString())) {
+                mLoginBinding?.phoneTxt?.error = getString(R.string.mobile_no_validation)
+                mLoginBinding?.phoneTxt?.requestFocus()
+                return
+            }
+            val password = mLoginBinding?.passwordTxt?.text.toString().trim()
+            if (TextUtils.isEmpty(password)) {
+                LoggerMessage.onSNACK(
+                    mLoginBinding?.passwordTxt!!,
+                    getString(R.string.enter_password),
+                    applicationContext
+                )
+
+                mLoginBinding?.passwordTxt?.requestFocus()
+                return
+            }
+
+
+            if (mLoginBinding?.rbRemember?.isChecked!!) {
+                loginPrefsEditor?.putBoolean("saveLogin", true);
+                loginPrefsEditor?.putString(
+                    "username",
+                    mLoginBinding?.phoneTxt?.text.toString()
+                )
+                loginPrefsEditor?.putString(
+                    "password",
+                    mLoginBinding?.passwordTxt?.text.toString()
+                )
+                loginPrefsEditor?.commit();
+            } else {
+                loginPrefsEditor?.clear();
+                loginPrefsEditor?.commit();
+            }
+
+
+            if (isValidPassword(password)) {
+                // Proceed
+                val request = LoginRequest(
+                    requestedBy = mLoginBinding?.phoneTxt?.text.toString(),
+                    requestId = PreferenceManager.getRequestNo().toInt(),
+                    requestDatetime = PreferenceManager.getServerDateUtc(),
+                    deviceid = PreferenceManager.getAndroiDeviceId(this),
+                    appVersion = AppVersionUtils.getAppVersionName(this),
+                    androidVersion = Build.VERSION.SDK_INT.toString(),
+                    profilename = "",
+                    profilephoto = "",
+                    mobilenumber = mLoginBinding?.phoneTxt?.text.toString(),
+                    password = password,
+                    latitude = latitude ?: "",
+                    longitude = longitude ?: "",
+                    confirmPassword = password
+                )
+
+                showProgressDialog(this, false)
+                mViewModel?.loginUser(PreferenceManager.getAuthToken(), request)
+            } else {
+                LoggerMessage.onSNACK(
+                    mLoginBinding?.passwordTxt!!,
+                    getString(R.string.password_validation),
+                    applicationContext
+                )
+
+                return
+            }
+
+        } else {
+
+            val abx = AlertBoxDialog(
+                this@LoginActivity,
+                getString(R.string.no_internet),
+                "m"
+            )
+            abx.show()
+        }
+    }
+
+    fun View.hideKeyboard() {
+        val inputManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputManager.hideSoftInputFromWindow(windowToken, 0)
     }
 
 
