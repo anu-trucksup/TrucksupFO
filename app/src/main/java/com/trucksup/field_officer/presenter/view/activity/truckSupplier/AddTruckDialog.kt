@@ -18,7 +18,6 @@ import com.trucksup.field_officer.R
 import com.trucksup.field_officer.data.model.GenerateJWTtokenResponse
 import com.trucksup.field_officer.databinding.AddNewTruckLayoutBinding
 import com.trucksup.field_officer.presenter.common.AlertBoxDialog
-import com.trucksup.field_officer.presenter.common.JWTtoken
 import com.trucksup.field_officer.presenter.common.LoadingUtils
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
@@ -36,7 +35,7 @@ class AddTruckDialog(
     private val lifecycleOwner: LifecycleOwner,
     var vehicleNo: String, var result: RcResponse?,
     val type: String
-) : Dialog(context), LoadItemManager, JWTtoken {
+) : Dialog(context), LoadItemManager {
 
     private var idLoad: Int = 0
     private lateinit var vehicleBinding: AddNewTruckLayoutBinding
@@ -490,15 +489,5 @@ class AddTruckDialog(
 
     }
 
-    override fun onTokenSuccess(response: GenerateJWTtokenResponse) {
-        if (response.accessToken.isNotEmpty()) {
-            //  getFilter(idLoad, loadType, "Bearer " + response.accessToken.toString())
-        }
-
-    }
-
-    override fun onTokenFailure(msg: String) {
-        TODO("Not yet implemented")
-    }
 
 }

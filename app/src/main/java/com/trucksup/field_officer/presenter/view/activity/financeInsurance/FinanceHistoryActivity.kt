@@ -195,7 +195,7 @@ class FinanceHistoryActivity : BaseActivity() {
             requestedBy = PreferenceManager.getPhoneNo(this),
             requestDatetime = PreferenceManager.getServerDateUtc(),
             mobilenumber = PreferenceManager.getPhoneNo(this),
-            referralCode = "7B4C18",
+            referralCode = PreferenceManager.getUserData(this)?.referralcode?:"",
             historyType = historyType!!
         )
         mViewModel?.inquiryHistory(request)
@@ -222,16 +222,35 @@ class FinanceHistoryActivity : BaseActivity() {
     private fun inquiryHistorySuccess(inquiryHistoryResponse: InquiryHistoryResponse) {
         inquiryHistoryResponse?.inquiryHistory?.forEachIndexed { _, inquiryHistory ->
             run {
+                var enquiryFlag=0 //0=active,1=completed,2=rejected
                 inquiryHistory.historyDetails.forEachIndexed { _, historyDetails ->
                     run {
                         if (historyDetails.status.equals("Amount Disbursed")) {
-                            completehistoryList.add(inquiryHistory)
+//                            completehistoryList.add(inquiryHistory)
+                            enquiryFlag=1
+                            return@run
                         }else  if (historyDetails.status.equals("Rejected")) {
-                            rejectedhistoryList.add(inquiryHistory)
+//                            rejectedhistoryList.add(inquiryHistory)
+                            enquiryFlag=2
+                            return@run
                         }else{
-                            activehistoryList.add(inquiryHistory)
+//                            activehistoryList.add(inquiryHistory)
+                            enquiryFlag=0
                         }
                     }
+                }
+
+                if (enquiryFlag==0)
+                {
+                    activehistoryList.add(inquiryHistory)
+                }
+                else if (enquiryFlag==1)
+                {
+                    completehistoryList.add(inquiryHistory)
+                }
+                else if (enquiryFlag==2)
+                {
+                    rejectedhistoryList.add(inquiryHistory)
                 }
 
             }

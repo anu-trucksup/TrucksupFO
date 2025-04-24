@@ -252,7 +252,32 @@ interface APIRepository {
         request: GetAllMeetupTSRequest,
     ): ResultWrapper<GetAllMeetUpTSResponse>
 
-    suspend fun getTodaysFollowup(
+    suspend fun getTodayFollowup(
+        authToken: String,
+        request: FollowUpRequest,
+    ): ResultWrapper<FollowUpResponse>
+
+    suspend fun getTotalEarning(
+        authToken: String,
+        request: FollowUpRequest,
+    ): ResultWrapper<FollowUpResponse>
+
+    suspend fun getTotalDownload(
+        authToken: String,
+        request: FollowUpRequest,
+    ): ResultWrapper<FollowUpResponse>
+
+    suspend fun getTotalAddLoad(
+        authToken: String,
+        request: FollowUpRequest,
+    ): ResultWrapper<FollowUpResponse>
+
+    suspend fun getTotalAddLoadDetails(
+        authToken: String,
+        request: FollowUpRequest,
+    ): ResultWrapper<FollowUpResponse>
+
+    suspend fun getAllTargetCount(
         authToken: String,
         request: FollowUpRequest,
     ): ResultWrapper<FollowUpResponse>

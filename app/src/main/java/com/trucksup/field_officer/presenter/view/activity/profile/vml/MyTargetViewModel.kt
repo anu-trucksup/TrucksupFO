@@ -4,40 +4,37 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.trucksup.field_officer.data.model.PinCodeRequest
-import com.trucksup.field_officer.data.model.PinCodeResponse
-import com.trucksup.field_officer.data.model.image.ImageResponse
 import com.trucksup.field_officer.data.network.ResponseModel
 import com.trucksup.field_officer.data.network.ResultWrapper
 import com.trucksup.field_officer.domain.usecases.APIUseCase
-import com.trucksup.field_officer.presenter.utils.PreferenceManager
+import com.trucksup.field_officer.presenter.view.activity.todayFollowup.model.FollowUpRequest
+import com.trucksup.field_officer.presenter.view.activity.todayFollowup.model.FollowUpResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import okhttp3.MultipartBody
 import javax.inject.Inject
 
 @HiltViewModel
 class MyTargetViewModel @Inject constructor(val apiUseCase: APIUseCase) : ViewModel() {
 
-    private var resultSCbyPinCode: MutableLiveData<ResponseModel<PinCodeResponse>> =
-        MutableLiveData<ResponseModel<PinCodeResponse>>()
-    val resultSCbyPinCodeLD: LiveData<ResponseModel<PinCodeResponse>> = resultSCbyPinCode
+    private var resultAllTargetCount: MutableLiveData<ResponseModel<FollowUpResponse>> =
+        MutableLiveData<ResponseModel<FollowUpResponse>>()
+    val resultTodayFollowupLD: LiveData<ResponseModel<FollowUpResponse>> = resultAllTargetCount
 
-    fun getCityStateByPin(token: String, request: PinCodeRequest) {
+    fun getAllTargetCount(token: String, request: FollowUpRequest) {
         CoroutineScope(Dispatchers.IO).launch {
-            when (val response = apiUseCase.getCityStateByPin(
+            when (val response = apiUseCase.getAllTargetCount(
                 token,
                 request
             )) {
                 is ResultWrapper.ServerResponseError -> {
                     Log.e("API Error", response.error ?: "")
-                    resultSCbyPinCode.postValue(ResponseModel(serverError = response.error))
+                    resultAllTargetCount.postValue(ResponseModel(serverError = response.error))
                 }
 
                 is ResultWrapper.Success -> {
-                    resultSCbyPinCode.postValue(ResponseModel(success = response.value))
+                    resultAllTargetCount.postValue(ResponseModel(success = response.value))
                 }
             }
         }

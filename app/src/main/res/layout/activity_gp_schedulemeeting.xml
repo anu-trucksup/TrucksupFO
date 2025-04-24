@@ -713,7 +713,7 @@
                     android:fontFamily="@font/bai_jamjuree_medium"
                     android:paddingHorizontal="@dimen/_14sdp"
                     android:paddingVertical="@dimen/_2sdp"
-                    android:text="@string/cancel"
+                    android:text="@string/cancel_u"
                     android:textColor="@color/blue"
                     android:textSize="@dimen/_12ssp" />
 

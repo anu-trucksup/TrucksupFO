@@ -23,7 +23,6 @@ import com.trucksup.field_officer.databinding.VerifyOtpDialogBinding
 import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.CameraActivity
 import com.trucksup.field_officer.presenter.common.FileHelp
-import com.trucksup.field_officer.presenter.common.JWTtoken
 import com.trucksup.field_officer.presenter.common.LoadingUtils
 import com.trucksup.field_officer.presenter.common.image_picker.TrucksFOImageController
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
@@ -36,7 +35,7 @@ import java.io.File
 import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
-class TSOnboardingActivity : BaseActivity(), View.OnClickListener, JWTtoken,
+class TSOnboardingActivity : BaseActivity(), View.OnClickListener,
     TrucksFOImageController {
     private lateinit var binding: ActivityTsOnboardingBinding
     private var mViewModel: TSOnboardViewModel? = null
@@ -288,7 +287,7 @@ class TSOnboardingActivity : BaseActivity(), View.OnClickListener, JWTtoken,
         }
     }
 
-    override fun onTokenSuccess(response: GenerateJWTtokenResponse) {
+   /* override fun onTokenSuccess(response: GenerateJWTtokenResponse) {
         if (!response.accessToken.isNullOrEmpty()) {
             getPinData("Bearer " + response.accessToken)
         } else {
@@ -305,7 +304,7 @@ class TSOnboardingActivity : BaseActivity(), View.OnClickListener, JWTtoken,
         dismissProgressDialog()
         val abx = AlertBoxDialog(this@TSOnboardingActivity, msg, "m")
         abx.show()
-    }
+    }*/
 
     override fun getImage(value: String, url: String) {
         LoadingUtils.hideDialog()

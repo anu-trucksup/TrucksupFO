@@ -9,7 +9,6 @@ import com.trucksup.field_officer.data.model.GenerateJWTtokenResponse
 import com.trucksup.field_officer.data.services.ApiService
 import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
-import com.trucksup.field_officer.presenter.common.JWTtoken
 import dagger.hilt.android.lifecycle.HiltViewModel
 import retrofit2.Call
 import retrofit2.Callback
@@ -19,7 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class TokenViewModel @Inject constructor(private val apiService: ApiService) : ViewModel()  {
 
-    fun generateJWToken(
+   /* fun generateJWToken(
         request: GenerateJWTtokenRequest,
         controller: JWTtoken,
         context: Context
@@ -67,7 +66,7 @@ class TokenViewModel @Inject constructor(private val apiService: ApiService) : V
                     controller.onTokenFailure(t.message.toString())
                 }
             })
-    }
+    }*/
 
 
 }

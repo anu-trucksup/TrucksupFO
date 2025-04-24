@@ -16,7 +16,6 @@ import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
@@ -73,12 +72,12 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
     private var sourceValue: String? = "BO"
 
     private var launcher: ActivityResultLauncher<Intent>? = null
-    private var imageUri: String = ""
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-
+        requestCameraAndGalleryPermissions {}
         adjustFontScale(getResources().configuration, 1.0f);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_insurance_screen)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -99,11 +98,7 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
         disableEmojiInTitle()
         setListener()
         setupObserver()
-
-
-        requestCameraAndGalleryPermissions {
-            cameraActivityresult()
-        }
+        cameraActivityResult()
     }
 
     private fun setRecyclerView() {
@@ -771,15 +766,18 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
     }
 
     private fun getImage() {
-        if (imageT == 3) {
-            var chooseFile = Intent(Intent.ACTION_GET_CONTENT)
-            chooseFile.setType("application/pdf");
-            chooseFile = Intent.createChooser(chooseFile, "Choose a file")
-            activityPdfLauncher.launch(chooseFile)
-        } else {
-            val imagePickerDialog = ImagePickerDialog(this, this)
-            imagePickerDialog.show()
+        requestCameraAndGalleryPermissions {
+            if (imageT == 3) {
+                var chooseFile = Intent(Intent.ACTION_GET_CONTENT)
+                chooseFile.setType("application/pdf");
+                chooseFile = Intent.createChooser(chooseFile, "Choose a file")
+                activityPdfLauncher.launch(chooseFile)
+            } else {
+                val imagePickerDialog = ImagePickerDialog(this, this)
+                imagePickerDialog.show()
+            }
         }
+
     }
 
     private val pickMedia =
@@ -848,13 +846,12 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
         } else {
             binding.lRcBackImage.visibility = View.VISIBLE
             try {
+
                 Glide.with(this)
                     .load(data.rcBackImgUrl).placeholder(R.drawable.placeholder_image2)
                     .error(R.drawable.placeholder_image2)
                     .into(binding.imgBackCamera)
-            } catch (e: Exception) {
-
-            }
+            } catch (e: Exception) { }
         }
 
         //previous policy docs image
@@ -951,7 +948,7 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
         LoggerMessage.onSNACK(binding.main, error, this)
     }
 
-    private fun cameraActivityresult() {
+    private fun cameraActivityResult() {
         launcher = registerForActivityResult<Intent, ActivityResult>(
             ActivityResultContracts.StartActivityForResult()
         ) { result: ActivityResult ->

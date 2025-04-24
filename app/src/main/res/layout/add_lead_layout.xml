@@ -263,7 +263,7 @@
             android:id="@+id/cancelLeadButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/cancel"
+            android:text="@string/cancel_u"
             android:textColor="@color/blue"
             android:textSize="@dimen/_14ssp"
             android:paddingHorizontal="@dimen/_14sdp"

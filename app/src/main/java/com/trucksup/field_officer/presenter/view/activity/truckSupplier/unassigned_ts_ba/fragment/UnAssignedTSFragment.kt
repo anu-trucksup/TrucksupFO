@@ -8,17 +8,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.trucksup.field_officer.databinding.DateFilterBinding
 import com.trucksup.field_officer.databinding.FragmentUnassignedTsBinding
+import com.trucksup.field_officer.presenter.common.AlertBoxDialog
+import com.trucksup.field_officer.presenter.common.LoadingUtils
 import com.trucksup.field_officer.presenter.common.dialog.DialogBoxes
+import com.trucksup.field_officer.presenter.utils.PreferenceManager
+import com.trucksup.field_officer.presenter.view.activity.profile.vml.MyEarningViewModel
+import com.trucksup.field_officer.presenter.view.activity.todayFollowup.model.FollowUpRequest
+import com.trucksup.field_officer.presenter.view.activity.todayFollowup.model.FollowUpResponse
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.unassigned_ts_ba.adapter.UnAssignedTSAdapter
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.unassigned_ts_ba.vml.UnAssignedViewModel
 
 
 class UnAssignedTSFragment : Fragment() {
     private var aContext: Context? = null
     private lateinit var binding: FragmentUnassignedTsBinding
+    private var mViewModel: UnAssignedViewModel? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -39,8 +48,55 @@ class UnAssignedTSFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        mViewModel = ViewModelProvider(this)[UnAssignedViewModel::class.java]
+
+        LoadingUtils.showDialog(aContext, false)
+        val request = FollowUpRequest(
+            requestId = PreferenceManager.getRequestNo().toInt(),
+            requestedBy = PreferenceManager.getPhoneNo(aContext!!),
+            requestDatetime = PreferenceManager.getServerDateUtc(),
+            boID = PreferenceManager.getUserData(aContext!!)?.boUserid?.toInt() ?: 0
+        )
+        mViewModel?.getUnAssignedTS(PreferenceManager.getAuthToken(), request)
+
         setRvList()
         setOnListeners()
+        setupObserver()
+    }
+
+    private fun setupObserver() {
+        mViewModel?.resultUnAssignedBALD?.observe(viewLifecycleOwner) { responseModel ->                     // login function observe
+            if (responseModel.serverError != null) {
+                LoadingUtils.hideDialog()
+
+                val abx =
+                    AlertBoxDialog(
+                        requireActivity(),
+                        responseModel.serverError.toString(),
+                        "m"
+                    )
+                abx.show()
+            } else {
+                LoadingUtils.hideDialog()
+
+                if (responseModel.success?.statuscode == 200) {
+                    setItemList(responseModel.success)
+                } else {
+                    val abx =
+                        AlertBoxDialog(
+                            requireActivity(),
+                            responseModel.success?.message.toString(),
+                            "m"
+                        )
+                    abx.show()
+                }
+            }
+        }
+
+    }
+
+    private fun setItemList(success: FollowUpResponse) {
+        setRvList()
     }
 
     private fun setRvList() {

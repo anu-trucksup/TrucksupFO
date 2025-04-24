@@ -28,7 +28,6 @@ import com.trucksup.field_officer.presenter.utils.LoggerMessage
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
 import com.trucksup.field_officer.presenter.view.activity.growthPartner.model.GPOnboardingData
 import com.trucksup.field_officer.presenter.view.activity.growthPartner.vml.GPOnboardingVM
-import com.trucksup.field_officer.presenter.view.activity.growth_partner.GPKYCActivity
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.util.regex.Pattern
@@ -144,7 +143,7 @@ class GPPersonalDetailUpdateActivity : BaseActivity(), TrucksFOImageController,
     fun uploadImage(file: File) {
         showProgressDialog(this, false)
 
-        onboardViewModel?.ImageUploadOnboard(
+        onboardViewModel?.imageUploadOnboard(
             PreferenceManager.getAuthToken(),
             "image",
             "GrowthPartner",
@@ -168,7 +167,7 @@ class GPPersonalDetailUpdateActivity : BaseActivity(), TrucksFOImageController,
             )
         } else if (binding.ETSalesCode.text.isEmpty()) {
             binding.ETSalesCode.requestFocus()
-            binding.ETSalesCode.setError(getString(R.string.PleaseenterSalesCode))
+            binding.ETSalesCode.setError(getString(R.string.enterSalesCode))
         } else if (binding.ETGPMobileNumber.text.toString().isEmpty()) {
             binding.ETGPMobileNumber.requestFocus()
             binding.ETGPMobileNumber.setError(getString(R.string.PleaseenterGPMobile))

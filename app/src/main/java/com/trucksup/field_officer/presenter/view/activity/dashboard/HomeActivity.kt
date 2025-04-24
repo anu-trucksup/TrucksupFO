@@ -43,8 +43,8 @@ import com.trucksup.field_officer.presenter.view.activity.dashboard.vml.DashBoar
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.FinanceActivity
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.InsuranceActivity
 import com.trucksup.field_officer.presenter.view.activity.todayFollowup.FollowUpActivity
-import com.trucksup.field_officer.presenter.view.activity.other.NavItems
 import com.trucksup.field_officer.presenter.view.activity.other.NewOnboardingSelection
+import com.trucksup.field_officer.presenter.view.activity.other.model.NavItems
 import com.trucksup.field_officer.presenter.view.activity.profile.EditProfileActivity
 import com.trucksup.field_officer.presenter.view.activity.profile.MyEarningActivity
 import com.trucksup.field_officer.presenter.view.activity.smartfuel.AddSmartFuelActivity
@@ -179,9 +179,9 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
     }
 
     private fun setListener() {
-        binding.addressUpdate.text = address
-        binding.addressShimmer.visibility = View.GONE
-        binding.addressUpdate.visibility = View.VISIBLE
+//        binding.addressUpdate.text = address
+//        binding.addressShimmer.visibility = View.GONE
+//        binding.addressUpdate.visibility = View.VISIBLE
 
         //close drawer
         binding.navOpenBtn.setOnClickListener {

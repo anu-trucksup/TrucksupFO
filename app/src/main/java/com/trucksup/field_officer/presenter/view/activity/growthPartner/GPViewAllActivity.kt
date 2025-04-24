@@ -3,18 +3,26 @@ package com.trucksup.field_officer.presenter.view.activity.growthPartner
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.trucksup.field_officer.databinding.AddScheduledLayoutBinding
 import com.trucksup.field_officer.databinding.DateFilterBinding
 import com.trucksup.field_officer.databinding.GpViewallActivityBinding
+import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.dialog.DialogBoxes
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
+import com.trucksup.field_officer.presenter.utils.PreferenceManager
+import com.trucksup.field_officer.presenter.view.activity.growthPartner.vml.GPViewAllVM
+import com.trucksup.field_officer.presenter.view.activity.profile.vml.MyEarningViewModel
+import com.trucksup.field_officer.presenter.view.activity.todayFollowup.model.FollowUpRequest
+import com.trucksup.field_officer.presenter.view.activity.todayFollowup.model.FollowUpResponse
 import com.trucksup.field_officer.presenter.view.adapter.GPViewAllAdapter
 import java.util.Calendar
 
 class GPViewAllActivity : BaseActivity() {
 
     private lateinit var binding: GpViewallActivityBinding
+    private var mViewModel: GPViewAllVM? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,9 +30,56 @@ class GPViewAllActivity : BaseActivity() {
         adjustFontScale(resources.configuration, 1.0f);
         setContentView(binding.root)
 
-        setRvList()
+        mViewModel = ViewModelProvider(this)[GPViewAllVM::class.java]
 
+        showProgressDialog(this, false)
+        val request = FollowUpRequest(
+            requestId = PreferenceManager.getRequestNo().toInt(),
+            requestedBy = PreferenceManager.getPhoneNo(this),
+            requestDatetime = PreferenceManager.getServerDateUtc(),
+            boID = PreferenceManager.getUserData(this)?.boUserid?.toInt() ?: 0
+        )
+        mViewModel?.getTotalEarning(PreferenceManager.getAuthToken(), request)
+
+
+        setRvList()
+        setupObserver()
         setOnListeners()
+    }
+
+    private fun setupObserver() {
+        mViewModel?.resultTodayEarningLD?.observe(this@GPViewAllActivity) { responseModel ->                     // login function observe
+            if (responseModel.serverError != null) {
+                dismissProgressDialog()
+
+                val abx =
+                    AlertBoxDialog(
+                        this@GPViewAllActivity,
+                        responseModel.serverError.toString(),
+                        "m"
+                    )
+                abx.show()
+            } else {
+                dismissProgressDialog()
+
+                if (responseModel.success?.statuscode == 200) {
+                    setItemList(responseModel.success)
+                } else {
+                    val abx =
+                        AlertBoxDialog(
+                            this@GPViewAllActivity,
+                            responseModel.success?.message.toString(),
+                            "m"
+                        )
+                    abx.show()
+                }
+            }
+        }
+
+    }
+
+    private fun setItemList(success: FollowUpResponse) {
+        setRvList()
     }
 
     private fun setRvList() {

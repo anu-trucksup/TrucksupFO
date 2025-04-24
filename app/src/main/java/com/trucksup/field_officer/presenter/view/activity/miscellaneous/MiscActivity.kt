@@ -234,8 +234,7 @@ class MiscActivity : BaseActivity(), AddMiscInterface , TrucksFOImageController 
             if (responseModel.serverError != null) {
                 dismissProgressDialog()
 
-                val abx =
-                    AlertBoxDialog(
+                val abx = AlertBoxDialog(
                         this@MiscActivity,
                         responseModel.serverError.toString(),
                         "m"

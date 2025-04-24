@@ -314,11 +314,11 @@ class APIUseCase @Inject constructor(private val apiRepository: APIRepository) {
         return apiRepository.getGPMeetScheduleData(authToken, request)
     }
 
-    suspend fun getTodaysFollowup(
+    suspend fun getTodayFollowup(
         authToken: String,
         request: FollowUpRequest,
     ): ResultWrapper<FollowUpResponse> {
-        return apiRepository.getTodaysFollowup(authToken, request)
+        return apiRepository.getTodayFollowup(authToken, request)
     }
 
     suspend fun getAllMeetupTS(
@@ -362,5 +362,41 @@ class APIUseCase @Inject constructor(private val apiRepository: APIRepository) {
         request: UpdateMiscLeadsRequest,
     ): ResultWrapper<UpdateMiscLeadsResponse> {
         return apiRepository.updateMiscLeadsByBO(authToken, request)
+    }
+
+    suspend fun getTotalEarning(
+        authToken: String,
+        request: FollowUpRequest,
+    ): ResultWrapper<FollowUpResponse> {
+        return apiRepository.getTotalEarning(authToken, request)
+    }
+
+    suspend fun getTotalDownload(
+        authToken: String,
+        request: FollowUpRequest,
+    ): ResultWrapper<FollowUpResponse> {
+        return apiRepository.getTotalDownload(authToken, request)
+
+    }
+
+    suspend fun getTotalAddLoad(
+        authToken: String,
+        request: FollowUpRequest,
+    ): ResultWrapper<FollowUpResponse> {
+        return apiRepository.getTotalAddLoad(authToken, request)
+    }
+
+    suspend fun getTotalAddLoadDetails(
+        authToken: String,
+        request: FollowUpRequest,
+    ): ResultWrapper<FollowUpResponse> {
+        return apiRepository.getTotalAddLoadDetails(authToken, request)
+    }
+
+    suspend fun getAllTargetCount(
+        authToken: String,
+        request: FollowUpRequest,
+    ): ResultWrapper<FollowUpResponse> {
+        return apiRepository.getTotalAddLoadDetails(authToken, request)
     }
 }

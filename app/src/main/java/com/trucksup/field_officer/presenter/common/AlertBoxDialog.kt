@@ -61,36 +61,26 @@ class AlertBoxDialog(var context: Activity, var message: String, var type: Strin
 
         okButton?.setOnClickListener {
             Log.e("type", ">>>>>" + type)
-            if (type == "m" || type == "p") {
+
+            if (message.equals("Data Not Found",true)) {
+                this.dismiss()
+                context.finish()
+            } else if (type == "m" || type == "p") {
                 this.dismiss()
             } else if (type == "sign") {
                 val intent = Intent(context, SignUpActivity::class.java)
                 context.startActivity(intent)
                 this.dismiss()
-            }else if (type == "profile") {
+            } else if (type == "profile") {
                 val intent = Intent(context, HomeActivity::class.java)
                 context.startActivity(intent)
                 this.dismiss()
             } else if (type == "location") {
                 this.dismiss()
-            }else if(type == "finishActivity"){
+            } else if (type == "finishActivity") {
                 this.dismiss()
                 context.finish()
-            }/*else if (type == "verifymsgadhar") {
-                var intent: Intent = Intent(context, MainActivity::class.java)
-                intent.putExtra("type", "xxx")
-                context.startActivity(intent)
-                this.dismiss()
-                context.finishAffinity()
-            } else if (type == "cl") {
-                this.dismiss()
-                context.finish()
-            } else if (type == "i") {
-                var intent: Intent = Intent(context, EditBussinDoc::class.java)
-                intent.putExtra("type", "xxx")
-                context.startActivity(intent)
-                this.dismiss()
-            } else if (type == "b") {
+            }/* if (type == "b") {
                 if (isMyServiceRunning(LocationService::class.java, context)) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         context.stopService(Intent(context, LocationService::class.java))

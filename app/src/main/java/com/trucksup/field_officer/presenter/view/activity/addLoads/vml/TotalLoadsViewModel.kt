@@ -16,6 +16,8 @@ import com.trucksup.field_officer.domain.usecases.APIUseCase
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
 import com.trucksup.field_officer.presenter.view.activity.auth.logout.LogoutRequest
 import com.trucksup.field_officer.presenter.view.activity.auth.logout.LogoutResponse
+import com.trucksup.field_officer.presenter.view.activity.todayFollowup.model.FollowUpRequest
+import com.trucksup.field_officer.presenter.view.activity.todayFollowup.model.FollowUpResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -25,45 +27,45 @@ import javax.inject.Inject
 @HiltViewModel
 class TotalLoadsViewModel @Inject constructor(val apiUseCase: APIUseCase) : ViewModel() {
 
-    private var resultDutyStatus: MutableLiveData<ResponseModel<DutyStatusResponse>> = MutableLiveData<ResponseModel<DutyStatusResponse>>()
-    val resultDutyStatusLD: LiveData<ResponseModel<DutyStatusResponse>> = resultDutyStatus
+    private var resultTotalAddLoads: MutableLiveData<ResponseModel<FollowUpResponse>> =
+        MutableLiveData<ResponseModel<FollowUpResponse>>()
+    val resultTotalAddLoadsLD: LiveData<ResponseModel<FollowUpResponse>> = resultTotalAddLoads
 
-    private var resultAllHomeCountStatus: MutableLiveData<ResponseModel<HomeCountResponse>> = MutableLiveData<ResponseModel<HomeCountResponse>>()
-    val resultAllHomeCountStatusLD: LiveData<ResponseModel<HomeCountResponse>> = resultAllHomeCountStatus
+    private var totalAddLoadsDetails: MutableLiveData<ResponseModel<FollowUpResponse>> =
+        MutableLiveData<ResponseModel<FollowUpResponse>>()
+    val totalAddLoadsDetailsLD: LiveData<ResponseModel<FollowUpResponse>> = totalAddLoadsDetails
 
-
-    fun dutyStatus(request: DutyStatusRequest) {
+    fun getTotalAddLoad(token: String, request: FollowUpRequest) {
         CoroutineScope(Dispatchers.IO).launch {
-            when (val response = apiUseCase.dutyStatus(
-                PreferenceManager.getAuthToken(),
+            when (val response = apiUseCase.getTotalAddLoad(
+                token,
                 request
             )) {
                 is ResultWrapper.ServerResponseError -> {
                     Log.e("API Error", response.error ?: "")
-                    resultDutyStatus.postValue(ResponseModel(serverError = response.error))
+                    resultTotalAddLoads.postValue(ResponseModel(serverError = response.error))
                 }
 
                 is ResultWrapper.Success -> {
-                    resultDutyStatus.postValue(ResponseModel(success = response.value))
+                    resultTotalAddLoads.postValue(ResponseModel(success = response.value))
                 }
             }
         }
     }
 
-
-    fun getAllHomeCountStatus(request: HomeCountRequest) {
+    fun getTotalAddLoadDetails(token: String, request: FollowUpRequest) {
         CoroutineScope(Dispatchers.IO).launch {
-            when (val response = apiUseCase.getAllHomeCountStatus(
-                PreferenceManager.getAuthToken(),
+            when (val response = apiUseCase.getTotalAddLoadDetails(
+                token,
                 request
             )) {
                 is ResultWrapper.ServerResponseError -> {
                     Log.e("API Error", response.error ?: "")
-                    resultAllHomeCountStatus.postValue(ResponseModel(serverError = response.error))
+                    resultTotalAddLoads.postValue(ResponseModel(serverError = response.error))
                 }
 
                 is ResultWrapper.Success -> {
-                    resultAllHomeCountStatus.postValue(ResponseModel(success = response.value))
+                    resultTotalAddLoads.postValue(ResponseModel(success = response.value))
                 }
             }
         }
