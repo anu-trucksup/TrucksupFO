@@ -4,25 +4,14 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.logistics.trucksup.activities.preferre.modle.GetMeetScheduleDetailsRequest
 import com.trucksup.field_officer.data.model.PinCodeRequest
 import com.trucksup.field_officer.data.model.PinCodeResponse
-import com.trucksup.field_officer.data.model.image.ImageResponse
 import com.trucksup.field_officer.data.model.image.TrucksupImageUploadResponse
 import com.trucksup.field_officer.data.network.ResponseModel
 import com.trucksup.field_officer.data.network.ResultWrapper
 import com.trucksup.field_officer.domain.usecases.APIUseCase
 import com.trucksup.field_officer.presenter.cityPicker.ApiClient
 import com.trucksup.field_officer.presenter.common.image_picker.TrucksFOImageController
-import com.trucksup.field_officer.presenter.utils.PreferenceManager
-import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.AddBrokerRequest
-import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.AddBrokerResponse
-import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.CompleteMeetingBARequest
-import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.ScheduleMeetingBARequest
-import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.ScheduleMeetingResponse
-import com.trucksup.field_officer.presenter.view.activity.growthPartner.model.CompleteMeetingGPRequest
-import com.trucksup.field_officer.presenter.view.activity.growthPartner.model.ScheduleMeetingGPRequest
-import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetMeetScheduleDetailsResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -39,10 +28,6 @@ class GPOnboardingVM @Inject constructor(val apiUseCase: APIUseCase) : ViewModel
     private var resultSCbyPincode: MutableLiveData<ResponseModel<PinCodeResponse>> =
         MutableLiveData<ResponseModel<PinCodeResponse>>()
     val resultSCbyPinCodeLD: LiveData<ResponseModel<PinCodeResponse>> = resultSCbyPincode
-
-    //by me
-
-    //by me
 
     fun getCityStateByPin(token: String, request: PinCodeRequest) {
         CoroutineScope(Dispatchers.IO).launch {
@@ -62,17 +47,12 @@ class GPOnboardingVM @Inject constructor(val apiUseCase: APIUseCase) : ViewModel
         }
     }
 
-
-    fun ImageUploadOnboard(
-        token: String,
-        filetype: String,
-        foldername: String,
-        file: MultipartBody.Part,
-        fileWaterMark: MultipartBody.Part,
-        imgRes: TrucksFOImageController
+    fun imageUploadOnboard(token: String, filetype: String,
+        folderName: String, file: MultipartBody.Part,
+        fileWaterMark: MultipartBody.Part, imgRes: TrucksFOImageController
     ) {
         val apiInterface = ApiClient().getClient
-        apiInterface.uploadImages(token, filetype, foldername, file, fileWaterMark)
+        apiInterface.uploadImages(token, filetype, folderName, file, fileWaterMark)
 
             ?.enqueue(object : Callback<TrucksupImageUploadResponse> {
                 override fun onResponse(
@@ -100,10 +80,5 @@ class GPOnboardingVM @Inject constructor(val apiUseCase: APIUseCase) : ViewModel
                 }
             })
     }
-
-    //add by me
-
-    //add by me
-
 
 }

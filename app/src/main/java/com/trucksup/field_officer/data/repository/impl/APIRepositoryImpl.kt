@@ -76,8 +76,6 @@ import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.Sc
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetMeetScheduleDetailsResponse
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.VerifyTruckResponse
 import kotlinx.coroutines.Dispatchers
-import retrofit2.http.Body
-import retrofit2.http.Header
 
 
 class APIRepositoryImpl constructor(private val apiService: ApiService) : APIRepository {
@@ -388,12 +386,12 @@ class APIRepositoryImpl constructor(private val apiService: ApiService) : APIRep
         }
     }
 
-    override suspend fun getTodaysFollowup(
+    override suspend fun getTodayFollowup(
         authToken: String,
         request: FollowUpRequest,
     ): ResultWrapper<FollowUpResponse> {
         return safeApiCall(Dispatchers.IO) {
-            apiService.getTodaysFollowup(authToken, request)
+            apiService.getTodayFollowup(authToken, request)
         }
     }
 
@@ -448,6 +446,51 @@ class APIRepositoryImpl constructor(private val apiService: ApiService) : APIRep
     ): ResultWrapper<UpdateMiscLeadsResponse> {
         return safeApiCall(Dispatchers.IO) {
             apiService.updateMiscLeadsByBO(authToken, request)
+        }
+    }
+
+    override suspend fun getTotalEarning(
+        authToken: String,
+        request: FollowUpRequest,
+    ): ResultWrapper<FollowUpResponse> {
+        return safeApiCall(Dispatchers.IO) {
+            apiService.getTotalEarning(authToken, request)
+        }
+    }
+
+    override suspend fun getTotalDownload(
+        authToken: String,
+        request: FollowUpRequest,
+    ): ResultWrapper<FollowUpResponse> {
+        return safeApiCall(Dispatchers.IO) {
+            apiService.getTotalDownload(authToken, request)
+        }
+    }
+
+    override suspend fun getTotalAddLoad(
+        authToken: String,
+        request: FollowUpRequest,
+    ): ResultWrapper<FollowUpResponse> {
+        return safeApiCall(Dispatchers.IO) {
+            apiService.getTotalAddLoad(authToken, request)
+        }
+    }
+
+    override suspend fun getTotalAddLoadDetails(
+        authToken: String,
+        request: FollowUpRequest,
+    ): ResultWrapper<FollowUpResponse> {
+        return safeApiCall(Dispatchers.IO) {
+            apiService.getTotalAddLoadDetails(authToken, request)
+        }
+    }
+
+    override suspend fun getAllTargetCount(
+        authToken: String,
+        request: FollowUpRequest,
+    ): ResultWrapper<FollowUpResponse> {
+        return safeApiCall(Dispatchers.IO) {
+            apiService.getTotalAddLoadDetails(authToken, request)
         }
     }
 

@@ -7,19 +7,21 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.trucksup.field_officer.R
-import com.trucksup.field_officer.databinding.ActivityBusinessAssociatesNewBinding
+import com.trucksup.field_officer.databinding.ActivityBaViewAllBinding
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.view.adapter.FragmentAdapter
 import com.trucksup.field_officer.presenter.view.fragment.ba.ActiveBAFragment
 import com.trucksup.field_officer.presenter.view.fragment.ba.InActiveBAFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class BAStatusViewAllActivity : BaseActivity() {
-    private lateinit var binding: ActivityBusinessAssociatesNewBinding
+    private lateinit var binding: ActivityBaViewAllBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_business_associates_new)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_ba_view_all)
         val view = binding.root
         setContentView(view)
 

@@ -41,8 +41,8 @@ class GPOnBoardStoreProofActivity : BaseActivity(), TrucksFOImageController {
         val view = binding.root
         setContentView(view)
 
-
         onboardViewModel = ViewModelProvider(this)[GPOnboardingVM::class.java]
+
         binding.cvCamera.setOnClickListener {
             launchCamera()
         }
@@ -140,7 +140,7 @@ class GPOnBoardStoreProofActivity : BaseActivity(), TrucksFOImageController {
     fun uploadImage(file: File) {
         showProgressDialog(this, false)
 
-        onboardViewModel?.ImageUploadOnboard(
+        onboardViewModel?.imageUploadOnboard(
             PreferenceManager.getAuthToken(),
             "image",
             "GrowthPartner",
