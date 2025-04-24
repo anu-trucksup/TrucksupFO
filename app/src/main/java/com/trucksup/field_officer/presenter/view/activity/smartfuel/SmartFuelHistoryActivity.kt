@@ -219,16 +219,35 @@ class SmartFuelHistoryActivity : BaseActivity() {
     private fun inquiryHistorySuccess(inquiryHistoryResponse: SmartFuelHistoryResponse) {
         inquiryHistoryResponse.leadsHistory.forEachIndexed { _, inquiryHistory ->
             run {
+                var enquiryFlag=0 //0=current,1=activated,2=rejected
                 inquiryHistory.leadDetails.forEachIndexed { _, historyDetails ->
                     run {
                         if (historyDetails.cardStatus.equals("Card Activated")) {
-                            activatedHistoryList.add(inquiryHistory)
+//                            activatedHistoryList.add(inquiryHistory)
+                            enquiryFlag=1
+                            return@run
                         } else if (historyDetails.cardStatus.equals("Card Rejected")) {
-                            rejectedHistoryList.add(inquiryHistory)
+//                            rejectedHistoryList.add(inquiryHistory)
+                            enquiryFlag=2
+                            return@run
                         } else {
-                            currentHistoryList.add(inquiryHistory)
+//                            currentHistoryList.add(inquiryHistory)
+                            enquiryFlag=0
                         }
                     }
+                }
+
+                if (enquiryFlag==0)
+                {
+                    currentHistoryList.add(inquiryHistory)
+                }
+                else if (enquiryFlag==1)
+                {
+                    activatedHistoryList.add(inquiryHistory)
+                }
+                else if (enquiryFlag==2)
+                {
+                    rejectedHistoryList.add(inquiryHistory)
                 }
 
             }

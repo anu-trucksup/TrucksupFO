@@ -25,7 +25,7 @@ class FinanceHistoryViewModel @Inject constructor(val apiUseCase: APIUseCase) : 
     fun inquiryHistory(request: InquiryHistoryRequest) {
         CoroutineScope(Dispatchers.IO).launch {
             when (val response = apiUseCase.getInquiryHistory(
-                PreferenceManager.getAuthTokenOld(),
+                PreferenceManager.getAuthToken(),
                 request
             )) {
                 is ResultWrapper.ServerResponseError -> {

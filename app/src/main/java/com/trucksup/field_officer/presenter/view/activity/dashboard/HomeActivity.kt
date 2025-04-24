@@ -179,9 +179,9 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
     }
 
     private fun setListener() {
-        binding.addressUpdate.text = address
-        binding.addressShimmer.visibility = View.GONE
-        binding.addressUpdate.visibility = View.VISIBLE
+//        binding.addressUpdate.text = address
+//        binding.addressShimmer.visibility = View.GONE
+//        binding.addressUpdate.visibility = View.VISIBLE
 
         //close drawer
         binding.navOpenBtn.setOnClickListener {

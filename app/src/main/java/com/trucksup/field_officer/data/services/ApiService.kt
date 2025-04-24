@@ -177,7 +177,7 @@ interface ApiService {
         @Body request: LoanDataSubmitRequest
     ): FinaceDataSubmitResponse
 
-    @POST("Apigateway/Gateway/InquiryHistory")
+    @POST("BOAppApiGateway/apiateway/BOFinInsInquiryHistory")
     @Headers("Accept: application/json")
     suspend fun getInquiryHistory(
         @Header("Authorization") auth: String,
@@ -193,7 +193,6 @@ interface ApiService {
 
 
     //SmartFuel
-
     @POST("BOAppApiGateway/apiateway/BOAddSmartFuelLeads")
     @Headers("Accept: application/json")
     suspend fun addSmartFuelLead(
