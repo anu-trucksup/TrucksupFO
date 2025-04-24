@@ -44,6 +44,8 @@ import com.trucksup.field_officer.presenter.view.activity.auth.logout.LogoutResp
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.AddBrokerRequest
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.AddBrokerResponse
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.CompleteMeetingBARequest
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.GetAllMeetUpBARequest
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.GetAllMeetupBAResponse
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.ScheduleMeetingBARequest
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.ScheduleMeetingResponse
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.FinaceDataSubmitResponse
@@ -55,15 +57,27 @@ import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.S
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryRequest
 import com.trucksup.field_officer.presenter.view.activity.growthPartner.model.CompleteMeetingGPRequest
 import com.trucksup.field_officer.presenter.view.activity.growthPartner.model.ScheduleMeetingGPRequest
+import com.trucksup.field_officer.presenter.view.activity.miscellaneous.model.AddMiscLeadRequest
+import com.trucksup.field_officer.presenter.view.activity.miscellaneous.model.AddMiscLeadsResponse
+import com.trucksup.field_officer.presenter.view.activity.miscellaneous.model.GetAllMiscLeadResponse
+import com.trucksup.field_officer.presenter.view.activity.miscellaneous.model.GetMiscLeadRequest
+import com.trucksup.field_officer.presenter.view.activity.miscellaneous.model.UpdateMiscLeadsRequest
+import com.trucksup.field_officer.presenter.view.activity.miscellaneous.model.UpdateMiscLeadsResponse
 import com.trucksup.field_officer.presenter.view.activity.subscription.model.PlanRequest
+import com.trucksup.field_officer.presenter.view.activity.todayFollowup.model.FollowUpRequest
+import com.trucksup.field_officer.presenter.view.activity.todayFollowup.model.FollowUpResponse
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.AddLoadFilterRequest
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.AddLoadFilterResponse
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetAllMeetUpTSResponse
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetAllMeetupTSRequest
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.RcRequest
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.RcResponse
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.ScheduleMeetTSRequest
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetMeetScheduleDetailsResponse
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.VerifyTruckResponse
 import kotlinx.coroutines.Dispatchers
+import retrofit2.http.Body
+import retrofit2.http.Header
 
 
 class APIRepositoryImpl constructor(private val apiService: ApiService) : APIRepository {
@@ -115,12 +129,23 @@ class APIRepositoryImpl constructor(private val apiService: ApiService) : APIRep
         return safeApiCall(Dispatchers.IO) { apiService.sendOTP(auth, request) }
     }
 
-    override suspend fun getUserProfile(token: String,request: GetProfileRequest): ResultWrapper<GetProfileResponse> {
-        return safeApiCall(Dispatchers.IO) { apiService.getUserProfile(token,request) }
+    override suspend fun getUserProfile(
+        token: String,
+        request: GetProfileRequest
+    ): ResultWrapper<GetProfileResponse> {
+        return safeApiCall(Dispatchers.IO) { apiService.getUserProfile(token, request) }
     }
 
-    override suspend fun updateUserProfile(token: String,updateProfileRequest: UpdateProfileRequest): ResultWrapper<UpdateProfileResponse> {
-        return safeApiCall(Dispatchers.IO) { apiService.updateUserProfile(token,updateProfileRequest) }
+    override suspend fun updateUserProfile(
+        token: String,
+        updateProfileRequest: UpdateProfileRequest
+    ): ResultWrapper<UpdateProfileResponse> {
+        return safeApiCall(Dispatchers.IO) {
+            apiService.updateUserProfile(
+                token,
+                updateProfileRequest
+            )
+        }
     }
 
 
@@ -361,6 +386,69 @@ class APIRepositoryImpl constructor(private val apiService: ApiService) : APIRep
         return safeApiCall(Dispatchers.IO) {
             apiService.getAllGPDetails(authToken, request)
         }
-        //add by me
     }
+
+    override suspend fun getTodaysFollowup(
+        authToken: String,
+        request: FollowUpRequest,
+    ): ResultWrapper<FollowUpResponse> {
+        return safeApiCall(Dispatchers.IO) {
+            apiService.getTodaysFollowup(authToken, request)
+        }
+    }
+
+    override suspend fun getAllMeetupTS(
+        authToken: String,
+        request: GetAllMeetupTSRequest,
+    ): ResultWrapper<GetAllMeetUpTSResponse> {
+        return safeApiCall(Dispatchers.IO) {
+            apiService.getAllMeetupTS(authToken, request)
+        }
+    }
+
+    override suspend fun getAllMeetupBA(
+        authToken: String,
+        request: GetAllMeetUpBARequest,
+    ): ResultWrapper<GetAllMeetupBAResponse> {
+        return safeApiCall(Dispatchers.IO) {
+            apiService.getAllMeetupBA(authToken, request)
+        }
+    }
+
+    override suspend fun getAllMeetupGP(
+        authToken: String,
+        request: GetAllMeetupTSRequest,
+    ): ResultWrapper<GetAllMeetUpTSResponse> {
+        return safeApiCall(Dispatchers.IO) {
+            apiService.getAllMeetupGP(authToken, request)
+        }
+    }
+
+    override suspend fun getBOMiscLeads(
+        authToken: String,
+        request: GetMiscLeadRequest,
+    ): ResultWrapper<GetAllMiscLeadResponse> {
+        return safeApiCall(Dispatchers.IO) {
+            apiService.getBOMiscLeads(authToken, request)
+        }
+    }
+
+    override suspend fun addMiscLeadsByBO(
+        authToken: String,
+        request: AddMiscLeadRequest,
+    ): ResultWrapper<AddMiscLeadsResponse> {
+        return safeApiCall(Dispatchers.IO) {
+            apiService.addMiscLeadsByBO(authToken, request)
+        }
+    }
+
+    override suspend fun updateMiscLeadsByBO(
+        authToken: String,
+        request: UpdateMiscLeadsRequest,
+    ): ResultWrapper<UpdateMiscLeadsResponse> {
+        return safeApiCall(Dispatchers.IO) {
+            apiService.updateMiscLeadsByBO(authToken, request)
+        }
+    }
+
 }

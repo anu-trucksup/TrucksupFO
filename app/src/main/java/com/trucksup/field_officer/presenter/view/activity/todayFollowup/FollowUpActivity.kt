@@ -6,8 +6,11 @@ import androidx.activity.enableEdgeToEdge
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.trucksup.field_officer.databinding.ActivityFollowUpBinding
+import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
-import com.trucksup.field_officer.presenter.view.activity.profile.vml.TotalDownloadViewModel
+import com.trucksup.field_officer.presenter.utils.PreferenceManager
+import com.trucksup.field_officer.presenter.view.activity.todayFollowup.model.FollowUpRequest
+import com.trucksup.field_officer.presenter.view.activity.todayFollowup.model.FollowUpResponse
 import com.trucksup.field_officer.presenter.view.activity.todayFollowup.vml.TodayFollowUpViewModel
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.TSPlannedFollowupActivity
 import com.trucksup.field_officer.presenter.view.adapter.FollowupSelectionAdapter
@@ -26,6 +29,16 @@ class FollowUpActivity : BaseActivity() {
         setContentView(binding.root)
         mViewModel = ViewModelProvider(this)[TodayFollowUpViewModel::class.java]
 
+        showProgressDialog(this, false)
+        val request = FollowUpRequest(
+            requestId = PreferenceManager.getRequestNo().toInt(),
+            requestedBy = PreferenceManager.getPhoneNo(this),
+            requestDatetime = PreferenceManager.getServerDateUtc(),
+            boID = PreferenceManager.getUserData(this)?.boUserid?.toInt() ?: 0
+        )
+        mViewModel?.getTodayFollowup(PreferenceManager.getAuthToken(), request)
+
+
         binding.ivBack.setOnClickListener {
             onBackPressed()
         }
@@ -33,14 +46,50 @@ class FollowUpActivity : BaseActivity() {
         binding.cslPlannedFollowup.setOnClickListener {
             startActivity(Intent(this, TSPlannedFollowupActivity::class.java))
         }
-        setItemList()
+
+        setupObserver()
     }
 
-    private fun setItemList() {
+    private fun setupObserver() {
+        mViewModel?.resultTodayFollowupLD?.observe(this@FollowUpActivity) { responseModel ->                     // login function observe
+            if (responseModel.serverError != null) {
+                dismissProgressDialog()
 
+                val abx =
+                    AlertBoxDialog(
+                        this@FollowUpActivity,
+                        responseModel.serverError.toString(),
+                        "m"
+                    )
+                abx.show()
+            } else {
+                dismissProgressDialog()
+
+                if (responseModel.success?.statuscode == 200) {
+                    setItemList(responseModel.success)
+                } else {
+                    val abx =
+                        AlertBoxDialog(
+                            this@FollowUpActivity,
+                            responseModel.success?.message.toString(),
+                            "m"
+                        )
+                    abx.show()
+                }
+            }
+        }
+
+    }
+
+    private fun setItemList(followUpCounts: FollowUpResponse?) {
+
+        binding.tvTotalCount.text = followUpCounts?.meetsCounts?.total.toString()
+        binding.tvScheduledCount.text = followUpCounts?.todayFollowUpCounts?.scheduled.toString()
+        binding.tvCompletedCount.text = followUpCounts?.todayFollowUpCounts?.completed.toString()
+        binding.tvPlannedCount.text = followUpCounts?.todayFollowUpCounts?.plannedFollowUp.toString()
         binding.rvSecondServices.apply {
             layoutManager = GridLayoutManager(this@FollowUpActivity, 3)
-            adapter = FollowupSelectionAdapter(this@FollowUpActivity)
+            adapter = FollowupSelectionAdapter(this@FollowUpActivity,followUpCounts?.meetsCounts)
             hasFixedSize()
         }
     }
