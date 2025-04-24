@@ -15,6 +15,12 @@ import com.trucksup.field_officer.domain.usecases.APIUseCase
 import com.trucksup.field_officer.presenter.cityPicker.ApiClient
 import com.trucksup.field_officer.presenter.common.image_picker.TrucksFOImageController
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
+import com.trucksup.field_officer.presenter.view.activity.miscellaneous.model.AddMiscLeadRequest
+import com.trucksup.field_officer.presenter.view.activity.miscellaneous.model.AddMiscLeadsResponse
+import com.trucksup.field_officer.presenter.view.activity.miscellaneous.model.GetAllMiscLeadResponse
+import com.trucksup.field_officer.presenter.view.activity.miscellaneous.model.GetMiscLeadRequest
+import com.trucksup.field_officer.presenter.view.activity.miscellaneous.model.UpdateMiscLeadsRequest
+import com.trucksup.field_officer.presenter.view.activity.miscellaneous.model.UpdateMiscLeadsResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -27,18 +33,22 @@ import javax.inject.Inject
 @HiltViewModel
 class MiscellaneousViewModel @Inject constructor(val apiUseCase: APIUseCase) : ViewModel() {
 
-    private var resultAllHomeCountStatus: MutableLiveData<ResponseModel<HomeCountResponse>> = MutableLiveData<ResponseModel<HomeCountResponse>>()
-    val resultAllHomeCountStatusLD: LiveData<ResponseModel<HomeCountResponse>> = resultAllHomeCountStatus
+    private var addMiscellaneousResult: MutableLiveData<ResponseModel<AddMiscLeadsResponse>> =
+        MutableLiveData<ResponseModel<AddMiscLeadsResponse>>()
+    val addMiscellaneousResultLD: LiveData<ResponseModel<AddMiscLeadsResponse>> = addMiscellaneousResult
+
+    private var getAllMiscResult: MutableLiveData<ResponseModel<GetAllMiscLeadResponse>> =
+        MutableLiveData<ResponseModel<GetAllMiscLeadResponse>>()
+    val getAllMiscResultLD: LiveData<ResponseModel<GetAllMiscLeadResponse>> = getAllMiscResult
+
+    private var updateMiscLeadsResult: MutableLiveData<ResponseModel<UpdateMiscLeadsResponse>> =
+        MutableLiveData<ResponseModel<UpdateMiscLeadsResponse>>()
+    val updateMiscLeadsResultLD: LiveData<ResponseModel<UpdateMiscLeadsResponse>> = updateMiscLeadsResult
 
 
-    private var addMiscellaneousResult: MutableLiveData<ResponseModel<SignResponse>> =
-        MutableLiveData<ResponseModel<SignResponse>>()
-    val addMiscellaneousResultLD: LiveData<ResponseModel<SignResponse>> = addMiscellaneousResult
-
-
-    fun addMiscellaneous(token: String, request: SignRequest) {
+    fun addMiscellaneous(token: String, request: AddMiscLeadRequest) {
         CoroutineScope(Dispatchers.IO).launch {
-            when (val response = apiUseCase.registerUser(token, request)) {
+            when (val response = apiUseCase.addMiscLeadsByBO(token, request)) {
                 is ResultWrapper.ServerResponseError -> {
                     Log.e("API Error", response.error ?: "")
                     addMiscellaneousResult.postValue(ResponseModel(serverError = response.error))
@@ -51,11 +61,41 @@ class MiscellaneousViewModel @Inject constructor(val apiUseCase: APIUseCase) : V
         }
     }
 
+    fun getAllMiscellaneous(token: String, request: GetMiscLeadRequest) {
+        CoroutineScope(Dispatchers.IO).launch {
+            when (val response = apiUseCase.getBOMiscLeads(token, request)) {
+                is ResultWrapper.ServerResponseError -> {
+                    Log.e("API Error", response.error ?: "")
+                    getAllMiscResult.postValue(ResponseModel(serverError = response.error))
+                }
+
+                is ResultWrapper.Success -> {
+                    getAllMiscResult.postValue(ResponseModel(success = response.value))
+                }
+            }
+        }
+    }
+
+    fun updateMiscLeadsByBO(token: String, request: UpdateMiscLeadsRequest) {
+        CoroutineScope(Dispatchers.IO).launch {
+            when (val response = apiUseCase.updateMiscLeadsByBO(token, request)) {
+                is ResultWrapper.ServerResponseError -> {
+                    Log.e("API Error", response.error ?: "")
+                    updateMiscLeadsResult.postValue(ResponseModel(serverError = response.error))
+                }
+
+                is ResultWrapper.Success -> {
+                    updateMiscLeadsResult.postValue(ResponseModel(success = response.value))
+                }
+            }
+        }
+    }
+
     fun uploadImages(token: String, documentType: String, file: MultipartBody.Part,
                      fileWaterMark: MultipartBody.Part, imgRes: TrucksFOImageController
     ) {
         val apiInterface = ApiClient().getClient
-        apiInterface.uploadImages(token, documentType, "BusinessOfficer", file, fileWaterMark)
+        apiInterface.uploadImages(token, documentType, "Miscellaneous", file, fileWaterMark)
             ?.enqueue(object : Callback<TrucksupImageUploadResponse> {
                 override fun onResponse(
                     call: Call<TrucksupImageUploadResponse>,
@@ -84,23 +124,6 @@ class MiscellaneousViewModel @Inject constructor(val apiUseCase: APIUseCase) : V
             })
     }
 
-    fun getAllHomeCountStatus(request: HomeCountRequest) {
-        CoroutineScope(Dispatchers.IO).launch {
-            when (val response = apiUseCase.getAllHomeCountStatus(
-                PreferenceManager.getAuthToken(),
-                request
-            )) {
-                is ResultWrapper.ServerResponseError -> {
-                    Log.e("API Error", response.error ?: "")
-                    resultAllHomeCountStatus.postValue(ResponseModel(serverError = response.error))
-                }
-
-                is ResultWrapper.Success -> {
-                    resultAllHomeCountStatus.postValue(ResponseModel(success = response.value))
-                }
-            }
-        }
-    }
 
 
 }

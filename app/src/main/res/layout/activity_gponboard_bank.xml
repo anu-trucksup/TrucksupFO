@@ -106,7 +106,7 @@
                     android:layout_marginHorizontal="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:fontFamily="@font/bai_jamjuree_medium"
-                    android:text="@string/AccountHolderName_star"
+                    android:text="@string/AccountHolderName"
                     android:textColor="@color/blue"
                     android:textSize="@dimen/_12ssp" />
 
@@ -130,7 +130,7 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     android:fontFamily="@font/bai_jamjuree_medium"
                     android:lines="1"
-                    android:text="@string/AccountNumber_star"
+                    android:text="@string/AccountNumber"
                     android:textColor="@color/blue"
                     android:textSize="@dimen/_12ssp" />
 
@@ -146,7 +146,8 @@
                     android:paddingHorizontal="@dimen/_10sdp"
                     android:paddingVertical="@dimen/_4sdp"
                     android:text=""
-                    android:textSize="@dimen/_12ssp" />
+                    android:textSize="@dimen/_12ssp"
+                    android:inputType="text"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -155,7 +156,7 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     android:fontFamily="@font/bai_jamjuree_medium"
                     android:lines="1"
-                    android:text="@string/ReenterAccountNumber_star"
+                    android:text="@string/ReenterAccountNumber"
                     android:textColor="@color/blue"
                     android:textSize="@dimen/_12ssp" />
 
@@ -167,7 +168,7 @@
                     android:layout_marginTop="@dimen/_5sdp"
                     android:background="@drawable/grey_edit_background"
                     android:fontFamily="@font/bai_jamjuree_medium"
-                    android:inputType="phone"
+                    android:inputType="text"
                     android:lines="1"
                     android:paddingHorizontal="@dimen/_10sdp"
                     android:paddingVertical="@dimen/_4sdp"
@@ -181,7 +182,7 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     android:fontFamily="@font/bai_jamjuree_medium"
                     android:lines="1"
-                    android:text="@string/BankName_star"
+                    android:text="@string/BankName"
                     android:textColor="@color/blue"
                     android:textSize="@dimen/_12ssp" />
 
@@ -193,7 +194,7 @@
                     android:layout_marginTop="@dimen/_5sdp"
                     android:background="@drawable/grey_edit_background"
                     android:fontFamily="@font/bai_jamjuree_medium"
-                    android:inputType="phone"
+                    android:inputType="text"
                     android:lines="1"
                     android:paddingHorizontal="@dimen/_10sdp"
                     android:paddingVertical="@dimen/_4sdp"
@@ -207,7 +208,7 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     android:fontFamily="@font/bai_jamjuree_medium"
                     android:lines="1"
-                    android:text="@string/IFSCCode_star"
+                    android:text="@string/IFSCCode"
                     android:textColor="@color/blue"
                     android:textSize="@dimen/_12ssp" />
 
@@ -219,7 +220,7 @@
                     android:layout_marginTop="@dimen/_5sdp"
                     android:background="@drawable/grey_edit_background"
                     android:fontFamily="@font/bai_jamjuree_medium"
-                    android:inputType="phone"
+                    android:inputType="text"
                     android:lines="1"
                     android:paddingHorizontal="@dimen/_10sdp"
                     android:paddingVertical="@dimen/_4sdp"
@@ -233,7 +234,7 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     android:fontFamily="@font/bai_jamjuree_medium"
                     android:lines="1"
-                    android:text="@string/PANNumber_star"
+                    android:text="@string/PANNumber"
                     android:textColor="@color/blue"
                     android:textSize="@dimen/_12ssp" />
 
@@ -247,6 +248,7 @@
                     android:fontFamily="@font/bai_jamjuree_medium"
                     android:inputType="text"
                     android:lines="1"
+                    android:maxLength="6"
                     android:paddingHorizontal="@dimen/_10sdp"
                     android:paddingVertical="@dimen/_4sdp"
                     android:text=""

@@ -99,7 +99,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="@dimen/_10sdp"
                             android:layout_marginTop="@dimen/_5sdp"
-                            android:background="@drawable/edit_box"
+                            android:background="@drawable/grey_edit_background"
                             android:paddingHorizontal="@dimen/_10sdp"
                             android:paddingVertical="@dimen/_4sdp"
                             android:singleLine="true"
@@ -120,7 +120,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="@dimen/_10sdp"
                             android:layout_marginTop="@dimen/_5sdp"
-                            android:background="@drawable/edit_box"
+                            android:background="@drawable/grey_edit_background"
                             android:inputType="phone"
                             android:lines="1"
                             android:maxLength="10"
@@ -146,10 +146,9 @@
                             android:orientation="horizontal">
 
                             <Spinner
-                                android:id="@+id/kycSpinner"
+                                android:id="@+id/partner_type_spinner"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:entries="@array/select_partner"
                                 android:fontFamily="@font/bai_jamjuree_medium"
                                 android:paddingHorizontal="@dimen/_3sdp" />
 
@@ -164,10 +163,9 @@
                             android:orientation="horizontal">
 
                             <Spinner
-                                android:id="@+id/kycSpinners"
+                                android:id="@+id/sub_partner_type_spinner"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:entries="@array/select_partner"
                                 android:fontFamily="@font/bai_jamjuree_medium"
                                 android:paddingHorizontal="@dimen/_3sdp" />
 

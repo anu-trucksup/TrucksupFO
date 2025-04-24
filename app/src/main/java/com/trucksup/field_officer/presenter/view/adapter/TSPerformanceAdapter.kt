@@ -95,7 +95,7 @@ class TSPerformanceAdapter(var context: Context?, var list: ArrayList<GetMeetSch
         list.get(position)
         holder.binding.btnSchedule.setOnClickListener {
             //listener?.onItemClick(position)
-            dateFilterDialog(position)
+            dateFilterDialog(position, list[position].ownerName)
         }
 
 
@@ -106,7 +106,7 @@ class TSPerformanceAdapter(var context: Context?, var list: ArrayList<GetMeetSch
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun dateFilterDialog(pos: Int) {
+    private fun dateFilterDialog(pos: Int, ownerName: String) {
         val builder = AlertDialog.Builder(context)
         val binding = DateFilterBinding.inflate(LayoutInflater.from(context))
         builder.setView(binding.root)
@@ -171,7 +171,7 @@ class TSPerformanceAdapter(var context: Context?, var list: ArrayList<GetMeetSch
                     )
                 }
             }else{
-                listener?.onItemClick(selectedDate, selectedTime)
+                listener?.onItemClick(ownerName, selectedDate, selectedTime)
                 dialog.dismiss()
             }
 
@@ -185,7 +185,7 @@ class TSPerformanceAdapter(var context: Context?, var list: ArrayList<GetMeetSch
     }
 
     interface OnItemClickListener {
-        fun onItemClick(selectedDate: String, selectedTime : String)
+        fun onItemClick(ownerName: String, selectedDate: String, selectedTime : String)
     }
 
     fun filter(query: String) {

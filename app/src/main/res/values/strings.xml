@@ -141,16 +141,16 @@
     <string name="BankName_star">Bank Name <font color='#FF0000'>*</font></string>
     <string name="IFSCCode_star">IFSC Code <font color='#FF0000'>*</font></string>
     <string name="PANNumber_star">PAN Number <font color='#FF0000'>*</font></string>
-    <string name="UploadChequePassbook_star">Upload Cheque / Passbook<font color='#FF0000'>*</font></string>
+    <string name="UploadChequePassbook_star">Upload Cheque / Passbook</string>
 
 
     <string name="BaNewOnboardingTab">To onboard a new business associate, please provide the following details.</string>
     <string name="Onboardings">Onboardings</string>
     <string name="onboard">Onboard</string>
 
-    <string name="SalesCode">Sales Code of BO <font color='#FF0000'>*</font></string>
-    <string name="GPMobile">GP Mobile Number <font color='#FF0000'>*</font></string>
-    <string name="GPName">GP Name <font color='#FF0000'>*</font></string>
+    <string name="SalesCode">Sales Code of BO</string>
+    <string name="GPMobile">GP Mobile Number</string>
+    <string name="GPName">GP Name</string>
     <string name="PleaseenterSalesCode">Please enter Sales Code of BO</string>
     <string name="PleaseenterGPMobile">Please enter GP Mobile Number</string>
     <string name="PleaseenterGPName">Please enter GP Name</string>
@@ -180,6 +180,7 @@
     <string name="Pincode_star">Pincode <font color='#FF0000'>*</font></string>
     <string name="City_star">City <font color='#FF0000'>*</font></string>
     <string name="sub_City_star">Sub-City <font color='#FF0000'>*</font></string>
+    <string name="sub_Citys_star">Sub-City</string>
     <string name="State_star">State <font color='#FF0000'>*</font></string>
     <string name="ProfilePhoto_star">Profile Photo <font color='#FF0000'>*</font></string>
 
@@ -385,13 +386,6 @@
     <string name="state2">State:</string>
     <string name="address2">Address:</string>
     <string name="SelectPartnerType_star">Select Partner Type<font color='#FF0000'>*</font></string>
-    <string-array name="select_partner">
-        <item>Select</item>
-        <item>Select Partner type</item>
-        <item>Select Partner type</item>
-        <item>Select Partner type</item>
-        <item>Select Partner type</item>
-    </string-array>
 
     <string name="enter_otp">Enter Verification Code</string>
     <string name="SkipAadhaar">Skip Aadhaar KYC for now</string>
@@ -750,6 +744,10 @@
     <string name="prev_commit_text">View the previously added commitments and the achievements.</string>
     <string name="view"><u>View</u></string>
     <string name="addressStar">Address <font color='#FF0000'>*</font></string>
+    <string name="inputGPName">Please input the growth partner name</string>
+    <string name="inputGPNumber">Please input the growth partner mobile number</string>
+    <string name="inputGPPartnerType">Please select the partner type</string>
+    <string name="input_business_type">Please select the business type</string>
 
     <string name="other_subcity_title">Other sub-city (please specify) <font color='#FF0000'>*</font></string>
     <string name="other_subcity_hint">Please specify your Sub City</string>

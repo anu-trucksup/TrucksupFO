@@ -42,7 +42,7 @@ import com.trucksup.field_officer.presenter.view.activity.auth.logout.LogoutRequ
 import com.trucksup.field_officer.presenter.view.activity.dashboard.vml.DashBoardViewModel
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.FinanceActivity
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.InsuranceActivity
-import com.trucksup.field_officer.presenter.view.activity.other.FollowUpActivity
+import com.trucksup.field_officer.presenter.view.activity.todayFollowup.FollowUpActivity
 import com.trucksup.field_officer.presenter.view.activity.other.NavItems
 import com.trucksup.field_officer.presenter.view.activity.other.NewOnboardingSelection
 import com.trucksup.field_officer.presenter.view.activity.profile.EditProfileActivity
