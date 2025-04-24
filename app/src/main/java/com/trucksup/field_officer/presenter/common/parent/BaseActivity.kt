@@ -11,6 +11,7 @@ import android.location.Geocoder
 import android.location.Location
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
@@ -250,21 +251,43 @@ open class BaseActivity : AppCompatActivity() {
 
 
     fun requestCameraAndGalleryPermissions(onGranted: () -> Unit) {
-        val neededPermissions = listOf(
-            Manifest.permission.CAMERA,
-            Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE // Or use READ_MEDIA_IMAGES for SDK 33+
-        ).filter {
-            ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            // For Android 13+, adjust to use READ_MEDIA_IMAGES
+            val mediaPermissions = arrayOf(
+                Manifest.permission.CAMERA,
+                Manifest.permission.READ_MEDIA_IMAGES
+            ).filter {
+                ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED
+            }
+
+            if (mediaPermissions.isEmpty()) {
+                onGranted()
+            } else {
+                mediaPermissions.forEach {
+                    permissionCallbackMap[it] = onGranted
+                }
+                permissionLauncher.launch(mediaPermissions.toTypedArray())
+            }
+        }else{
+            val neededPermissions = listOf(
+                Manifest.permission.CAMERA,
+                Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE // Or use READ_MEDIA_IMAGES for SDK 33+
+            ).filter {
+                ContextCompat.checkSelfPermission(this, it) != PackageManager.PERMISSION_GRANTED
+            }
+
+            if (neededPermissions.isEmpty()) {
+                onGranted()
+            } else {
+                neededPermissions.forEach {
+                    permissionCallbackMap[it] = onGranted
+                }
+                permissionLauncher.launch(neededPermissions.toTypedArray())
+            }
         }
 
-        if (neededPermissions.isEmpty()) {
-            onGranted()
-        } else {
-            neededPermissions.forEach {
-                permissionCallbackMap[it] = onGranted
-            }
-            permissionLauncher.launch(neededPermissions.toTypedArray())
-        }
     }
 
 }
