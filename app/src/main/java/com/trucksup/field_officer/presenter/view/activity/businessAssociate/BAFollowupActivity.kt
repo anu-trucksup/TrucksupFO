@@ -2,20 +2,26 @@ package com.trucksup.field_officer.presenter.view.activity.businessAssociate
 
 import android.os.Bundle
 import androidx.core.content.ContextCompat
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.BaFollowupActivityBinding
 import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.BoVisitDetail
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.GetAllMeetUpBARequest
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.GetAllMeetupBAResponse
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.vml.BAFollowUpViewModel
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.vml.BAScheduleMeetingVM
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetAllMeetupTSRequest
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetMeetScheduleDetailsResponse
 import com.trucksup.field_officer.presenter.view.fragment.ba.BACompletedFragment
 import com.trucksup.field_officer.presenter.view.fragment.ba.BAScheduledFragment
 import com.trucksup.field_officer.presenter.view.adapter.FragmentAdapter
+import com.trucksup.field_officer.presenter.view.adapter.TSPerformanceAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -24,6 +30,9 @@ class BAFollowupActivity : BaseActivity() {
     private lateinit var binding: BaFollowupActivityBinding
     private var mViewModel: BAFollowUpViewModel? = null
 
+    private var getAllBAMeetsList: java.util.ArrayList<BoVisitDetail> = arrayListOf()
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = BaFollowupActivityBinding.inflate(layoutInflater)
@@ -31,8 +40,8 @@ class BAFollowupActivity : BaseActivity() {
         setContentView(binding.root)
         mViewModel = ViewModelProvider(this)[BAFollowUpViewModel::class.java]
 
-        showProgressDialog(this, false)
-        val request = GetAllMeetUpBARequest(
+        //showProgressDialog(this, false)
+        /*val request = GetAllMeetUpBARequest(
             requestId = PreferenceManager.getRequestNo().toInt(),
             requestedBy = PreferenceManager.getPhoneNo(this),
             requestDatetime = PreferenceManager.getServerDateUtc(),
@@ -41,7 +50,8 @@ class BAFollowupActivity : BaseActivity() {
         )
         mViewModel?.getAllMeetupBA(PreferenceManager.getAuthToken(), request)
 
-        setupObserver()
+        setupObserver()*/
+
         setupViewPager()
         setListener()
     }
@@ -78,6 +88,7 @@ class BAFollowupActivity : BaseActivity() {
                 dismissProgressDialog()
 
                 if (responseModel.success?.statuscode == 200) {
+                    getAllMeetupBAResponse(responseModel.success)
                     // setItemList(responseModel.success)
                 } else {
                     val abx =
@@ -90,7 +101,37 @@ class BAFollowupActivity : BaseActivity() {
                 }
             }
         }
+    }
 
+    private fun getAllMeetupBAResponse(getAllMeetupBAResponse: GetAllMeetupBAResponse) {
+        getAllMeetupBAResponse?.boVisitDetails?.forEachIndexed { _, getTSDetailsData ->
+            run {
+                getAllBAMeetsList.add(getTSDetailsData)
+            }
+        }
+
+
+
+        setupViewPager()
+        println("Data=="+getAllBAMeetsList.size)
+
+        /*binding.rv.layoutManager = LinearLayoutManager(this)
+        val adapter = TSPerformanceAdapter(this@TSPerformanceActivity, getTsdetails)
+
+        adapter.setOnItemClickListener(object : TSPerformanceAdapter.OnItemClickListener {
+            override fun onItemClick(ownerName: String, selectedDate: String, selectedTime: String) {
+                dataSubmit(ownerName, selectedDate, selectedTime)
+            }
+        })
+        binding.rv.adapter = adapter
+
+        // Add search or filter input
+        binding.etSearchFillter.addTextChangedListener {
+            adapter.filter(it.toString())
+        }*/
+
+        //binding.tvTotalEnquiry.text = "${inquiryHistoryResponse?.leadsHistory?.size} Enquiries"
+        //setupViewPager()
     }
 
     private fun setupViewPager() {
