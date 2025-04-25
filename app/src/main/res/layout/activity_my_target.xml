@@ -70,7 +70,7 @@
                             android:layout_height="wrap_content"
                             android:layout_margin="@dimen/_6sdp"
                             android:elevation="@dimen/_8sdp"
-                            android:background="@drawable/roal_slect_card"
+                            android:background="@drawable/role_select_card"
                             android:orientation="vertical">
 
                             <TextView

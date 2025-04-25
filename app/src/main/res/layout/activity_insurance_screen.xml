@@ -435,7 +435,7 @@
                                             android:id="@+id/etInsValidity"
                                             android:layout_width="match_parent"
                                             android:layout_height="match_parent"
-                                            android:drawableEnd="@drawable/insorance_clander_16"
+                                            android:drawableEnd="@drawable/insurance_calender_16"
                                             android:drawablePadding="@dimen/_3sdp"
                                             android:fontFamily="@font/bai_jamjuree_medium"
                                             android:gravity="center_vertical"
