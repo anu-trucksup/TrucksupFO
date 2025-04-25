@@ -12,11 +12,14 @@ import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import android.widget.TextView.OnEditorActionListener
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
@@ -38,6 +41,7 @@ import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.CameraActivity
 import com.trucksup.field_officer.presenter.common.FileHelp
 import com.trucksup.field_officer.presenter.common.LoadingUtils
+import com.trucksup.field_officer.presenter.common.btmsheet.DateRangeBottomSheet
 import com.trucksup.field_officer.presenter.utils.NetworkManager
 import com.trucksup.field_officer.presenter.view.adapter.CompleteLead
 import com.trucksup.field_officer.presenter.view.adapter.ICImageAdapter
@@ -52,6 +56,7 @@ import com.trucksup.field_officer.presenter.utils.PreferenceManager
 import com.trucksup.field_officer.presenter.view.activity.auth.login.LoginActivity
 import com.trucksup.field_officer.presenter.view.activity.auth.login.LoginViewModel
 import com.trucksup.field_officer.presenter.view.activity.miscellaneous.model.AddMiscLeadRequest
+import com.trucksup.field_officer.presenter.view.activity.miscellaneous.model.AddMiscLeadsResponse
 import com.trucksup.field_officer.presenter.view.activity.miscellaneous.model.GetAllMiscLeadResponse
 import com.trucksup.field_officer.presenter.view.activity.miscellaneous.model.GetMiscLeadRequest
 import com.trucksup.field_officer.presenter.view.activity.miscellaneous.model.TrucksImageXML
@@ -71,6 +76,10 @@ class MiscActivity : BaseActivity(), AddMiscInterface, TrucksFOImageController {
     private var addMiscLayoutBinding: AddMiscLayoutBinding?=null
     private var imageList = ArrayList<TrucksImageXML>()
     private var bottomDialog: BottomSheetDialog?=null
+    private var completeLeadsList=ArrayList<GetAllMiscLeadResponse.IncompletedLead>()
+    private var inCompleteLeadsList=ArrayList<GetAllMiscLeadResponse.IncompletedLead>()
+    private var completeAdap:CompleteLead?=null
+    private var inCompleteAdap:IncompleteLead?=null
 
     private var launcher: ActivityResultLauncher<Intent>? = null
 
@@ -85,13 +94,13 @@ class MiscActivity : BaseActivity(), AddMiscInterface, TrucksFOImageController {
         setListener()
         cameraLauncher()
 
-        getMiscLeads()
+        getMiscLeads("","")
     }
 
-    private fun getMiscLeads()
+    private fun getMiscLeads(startDate:String,endDate:String)
     {
         showProgressDialog(this, false)
-        var request=GetMiscLeadRequest(PreferenceManager.getUserData(this@MiscActivity)?.boUserid?.toInt()?:0,PreferenceManager.getServerDateUtc(),PreferenceManager.getRequestNo().toInt(),PreferenceManager.getPhoneNo(this@MiscActivity))
+        var request=GetMiscLeadRequest(PreferenceManager.getUserData(this@MiscActivity)?.boUserid?.toInt()?:0,PreferenceManager.getServerDateUtc(),PreferenceManager.getRequestNo().toInt(),PreferenceManager.getPhoneNo(this@MiscActivity),startDate,endDate)
         mViewModel?.getAllMiscellaneous(PreferenceManager.getAuthToken(),request)
     }
 
@@ -121,9 +130,25 @@ class MiscActivity : BaseActivity(), AddMiscInterface, TrucksFOImageController {
             }
         }
 
+        //search
+        binding.etSearch.setOnEditorActionListener(object : OnEditorActionListener {
+            override fun onEditorAction(p0: TextView?, p1: Int, p2: KeyEvent?): Boolean {
+                if (p1 == EditorInfo.IME_ACTION_SEARCH) {
+                    filter(binding.etSearch.getText().toString())
+                    return true
+                }
+                return false
+            }
+        })
+
         //date picker
         binding.imgCalender.setOnClickListener {
-            dateFilterDialog()
+            val bottomSheet = DateRangeBottomSheet { start, end ->
+                getMiscLeads(start,end)
+//                Toast.makeText(this, "Selected: $start → $end", Toast.LENGTH_SHORT).show()
+            }
+            bottomSheet.show(supportFragmentManager, "DATE_BOTTOM_SHEET")
+//            dateFilterDialog()
         }
 
         binding.btnAddMisc.setOnClickListener {
@@ -141,17 +166,21 @@ class MiscActivity : BaseActivity(), AddMiscInterface, TrucksFOImageController {
     }
 
     private fun setIncompleteLead(list:ArrayList<GetAllMiscLeadResponse.IncompletedLead>) {
+        inCompleteAdap=null
+        inCompleteAdap = IncompleteLead(this@MiscActivity, list)
         binding.rvd1.apply {
             layoutManager = LinearLayoutManager(this@MiscActivity, RecyclerView.VERTICAL, false)
-            adapter = IncompleteLead(this@MiscActivity, list)
+            adapter=inCompleteAdap
             hasFixedSize()
         }
     }
 
     private fun setCompleteLead(list:ArrayList<GetAllMiscLeadResponse.IncompletedLead>) {
+        completeAdap=null
+        completeAdap = CompleteLead(this@MiscActivity, list)
         binding.rvd2.apply {
             layoutManager = LinearLayoutManager(this@MiscActivity, RecyclerView.VERTICAL, false)
-            adapter = CompleteLead(this@MiscActivity, list)
+            adapter=completeAdap
             hasFixedSize()
         }
     }
@@ -194,11 +223,14 @@ class MiscActivity : BaseActivity(), AddMiscInterface, TrucksFOImageController {
                 dismissProgressDialog()
 
                 if (responseModel.success?.statuscode == 200) {
-                    val abx = AlertBoxDialog(
-                        this@MiscActivity, responseModel.success?.message.toString(),
-                        "m"
-                    )
-                    abx.show()
+//                    val abx = AlertBoxDialog(
+//                        this@MiscActivity, responseModel.success?.message.toString(),
+//                        "m"
+//                    )
+//                    abx.show()
+
+                    getMiscLeads("","")
+
 
                 } else {
                     val abx = AlertBoxDialog(
@@ -227,20 +259,50 @@ class MiscActivity : BaseActivity(), AddMiscInterface, TrucksFOImageController {
                 dismissProgressDialog()
 
                 if (responseModel.success?.statuscode == 200) {
-                    var completeLeads=responseModel.success.completedLeads
-                    var inCompleteLeads=responseModel.success.incompletedLeads
-                    if (completeLeads.isNullOrEmpty() && inCompleteLeads.isNullOrEmpty())
+                    completeLeadsList.clear()
+                    inCompleteLeadsList.clear()
+                    completeLeadsList=responseModel.success.completedLeads
+                    inCompleteLeadsList=responseModel.success.incompletedLeads
+                    if (completeLeadsList.isNullOrEmpty() && inCompleteLeadsList.isNullOrEmpty())
                     {
-
+                        binding.dataLayout.visibility=View.GONE
+                        binding.noDataLayout.visibility=View.VISIBLE
                     }
                     else {
-                        if (!inCompleteLeads.isNullOrEmpty()) {
-                            setIncompleteLead(inCompleteLeads)
+                        binding.noDataLayout.visibility=View.GONE
+                        binding.dataLayout.visibility=View.VISIBLE
+                        if (!inCompleteLeadsList.isNullOrEmpty()) {
+                            setIncompleteLead(inCompleteLeadsList)
                         }
-                        if (!completeLeads.isNullOrEmpty())
+                        if (!completeLeadsList.isNullOrEmpty())
                         {
-                            setCompleteLead(completeLeads)
+                            setCompleteLead(completeLeadsList)
                         }
+
+                        binding.etSearch.addTextChangedListener(object : TextWatcher {
+                            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                            }
+
+                            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                                if (p0.isNullOrEmpty())
+                                {
+                                    if (completeAdap!=null) {
+                                        completeAdap!!.filterList(completeLeadsList)
+                                        binding.noDataLayout.visibility = View.GONE
+                                        binding.dataLayout.visibility = View.VISIBLE
+                                    }
+
+                                    if (inCompleteAdap!=null) {
+                                        inCompleteAdap!!.filterList(inCompleteLeadsList)
+                                        binding.noDataLayout.visibility = View.GONE
+                                        binding.dataLayout.visibility = View.VISIBLE
+                                    }
+                                }
+                            }
+
+                            override fun afterTextChanged(p0: Editable?) {
+                            }
+                        })
                     }
                 } else {
                     val abx =
@@ -733,6 +795,55 @@ class MiscActivity : BaseActivity(), AddMiscInterface, TrucksFOImageController {
     private fun checkVehicleNumber(vehicleNumber: String): Boolean {
         val regex = "^[A-Z]{2}[ -]?[0-9|A-Z]{2}[ -]?[A-Z]{1,2}[ -]?[0-9]{4}$"
         return vehicleNumber.matches(regex.toRegex())
+    }
+
+    private fun filter(text: String) {
+        try {
+            // creating a new array list to filter our data.
+            val completeFilteredList: ArrayList<GetAllMiscLeadResponse.IncompletedLead> = ArrayList()
+            val inCompleteFilteredList: ArrayList<GetAllMiscLeadResponse.IncompletedLead> = ArrayList()
+
+            // complete leads
+            for (item in completeLeadsList) {
+                // checking if the entered string matched with any item of our recycler view.
+                if (item.mobileNo.lowercase().contains(text.lowercase())
+                ) {
+                    // if the item is matched we are
+                    // adding it to our filtered list.
+                    completeFilteredList.add(item)
+                }
+            }
+
+            //incomplete leads
+            for (item in inCompleteLeadsList) {
+                // checking if the entered string matched with any item of our recycler view.
+                if (item.mobileNo.lowercase().contains(text.lowercase())
+                ) {
+                    // if the item is matched we are
+                    // adding it to our filtered list.
+                    inCompleteFilteredList.add(item)
+                }
+            }
+
+            if (completeFilteredList.isNullOrEmpty() && inCompleteFilteredList.isNullOrEmpty()) {
+                // if no item is added in filtered list we are
+                // displaying a toast message as no data found.
+                binding.noDataLayout.visibility = View.VISIBLE
+                binding.dataLayout.visibility = View.GONE
+            } else {
+                // at last we are passing that filtered
+                // list to our adapter class.
+                binding.noDataLayout.visibility = View.GONE
+                binding.dataLayout.visibility = View.VISIBLE
+
+                completeAdap?.filterList(completeFilteredList)
+                inCompleteAdap?.filterList(inCompleteFilteredList)
+            }
+        }
+        catch (e:Exception)
+        {
+
+        }
     }
 
 }

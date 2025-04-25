@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.MiscImageItemBinding
 import com.trucksup.field_officer.presenter.view.activity.miscellaneous.model.TrucksImageXML
 
@@ -24,6 +25,8 @@ class ImageAdapter(var context: Context, var list: ArrayList<TrucksImageXML>) :
         try {
             Glide.with(context)
                 .load(list[position].url)
+                .placeholder(R.drawable.placeholder_image2)
+                .error(R.drawable.placeholder_image2)
                 .into(holder.binding.image)
         } catch (e: Exception) {
         }

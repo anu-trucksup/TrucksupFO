@@ -129,4 +129,10 @@
         <item name="android:fontFamily">@font/bai_jamjuree_semi_bold</item>
     </style>
 
+    <style name="CustomMaterialCalendarTheme"
+        parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorOnSurface">@color/black</item>
+    </style>
+
 </resources>
