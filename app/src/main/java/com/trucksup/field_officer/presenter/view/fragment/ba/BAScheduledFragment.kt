@@ -5,21 +5,19 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.datepicker.MaterialDatePicker
 import com.trucksup.field_officer.databinding.DateFilterBinding
 import com.trucksup.field_officer.databinding.FragmentOwnerScheduledBinding
 import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.LoadingUtils
+import com.trucksup.field_officer.presenter.common.dialog.DialogBoxes
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.BoVisitDetail
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.GetAllMeetUpBARequest
@@ -27,9 +25,6 @@ import com.trucksup.field_officer.presenter.view.activity.businessAssociate.mode
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.vml.BAFollowUpViewModel
 import com.trucksup.field_officer.presenter.view.adapter.BAScheduleFollowupAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 @AndroidEntryPoint
 class BAScheduledFragment : Fragment(){
@@ -108,7 +103,7 @@ class BAScheduledFragment : Fragment(){
     }
 
     private fun getAllMeetupBAResponse(getAllMeetupBAResponse: GetAllMeetupBAResponse) {
-        getAllMeetupBAResponse?.boVisitDetails?.forEachIndexed { _, getTSDetailsData ->
+        getAllMeetupBAResponse.boVisitDetails.forEachIndexed { _, getTSDetailsData ->
             run {
                 getAllBAMeetsList.add(getTSDetailsData)
             }
@@ -141,17 +136,13 @@ class BAScheduledFragment : Fragment(){
 
     private fun setOnListeners() {
         //date picker
-        binding.imgCalender.setOnClickListener {
+        /*binding.imgCalender.setOnClickListener {
             dateFilterDialog()
-        }
+        }*/
 
         //filter
         binding.imgFilter.setOnClickListener {
-            //test
-
-
-            //test
-            //DialogBoxes.setFilter(aContext!!, "owner")
+            DialogBoxes.setFilter(aContext!!, "owner")
         }
 
     }
@@ -173,26 +164,4 @@ class BAScheduledFragment : Fragment(){
             dialog.dismiss()
         }
     }
-
-
-    fun showDateRangePicker(context: Context, onDateSelected: (String, String) -> Unit) {
-        val datePicker = MaterialDatePicker.Builder.dateRangePicker()
-            .setTitleText("Select Date Range")
-            .build()
-
-        datePicker.show((context as AppCompatActivity).supportFragmentManager, "DATE_RANGE_PICKER")
-
-        datePicker.addOnPositiveButtonClickListener { selection ->
-            val startMillis = selection.first ?: return@addOnPositiveButtonClickListener
-            val endMillis = selection.second ?: return@addOnPositiveButtonClickListener
-
-            val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-
-            val formattedStart = formatter.format(Date(startMillis))
-            val formattedEnd = formatter.format(Date(endMillis))
-
-            onDateSelected(formattedStart, formattedEnd)
-        }
-    }
-
 }
