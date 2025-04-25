@@ -45,54 +45,55 @@ class BAScheduleFollowupAdapter(var context: Context?, var list: ArrayList<BoVis
             holder.binding.highLightView.setBackgroundResource(R.color.transeprant)
         }
 
-        if(list[position].scheduleDate.isNotEmpty()){
-            holder.binding.txtScheduleDate.setText(list[position].scheduleDate)
-        }else{
-            holder.binding.txtScheduleDate.setText("-")
+        if (list[position].scheduleDate.isNotEmpty()) {
+            holder.binding.txtScheduleDate.text = list[position].scheduleDate
+        } else {
+            holder.binding.txtScheduleDate.text = "-"
         }
 
-        if(list[position].cust_Name.isNotEmpty()){
-            holder.binding.name.setText(list[position].cust_Name)
+        if (list[position].cust_Name.isNotEmpty()) {
+            holder.binding.name.text = list[position].cust_Name
         }
-        if(list[position].cust_MobileNo.isNotEmpty()){
-            holder.binding.tvMobile.setText(list[position].cust_MobileNo)
+        if (list[position].cust_MobileNo.isNotEmpty()) {
+            holder.binding.tvMobile.text = list[position].cust_MobileNo
         }
-        if(list[position].address.isNotEmpty()){
-            holder.binding.address.setText(list[position].address)
-        }else{
-            holder.binding.tvDistance.setText("-")
+        if (list[position].address.isNotEmpty()) {
+            holder.binding.address.text = list[position].address
+        } else {
+            holder.binding.tvDistance.text = "-"
         }
-        if(list[position].distance.isNotEmpty()){
+        if (list[position].distance.isNotEmpty()) {
             //holder.binding.linDistance.visibility = View.VISIBLE
-            holder.binding.tvDistance.setText("Distance: "+list[position].distance+" KM")
-        }else{
-            holder.binding.tvDistance.setText("Distance: "+ "-")
+            holder.binding.tvDistance.text = "Distance: " + list[position].distance + " KM"
+        } else {
+            holder.binding.tvDistance.text = "Distance: " + "-"
         }
-        if(list[position].lastCallInitiated.isNotEmpty()){
-            holder.binding.txtLastCallInitiated.setText(context?.getString(R.string.last_call_initiated)+" "+list[position].lastCallInitiated)
-        }else {
-            holder.binding.txtLastCallInitiated.setText(context?.getString(R.string.last_call_initiated) + "-")
+        if (list[position].lastCallInitiated.isNotEmpty()) {
+            holder.binding.txtLastCallInitiated.text = context?.getString(R.string.last_call_initiated) + " " + list[position].lastCallInitiated
+        } else {
+            holder.binding.txtLastCallInitiated.text = context?.getString(R.string.last_call_initiated) + "-"
         }
-            if(list[position].visitType.isNotEmpty()){
-            holder.binding.tvVisit.setText(list[position].visitType)
+        if (list[position].visitType.isNotEmpty()) {
+            holder.binding.tvVisit.text = list[position].visitType
         }
-        if(list[position].brokerStatus.isNotEmpty()){
-            if(list[position].brokerStatus.equals("Unverified")){
+        if (list[position].brokerStatus.isNotEmpty()) {
+            if (list[position].brokerStatus.equals("Unverified")) {
                 holder.binding.imgKycStatus.setImageResource(R.drawable.ic_kyc_unverified)
             }
-            if(list[position].brokerStatus.equals("Verified")){
+            if (list[position].brokerStatus.equals("Verified")) {
                 holder.binding.imgKycStatus.setImageResource(R.drawable.kyc_done_icon_svg)
             }
 
         }
-        if(list[position].addedTrucks.isNotEmpty()){
-            holder.binding.txtTrucksAdded.setText("No. of Trucks Added : "+list[position].addedTrucks)
+        if (list[position].addedTrucks.isNotEmpty()) {
+            holder.binding.txtTrucksAdded.setText("No. of Trucks Added : " + list[position].addedTrucks)
         }
-        holder.binding.name.setText(""+list[position].cust_Name)
+        holder.binding.name.text = "" + list[position].cust_Name
         holder.binding.txtStartTrip.setOnClickListener {
             listener?.onItemClick(list[position].id)
             val intent = Intent(context, TSStartTripActivity::class.java)
             intent.putExtra("title", "" + context?.resources?.getString(R.string.ba_follow_up))
+            intent.putExtra("address", "" + list[position].address)
             context?.startActivity(intent)
         }
     }

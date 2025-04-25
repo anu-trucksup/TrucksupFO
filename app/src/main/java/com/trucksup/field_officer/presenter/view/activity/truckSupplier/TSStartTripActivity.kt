@@ -2,7 +2,10 @@ package com.trucksup.field_officer.presenter.view.activity.truckSupplier
 
 import android.Manifest
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
+import android.location.Address
+import android.location.Geocoder
 import android.os.Bundle
 import android.provider.Settings
 import android.text.Editable
@@ -25,6 +28,7 @@ import com.trucksup.field_officer.presenter.utils.LoggerMessage
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.vml.TSOnboardViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Locale
 
 
 @AndroidEntryPoint
@@ -47,9 +51,13 @@ class TSStartTripActivity : BaseActivity(), OnMapReadyCallback {
             supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
-        val title_name = intent.getStringExtra("title")
-        binding.tvTitle.text = title_name
+        val titleName = intent.getStringExtra("title")
+        val address = intent.getStringExtra("address")
+        binding.tvTitle.text = titleName
 
+        if (!address.isNullOrEmpty()) {
+            binding.etAddress.setText(address)
+        }
 
         binding.etPincode.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -62,7 +70,7 @@ class TSStartTripActivity : BaseActivity(), OnMapReadyCallback {
                     )
                     mViewModel?.getCityStateByPin(PreferenceManager.getAuthToken(), request)
 
-                }else{
+                } else {
                     setUI()
                 }
             }
@@ -76,9 +84,14 @@ class TSStartTripActivity : BaseActivity(), OnMapReadyCallback {
 
         binding.btnSubmit.setOnClickListener {
 
-            if(checkValidation()){
+            if (checkValidation()) {
+                //val latLong = getLatLongFromAddress(this, binding.etAddress.text.toString())
+
                 val intent = Intent(this, EndTripActivity::class.java)
-                intent.putExtra("title", "" + title_name)
+                intent.putExtra("title", "" + titleName)
+                intent.putExtra("currentAddress", "" + binding.etAddress.text.toString())
+                intent.putExtra("currentLatitude", 28.646981)
+                intent.putExtra("currentLongitude", 77.125658)
                 startActivity(intent)
             }
         }
@@ -93,6 +106,23 @@ class TSStartTripActivity : BaseActivity(), OnMapReadyCallback {
     private fun setUI() {
         binding.etCity.setText("")
         binding.etState.setText("")
+    }
+
+    private fun getLatLongFromAddress(context: Context, addressStr: String): Address? {
+        val geocoder = Geocoder(context, Locale.getDefault())
+        return try {
+            val addresses: MutableList<Address>? = geocoder.getFromLocationName(addressStr, 1)
+            if (addresses!!.isNotEmpty()) {
+                val location = addresses[0]
+                Pair(location.latitude, location.longitude)
+                return location
+            } else {
+                null
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
     }
 
     private fun setupObserver() {
@@ -202,42 +232,42 @@ class TSStartTripActivity : BaseActivity(), OnMapReadyCallback {
         setLocation()
     }
 
-   /* private fun checkPermissions(permissions: ArrayList<String>) {
+    /* private fun checkPermissions(permissions: ArrayList<String>) {
 
-        Dexter.withContext(this@TSStartTripActivity)
-            .withPermissions(
-                permissions
-            )
-            .withListener(object : MultiplePermissionsListener {
-                @SuppressLint("MissingPermission")
-                override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
-                    report?.let {
-                        if (report.areAllPermissionsGranted()) {
-                            enableMyLocation()
-                        }
+         Dexter.withContext(this@TSStartTripActivity)
+             .withPermissions(
+                 permissions
+             )
+             .withListener(object : MultiplePermissionsListener {
+                 @SuppressLint("MissingPermission")
+                 override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
+                     report?.let {
+                         if (report.areAllPermissionsGranted()) {
+                             enableMyLocation()
+                         }
 
-                        if (report.isAnyPermissionPermanentlyDenied) {
-//                            val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-//                            startActivity(intent)
-                            showLocationDisabledDialog()
-                        }
-                    }
-                }
+                         if (report.isAnyPermissionPermanentlyDenied) {
+ //                            val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+ //                            startActivity(intent)
+                             showLocationDisabledDialog()
+                         }
+                     }
+                 }
 
-                override fun onPermissionRationaleShouldBeShown(
-                    permissions: MutableList<PermissionRequest>?,
-                    token: PermissionToken?
-                ) {
-                    // Remember to invoke this method when the custom rationale is closed
-                    // or just by default if you don't want to use any custom rationale.
-                    token?.continuePermissionRequest()
-                }
-            })
-            .withErrorListener {
-                Toast.makeText(this, it.name, Toast.LENGTH_SHORT).show()
-            }
-            .check()
-    }*/
+                 override fun onPermissionRationaleShouldBeShown(
+                     permissions: MutableList<PermissionRequest>?,
+                     token: PermissionToken?
+                 ) {
+                     // Remember to invoke this method when the custom rationale is closed
+                     // or just by default if you don't want to use any custom rationale.
+                     token?.continuePermissionRequest()
+                 }
+             })
+             .withErrorListener {
+                 Toast.makeText(this, it.name, Toast.LENGTH_SHORT).show()
+             }
+             .check()
+     }*/
 
     private fun showLocationDisabledDialog() {
         AlertDialog.Builder(this)
@@ -252,32 +282,32 @@ class TSStartTripActivity : BaseActivity(), OnMapReadyCallback {
     }
 
 
-   /* private fun enableMyLocation() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-            != PackageManager.PERMISSION_GRANTED
-        ) {
+    /* private fun enableMyLocation() {
+         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+             != PackageManager.PERMISSION_GRANTED
+         ) {
 
-            ActivityCompat.requestPermissions(
-                this,
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                1
-            )
-            return
-        }
+             ActivityCompat.requestPermissions(
+                 this,
+                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                 1
+             )
+             return
+         }
 
-        googleMap?.isMyLocationEnabled = true
+         googleMap?.isMyLocationEnabled = true
 
-        fusedLocationClient.lastLocation
-            .addOnSuccessListener { location: Location? ->
-                location?.let {
-                    val currentLatLng = LatLng(it.latitude, it.longitude)
-                    googleMap?.addMarker(
-                        MarkerOptions().position(currentLatLng).title("You are here")
-                    )
-                    googleMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15f))
-                }
-            }
-    }*/
+         fusedLocationClient.lastLocation
+             .addOnSuccessListener { location: Location? ->
+                 location?.let {
+                     val currentLatLng = LatLng(it.latitude, it.longitude)
+                     googleMap?.addMarker(
+                         MarkerOptions().position(currentLatLng).title("You are here")
+                     )
+                     googleMap?.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15f))
+                 }
+             }
+     }*/
 
     private fun setLocation() {
         googleMap?.isMyLocationEnabled = true
