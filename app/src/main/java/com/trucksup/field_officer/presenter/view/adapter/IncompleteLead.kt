@@ -7,9 +7,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.trucksup.field_officer.databinding.IncompleteDropItemBinding
+import com.trucksup.field_officer.presenter.view.activity.miscellaneous.model.GetAllMiscLeadResponse
 import com.trucksup.field_officer.presenter.view.adapter.ICImageAdapter
 
-class IncompleteLead(var context: Context, var list: ArrayList<String>) :
+class IncompleteLead(var context: Context, var list: ArrayList<GetAllMiscLeadResponse.IncompletedLead>) :
     RecyclerView.Adapter<IncompleteLead.ViewHolder>() {
 
     inner class ViewHolder(var binding: IncompleteDropItemBinding) :
@@ -22,18 +23,15 @@ class IncompleteLead(var context: Context, var list: ArrayList<String>) :
 
     override fun onBindViewHolder(holder: IncompleteLead.ViewHolder, position: Int) {
 
-        holder.binding.btnAddImage.setOnClickListener {
-            onControllerListeners?.incompleteAddImage(holder.binding)
-        }
+//        holder.binding.btnAddImage.setOnClickListener {
+//            onControllerListeners?.incompleteAddImage(holder.binding)
+//        }
 
-        var list = ArrayList<Bitmap>()
-//        list.add("")
-//        list.add("")
-//        list.add("")
-//        list.add("")
+        holder.binding.tvDate.text=list[position].date?:""
+
         holder.binding.rvImage.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-            adapter = ICImageAdapter(context, list)
+            adapter = ICImageAdapter(context, list[position].truckImageList)
             hasFixedSize()
         }
     }

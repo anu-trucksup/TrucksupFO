@@ -80,6 +80,7 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/tvName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/bai_jamjuree_medium"
@@ -89,13 +90,14 @@
                 android:textSize="@dimen/_10ssp" />
 
             <TextView
+                android:id="@+id/tvCategoryType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_2sdp"
                 android:layout_weight="1"
                 android:fontFamily="@font/bai_jamjuree_medium"
                 android:maxLines="1"
-                android:text="(Owner)"
+                android:text="(Truck Supplier)"
                 android:textColor="@color/blue"
                 android:textSize="@dimen/_10ssp" />
 
@@ -114,7 +116,7 @@
                 android:src="@drawable/call_icon" />
 
             <TextView
-                android:id="@+id/call"
+                android:id="@+id/tvMobile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_5sdp"

@@ -105,70 +105,7 @@ object DialogBoxes {
         dialog.setContentView(binding.root)
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
 
-        var categoryType = ArrayList<String>()
-        categoryType.add("Truck Supplier")
-        categoryType.add("Business Associate")
-        val arrayAdapter = ArrayAdapter(context, R.layout.simple_text_item, categoryType)
-        binding.categorySpinner.setAdapter(arrayAdapter)
-        binding.categorySpinner.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long,
-                ) {
-                    val textView: TextView = view as TextView
-//                  textView.setPadding(0,0,0,0)
-                    val typeface = ResourcesCompat.getFont(context, R.font.bai_jamjuree_medium)
-                    textView.setTypeface(typeface)
-                    textView.setTextColor(context.getColor(R.color.text_grey))
-                    textView.setTextSize(13f)
-
-                    if (binding.categorySpinner.selectedItem.toString().lowercase()=="truck supplier")
-                    {
-                        binding.businessNameLay.visibility=View.GONE
-                        binding.truckNoLay.visibility=View.VISIBLE
-                    }
-                    else if (binding.categorySpinner.selectedItem.toString().lowercase()=="business associate")
-                    {
-                        binding.truckNoLay.visibility=View.GONE
-                        binding.businessNameLay.visibility=View.VISIBLE
-                    }
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {}
-            }
-
-        var list = ArrayList<Bitmap>()
-//        list.add("")
-//        list.add("")
-//        list.add("")
-//        list.add("")
-        binding.rvImage.apply {
-            layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-            this.adapter = ImageAdapter(context, list)
-            hasFixedSize()
-        }
-
-        binding.btnAddImage.setOnClickListener {
-            addMiscInterface.addImage(binding)
-        }
-
-        //submit button
-        binding.btnSubmit.setOnClickListener {
-            dialog.dismiss()
-        }
-
-        //submit button 2
-        binding.btnSubmit2.setOnClickListener {
-            dialog.dismiss()
-        }
-
-        //save as draft button
-        binding.btnSaveAsDraft.setOnClickListener {
-            dialog.dismiss()
-        }
+        addMiscInterface.addMisLayout(binding,dialog)
 
         dialog?.show()
     }

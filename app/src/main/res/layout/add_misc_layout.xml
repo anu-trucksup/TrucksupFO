@@ -118,6 +118,7 @@
                 android:fontFamily="@font/bai_jamjuree_medium"
                 android:hint="Type here.."
                 android:maxLines="1"
+                android:lines="1"
                 android:paddingHorizontal="@dimen/_12sdp"
                 android:paddingVertical="@dimen/_6sdp"
                 android:textColor="#4D4D4D"
@@ -145,7 +146,7 @@
                 android:textSize="@dimen/_11ssp" />
 
             <EditText
-                android:id="@+id/etBN"
+                android:id="@+id/etTruckNo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -155,6 +156,7 @@
                 android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
                 android:inputType="textCapCharacters"
                 android:maxLines="1"
+                android:lines="1"
                 android:paddingHorizontal="@dimen/_12sdp"
                 android:paddingVertical="@dimen/_6sdp"
                 android:textColor="#4D4D4D"
@@ -187,7 +189,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/bai_jamjuree_medium"
                 android:maxLines="1"
-                android:text="Mobile Number"
+                android:text="@string/mobile_number_"
                 android:textColor="#4D4D4D"
                 android:textSize="@dimen/_11ssp" />
 
@@ -200,6 +202,9 @@
                 android:fontFamily="@font/bai_jamjuree_medium"
                 android:hint="Type here.."
                 android:maxLines="1"
+                android:inputType="phone"
+                android:maxLength="10"
+                android:lines="1"
                 android:paddingHorizontal="@dimen/_12sdp"
                 android:paddingVertical="@dimen/_6sdp"
                 android:textColor="#4D4D4D"
@@ -233,6 +238,7 @@
                 android:fontFamily="@font/bai_jamjuree_medium"
                 android:hint="Type here.."
                 android:maxLines="1"
+                android:lines="1"
                 android:paddingHorizontal="@dimen/_12sdp"
                 android:paddingVertical="@dimen/_6sdp"
                 android:textColor="#4D4D4D"
@@ -250,7 +256,7 @@
         android:layout_marginTop="@dimen/_10sdp"
         android:fontFamily="@font/bai_jamjuree_medium"
         android:maxLines="1"
-        android:text="Upload Truck Image"
+        android:text="@string/upload_truck_image"
         android:textColor="#4D4D4D"
         android:textSize="@dimen/_11ssp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -339,36 +345,47 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/buttonsLay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/l3"
+        android:layout_marginVertical="@dimen/_20sdp"
+        app:layout_constraintBottom_toTopOf="@+id/errorMsgLay">
     
     <LinearLayout
+        android:id="@+id/cancelSaveAsDraftLay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="end"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/l3"
-        android:layout_marginVertical="@dimen/_20sdp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        >
 
         <RelativeLayout
-            android:id="@+id/btnSubmit"
+            android:id="@+id/btnCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/background_1_1">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/_100sdp"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
-                android:text="Submit"
+                android:text="@string/cancel"
                 android:lines="1"
+                android:gravity="center"
                 android:textSize="@dimen/_11ssp"
                 android:layout_margin="@dimen/_1sdp"
                 android:background="@drawable/sub_back_border"
                 android:fontFamily="@font/bai_jamjuree_medium"
-                android:paddingHorizontal="@dimen/_15sdp"
                 android:paddingVertical="@dimen/_2sdp"
                 />
 
@@ -376,14 +393,14 @@
 
         <TextView
             android:id="@+id/btnSaveAsDraft"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_100sdp"
             android:layout_height="match_parent"
             android:background="@drawable/background_1_1"
             android:fontFamily="@font/bai_jamjuree_medium"
-            android:paddingHorizontal="@dimen/_15sdp"
             android:paddingVertical="@dimen/_2sdp"
-            android:text="Save as draft"
+            android:text="@string/save_as_draft"
             android:lines="1"
+            android:gravity="center"
             android:visibility="visible"
             android:textColor="@color/white"
             android:textSize="@dimen/_11ssp"
@@ -393,22 +410,75 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/btnSubmit2"
-        android:layout_width="wrap_content"
+        android:id="@+id/btnSubmit"
+        android:layout_width="@dimen/_100sdp"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="@dimen/_20sdp"
         android:background="@drawable/background_1_1"
         android:fontFamily="@font/bai_jamjuree_medium"
-        android:paddingHorizontal="@dimen/_30sdp"
         android:paddingVertical="@dimen/_3sdp"
         android:text="Submit"
         android:lines="1"
+        android:gravity="center"
         android:visibility="gone"
         android:textColor="@color/white"
         android:textSize="@dimen/_11ssp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/l3" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/errorMsgLay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/_5sdp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:background="@drawable/error_msg_misc_back"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="@dimen/_20sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonsLay"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <ImageView
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="@dimen/_15sdp"
+            android:src="@drawable/info_information_icon_16"
+            app:tint="@color/white"/>
+
+        <TextView
+            android:id="@+id/tvErrormsg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/bai_jamjuree_medium"
+            android:layout_marginHorizontal="@dimen/_6sdp"
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10ssp"
+            android:layout_weight="1"/>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/btnErrorOk"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_20sdp"
+            app:cardCornerRadius="@dimen/_4sdp"
+            app:cardBackgroundColor="@color/white">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/ok"
+                android:gravity="center"
+                android:fontFamily="@font/bai_jamjuree_medium"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_10ssp"/>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
