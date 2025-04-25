@@ -298,6 +298,7 @@
     <string name="insurance_">Insurance</string>
     <string name="select">Select</string>
     <string name="cancel_u"><u>Cancel</u></string>
+    <string name="cancel">Cancel</string>
 
     <string name="no_data">No data found</string>
     <string name="rejected">Rejected</string>
