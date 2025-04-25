@@ -69,9 +69,11 @@ class BAScheduleFollowupAdapter(var context: Context?, var list: ArrayList<BoVis
             holder.binding.tvDistance.text = "Distance: " + "-"
         }
         if (list[position].lastCallInitiated.isNotEmpty()) {
-            holder.binding.txtLastCallInitiated.text = context?.getString(R.string.last_call_initiated) + " " + list[position].lastCallInitiated
+            holder.binding.txtLastCallInitiated.text =
+                context?.getString(R.string.last_call_initiated) + " " + list[position].lastCallInitiated
         } else {
-            holder.binding.txtLastCallInitiated.text = context?.getString(R.string.last_call_initiated) + "-"
+            holder.binding.txtLastCallInitiated.text =
+                context?.getString(R.string.last_call_initiated) + "-"
         }
         if (list[position].visitType.isNotEmpty()) {
             holder.binding.tvVisit.text = list[position].visitType
@@ -94,6 +96,9 @@ class BAScheduleFollowupAdapter(var context: Context?, var list: ArrayList<BoVis
             val intent = Intent(context, TSStartTripActivity::class.java)
             intent.putExtra("title", "" + context?.resources?.getString(R.string.ba_follow_up))
             intent.putExtra("address", "" + list[position].address)
+            intent.putExtra("customDetails",
+                "" + list[position].cust_Name + "," + list[position].distance
+            )
             context?.startActivity(intent)
         }
     }

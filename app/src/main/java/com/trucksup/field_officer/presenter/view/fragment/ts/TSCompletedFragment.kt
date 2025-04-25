@@ -16,7 +16,6 @@ import com.trucksup.field_officer.presenter.view.adapter.TSCompletedAdapter
 import com.trucksup.field_officer.presenter.common.dialog.DialogBoxes
 
 class TSCompletedFragment : Fragment() {
-
     private var aContext: Context? = null
     private lateinit var binding: FragmentOwnerCompletedBinding
 

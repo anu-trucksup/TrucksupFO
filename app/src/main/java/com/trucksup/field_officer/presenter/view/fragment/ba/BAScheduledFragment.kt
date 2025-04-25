@@ -57,6 +57,7 @@ class BAScheduledFragment : Fragment(){
 
         LoadingUtils.showDialog(aContext, false)
         setupObserver()
+
         setOnListeners()
     }
 

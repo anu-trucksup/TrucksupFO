@@ -40,21 +40,10 @@ class BAFollowupActivity : BaseActivity() {
         setContentView(binding.root)
         mViewModel = ViewModelProvider(this)[BAFollowUpViewModel::class.java]
 
-        //showProgressDialog(this, false)
-        /*val request = GetAllMeetUpBARequest(
-            requestId = PreferenceManager.getRequestNo().toInt(),
-            requestedBy = PreferenceManager.getPhoneNo(this),
-            requestDatetime = PreferenceManager.getServerDateUtc(),
-            boID = PreferenceManager.getUserData(this)?.boUserid?.toInt() ?: 0,
-            type = "Scheduled"
-        )
-        mViewModel?.getAllMeetupBA(PreferenceManager.getAuthToken(), request)
-
-        setupObserver()*/
-
         setupViewPager()
         setListener()
     }
+
 
     private fun setListener() {
         binding.ivBack.setOnClickListener {
@@ -72,67 +61,6 @@ class BAFollowupActivity : BaseActivity() {
         }
     }
 
-    private fun setupObserver() {
-        mViewModel?.getAllMeetUpBAResponseLD?.observe(this@BAFollowupActivity) { responseModel ->                     // login function observe
-            if (responseModel.serverError != null) {
-                dismissProgressDialog()
-
-                val abx =
-                    AlertBoxDialog(
-                        this@BAFollowupActivity,
-                        responseModel.serverError.toString(),
-                        "m"
-                    )
-                abx.show()
-            } else {
-                dismissProgressDialog()
-
-                if (responseModel.success?.statuscode == 200) {
-                    getAllMeetupBAResponse(responseModel.success)
-                    // setItemList(responseModel.success)
-                } else {
-                    val abx =
-                        AlertBoxDialog(
-                            this@BAFollowupActivity,
-                            responseModel.success?.message.toString(),
-                            "m"
-                        )
-                    abx.show()
-                }
-            }
-        }
-    }
-
-    private fun getAllMeetupBAResponse(getAllMeetupBAResponse: GetAllMeetupBAResponse) {
-        getAllMeetupBAResponse?.boVisitDetails?.forEachIndexed { _, getTSDetailsData ->
-            run {
-                getAllBAMeetsList.add(getTSDetailsData)
-            }
-        }
-
-
-
-        setupViewPager()
-        println("Data=="+getAllBAMeetsList.size)
-
-        /*binding.rv.layoutManager = LinearLayoutManager(this)
-        val adapter = TSPerformanceAdapter(this@TSPerformanceActivity, getTsdetails)
-
-        adapter.setOnItemClickListener(object : TSPerformanceAdapter.OnItemClickListener {
-            override fun onItemClick(ownerName: String, selectedDate: String, selectedTime: String) {
-                dataSubmit(ownerName, selectedDate, selectedTime)
-            }
-        })
-        binding.rv.adapter = adapter
-
-        // Add search or filter input
-        binding.etSearchFillter.addTextChangedListener {
-            adapter.filter(it.toString())
-        }*/
-
-        //binding.tvTotalEnquiry.text = "${inquiryHistoryResponse?.leadsHistory?.size} Enquiries"
-        //setupViewPager()
-    }
 
     private fun setupViewPager() {
 

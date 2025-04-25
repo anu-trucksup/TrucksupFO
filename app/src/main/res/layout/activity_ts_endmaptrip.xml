@@ -73,7 +73,7 @@
                 android:layout_marginHorizontal="@dimen/_12sdp">
 
                 <TextView
-                    android:id="@+id/name"
+                    android:id="@+id/tv_customerName"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     style="@style/label_semi"
@@ -112,13 +112,13 @@
                         android:src="@drawable/pin_icon" />
 
                     <TextView
-                        android:id="@+id/address"
+                        android:id="@+id/tv_Address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_2sdp"
                         android:layout_weight="1"
                         android:fontFamily="@font/bai_jamjuree_medium"
-                        android:text="336, Udyog Vihar, GURUGRAM"
+                        android:text="NA"
                         android:singleLine="true"
                         android:textColor="@color/text_grey"
                         android:textSize="@dimen/_10ssp" />
@@ -145,7 +145,7 @@
                         android:layout_marginStart="@dimen/_2sdp"
                         android:fontFamily="@font/bai_jamjuree_medium"
                         android:maxLines="1"
-                        android:text="Distance: 12 KM"
+                        android:text="Distance: 0 KM"
                         android:textColor="#4D4D4D"
                         android:textSize="@dimen/_11ssp" />
 

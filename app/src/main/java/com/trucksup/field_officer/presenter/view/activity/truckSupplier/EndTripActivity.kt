@@ -38,10 +38,12 @@ import com.trucksup.field_officer.presenter.view.activity.growthPartner.GPSchedu
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.vml.TSOnboardViewModel
 import com.trucksup.field_officer.presenter.view.service.LocationService
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Arrays
 
 
 @AndroidEntryPoint
 class EndTripActivity : BaseActivity(), OnMapReadyCallback {
+    private var customDetails: String? = null
     private var currentAddress: String? = null
     private lateinit var binding: ActivityTsEndmaptripBinding
     private lateinit var gmap: GoogleMap
@@ -60,6 +62,18 @@ class EndTripActivity : BaseActivity(), OnMapReadyCallback {
         adjustFontScale(resources.configuration, 1.0f);
         setContentView(binding.root)
         currentAddress = intent.getStringExtra("currentAddress")
+
+        customDetails = intent.getStringExtra("customDetails")
+        val itemsCustom = Arrays.asList(customDetails?.split(","))
+
+        if (!itemsCustom.isNullOrEmpty()) {
+            binding.tvCustomerName.text = itemsCustom[0]?.toString()
+            binding.tvDistance.text = itemsCustom[1]?.toString()
+        }
+        if (!currentAddress.isNullOrEmpty()) {
+            binding.tvAddress.text = currentAddress
+        }
+
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
         destinationpointB = LatLng(

@@ -53,6 +53,7 @@ class TSStartTripActivity : BaseActivity(), OnMapReadyCallback {
 
         val titleName = intent.getStringExtra("title")
         val address = intent.getStringExtra("address")
+        val customDetails = intent.getStringExtra("customDetails")
         binding.tvTitle.text = titleName
 
         if (!address.isNullOrEmpty()) {
@@ -92,6 +93,7 @@ class TSStartTripActivity : BaseActivity(), OnMapReadyCallback {
                 intent.putExtra("currentAddress", "" + binding.etAddress.text.toString())
                 intent.putExtra("currentLatitude", 28.646981)
                 intent.putExtra("currentLongitude", 77.125658)
+                intent.putExtra("customDetails",customDetails)
                 startActivity(intent)
             }
         }
