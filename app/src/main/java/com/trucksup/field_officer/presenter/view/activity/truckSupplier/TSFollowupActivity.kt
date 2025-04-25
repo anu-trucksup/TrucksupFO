@@ -31,20 +31,12 @@ class TSFollowupActivity : BaseActivity() {
         setContentView(binding.root)
         mViewModel = ViewModelProvider(this)[TSFollowUpViewModel::class.java]
 
-        showProgressDialog(this, false)
-        val request = GetAllMeetupTSRequest(
-            requestId = PreferenceManager.getRequestNo().toInt(),
-            requestedBy = PreferenceManager.getPhoneNo(this),
-            requestDatetime = PreferenceManager.getServerDateUtc(),
-            boID = PreferenceManager.getUserData(this)?.boUserid?.toInt() ?: 0,
-            type = "Scheduled"
-        )
-        mViewModel?.getAllMeetupTS(PreferenceManager.getAuthToken(), request)
+        //showProgressDialog(this, false)
 
-        setupObserver()
+
+        //setupObserver()
 
         setupViewPager()
-
         setListener()
     }
 
@@ -97,7 +89,6 @@ class TSFollowupActivity : BaseActivity() {
     }
 
     private fun setupViewPager() {
-
         try {
             val adapter = FragmentAdapter(this)
 

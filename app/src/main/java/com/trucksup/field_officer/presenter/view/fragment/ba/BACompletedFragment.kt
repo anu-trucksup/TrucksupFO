@@ -40,7 +40,6 @@ class BACompletedFragment() : Fragment() {
 
     private var mViewModel: BAFollowUpViewModel? = null
     private var getAllBAMeetsList: java.util.ArrayList<BoVisitDetail> = arrayListOf()
-    private var progressDialog: ProgressDialogBox? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -121,16 +120,16 @@ class BACompletedFragment() : Fragment() {
     }
 
     private fun getAllMeetupBAResponse(getAllMeetupBAResponse: GetAllMeetupBAResponse) {
-        getAllMeetupBAResponse?.boVisitDetails?.forEachIndexed { _, getTSDetailsData ->
-            run {
-                getAllBAMeetsList.add(getTSDetailsData)
+        if(!getAllMeetupBAResponse.boVisitDetails.isNullOrEmpty()
+            && getAllMeetupBAResponse.boVisitDetails.size > 0){
+            getAllMeetupBAResponse.boVisitDetails.forEachIndexed { _, getTSDetailsData ->
+                run {
+                    binding.rv.visibility = View.VISIBLE
+                    binding.l1.visibility = View.VISIBLE
+                    binding.noData.visibility = View.GONE
+                    getAllBAMeetsList.add(getTSDetailsData)
+                }
             }
-        }
-
-        if(getAllBAMeetsList.size > 0){
-            binding.rv.visibility = View.VISIBLE
-            binding.l1.visibility = View.VISIBLE
-            binding.noData.visibility = View.GONE
         }else{
             binding.rv.visibility = View.GONE
             binding.l1.visibility = View.GONE
@@ -139,11 +138,6 @@ class BACompletedFragment() : Fragment() {
         binding.rv.layoutManager = LinearLayoutManager(aContext)
         val adapter = BACompletedAdapter(aContext as Activity, getAllBAMeetsList)
 
-        adapter.setOnItemClickListener(object : BACompletedAdapter.OnItemClickListener {
-            override fun onItemClick(ownerName: String, selectedDate: String, selectedTime: String) {
-                //dataSubmit(ownerName, selectedDate, selectedTime)
-            }
-        })
         binding.rv.adapter = adapter
 
         // Add search or filter input
@@ -168,16 +162,6 @@ class BACompletedFragment() : Fragment() {
         //cancel button
         binding.btnCancel.setOnClickListener {
             dialog.dismiss()
-        }
-    }
-    fun dismissProgressDialog() {
-        if (progressDialog != null && progressDialog?.isShowing!!) {
-            progressDialog = try {
-                progressDialog?.dismiss()
-                null
-            } catch (e: Exception) {
-                null
-            }
         }
     }
 

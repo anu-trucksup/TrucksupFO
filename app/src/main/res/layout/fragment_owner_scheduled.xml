@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-   >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/l1"
@@ -169,7 +169,8 @@
                 android:fontFamily="@font/bai_jamjuree_bold"
                 android:text="@string/data_not_found"
                 android:textColor="@color/blue"
-                android:textSize="@dimen/_30ssp" />
+                android:gravity="start"
+                android:textSize="@dimen/_16ssp" />
 
             <TextView
                 android:layout_width="wrap_content"

@@ -170,7 +170,8 @@
                 android:fontFamily="@font/bai_jamjuree_bold"
                 android:text="@string/data_not_found"
                 android:textColor="@color/blue"
-                android:textSize="@dimen/_30ssp" />
+                android:gravity="start"
+                android:textSize="@dimen/_16ssp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -189,6 +190,6 @@
                 android:scaleType="centerCrop"
                 android:src="@drawable/cup" />
         </LinearLayout>
-    </RelativeLayout>-->
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

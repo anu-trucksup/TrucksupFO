@@ -27,7 +27,7 @@ import com.trucksup.field_officer.presenter.view.adapter.BAScheduleFollowupAdapt
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class BAScheduledFragment : Fragment(){
+class BAScheduledFragment : Fragment() {
 
     private var aContext: Context? = null
     private lateinit var binding: FragmentOwnerScheduledBinding
@@ -44,7 +44,7 @@ class BAScheduledFragment : Fragment(){
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         binding = FragmentOwnerScheduledBinding.inflate(inflater, container, false)
         return binding.root
@@ -103,17 +103,18 @@ class BAScheduledFragment : Fragment(){
     }
 
     private fun getAllMeetupBAResponse(getAllMeetupBAResponse: GetAllMeetupBAResponse) {
-        getAllMeetupBAResponse.boVisitDetails.forEachIndexed { _, getTSDetailsData ->
-            run {
-                getAllBAMeetsList.add(getTSDetailsData)
+        if (!getAllMeetupBAResponse.boVisitDetails.isNullOrEmpty()
+            && getAllMeetupBAResponse.boVisitDetails.size > 0
+        ) {
+            getAllMeetupBAResponse.boVisitDetails.forEachIndexed { _, getTSDetailsData ->
+                run {
+                    binding.rv.visibility = View.VISIBLE
+                    binding.l1.visibility = View.VISIBLE
+                    binding.noData.visibility = View.GONE
+                    getAllBAMeetsList.add(getTSDetailsData)
+                }
             }
-        }
-
-        if(getAllBAMeetsList.size > 0){
-            binding.rv.visibility = View.VISIBLE
-            binding.l1.visibility = View.VISIBLE
-            binding.noData.visibility = View.GONE
-        }else{
+        } else {
             binding.rv.visibility = View.GONE
             binding.l1.visibility = View.GONE
             binding.noData.visibility = View.VISIBLE

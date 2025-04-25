@@ -383,7 +383,7 @@ interface ApiService {
         @Body request: GetAllMeetupTSRequest
     ): GetAllMeetUpTSResponse
 
-    @POST("BOAppApiGateway/apiateway/GetAllGPMeets")
+    @POST("BOAppApiGateway/apiateway/GetBOAllGPMeets")
     @Headers("Accept: application/json")
     suspend fun getAllMeetupGP(
         @Header("Authorization") auth: String,
