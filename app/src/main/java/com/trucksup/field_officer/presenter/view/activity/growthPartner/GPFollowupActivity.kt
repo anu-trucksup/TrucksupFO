@@ -22,26 +22,18 @@ import dagger.hilt.android.AndroidEntryPoint
 class GPFollowupActivity : BaseActivity() {
 
     private lateinit var binding: GpFollowupActivityBinding
-    private var mViewModel: GPFollowUpViewModel? = null
+    //private var mViewModel: GPFollowUpViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = GpFollowupActivityBinding.inflate(layoutInflater)
         adjustFontScale(resources.configuration, 1.0f);
         setContentView(binding.root)
-        mViewModel = ViewModelProvider(this)[GPFollowUpViewModel::class.java]
+        //mViewModel = ViewModelProvider(this)[GPFollowUpViewModel::class.java]
 
-        showProgressDialog(this, false)
-        val request = GetAllMeetupTSRequest(
-            requestId = PreferenceManager.getRequestNo().toInt(),
-            requestedBy = PreferenceManager.getPhoneNo(this),
-            requestDatetime = PreferenceManager.getServerDateUtc(),
-            boID = PreferenceManager.getUserData(this)?.boUserid?.toInt() ?: 0,
-            type = "Scheduled"
-        )
-        mViewModel?.getAllMeetupGP(PreferenceManager.getAuthToken(), request)
+        //showProgressDialog(this, false)
 
-        setupObserver()
+        //mViewModel?.getAllMeetupGP(PreferenceManager.getAuthToken(), request)
 
         setupViewPager()
 
@@ -62,37 +54,6 @@ class GPFollowupActivity : BaseActivity() {
         binding.tabCompleted.setOnClickListener {
             binding.viewPager2.setCurrentItem(1, true)
         }
-    }
-
-    private fun setupObserver() {
-        mViewModel?.getAllMeetUpTSResponseLD?.observe(this@GPFollowupActivity) { responseModel ->                     // login function observe
-            if (responseModel.serverError != null) {
-                dismissProgressDialog()
-
-                val abx =
-                    AlertBoxDialog(
-                        this@GPFollowupActivity,
-                        responseModel.serverError.toString(),
-                        "m"
-                    )
-                abx.show()
-            } else {
-                dismissProgressDialog()
-
-                if (responseModel.success?.statuscode == 200) {
-                    // setItemList(responseModel.success)
-                } else {
-                    val abx =
-                        AlertBoxDialog(
-                            this@GPFollowupActivity,
-                            responseModel.success?.message.toString(),
-                            "m"
-                        )
-                    abx.show()
-                }
-            }
-        }
-
     }
 
     private fun setupViewPager() {

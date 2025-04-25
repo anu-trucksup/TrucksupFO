@@ -5,28 +5,26 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.trucksup.field_officer.R
-import com.trucksup.field_officer.databinding.BaCompletedFollowupItemBinding
+import com.trucksup.field_officer.databinding.GpCompletedItemBinding
 import com.trucksup.field_officer.databinding.TsCompletedItemBinding
-import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.BoVisitDetail
-import com.trucksup.field_officer.presenter.view.adapter.BAScheduleFollowupAdapter.OnItemClickListener
 
-class BACompletedAdapter(var context: Context, var list: ArrayList<BoVisitDetail>) :
-    RecyclerView.Adapter<BACompletedAdapter.ViewHolder>() {
+class GPCompletedAdapter(var context: Context, var list: ArrayList<com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.BoVisitDetail>) :
+    RecyclerView.Adapter<GPCompletedAdapter.ViewHolder>() {
 
-    private var filteredList = ArrayList<BoVisitDetail>()
+    private var filteredList = ArrayList<com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.BoVisitDetail>()
 
     init {
         filteredList.addAll(list) // Initially show all
     }
 
-    inner class ViewHolder(var binding: BaCompletedFollowupItemBinding) :
+    inner class ViewHolder(var binding: GpCompletedItemBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): ViewHolder {
-        val v = BaCompletedFollowupItemBinding.inflate(LayoutInflater.from(context), parent, false)
+        val v = GpCompletedItemBinding.inflate(LayoutInflater.from(context), parent, false)
         return ViewHolder(v)
     }
 
@@ -38,6 +36,7 @@ class BACompletedAdapter(var context: Context, var list: ArrayList<BoVisitDetail
             holder.binding.notHighLightView.setBackgroundResource(R.drawable.background2)
             holder.binding.highLightView.setBackgroundResource(R.color.transeprant)
         }
+
         holder.binding.name.setText(""+list[position].cust_Name)
 
 
@@ -88,4 +87,5 @@ class BACompletedAdapter(var context: Context, var list: ArrayList<BoVisitDetail
         }
         notifyDataSetChanged()
     }
+
 }

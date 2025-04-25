@@ -7,10 +7,23 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.TsScheduledItemBinding
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.BoVisitDetail
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.TSStartTripActivity
+import com.trucksup.field_officer.presenter.view.adapter.BAScheduleFollowupAdapter.OnItemClickListener
 
-class TSScheduleFollowupAdapter(var context: Context?, var list: ArrayList<String>) :
+class TSScheduleFollowupAdapter(var context: Context?, var list: ArrayList<com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.BoVisitDetail>) :
     RecyclerView.Adapter<TSScheduleFollowupAdapter.ViewHolder>() {
+
+    private var listener: OnItemClickListener? = null
+    private var filteredList = ArrayList<com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.BoVisitDetail>()
+
+    fun setOnItemClickListener(listener: OnItemClickListener) {
+        this.listener = listener
+    }
+
+    init {
+        filteredList.addAll(list) // Initially show all
+    }
 
     inner class ViewHolder(var binding: TsScheduledItemBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -29,8 +42,52 @@ class TSScheduleFollowupAdapter(var context: Context?, var list: ArrayList<Strin
             holder.binding.highLightView.setBackgroundResource(R.color.transeprant)
         }
 
-        holder.binding.root.setOnClickListener {
+        if(list[position].scheduleDate.isNotEmpty()){
+            holder.binding.txtScheduleDate.setText(list[position].scheduleDate)
+        }else{
+            holder.binding.txtScheduleDate.setText("-")
+        }
 
+        if(list[position].cust_Name.isNotEmpty()){
+            holder.binding.name.setText(list[position].cust_Name)
+        }
+        if(list[position].cust_MobileNo.isNotEmpty()){
+            holder.binding.tvMobile.setText(list[position].cust_MobileNo)
+        }
+        if(list[position].address.isNotEmpty()){
+            holder.binding.address.setText(list[position].address)
+        }else{
+            holder.binding.tvDistance.setText("-")
+        }
+        if(list[position].distance.isNotEmpty()){
+            //holder.binding.linDistance.visibility = View.VISIBLE
+            holder.binding.tvDistance.setText("Distance: "+list[position].distance+" KM")
+        }else{
+            holder.binding.tvDistance.setText("Distance: "+ "-")
+        }
+        if(list[position].lastCallInitiated.isNotEmpty()){
+            holder.binding.txtLastCallInitiated.setText(context?.getString(R.string.last_call_initiated)+" "+list[position].lastCallInitiated)
+        }else {
+            holder.binding.txtLastCallInitiated.setText(context?.getString(R.string.last_call_initiated) + "-")
+        }
+        if(list[position].visitType.isNotEmpty()){
+            holder.binding.tvVisit.setText(list[position].visitType)
+        }
+        if(list[position].brokerStatus.isNotEmpty()){
+            if(list[position].brokerStatus.equals("Unverified")){
+                holder.binding.imgKycStatus.setImageResource(R.drawable.ic_kyc_unverified)
+            }
+            if(list[position].brokerStatus.equals("Verified")){
+                holder.binding.imgKycStatus.setImageResource(R.drawable.kyc_done_icon_svg)
+            }
+
+        }
+        if(list[position].addedTrucks.isNotEmpty()){
+            holder.binding.txtTrucksAdded.setText("No. of Trucks Added : "+list[position].addedTrucks)
+        }
+        holder.binding.name.setText(""+list[position].cust_Name)
+        holder.binding.txtStartTrip.setOnClickListener {
+            listener?.onItemClick(list[position].id)
             val intent = Intent(context, TSStartTripActivity::class.java)
             intent.putExtra("title", "" + context?.resources?.getString(R.string.ts_followup))
             intent.putExtra("address", "" /*+ list[position].address*/)
@@ -39,6 +96,23 @@ class TSScheduleFollowupAdapter(var context: Context?, var list: ArrayList<Strin
     }
 
     override fun getItemCount(): Int {
-        return list.size
+        return filteredList.size
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick(id: Int)
+    }
+
+    fun filter(query: String) {
+        filteredList.clear()
+        if (query.isEmpty()) {
+            filteredList.addAll(list)
+        } else {
+            filteredList.addAll(
+                list.filter { it.cust_MobileNo.contains(query, ignoreCase = true) }
+
+            )
+        }
+        notifyDataSetChanged()
     }
 }
