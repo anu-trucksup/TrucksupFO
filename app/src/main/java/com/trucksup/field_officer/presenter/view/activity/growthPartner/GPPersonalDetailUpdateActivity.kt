@@ -167,7 +167,7 @@ class GPPersonalDetailUpdateActivity : BaseActivity(), TrucksFOImageController,
             )
         } else if (binding.ETSalesCode.text.isEmpty()) {
             binding.ETSalesCode.requestFocus()
-            binding.ETSalesCode.setError(getString(R.string.enterSalesCode))
+            binding.ETSalesCode.setError(getString(R.string.SalesCode))
         } else if (binding.ETGPMobileNumber.text.toString().isEmpty()) {
             binding.ETGPMobileNumber.requestFocus()
             binding.ETGPMobileNumber.setError(getString(R.string.PleaseenterGPMobile))

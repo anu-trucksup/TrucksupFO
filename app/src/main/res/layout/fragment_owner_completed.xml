@@ -60,6 +60,7 @@
             android:orientation="vertical"
             android:gravity="center"
             android:layout_marginEnd="@dimen/_2sdp"
+            android:visibility="gone"
             app:layout_constraintEnd_toStartOf="@+id/imgCalender"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent">
