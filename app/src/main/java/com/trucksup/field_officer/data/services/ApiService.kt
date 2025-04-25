@@ -182,7 +182,7 @@ interface ApiService {
         @Body request: FinanceDataLiatRequest
     ): FinanceDataLiatResponse
 
-    @POST("Apigateway/Gateway/SubmitFinanceInquiry")
+    @POST("/BOAppApiGateway/apiateway/BOAddFinanceInquiry")//Apigateway/Gateway/SubmitFinanceInquiry
     @Headers("Accept: application/json")
     suspend fun submitFinanceData(
         @Header("Authorization") auth: String,
@@ -196,7 +196,7 @@ interface ApiService {
         @Body request: InquiryHistoryRequest
     ): InquiryHistoryResponse
 
-    @POST("Apigateway/Gateway/SubmitInsuranceInquiry")
+    @POST("BOAppApiGateway/apiateway/BOAddInsuranceInquiry")
     @Headers("Accept: application/json")
     suspend fun submitInsuranceInquiry(
         @Header("Authorization") auth: String,

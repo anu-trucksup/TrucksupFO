@@ -73,7 +73,7 @@ open class BaseActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
+        super.onBackPressedDispatcher.onBackPressed()
     }
 
     fun isOnline(context: Context): Boolean {

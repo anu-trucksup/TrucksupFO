@@ -38,7 +38,7 @@ class InsuranceViewModel @Inject constructor(val apiUseCase: APIUseCase) : ViewM
     fun submitInsuranceData(request: SubmitInsuranceInquiryRequest) {
         CoroutineScope(Dispatchers.IO).launch {
             when (val response = apiUseCase.submitInsuranceInquiry(
-                PreferenceManager.getAuthTokenOld(),
+                PreferenceManager.getAuthToken(),
                 request
             )) {
                 is ResultWrapper.ServerResponseError -> {

@@ -9,9 +9,9 @@ data class AddMiscLeadRequest(
     val mobileNo: String,
     val name: String,
     val requestDatetime: String,
-    val requestId: Int,
+    val requestId: String,
     val requestedBy: String,
     val truckNumber: String,
-    val trucksImageXML: TrucksImageXML,
+    val trucksImageXML: ArrayList<TrucksImageXML>,
     val userId: Int
 )
