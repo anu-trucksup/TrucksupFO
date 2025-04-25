@@ -12,7 +12,9 @@ import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.unassigned_ts_ba.fragment.UnAssignedBAFragment
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.unassigned_ts_ba.fragment.UnAssignedTSFragment
 import com.trucksup.field_officer.presenter.view.adapter.FragmentAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class UnAssignedTSBAActivity : BaseActivity() {
     private lateinit var binding: ActivityUnassignedTsBaBinding
 
@@ -20,7 +22,6 @@ class UnAssignedTSBAActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         binding = DataBindingUtil.setContentView(this, R.layout.activity_unassigned_ts_ba)
-
         setContentView(binding.root)
 
         setListener()

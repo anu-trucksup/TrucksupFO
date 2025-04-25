@@ -364,7 +364,7 @@ interface ApiService {
     //Today Followup
     @POST("BOAppApiGateway/apiateway/GetTodaysFollowup")
     @Headers("Accept: application/json")
-    suspend fun getTodaysFollowup(
+    suspend fun getTodayFollowup(
         @Header("Authorization") auth: String,
         @Body request: FollowUpRequest
     ): FollowUpResponse
@@ -413,5 +413,42 @@ interface ApiService {
         @Header("Authorization") auth: String,
         @Body request: UpdateMiscLeadsRequest
     ): UpdateMiscLeadsResponse
+
+    //HomeScreen
+
+    @POST("BOAppApiGateway/apiateway/GetTodaysFollowup")
+    @Headers("Accept: application/json")
+    suspend fun getTotalDownload(
+        @Header("Authorization") auth: String,
+        @Body request: FollowUpRequest
+    ): FollowUpResponse
+
+    @POST("BOAppApiGateway/apiateway/GetTodaysFollowup")
+    @Headers("Accept: application/json")
+    suspend fun getTotalEarning(
+        @Header("Authorization") auth: String,
+        @Body request: FollowUpRequest
+    ): FollowUpResponse
+
+    @POST("BOAppApiGateway/apiateway/GetTodaysFollowup")
+    @Headers("Accept: application/json")
+    suspend fun getTotalAddLoad(
+        @Header("Authorization") auth: String,
+        @Body request: FollowUpRequest
+    ): FollowUpResponse
+
+    @POST("BOAppApiGateway/apiateway/GetTodaysFollowup")
+    @Headers("Accept: application/json")
+    suspend fun getTotalAddLoadDetails(
+        @Header("Authorization") auth: String,
+        @Body request: FollowUpRequest
+    ): FollowUpResponse
+
+    @POST("BOAppApiGateway/apiateway/GetTodaysFollowup")
+    @Headers("Accept: application/json")
+    suspend fun getAllTargetCount(
+        @Header("Authorization") auth: String,
+        @Body request: FollowUpRequest
+    ): FollowUpResponse
 
 }

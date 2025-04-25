@@ -28,6 +28,7 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 import java.util.TimeZone
 
+
 object Utils {
     var strManualInstallation: String = ""
 
@@ -66,41 +67,22 @@ object Utils {
         visibility = View.GONE
     }
 
+    fun Glide.showImage(context: Context, imageView: ImageView, url: String?) {
+        val options: RequestOptions = RequestOptions()
+            .centerCrop()
+            .placeholder(R.drawable.progress_animation)
+            .error(R.drawable.placeholder_image2)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .priority(Priority.HIGH)
+            .dontAnimate()
+            .dontTransform()
+
+        Glide.with(context).load(url).apply(options).into(imageView);
+    }
+
     const val ORIENT_PORTRAIT = 0
     const val ORIENT_LANDSCAPE_LEFT = 1
     const val ORIENT_LANDSCAPE_RIGHT = 2
-
-    fun showToastDialogLogin(msg: String?, context: Context) {
-        val deleteDialog = Dialog(context)
-        deleteDialog.setContentView(R.layout.info_user)
-        deleteDialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        deleteDialog.window!!.setGravity(Gravity.CENTER)
-        deleteDialog.setCancelable(true)
-        val title = deleteDialog.findViewById<TextView>(R.id.msg_title)
-        val yesButton = deleteDialog.findViewById<TextView>(R.id.ok_button)
-        val cancelButton = deleteDialog.findViewById<ImageView>(R.id.cancel_button_dialog)
-        //title.setText(mViewModel.getLabel(AppConstant.AppLabelName.passwordUpdatedSuccessfully));
-        title.text = msg
-        yesButton.text = "Login"
-        yesButton.setOnClickListener {
-            val intent = Intent(context, LoginActivity::class.java)
-            intent.putExtra("mobile", "")
-            context.startActivity(intent)
-
-            deleteDialog.dismiss()
-        }
-        cancelButton.setOnClickListener { view: View? ->
-            context.startActivity(
-                Intent(
-                    context,
-                    LoginActivity::class.java
-                )
-            )
-            //mProfileBinding.gender.setText(getString(R.string.female));
-            deleteDialog.dismiss()
-        }
-        deleteDialog.show()
-    }
 
 
     fun showToastDialog(msg: String?, context: Context, Ok: String?) {
@@ -169,51 +151,6 @@ object Utils {
 
         //ImageLoader imageLoader = ImageLoader.getInstance(); // Get singleton instance
         //imageLoader.displayImage(url, view);
-    }
-
-    fun loadeESimImage(context: Context, view: ImageView, url: String?) {
-        val options = RequestOptions()
-            .centerCrop()
-            .placeholder(R.drawable.progress_drawable_an)
-            .error(R.drawable.esim_placeholder)
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .priority(Priority.HIGH)
-            .timeout(6000) // 60 second timeout
-            .dontAnimate()
-            .dontTransform()
-        Glide.with(context).load(url).apply(options).into(view)
-    }
-
-    fun loadeESimImage1(context: Context, view: ImageView, url: String?) {
-        val options = RequestOptions()
-            .placeholder(R.drawable.progress_drawable_an)
-            .error(R.drawable.esim_placeholder)
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .priority(Priority.HIGH)
-        Glide.with(context).load(url).apply(options).into(view)
-    }
-
-    fun loadImageCenterInside(context: Context, view: ImageView, url: String?) {
-        val options = RequestOptions()
-            .centerCrop()
-            .placeholder(R.drawable.progress_drawable_an)
-            .error(R.drawable.shopping_disabled)
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .priority(Priority.HIGH)
-            .dontAnimate()
-            .dontTransform()
-        Glide.with(context).load(url).apply(options).centerInside().into(view)
-    }
-
-    fun getDate(milliSeconds: Long, dateFormat: String?): String {
-        // Create a DateFormatter object for displaying date in specified format.
-        val formatter = SimpleDateFormat(dateFormat, Locale.ENGLISH)
-        formatter.timeZone = TimeZone.getTimeZone("GMT")
-        // Create a calendar object that will convert the date and time value in milliseconds to date.
-//        Calendar calendar = Calendar.getInstance();
-//        calendar.setTimeInMillis(milliSeconds);
-//        return formatter.format(calendar.getTime());
-        return formatter.format(milliSeconds)
     }
 
     fun getDateFormatted(dateString: String?): String {

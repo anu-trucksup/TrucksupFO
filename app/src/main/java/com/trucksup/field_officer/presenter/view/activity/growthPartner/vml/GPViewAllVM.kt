@@ -1,4 +1,4 @@
-package com.trucksup.field_officer.presenter.view.activity.profile.vml
+package com.trucksup.field_officer.presenter.view.activity.growthPartner.vml
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MyEarningViewModel @Inject constructor(val apiUseCase: APIUseCase) : ViewModel() {
+class GPViewAllVM @Inject constructor(val apiUseCase: APIUseCase) : ViewModel() {
 
     private var resultTodayEarning: MutableLiveData<ResponseModel<FollowUpResponse>> =
         MutableLiveData<ResponseModel<FollowUpResponse>>()

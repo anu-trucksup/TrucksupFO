@@ -136,8 +136,8 @@ class TSPerformanceActivity : BaseActivity() {
         val request = GetMeetScheduleDetailsRequest(
             PreferenceManager.getRequestNo().toInt(),
             PreferenceManager.getPhoneNo(this),
-            PreferenceManager.getServerDateUtc(),
-            PreferenceManager.getUserData(this)?.city.toString(),
+            PreferenceManager.getServerDateUtc(),"Gurgaon",
+            /*PreferenceManager.getUserData(this)?.city.toString(),*/
             PreferenceManager.getPhoneNo(this),
         )
         mViewModel?.getTSMeetScheduleData(request)

@@ -9,7 +9,7 @@ import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.DrawerItemBinding
-import com.trucksup.field_officer.presenter.view.activity.other.NavItems
+import com.trucksup.field_officer.presenter.view.activity.other.model.NavItems
 import com.trucksup.field_officer.presenter.view.activity.profile.MyTargetScreen
 import com.trucksup.field_officer.presenter.view.activity.profile.MyTeamScreen
 

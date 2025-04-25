@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <string name="app_name">Field Officer</string>
+    <string name="app_name">Business Officer</string>
 
     <string name="mobile_number">Mobile number</string>
     <string name="mobile_number_">Mobile Number <font color='#FF0000'>*</font></string>
@@ -12,7 +12,6 @@
     <string name="address">Address</string>
     <string name="city">City</string>
     <string name="data_not_found">Data Not Found\nSorry, the data you are looking for does not exist.</string>
-    <string name="cancel">Cancel</string>
     <string name="submit">Submit</string>
     <string name="verify">Verify</string>
     <string name="Complete_Now"><u>Complete Now</u></string>
@@ -85,7 +84,6 @@
     <string name="verify_kyc_hint">Verification Code has been sent on your registration no.</string>
     <string name="verification_code_enter">Enter Verification Code</string>
     <string name="remainingTime">Remaining Time</string>
-    <string name="cancle">Cancel</string>
     <string name="submit_main">Submit</string>
     <string name="resand_sms"><u>Resend Verification Code</u></string>
 
@@ -151,7 +149,7 @@
     <string name="SalesCode">Sales Code of BO</string>
     <string name="GPMobile">GP Mobile Number</string>
     <string name="GPName">GP Name</string>
-    <string name="PleaseenterSalesCode">Please enter Sales Code of BO</string>
+    <string name="enterSalesCode">Please enter Sales Code of BO</string>
     <string name="PleaseenterGPMobile">Please enter GP Mobile Number</string>
     <string name="PleaseenterGPName">Please enter GP Name</string>
     <string name="PleaseBusinessType">Please enter Business Type</string>
@@ -184,7 +182,7 @@
     <string name="State_star">State <font color='#FF0000'>*</font></string>
     <string name="ProfilePhoto_star">Profile Photo <font color='#FF0000'>*</font></string>
 
-    <string name="Cancel"><ul>Cancel</ul></string>
+    <!--<string name="Cancel"><ul>Cancel</ul></string>-->
 
 
     <string name="BaNewOnboardingPreviewTab">Preview the details before submitting.</string>
@@ -296,12 +294,9 @@
     <string name="continu_main">Continue</string>
 
     <string name="vehicle_no_start">Vehicle No. <font color='#FF0000'>*</font></string>
-
     <string name="truck_details">Truck Details</string>
-
     <string name="insurance_">Insurance</string>
     <string name="select">Select</string>
-
     <string name="cancel_u"><u>Cancel</u></string>
 
     <string name="no_data">No data found</string>
