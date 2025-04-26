@@ -18,8 +18,8 @@ import com.trucksup.field_officer.databinding.DateFilterBinding
 import com.trucksup.field_officer.databinding.FragmentOwnerCompletedBinding
 import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.LoadingUtils
-import com.trucksup.field_officer.presenter.common.btmsheet.DateRangeBottomSheet
 import com.trucksup.field_officer.presenter.common.dialog.DialogBoxes
+import com.trucksup.field_officer.presenter.utils.DateRangeBottomSheet
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
 import com.trucksup.field_officer.presenter.view.activity.growthPartner.vml.GPFollowUpViewModel
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetAllMeetUpTSResponse
@@ -58,20 +58,20 @@ class GPCompletedFragment : Fragment() {
         LoadingUtils.showDialog(aContext, false)
 
 
-        setupObserver()
+        setupObserver("","")
         onListeners()
     }
 
     @SuppressLint("FragmentLiveDataObserve")
-    private fun setupObserver() {
+    private fun setupObserver(startDate:String, endDate:String) {
         val request = GetAllMeetupTSRequest(
             requestId = PreferenceManager.getRequestNo().toInt(),
             requestedBy = PreferenceManager.getPhoneNo(aContext as Activity),
             requestDatetime = PreferenceManager.getServerDateUtc(),
             boID = PreferenceManager.getUserData(aContext as Activity)?.boUserid?.toInt() ?: 0,
             type = "Completed",
-            startDate = "",
-            endDate = "",
+            startDate = startDate,
+            endDate = endDate,
             visitType = "",
             kycType = ""
         )
@@ -91,6 +91,7 @@ class GPCompletedFragment : Fragment() {
                 abx.show()
             } else {
                 if (responseModel.success?.statuscode == 200) {
+                    getAllGPMeetsList.clear()
                     getAllMeetupTSResponse(responseModel.success)
                     LoadingUtils.hideDialog()
                     // setItemList(responseModel.success)
@@ -114,16 +115,16 @@ class GPCompletedFragment : Fragment() {
         ) {
             getAllMeetupTSResponse.boVisitDetails.forEachIndexed { _, getTSDetailsData ->
                 run {
-                   /* binding.rv.visibility = View.VISIBLE
+                    binding.rv.visibility = View.VISIBLE
                     binding.l1.visibility = View.VISIBLE
                     binding.noData.visibility = View.GONE
-                    getAllGPMeetsList.add(getTSDetailsData)*/
+                    getAllGPMeetsList.add(getTSDetailsData)
                 }
             }
         } else {
-           /* binding.rv.visibility = View.GONE
+            binding.rv.visibility = View.GONE
             binding.l1.visibility = View.GONE
-            binding.noData.visibility = View.VISIBLE*/
+            binding.noData.visibility = View.VISIBLE
         }
         binding.rv.layoutManager = LinearLayoutManager(aContext)
         val adapter = GPCompletedAdapter(aContext as Activity, getAllGPMeetsList)
@@ -140,11 +141,11 @@ class GPCompletedFragment : Fragment() {
         //date picker
         binding.imgCalender.setOnClickListener {
             val bottomSheet = DateRangeBottomSheet { start, end ->
-                Toast.makeText(context, "Selected: $start → $end", Toast.LENGTH_SHORT).show()
+                setupObserver(start, end)
+                //Toast.makeText(context, "Selected: $start → $end", Toast.LENGTH_SHORT).show()
             }
             bottomSheet.show(requireActivity().supportFragmentManager, "DATE_BOTTOM_SHEET")
         }
-
         //filter
         binding.imgFilter.setOnClickListener {
             DialogBoxes.setFilter(aContext!!,"owner")

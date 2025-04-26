@@ -18,7 +18,7 @@ import com.trucksup.field_officer.databinding.DateFilterBinding
 import com.trucksup.field_officer.databinding.FragmentOwnerCompletedBinding
 import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.LoadingUtils
-import com.trucksup.field_officer.presenter.common.btmsheet.DateRangeBottomSheet
+import com.trucksup.field_officer.presenter.utils.DateRangeBottomSheet
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetAllMeetUpTSResponse
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetAllMeetupTSRequest
@@ -58,20 +58,20 @@ class TSCompletedFragment : Fragment() {
         LoadingUtils.showDialog(aContext, false)
 
 
-        setupObserver()
+        setupObserver("","")
         onListeners()
     }
 
     @SuppressLint("FragmentLiveDataObserve")
-    private fun setupObserver() {
+    private fun setupObserver(startDate:String, endDate:String) {
         val request = GetAllMeetupTSRequest(
             requestId = PreferenceManager.getRequestNo().toInt(),
             requestedBy = PreferenceManager.getPhoneNo(aContext as Activity),
             requestDatetime = PreferenceManager.getServerDateUtc(),
             boID = PreferenceManager.getUserData(aContext as Activity)?.boUserid?.toInt() ?: 0,
             type = "Completed",
-            startDate = "",
-            endDate = "",
+            startDate = startDate,
+            endDate = endDate,
             visitType = "",
             kycType = ""
         )
@@ -140,7 +140,8 @@ class TSCompletedFragment : Fragment() {
         //date picker
         binding.imgCalender.setOnClickListener {
             val bottomSheet = DateRangeBottomSheet { start, end ->
-                Toast.makeText(context, "Selected: $start → $end", Toast.LENGTH_SHORT).show()
+                setupObserver(start, end)
+                //Toast.makeText(context, "Selected: $start → $end", Toast.LENGTH_SHORT).show()
             }
             bottomSheet.show(requireActivity().supportFragmentManager, "DATE_BOTTOM_SHEET")
         }

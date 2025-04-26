@@ -90,6 +90,7 @@ class BAScheduledFragment : Fragment() {
                 abx.show()
             } else {
                 if (responseModel.success?.statuscode == 200) {
+                    getAllBAMeetsList.clear()
                     getAllMeetupBAResponse(responseModel.success)
                     LoadingUtils.hideDialog()
                     // setItemList(responseModel.success)

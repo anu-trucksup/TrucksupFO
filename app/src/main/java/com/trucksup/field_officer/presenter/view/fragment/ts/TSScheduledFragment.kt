@@ -91,6 +91,7 @@ class TSScheduledFragment : Fragment() {
                 abx.show()
             } else {
                 if (responseModel.success?.statuscode == 200) {
+                    getAllTSMeetsList.clear()
                     getAllMeetupTSResponse(responseModel.success)
                     LoadingUtils.hideDialog()
                     // setItemList(responseModel.success)
@@ -168,7 +169,7 @@ class TSScheduledFragment : Fragment() {
                     //Toast.makeText(aContext as Activity, "KycStatus: $kycStatus, VisitType: $visitType", Toast.LENGTH_SHORT).show()
                 }
             })
-            DialogBoxes.setFilter(aContext!!, "owner")
+            //DialogBoxes.setFilter(aContext!!, "owner")
         }
     }
 
