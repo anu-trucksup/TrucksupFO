@@ -37,7 +37,6 @@ class MyTargetScreen : BaseActivity() {
         )
         mViewModel?.getAllTargetCount(PreferenceManager.getAuthToken(), request)
 
-
         setupObserver()
 
         setClickListeners()
@@ -99,17 +98,17 @@ class MyTargetScreen : BaseActivity() {
     override fun onBackPressed() {
         if(flag == true){
             flag = false
-            binding.navTitle.setText(getString(R.string.target))
-            binding.tvAddload.setText("20")
-            binding.tvTs.setText("20")
-            binding.tvBa.setText("20")
-            binding.tvGp.setText("20")
-            binding.tvVehicleTracking.setText("20")
-            binding.tvVehicleVerify.setText("20")
-            binding.tvVerifyDl.setText("20")
-            binding.tvInsurance.setText("20")
-            binding.tvFinance.setText("20")
-            binding.tvSmartFuel.setText("20")
+            binding.navTitle.text = getString(R.string.target)
+            binding.tvAddload.text = "20"
+            binding.tvTs.text = "20"
+            binding.tvBa.text = "20"
+            binding.tvGp.text = "20"
+            binding.tvVehicleTracking.text = "20"
+            binding.tvVehicleVerify.text = "20"
+            binding.tvVerifyDl.text = "20"
+            binding.tvInsurance.text = "20"
+            binding.tvFinance.text = "20"
+            binding.tvSmartFuel.text = "20"
         }else{
             super.onBackPressed()
         }

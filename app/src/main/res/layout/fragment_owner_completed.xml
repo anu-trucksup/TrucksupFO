@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -36,6 +37,7 @@
                 android:layout_marginHorizontal="@dimen/_3sdp" />
 
             <EditText
+                android:id="@+id/etSearchFillter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@null"
@@ -58,6 +60,7 @@
             android:orientation="vertical"
             android:gravity="center"
             android:layout_marginEnd="@dimen/_2sdp"
+            android:visibility="gone"
             app:layout_constraintEnd_toStartOf="@+id/imgCalender"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent">
@@ -146,269 +149,47 @@
         android:layout_marginTop="@dimen/_5sdp"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <com.facebook.shimmer.ShimmerFrameLayout
-        android:id="@+id/shimmerLayout"
+    <RelativeLayout
+        android:id="@+id/noData"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:visibility="gone">
 
-        <ScrollView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="@dimen/_16ssp"
+            android:layout_marginEnd="@dimen/_16ssp"
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/bai_jamjuree_bold"
+                android:text="@string/data_not_found"
+                android:textColor="@color/blue"
+                android:gravity="start"
+                android:textSize="@dimen/_16ssp" />
 
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_5sdp"
-                    app:cardBackgroundColor="@color/shimmerColor"
-                    app:cardCornerRadius="@dimen/_6sdp"
-                    app:cardUseCompatPadding="true"
-                    app:strokeWidth="0dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:fontFamily="@font/bai_jamjuree_medium"
+                android:text="@string/data_not_found_msg"
+                android:textColor="@color/blue_tr50"
+                android:textSize="@dimen/_15ssp" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="@dimen/_10sdp">
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_10sdp"
-                            android:background="@drawable/shimmer_background" />
-
-                        <View
-                            android:layout_width="@dimen/_50sdp"
-                            android:layout_height="@dimen/_10sdp"
-                            android:layout_marginTop="@dimen/_2sdp"
-                            android:background="@drawable/shimmer_background" />
-
-                        <View
-                            android:layout_width="@dimen/_100sdp"
-                            android:layout_height="@dimen/_10sdp"
-                            android:layout_marginTop="@dimen/_2sdp"
-                            android:background="@drawable/shimmer_background" />
-
-                        <View
-                            android:layout_width="@dimen/_25sdp"
-                            android:layout_height="@dimen/_10sdp"
-                            android:layout_marginTop="@dimen/_2sdp"
-                            android:background="@drawable/shimmer_background" />
-
-                        <View
-                            android:layout_width="@dimen/_120sdp"
-                            android:layout_height="@dimen/_10sdp"
-                            android:layout_marginTop="@dimen/_2sdp"
-                            android:background="@drawable/shimmer_background" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_25sdp"
-                            android:layout_marginTop="@dimen/_2sdp"
-                            android:background="@drawable/shimmer_background" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_10sdp"
-                            android:layout_marginTop="@dimen/_2sdp"
-                            android:background="@drawable/shimmer_background" />
-
-                    </LinearLayout>
-
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_5sdp"
-                    app:cardUseCompatPadding="true"
-                    app:cardBackgroundColor="@color/shimmerColor"
-                    app:cardCornerRadius="@dimen/_6sdp"
-                    app:strokeWidth="0dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="@dimen/_10sdp">
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_10sdp"
-                            android:background="@drawable/shimmer_background" />
-
-                        <View
-                            android:layout_width="@dimen/_50sdp"
-                            android:layout_height="@dimen/_10sdp"
-                            android:layout_marginTop="@dimen/_2sdp"
-                            android:background="@drawable/shimmer_background" />
-
-                        <View
-                            android:layout_width="@dimen/_100sdp"
-                            android:layout_height="@dimen/_10sdp"
-                            android:layout_marginTop="@dimen/_2sdp"
-                            android:background="@drawable/shimmer_background" />
-
-                        <View
-                            android:layout_width="@dimen/_25sdp"
-                            android:layout_height="@dimen/_10sdp"
-                            android:layout_marginTop="@dimen/_2sdp"
-                            android:background="@drawable/shimmer_background" />
-
-                        <View
-                            android:layout_width="@dimen/_120sdp"
-                            android:layout_height="@dimen/_10sdp"
-                            android:layout_marginTop="@dimen/_2sdp"
-                            android:background="@drawable/shimmer_background" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_25sdp"
-                            android:layout_marginTop="@dimen/_2sdp"
-                            android:background="@drawable/shimmer_background" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_10sdp"
-                            android:layout_marginTop="@dimen/_2sdp"
-                            android:background="@drawable/shimmer_background" />
-
-                    </LinearLayout>
-
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_5sdp"
-                    app:cardBackgroundColor="@color/shimmerColor"
-                    app:cardCornerRadius="@dimen/_6sdp"
-                    app:cardUseCompatPadding="true"
-                    app:strokeWidth="0dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="@dimen/_10sdp">
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_10sdp"
-                            android:background="@drawable/shimmer_background" />
-
-                        <View
-                            android:layout_width="@dimen/_50sdp"
-                            android:layout_height="@dimen/_10sdp"
-                            android:layout_marginTop="@dimen/_2sdp"
-                            android:background="@drawable/shimmer_background" />
-
-                        <View
-                            android:layout_width="@dimen/_100sdp"
-                            android:layout_height="@dimen/_10sdp"
-                            android:layout_marginTop="@dimen/_2sdp"
-                            android:background="@drawable/shimmer_background" />
-
-                        <View
-                            android:layout_width="@dimen/_25sdp"
-                            android:layout_height="@dimen/_10sdp"
-                            android:layout_marginTop="@dimen/_2sdp"
-                            android:background="@drawable/shimmer_background" />
-
-                        <View
-                            android:layout_width="@dimen/_120sdp"
-                            android:layout_height="@dimen/_10sdp"
-                            android:layout_marginTop="@dimen/_2sdp"
-                            android:background="@drawable/shimmer_background" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_25sdp"
-                            android:layout_marginTop="@dimen/_2sdp"
-                            android:background="@drawable/shimmer_background" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_10sdp"
-                            android:layout_marginTop="@dimen/_2sdp"
-                            android:background="@drawable/shimmer_background" />
-
-                    </LinearLayout>
-
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_5sdp"
-                    app:cardUseCompatPadding="true"
-                    app:cardBackgroundColor="@color/shimmerColor"
-                    app:cardCornerRadius="@dimen/_6sdp"
-                    app:strokeWidth="0dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="@dimen/_10sdp">
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_10sdp"
-                            android:background="@drawable/shimmer_background" />
-
-                        <View
-                            android:layout_width="@dimen/_50sdp"
-                            android:layout_height="@dimen/_10sdp"
-                            android:layout_marginTop="@dimen/_2sdp"
-                            android:background="@drawable/shimmer_background" />
-
-                        <View
-                            android:layout_width="@dimen/_100sdp"
-                            android:layout_height="@dimen/_10sdp"
-                            android:layout_marginTop="@dimen/_2sdp"
-                            android:background="@drawable/shimmer_background" />
-
-                        <View
-                            android:layout_width="@dimen/_25sdp"
-                            android:layout_height="@dimen/_10sdp"
-                            android:layout_marginTop="@dimen/_2sdp"
-                            android:background="@drawable/shimmer_background" />
-
-                        <View
-                            android:layout_width="@dimen/_120sdp"
-                            android:layout_height="@dimen/_10sdp"
-                            android:layout_marginTop="@dimen/_2sdp"
-                            android:background="@drawable/shimmer_background" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_25sdp"
-                            android:layout_marginTop="@dimen/_2sdp"
-                            android:background="@drawable/shimmer_background" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_10sdp"
-                            android:layout_marginTop="@dimen/_2sdp"
-                            android:background="@drawable/shimmer_background" />
-
-                    </LinearLayout>
-
-                </com.google.android.material.card.MaterialCardView>
-
-            </LinearLayout>
-
-        </ScrollView>
-
-    </com.facebook.shimmer.ShimmerFrameLayout>
+            <ImageButton
+                android:layout_width="@dimen/_150sdp"
+                android:layout_height="@dimen/_150sdp"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/transparent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/cup" />
+        </LinearLayout>
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

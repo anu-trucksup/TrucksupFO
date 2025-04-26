@@ -5,10 +5,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.trucksup.field_officer.R
-import com.trucksup.field_officer.databinding.TsCompletedItemBinding
+import com.trucksup.field_officer.databinding.GpCompletedItemBinding
 
-class TSCompletedAdapter(var context: Context, var list: ArrayList<com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.BoVisitDetail>) :
-    RecyclerView.Adapter<TSCompletedAdapter.ViewHolder>() {
+class GPCompletedAdapter(var context: Context, var list: ArrayList<com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.BoVisitDetail>) :
+    RecyclerView.Adapter<GPCompletedAdapter.ViewHolder>() {
 
     private var filteredList = ArrayList<com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.BoVisitDetail>()
 
@@ -16,14 +16,14 @@ class TSCompletedAdapter(var context: Context, var list: ArrayList<com.trucksup.
         filteredList.addAll(list) // Initially show all
     }
 
-    inner class ViewHolder(var binding: TsCompletedItemBinding) :
+    inner class ViewHolder(var binding: GpCompletedItemBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): ViewHolder {
-        val v = TsCompletedItemBinding.inflate(LayoutInflater.from(context), parent, false)
+        val v = GpCompletedItemBinding.inflate(LayoutInflater.from(context), parent, false)
         return ViewHolder(v)
     }
 

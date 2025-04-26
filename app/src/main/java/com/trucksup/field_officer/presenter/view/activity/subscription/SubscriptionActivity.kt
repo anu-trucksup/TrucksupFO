@@ -52,6 +52,8 @@ class SubscriptionActivity : BaseActivity(), PaySubscribtion, PlanCantroler {
         setupObserver()
 
        // setPlanList(arrayListOf())
+
+        setPlanDetails(arrayListOf())
     }
 
     private fun setupObserver() {

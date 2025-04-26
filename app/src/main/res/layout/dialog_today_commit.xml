@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/_12sdp"
+        app:cardElevation="@dimen/_4sdp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/_8sdp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_6sdp"
+                android:background="@drawable/role_select_card"
+                android:elevation="@dimen/_8sdp"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_10sdp">
+
+                    <TextView
+                        android:id="@+id/tv_date"
+                        style="@style/label_semi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:text="NA" />
+
+                    <ImageView
+                        android:id="@+id/iv_close"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_alignParentEnd="true"
+                        android:padding="@dimen/_2sdp"
+                        android:src="@drawable/ic_cancel_icon" />
+
+                </RelativeLayout>
+
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_10sdp"
+                    app:cardCornerRadius="@dimen/_12sdp"
+                    app:cardUseCompatPadding="true"
+                    app:strokeColor="@color/cir_gray"
+                    app:strokeWidth="1dp">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="@dimen/_10sdp">
+
+                        <TextView
+                            style="@style/text_bl_medium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:text="Load Board"
+                            android:textAlignment="textStart"
+                            android:textSize="@dimen/_14sdp" />
+
+                        <LinearLayout
+                            android:id="@+id/broker"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/_12sdp"
+                                android:layout_weight="1"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    style="@style/text_blue6F_medium"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:text="@string/add_load" />
+
+                                <EditText
+                                    android:id="@+id/et_addload"
+                                    style="@style/edit_text_m"
+                                    android:layout_width="@dimen/_60sdp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:background="@drawable/edit_box"
+                                    android:gravity="center"
+                                    android:inputType="number"
+                                    android:maxLength="10"
+                                    android:paddingHorizontal="@dimen/_10sdp"
+                                    android:text="70" />
+
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_4sdp"
+                                android:layout_marginEnd="@dimen/_12sdp"
+                                android:layout_weight="1"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    style="@style/text_blue6F_medium"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:text="@string/unique_ba" />
+
+                                <EditText
+                                    android:id="@+id/et_uniqueba"
+                                    style="@style/edit_text_m"
+                                    android:layout_width="@dimen/_60sdp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:background="@drawable/edit_box"
+                                    android:gravity="center"
+                                    android:inputType="number"
+                                    android:maxLength="10"
+                                    android:paddingHorizontal="@dimen/_10sdp"
+                                    android:text="70" />
+
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_4sdp"
+                                android:layout_marginEnd="@dimen/_12sdp"
+                                android:layout_weight="1"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    style="@style/text_blue6F_medium"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:text="@string/unique_ts" />
+
+                                <EditText
+                                    android:id="@+id/et_uniquets"
+                                    style="@style/edit_text_m"
+                                    android:layout_width="@dimen/_60sdp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:background="@drawable/edit_box"
+                                    android:gravity="center"
+                                    android:inputType="number"
+                                    android:maxLength="10"
+                                    android:paddingHorizontal="@dimen/_10sdp"
+                                    android:text="70" />
+
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_4sdp"
+                                android:layout_marginEnd="@dimen/_12sdp"
+                                android:layout_weight="1"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    style="@style/text_blue6F_medium"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:text="@string/subscription_" />
+
+                                <EditText
+                                    android:id="@+id/et_subscription_"
+                                    style="@style/edit_text_m"
+                                    android:layout_width="@dimen/_60sdp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:background="@drawable/edit_box"
+                                    android:gravity="center"
+                                    android:inputType="number"
+                                    android:maxLength="10"
+                                    android:paddingHorizontal="@dimen/_10sdp"
+                                    android:text="70" />
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_10sdp"
+                    app:cardCornerRadius="@dimen/_12sdp"
+                    app:cardUseCompatPadding="true"
+                    app:strokeColor="@color/cir_gray"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="@dimen/_10sdp">
+
+
+                        <TextView
+                            style="@style/text_bl_medium"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:text="@string/vas"
+                            android:textAlignment="textStart"
+                            android:textSize="@dimen/_14sdp" />
+
+                        <LinearLayout
+                            android:id="@+id/vasBroker"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="@dimen/_12sdp"
+                                android:layout_weight="1"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    style="@style/text_blue6F_medium"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:text="@string/tu_kawach_" />
+
+                                <EditText
+                                    android:id="@+id/et_kawach"
+                                    style="@style/edit_text_m"
+                                    android:layout_width="@dimen/_60sdp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:background="@drawable/edit_box"
+                                    android:gravity="center"
+                                    android:inputType="number"
+                                    android:maxLength="10"
+                                    android:paddingHorizontal="@dimen/_10sdp"
+                                    android:text="70" />
+
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_4sdp"
+                                android:layout_marginEnd="@dimen/_12sdp"
+                                android:layout_weight="1"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    style="@style/text_blue6F_medium"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:text="@string/insurance" />
+
+                                <EditText
+                                    android:id="@+id/et_insurance"
+                                    style="@style/edit_text_m"
+                                    android:layout_width="@dimen/_60sdp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:background="@drawable/edit_box"
+                                    android:gravity="center"
+                                    android:inputType="number"
+                                    android:maxLength="10"
+                                    android:paddingHorizontal="@dimen/_10sdp"
+                                    android:text="70" />
+
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_4sdp"
+                                android:layout_marginEnd="@dimen/_12sdp"
+                                android:layout_weight="1"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    style="@style/text_blue6F_medium"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:text="@string/finance" />
+
+                                <EditText
+                                    android:id="@+id/et_finance"
+                                    style="@style/edit_text_m"
+                                    android:layout_width="@dimen/_60sdp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:background="@drawable/edit_box"
+                                    android:gravity="center"
+                                    android:inputType="number"
+                                    android:maxLength="10"
+                                    android:paddingHorizontal="@dimen/_10sdp"
+                                    android:text="70" />
+
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_4sdp"
+                                android:layout_marginEnd="@dimen/_12sdp"
+                                android:layout_weight="1"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    style="@style/text_blue6F_medium"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:text="@string/smart_fuel" />
+
+                                <EditText
+                                    android:id="@+id/et_smartfuel"
+                                    style="@style/edit_text_m"
+                                    android:layout_width="@dimen/_60sdp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:background="@drawable/edit_box"
+                                    android:gravity="center"
+                                    android:inputType="number"
+                                    android:maxLength="10"
+                                    android:paddingHorizontal="@dimen/_10sdp"
+                                    android:text="70" />
+
+
+                            </RelativeLayout>
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_4sdp"
+                                android:layout_marginEnd="@dimen/_12sdp"
+                                android:layout_weight="1"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    style="@style/text_blue6F_medium"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:text="@string/goOnboard" />
+
+                                <EditText
+                                    android:id="@+id/et_gp_onboard"
+                                    style="@style/edit_text_m"
+                                    android:layout_width="@dimen/_60sdp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:background="@drawable/edit_box"
+                                    android:gravity="center"
+                                    android:inputType="number"
+                                    android:maxLength="10"
+                                    android:paddingHorizontal="@dimen/_10sdp"
+                                    android:text="70" />
+
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>

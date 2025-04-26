@@ -3,7 +3,7 @@ package com.trucksup.field_officer.domain.usecases
 
 import com.logistics.trucksup.activities.preferre.modle.PrefferLanRequest
 import com.logistics.trucksup.activities.preferre.modle.PrefferdResponse
-import com.logistics.trucksup.activities.preferre.modle.GetMeetScheduleDetailsRequest
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetAllTSDetailsRequest
 import com.logistics.trucksup.modle.PlanResponse
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryData
 import com.trucksup.field_officer.data.model.AutoImageSlideResponse
@@ -34,7 +34,6 @@ import com.trucksup.field_officer.data.model.user.GetProfileResponse
 import com.trucksup.field_officer.data.model.user.UpdateProfileRequest
 import com.trucksup.field_officer.data.model.user.UpdateProfileResponse
 import com.trucksup.field_officer.data.network.ResultWrapper
-import com.trucksup.field_officer.data.network.safeApiCall
 import com.trucksup.field_officer.data.repository.APIRepository
 import com.trucksup.field_officer.presenter.view.activity.auth.logout.LogoutRequest
 import com.trucksup.field_officer.presenter.view.activity.auth.logout.LogoutResponse
@@ -69,9 +68,8 @@ import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.Ge
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.RcRequest
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.RcResponse
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.ScheduleMeetTSRequest
-import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetMeetScheduleDetailsResponse
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetAllTSDetailsResponse
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.VerifyTruckResponse
-import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 
 class APIUseCase @Inject constructor(private val apiRepository: APIRepository) {
@@ -293,24 +291,24 @@ class APIUseCase @Inject constructor(private val apiRepository: APIRepository) {
     }
 
     //add by me
-    suspend fun getTSMeetSchedule(
+    suspend fun getAllTSDetails(
         authToken: String,
-        request: GetMeetScheduleDetailsRequest
-    ): ResultWrapper<GetMeetScheduleDetailsResponse> {
-        return apiRepository.getTSMeetScheduleData(authToken, request)
+        request: GetAllTSDetailsRequest
+    ): ResultWrapper<GetAllTSDetailsResponse> {
+        return apiRepository.getAllTSDetails(authToken, request)
     }
 
-    suspend fun getBAMeetSchedule(
+    suspend fun getAllBADetails(
         authToken: String,
-        request: GetMeetScheduleDetailsRequest
-    ): ResultWrapper<GetMeetScheduleDetailsResponse> {
+        request: GetAllTSDetailsRequest
+    ): ResultWrapper<GetAllTSDetailsResponse> {
         return apiRepository.getBAMeetScheduleData(authToken, request)
     }
 
     suspend fun getGPMeetSchedule(
         authToken: String,
-        request: GetMeetScheduleDetailsRequest
-    ): ResultWrapper<GetMeetScheduleDetailsResponse> {
+        request: GetAllTSDetailsRequest
+    ): ResultWrapper<GetAllTSDetailsResponse> {
         return apiRepository.getGPMeetScheduleData(authToken, request)
     }
 

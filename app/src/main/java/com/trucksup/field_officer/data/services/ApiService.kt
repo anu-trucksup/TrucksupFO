@@ -1,6 +1,6 @@
 package com.trucksup.field_officer.data.services
 
-import com.logistics.trucksup.activities.preferre.modle.GetMeetScheduleDetailsRequest
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetAllTSDetailsRequest
 import com.logistics.trucksup.activities.preferre.modle.PrefferLanRequest
 import com.logistics.trucksup.activities.preferre.modle.PrefferdResponse
 import com.logistics.trucksup.modle.PlanResponse
@@ -70,7 +70,7 @@ import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.Ge
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.RcRequest
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.RcResponse
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.ScheduleMeetTSRequest
-import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetMeetScheduleDetailsResponse
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetAllTSDetailsResponse
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.VerifyTruckResponse
 import okhttp3.MultipartBody
 import retrofit2.Call
@@ -344,22 +344,22 @@ interface ApiService {
     @Headers("Accept: application/json")
     suspend fun getAllBADetails(
         @Header("Authorization") auth: String,
-        @Body request: GetMeetScheduleDetailsRequest
-    ): GetMeetScheduleDetailsResponse
+        @Body request: GetAllTSDetailsRequest
+    ): GetAllTSDetailsResponse
 
     @POST("BOAppApiGateway/apiateway/GetTSDetails")
     @Headers("Accept: application/json")
     suspend fun getAllTSDetails(
         @Header("Authorization") auth: String,
-        @Body request: GetMeetScheduleDetailsRequest
-    ): GetMeetScheduleDetailsResponse
+        @Body request: GetAllTSDetailsRequest
+    ): GetAllTSDetailsResponse
 
     @POST("BOAppApiGateway/apiateway/GetGPDetails")
     @Headers("Accept: application/json")
     suspend fun getAllGPDetails(
         @Header("Authorization") auth: String,
-        @Body request: GetMeetScheduleDetailsRequest
-    ): GetMeetScheduleDetailsResponse
+        @Body request: GetAllTSDetailsRequest
+    ): GetAllTSDetailsResponse
 
     //Today Followup
     @POST("BOAppApiGateway/apiateway/GetTodaysFollowup")
@@ -383,7 +383,7 @@ interface ApiService {
         @Body request: GetAllMeetupTSRequest
     ): GetAllMeetUpTSResponse
 
-    @POST("BOAppApiGateway/apiateway/GetAllGPMeets")
+    @POST("BOAppApiGateway/apiateway/GetBOAllGPMeets")
     @Headers("Accept: application/json")
     suspend fun getAllMeetupGP(
         @Header("Authorization") auth: String,

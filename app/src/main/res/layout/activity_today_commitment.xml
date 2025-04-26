@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -68,7 +67,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="@dimen/_6sdp"
-                            android:background="@drawable/roal_slect_card"
+                            android:background="@drawable/role_select_card"
                             android:elevation="@dimen/_8sdp"
                             android:orientation="vertical">
 
@@ -441,7 +440,7 @@
                             </com.google.android.material.card.MaterialCardView>
 
                             <TextView
-                                android:id="@+id/tv_target_achieved"
+                                android:id="@+id/tv_previous"
                                 style="@style/label_semi"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -451,6 +450,20 @@
                                 android:gravity="start"
                                 android:text="@string/view_previous_commitments"
                                 android:textAlignment="textStart" />
+
+                            <TextView
+                                android:id="@+id/btnSubmit"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:background="@drawable/background_1_1"
+                                android:fontFamily="@font/bai_jamjuree_medium"
+                               android:layout_marginTop="@dimen/_15sdp"
+                                android:paddingHorizontal="@dimen/_25sdp"
+                                android:paddingVertical="@dimen/_2sdp"
+                                android:text="@string/submit"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/_14ssp" />
 
 
                         </LinearLayout>

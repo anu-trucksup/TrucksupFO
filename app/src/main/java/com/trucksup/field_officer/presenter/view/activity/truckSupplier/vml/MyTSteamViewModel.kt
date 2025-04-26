@@ -1,4 +1,4 @@
-package com.trucksup.field_officer.presenter.view.activity.businessAssociate.vml
+package com.trucksup.field_officer.presenter.view.activity.truckSupplier.vml
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -16,13 +16,13 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class BAViewAllVM @Inject constructor(val apiUseCase: APIUseCase) : ViewModel() {
+class MyTSteamViewModel @Inject constructor(val apiUseCase: APIUseCase) : ViewModel() {
 
-    private var getAllBAActiveInActive: MutableLiveData<ResponseModel<FollowUpResponse>> =
+    private var resultAllTSteam: MutableLiveData<ResponseModel<FollowUpResponse>> =
         MutableLiveData<ResponseModel<FollowUpResponse>>()
-    val getAllBAActiveInActiveLD: LiveData<ResponseModel<FollowUpResponse>> = getAllBAActiveInActive
+    val resultAllTSteamLD: LiveData<ResponseModel<FollowUpResponse>> = resultAllTSteam
 
-    fun getAllBAActiveInActive(token: String, request: FollowUpRequest) {
+    fun getAllTSteam(token: String, request: FollowUpRequest) {
         CoroutineScope(Dispatchers.IO).launch {
             when (val response = apiUseCase.getTotalEarning(
                 token,
@@ -30,11 +30,11 @@ class BAViewAllVM @Inject constructor(val apiUseCase: APIUseCase) : ViewModel() 
             )) {
                 is ResultWrapper.ServerResponseError -> {
                     Log.e("API Error", response.error ?: "")
-                    getAllBAActiveInActive.postValue(ResponseModel(serverError = response.error))
+                    resultAllTSteam.postValue(ResponseModel(serverError = response.error))
                 }
 
                 is ResultWrapper.Success -> {
-                    getAllBAActiveInActive.postValue(ResponseModel(success = response.value))
+                    resultAllTSteam.postValue(ResponseModel(success = response.value))
                 }
             }
         }

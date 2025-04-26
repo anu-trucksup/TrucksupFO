@@ -12,7 +12,9 @@ import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.view.fragment.ts.MyTeamTSActiveFragment
 import com.trucksup.field_officer.presenter.view.fragment.ts.MyTeamTSInActiveFragment
 import com.trucksup.field_officer.presenter.view.adapter.FragmentAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MyTSTeamActivity : BaseActivity() {
     private lateinit var binding: ActivityMyTeamTsNewBinding
 

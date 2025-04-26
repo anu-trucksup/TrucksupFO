@@ -18,6 +18,8 @@ import com.trucksup.field_officer.presenter.view.activity.auth.logout.LogoutRequ
 import com.trucksup.field_officer.presenter.view.activity.auth.logout.LogoutResponse
 import com.trucksup.field_officer.presenter.view.activity.todayFollowup.model.FollowUpRequest
 import com.trucksup.field_officer.presenter.view.activity.todayFollowup.model.FollowUpResponse
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetAllTSDetailsRequest
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetAllTSDetailsResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -27,20 +29,19 @@ import javax.inject.Inject
 @HiltViewModel
 class UnAssignedViewModel @Inject constructor(val apiUseCase: APIUseCase) : ViewModel() {
 
-    private var resultUnAssignedBA: MutableLiveData<ResponseModel<FollowUpResponse>> =
-        MutableLiveData<ResponseModel<FollowUpResponse>>()
-    val resultUnAssignedBALD: LiveData<ResponseModel<FollowUpResponse>> = resultUnAssignedBA
+    private var resultUnAssignedBA: MutableLiveData<ResponseModel<GetAllTSDetailsResponse>> =
+        MutableLiveData<ResponseModel<GetAllTSDetailsResponse>>()
+    val resultUnAssignedBALD: LiveData<ResponseModel<GetAllTSDetailsResponse>> = resultUnAssignedBA
 
-    private var resultUnAssignedTS: MutableLiveData<ResponseModel<FollowUpResponse>> =
-        MutableLiveData<ResponseModel<FollowUpResponse>>()
-    val resultUnAssignedTSLD: LiveData<ResponseModel<FollowUpResponse>> = resultUnAssignedTS
+    private var resultUnAssignedTS: MutableLiveData<ResponseModel<GetAllTSDetailsResponse>> =
+        MutableLiveData<ResponseModel<GetAllTSDetailsResponse>>()
+    val resultUnAssignedTSLD: LiveData<ResponseModel<GetAllTSDetailsResponse>> = resultUnAssignedTS
 
-    fun getUnAssignedBA(token: String, request: FollowUpRequest) {
+
+    fun getUnAssignedBA(token: String, request: GetAllTSDetailsRequest) {
         CoroutineScope(Dispatchers.IO).launch {
-            when (val response = apiUseCase.getTotalEarning(
-                token,
-                request
-            )) {
+            when (val response = apiUseCase.getAllTSDetails(
+                token, request)) {
                 is ResultWrapper.ServerResponseError -> {
                     Log.e("API Error", response.error ?: "")
                     resultUnAssignedBA.postValue(ResponseModel(serverError = response.error))
@@ -53,9 +54,9 @@ class UnAssignedViewModel @Inject constructor(val apiUseCase: APIUseCase) : View
         }
     }
 
-    fun getUnAssignedTS(token: String, request: FollowUpRequest) {
+    fun getUnAssignedTS(token: String, request: GetAllTSDetailsRequest) {
         CoroutineScope(Dispatchers.IO).launch {
-            when (val response = apiUseCase.getTotalEarning(
+            when (val response = apiUseCase.getAllTSDetails(
                 token,
                 request
             )) {

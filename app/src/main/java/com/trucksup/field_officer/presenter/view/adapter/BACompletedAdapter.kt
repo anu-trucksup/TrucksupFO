@@ -1,35 +1,32 @@
 package com.trucksup.field_officer.presenter.view.adapter
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.trucksup.field_officer.R
-import com.trucksup.field_officer.databinding.TsScheduledItemBinding
+import com.trucksup.field_officer.databinding.BaCompletedFollowupItemBinding
+import com.trucksup.field_officer.databinding.TsCompletedItemBinding
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.BoVisitDetail
-import com.trucksup.field_officer.presenter.view.activity.truckSupplier.TSStartTripActivity
 import com.trucksup.field_officer.presenter.view.adapter.BAScheduleFollowupAdapter.OnItemClickListener
 
-class TSScheduleFollowupAdapter(var context: Context?, var list: ArrayList<com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.BoVisitDetail>) :
-    RecyclerView.Adapter<TSScheduleFollowupAdapter.ViewHolder>() {
+class BACompletedAdapter(var context: Context, var list: ArrayList<BoVisitDetail>) :
+    RecyclerView.Adapter<BACompletedAdapter.ViewHolder>() {
 
-    private var listener: OnItemClickListener? = null
-    private var filteredList = ArrayList<com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.BoVisitDetail>()
-
-    fun setOnItemClickListener(listener: OnItemClickListener) {
-        this.listener = listener
-    }
+    private var filteredList = ArrayList<BoVisitDetail>()
 
     init {
         filteredList.addAll(list) // Initially show all
     }
 
-    inner class ViewHolder(var binding: TsScheduledItemBinding) :
+    inner class ViewHolder(var binding: BaCompletedFollowupItemBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v = TsScheduledItemBinding.inflate(LayoutInflater.from(context), parent, false)
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): ViewHolder {
+        val v = BaCompletedFollowupItemBinding.inflate(LayoutInflater.from(context), parent, false)
         return ViewHolder(v)
     }
 
@@ -41,13 +38,14 @@ class TSScheduleFollowupAdapter(var context: Context?, var list: ArrayList<com.t
             holder.binding.notHighLightView.setBackgroundResource(R.drawable.background2)
             holder.binding.highLightView.setBackgroundResource(R.color.transeprant)
         }
+        holder.binding.name.setText(""+list[position].cust_Name)
+
 
         if(list[position].scheduleDate.isNotEmpty()){
             holder.binding.txtScheduleDate.setText(list[position].scheduleDate)
         }else{
             holder.binding.txtScheduleDate.setText("-")
         }
-
         if(list[position].cust_Name.isNotEmpty()){
             holder.binding.name.setText(list[position].cust_Name)
         }
@@ -57,21 +55,7 @@ class TSScheduleFollowupAdapter(var context: Context?, var list: ArrayList<com.t
         if(list[position].address.isNotEmpty()){
             holder.binding.address.setText(list[position].address)
         }else{
-            holder.binding.tvDistance.setText("-")
-        }
-        if(list[position].distance.isNotEmpty()){
-            //holder.binding.linDistance.visibility = View.VISIBLE
-            holder.binding.tvDistance.setText("Distance: "+list[position].distance+" KM")
-        }else{
-            holder.binding.tvDistance.setText("Distance: "+ "-")
-        }
-        if(list[position].lastCallInitiated.isNotEmpty()){
-            holder.binding.txtLastCallInitiated.setText(context?.getString(R.string.last_call_initiated)+" "+list[position].lastCallInitiated)
-        }else {
-            holder.binding.txtLastCallInitiated.setText(context?.getString(R.string.last_call_initiated) + "-")
-        }
-        if(list[position].visitType.isNotEmpty()){
-            holder.binding.tvVisit.setText(list[position].visitType)
+            holder.binding.address.setText("-")
         }
         if(list[position].brokerStatus.isNotEmpty()){
             if(list[position].brokerStatus.equals("Unverified")){
@@ -85,22 +69,11 @@ class TSScheduleFollowupAdapter(var context: Context?, var list: ArrayList<com.t
         if(list[position].addedTrucks.isNotEmpty()){
             holder.binding.txtTrucksAdded.setText("No. of Trucks Added : "+list[position].addedTrucks)
         }
-        holder.binding.name.setText(""+list[position].cust_Name)
-        holder.binding.txtStartTrip.setOnClickListener {
-            listener?.onItemClick(list[position].id)
-            val intent = Intent(context, TSStartTripActivity::class.java)
-            intent.putExtra("title", "" + context?.resources?.getString(R.string.ts_followup))
-            intent.putExtra("address", "" /*+ list[position].address*/)
-            context?.startActivity(intent)
-        }
+
     }
 
     override fun getItemCount(): Int {
         return filteredList.size
-    }
-
-    interface OnItemClickListener {
-        fun onItemClick(id: Int)
     }
 
     fun filter(query: String) {

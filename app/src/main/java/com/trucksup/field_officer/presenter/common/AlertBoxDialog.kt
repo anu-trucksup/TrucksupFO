@@ -14,7 +14,6 @@ import android.view.Window
 import android.view.WindowManager
 import android.widget.TextView
 import com.trucksup.field_officer.R
-import com.trucksup.field_officer.presenter.view.activity.auth.login.LoginActivity
 import com.trucksup.field_officer.presenter.view.activity.auth.signup.SignUpActivity
 import com.trucksup.field_officer.presenter.view.activity.dashboard.HomeActivity
 
@@ -31,7 +30,7 @@ class AlertBoxDialog(var context: Activity, var message: String, var type: Strin
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
-        setContentView(R.layout.alart_box)
+        setContentView(R.layout.alert_box)
         this.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         this.setCancelable(true)

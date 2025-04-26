@@ -17,6 +17,7 @@ import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.LoadingUtils
 import com.trucksup.field_officer.presenter.common.dialog.DialogBoxes
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.vml.BAViewAllVM
 import com.trucksup.field_officer.presenter.view.activity.todayFollowup.model.FollowUpRequest
 import com.trucksup.field_officer.presenter.view.activity.todayFollowup.model.FollowUpResponse
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.unassigned_ts_ba.vml.UnAssignedViewModel
@@ -27,7 +28,7 @@ import java.util.Calendar
 class ActiveBAFragment : Fragment() {
     private var aContext: Context? = null
     private lateinit var binding: FragmentActiveBABinding
-    private var mViewModel: UnAssignedViewModel? = null
+    private var mViewModel: BAViewAllVM? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -52,7 +53,7 @@ class ActiveBAFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mViewModel = ViewModelProvider(this)[UnAssignedViewModel::class.java]
+        mViewModel = ViewModelProvider(this)[BAViewAllVM::class.java]
 
         LoadingUtils.showDialog(aContext, false)
         val request = FollowUpRequest(
@@ -61,7 +62,7 @@ class ActiveBAFragment : Fragment() {
             requestDatetime = PreferenceManager.getServerDateUtc(),
             boID = PreferenceManager.getUserData(aContext!!)?.boUserid?.toInt() ?: 0
         )
-        mViewModel?.getUnAssignedTS(PreferenceManager.getAuthToken(), request)
+        mViewModel?.getAllBAActiveInActive(PreferenceManager.getAuthToken(), request)
 
         setRvList()
 
@@ -71,7 +72,7 @@ class ActiveBAFragment : Fragment() {
     }
 
     private fun setupObserver() {
-        mViewModel?.resultUnAssignedBALD?.observe(viewLifecycleOwner) { responseModel ->                     // login function observe
+        mViewModel?.getAllBAActiveInActiveLD?.observe(viewLifecycleOwner) { responseModel ->                     // login function observe
             if (responseModel.serverError != null) {
                 LoadingUtils.hideDialog()
 

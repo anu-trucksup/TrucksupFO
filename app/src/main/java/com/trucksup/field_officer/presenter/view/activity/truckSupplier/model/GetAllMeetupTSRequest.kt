@@ -5,5 +5,9 @@ data class GetAllMeetupTSRequest(
     val requestDatetime: String,
     val requestId: Int,
     val requestedBy: String,
-    val type: String
+    val type: String,
+    val startDate: String,
+    val endDate: String,
+    val visitType: String,
+    val kycType: String
 )

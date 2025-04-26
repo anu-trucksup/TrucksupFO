@@ -58,16 +58,15 @@ class DateRangeBottomSheet(
         binding.btnClear.setOnClickListener {
             binding.tvStartDateValue.setText("")
             binding.tvEndDateValue.setText("")
-            startMillis=null
-            endMillis=null
+            startMillis = null
+            endMillis = null
 
         }
 
         return dialog
     }
 
-    private fun dataSet()
-    {
+    private fun dataSet() {
         val constraints = CalendarConstraints.Builder()
             .setValidator(DateValidatorPointBackward.now())
             .build()
@@ -87,8 +86,8 @@ class DateRangeBottomSheet(
             val startDate = formatter.format(Date(startMillis!!))
             val endDate = formatter.format(Date(endMillis!!))
 
-            binding.tvStartDateValue.text=startDate
-            binding.tvEndDateValue.text=endDate
+            binding.tvStartDateValue.text = startDate
+            binding.tvEndDateValue.text = endDate
 //                binding.datePreview.text = "StartDate:- $startDate → EndDate:- $endDate"
         }
     }

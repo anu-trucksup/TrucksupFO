@@ -1,8 +1,8 @@
-package com.logistics.trucksup.activities.preferre.modle
+package com.trucksup.field_officer.presenter.view.activity.truckSupplier.model
 
 import com.google.gson.annotations.SerializedName
 
-data class GetMeetScheduleDetailsRequest(
+data class GetAllTSDetailsRequest(
     @SerializedName("requestId")
     val requestId: Int,
     @SerializedName("requestedBy")

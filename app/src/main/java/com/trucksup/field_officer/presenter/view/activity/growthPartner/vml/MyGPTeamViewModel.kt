@@ -1,4 +1,4 @@
-package com.trucksup.field_officer.presenter.view.activity.businessAssociate.vml
+package com.trucksup.field_officer.presenter.view.activity.growthPartner.vml
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -16,25 +16,23 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class BAViewAllVM @Inject constructor(val apiUseCase: APIUseCase) : ViewModel() {
+class MyGPTeamViewModel @Inject constructor(val apiUseCase: APIUseCase) : ViewModel() {
 
-    private var getAllBAActiveInActive: MutableLiveData<ResponseModel<FollowUpResponse>> =
+    private var resultAllGPTeam: MutableLiveData<ResponseModel<FollowUpResponse>> =
         MutableLiveData<ResponseModel<FollowUpResponse>>()
-    val getAllBAActiveInActiveLD: LiveData<ResponseModel<FollowUpResponse>> = getAllBAActiveInActive
+    val resultAllTSteamLD: LiveData<ResponseModel<FollowUpResponse>> = resultAllGPTeam
 
-    fun getAllBAActiveInActive(token: String, request: FollowUpRequest) {
+    fun getAllGPTeam(token: String, request: FollowUpRequest) {
         CoroutineScope(Dispatchers.IO).launch {
             when (val response = apiUseCase.getTotalEarning(
-                token,
-                request
-            )) {
+                token, request)) {
                 is ResultWrapper.ServerResponseError -> {
                     Log.e("API Error", response.error ?: "")
-                    getAllBAActiveInActive.postValue(ResponseModel(serverError = response.error))
+                    resultAllGPTeam.postValue(ResponseModel(serverError = response.error))
                 }
 
                 is ResultWrapper.Success -> {
-                    getAllBAActiveInActive.postValue(ResponseModel(success = response.value))
+                    resultAllGPTeam.postValue(ResponseModel(success = response.value))
                 }
             }
         }

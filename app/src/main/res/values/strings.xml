@@ -146,9 +146,9 @@
     <string name="Onboardings">Onboardings</string>
     <string name="onboard">Onboard</string>
 
-    <string name="SalesCode">Sales Code of BO</string>
-    <string name="GPMobile">GP Mobile Number</string>
-    <string name="GPName">GP Name</string>
+    <string name="SalesCode">Sales Code of BO<font color='#FF0000'>*</font></string>
+    <string name="GPMobile">GP Mobile Number<font color='#FF0000'>*</font></string>
+    <string name="GPName">GP Name<font color='#FF0000'>*</font></string>
     <string name="enterSalesCode">Please enter Sales Code of BO</string>
     <string name="PleaseenterGPMobile">Please enter GP Mobile Number</string>
     <string name="PleaseenterGPName">Please enter GP Name</string>
@@ -731,6 +731,7 @@
     <string name="planned_follow_up">Planned Follow-Up</string>
     <string name="planned_follow_ups">Planned Follow-Ups</string>
     <string name="today_s_commitment">Today’s Commitment</string>
+    <string name="today_commitment_u"><u>Today’s Commitment</u></string>
     <string name="commit_text">Please enter today’s details to update your progress toward the target.</string>
     <string name="view_previous_commitments"><u>View Previous Commitments</u></string>
     <string name="unique_ba">Unique BA</string>

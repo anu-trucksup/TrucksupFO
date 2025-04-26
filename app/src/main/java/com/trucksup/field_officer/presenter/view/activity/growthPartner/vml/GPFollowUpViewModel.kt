@@ -25,9 +25,9 @@ import javax.inject.Inject
 @HiltViewModel
 class GPFollowUpViewModel @Inject constructor(val apiUseCase: APIUseCase) : ViewModel() {
 
-    private var getAllMeetUpTSResponse: MutableLiveData<ResponseModel<GetAllMeetUpTSResponse>> =
+    private var getAllMeetUpGPResponse: MutableLiveData<ResponseModel<GetAllMeetUpTSResponse>> =
         MutableLiveData<ResponseModel<GetAllMeetUpTSResponse>>()
-    val getAllMeetUpTSResponseLD: LiveData<ResponseModel<GetAllMeetUpTSResponse>> = getAllMeetUpTSResponse
+    val getAllMeetUpGPResponseLD: LiveData<ResponseModel<GetAllMeetUpTSResponse>> = getAllMeetUpGPResponse
 
     fun getAllMeetupGP(token: String, request: GetAllMeetupTSRequest) {
         CoroutineScope(Dispatchers.IO).launch {
@@ -37,11 +37,11 @@ class GPFollowUpViewModel @Inject constructor(val apiUseCase: APIUseCase) : View
             )) {
                 is ResultWrapper.ServerResponseError -> {
                     Log.e("API Error", response.error ?: "")
-                    getAllMeetUpTSResponse.postValue(ResponseModel(serverError = response.error))
+                    getAllMeetUpGPResponse.postValue(ResponseModel(serverError = response.error))
                 }
 
                 is ResultWrapper.Success -> {
-                    getAllMeetUpTSResponse.postValue(ResponseModel(success = response.value))
+                    getAllMeetUpGPResponse.postValue(ResponseModel(success = response.value))
                 }
             }
         }

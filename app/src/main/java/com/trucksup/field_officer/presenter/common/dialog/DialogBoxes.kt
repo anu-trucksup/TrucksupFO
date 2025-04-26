@@ -149,6 +149,80 @@ object DialogBoxes {
         dialog.show()
     }
 
+    fun setFilters(context: Context, type: String, listener: OnFilterValueInputListener) {
+        val dialog = BottomSheetDialog(context)
+        val binding = FilterLayoutBinding.inflate(LayoutInflater.from(context))
+        dialog.setContentView(binding.root)
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+        var selectedKyc: String = ""
+        var selectedVisitType: String = ""
+
+        if (type == "ba") {
+            binding.tvSP.visibility = View.VISIBLE
+            binding.linearLayout2.visibility = View.VISIBLE
+
+            binding.tvED.visibility = View.VISIBLE
+            binding.linearLayout4.visibility = View.VISIBLE
+        } else {
+            binding.tvSP.visibility = View.GONE
+            binding.linearLayout2.visibility = View.GONE
+
+            binding.tvED.visibility = View.GONE
+            binding.linearLayout4.visibility = View.GONE
+        }
+
+        //add by me
+        binding.kycSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    selectedKyc = parent.getItemAtPosition(position).toString()
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>) {}
+            }
+
+        binding.visitSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    selectedVisitType = parent.getItemAtPosition(position).toString()
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>) {}
+            }
+        //add by me
+
+        //expiry date
+        binding.expirySpinner.setOnClickListener {
+            showDatePicker(context, binding.expirySpinner)
+            //dialog.dismiss()
+        }
+
+        //cancel button
+        binding.btnCancel.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        //submit button
+        binding.submitButton.setOnClickListener {
+            listener.onInput(selectedKyc, selectedVisitType)
+            dialog.dismiss()
+        }
+
+        dialog.show()
+
+    }
+
     fun messageDialog(context: Context, msg: String) {
         val builder = AlertDialog.Builder(context)
         val binding = MessageDialogLayoutBinding.inflate(LayoutInflater.from(context))
@@ -245,4 +319,8 @@ object DialogBoxes {
         dialog.show()
     }
 
+}
+
+interface OnFilterValueInputListener {
+    fun onInput(kycStatus: String, visitType: String)
 }

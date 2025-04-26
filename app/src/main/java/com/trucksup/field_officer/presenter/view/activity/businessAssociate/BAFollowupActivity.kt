@@ -6,13 +6,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.BaFollowupActivityBinding
-import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
-import com.trucksup.field_officer.presenter.utils.PreferenceManager
-import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.GetAllMeetUpBARequest
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.BoVisitDetail
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.vml.BAFollowUpViewModel
-import com.trucksup.field_officer.presenter.view.activity.businessAssociate.vml.BAScheduleMeetingVM
-import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetAllMeetupTSRequest
 import com.trucksup.field_officer.presenter.view.fragment.ba.BACompletedFragment
 import com.trucksup.field_officer.presenter.view.fragment.ba.BAScheduledFragment
 import com.trucksup.field_officer.presenter.view.adapter.FragmentAdapter
@@ -24,6 +20,9 @@ class BAFollowupActivity : BaseActivity() {
     private lateinit var binding: BaFollowupActivityBinding
     private var mViewModel: BAFollowUpViewModel? = null
 
+    private var getAllBAMeetsList: java.util.ArrayList<BoVisitDetail> = arrayListOf()
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = BaFollowupActivityBinding.inflate(layoutInflater)
@@ -31,20 +30,10 @@ class BAFollowupActivity : BaseActivity() {
         setContentView(binding.root)
         mViewModel = ViewModelProvider(this)[BAFollowUpViewModel::class.java]
 
-        showProgressDialog(this, false)
-        val request = GetAllMeetUpBARequest(
-            requestId = PreferenceManager.getRequestNo().toInt(),
-            requestedBy = PreferenceManager.getPhoneNo(this),
-            requestDatetime = PreferenceManager.getServerDateUtc(),
-            boID = PreferenceManager.getUserData(this)?.boUserid?.toInt() ?: 0,
-            type = "Scheduled"
-        )
-        mViewModel?.getAllMeetupBA(PreferenceManager.getAuthToken(), request)
-
-        setupObserver()
         setupViewPager()
         setListener()
     }
+
 
     private fun setListener() {
         binding.ivBack.setOnClickListener {
@@ -62,36 +51,6 @@ class BAFollowupActivity : BaseActivity() {
         }
     }
 
-    private fun setupObserver() {
-        mViewModel?.getAllMeetUpBAResponseLD?.observe(this@BAFollowupActivity) { responseModel ->                     // login function observe
-            if (responseModel.serverError != null) {
-                dismissProgressDialog()
-
-                val abx =
-                    AlertBoxDialog(
-                        this@BAFollowupActivity,
-                        responseModel.serverError.toString(),
-                        "m"
-                    )
-                abx.show()
-            } else {
-                dismissProgressDialog()
-
-                if (responseModel.success?.statuscode == 200) {
-                    // setItemList(responseModel.success)
-                } else {
-                    val abx =
-                        AlertBoxDialog(
-                            this@BAFollowupActivity,
-                            responseModel.success?.message.toString(),
-                            "m"
-                        )
-                    abx.show()
-                }
-            }
-        }
-
-    }
 
     private fun setupViewPager() {
 

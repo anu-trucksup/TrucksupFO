@@ -204,19 +204,39 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent" />
 
-                        <TextView
-                            android:id="@+id/tv_title"
-                            style="@style/label_semi18"
-                            android:layout_width="wrap_content"
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/_8sdp"
-                            android:gravity="center"
-                            android:maxLines="2"
-                            android:minLines="2"
-                            android:text="@string/todays_performance"
-                            android:textAlignment="center"
-                            android:textColor="@color/colorPrimary"
-                            android:textSize="@dimen/_16ssp" />
+                            android:paddingVertical="@dimen/_4sdp">
+
+                            <TextView
+                                android:id="@+id/tv_title"
+                                style="@style/label_semi18"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_3sdp"
+                                android:gravity="center"
+                                android:text="@string/todays_performance"
+                                android:textAlignment="center"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="@dimen/_15ssp" />
+
+                            <TextView
+                                android:id="@+id/tv_commit"
+                                style="@style/text_bl_medium"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/_8sdp"
+                                android:gravity="center"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerInParent="true"
+                                android:text="@string/today_commitment_u"
+                                android:textAlignment="center"
+                                android:textColor="@color/colorPrimary"
+                                />
+                        </RelativeLayout>
+
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rv_features"

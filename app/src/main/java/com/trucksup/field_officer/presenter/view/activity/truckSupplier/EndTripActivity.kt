@@ -38,10 +38,13 @@ import com.trucksup.field_officer.presenter.view.activity.growthPartner.GPSchedu
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.vml.TSOnboardViewModel
 import com.trucksup.field_officer.presenter.view.service.LocationService
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Arrays
 
 
 @AndroidEntryPoint
 class EndTripActivity : BaseActivity(), OnMapReadyCallback {
+    private var customDetails: String? = null
+    private var currentAddress: String? = null
     private lateinit var binding: ActivityTsEndmaptripBinding
     private lateinit var gmap: GoogleMap
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -50,7 +53,7 @@ class EndTripActivity : BaseActivity(), OnMapReadyCallback {
 
     // Define your two fixed locations
     private var startpointA = LatLng(28.510830, 77.085922)
-    private val destinationpointB = LatLng(28.646981, 77.125658)
+    private var destinationpointB: LatLng? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,10 +61,25 @@ class EndTripActivity : BaseActivity(), OnMapReadyCallback {
         binding = ActivityTsEndmaptripBinding.inflate(layoutInflater)
         adjustFontScale(resources.configuration, 1.0f);
         setContentView(binding.root)
+        currentAddress = intent.getStringExtra("currentAddress")
+
+        customDetails = intent.getStringExtra("customDetails")
+        val itemsCustom = Arrays.asList(customDetails?.split(","))
+
+        if (!itemsCustom.isNullOrEmpty() && itemsCustom.size > 1) {
+            binding.tvCustomerName.text = itemsCustom[0]?.toString()
+            binding.tvDistance.text = itemsCustom[1]?.toString()
+        }
+        if (!currentAddress.isNullOrEmpty()) {
+            binding.tvAddress.text = currentAddress
+        }
 
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
-
+        destinationpointB = LatLng(
+            intent.getDoubleExtra("currentLatitude", 0.0),
+            intent.getDoubleExtra("currentLongitude", 0.0)
+        )
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         mViewModel = ViewModelProvider(this)[TSOnboardViewModel::class.java]
 
@@ -76,11 +94,11 @@ class EndTripActivity : BaseActivity(), OnMapReadyCallback {
     }
 
     private fun setClickListener() {
-        val title_name = intent.getStringExtra("title")
-        binding.tvTitle.text = title_name
+        val titleName = intent.getStringExtra("title")
+        binding.tvTitle.text = titleName
 
         binding.btnSubmit.setOnClickListener {
-            meetingScheduleDialog(title_name)
+            meetingScheduleDialog(titleName)
         }
 
 
@@ -127,12 +145,19 @@ class EndTripActivity : BaseActivity(), OnMapReadyCallback {
                         BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)
                     )
                 )
-                gmap.addMarker(MarkerOptions().position(destinationpointB).title("Destination").
-                icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_icon)))
+                gmap.addMarker(
+                    MarkerOptions().position(destinationpointB ?: startpointA).title("Destination")
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_icon))
+                )
 
 
                 //map.moveCamera(CameraUpdateFactory.newLatLngZoom(startpointA, 15f))
-                gmap.moveCamera(CameraUpdateFactory.newLatLngZoom(destinationpointB, 10f))
+                gmap.moveCamera(
+                    CameraUpdateFactory.newLatLngZoom(
+                        destinationpointB ?: startpointA,
+                        10f
+                    )
+                )
 
             }
         }
@@ -162,12 +187,13 @@ class EndTripActivity : BaseActivity(), OnMapReadyCallback {
     }
 
     fun open_mapview(view: View) {
+
         openRouteInGoogleMaps(
             context = this,  // or requireContext() if inside a Fragment
             startLat = startpointA.latitude,
             startLng = startpointA.longitude,
-            destLat = destinationpointB.latitude,
-            destLng = destinationpointB.longitude
+            destLat = destinationpointB?.latitude ?: 0.0,
+            destLng = destinationpointB?.longitude ?: 0.0,
         )
 
     }
@@ -201,9 +227,11 @@ class EndTripActivity : BaseActivity(), OnMapReadyCallback {
         //apply button
         binding.btnhappiness.setOnClickListener {
             dialog.dismiss()
-            val happinessCodeBox = HappinessCodeBox(this, getString(R.string.hapinessCodeMsg),
+            val happinessCodeBox = HappinessCodeBox(
+                this, getString(R.string.hapinessCodeMsg),
                 getString(R.string.EnterHappinessCode),
-                getString(R.string.resand_sms))
+                getString(R.string.resand_sms)
+            )
             happinessCodeBox.show()
         }
 
@@ -211,11 +239,11 @@ class EndTripActivity : BaseActivity(), OnMapReadyCallback {
         binding.btnReschedule.setOnClickListener {
             dialog.dismiss()
 
-            if (title_name.equals(getString(R.string.gp_followup), ignoreCase = true)){
+            if (title_name.equals(getString(R.string.gp_followup), ignoreCase = true)) {
                 startActivity(Intent(this, GPScheduleMeetingActivity::class.java))
-            }else if (title_name.equals(getString(R.string.ba_follow_up), ignoreCase = true)){
+            } else if (title_name.equals(getString(R.string.ba_follow_up), ignoreCase = true)) {
                 startActivity(Intent(this, BAScheduleMeetingActivity::class.java))
-            }else if (title_name.equals(getString(R.string.ts_followup), ignoreCase = true)){
+            } else if (title_name.equals(getString(R.string.ts_followup), ignoreCase = true)) {
                 startActivity(Intent(this, TSScheduledMeetingActivity::class.java))
             }
         }

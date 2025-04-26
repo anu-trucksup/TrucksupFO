@@ -1,6 +1,5 @@
 package com.trucksup.field_officer.presenter.view.adapter
 
-import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.os.Build
@@ -12,19 +11,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.DateFilterBinding
 import com.trucksup.field_officer.databinding.TsPerformItemBinding
-import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
-import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetMeetScheduleDetailsResponse
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetAllTSDetailsResponse
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 import java.util.TimeZone
 
 
-class TSPerformanceAdapter(var context: Context?, var list: ArrayList<GetMeetScheduleDetailsResponse.GetTsdetails>) :
+class TSPerformanceAdapter(var context: Context?, var list: ArrayList<GetAllTSDetailsResponse.GetTsdetails>) :
     RecyclerView.Adapter<TSPerformanceAdapter.ViewHolder>() {
     private var listener: OnItemClickListener? = null
-    private var filteredList = ArrayList<GetMeetScheduleDetailsResponse.GetTsdetails>()
+    private var filteredList = ArrayList<GetAllTSDetailsResponse.GetTsdetails>()
 
     fun setOnItemClickListener(listener: OnItemClickListener) {
         this.listener = listener
