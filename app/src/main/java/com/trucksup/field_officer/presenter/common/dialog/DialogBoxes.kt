@@ -100,14 +100,14 @@ object DialogBoxes {
         dialog.show()
     }
 
-    fun addMiscDisc(context: Context, addMiscInterface: AddMiscInterface) {
+    fun addMiscDisc(context: Context, addMiscInterface: AddMiscInterface,data: GetAllMiscLeadResponse.IncompletedLead?) {
         val dialog = BottomSheetDialog(context)
         val binding = AddMiscLayoutBinding.inflate(LayoutInflater.from(context))
         dialog.setContentView(binding.root)
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
 
-        //addMiscInterface.addMisLayout(binding,dialog,data)
-        addMiscInterface.addMisLayout(binding,dialog)
+        addMiscInterface.addMisLayout(binding,dialog,data)
+
         dialog?.show()
     }
 
