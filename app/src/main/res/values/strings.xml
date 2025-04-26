@@ -761,5 +761,8 @@
     <string name="save_as_draft">Save as draft</string>
     <string name="business_valid_name">Please input valid business name.</string>
     <string name="valid_name">Please input valid name.</string>
+    <string name="no_leads_found">No leads found!</string>
+    <string name="misc_no_data_found">There’s no lead added by you. Kindly add a new
+lead by clicking on the “Add Misc” icon.</string>
 
 </resources>

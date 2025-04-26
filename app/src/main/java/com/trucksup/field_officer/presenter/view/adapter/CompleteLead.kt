@@ -61,4 +61,14 @@ class CompleteLead(var context: Context, var list: ArrayList<GetAllMiscLeadRespo
     override fun getItemCount(): Int {
         return list.size
     }
+
+    // method for filtering our recyclerview items
+    fun filterList(filteredList:ArrayList<GetAllMiscLeadResponse.IncompletedLead>) {
+        // below line is to add our filtered
+        // list in our course array list.
+        list = filteredList
+        // below line is to notify our adapter
+        // as change in recycler view data.
+        notifyDataSetChanged()
+    }
 }
