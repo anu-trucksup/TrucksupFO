@@ -1,4 +1,4 @@
-package com.trucksup.field_officer.presenter.common.btmsheet
+package com.trucksup.field_officer.presenter.utils
 
 import android.app.Dialog
 import android.os.Bundle
@@ -8,7 +8,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointBackward
-import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.DialogDateRangeBinding
@@ -25,7 +24,7 @@ class DateRangeBottomSheet(
 
     private var startMillis: Long? = null
     private var endMillis: Long? = null
-    val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+    private val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = BottomSheetDialog(requireContext(), theme)
@@ -56,8 +55,8 @@ class DateRangeBottomSheet(
         }
 
         binding.btnClear.setOnClickListener {
-            binding.tvStartDateValue.setText("")
-            binding.tvEndDateValue.setText("")
+            binding.tvStartDateValue.text = ""
+            binding.tvEndDateValue.text = ""
         }
 
         return dialog
