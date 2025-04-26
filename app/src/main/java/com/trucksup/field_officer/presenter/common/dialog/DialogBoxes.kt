@@ -12,6 +12,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import android.widget.Toast
+import androidx.compose.runtime.key
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -83,7 +84,7 @@ object DialogBoxes {
         dashBoardViewModel: DashBoardViewModel?,
         latitude: String?,
         longitude: String?,
-        address: String?
+        address: String?,
     ) {
         val builder = AlertDialog.Builder(context)
         val binding = OnOffDutyBinding.inflate(LayoutInflater.from(context))
@@ -112,7 +113,59 @@ object DialogBoxes {
         dialog.setContentView(binding.root)
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
 
-        addMiscInterface.addMisLayout(binding, dialog)
+        var categoryType = ArrayList<String>()
+        categoryType.add("Owner")
+        categoryType.add("Business Associate")
+        val arrayAdapter = ArrayAdapter(context, R.layout.simple_text_item, categoryType)
+        binding.categorySpinner.setAdapter(arrayAdapter)
+        binding.categorySpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    val textView: TextView = view as TextView
+//                textView.setPadding(0,0,0,0)
+                    val typeface = ResourcesCompat.getFont(context, R.font.bai_jamjuree_medium)
+                    textView.setTypeface(typeface)
+                    textView.setTextColor(context.resources.getColor(R.color.text_grey))
+                    textView.setTextSize(13f)
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+            }
+
+        var list = ArrayList<Bitmap>()
+//        list.add("")
+//        list.add("")
+//        list.add("")
+//        list.add("")
+        binding.rvImage.apply {
+            layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+            this.adapter = ImageAdapter(context, list)
+            hasFixedSize()
+        }
+
+        binding.btnAddImage.setOnClickListener {
+            addMiscInterface.addImage(binding)
+        }
+
+        //submit button
+        binding.btnSubmit.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        //submit button 2
+        binding.btnSubmit2.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        //save as draft button
+        binding.btnSaveAsDraft.setOnClickListener {
+            dialog.dismiss()
+        }
 
         dialog?.show()
     }
@@ -122,6 +175,8 @@ object DialogBoxes {
         val binding = FilterLayoutBinding.inflate(LayoutInflater.from(context))
         dialog.setContentView(binding.root)
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+        var selectedKyc: String = ""
 
         if (type == "ba") {
             binding.tvSP.visibility = View.VISIBLE
@@ -136,6 +191,21 @@ object DialogBoxes {
             binding.tvED.visibility = View.GONE
             binding.linearLayout4.visibility = View.GONE
         }
+
+        //test
+        binding.kycSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View?,
+                position: Int,
+                id: Long,
+            ) {
+                selectedKyc = parent.getItemAtPosition(position).toString()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {}
+        }
+        //test
 
         //expiry date
         binding.expirySpinner.setOnClickListener {
@@ -153,6 +223,78 @@ object DialogBoxes {
         }
 
         dialog.show()
+    }
+
+    fun setFilters(context: Context, type: String, listener: OnFilterValueInputListener) {
+        val dialog = BottomSheetDialog(context)
+        val binding = FilterLayoutBinding.inflate(LayoutInflater.from(context))
+        dialog.setContentView(binding.root)
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+        var selectedKyc: String = ""
+        var selectedVisitType: String = ""
+
+        if (type == "ba") {
+            binding.tvSP.visibility = View.VISIBLE
+            binding.linearLayout2.visibility = View.VISIBLE
+
+            binding.tvED.visibility = View.VISIBLE
+            binding.linearLayout4.visibility = View.VISIBLE
+        } else {
+            binding.tvSP.visibility = View.GONE
+            binding.linearLayout2.visibility = View.GONE
+
+            binding.tvED.visibility = View.GONE
+            binding.linearLayout4.visibility = View.GONE
+        }
+
+        //add by me
+        binding.kycSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View?,
+                position: Int,
+                id: Long,
+            ) {
+                selectedKyc = parent.getItemAtPosition(position).toString()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {}
+        }
+
+        binding.visitSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View?,
+                position: Int,
+                id: Long,
+            ) {
+                selectedVisitType = parent.getItemAtPosition(position).toString()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {}
+        }
+        //add by me
+
+        //expiry date
+        binding.expirySpinner.setOnClickListener {
+            showDatePicker(context, binding.expirySpinner)
+            //dialog.dismiss()
+        }
+
+        //cancel button
+        binding.btnCancel.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        //submit button
+        binding.submitButton.setOnClickListener {
+            listener.onInput(selectedKyc, selectedVisitType)
+            dialog.dismiss()
+        }
+
+        dialog.show()
+
     }
 
     fun messageDialog(context: Context, msg: String) {
@@ -213,7 +355,7 @@ object DialogBoxes {
         dashBoardViewModel: DashBoardViewModel?,
         latitude: String?,
         longitude: String?,
-        address: String?
+        address: String?,
     ) {
         val builder = AlertDialog.Builder(context)
         val binding = AttendDialogLayoutBinding.inflate(LayoutInflater.from(context))
@@ -258,4 +400,8 @@ object DialogBoxes {
         dialog.show()
     }
 
+}
+
+interface OnFilterValueInputListener {
+    fun onInput(kycStatus: String, visitType: String)
 }

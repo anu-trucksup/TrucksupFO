@@ -1,4 +1,4 @@
-package com.trucksup.field_officer.presenter.utils
+package com.trucksup.field_officer.presenter.common.btmsheet
 
 import android.app.Dialog
 import android.os.Bundle
@@ -8,6 +8,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointBackward
+import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.DialogDateRangeBinding
@@ -24,26 +25,39 @@ class DateRangeBottomSheet(
 
     private var startMillis: Long? = null
     private var endMillis: Long? = null
-    private val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = BottomSheetDialog(requireContext(), theme)
         _binding = DialogDateRangeBinding.inflate(LayoutInflater.from(context))
         dialog.setContentView(binding.root)
 
-        binding.startConst.setOnClickListener {
-            if (binding.tvStartDateValue.text.toString().isNullOrEmpty()) {
-                dataSet()
+        val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+
+        binding.btnPickRange.setOnClickListener {
+            val constraints = CalendarConstraints.Builder()
+                .setValidator(DateValidatorPointBackward.now())
+                .build()
+
+            val picker = MaterialDatePicker.Builder.dateRangePicker()
+                .setTitleText("Select Date Range")
+                .setCalendarConstraints(constraints)
+                .setTheme(R.style.CustomMaterialCalendarTheme)
+                .build()
+
+            picker.show(parentFragmentManager, "DATE_PICKER")
+
+            picker.addOnPositiveButtonClickListener { selection ->
+                startMillis = selection.first
+                endMillis = selection.second
+
+                val startDate = formatter.format(Date(startMillis!!))
+                val endDate = formatter.format(Date(endMillis!!))
+                binding.datePreview.text = "StartDate:- $startDate → EndDate:- $endDate"
+
             }
         }
 
-        binding.endConst.setOnClickListener {
-            if (binding.tvEndDateValue.text.toString().isNullOrEmpty()) {
-                dataSet()
-            }
-        }
-
-        binding.btnApply.setOnClickListener {
+        binding.btnSubmit.setOnClickListener {
             if (startMillis != null && endMillis != null) {
                 val start = formatter.format(Date(startMillis!!))
                 val end = formatter.format(Date(endMillis!!))
@@ -54,39 +68,7 @@ class DateRangeBottomSheet(
             }
         }
 
-        binding.btnClear.setOnClickListener {
-            binding.tvStartDateValue.text = ""
-            binding.tvEndDateValue.text = ""
-        }
-
         return dialog
-    }
-
-    private fun dataSet()
-    {
-        val constraints = CalendarConstraints.Builder()
-            .setValidator(DateValidatorPointBackward.now())
-            .build()
-
-        val picker = MaterialDatePicker.Builder.dateRangePicker()
-            .setTitleText("Select Date Range")
-            .setCalendarConstraints(constraints)
-            .setTheme(R.style.CustomMaterialCalendarTheme)
-            .build()
-
-        picker.show(parentFragmentManager, "DATE_PICKER")
-
-        picker.addOnPositiveButtonClickListener { selection ->
-            startMillis = selection.first
-            endMillis = selection.second
-
-            val startDate = formatter.format(Date(startMillis!!))
-            val endDate = formatter.format(Date(endMillis!!))
-
-            binding.tvStartDateValue.text=startDate
-            binding.tvEndDateValue.text=endDate
-//                binding.datePreview.text = "StartDate:- $startDate → EndDate:- $endDate"
-        }
     }
 
     override fun onDestroyView() {

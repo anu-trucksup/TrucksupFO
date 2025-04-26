@@ -18,6 +18,7 @@ import com.trucksup.field_officer.databinding.FragmentOwnerScheduledBinding
 import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.LoadingUtils
 import com.trucksup.field_officer.presenter.common.dialog.DialogBoxes
+import com.trucksup.field_officer.presenter.common.dialog.OnFilterValueInputListener
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetAllMeetUpTSResponse
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetAllMeetupTSRequest
@@ -57,12 +58,12 @@ class TSScheduledFragment : Fragment() {
         LoadingUtils.showDialog(aContext, false)
 
 
-        setupObserver()
+        setupObserver("","")
         setOnListeners()
     }
 
     @SuppressLint("FragmentLiveDataObserve")
-    private fun setupObserver() {
+    private fun setupObserver(visitType:String, kycType:String) {
         val request = GetAllMeetupTSRequest(
             requestId = PreferenceManager.getRequestNo().toInt(),
             requestedBy = PreferenceManager.getPhoneNo(aContext as Activity),
@@ -160,6 +161,13 @@ class TSScheduledFragment : Fragment() {
 
         //filter
         binding.imgFilter.setOnClickListener {
+            DialogBoxes.setFilters(aContext as Activity, "owner", object :
+                OnFilterValueInputListener {
+                override fun onInput(kycStatus: String, visitType: String) {
+                    setupObserver(visitType, kycStatus)
+                    //Toast.makeText(aContext as Activity, "KycStatus: $kycStatus, VisitType: $visitType", Toast.LENGTH_SHORT).show()
+                }
+            })
             DialogBoxes.setFilter(aContext!!, "owner")
         }
     }

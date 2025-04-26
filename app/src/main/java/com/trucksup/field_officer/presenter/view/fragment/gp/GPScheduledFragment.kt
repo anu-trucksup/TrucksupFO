@@ -8,23 +8,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.trucksup.field_officer.databinding.DateFilterBinding
 import com.trucksup.field_officer.databinding.FragmentOwnerScheduledBinding
 import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.LoadingUtils
-import com.trucksup.field_officer.presenter.view.adapter.TSScheduleFollowupAdapter
 import com.trucksup.field_officer.presenter.common.dialog.DialogBoxes
+import com.trucksup.field_officer.presenter.common.dialog.OnFilterValueInputListener
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
 import com.trucksup.field_officer.presenter.view.activity.growthPartner.vml.GPFollowUpViewModel
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetAllMeetUpTSResponse
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetAllMeetupTSRequest
-import com.trucksup.field_officer.presenter.view.activity.truckSupplier.vml.TSFollowUpViewModel
 import com.trucksup.field_officer.presenter.view.adapter.GPScheduleFollowupAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -58,12 +57,12 @@ class GPScheduledFragment : Fragment() {
         mViewModel = ViewModelProvider(this)[GPFollowUpViewModel::class.java]
         LoadingUtils.showDialog(aContext, false)
 
-        setupObserver()
+        setupObserver("","")
         setOnListeners()
     }
 
     @SuppressLint("FragmentLiveDataObserve")
-    private fun setupObserver() {
+    private fun setupObserver(visitType: String, kycType: String) {
         val request = GetAllMeetupTSRequest(
             requestId = PreferenceManager.getRequestNo().toInt(),
             requestedBy = PreferenceManager.getPhoneNo(aContext as Activity),
@@ -72,8 +71,8 @@ class GPScheduledFragment : Fragment() {
             type = "Scheduled",
             startDate = "",
             endDate = "",
-            visitType = "",
-            kycType = ""
+            visitType = visitType,
+            kycType = kycType
         )
         mViewModel?.getAllMeetupGP(PreferenceManager.getAuthToken(), request)
 
@@ -91,6 +90,7 @@ class GPScheduledFragment : Fragment() {
                 abx.show()
             } else {
                 if (responseModel.success?.statuscode == 200) {
+                    getAllGPMeetsList.clear()
                     getAllMeetupGPResponse(responseModel.success)
                     LoadingUtils.hideDialog()
                     // setItemList(responseModel.success)
@@ -161,7 +161,14 @@ class GPScheduledFragment : Fragment() {
 
         //filter
         binding.imgFilter.setOnClickListener {
-            DialogBoxes.setFilter(aContext!!, "owner")
+            DialogBoxes.setFilters(aContext as Activity, "owner", object :
+                OnFilterValueInputListener {
+                override fun onInput(kycStatus: String, visitType: String) {
+                    setupObserver(visitType, kycStatus)
+                    //Toast.makeText(aContext as Activity, "KycStatus: $kycStatus, VisitType: $visitType", Toast.LENGTH_SHORT).show()
+                }
+            })
+            //DialogBoxes.setFilter(aContext!!, "owner", object : OnUserInputListener)
         }
     }
 
