@@ -12,7 +12,6 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import android.widget.Toast
-import androidx.compose.runtime.key
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -29,6 +28,7 @@ import com.trucksup.field_officer.databinding.OnOffDutyBinding
 import com.trucksup.field_officer.presenter.common.LoadingUtils
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
 import com.trucksup.field_officer.presenter.view.activity.dashboard.vml.DashBoardViewModel
+import com.trucksup.field_officer.presenter.view.activity.miscellaneous.model.GetAllMiscLeadResponse
 import com.trucksup.field_officer.presenter.view.adapter.ImageAdapter
 import com.trucksup.field_officer.presenter.view.interfaces.AddLeadInterface
 import com.trucksup.field_officer.presenter.view.interfaces.AddMiscInterface
@@ -78,14 +78,7 @@ object DialogBoxes {
         dialog.show()
     }
 
-    fun onOffDuty(
-        context: Context,
-        dutyStatus: Boolean,
-        dashBoardViewModel: DashBoardViewModel?,
-        latitude: String?,
-        longitude: String?,
-        address: String?,
-    ) {
+    fun onOffDuty(context: Context, dutyStatus:Boolean, dashBoardViewModel: DashBoardViewModel?, latitude:String?, longitude:String?, address:String?) {
         val builder = AlertDialog.Builder(context)
         val binding = OnOffDutyBinding.inflate(LayoutInflater.from(context))
         builder.setView(binding.root)
@@ -95,7 +88,7 @@ object DialogBoxes {
 
         //activate button
         binding.btnActivate.setOnClickListener {
-            attendanceDialog(context, dutyStatus, dashBoardViewModel, latitude, longitude, address)
+            attendanceDialog(context,dutyStatus,dashBoardViewModel,latitude,longitude,address)
             dialog.dismiss()
         }
 
@@ -113,60 +106,8 @@ object DialogBoxes {
         dialog.setContentView(binding.root)
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
 
-        var categoryType = ArrayList<String>()
-        categoryType.add("Owner")
-        categoryType.add("Business Associate")
-        val arrayAdapter = ArrayAdapter(context, R.layout.simple_text_item, categoryType)
-        binding.categorySpinner.setAdapter(arrayAdapter)
-        binding.categorySpinner.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long,
-                ) {
-                    val textView: TextView = view as TextView
-//                textView.setPadding(0,0,0,0)
-                    val typeface = ResourcesCompat.getFont(context, R.font.bai_jamjuree_medium)
-                    textView.setTypeface(typeface)
-                    textView.setTextColor(context.resources.getColor(R.color.text_grey))
-                    textView.setTextSize(13f)
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {}
-            }
-
-        var list = ArrayList<Bitmap>()
-//        list.add("")
-//        list.add("")
-//        list.add("")
-//        list.add("")
-        binding.rvImage.apply {
-            layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-            this.adapter = ImageAdapter(context, list)
-            hasFixedSize()
-        }
-
-        binding.btnAddImage.setOnClickListener {
-            addMiscInterface.addImage(binding)
-        }
-
-        //submit button
-        binding.btnSubmit.setOnClickListener {
-            dialog.dismiss()
-        }
-
-        //submit button 2
-        binding.btnSubmit2.setOnClickListener {
-            dialog.dismiss()
-        }
-
-        //save as draft button
-        binding.btnSaveAsDraft.setOnClickListener {
-            dialog.dismiss()
-        }
-
+        //addMiscInterface.addMisLayout(binding,dialog,data)
+        addMiscInterface.addMisLayout(binding,dialog)
         dialog?.show()
     }
 
@@ -175,8 +116,6 @@ object DialogBoxes {
         val binding = FilterLayoutBinding.inflate(LayoutInflater.from(context))
         dialog.setContentView(binding.root)
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
-
-        var selectedKyc: String = ""
 
         if (type == "ba") {
             binding.tvSP.visibility = View.VISIBLE
@@ -191,21 +130,6 @@ object DialogBoxes {
             binding.tvED.visibility = View.GONE
             binding.linearLayout4.visibility = View.GONE
         }
-
-        //test
-        binding.kycSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>,
-                view: View?,
-                position: Int,
-                id: Long,
-            ) {
-                selectedKyc = parent.getItemAtPosition(position).toString()
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>) {}
-        }
-        //test
 
         //expiry date
         binding.expirySpinner.setOnClickListener {
@@ -249,31 +173,33 @@ object DialogBoxes {
         }
 
         //add by me
-        binding.kycSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>,
-                view: View?,
-                position: Int,
-                id: Long,
-            ) {
-                selectedKyc = parent.getItemAtPosition(position).toString()
+        binding.kycSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    selectedKyc = parent.getItemAtPosition(position).toString()
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>) {}
             }
 
-            override fun onNothingSelected(parent: AdapterView<*>) {}
-        }
+        binding.visitSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    selectedVisitType = parent.getItemAtPosition(position).toString()
+                }
 
-        binding.visitSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>,
-                view: View?,
-                position: Int,
-                id: Long,
-            ) {
-                selectedVisitType = parent.getItemAtPosition(position).toString()
+                override fun onNothingSelected(parent: AdapterView<*>) {}
             }
-
-            override fun onNothingSelected(parent: AdapterView<*>) {}
-        }
         //add by me
 
         //expiry date
@@ -349,14 +275,7 @@ object DialogBoxes {
         datePickerDialog.show()
     }
 
-    private fun attendanceDialog(
-        context: Context,
-        dutyStatus: Boolean,
-        dashBoardViewModel: DashBoardViewModel?,
-        latitude: String?,
-        longitude: String?,
-        address: String?,
-    ) {
+    private fun attendanceDialog(context: Context, dutyStatus: Boolean, dashBoardViewModel: DashBoardViewModel?, latitude:String?, longitude:String?, address:String?) {
         val builder = AlertDialog.Builder(context)
         val binding = AttendDialogLayoutBinding.inflate(LayoutInflater.from(context))
         builder.setView(binding.root)
@@ -368,25 +287,25 @@ object DialogBoxes {
         val getCurrentTime = SimpleDateFormat("hh:mm a")
         val currentDate = getCurrentDate.format(calendar.time)
         val currentTime = getCurrentTime.format(Date()).toString()
-        val formattedTime = currentTime.replace("am", "AM").replace("pm", "PM");
+        val formattedTime = currentTime.replace("am", "AM").replace("pm","PM");
 
-        binding.tvDate.setText("Date: " + currentDate)
-        binding.tvTime.setText("Time: " + formattedTime)
+        binding.tvDate.setText("Date: "+currentDate)
+        binding.tvTime.setText("Time: "+formattedTime)
 
         //ok button
         binding.confirm.setOnClickListener {
-            LoadingUtils.showDialog(context, false)
+            LoadingUtils.showDialog(context,false)
 
             val request = DutyStatusRequest(
                 PreferenceManager.getUserData(context)?.boUserid?.toInt() ?: 0,
                 PreferenceManager.getUserData(context)?.boUserid?.toInt() ?: 0,
                 dutyStatus,
-                latitude ?: "",
-                address ?: "",
-                longitude ?: "",
-                "" + PreferenceManager.getServerDateUtc(),
+                latitude?:"",
+                address?:"",
+                longitude?:"",
+                ""+PreferenceManager.getServerDateUtc(),
                 PreferenceManager.getRequestNo().toInt(),
-                "" + PreferenceManager.getPhoneNo(context)
+                ""+PreferenceManager.getPhoneNo(context)
             )
             dashBoardViewModel?.dutyStatus(request)
             dialog.dismiss()
