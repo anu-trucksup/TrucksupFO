@@ -21,9 +21,10 @@ import com.trucksup.field_officer.presenter.view.activity.businessAssociate.vml.
 import com.trucksup.field_officer.presenter.view.activity.todayFollowup.model.FollowUpRequest
 import com.trucksup.field_officer.presenter.view.activity.todayFollowup.model.FollowUpResponse
 import com.trucksup.field_officer.presenter.view.adapter.InActiveBAAdapter
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.Calendar
 
-
+@AndroidEntryPoint
 class InActiveBAFragment : Fragment() {
     private var aContext: Context? = null
     private lateinit var binding: FragmentInactiveBaBinding
