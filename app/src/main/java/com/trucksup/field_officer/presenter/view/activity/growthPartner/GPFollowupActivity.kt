@@ -3,16 +3,10 @@ package com.trucksup.field_officer.presenter.view.activity.growthPartner
 import android.os.Bundle
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.GpFollowupActivityBinding
-import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
-import com.trucksup.field_officer.presenter.utils.PreferenceManager
-import com.trucksup.field_officer.presenter.view.activity.businessAssociate.vml.BAFollowUpViewModel
-import com.trucksup.field_officer.presenter.view.activity.growthPartner.vml.GPFollowUpViewModel
-import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetAllMeetupTSRequest
 import com.trucksup.field_officer.presenter.view.fragment.gp.GPCompletedFragment
 import com.trucksup.field_officer.presenter.view.fragment.gp.GPScheduledFragment
 import com.trucksup.field_officer.presenter.view.adapter.FragmentAdapter

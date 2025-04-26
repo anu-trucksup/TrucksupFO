@@ -50,7 +50,7 @@ class BACompletedFragment() : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         binding = FragmentOwnerCompletedBinding.inflate(inflater, container, false)
         return binding.root
@@ -86,7 +86,11 @@ class BACompletedFragment() : Fragment() {
             requestedBy = PreferenceManager.getPhoneNo(aContext as Activity),
             requestDatetime = PreferenceManager.getServerDateUtc(),
             boID = PreferenceManager.getUserData(aContext as Activity)?.boUserid?.toInt() ?: 0,
-            type = "Completed"
+            type = "Completed",
+            startDate = "",
+            endDate = "",
+            visitType = "",
+            kycType = ""
         )
         mViewModel?.getAllMeetupBA(PreferenceManager.getAuthToken(), request)
 
@@ -120,8 +124,9 @@ class BACompletedFragment() : Fragment() {
     }
 
     private fun getAllMeetupBAResponse(getAllMeetupBAResponse: GetAllMeetupBAResponse) {
-        if(!getAllMeetupBAResponse.boVisitDetails.isNullOrEmpty()
-            && getAllMeetupBAResponse.boVisitDetails.size > 0){
+        if (!getAllMeetupBAResponse.boVisitDetails.isNullOrEmpty()
+            && getAllMeetupBAResponse.boVisitDetails.size > 0
+        ) {
             getAllMeetupBAResponse.boVisitDetails.forEachIndexed { _, getTSDetailsData ->
                 run {
                     binding.rv.visibility = View.VISIBLE
@@ -130,7 +135,7 @@ class BACompletedFragment() : Fragment() {
                     getAllBAMeetsList.add(getTSDetailsData)
                 }
             }
-        }else{
+        } else {
             binding.rv.visibility = View.GONE
             binding.l1.visibility = View.GONE
             binding.noData.visibility = View.VISIBLE

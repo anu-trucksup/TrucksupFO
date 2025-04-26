@@ -22,8 +22,9 @@ import com.trucksup.field_officer.presenter.view.activity.todayFollowup.model.Fo
 import com.trucksup.field_officer.presenter.view.activity.todayFollowup.model.FollowUpResponse
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.unassigned_ts_ba.adapter.UnAssignedTSAdapter
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.unassigned_ts_ba.vml.UnAssignedViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class UnAssignedTSFragment : Fragment() {
     private var aContext: Context? = null
     private lateinit var binding: FragmentUnassignedTsBinding

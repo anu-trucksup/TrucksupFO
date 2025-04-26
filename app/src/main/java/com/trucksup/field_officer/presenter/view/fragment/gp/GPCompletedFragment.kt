@@ -14,19 +14,16 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.trucksup.field_officer.databinding.DateFilterBinding
 import com.trucksup.field_officer.databinding.FragmentOwnerCompletedBinding
 import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.LoadingUtils
 import com.trucksup.field_officer.presenter.common.btmsheet.DateRangeBottomSheet
-import com.trucksup.field_officer.presenter.view.adapter.TSCompletedAdapter
 import com.trucksup.field_officer.presenter.common.dialog.DialogBoxes
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
 import com.trucksup.field_officer.presenter.view.activity.growthPartner.vml.GPFollowUpViewModel
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetAllMeetUpTSResponse
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetAllMeetupTSRequest
-import com.trucksup.field_officer.presenter.view.activity.truckSupplier.vml.TSFollowUpViewModel
 import com.trucksup.field_officer.presenter.view.adapter.GPCompletedAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -117,16 +114,16 @@ class GPCompletedFragment : Fragment() {
         ) {
             getAllMeetupTSResponse.boVisitDetails.forEachIndexed { _, getTSDetailsData ->
                 run {
-                    binding.rv.visibility = View.VISIBLE
+                   /* binding.rv.visibility = View.VISIBLE
                     binding.l1.visibility = View.VISIBLE
                     binding.noData.visibility = View.GONE
-                    getAllGPMeetsList.add(getTSDetailsData)
+                    getAllGPMeetsList.add(getTSDetailsData)*/
                 }
             }
         } else {
-            binding.rv.visibility = View.GONE
+           /* binding.rv.visibility = View.GONE
             binding.l1.visibility = View.GONE
-            binding.noData.visibility = View.VISIBLE
+            binding.noData.visibility = View.VISIBLE*/
         }
         binding.rv.layoutManager = LinearLayoutManager(aContext)
         val adapter = GPCompletedAdapter(aContext as Activity, getAllGPMeetsList)
