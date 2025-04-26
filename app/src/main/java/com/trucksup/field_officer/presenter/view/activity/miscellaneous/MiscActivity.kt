@@ -73,13 +73,13 @@ class MiscActivity : BaseActivity(), AddMiscInterface, TrucksFOImageController {
 
     private lateinit var binding: MiscActivityBinding
     private var mViewModel: MiscellaneousViewModel? = null
-    private var addMiscLayoutBinding: AddMiscLayoutBinding?=null
+    private var addMiscLayoutBinding: AddMiscLayoutBinding? = null
     private var imageList = ArrayList<TrucksImageXML>()
-    private var bottomDialog: BottomSheetDialog?=null
-    private var completeLeadsList=ArrayList<GetAllMiscLeadResponse.IncompletedLead>()
-    private var inCompleteLeadsList=ArrayList<GetAllMiscLeadResponse.IncompletedLead>()
-    private var completeAdap:CompleteLead?=null
-    private var inCompleteAdap:IncompleteLead?=null
+    private var bottomDialog: BottomSheetDialog? = null
+    private var completeLeadsList = ArrayList<GetAllMiscLeadResponse.IncompletedLead>()
+    private var inCompleteLeadsList = ArrayList<GetAllMiscLeadResponse.IncompletedLead>()
+    private var completeAdap: CompleteLead? = null
+    private var inCompleteAdap: IncompleteLead? = null
 
     private var launcher: ActivityResultLauncher<Intent>? = null
 
@@ -94,14 +94,20 @@ class MiscActivity : BaseActivity(), AddMiscInterface, TrucksFOImageController {
         setListener()
         cameraLauncher()
 
-        getMiscLeads("","")
+        getMiscLeads("", "")
     }
 
-    private fun getMiscLeads(startDate:String,endDate:String)
-    {
+    private fun getMiscLeads(startDate: String, endDate: String) {
         showProgressDialog(this, false)
-        var request=GetMiscLeadRequest(PreferenceManager.getUserData(this@MiscActivity)?.boUserid?.toInt()?:0,PreferenceManager.getServerDateUtc(),PreferenceManager.getRequestNo().toInt(),PreferenceManager.getPhoneNo(this@MiscActivity),startDate,endDate)
-        mViewModel?.getAllMiscellaneous(PreferenceManager.getAuthToken(),request)
+        var request = GetMiscLeadRequest(
+            PreferenceManager.getUserData(this@MiscActivity)?.boUserid?.toInt() ?: 0,
+            PreferenceManager.getServerDateUtc(),
+            PreferenceManager.getRequestNo().toInt(),
+            PreferenceManager.getPhoneNo(this@MiscActivity),
+            startDate,
+            endDate
+        )
+        mViewModel?.getAllMiscellaneous(PreferenceManager.getAuthToken(), request)
     }
 
     private fun setListener() {
@@ -144,7 +150,7 @@ class MiscActivity : BaseActivity(), AddMiscInterface, TrucksFOImageController {
         //date picker
         binding.imgCalender.setOnClickListener {
             val bottomSheet = DateRangeBottomSheet { start, end ->
-                getMiscLeads(start,end)
+                getMiscLeads(start, end)
 //                Toast.makeText(this, "Selected: $start → $end", Toast.LENGTH_SHORT).show()
             }
             bottomSheet.show(supportFragmentManager, "DATE_BOTTOM_SHEET")
@@ -153,9 +159,9 @@ class MiscActivity : BaseActivity(), AddMiscInterface, TrucksFOImageController {
 
         binding.btnAddMisc.setOnClickListener {
             bottomDialog?.dismiss()
-            bottomDialog=null
+            bottomDialog = null
             if (NetworkManager.isConnect(this)) {
-                DialogBoxes.addMiscDisc(this, this)
+                DialogBoxes.addMiscDisc(this, this, null)
             } else {
                 DialogBoxes.messageDialog(
                     this,
@@ -165,22 +171,37 @@ class MiscActivity : BaseActivity(), AddMiscInterface, TrucksFOImageController {
         }
     }
 
-    private fun setIncompleteLead(list:ArrayList<GetAllMiscLeadResponse.IncompletedLead>) {
-        inCompleteAdap=null
-        inCompleteAdap = IncompleteLead(this@MiscActivity, list)
+    private fun setIncompleteLead(list: ArrayList<GetAllMiscLeadResponse.IncompletedLead>) {
+        inCompleteAdap = null
+        inCompleteAdap = IncompleteLead(this@MiscActivity, list).apply {
+            setOnControllerListeners(object : IncompleteLead.OnControllerListeners {
+                override fun incompleteAddImage(data: GetAllMiscLeadResponse.IncompletedLead) {
+                    bottomDialog?.dismiss()
+                    bottomDialog = null
+                    if (NetworkManager.isConnect(this@MiscActivity)) {
+                        DialogBoxes.addMiscDisc(this@MiscActivity, this@MiscActivity, data)
+                    } else {
+                        DialogBoxes.messageDialog(
+                            this@MiscActivity,
+                            "You are offline. Please check your internet connection"
+                        )
+                    }
+                }
+            })
+        }
         binding.rvd1.apply {
             layoutManager = LinearLayoutManager(this@MiscActivity, RecyclerView.VERTICAL, false)
-            adapter=inCompleteAdap
+            adapter = inCompleteAdap
             hasFixedSize()
         }
     }
 
-    private fun setCompleteLead(list:ArrayList<GetAllMiscLeadResponse.IncompletedLead>) {
-        completeAdap=null
+    private fun setCompleteLead(list: ArrayList<GetAllMiscLeadResponse.IncompletedLead>) {
+        completeAdap = null
         completeAdap = CompleteLead(this@MiscActivity, list)
         binding.rvd2.apply {
             layoutManager = LinearLayoutManager(this@MiscActivity, RecyclerView.VERTICAL, false)
-            adapter=completeAdap
+            adapter = completeAdap
             hasFixedSize()
         }
     }
@@ -208,7 +229,7 @@ class MiscActivity : BaseActivity(), AddMiscInterface, TrucksFOImageController {
         mViewModel?.addMiscellaneousResultLD?.observe(this@MiscActivity) { responseModel ->
             if (responseModel.serverError != null) {
                 bottomDialog?.dismiss()
-                bottomDialog=null
+                bottomDialog = null
                 dismissProgressDialog()
 
                 val abx = AlertBoxDialog(
@@ -219,7 +240,7 @@ class MiscActivity : BaseActivity(), AddMiscInterface, TrucksFOImageController {
                 abx.show()
             } else {
                 bottomDialog?.dismiss()
-                bottomDialog=null
+                bottomDialog = null
                 dismissProgressDialog()
 
                 if (responseModel.success?.statuscode == 200) {
@@ -229,7 +250,7 @@ class MiscActivity : BaseActivity(), AddMiscInterface, TrucksFOImageController {
 //                    )
 //                    abx.show()
 
-                    getMiscLeads("","")
+                    getMiscLeads("", "")
 
 
                 } else {
@@ -261,38 +282,44 @@ class MiscActivity : BaseActivity(), AddMiscInterface, TrucksFOImageController {
                 if (responseModel.success?.statuscode == 200) {
                     completeLeadsList.clear()
                     inCompleteLeadsList.clear()
-                    completeLeadsList=responseModel.success.completedLeads
-                    inCompleteLeadsList=responseModel.success.incompletedLeads
-                    if (completeLeadsList.isNullOrEmpty() && inCompleteLeadsList.isNullOrEmpty())
-                    {
-                        binding.dataLayout.visibility=View.GONE
-                        binding.noDataLayout.visibility=View.VISIBLE
-                    }
-                    else {
-                        binding.noDataLayout.visibility=View.GONE
-                        binding.dataLayout.visibility=View.VISIBLE
+                    completeLeadsList = responseModel.success.completedLeads
+                    inCompleteLeadsList = responseModel.success.incompletedLeads
+                    if (completeLeadsList.isNullOrEmpty() && inCompleteLeadsList.isNullOrEmpty()) {
+                        binding.dataLayout.visibility = View.GONE
+                        binding.noDataLayout.visibility = View.VISIBLE
+                    } else {
+                        binding.noDataLayout.visibility = View.GONE
+                        binding.dataLayout.visibility = View.VISIBLE
                         if (!inCompleteLeadsList.isNullOrEmpty()) {
                             setIncompleteLead(inCompleteLeadsList)
                         }
-                        if (!completeLeadsList.isNullOrEmpty())
-                        {
+                        if (!completeLeadsList.isNullOrEmpty()) {
                             setCompleteLead(completeLeadsList)
                         }
 
                         binding.etSearch.addTextChangedListener(object : TextWatcher {
-                            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                            override fun beforeTextChanged(
+                                p0: CharSequence?,
+                                p1: Int,
+                                p2: Int,
+                                p3: Int
+                            ) {
                             }
 
-                            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                                if (p0.isNullOrEmpty())
-                                {
-                                    if (completeAdap!=null) {
+                            override fun onTextChanged(
+                                p0: CharSequence?,
+                                p1: Int,
+                                p2: Int,
+                                p3: Int
+                            ) {
+                                if (p0.isNullOrEmpty()) {
+                                    if (completeAdap != null) {
                                         completeAdap!!.filterList(completeLeadsList)
                                         binding.noDataLayout.visibility = View.GONE
                                         binding.dataLayout.visibility = View.VISIBLE
                                     }
 
-                                    if (inCompleteAdap!=null) {
+                                    if (inCompleteAdap != null) {
                                         inCompleteAdap!!.filterList(inCompleteLeadsList)
                                         binding.noDataLayout.visibility = View.GONE
                                         binding.dataLayout.visibility = View.VISIBLE
@@ -322,10 +349,10 @@ class MiscActivity : BaseActivity(), AddMiscInterface, TrucksFOImageController {
                 dismissProgressDialog()
 
                 val abx = AlertBoxDialog(
-                        this@MiscActivity,
-                        responseModel.serverError.toString(),
-                        "m"
-                    )
+                    this@MiscActivity,
+                    responseModel.serverError.toString(),
+                    "m"
+                )
                 abx.show()
             } else {
                 dismissProgressDialog()
@@ -402,9 +429,13 @@ class MiscActivity : BaseActivity(), AddMiscInterface, TrucksFOImageController {
         launcher!!.launch(intent)
     }
 
-    override fun addMisLayout(v: AddMiscLayoutBinding,dialog: BottomSheetDialog) {
-        bottomDialog=dialog
-        addMiscLayoutBinding=null
+    override fun addMisLayout(
+        v: AddMiscLayoutBinding,
+        dialog: BottomSheetDialog,
+        data: GetAllMiscLeadResponse.IncompletedLead?
+    ) {
+        bottomDialog = dialog
+        addMiscLayoutBinding = null
         imageList.clear()
         addMiscLayoutBinding = v
 
@@ -413,50 +444,46 @@ class MiscActivity : BaseActivity(), AddMiscInterface, TrucksFOImageController {
         categoryType.add("Business Associate")
         val arrayAdapter = ArrayAdapter(this, R.layout.simple_text_item, categoryType)
         addMiscLayoutBinding?.categorySpinner?.setAdapter(arrayAdapter)
-        addMiscLayoutBinding?.categorySpinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long,
-            ) {
-                val textView: TextView = view as TextView
+        addMiscLayoutBinding?.categorySpinner?.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    val textView: TextView = view as TextView
 //                  textView.setPadding(0,0,0,0)
-                val typeface = getFont(this@MiscActivity, R.font.bai_jamjuree_medium)
-                textView.setTypeface(typeface)
-                textView.setTextColor(getColor(R.color.text_grey))
-                textView.setTextSize(13f)
+                    val typeface = getFont(this@MiscActivity, R.font.bai_jamjuree_medium)
+                    textView.setTypeface(typeface)
+                    textView.setTextColor(getColor(R.color.text_grey))
+                    textView.setTextSize(13f)
 
-                if (addMiscLayoutBinding?.categorySpinner?.selectedItem.toString().lowercase()=="truck supplier")
-                {
-                    addMiscLayoutBinding?.etTruckNo?.text?.clear()
-                    addMiscLayoutBinding?.etBusinessName?.text?.clear()
-                    addMiscLayoutBinding?.businessNameLay?.visibility=View.GONE
-                    addMiscLayoutBinding?.truckNoLay?.visibility=View.VISIBLE
-                    addMiscLayoutBinding?.tvUploadImage?.text=getString(R.string.upload_truck_image)
-                }
-                else if (addMiscLayoutBinding?.categorySpinner?.selectedItem.toString().lowercase()=="business associate")
-                {
-                    addMiscLayoutBinding?.etTruckNo?.text?.clear()
-                    addMiscLayoutBinding?.etBusinessName?.text?.clear()
-                    addMiscLayoutBinding?.truckNoLay?.visibility=View.GONE
-                    addMiscLayoutBinding?.businessNameLay?.visibility=View.VISIBLE
-                    addMiscLayoutBinding?.tvUploadImage?.text=getString(R.string.upload_image)
+                    if (addMiscLayoutBinding?.categorySpinner?.selectedItem.toString()
+                            .lowercase() == "truck supplier"
+                    ) {
+//                    addMiscLayoutBinding?.etTruckNo?.text?.clear()
+                        addMiscLayoutBinding?.etBusinessName?.text?.clear()
+                        addMiscLayoutBinding?.businessNameLay?.visibility = View.GONE
+                        addMiscLayoutBinding?.truckNoLay?.visibility = View.VISIBLE
+                        addMiscLayoutBinding?.tvUploadImage?.text =
+                            getString(R.string.upload_truck_image)
+                    } else if (addMiscLayoutBinding?.categorySpinner?.selectedItem.toString()
+                            .lowercase() == "business associate"
+                    ) {
+                        addMiscLayoutBinding?.etTruckNo?.text?.clear()
+//                    addMiscLayoutBinding?.etBusinessName?.text?.clear()
+                        addMiscLayoutBinding?.truckNoLay?.visibility = View.GONE
+                        addMiscLayoutBinding?.businessNameLay?.visibility = View.VISIBLE
+                        addMiscLayoutBinding?.tvUploadImage?.text = getString(R.string.upload_image)
+                    }
+
+                    visibilityHandle()
+                    addMiscLayoutBinding?.errorMsgLay?.visibility = View.GONE
                 }
 
-                visibilityHandle()
-                addMiscLayoutBinding?.errorMsgLay?.visibility=View.GONE
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
             }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-        }
-
-        var list = ArrayList<TrucksImageXML>()
-        addMiscLayoutBinding?.rvImage?.apply {
-            layoutManager = LinearLayoutManager(this@MiscActivity, RecyclerView.HORIZONTAL, false)
-            this.adapter = ImageAdapter(context, list)
-            hasFixedSize()
-        }
 
         //business name
         addMiscLayoutBinding?.etBusinessName?.addTextChangedListener(object : TextWatcher {
@@ -468,7 +495,7 @@ class MiscActivity : BaseActivity(), AddMiscInterface, TrucksFOImageController {
 
             override fun afterTextChanged(editable: Editable) {
                 visibilityHandle()
-                addMiscLayoutBinding?.errorMsgLay?.visibility=View.GONE
+                addMiscLayoutBinding?.errorMsgLay?.visibility = View.GONE
             }
         })
 
@@ -482,7 +509,7 @@ class MiscActivity : BaseActivity(), AddMiscInterface, TrucksFOImageController {
 
             override fun afterTextChanged(editable: Editable) {
                 visibilityHandle()
-                addMiscLayoutBinding?.errorMsgLay?.visibility=View.GONE
+                addMiscLayoutBinding?.errorMsgLay?.visibility = View.GONE
             }
         })
 
@@ -496,7 +523,7 @@ class MiscActivity : BaseActivity(), AddMiscInterface, TrucksFOImageController {
 
             override fun afterTextChanged(editable: Editable) {
                 visibilityHandle()
-                addMiscLayoutBinding?.errorMsgLay?.visibility=View.GONE
+                addMiscLayoutBinding?.errorMsgLay?.visibility = View.GONE
             }
         })
 
@@ -510,20 +537,26 @@ class MiscActivity : BaseActivity(), AddMiscInterface, TrucksFOImageController {
 
             override fun afterTextChanged(editable: Editable) {
                 visibilityHandle()
-                addMiscLayoutBinding?.errorMsgLay?.visibility=View.GONE
+                addMiscLayoutBinding?.errorMsgLay?.visibility = View.GONE
             }
         })
 
         //add image
         addMiscLayoutBinding?.btnAddImage?.setOnClickListener {
-            addMiscLayoutBinding?.errorMsgLay?.visibility=View.GONE
+            addMiscLayoutBinding?.errorMsgLay?.visibility = View.GONE
             visibilityHandle()
             launchCamera()
         }
 
         //submit button
         addMiscLayoutBinding?.btnSubmit?.setOnClickListener {
-            checkValidation()
+            if (data!=null) {
+                checkValidation("Update")
+            }
+            else
+            {
+                checkValidation("Add")
+            }
 //            dialog.dismiss()
         }
 
@@ -534,14 +567,72 @@ class MiscActivity : BaseActivity(), AddMiscInterface, TrucksFOImageController {
 
         //save as draft button
         addMiscLayoutBinding?.btnSaveAsDraft?.setOnClickListener {
-            checkValidation()
+            if (data!=null) {
+                checkValidation("Update")
+            }
+            else
+            {
+                checkValidation("Add")
+            }
 //            dialog.dismiss()
         }
 
         //close error msg
         addMiscLayoutBinding?.btnErrorOk?.setOnClickListener {
-            addMiscLayoutBinding?.errorMsgLay?.visibility=View.GONE
+            addMiscLayoutBinding?.errorMsgLay?.visibility = View.GONE
         }
+
+        //auto fill
+        if (data != null) {
+            if (data.category.lowercase() == "truck supplier") {
+                addMiscLayoutBinding?.categorySpinner?.setSelection(0)
+                addMiscLayoutBinding?.etTruckNo?.setText(data.truckNumber ?: "")
+            } else if (data.category.lowercase() == "business associate") {
+                addMiscLayoutBinding?.categorySpinner?.setSelection(1)
+                addMiscLayoutBinding?.etBusinessName?.setText(data.businessName ?: "")
+            }
+
+            addMiscLayoutBinding?.etMobileNumber?.setText(data.mobileNo ?: "")
+            addMiscLayoutBinding?.etName?.setText(data.name ?: "")
+
+            //truck images
+            if (data.truckImageList.isNullOrEmpty()) {
+                addMiscLayoutBinding?.rvImage?.visibility = View.GONE
+                addMiscLayoutBinding?.placeHolderImages?.visibility = View.VISIBLE
+//                var list = ArrayList<TrucksImageXML>()
+//                addMiscLayoutBinding?.rvImage?.apply {
+//                    layoutManager = LinearLayoutManager(this@MiscActivity, RecyclerView.HORIZONTAL, false)
+//                    this.adapter = ImageAdapter(context, list)
+//                    hasFixedSize()
+//                }
+            } else {
+                data.truckImageList.forEachIndexed { _, item ->
+                    run {
+                        imageList.add(TrucksImageXML(item.key, item.imageKey))
+                    }
+                }
+
+                if (imageList.isNullOrEmpty()) {
+                    addMiscLayoutBinding?.rvImage?.visibility = View.GONE
+                    addMiscLayoutBinding?.placeHolderImages?.visibility = View.VISIBLE
+                } else {
+                    addMiscLayoutBinding?.rvImage?.visibility = View.VISIBLE
+                    addMiscLayoutBinding?.placeHolderImages?.visibility = View.GONE
+
+                    addMiscLayoutBinding?.rvImage?.apply {
+                        layoutManager =
+                            LinearLayoutManager(this@MiscActivity, RecyclerView.HORIZONTAL, false)
+                        adapter = ImageAdapter(this@MiscActivity, imageList)
+                        hasFixedSize()
+                    }
+                }
+
+                visibilityHandle()
+
+            }
+        }
+
+
     }
 
 //    /*val startForResult =
@@ -617,7 +708,7 @@ class MiscActivity : BaseActivity(), AddMiscInterface, TrucksFOImageController {
 
     override fun getImage(valuekey: String, url: String) {
         dismissProgressDialog()
-        imageList.add(TrucksImageXML(valuekey,url))
+        imageList.add(TrucksImageXML(valuekey, url))
         if (imageList.isNullOrEmpty()) {
             addMiscLayoutBinding?.rvImage?.visibility = View.GONE
             addMiscLayoutBinding?.placeHolderImages?.visibility = View.VISIBLE
@@ -667,56 +758,52 @@ class MiscActivity : BaseActivity(), AddMiscInterface, TrucksFOImageController {
     }
 
     private fun visibilityHandle() {
-        if (addMiscLayoutBinding?.categorySpinner?.selectedItem.toString().lowercase() != "truck supplier" && addMiscLayoutBinding?.categorySpinner?.selectedItem.toString().lowercase() != "business associate")
-        {
-            addMiscLayoutBinding?.cancelSaveAsDraftLay?.visibility=View.VISIBLE
-            addMiscLayoutBinding?.btnSubmit?.visibility=View.GONE
-        }
-        else if (addMiscLayoutBinding?.categorySpinner?.selectedItem.toString().lowercase() == "business associate" && addMiscLayoutBinding?.etBusinessName?.text.toString().isNullOrEmpty())
-        {
-            addMiscLayoutBinding?.cancelSaveAsDraftLay?.visibility=View.VISIBLE
-            addMiscLayoutBinding?.btnSubmit?.visibility=View.GONE
-        }
-        else if (addMiscLayoutBinding?.categorySpinner?.selectedItem.toString().lowercase() == "truck supplier" && addMiscLayoutBinding?.etTruckNo?.text.toString().isNullOrEmpty())
-        {
-            addMiscLayoutBinding?.cancelSaveAsDraftLay?.visibility=View.VISIBLE
-            addMiscLayoutBinding?.btnSubmit?.visibility=View.GONE
-        }
-        else if (addMiscLayoutBinding?.etMobileNumber?.text.toString().isNullOrEmpty())
-        {
-            addMiscLayoutBinding?.cancelSaveAsDraftLay?.visibility=View.VISIBLE
-            addMiscLayoutBinding?.btnSubmit?.visibility=View.GONE
-        }
-        else if (addMiscLayoutBinding?.etName?.text.toString().isNullOrEmpty())
-        {
-            addMiscLayoutBinding?.cancelSaveAsDraftLay?.visibility=View.VISIBLE
-            addMiscLayoutBinding?.btnSubmit?.visibility=View.GONE
-        }
-        else if (imageList.isNullOrEmpty())
-        {
-            addMiscLayoutBinding?.cancelSaveAsDraftLay?.visibility=View.VISIBLE
-            addMiscLayoutBinding?.btnSubmit?.visibility=View.GONE
-        }
-        else
-        {
-            addMiscLayoutBinding?.cancelSaveAsDraftLay?.visibility=View.GONE
-            addMiscLayoutBinding?.btnSubmit?.visibility=View.VISIBLE
+        if (addMiscLayoutBinding?.categorySpinner?.selectedItem.toString()
+                .lowercase() != "truck supplier" && addMiscLayoutBinding?.categorySpinner?.selectedItem.toString()
+                .lowercase() != "business associate"
+        ) {
+            addMiscLayoutBinding?.cancelSaveAsDraftLay?.visibility = View.VISIBLE
+            addMiscLayoutBinding?.btnSubmit?.visibility = View.GONE
+        } else if (addMiscLayoutBinding?.categorySpinner?.selectedItem.toString()
+                .lowercase() == "business associate" && addMiscLayoutBinding?.etBusinessName?.text.toString()
+                .isNullOrEmpty()
+        ) {
+            addMiscLayoutBinding?.cancelSaveAsDraftLay?.visibility = View.VISIBLE
+            addMiscLayoutBinding?.btnSubmit?.visibility = View.GONE
+        } else if (addMiscLayoutBinding?.categorySpinner?.selectedItem.toString()
+                .lowercase() == "truck supplier" && addMiscLayoutBinding?.etTruckNo?.text.toString()
+                .isNullOrEmpty()
+        ) {
+            addMiscLayoutBinding?.cancelSaveAsDraftLay?.visibility = View.VISIBLE
+            addMiscLayoutBinding?.btnSubmit?.visibility = View.GONE
+        } else if (addMiscLayoutBinding?.etMobileNumber?.text.toString().isNullOrEmpty()) {
+            addMiscLayoutBinding?.cancelSaveAsDraftLay?.visibility = View.VISIBLE
+            addMiscLayoutBinding?.btnSubmit?.visibility = View.GONE
+        } else if (addMiscLayoutBinding?.etName?.text.toString().isNullOrEmpty()) {
+            addMiscLayoutBinding?.cancelSaveAsDraftLay?.visibility = View.VISIBLE
+            addMiscLayoutBinding?.btnSubmit?.visibility = View.GONE
+        } else if (imageList.isNullOrEmpty()) {
+            addMiscLayoutBinding?.cancelSaveAsDraftLay?.visibility = View.VISIBLE
+            addMiscLayoutBinding?.btnSubmit?.visibility = View.GONE
+        } else {
+            addMiscLayoutBinding?.cancelSaveAsDraftLay?.visibility = View.GONE
+            addMiscLayoutBinding?.btnSubmit?.visibility = View.VISIBLE
         }
     }
 
-    private fun checkValidation() {
-        addMiscLayoutBinding?.errorMsgLay?.visibility=View.GONE
+    private fun checkValidation(postType:String) {
+        addMiscLayoutBinding?.errorMsgLay?.visibility = View.GONE
         if (isOnline(this)) {
             //business name
             if (!TextUtils.isEmpty(addMiscLayoutBinding?.etBusinessName?.text.toString().trim())) {
                 if (isValidName(addMiscLayoutBinding?.etBusinessName?.text.toString().trim())) {
-                    addMiscLayoutBinding?.errorMsgLay?.visibility=View.VISIBLE
-                    addMiscLayoutBinding?.tvErrormsg?.text=getString(R.string.business_valid_name)
+                    addMiscLayoutBinding?.errorMsgLay?.visibility = View.VISIBLE
+                    addMiscLayoutBinding?.tvErrormsg?.text = getString(R.string.business_valid_name)
                     return
                 }
                 if (getSpecialCharacterCount(addMiscLayoutBinding?.etBusinessName?.text.toString()) == 0) {
-                    addMiscLayoutBinding?.errorMsgLay?.visibility=View.VISIBLE
-                    addMiscLayoutBinding?.tvErrormsg?.text=getString(R.string.business_valid_name)
+                    addMiscLayoutBinding?.errorMsgLay?.visibility = View.VISIBLE
+                    addMiscLayoutBinding?.tvErrormsg?.text = getString(R.string.business_valid_name)
                     return
                 }
             }
@@ -724,64 +811,62 @@ class MiscActivity : BaseActivity(), AddMiscInterface, TrucksFOImageController {
             //truck number
             if (!TextUtils.isEmpty(addMiscLayoutBinding?.etTruckNo?.text.toString().trim())) {
                 if (checkVehicleNumber(addMiscLayoutBinding?.etTruckNo?.text.toString()) == false) {
-                    addMiscLayoutBinding?.errorMsgLay?.visibility=View.VISIBLE
-                    addMiscLayoutBinding?.tvErrormsg?.text=getString(R.string.enter_truck)
+                    addMiscLayoutBinding?.errorMsgLay?.visibility = View.VISIBLE
+                    addMiscLayoutBinding?.tvErrormsg?.text = getString(R.string.enter_truck)
                     return
                 }
             }
 
             //mobile number
             if (TextUtils.isEmpty(addMiscLayoutBinding?.etMobileNumber?.text.toString().trim())) {
-                addMiscLayoutBinding?.errorMsgLay?.visibility=View.VISIBLE
-                addMiscLayoutBinding?.tvErrormsg?.text=getString(R.string.enter_mobile_number)
+                addMiscLayoutBinding?.errorMsgLay?.visibility = View.VISIBLE
+                addMiscLayoutBinding?.tvErrormsg?.text = getString(R.string.enter_mobile_number)
                 return
             }
 
             //mobile number
             if (!isValidMobile(addMiscLayoutBinding?.etMobileNumber?.text.toString())) {
-                addMiscLayoutBinding?.errorMsgLay?.visibility=View.VISIBLE
-                addMiscLayoutBinding?.tvErrormsg?.text=getString(R.string.mobile_no_validation)
+                addMiscLayoutBinding?.errorMsgLay?.visibility = View.VISIBLE
+                addMiscLayoutBinding?.tvErrormsg?.text = getString(R.string.mobile_no_validation)
                 return
             }
 
             //name
             if (!TextUtils.isEmpty(addMiscLayoutBinding?.etName?.text.toString().trim())) {
                 if (isValidName(addMiscLayoutBinding?.etName?.text.toString().trim())) {
-                    addMiscLayoutBinding?.errorMsgLay?.visibility=View.VISIBLE
-                    addMiscLayoutBinding?.tvErrormsg?.text=getString(R.string.valid_name)
+                    addMiscLayoutBinding?.errorMsgLay?.visibility = View.VISIBLE
+                    addMiscLayoutBinding?.tvErrormsg?.text = getString(R.string.valid_name)
                     return
                 }
                 if (getSpecialCharacterCount(addMiscLayoutBinding?.etName?.text.toString()) == 0) {
-                    addMiscLayoutBinding?.errorMsgLay?.visibility=View.VISIBLE
-                    addMiscLayoutBinding?.tvErrormsg?.text=getString(R.string.valid_name)
+                    addMiscLayoutBinding?.errorMsgLay?.visibility = View.VISIBLE
+                    addMiscLayoutBinding?.tvErrormsg?.text = getString(R.string.valid_name)
                     return
                 }
             }
 
-            addMiscLayoutBinding?.errorMsgLay?.visibility=View.GONE
+            addMiscLayoutBinding?.errorMsgLay?.visibility = View.GONE
             showProgressDialog(this, false)
-            var request= AddMiscLeadRequest(
-                actionType = "Add",
-                address="",
+            var request = AddMiscLeadRequest(
+                actionType = postType,
+                address = "",
                 businessName = addMiscLayoutBinding?.etBusinessName?.text.toString(),
                 category = addMiscLayoutBinding?.categorySpinner?.selectedItem.toString(),
                 createdBy = PreferenceManager.getPhoneNo(this@MiscActivity),
-                mobileNo=addMiscLayoutBinding?.etMobileNumber?.text.toString(),
-                name=addMiscLayoutBinding?.etName?.text.toString(),
-                requestDatetime=PreferenceManager.getServerDateUtc(),
-                requestId=PreferenceManager.getRequestNo(),
+                mobileNo = addMiscLayoutBinding?.etMobileNumber?.text.toString(),
+                name = addMiscLayoutBinding?.etName?.text.toString(),
+                requestDatetime = PreferenceManager.getServerDateUtc(),
+                requestId = PreferenceManager.getRequestNo(),
                 requestedBy = PreferenceManager.getPhoneNo(this@MiscActivity),
-                truckNumber=addMiscLayoutBinding?.etTruckNo?.text.toString(),
-                trucksImageXML=imageList,
-                userId = PreferenceManager.getUserData(this)?.boUserid?.toInt()?:0
+                truckNumber = addMiscLayoutBinding?.etTruckNo?.text.toString(),
+                trucksImageXML = imageList,
+                userId = PreferenceManager.getUserData(this)?.boUserid?.toInt() ?: 0
             )
-            mViewModel?.addMiscellaneous(PreferenceManager.getAuthToken(),request)
+            mViewModel?.addMiscellaneous(PreferenceManager.getAuthToken(), request)
 
-        }
-        else
-        {
-            addMiscLayoutBinding?.errorMsgLay?.visibility=View.VISIBLE
-            addMiscLayoutBinding?.tvErrormsg?.text=getString(R.string.no_internet)
+        } else {
+            addMiscLayoutBinding?.errorMsgLay?.visibility = View.VISIBLE
+            addMiscLayoutBinding?.tvErrormsg?.text = getString(R.string.no_internet)
         }
     }
 
@@ -800,8 +885,10 @@ class MiscActivity : BaseActivity(), AddMiscInterface, TrucksFOImageController {
     private fun filter(text: String) {
         try {
             // creating a new array list to filter our data.
-            val completeFilteredList: ArrayList<GetAllMiscLeadResponse.IncompletedLead> = ArrayList()
-            val inCompleteFilteredList: ArrayList<GetAllMiscLeadResponse.IncompletedLead> = ArrayList()
+            val completeFilteredList: ArrayList<GetAllMiscLeadResponse.IncompletedLead> =
+                ArrayList()
+            val inCompleteFilteredList: ArrayList<GetAllMiscLeadResponse.IncompletedLead> =
+                ArrayList()
 
             // complete leads
             for (item in completeLeadsList) {
@@ -839,9 +926,7 @@ class MiscActivity : BaseActivity(), AddMiscInterface, TrucksFOImageController {
                 completeAdap?.filterList(completeFilteredList)
                 inCompleteAdap?.filterList(inCompleteFilteredList)
             }
-        }
-        catch (e:Exception)
-        {
+        } catch (e: Exception) {
 
         }
     }

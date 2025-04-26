@@ -28,6 +28,7 @@ import com.trucksup.field_officer.databinding.OnOffDutyBinding
 import com.trucksup.field_officer.presenter.common.LoadingUtils
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
 import com.trucksup.field_officer.presenter.view.activity.dashboard.vml.DashBoardViewModel
+import com.trucksup.field_officer.presenter.view.activity.miscellaneous.model.GetAllMiscLeadResponse
 import com.trucksup.field_officer.presenter.view.adapter.ImageAdapter
 import com.trucksup.field_officer.presenter.view.interfaces.AddLeadInterface
 import com.trucksup.field_officer.presenter.view.interfaces.AddMiscInterface
@@ -99,13 +100,13 @@ object DialogBoxes {
         dialog.show()
     }
 
-    fun addMiscDisc(context: Context, addMiscInterface: AddMiscInterface) {
+    fun addMiscDisc(context: Context, addMiscInterface: AddMiscInterface,data: GetAllMiscLeadResponse.IncompletedLead?) {
         val dialog = BottomSheetDialog(context)
         val binding = AddMiscLayoutBinding.inflate(LayoutInflater.from(context))
         dialog.setContentView(binding.root)
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
 
-        addMiscInterface.addMisLayout(binding,dialog)
+        addMiscInterface.addMisLayout(binding,dialog,data)
 
         dialog?.show()
     }

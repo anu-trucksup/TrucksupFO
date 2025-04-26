@@ -25,7 +25,7 @@ class DateRangeBottomSheet(
 
     private var startMillis: Long? = null
     private var endMillis: Long? = null
-    val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+    val formatter = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = BottomSheetDialog(requireContext(), theme)
@@ -58,6 +58,9 @@ class DateRangeBottomSheet(
         binding.btnClear.setOnClickListener {
             binding.tvStartDateValue.setText("")
             binding.tvEndDateValue.setText("")
+            startMillis=null
+            endMillis=null
+
         }
 
         return dialog
