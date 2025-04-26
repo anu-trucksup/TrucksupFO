@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.logistics.trucksup.activities.preferre.modle.GetMeetScheduleDetailsRequest
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetAllTSDetailsRequest
 import com.trucksup.field_officer.data.model.PinCodeRequest
 import com.trucksup.field_officer.data.model.PinCodeResponse
 import com.trucksup.field_officer.data.model.image.TrucksupImageUploadResponse
@@ -18,7 +18,7 @@ import com.trucksup.field_officer.presenter.view.activity.businessAssociate.mode
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.AddBrokerResponse
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.ScheduleMeetingResponse
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.ScheduleMeetTSRequest
-import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetMeetScheduleDetailsResponse
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetAllTSDetailsResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -45,9 +45,9 @@ class TSScheduleMeetingVM @Inject constructor(val apiUseCase: APIUseCase) : View
         MutableLiveData<ResponseModel<ScheduleMeetingResponse>>()
     val resultsubmitTSScheduleMeetingLD: LiveData<ResponseModel<ScheduleMeetingResponse>> = resultsubmitTSScheduleMeeting
 
-    private var resultGetTSScheduleMeetingData: MutableLiveData<ResponseModel<GetMeetScheduleDetailsResponse>> =
-        MutableLiveData<ResponseModel<GetMeetScheduleDetailsResponse>>()
-    val rresultGetTSScheduleMeetingDataLD: LiveData<ResponseModel<GetMeetScheduleDetailsResponse>> = resultGetTSScheduleMeetingData
+    private var resultGetTSScheduleMeetingData: MutableLiveData<ResponseModel<GetAllTSDetailsResponse>> =
+        MutableLiveData<ResponseModel<GetAllTSDetailsResponse>>()
+    val rresultGetTSScheduleMeetingDataLD: LiveData<ResponseModel<GetAllTSDetailsResponse>> = resultGetTSScheduleMeetingData
     //by me
 
     fun getCityStateByPin(token: String, request: PinCodeRequest) {
@@ -142,9 +142,9 @@ class TSScheduleMeetingVM @Inject constructor(val apiUseCase: APIUseCase) : View
             }
         }
     }
-    fun getTSMeetScheduleData(request: GetMeetScheduleDetailsRequest) {
+    fun getAllTSDetails(request: GetAllTSDetailsRequest) {
         CoroutineScope(Dispatchers.IO).launch {
-            when (val response = apiUseCase.getTSMeetSchedule(
+            when (val response = apiUseCase.getAllTSDetails(
                 PreferenceManager.getAuthToken(),
                 request
             )) {

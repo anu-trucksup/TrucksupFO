@@ -5,12 +5,14 @@ import androidx.activity.enableEdgeToEdge
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.ActivityUnassignedTsBaBinding
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.unassigned_ts_ba.fragment.UnAssignedBAFragment
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.unassigned_ts_ba.fragment.UnAssignedTSFragment
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.unassigned_ts_ba.vml.UnAssignedViewModel
 import com.trucksup.field_officer.presenter.view.adapter.FragmentAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,7 +23,7 @@ class UnAssignedTSBAActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_unassigned_ts_ba)
+        binding = ActivityUnassignedTsBaBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setListener()

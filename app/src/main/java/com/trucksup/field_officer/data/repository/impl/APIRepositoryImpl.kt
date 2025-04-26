@@ -4,7 +4,7 @@ package com.trucksup.field_officer.data.repository.impl
 import com.glovejob.data.model.UserSessionResponse
 import com.logistics.trucksup.activities.preferre.modle.PrefferLanRequest
 import com.logistics.trucksup.activities.preferre.modle.PrefferdResponse
-import com.logistics.trucksup.activities.preferre.modle.GetMeetScheduleDetailsRequest
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetAllTSDetailsRequest
 import com.logistics.trucksup.modle.PlanResponse
 import com.trucksup.field_officer.data.model.AutoImageSlideResponse
 import com.trucksup.field_officer.data.model.DutyStatusRequest
@@ -73,7 +73,7 @@ import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.Ge
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.RcRequest
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.RcResponse
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.ScheduleMeetTSRequest
-import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetMeetScheduleDetailsResponse
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetAllTSDetailsResponse
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.VerifyTruckResponse
 import kotlinx.coroutines.Dispatchers
 
@@ -363,24 +363,24 @@ class APIRepositoryImpl constructor(private val apiService: ApiService) : APIRep
     }
 
     //add by me
-    override suspend fun getTSMeetScheduleData(
+    override suspend fun getAllTSDetails(
         authToken: String,
-        request: GetMeetScheduleDetailsRequest
-    ): ResultWrapper<GetMeetScheduleDetailsResponse> {
+        request: GetAllTSDetailsRequest
+    ): ResultWrapper<GetAllTSDetailsResponse> {
         return safeApiCall(Dispatchers.IO) { apiService.getAllTSDetails(authToken, request) }
     }
 
     override suspend fun getBAMeetScheduleData(
         authToken: String,
-        request: GetMeetScheduleDetailsRequest,
-    ): ResultWrapper<GetMeetScheduleDetailsResponse> {
+        request: GetAllTSDetailsRequest,
+    ): ResultWrapper<GetAllTSDetailsResponse> {
         return safeApiCall(Dispatchers.IO) { apiService.getAllBADetails(authToken, request) }
     }
 
     override suspend fun getGPMeetScheduleData(
         authToken: String,
-        request: GetMeetScheduleDetailsRequest,
-    ): ResultWrapper<GetMeetScheduleDetailsResponse> {
+        request: GetAllTSDetailsRequest,
+    ): ResultWrapper<GetAllTSDetailsResponse> {
         return safeApiCall(Dispatchers.IO) {
             apiService.getAllGPDetails(authToken, request)
         }

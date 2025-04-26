@@ -18,11 +18,13 @@ import com.trucksup.field_officer.presenter.common.LoadingUtils
 import com.trucksup.field_officer.presenter.common.dialog.DialogBoxes
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
 import com.trucksup.field_officer.presenter.view.activity.todayFollowup.model.FollowUpRequest
-import com.trucksup.field_officer.presenter.view.activity.todayFollowup.model.FollowUpResponse
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetAllTSDetailsRequest
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetAllTSDetailsResponse
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.unassigned_ts_ba.adapter.UnAssignedBAdapter
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.unassigned_ts_ba.vml.UnAssignedViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class UnAssignedBAFragment : Fragment() {
     private var aContext: Context? = null
     private lateinit var binding: FragmentUnassignedBaBinding
@@ -51,13 +53,14 @@ class UnAssignedBAFragment : Fragment() {
         mViewModel = ViewModelProvider(this)[UnAssignedViewModel::class.java]
 
         LoadingUtils.showDialog(aContext, false)
-        val request = FollowUpRequest(
-            requestId = PreferenceManager.getRequestNo().toInt(),
-            requestedBy = PreferenceManager.getPhoneNo(aContext!!),
-            requestDatetime = PreferenceManager.getServerDateUtc(),
-            boID = PreferenceManager.getUserData(aContext!!)?.boUserid?.toInt() ?: 0
+        val request = GetAllTSDetailsRequest(
+            PreferenceManager.getRequestNo().toInt(),
+            PreferenceManager.getPhoneNo(requireActivity()),
+            PreferenceManager.getServerDateUtc(), "Ghaziabad",
+            /*PreferenceManager.getUserData(this)?.city.toString(),*/
+            /*PreferenceManager.getPhoneNo(this)*/"8881236353"
         )
-        mViewModel?.getUnAssignedTS(PreferenceManager.getAuthToken(), request)
+        mViewModel?.getUnAssignedBA(PreferenceManager.getAuthToken(), request)
 
         setRvList()
         setOnListeners()
@@ -65,7 +68,7 @@ class UnAssignedBAFragment : Fragment() {
     }
 
     private fun setupObserver() {
-        mViewModel?.resultUnAssignedBALD?.observe(viewLifecycleOwner) { responseModel ->                     // login function observe
+        mViewModel?.resultUnAssignedBALD?.observe(viewLifecycleOwner) { responseModel ->
             if (responseModel.serverError != null) {
                 LoadingUtils.hideDialog()
 
@@ -95,7 +98,7 @@ class UnAssignedBAFragment : Fragment() {
 
     }
 
-    private fun setItemList(success: FollowUpResponse) {
+    private fun setItemList(success: GetAllTSDetailsResponse?) {
         setRvList()
     }
 

@@ -4,11 +4,10 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.logistics.trucksup.activities.preferre.modle.GetMeetScheduleDetailsRequest
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetAllTSDetailsRequest
 import com.trucksup.field_officer.databinding.DateFilterBinding
 import com.trucksup.field_officer.databinding.TsPerformanceActivityBinding
 import com.trucksup.field_officer.presenter.common.AlertBoxDialog
@@ -16,7 +15,7 @@ import com.trucksup.field_officer.presenter.common.dialog.DialogBoxes
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.ScheduleMeetTSRequest
-import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetMeetScheduleDetailsResponse
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetAllTSDetailsResponse
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.vml.TSScheduleMeetingVM
 import com.trucksup.field_officer.presenter.view.adapter.TSPerformanceAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,7 +25,7 @@ class TSPerformanceActivity : BaseActivity() {
 
     private lateinit var binding: TsPerformanceActivityBinding
     private var mViewModel: TSScheduleMeetingVM? = null
-    private var getTsdetails: java.util.ArrayList<GetMeetScheduleDetailsResponse.GetTsdetails> = arrayListOf()
+    private var getTsdetails: java.util.ArrayList<GetAllTSDetailsResponse.GetTsdetails> = arrayListOf()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,7 +36,7 @@ class TSPerformanceActivity : BaseActivity() {
 
         mViewModel = ViewModelProvider(this)[TSScheduleMeetingVM::class.java]
 
-        getTSMeetScheduleData()
+        getAllTSDetails()
         setupObserver()
         setOnListeners()
     }
@@ -104,7 +103,7 @@ class TSPerformanceActivity : BaseActivity() {
         }
     }
 
-    private fun getTSDetailsDataSuccess(tSDetailsGetResponse: GetMeetScheduleDetailsResponse) {
+    private fun getTSDetailsDataSuccess(tSDetailsGetResponse: GetAllTSDetailsResponse) {
         tSDetailsGetResponse.getTSDetails?.forEachIndexed { _, getTSDetailsData ->
             run {
                 getTsdetails.add(getTSDetailsData)
@@ -131,16 +130,16 @@ class TSPerformanceActivity : BaseActivity() {
         //setupViewPager()
     }
 
-    private fun getTSMeetScheduleData() {
+    private fun getAllTSDetails() {
         showProgressDialog(this,false)
-        val request = GetMeetScheduleDetailsRequest(
+        val request = GetAllTSDetailsRequest(
             PreferenceManager.getRequestNo().toInt(),
             PreferenceManager.getPhoneNo(this),
-            PreferenceManager.getServerDateUtc(),"Gurgaon",
+            PreferenceManager.getServerDateUtc(),"Ghaziabad",
             /*PreferenceManager.getUserData(this)?.city.toString(),*/
-            PreferenceManager.getPhoneNo(this),
+            /*PreferenceManager.getPhoneNo(this)*/"8881236353"
         )
-        mViewModel?.getTSMeetScheduleData(request)
+        mViewModel?.getAllTSDetails(request)
     }
 
     fun dataSubmit(ownerName: String, selectedDate: String, selectedTime : String) {

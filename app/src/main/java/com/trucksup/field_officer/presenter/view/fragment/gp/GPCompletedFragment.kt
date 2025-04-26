@@ -146,6 +146,7 @@ class GPCompletedFragment : Fragment() {
             }
             bottomSheet.show(requireActivity().supportFragmentManager, "DATE_BOTTOM_SHEET")
         }
+
         //filter
         binding.imgFilter.setOnClickListener {
             DialogBoxes.setFilter(aContext!!,"owner")

@@ -1,4 +1,4 @@
-package com.trucksup.field_officer.presenter.utils
+package com.trucksup.field_officer.presenter.common.btmsheet
 
 import android.app.Dialog
 import android.os.Bundle
@@ -8,6 +8,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointBackward
+import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.DialogDateRangeBinding
@@ -24,7 +25,7 @@ class DateRangeBottomSheet(
 
     private var startMillis: Long? = null
     private var endMillis: Long? = null
-    private val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+    val formatter = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = BottomSheetDialog(requireContext(), theme)
@@ -55,15 +56,17 @@ class DateRangeBottomSheet(
         }
 
         binding.btnClear.setOnClickListener {
-            binding.tvStartDateValue.text = ""
-            binding.tvEndDateValue.text = ""
+            binding.tvStartDateValue.setText("")
+            binding.tvEndDateValue.setText("")
+            startMillis = null
+            endMillis = null
+
         }
 
         return dialog
     }
 
-    private fun dataSet()
-    {
+    private fun dataSet() {
         val constraints = CalendarConstraints.Builder()
             .setValidator(DateValidatorPointBackward.now())
             .build()
@@ -83,8 +86,8 @@ class DateRangeBottomSheet(
             val startDate = formatter.format(Date(startMillis!!))
             val endDate = formatter.format(Date(endMillis!!))
 
-            binding.tvStartDateValue.text=startDate
-            binding.tvEndDateValue.text=endDate
+            binding.tvStartDateValue.text = startDate
+            binding.tvEndDateValue.text = endDate
 //                binding.datePreview.text = "StartDate:- $startDate → EndDate:- $endDate"
         }
     }

@@ -23,9 +23,9 @@ class IncompleteLead(var context: Context, var list: ArrayList<GetAllMiscLeadRes
 
     override fun onBindViewHolder(holder: IncompleteLead.ViewHolder, position: Int) {
 
-//        holder.binding.btnAddImage.setOnClickListener {
-//            onControllerListeners?.incompleteAddImage(holder.binding)
-//        }
+        holder.itemView.setOnClickListener {
+            onControllerListeners?.incompleteAddImage(list[position])
+        }
 
         holder.binding.tvDate.text=list[position].date?:""
 
@@ -43,7 +43,7 @@ class IncompleteLead(var context: Context, var list: ArrayList<GetAllMiscLeadRes
     private var onControllerListeners: OnControllerListeners? = null
 
     interface OnControllerListeners {
-        fun incompleteAddImage(incompleteDropItemBinding: IncompleteDropItemBinding)
+        fun incompleteAddImage(data:GetAllMiscLeadResponse.IncompletedLead)
     }
 
     fun setOnControllerListeners(onControllerListeners: OnControllerListeners) {

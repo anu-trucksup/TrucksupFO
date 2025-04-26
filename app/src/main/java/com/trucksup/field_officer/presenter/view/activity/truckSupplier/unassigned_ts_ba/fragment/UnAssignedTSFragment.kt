@@ -17,9 +17,8 @@ import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.LoadingUtils
 import com.trucksup.field_officer.presenter.common.dialog.DialogBoxes
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
-import com.trucksup.field_officer.presenter.view.activity.profile.vml.MyEarningViewModel
-import com.trucksup.field_officer.presenter.view.activity.todayFollowup.model.FollowUpRequest
-import com.trucksup.field_officer.presenter.view.activity.todayFollowup.model.FollowUpResponse
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetAllTSDetailsRequest
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetAllTSDetailsResponse
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.unassigned_ts_ba.adapter.UnAssignedTSAdapter
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.unassigned_ts_ba.vml.UnAssignedViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -52,11 +51,12 @@ class UnAssignedTSFragment : Fragment() {
         mViewModel = ViewModelProvider(this)[UnAssignedViewModel::class.java]
 
         LoadingUtils.showDialog(aContext, false)
-        val request = FollowUpRequest(
-            requestId = PreferenceManager.getRequestNo().toInt(),
-            requestedBy = PreferenceManager.getPhoneNo(aContext!!),
-            requestDatetime = PreferenceManager.getServerDateUtc(),
-            boID = PreferenceManager.getUserData(aContext!!)?.boUserid?.toInt() ?: 0
+        val request = GetAllTSDetailsRequest(
+            PreferenceManager.getRequestNo().toInt(),
+            PreferenceManager.getPhoneNo(requireActivity()),
+            PreferenceManager.getServerDateUtc(),"Ghaziabad",
+            /*PreferenceManager.getUserData(this)?.city.toString(),*/
+            /*PreferenceManager.getPhoneNo(this)*/"8881236353"
         )
         mViewModel?.getUnAssignedTS(PreferenceManager.getAuthToken(), request)
 
@@ -66,37 +66,34 @@ class UnAssignedTSFragment : Fragment() {
     }
 
     private fun setupObserver() {
-        mViewModel?.resultUnAssignedBALD?.observe(viewLifecycleOwner) { responseModel ->                     // login function observe
+        mViewModel?.resultUnAssignedTSLD?.observe(viewLifecycleOwner) { responseModel ->
             if (responseModel.serverError != null) {
                 LoadingUtils.hideDialog()
-
                 val abx =
-                    AlertBoxDialog(
-                        requireActivity(),
-                        responseModel.serverError.toString(),
-                        "m"
-                    )
+                    AlertBoxDialog(requireActivity(), responseModel.serverError.toString(), "m")
                 abx.show()
             } else {
                 LoadingUtils.hideDialog()
-
-                if (responseModel.success?.statuscode == 200) {
-                    setItemList(responseModel.success)
-                } else {
-                    val abx =
-                        AlertBoxDialog(
+                if (responseModel.success != null) {
+                    if (responseModel.success.statuscode == 200) {
+                        setItemList(responseModel.success)
+                    } else {
+                        val abx = AlertBoxDialog(
                             requireActivity(),
-                            responseModel.success?.message.toString(),
-                            "m"
+                            responseModel.success.message,
+                            "finishActivity"
                         )
-                    abx.show()
+                        abx.show()
+
+                    }
+                } else {
                 }
             }
         }
 
     }
 
-    private fun setItemList(success: FollowUpResponse) {
+    private fun setItemList(success: GetAllTSDetailsResponse?) {
         setRvList()
     }
 

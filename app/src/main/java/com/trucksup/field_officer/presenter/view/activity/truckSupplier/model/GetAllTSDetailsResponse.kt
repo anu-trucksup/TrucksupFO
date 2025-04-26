@@ -2,7 +2,7 @@ package com.trucksup.field_officer.presenter.view.activity.truckSupplier.model
 
 import com.google.gson.annotations.SerializedName
 
-data class GetMeetScheduleDetailsResponse(
+data class GetAllTSDetailsResponse(
     @SerializedName("status")
     val status: String,
     @SerializedName("statuscode")

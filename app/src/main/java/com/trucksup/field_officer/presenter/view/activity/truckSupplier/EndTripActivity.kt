@@ -66,7 +66,7 @@ class EndTripActivity : BaseActivity(), OnMapReadyCallback {
         customDetails = intent.getStringExtra("customDetails")
         val itemsCustom = Arrays.asList(customDetails?.split(","))
 
-        if (!itemsCustom.isNullOrEmpty()) {
+        if (!itemsCustom.isNullOrEmpty() && itemsCustom.size > 1) {
             binding.tvCustomerName.text = itemsCustom[0]?.toString()
             binding.tvDistance.text = itemsCustom[1]?.toString()
         }

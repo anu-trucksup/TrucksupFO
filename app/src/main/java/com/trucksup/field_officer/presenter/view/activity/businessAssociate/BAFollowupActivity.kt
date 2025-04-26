@@ -2,26 +2,16 @@ package com.trucksup.field_officer.presenter.view.activity.businessAssociate
 
 import android.os.Bundle
 import androidx.core.content.ContextCompat
-import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.BaFollowupActivityBinding
-import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
-import com.trucksup.field_officer.presenter.utils.PreferenceManager
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.BoVisitDetail
-import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.GetAllMeetUpBARequest
-import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.GetAllMeetupBAResponse
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.vml.BAFollowUpViewModel
-import com.trucksup.field_officer.presenter.view.activity.businessAssociate.vml.BAScheduleMeetingVM
-import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetAllMeetupTSRequest
-import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetMeetScheduleDetailsResponse
 import com.trucksup.field_officer.presenter.view.fragment.ba.BACompletedFragment
 import com.trucksup.field_officer.presenter.view.fragment.ba.BAScheduledFragment
 import com.trucksup.field_officer.presenter.view.adapter.FragmentAdapter
-import com.trucksup.field_officer.presenter.view.adapter.TSPerformanceAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
