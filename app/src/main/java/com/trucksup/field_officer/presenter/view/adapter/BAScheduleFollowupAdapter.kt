@@ -3,16 +3,12 @@ package com.trucksup.field_officer.presenter.view.adapter
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.BaScheduledFollowupItemBinding
-import com.trucksup.field_officer.databinding.TsScheduledItemBinding
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.BoVisitDetail
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.TSStartTripActivity
-import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetMeetScheduleDetailsResponse
-import com.trucksup.field_officer.presenter.view.adapter.TSPerformanceAdapter.OnItemClickListener
 
 class BAScheduleFollowupAdapter(var context: Context?, var list: ArrayList<BoVisitDetail>) :
     RecyclerView.Adapter<BAScheduleFollowupAdapter.ViewHolder>() {

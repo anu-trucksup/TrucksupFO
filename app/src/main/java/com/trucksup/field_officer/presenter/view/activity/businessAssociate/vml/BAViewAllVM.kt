@@ -18,11 +18,11 @@ import javax.inject.Inject
 @HiltViewModel
 class BAViewAllVM @Inject constructor(val apiUseCase: APIUseCase) : ViewModel() {
 
-    private var resultTodayEarning: MutableLiveData<ResponseModel<FollowUpResponse>> =
+    private var getAllBAActiveInActive: MutableLiveData<ResponseModel<FollowUpResponse>> =
         MutableLiveData<ResponseModel<FollowUpResponse>>()
-    val resultTodayEarningLD: LiveData<ResponseModel<FollowUpResponse>> = resultTodayEarning
+    val getAllBAActiveInActiveLD: LiveData<ResponseModel<FollowUpResponse>> = getAllBAActiveInActive
 
-    fun getTotalEarning(token: String, request: FollowUpRequest) {
+    fun getAllBAActiveInActive(token: String, request: FollowUpRequest) {
         CoroutineScope(Dispatchers.IO).launch {
             when (val response = apiUseCase.getTotalEarning(
                 token,
@@ -30,11 +30,11 @@ class BAViewAllVM @Inject constructor(val apiUseCase: APIUseCase) : ViewModel() 
             )) {
                 is ResultWrapper.ServerResponseError -> {
                     Log.e("API Error", response.error ?: "")
-                    resultTodayEarning.postValue(ResponseModel(serverError = response.error))
+                    getAllBAActiveInActive.postValue(ResponseModel(serverError = response.error))
                 }
 
                 is ResultWrapper.Success -> {
-                    resultTodayEarning.postValue(ResponseModel(success = response.value))
+                    getAllBAActiveInActive.postValue(ResponseModel(success = response.value))
                 }
             }
         }

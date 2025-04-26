@@ -4,10 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.logistics.trucksup.activities.preferre.modle.GetMeetScheduleDetailsRequest
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetAllTSDetailsRequest
 import com.trucksup.field_officer.data.model.PinCodeRequest
 import com.trucksup.field_officer.data.model.PinCodeResponse
-import com.trucksup.field_officer.data.model.image.ImageResponse
 import com.trucksup.field_officer.data.model.image.TrucksupImageUploadResponse
 import com.trucksup.field_officer.data.network.ResponseModel
 import com.trucksup.field_officer.data.network.ResultWrapper
@@ -15,12 +14,10 @@ import com.trucksup.field_officer.domain.usecases.APIUseCase
 import com.trucksup.field_officer.presenter.cityPicker.ApiClient
 import com.trucksup.field_officer.presenter.common.image_picker.TrucksFOImageController
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
-import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.AddBrokerRequest
-import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.AddBrokerResponse
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.CompleteMeetingBARequest
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.ScheduleMeetingBARequest
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.ScheduleMeetingResponse
-import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetMeetScheduleDetailsResponse
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetAllTSDetailsResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -44,9 +41,9 @@ class BAScheduleMeetingVM @Inject constructor(val apiUseCase: APIUseCase) : View
         MutableLiveData<ResponseModel<ScheduleMeetingResponse>>()
     val onScheduleMeetingBAResponseLD: LiveData<ResponseModel<ScheduleMeetingResponse>> = onScheduleMeetingBAResponse
 
-    private var resultGetBAScheduleMeetingData: MutableLiveData<ResponseModel<GetMeetScheduleDetailsResponse>> =
-        MutableLiveData<ResponseModel<GetMeetScheduleDetailsResponse>>()
-    val rresultGetBAScheduleMeetingDataLD: LiveData<ResponseModel<GetMeetScheduleDetailsResponse>> = resultGetBAScheduleMeetingData
+    private var resultGetBAScheduleMeetingData: MutableLiveData<ResponseModel<GetAllTSDetailsResponse>> =
+        MutableLiveData<ResponseModel<GetAllTSDetailsResponse>>()
+    val rresultGetBAScheduleMeetingDataLD: LiveData<ResponseModel<GetAllTSDetailsResponse>> = resultGetBAScheduleMeetingData
     //by me
 
     private var onCompleteMeetingBAResponse: MutableLiveData<ResponseModel<ScheduleMeetingResponse>> =
@@ -124,9 +121,9 @@ class BAScheduleMeetingVM @Inject constructor(val apiUseCase: APIUseCase) : View
         }
 
     }
-    fun getBAMeetScheduleData(request: GetMeetScheduleDetailsRequest) {
+    fun getBAMeetScheduleData(request: GetAllTSDetailsRequest) {
         CoroutineScope(Dispatchers.IO).launch {
-            when (val response = apiUseCase.getBAMeetSchedule(
+            when (val response = apiUseCase.getAllBADetails(
                 PreferenceManager.getAuthToken(),
                 request
             )) {

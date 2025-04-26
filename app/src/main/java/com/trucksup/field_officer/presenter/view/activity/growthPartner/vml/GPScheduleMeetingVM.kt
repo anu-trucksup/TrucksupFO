@@ -4,10 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.logistics.trucksup.activities.preferre.modle.GetMeetScheduleDetailsRequest
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetAllTSDetailsRequest
 import com.trucksup.field_officer.data.model.PinCodeRequest
 import com.trucksup.field_officer.data.model.PinCodeResponse
-import com.trucksup.field_officer.data.model.image.ImageResponse
 import com.trucksup.field_officer.data.model.image.TrucksupImageUploadResponse
 import com.trucksup.field_officer.data.network.ResponseModel
 import com.trucksup.field_officer.data.network.ResultWrapper
@@ -15,14 +14,10 @@ import com.trucksup.field_officer.domain.usecases.APIUseCase
 import com.trucksup.field_officer.presenter.cityPicker.ApiClient
 import com.trucksup.field_officer.presenter.common.image_picker.TrucksFOImageController
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
-import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.AddBrokerRequest
-import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.AddBrokerResponse
-import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.CompleteMeetingBARequest
-import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.ScheduleMeetingBARequest
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.ScheduleMeetingResponse
 import com.trucksup.field_officer.presenter.view.activity.growthPartner.model.CompleteMeetingGPRequest
 import com.trucksup.field_officer.presenter.view.activity.growthPartner.model.ScheduleMeetingGPRequest
-import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetMeetScheduleDetailsResponse
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetAllTSDetailsResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -45,9 +40,9 @@ class GPScheduleMeetingVM @Inject constructor(val apiUseCase: APIUseCase) : View
         MutableLiveData<ResponseModel<ScheduleMeetingResponse>>()
     val onScheduleMeetingGPResponseLD: LiveData<ResponseModel<ScheduleMeetingResponse>> = onScheduleMeetingGPResponse
 
-    private var resultGetGPScheduleMeetingData: MutableLiveData<ResponseModel<GetMeetScheduleDetailsResponse>> =
-        MutableLiveData<ResponseModel<GetMeetScheduleDetailsResponse>>()
-    val rresultGetGPScheduleMeetingDataLD: LiveData<ResponseModel<GetMeetScheduleDetailsResponse>> = resultGetGPScheduleMeetingData
+    private var resultGetGPScheduleMeetingData: MutableLiveData<ResponseModel<GetAllTSDetailsResponse>> =
+        MutableLiveData<ResponseModel<GetAllTSDetailsResponse>>()
+    val rresultGetGPScheduleMeetingDataLD: LiveData<ResponseModel<GetAllTSDetailsResponse>> = resultGetGPScheduleMeetingData
     //by me
 
     private var onCompleteMeetingGPResponse: MutableLiveData<ResponseModel<ScheduleMeetingResponse>> =
@@ -128,7 +123,7 @@ class GPScheduleMeetingVM @Inject constructor(val apiUseCase: APIUseCase) : View
         }
 
     }
-    fun getBAMeetScheduleData(request: GetMeetScheduleDetailsRequest) {
+    fun getBAMeetScheduleData(request: GetAllTSDetailsRequest) {
         CoroutineScope(Dispatchers.IO).launch {
             when (val response = apiUseCase.getGPMeetSchedule(
                 PreferenceManager.getAuthToken(),
