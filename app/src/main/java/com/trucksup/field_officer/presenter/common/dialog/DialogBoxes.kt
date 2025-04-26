@@ -77,7 +77,14 @@ object DialogBoxes {
         dialog.show()
     }
 
-    fun onOffDuty(context: Context, dutyStatus:Boolean, dashBoardViewModel: DashBoardViewModel?, latitude:String?, longitude:String?, address:String?) {
+    fun onOffDuty(
+        context: Context,
+        dutyStatus: Boolean,
+        dashBoardViewModel: DashBoardViewModel?,
+        latitude: String?,
+        longitude: String?,
+        address: String?
+    ) {
         val builder = AlertDialog.Builder(context)
         val binding = OnOffDutyBinding.inflate(LayoutInflater.from(context))
         builder.setView(binding.root)
@@ -87,7 +94,7 @@ object DialogBoxes {
 
         //activate button
         binding.btnActivate.setOnClickListener {
-            attendanceDialog(context,dutyStatus,dashBoardViewModel,latitude,longitude,address)
+            attendanceDialog(context, dutyStatus, dashBoardViewModel, latitude, longitude, address)
             dialog.dismiss()
         }
 
@@ -105,7 +112,7 @@ object DialogBoxes {
         dialog.setContentView(binding.root)
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
 
-        addMiscInterface.addMisLayout(binding,dialog)
+        addMiscInterface.addMisLayout(binding, dialog)
 
         dialog?.show()
     }
@@ -200,7 +207,14 @@ object DialogBoxes {
         datePickerDialog.show()
     }
 
-    private fun attendanceDialog(context: Context, dutyStatus: Boolean, dashBoardViewModel: DashBoardViewModel?, latitude:String?, longitude:String?, address:String?) {
+    private fun attendanceDialog(
+        context: Context,
+        dutyStatus: Boolean,
+        dashBoardViewModel: DashBoardViewModel?,
+        latitude: String?,
+        longitude: String?,
+        address: String?
+    ) {
         val builder = AlertDialog.Builder(context)
         val binding = AttendDialogLayoutBinding.inflate(LayoutInflater.from(context))
         builder.setView(binding.root)
@@ -212,25 +226,25 @@ object DialogBoxes {
         val getCurrentTime = SimpleDateFormat("hh:mm a")
         val currentDate = getCurrentDate.format(calendar.time)
         val currentTime = getCurrentTime.format(Date()).toString()
-        val formattedTime = currentTime.replace("am", "AM").replace("pm","PM");
+        val formattedTime = currentTime.replace("am", "AM").replace("pm", "PM");
 
-        binding.tvDate.setText("Date: "+currentDate)
-        binding.tvTime.setText("Time: "+formattedTime)
+        binding.tvDate.setText("Date: " + currentDate)
+        binding.tvTime.setText("Time: " + formattedTime)
 
         //ok button
         binding.confirm.setOnClickListener {
-            LoadingUtils.showDialog(context,false)
+            LoadingUtils.showDialog(context, false)
 
             val request = DutyStatusRequest(
                 PreferenceManager.getUserData(context)?.boUserid?.toInt() ?: 0,
                 PreferenceManager.getUserData(context)?.boUserid?.toInt() ?: 0,
                 dutyStatus,
-                latitude?:"",
-                address?:"",
-                longitude?:"",
-                ""+PreferenceManager.getServerDateUtc(),
+                latitude ?: "",
+                address ?: "",
+                longitude ?: "",
+                "" + PreferenceManager.getServerDateUtc(),
                 PreferenceManager.getRequestNo().toInt(),
-                ""+PreferenceManager.getPhoneNo(context)
+                "" + PreferenceManager.getPhoneNo(context)
             )
             dashBoardViewModel?.dutyStatus(request)
             dialog.dismiss()

@@ -13,21 +13,16 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.trucksup.field_officer.databinding.DateFilterBinding
 import com.trucksup.field_officer.databinding.FragmentOwnerScheduledBinding
 import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.LoadingUtils
-import com.trucksup.field_officer.presenter.view.adapter.TSScheduleFollowupAdapter
 import com.trucksup.field_officer.presenter.common.dialog.DialogBoxes
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
-import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.BoVisitDetail
-import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.GetAllMeetUpBARequest
-import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.GetAllMeetupBAResponse
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetAllMeetUpTSResponse
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetAllMeetupTSRequest
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.vml.TSFollowUpViewModel
-import com.trucksup.field_officer.presenter.view.adapter.BAScheduleFollowupAdapter
+import com.trucksup.field_officer.presenter.view.adapter.TSScheduleFollowupAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -36,7 +31,8 @@ class TSScheduledFragment : Fragment() {
     private var aContext: Context? = null
     private lateinit var binding: FragmentOwnerScheduledBinding
     private var mViewModel: TSFollowUpViewModel? = null
-    private var getAllTSMeetsList: java.util.ArrayList<com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.BoVisitDetail> = arrayListOf()
+    private var getAllTSMeetsList: ArrayList<com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.BoVisitDetail> =
+        arrayListOf()
 
 
     override fun onAttach(context: Context) {

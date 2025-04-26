@@ -14,19 +14,16 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.trucksup.field_officer.databinding.DateFilterBinding
 import com.trucksup.field_officer.databinding.FragmentOwnerCompletedBinding
 import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.LoadingUtils
 import com.trucksup.field_officer.presenter.common.btmsheet.DateRangeBottomSheet
-import com.trucksup.field_officer.presenter.view.adapter.TSCompletedAdapter
-import com.trucksup.field_officer.presenter.common.dialog.DialogBoxes
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetAllMeetUpTSResponse
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetAllMeetupTSRequest
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.vml.TSFollowUpViewModel
-import com.trucksup.field_officer.presenter.view.adapter.TSScheduleFollowupAdapter
+import com.trucksup.field_officer.presenter.view.adapter.TSCompletedAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
