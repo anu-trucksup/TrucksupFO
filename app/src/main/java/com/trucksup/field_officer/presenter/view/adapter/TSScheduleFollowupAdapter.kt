@@ -90,6 +90,7 @@ class TSScheduleFollowupAdapter(var context: Context?, var list: ArrayList<com.t
             listener?.onItemClick(list[position].id)
             val intent = Intent(context, TSStartTripActivity::class.java)
             intent.putExtra("title", "" + context?.resources?.getString(R.string.ts_followup))
+            intent.putExtra("address", "" /*+ list[position].address*/)
             context?.startActivity(intent)
         }
     }

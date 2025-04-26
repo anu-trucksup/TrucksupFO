@@ -4,5 +4,7 @@ data class GetMiscLeadRequest(
     val boID: Int,
     val requestDatetime: String,
     val requestId: Int,
-    val requestedBy: String
+    val requestedBy: String,
+    val startDate:String,
+    val endDate:String
 )

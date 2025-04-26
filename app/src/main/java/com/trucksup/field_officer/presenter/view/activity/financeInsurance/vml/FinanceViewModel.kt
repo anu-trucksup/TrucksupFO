@@ -48,7 +48,7 @@ class FinanceViewModel @Inject constructor(val apiUseCase: APIUseCase) : ViewMod
     fun submitFinanceData(request: LoanDataSubmitRequest) {
         CoroutineScope(Dispatchers.IO).launch {
             when (val response = apiUseCase.submitFinanceData(
-                PreferenceManager.getAuthTokenOld(),
+                PreferenceManager.getAuthToken(),
                 request
             )) {
                 is ResultWrapper.ServerResponseError -> {

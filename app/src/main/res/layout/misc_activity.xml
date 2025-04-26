@@ -50,7 +50,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:orientation="vertical"
-                android:paddingHorizontal="@dimen/_24sdp">
+                android:paddingHorizontal="@dimen/_12sdp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/l1"
@@ -80,6 +80,7 @@
                             android:src="@drawable/search_icon_svg" />
 
                         <EditText
+                            android:id="@+id/etSearch"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@null"
@@ -179,9 +180,11 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <ScrollView
+                <LinearLayout
+                    android:id="@+id/dataLayout"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -281,7 +284,7 @@
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rvd1"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="@dimen/_210sdp"
                             android:layout_marginTop="@dimen/_5sdp"
                             android:visibility="gone"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -389,31 +392,78 @@
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                </ScrollView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/noDataLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/l1"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:layout_marginTop="@dimen/_60sdp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/no_leads_found"
+                            android:textSize="@dimen/_16ssp"
+                            android:textColor="@color/blue"
+                            android:gravity="center"
+                            android:fontFamily="@font/bai_jamjuree_semi_bold"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/misc_no_data_found"
+                            android:gravity="center"
+                            android:fontFamily="@font/bai_jamjuree_medium"
+                            android:textColor="#803E2089"/>
+
+                        <ImageView
+                            android:layout_width="@dimen/_80sdp"
+                            android:layout_height="@dimen/_80sdp"
+                            android:src="@drawable/no_data_found_icon"
+                            android:layout_marginTop="@dimen/_10sdp"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/btnAddMisc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_30sdp"
                     android:visibility="visible"
-                    app:cardBackgroundColor="@color/blue"
+                    app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="@dimen/_6sdp"
-                    app:cardElevation="@dimen/_8sdp"
+                    app:cardElevation="@dimen/_1sdp"
+                    android:layout_marginBottom="@dimen/_30sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:strokeWidth="0dp">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="@dimen/_10sdp"
-                        android:layout_marginVertical="@dimen/_2sdp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingHorizontal="@dimen/_10sdp"
+                        android:paddingVertical="@dimen/_2sdp"
                         android:drawableStart="@drawable/plus_icon"
                         android:drawablePadding="@dimen/_5sdp"
                         android:fontFamily="@font/bai_jamjuree_medium"
                         android:text="Add Misc"
                         android:textColor="@color/white"
+                        android:background="@drawable/background_1_1"
                         android:textSize="@dimen/_11ssp" />
 
                 </com.google.android.material.card.MaterialCardView>

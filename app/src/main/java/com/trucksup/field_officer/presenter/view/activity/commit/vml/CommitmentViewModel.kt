@@ -25,33 +25,16 @@ import javax.inject.Inject
 @HiltViewModel
 class CommitmentViewModel @Inject constructor(val apiUseCase: APIUseCase) : ViewModel() {
 
-    private var resultDutyStatus: MutableLiveData<ResponseModel<DutyStatusResponse>> = MutableLiveData<ResponseModel<DutyStatusResponse>>()
-    val resultDutyStatusLD: LiveData<ResponseModel<DutyStatusResponse>> = resultDutyStatus
+    private var resultPrevCommitList: MutableLiveData<ResponseModel<HomeCountResponse>> = MutableLiveData<ResponseModel<HomeCountResponse>>()
+    val resultPrevCommitListLD: LiveData<ResponseModel<HomeCountResponse>> = resultPrevCommitList
 
-    private var resultAllHomeCountStatus: MutableLiveData<ResponseModel<HomeCountResponse>> = MutableLiveData<ResponseModel<HomeCountResponse>>()
-    val resultAllHomeCountStatusLD: LiveData<ResponseModel<HomeCountResponse>> = resultAllHomeCountStatus
+    private var resultAddTodayCommit: MutableLiveData<ResponseModel<HomeCountResponse>> = MutableLiveData<ResponseModel<HomeCountResponse>>()
+    val resultAddTodayCommitLD: LiveData<ResponseModel<HomeCountResponse>> = resultAddTodayCommit
 
+    private var resultGetTodayCommit: MutableLiveData<ResponseModel<HomeCountResponse>> = MutableLiveData<ResponseModel<HomeCountResponse>>()
+    val resultGetTodayCommitLD: LiveData<ResponseModel<HomeCountResponse>> = resultGetTodayCommit
 
-    fun dutyStatus(request: DutyStatusRequest) {
-        CoroutineScope(Dispatchers.IO).launch {
-            when (val response = apiUseCase.dutyStatus(
-                PreferenceManager.getAuthToken(),
-                request
-            )) {
-                is ResultWrapper.ServerResponseError -> {
-                    Log.e("API Error", response.error ?: "")
-                    resultDutyStatus.postValue(ResponseModel(serverError = response.error))
-                }
-
-                is ResultWrapper.Success -> {
-                    resultDutyStatus.postValue(ResponseModel(success = response.value))
-                }
-            }
-        }
-    }
-
-
-    fun getAllHomeCountStatus(request: HomeCountRequest) {
+    fun addTodayCommitList(request: HomeCountRequest) {
         CoroutineScope(Dispatchers.IO).launch {
             when (val response = apiUseCase.getAllHomeCountStatus(
                 PreferenceManager.getAuthToken(),
@@ -59,11 +42,47 @@ class CommitmentViewModel @Inject constructor(val apiUseCase: APIUseCase) : View
             )) {
                 is ResultWrapper.ServerResponseError -> {
                     Log.e("API Error", response.error ?: "")
-                    resultAllHomeCountStatus.postValue(ResponseModel(serverError = response.error))
+                    resultAddTodayCommit.postValue(ResponseModel(serverError = response.error))
                 }
 
                 is ResultWrapper.Success -> {
-                    resultAllHomeCountStatus.postValue(ResponseModel(success = response.value))
+                    resultAddTodayCommit.postValue(ResponseModel(success = response.value))
+                }
+            }
+        }
+    }
+
+    fun getTodayCommitList(request: HomeCountRequest) {
+        CoroutineScope(Dispatchers.IO).launch {
+            when (val response = apiUseCase.getAllHomeCountStatus(
+                PreferenceManager.getAuthToken(),
+                request
+            )) {
+                is ResultWrapper.ServerResponseError -> {
+                    Log.e("API Error", response.error ?: "")
+                    resultGetTodayCommit.postValue(ResponseModel(serverError = response.error))
+                }
+
+                is ResultWrapper.Success -> {
+                    resultGetTodayCommit.postValue(ResponseModel(success = response.value))
+                }
+            }
+        }
+    }
+
+    fun getAllPrevCommitList(request: HomeCountRequest) {
+        CoroutineScope(Dispatchers.IO).launch {
+            when (val response = apiUseCase.getAllHomeCountStatus(
+                PreferenceManager.getAuthToken(),
+                request
+            )) {
+                is ResultWrapper.ServerResponseError -> {
+                    Log.e("API Error", response.error ?: "")
+                    resultPrevCommitList.postValue(ResponseModel(serverError = response.error))
+                }
+
+                is ResultWrapper.Success -> {
+                    resultPrevCommitList.postValue(ResponseModel(success = response.value))
                 }
             }
         }

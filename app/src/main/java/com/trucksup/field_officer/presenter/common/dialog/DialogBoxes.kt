@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import android.widget.Toast
 import androidx.compose.runtime.key
+import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -86,6 +87,14 @@ object DialogBoxes {
         longitude: String?,
         address: String?,
     ) {
+    fun onOffDuty(
+        context: Context,
+        dutyStatus: Boolean,
+        dashBoardViewModel: DashBoardViewModel?,
+        latitude: String?,
+        longitude: String?,
+        address: String?
+    ) {
         val builder = AlertDialog.Builder(context)
         val binding = OnOffDutyBinding.inflate(LayoutInflater.from(context))
         builder.setView(binding.root)
@@ -113,59 +122,7 @@ object DialogBoxes {
         dialog.setContentView(binding.root)
         dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
 
-        var categoryType = ArrayList<String>()
-        categoryType.add("Owner")
-        categoryType.add("Business Associate")
-        val arrayAdapter = ArrayAdapter(context, R.layout.simple_text_item, categoryType)
-        binding.categorySpinner.setAdapter(arrayAdapter)
-        binding.categorySpinner.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long,
-                ) {
-                    val textView: TextView = view as TextView
-//                textView.setPadding(0,0,0,0)
-                    val typeface = ResourcesCompat.getFont(context, R.font.bai_jamjuree_medium)
-                    textView.setTypeface(typeface)
-                    textView.setTextColor(context.resources.getColor(R.color.text_grey))
-                    textView.setTextSize(13f)
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {}
-            }
-
-        var list = ArrayList<Bitmap>()
-//        list.add("")
-//        list.add("")
-//        list.add("")
-//        list.add("")
-        binding.rvImage.apply {
-            layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-            this.adapter = ImageAdapter(context, list)
-            hasFixedSize()
-        }
-
-        binding.btnAddImage.setOnClickListener {
-            addMiscInterface.addImage(binding)
-        }
-
-        //submit button
-        binding.btnSubmit.setOnClickListener {
-            dialog.dismiss()
-        }
-
-        //submit button 2
-        binding.btnSubmit2.setOnClickListener {
-            dialog.dismiss()
-        }
-
-        //save as draft button
-        binding.btnSaveAsDraft.setOnClickListener {
-            dialog.dismiss()
-        }
+        addMiscInterface.addMisLayout(binding, dialog)
 
         dialog?.show()
     }
@@ -356,6 +313,14 @@ object DialogBoxes {
         latitude: String?,
         longitude: String?,
         address: String?,
+    ) {
+    private fun attendanceDialog(
+        context: Context,
+        dutyStatus: Boolean,
+        dashBoardViewModel: DashBoardViewModel?,
+        latitude: String?,
+        longitude: String?,
+        address: String?
     ) {
         val builder = AlertDialog.Builder(context)
         val binding = AttendDialogLayoutBinding.inflate(LayoutInflater.from(context))

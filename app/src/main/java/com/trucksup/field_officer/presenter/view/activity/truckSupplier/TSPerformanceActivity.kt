@@ -105,7 +105,7 @@ class TSPerformanceActivity : BaseActivity() {
     }
 
     private fun getTSDetailsDataSuccess(tSDetailsGetResponse: GetMeetScheduleDetailsResponse) {
-        tSDetailsGetResponse?.getTSDetails?.forEachIndexed { _, getTSDetailsData ->
+        tSDetailsGetResponse.getTSDetails?.forEachIndexed { _, getTSDetailsData ->
             run {
                 getTsdetails.add(getTSDetailsData)
             }

@@ -5,9 +5,12 @@ import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.MiscImageItemBinding
+import com.trucksup.field_officer.presenter.view.activity.miscellaneous.model.TrucksImageXML
 
-class ImageAdapter(var context: Context, var list: ArrayList<Bitmap>) :
+class ImageAdapter(var context: Context, var list: ArrayList<TrucksImageXML>) :
     RecyclerView.Adapter<ImageAdapter.ViewHolder>() {
 
     inner class ViewHolder(var binding: MiscImageItemBinding) :
@@ -19,7 +22,14 @@ class ImageAdapter(var context: Context, var list: ArrayList<Bitmap>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.binding.image.setImageBitmap(list[position])
+        try {
+            Glide.with(context)
+                .load(list[position].url)
+                .placeholder(R.drawable.placeholder_image2)
+                .error(R.drawable.placeholder_image2)
+                .into(holder.binding.image)
+        } catch (e: Exception) {
+        }
     }
 
     override fun getItemCount(): Int {

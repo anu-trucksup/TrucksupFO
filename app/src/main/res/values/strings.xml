@@ -149,7 +149,7 @@
     <string name="SalesCode">Sales Code of BO<font color='#FF0000'>*</font></string>
     <string name="GPMobile">GP Mobile Number<font color='#FF0000'>*</font></string>
     <string name="GPName">GP Name<font color='#FF0000'>*</font></string>
-    <string name="PleaseenterSalesCode">Please enter Sales Code of BO</string>
+    <string name="enterSalesCode">Please enter Sales Code of BO</string>
     <string name="PleaseenterGPMobile">Please enter GP Mobile Number</string>
     <string name="PleaseenterGPName">Please enter GP Name</string>
     <string name="PleaseBusinessType">Please enter Business Type</string>
@@ -298,6 +298,7 @@
     <string name="insurance_">Insurance</string>
     <string name="select">Select</string>
     <string name="cancel_u"><u>Cancel</u></string>
+    <string name="cancel">Cancel</string>
 
     <string name="no_data">No data found</string>
     <string name="rejected">Rejected</string>
@@ -419,6 +420,7 @@
     <string name="enterStartDate">Please select a valid start date.</string>
     <string name="enterEndDate">Please select a valid end date. </string>
     <string name="enterCommercialVehical">Please input a valid vehicle number.</string>
+    <string name="enter_truck">Please input a valid truck number.</string>
     <string name="enterVehicle">Please input vehicle number.</string>
     <string name="trip">Trip</string>
     <string name="resendConsent">Resend Consent</string>
@@ -729,6 +731,7 @@
     <string name="planned_follow_up">Planned Follow-Up</string>
     <string name="planned_follow_ups">Planned Follow-Ups</string>
     <string name="today_s_commitment">Today’s Commitment</string>
+    <string name="today_commitment_u"><u>Today’s Commitment</u></string>
     <string name="commit_text">Please enter today’s details to update your progress toward the target.</string>
     <string name="view_previous_commitments"><u>View Previous Commitments</u></string>
     <string name="unique_ba">Unique BA</string>
@@ -752,5 +755,14 @@
 
     <string name="select_doc_type">Please select the document type.</string>
     <string name="select_doc_img">Please upload the document proof photo.</string>
+    <string name="truck_number2">Truck Number</string>
+    <string name="upload_truck_image">Upload Truck Image</string>
+    <string name="upload_image">Upload Image</string>
+    <string name="save_as_draft">Save as draft</string>
+    <string name="business_valid_name">Please input valid business name.</string>
+    <string name="valid_name">Please input valid name.</string>
+    <string name="no_leads_found">No leads found!</string>
+    <string name="misc_no_data_found">There’s no lead added by you. Kindly add a new
+lead by clicking on the “Add Misc” icon.</string>
 
 </resources>

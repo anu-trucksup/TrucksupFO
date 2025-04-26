@@ -1,30 +1,234 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:padding="24dp"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/_20sdp"
+    android:paddingBottom="@dimen/_24sdp">
+
+<!--    <TextView-->
+<!--        android:id="@+id/datePreview"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:paddingBottom="16dp"-->
+<!--        android:text="No range selected"-->
+<!--        android:fontFamily="@font/bai_jamjuree_medium"-->
+<!--        android:textSize="16sp" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/btnPickRange"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Pick Date Range"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:gravity="center"-->
+<!--        android:textSize="@dimen/_11ssp"-->
+<!--        android:paddingVertical="@dimen/_5sdp"-->
+<!--        android:background="@drawable/background_1_1"-->
+<!--        android:fontFamily="@font/bai_jamjuree_medium"/>-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/btnSubmit"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="12dp"-->
+<!--        android:text="Submit"-->
+<!--        android:textSize="@dimen/_11ssp"-->
+<!--        android:paddingVertical="@dimen/_5sdp"-->
+<!--        android:gravity="center"-->
+<!--        android:background="@drawable/background_1_1"-->
+<!--        android:fontFamily="@font/bai_jamjuree_medium"-->
+<!--        android:textColor="@color/white" />-->
+
+    <View
+        android:id="@+id/v1"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_2sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:background="#B33E2089"
+        android:layout_gravity="center" />
 
     <TextView
-        android:id="@+id/datePreview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="No range selected"
-        android:textSize="16sp"
-        android:paddingBottom="16dp" />
-
-    <Button
-        android:id="@+id/btnPickRange"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Pick Date Range"
-        android:textColor="@color/white"/>
+        android:text="Select Date Range"
+        android:fontFamily="@font/bai_jamjuree_medium"
+        android:textSize="@dimen/_12ssp"
+        android:textColor="@color/black_4d"
+        android:layout_marginTop="@dimen/_10sdp"/>
 
-    <Button
-        android:id="@+id/btnSubmit"
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:background="#DEDADA"
+        android:layout_marginTop="@dimen/_4sdp"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Submit"
-        android:layout_marginTop="12dp"
-        android:textColor="@color/white"/>
+        android:layout_marginTop="@dimen/_10sdp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/startConst"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_2sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/line2">
+
+            <ImageView
+                android:id="@+id/imgCalander"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:src="@drawable/calendar_round"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                android:id="@+id/tvStartDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@+id/imgCalander"
+                app:layout_constraintTop_toTopOf="@+id/imgCalander"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="Start Date"
+                android:fontFamily="@font/bai_jamjuree_medium"
+                android:textSize="@dimen/_11ssp"
+                android:textColor="@color/grey"
+                app:layout_constraintBottom_toTopOf="@+id/tvStartDateValue"
+                android:layout_marginStart="@dimen/_4sdp"/>
+
+            <TextView
+                android:id="@+id/tvStartDateValue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@+id/imgCalander"
+                app:layout_constraintTop_toBottomOf="@+id/tvStartDate"
+                android:hint="DD/MM/YYYY"
+                android:textColor="@color/blue"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:fontFamily="@font/bai_jamjuree_semi_bold"
+                android:textSize="@dimen/_12ssp"
+                tools:ignore="UnknownIdInLayout"
+                android:layout_marginStart="@dimen/_4sdp"
+                app:layout_constraintBottom_toBottomOf="@+id/imgCalander"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/line2"
+            android:layout_width="@dimen/_1sdp"
+            android:layout_height="0dp"
+            android:background="#DEDADA"
+            android:layout_marginHorizontal="@dimen/_4sdp"
+            app:layout_constraintStart_toEndOf="@+id/startConst"
+            app:layout_constraintEnd_toStartOf="@+id/endConst"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/endConst"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/line2">
+
+            <ImageView
+                android:id="@+id/imgCalander2"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:src="@drawable/calendar_round"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                android:id="@+id/tvEndDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@+id/imgCalander2"
+                app:layout_constraintTop_toTopOf="@+id/imgCalander2"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="End Date"
+                android:fontFamily="@font/bai_jamjuree_medium"
+                android:textSize="@dimen/_11ssp"
+                android:textColor="@color/grey"
+                app:layout_constraintBottom_toTopOf="@+id/tvEndDateValue"
+                android:layout_marginStart="@dimen/_4sdp"/>
+
+            <TextView
+                android:id="@+id/tvEndDateValue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@+id/imgCalander2"
+                app:layout_constraintTop_toBottomOf="@+id/tvEndDate"
+                android:hint="DD/MM/YYYY"
+                android:textColor="@color/blue"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:fontFamily="@font/bai_jamjuree_semi_bold"
+                android:textSize="@dimen/_12ssp"
+                tools:ignore="UnknownIdInLayout"
+                android:layout_marginStart="@dimen/_4sdp"
+                app:layout_constraintBottom_toBottomOf="@+id/imgCalander2"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end"
+        android:layout_marginTop="@dimen/_20sdp">
+
+        <RelativeLayout
+            android:id="@+id/btnCancel"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_1_1"
+            android:layout_marginEnd="@dimen/_10sdp">
+
+            <TextView
+                android:id="@+id/btnClear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/sub_back_border"
+                android:fontFamily="@font/bai_jamjuree_medium"
+                android:paddingVertical="@dimen/_1sdp"
+                android:text="Clear"
+                android:lines="1"
+                android:layout_margin="@dimen/_1sdp"
+                android:gravity="center"
+                android:visibility="visible"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12ssp"
+                android:layout_gravity="end" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/btnApply"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="match_parent"
+            android:background="@drawable/background_1_1"
+            android:fontFamily="@font/bai_jamjuree_medium"
+            android:paddingVertical="@dimen/_1sdp"
+            android:text="Apply"
+            android:lines="1"
+            android:gravity="center"
+            android:visibility="visible"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12ssp"
+            android:layout_gravity="end" />
+
+    </LinearLayout>
+
 </LinearLayout>

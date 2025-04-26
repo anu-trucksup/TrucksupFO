@@ -17,8 +17,10 @@ import com.trucksup.field_officer.presenter.view.activity.profile.vml.MyEarningV
 import com.trucksup.field_officer.presenter.view.activity.todayFollowup.model.FollowUpRequest
 import com.trucksup.field_officer.presenter.view.activity.todayFollowup.model.FollowUpResponse
 import com.trucksup.field_officer.presenter.view.adapter.GPViewAllAdapter
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.Calendar
 
+@AndroidEntryPoint
 class GPViewAllActivity : BaseActivity() {
 
     private lateinit var binding: GpViewallActivityBinding

@@ -98,6 +98,7 @@ class GPScheduleFollowupAdapter(var context: Context?, var list: ArrayList<com.t
 
             val intent = Intent(context, TSStartTripActivity::class.java)
             intent.putExtra("title", "" + context?.resources?.getString(R.string.gp_followup))
+            intent.putExtra("address", "" /*+ list[position].address*/)
             context?.startActivity(intent)
         }
     }
