@@ -25,10 +25,8 @@ import javax.inject.Inject
 @HiltViewModel
 class InsuranceViewModel @Inject constructor(val apiUseCase: APIUseCase) : ViewModel() {
 
-    private var resultsubmitInsurance: MutableLiveData<ResponseModel<SubmitInsuranceInquiryData>> =
-        MutableLiveData<ResponseModel<SubmitInsuranceInquiryData>>()
-    val resultsubmitInsuranceLD: LiveData<ResponseModel<SubmitInsuranceInquiryData>> =
-        resultsubmitInsurance
+    private var resultsubmitInsurance: MutableLiveData<ResponseModel<SubmitInsuranceInquiryData>> = MutableLiveData<ResponseModel<SubmitInsuranceInquiryData>>()
+    val resultsubmitInsuranceLD: LiveData<ResponseModel<SubmitInsuranceInquiryData>> = resultsubmitInsurance
 
     private var imgUploadResult: MutableLiveData<ResponseModel<ImageResponse>> =
         MutableLiveData<ResponseModel<ImageResponse>>()
