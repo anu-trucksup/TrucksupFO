@@ -1,8 +1,8 @@
-package com.trucksup.field_officer.presenter.view.activity.truckSupplier.model
+package com.trucksup.field_officer.presenter.view.activity.growthPartner.model
 
 import com.google.gson.annotations.SerializedName
 
-data class GetAllTSDetailsResponse(
+data class GetAllGPDetailsResponse(
     @SerializedName("status")
     val status: String,
     @SerializedName("statuscode")
@@ -14,11 +14,11 @@ data class GetAllTSDetailsResponse(
     @SerializedName("requestedBy")
     val requestedBy: String,
     @SerializedName("getTSDetails")
-    val getTSDetails: List<GetTsdetails>,
+    val getGPDetails: List<GetGPdetails>,
 )
 
 {
-    data class GetTsdetails(
+    data class GetGPdetails(
         @SerializedName("ownerName")
         val ownerName: String,
         @SerializedName("mobileNo")

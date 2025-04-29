@@ -157,8 +157,6 @@ class TSPerformanceActivity : BaseActivity() {
                 selectedDate,
                 selectedTime,
             )
-
-
         showProgressDialog(this, false)
         request?.let { mViewModel?.SubmitTSScheduleMeetTSData(it) }
     }

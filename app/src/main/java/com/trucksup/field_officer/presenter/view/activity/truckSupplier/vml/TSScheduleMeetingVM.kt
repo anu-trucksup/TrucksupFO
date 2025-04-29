@@ -40,7 +40,7 @@ class TSScheduleMeetingVM @Inject constructor(val apiUseCase: APIUseCase) : View
         MutableLiveData<ResponseModel<AddBrokerResponse>>()
     val onBoardBAResponseLD: LiveData<ResponseModel<AddBrokerResponse>> = onBoardBAResponse
 
-    //by me
+    //add by me
     private var resultsubmitTSScheduleMeeting: MutableLiveData<ResponseModel<ScheduleMeetingResponse>> =
         MutableLiveData<ResponseModel<ScheduleMeetingResponse>>()
     val resultsubmitTSScheduleMeetingLD: LiveData<ResponseModel<ScheduleMeetingResponse>> = resultsubmitTSScheduleMeeting
@@ -48,7 +48,7 @@ class TSScheduleMeetingVM @Inject constructor(val apiUseCase: APIUseCase) : View
     private var resultGetTSScheduleMeetingData: MutableLiveData<ResponseModel<GetAllTSDetailsResponse>> =
         MutableLiveData<ResponseModel<GetAllTSDetailsResponse>>()
     val rresultGetTSScheduleMeetingDataLD: LiveData<ResponseModel<GetAllTSDetailsResponse>> = resultGetTSScheduleMeetingData
-    //by me
+    //add by me
 
     fun getCityStateByPin(token: String, request: PinCodeRequest) {
         CoroutineScope(Dispatchers.IO).launch {
@@ -142,6 +142,7 @@ class TSScheduleMeetingVM @Inject constructor(val apiUseCase: APIUseCase) : View
             }
         }
     }
+
     fun getAllTSDetails(request: GetAllTSDetailsRequest) {
         CoroutineScope(Dispatchers.IO).launch {
             when (val response = apiUseCase.getAllTSDetails(

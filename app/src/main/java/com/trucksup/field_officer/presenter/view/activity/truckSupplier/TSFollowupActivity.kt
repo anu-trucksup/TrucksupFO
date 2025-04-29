@@ -32,10 +32,7 @@ class TSFollowupActivity : BaseActivity() {
         mViewModel = ViewModelProvider(this)[TSFollowUpViewModel::class.java]
 
         //showProgressDialog(this, false)
-
-
         //setupObserver()
-
         setupViewPager()
         setListener()
     }

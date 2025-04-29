@@ -16,6 +16,7 @@ import com.trucksup.field_officer.presenter.common.image_picker.TrucksFOImageCon
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.ScheduleMeetingResponse
 import com.trucksup.field_officer.presenter.view.activity.growthPartner.model.CompleteMeetingGPRequest
+import com.trucksup.field_officer.presenter.view.activity.growthPartner.model.GetAllGPDetailsResponse
 import com.trucksup.field_officer.presenter.view.activity.growthPartner.model.ScheduleMeetingGPRequest
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetAllTSDetailsResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -40,9 +41,9 @@ class GPScheduleMeetingVM @Inject constructor(val apiUseCase: APIUseCase) : View
         MutableLiveData<ResponseModel<ScheduleMeetingResponse>>()
     val onScheduleMeetingGPResponseLD: LiveData<ResponseModel<ScheduleMeetingResponse>> = onScheduleMeetingGPResponse
 
-    private var resultGetGPScheduleMeetingData: MutableLiveData<ResponseModel<GetAllTSDetailsResponse>> =
-        MutableLiveData<ResponseModel<GetAllTSDetailsResponse>>()
-    val rresultGetGPScheduleMeetingDataLD: LiveData<ResponseModel<GetAllTSDetailsResponse>> = resultGetGPScheduleMeetingData
+    private var resultGetGPScheduleMeetingData: MutableLiveData<ResponseModel<GetAllGPDetailsResponse>> =
+        MutableLiveData<ResponseModel<GetAllGPDetailsResponse>>()
+    val rresultGetGPScheduleMeetingDataLD: LiveData<ResponseModel<GetAllGPDetailsResponse>> = resultGetGPScheduleMeetingData
     //by me
 
     private var onCompleteMeetingGPResponse: MutableLiveData<ResponseModel<ScheduleMeetingResponse>> =
@@ -123,7 +124,8 @@ class GPScheduleMeetingVM @Inject constructor(val apiUseCase: APIUseCase) : View
         }
 
     }
-    fun getBAMeetScheduleData(request: GetAllTSDetailsRequest) {
+
+    fun getGpdetails(request: GetAllTSDetailsRequest) {
         CoroutineScope(Dispatchers.IO).launch {
             when (val response = apiUseCase.getGPMeetSchedule(
                 PreferenceManager.getAuthToken(),
