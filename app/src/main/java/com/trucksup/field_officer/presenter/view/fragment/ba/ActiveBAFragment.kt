@@ -22,9 +22,10 @@ import com.trucksup.field_officer.presenter.view.activity.todayFollowup.model.Fo
 import com.trucksup.field_officer.presenter.view.activity.todayFollowup.model.FollowUpResponse
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.unassigned_ts_ba.vml.UnAssignedViewModel
 import com.trucksup.field_officer.presenter.view.adapter.ActiveBAAdapter
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.Calendar
 
-
+@AndroidEntryPoint
 class ActiveBAFragment : Fragment() {
     private var aContext: Context? = null
     private lateinit var binding: FragmentActiveBABinding

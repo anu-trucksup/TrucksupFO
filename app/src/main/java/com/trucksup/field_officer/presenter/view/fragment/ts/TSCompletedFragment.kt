@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -57,20 +56,21 @@ class TSCompletedFragment : Fragment() {
         mViewModel = ViewModelProvider(this)[TSFollowUpViewModel::class.java]
         LoadingUtils.showDialog(aContext, false)
 
-        setupObserver()
+
+        setupObserver("","")
         onListeners()
     }
 
     @SuppressLint("FragmentLiveDataObserve")
-    private fun setupObserver() {
+    private fun setupObserver(startDate:String, endDate:String) {
         val request = GetAllMeetupTSRequest(
             requestId = PreferenceManager.getRequestNo().toInt(),
             requestedBy = PreferenceManager.getPhoneNo(aContext as Activity),
             requestDatetime = PreferenceManager.getServerDateUtc(),
             boID = PreferenceManager.getUserData(aContext as Activity)?.boUserid?.toInt() ?: 0,
             type = "Completed",
-            startDate = "",
-            endDate = "",
+            startDate = startDate,
+            endDate = endDate,
             visitType = "",
             kycType = ""
         )
@@ -139,11 +139,11 @@ class TSCompletedFragment : Fragment() {
         //date picker
         binding.imgCalender.setOnClickListener {
             val bottomSheet = DateRangeBottomSheet { start, end ->
-                Toast.makeText(context, "Selected: $start → $end", Toast.LENGTH_SHORT).show()
+                setupObserver(start, end)
+                //Toast.makeText(context, "Selected: $start → $end", Toast.LENGTH_SHORT).show()
             }
             bottomSheet.show(requireActivity().supportFragmentManager, "DATE_BOTTOM_SHEET")
         }
-
         //filter
         /*binding.imgFilter.setOnClickListener {
             DialogBoxes.setFilter(aContext!!, "owner")

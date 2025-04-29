@@ -91,6 +91,6 @@ class PlanDetailsAdapter (val context: Context, var data :ArrayList<BrokerPlan>)
 
 
     override fun getItemCount(): Int {
-        return data.size
+        return 4
     }
 }

@@ -49,11 +49,11 @@ class SubscriptionActivity : BaseActivity(), PaySubscribtion, PlanCantroler {
         binding = ActivitySubscriptionBinding.inflate(layoutInflater)
         mViewModel = ViewModelProvider(this)[SubscriptionViewModel::class.java]
 
-        setupObserver()
+        //setupObserver()
 
        // setPlanList(arrayListOf())
 
-        setPlanDetails(arrayListOf())
+      //  setPlanDetails(arrayListOf())
     }
 
     private fun setupObserver() {

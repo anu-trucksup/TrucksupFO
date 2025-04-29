@@ -22,6 +22,8 @@ import com.trucksup.field_officer.presenter.common.LoadingUtils
 import com.trucksup.field_officer.presenter.common.btmsheet.DateRangeBottomSheet
 import com.trucksup.field_officer.presenter.view.adapter.TSCompletedAdapter
 import com.trucksup.field_officer.presenter.common.dialog.DialogBoxes
+import com.trucksup.field_officer.presenter.common.dialog.ProgressDialogBox
+
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.BoVisitDetail
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.GetAllMeetUpBARequest
@@ -59,7 +61,7 @@ class BACompletedFragment() : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         mViewModel = ViewModelProvider(this)[BAFollowUpViewModel::class.java]
         LoadingUtils.showDialog(aContext, false)
-        setupObserver()
+        setupObserver("","")
         onListeners()
     }
 
@@ -67,7 +69,8 @@ class BACompletedFragment() : Fragment() {
         //date picker
         binding.imgCalender.setOnClickListener {
             val bottomSheet = DateRangeBottomSheet { start, end ->
-                Toast.makeText(context, "Selected: $start → $end", Toast.LENGTH_SHORT).show()
+                setupObserver(start, end)
+                //Toast.makeText(context, "Selected: $start → $end", Toast.LENGTH_SHORT).show()
             }
             bottomSheet.show(requireActivity().supportFragmentManager, "DATE_BOTTOM_SHEET")
         }
@@ -79,15 +82,15 @@ class BACompletedFragment() : Fragment() {
     }
 
     @SuppressLint("FragmentLiveDataObserve")
-    private fun setupObserver() {
+    private fun setupObserver(startDate:String, endDate:String) {
         val request = GetAllMeetUpBARequest(
             requestId = PreferenceManager.getRequestNo().toInt(),
             requestedBy = PreferenceManager.getPhoneNo(aContext as Activity),
             requestDatetime = PreferenceManager.getServerDateUtc(),
             boID = PreferenceManager.getUserData(aContext as Activity)?.boUserid?.toInt() ?: 0,
             type = "Completed",
-            startDate = "",
-            endDate = "",
+            startDate = startDate,
+            endDate = endDate,
             visitType = "",
             kycType = ""
         )
@@ -105,6 +108,7 @@ class BACompletedFragment() : Fragment() {
                 abx.show()
             } else {
                 if (responseModel.success?.statuscode == 200) {
+                    getAllBAMeetsList.clear()
                     getAllMeetupBAResponse(responseModel.success)
                     LoadingUtils.hideDialog()
                     // setItemList(responseModel.success)
