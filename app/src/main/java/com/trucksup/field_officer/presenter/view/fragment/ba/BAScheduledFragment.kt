@@ -115,14 +115,14 @@ class BAScheduledFragment : Fragment() {
             getAllMeetupBAResponse.boVisitDetails.forEachIndexed { _, getTSDetailsData ->
                 run {
                     binding.rv.visibility = View.VISIBLE
-                    binding.l1.visibility = View.VISIBLE
+                    //binding.l1.visibility = View.VISIBLE
                     binding.noData.visibility = View.GONE
                     getAllBAMeetsList.add(getTSDetailsData)
                 }
             }
         } else {
             binding.rv.visibility = View.GONE
-            binding.l1.visibility = View.GONE
+            //binding.l1.visibility = View.GONE
             binding.noData.visibility = View.VISIBLE
         }
         binding.rv.layoutManager = LinearLayoutManager(aContext)
@@ -153,10 +153,16 @@ class BAScheduledFragment : Fragment() {
                 OnFilterValueInputListener {
                 override fun onInput(kycStatus: String, visitType: String) {
                     setupObserver(visitType, kycStatus)
+                    binding.llCancel.visibility = View.VISIBLE
                     //Toast.makeText(aContext as Activity, "KycStatus: $kycStatus, VisitType: $visitType", Toast.LENGTH_SHORT).show()
                 }
             })
             //DialogBoxes.setFilter(aContext!!, "owner")
+        }
+
+        binding.llCancel.setOnClickListener{
+            setupObserver("","")
+            binding.llCancel.visibility = View.GONE
         }
 
     }
