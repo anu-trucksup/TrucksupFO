@@ -1,15 +1,19 @@
 package com.trucksup.field_officer.presenter.common
 
+import android.app.Activity
+import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.icu.util.Calendar
 import android.net.Uri
 import android.os.Build
 import android.provider.Settings
 import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -23,14 +27,13 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.trucksup.field_officer.R
-import com.trucksup.field_officer.presenter.view.activity.auth.login.LoginActivity
+import com.trucksup.field_officer.databinding.AttendDialogLayoutBinding
+import com.trucksup.field_officer.presenter.utils.PrefsManager.getString
 import java.text.SimpleDateFormat
-import java.util.Locale
-import java.util.TimeZone
+import java.util.Date
 
 
 object Utils {
-    var strManualInstallation: String = ""
 
     fun appSettingOpen(context: Context) {
         /*Toast.makeText(
@@ -57,6 +60,35 @@ object Utils {
             .setPositiveButton("Ok", listener)
             .create()
             .show()
+    }
+
+    fun scheduleDialog(context: Activity, date: String?, time: String?, message: String?, onResult: (Boolean) -> Unit) {
+
+        val builder = AlertDialog.Builder(context)
+        val binding = AttendDialogLayoutBinding.inflate(LayoutInflater.from(context))
+        builder.setView(binding.root)
+        val dialog2 = builder.create()
+        dialog2?.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog2?.setCancelable(false)
+
+        binding.message.text = message
+
+        binding.tvDate.text = "Date: " + date
+        binding.tvTime.text = "Time: " + time
+
+        binding.confirm.text = context.getString(R.string.reschedule)
+        //ok button
+        binding.confirm.setOnClickListener {
+            onResult(true)
+            dialog2?.dismiss()
+        }
+
+        //ok button
+        binding.cancle.setOnClickListener {
+            dialog2?.dismiss()
+        }
+
+        dialog2?.show()
     }
 
     fun View.visible() {

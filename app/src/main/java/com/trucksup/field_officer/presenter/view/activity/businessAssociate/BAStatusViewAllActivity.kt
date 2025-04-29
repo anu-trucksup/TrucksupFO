@@ -67,13 +67,13 @@ class BAStatusViewAllActivity : BaseActivity() {
                                 this@BAStatusViewAllActivity,
                                 R.drawable.ba_tab_unselected_background
                             )
-                        );
+                        )
                         binding.tabInActiveBA.setBackgroundDrawable(
                             ContextCompat.getDrawable(
                                 this@BAStatusViewAllActivity,
                                 R.drawable.tab_selected_background
                             )
-                        );
+                        )
                         binding.txtActiveBA.setTextColor(resources.getColor(R.color.white))
                         binding.txtInActiveBA.setTextColor(resources.getColor(R.color.blue))
 

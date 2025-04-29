@@ -1,6 +1,5 @@
 package com.trucksup.field_officer.presenter.view.activity.truckSupplier
 
-import android.Manifest
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
@@ -11,14 +10,27 @@ import android.provider.Settings
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.util.Log
+import android.view.View
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.api.model.AutocompletePrediction
+import com.google.android.libraries.places.api.model.AutocompleteSessionToken
+import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.api.net.FetchPlaceRequest
+import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest
+import com.google.android.libraries.places.api.net.PlacesClient
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.data.model.PinCodeRequest
 import com.trucksup.field_officer.databinding.ActivityTsMaptripBinding
@@ -27,15 +39,27 @@ import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.vml.TSOnboardViewModel
+import com.trucksup.field_officer.presenter.view.adapter.PlacesAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
 
 
 @AndroidEntryPoint
 class TSStartTripActivity : BaseActivity(), OnMapReadyCallback {
+    private var latLong: LatLng? = null
     private lateinit var binding: ActivityTsMaptripBinding
     private var googleMap: GoogleMap? = null
     private var mViewModel: TSOnboardViewModel? = null
+    private val placeFields = listOf(
+        Place.Field.ID,
+        Place.Field.NAME,
+        Place.Field.ADDRESS,
+        Place.Field.LAT_LNG
+    )
+    private lateinit var placesClient: PlacesClient
+    private lateinit var token: AutocompleteSessionToken
+    private lateinit var adapter: PlacesAdapter
+    private val predictions = mutableListOf<AutocompletePrediction>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,14 +75,43 @@ class TSStartTripActivity : BaseActivity(), OnMapReadyCallback {
             supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
+        token = AutocompleteSessionToken.newInstance()
+        placesClient = Places.createClient(this)
+
         val titleName = intent.getStringExtra("title")
         val address = intent.getStringExtra("address")
         val customDetails = intent.getStringExtra("customDetails")
         binding.tvTitle.text = titleName
 
         if (!address.isNullOrEmpty()) {
-            binding.etAddress.setText(address)
+            validateAddressWithPlaces(address) { it ->
+                if (it) {
+                    binding.etAddress.setText(address)
+                } else {
+                    binding.etAddress.error = "Invalid or unknown address."
+                }
+
+            }
+
         }
+
+        binding.etAddress.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                val text = binding.etAddress.text
+                if (!text.isNullOrEmpty() && text.length > 2) {
+                    searchPlaces(text.toString())
+                } else {
+                    predictions.clear()
+                    adapter.notifyDataSetChanged()
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+        })
 
         binding.etPincode.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -91,9 +144,9 @@ class TSStartTripActivity : BaseActivity(), OnMapReadyCallback {
                 val intent = Intent(this, EndTripActivity::class.java)
                 intent.putExtra("title", "" + titleName)
                 intent.putExtra("currentAddress", "" + binding.etAddress.text.toString())
-                intent.putExtra("currentLatitude", 28.646981)
-                intent.putExtra("currentLongitude", 77.125658)
-                intent.putExtra("customDetails",customDetails)
+                intent.putExtra("currentLatitude", latLong?.latitude)
+                intent.putExtra("currentLongitude", latLong?.longitude)
+                intent.putExtra("customDetails", customDetails)
                 startActivity(intent)
             }
         }
@@ -102,7 +155,89 @@ class TSStartTripActivity : BaseActivity(), OnMapReadyCallback {
             onBackPressed()
         }
 
+        binding.ivClose.setOnClickListener {
+            binding.rlAddress.visibility = View.GONE
+            binding.etAddress.visibility = View.VISIBLE
+            binding.etAddress.setText("")
+        }
+
         setupObserver()
+        setPlaceData()
+    }
+
+    private fun validateAddressWithPlaces(address: String, onResult: (Boolean) -> Unit) {
+
+        val request = FindAutocompletePredictionsRequest.builder()
+            .setSessionToken(token)
+            .setQuery(address)
+            .build()
+
+        placesClient.findAutocompletePredictions(request)
+            .addOnSuccessListener { response ->
+                val isValid = response.autocompletePredictions.isNotEmpty()
+                onResult(isValid)
+            }
+            .addOnFailureListener {
+                onResult(false)
+            }
+    }
+
+    private fun setPlaceData() {
+
+        adapter = PlacesAdapter(predictions) { prediction ->
+            binding.tvAddress.text = "${prediction.getPrimaryText(null)}"
+            binding.rlAddress.visibility = View.VISIBLE
+            binding.placesRecyclerView.visibility = View.GONE
+            binding.progressBar.visibility = View.GONE
+            binding.etAddress.visibility = View.GONE
+            Toast.makeText(this, "Clicked: ${prediction.getPrimaryText(null)}", Toast.LENGTH_SHORT)
+                .show()
+
+            val placeId = prediction.placeId
+
+            val request = FetchPlaceRequest.builder(placeId, placeFields)
+                .build()
+
+            placesClient.fetchPlace(request)
+                .addOnSuccessListener { response ->
+                    val place = response.place
+                    latLong = place.latLng
+                }
+                .addOnFailureListener { exception ->
+                    if (exception is ApiException) {
+                        Log.e("Places", "Place not found: ${exception.statusCode}")
+                    }
+                }
+        }
+
+        binding.placesRecyclerView.let { recyclerView ->
+            recyclerView.layoutManager = LinearLayoutManager(this)
+            recyclerView.adapter = adapter
+        }
+
+    }
+
+    private fun searchPlaces(query: String) {
+        binding.progressBar.visibility = View.VISIBLE
+        val request = FindAutocompletePredictionsRequest.builder()
+            .setSessionToken(token)
+            .setQuery(query)
+            .build()
+
+        placesClient.findAutocompletePredictions(request)
+            .addOnSuccessListener { response ->
+                predictions.clear()
+                predictions.addAll(response.autocompletePredictions)
+                adapter.notifyDataSetChanged()
+                binding.placesRecyclerView.visibility = View.VISIBLE
+                binding.progressBar.visibility = View.GONE
+                binding.rlAddress.visibility = View.GONE
+                // binding.etAddress.visibility = View.GONE
+            }
+            .addOnFailureListener { e ->
+                binding.progressBar.visibility = View.GONE
+                Log.e("Places", "Error getting predictions: ${e.message}")
+            }
     }
 
     private fun setUI() {
@@ -216,6 +351,15 @@ class TSStartTripActivity : BaseActivity(), OnMapReadyCallback {
             LoggerMessage.onSNACK(
                 binding.etState,
                 resources.getString(R.string.enter_state),
+                this
+            )
+            return false
+        }
+
+        if (latLong == null) {
+            LoggerMessage.onSNACK(
+                binding.etState,
+                "Address is not valid",
                 this
             )
             return false

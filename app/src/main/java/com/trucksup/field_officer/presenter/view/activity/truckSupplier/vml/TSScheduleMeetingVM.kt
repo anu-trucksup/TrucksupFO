@@ -41,9 +41,9 @@ class TSScheduleMeetingVM @Inject constructor(val apiUseCase: APIUseCase) : View
     val onBoardBAResponseLD: LiveData<ResponseModel<AddBrokerResponse>> = onBoardBAResponse
 
     //by me
-    private var resultsubmitTSScheduleMeeting: MutableLiveData<ResponseModel<ScheduleMeetingResponse>> =
+    private var resultScheduleMeetingTS: MutableLiveData<ResponseModel<ScheduleMeetingResponse>> =
         MutableLiveData<ResponseModel<ScheduleMeetingResponse>>()
-    val resultsubmitTSScheduleMeetingLD: LiveData<ResponseModel<ScheduleMeetingResponse>> = resultsubmitTSScheduleMeeting
+    val resultScheduleMeetingTSLD: LiveData<ResponseModel<ScheduleMeetingResponse>> = resultScheduleMeetingTS
 
     private var resultGetTSScheduleMeetingData: MutableLiveData<ResponseModel<GetAllTSDetailsResponse>> =
         MutableLiveData<ResponseModel<GetAllTSDetailsResponse>>()
@@ -125,7 +125,7 @@ class TSScheduleMeetingVM @Inject constructor(val apiUseCase: APIUseCase) : View
 
 
     //by me
-    fun SubmitTSScheduleMeetTSData(request: ScheduleMeetTSRequest) {
+    fun scheduleMeetingTS(request: ScheduleMeetTSRequest) {
         CoroutineScope(Dispatchers.IO).launch {
             when (val response = apiUseCase.scheduleMeetingTS(
                 PreferenceManager.getAuthToken(),
@@ -133,15 +133,16 @@ class TSScheduleMeetingVM @Inject constructor(val apiUseCase: APIUseCase) : View
             )) {
                 is ResultWrapper.ServerResponseError -> {
                     Log.e("API Error", response.error ?: "")
-                    resultsubmitTSScheduleMeeting.postValue(ResponseModel(serverError = response.error))
+                    resultScheduleMeetingTS.postValue(ResponseModel(serverError = response.error))
                 }
 
                 is ResultWrapper.Success -> {
-                    resultsubmitTSScheduleMeeting.postValue(ResponseModel(success = response.value))
+                    resultScheduleMeetingTS.postValue(ResponseModel(success = response.value))
                 }
             }
         }
     }
+
     fun getAllTSDetails(request: GetAllTSDetailsRequest) {
         CoroutineScope(Dispatchers.IO).launch {
             when (val response = apiUseCase.getAllTSDetails(

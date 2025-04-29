@@ -93,7 +93,7 @@ class TSPerformanceAdapter(var context: Context?, var list: ArrayList<GetAllTSDe
         list.get(position)
         holder.binding.btnSchedule.setOnClickListener {
             //listener?.onItemClick(position)
-            dateFilterDialog(position, list[position].ownerName)
+            dateFilterDialog(list[position].ownerName)
         }
 
 
@@ -103,8 +103,7 @@ class TSPerformanceAdapter(var context: Context?, var list: ArrayList<GetAllTSDe
         return filteredList.size
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun dateFilterDialog(pos: Int, ownerName: String) {
+    fun dateFilterDialog(ownerName: String) {
         val builder = AlertDialog.Builder(context)
         val binding = DateFilterBinding.inflate(LayoutInflater.from(context))
         builder.setView(binding.root)
