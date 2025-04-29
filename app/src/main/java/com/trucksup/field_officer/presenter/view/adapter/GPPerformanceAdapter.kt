@@ -5,6 +5,7 @@ import android.app.AlertDialog
 import android.content.Context
 import android.os.Build
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
@@ -13,19 +14,28 @@ import com.trucksup.field_officer.databinding.DateFilterBinding
 import com.trucksup.field_officer.databinding.GpPerformItemBinding
 import com.trucksup.field_officer.presenter.common.dialog.HappinessCodeBox
 import com.trucksup.field_officer.presenter.utils.LoggerMessage
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.GetAllBADetailsResponse
+import com.trucksup.field_officer.presenter.view.activity.growthPartner.model.GetAllGPDetailsResponse
 import com.trucksup.field_officer.presenter.view.adapter.BAPerformanceAdapter.OnItemClickListener
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 import java.util.TimeZone
 
-class GPPerformanceAdapter(var context: Context?, var list: ArrayList<String>) :
+class GPPerformanceAdapter(var context: Context?, var list: ArrayList<GetAllGPDetailsResponse.GetGPdetails>) :
     RecyclerView.Adapter<GPPerformanceAdapter.ViewHolder>() {
     private var listener: OnItemClickListener? = null
+    private var filteredList = ArrayList<GetAllGPDetailsResponse.GetGPdetails>()
+
 
     fun setOnItemClickListener(listener: GPPerformanceAdapter.OnItemClickListener) {
         this.listener = listener
     }
+
+    init {
+        filteredList.addAll(list) // Initially show all
+    }
+
     inner class ViewHolder(var binding: GpPerformItemBinding) :
         RecyclerView.ViewHolder(binding.root)
 
@@ -34,6 +44,7 @@ class GPPerformanceAdapter(var context: Context?, var list: ArrayList<String>) :
         return ViewHolder(v)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if (position == 0) {
             holder.binding.highLightView.setBackgroundResource(R.drawable.background2)
@@ -51,18 +62,56 @@ class GPPerformanceAdapter(var context: Context?, var list: ArrayList<String>) :
         }
 
         holder.binding.tvAddSchedule.setOnClickListener{
-            dateFilterDialog(position)
+            dateFilterDialog(position, list[position].ownerName)
+        }
+
+
+        if(list[position].ownerName.isNotEmpty()){
+            holder.binding.name.setText(list[position].ownerName)
+        }
+        if(list[position].mobileNo.isNotEmpty()){
+            holder.binding.tvMobile.setText(list[position].mobileNo)
+        }
+        if(list[position].address.isNotEmpty()){
+            holder.binding.address.setText(list[position].address)
+        }
+        if(list[position].lastMeeting.isNotEmpty()){
+            holder.binding.txtLastMeeting.setText("Last Meeting: "+list[position].lastMeeting)
+        }
+        if(list[position].meetingCount.isNotEmpty()){
+            holder.binding.tvMeetingCount.setText("Meeting count : "+list[position].meetingCount)
+        }
+        if(list[position].distance.isNotEmpty()){
+            holder.binding.linDistance.visibility = View.VISIBLE
+            holder.binding.tvDistance.setText("Distance: "+list[position].distance+" KM")
+        }else{
+            holder.binding.linDistance.visibility = View.GONE
+        }
+        if(list[position].visitType.isNotEmpty()){
+            holder.binding.tvVisit.setText(list[position].visitType)
+        }
+        if(list[position].kycStatus.isNotEmpty()){
+            if(list[position].kycStatus.equals("Unverified")){
+                holder.binding.imgKycStatus.setImageResource(R.drawable.ic_kyc_unverified)
+            }
+            if(list[position].kycStatus.equals("Verified")){
+                holder.binding.imgKycStatus.setImageResource(R.drawable.kyc_done_icon_svg)
+            }
+
+        }
+        if(list[position].trucksAdded.isNotEmpty()){
+            holder.binding.txtTrucksAdded.setText("No. of Trucks Added : "+list[position].trucksAdded)
         }
 
 
     }
 
     override fun getItemCount(): Int {
-        return list.size
+        return filteredList.size
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun dateFilterDialog(pos: Int) {
+    private fun dateFilterDialog(pos: Int, ownerName:String) {
         val builder = AlertDialog.Builder(context)
         val binding = DateFilterBinding.inflate(LayoutInflater.from(context))
         builder.setView(binding.root)
@@ -127,7 +176,7 @@ class GPPerformanceAdapter(var context: Context?, var list: ArrayList<String>) :
                     )
                 }
             }else{
-                listener?.onItemClick(selectedDate, selectedTime)
+                listener?.onItemClick(selectedDate, selectedTime, ownerName)
                 dialog.dismiss()
             }
 
@@ -140,7 +189,20 @@ class GPPerformanceAdapter(var context: Context?, var list: ArrayList<String>) :
         }
     }
 
+    fun filter(query: String) {
+        filteredList.clear()
+        if (query.isEmpty()) {
+            filteredList.addAll(list)
+        } else {
+            filteredList.addAll(
+                list.filter { it.mobileNo.contains(query, ignoreCase = true) }
+
+            )
+        }
+        notifyDataSetChanged()
+    }
+
     interface OnItemClickListener {
-        fun onItemClick(selectedDate: String, selectedTime : String)
+        fun onItemClick(ownerName:String, selectedDate: String, selectedTime : String)
     }
 }

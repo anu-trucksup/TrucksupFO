@@ -40,6 +40,7 @@ import com.trucksup.field_officer.presenter.view.activity.auth.logout.LogoutResp
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.AddBrokerRequest
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.AddBrokerResponse
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.CompleteMeetingBARequest
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.GetAllBADetailsResponse
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.GetAllMeetUpBARequest
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.GetAllMeetupBAResponse
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.ScheduleMeetingBARequest
@@ -51,6 +52,7 @@ import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.I
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.LoanDataSubmitRequest
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryRequest
 import com.trucksup.field_officer.presenter.view.activity.growthPartner.model.CompleteMeetingGPRequest
+import com.trucksup.field_officer.presenter.view.activity.growthPartner.model.GetAllGPDetailsResponse
 import com.trucksup.field_officer.presenter.view.activity.growthPartner.model.ScheduleMeetingGPRequest
 import com.trucksup.field_officer.presenter.view.activity.miscellaneous.model.AddMiscLeadRequest
 import com.trucksup.field_officer.presenter.view.activity.miscellaneous.model.AddMiscLeadsResponse
@@ -301,14 +303,14 @@ class APIUseCase @Inject constructor(private val apiRepository: APIRepository) {
     suspend fun getAllBADetails(
         authToken: String,
         request: GetAllTSDetailsRequest
-    ): ResultWrapper<GetAllTSDetailsResponse> {
+    ): ResultWrapper<GetAllBADetailsResponse> {
         return apiRepository.getBAMeetScheduleData(authToken, request)
     }
 
     suspend fun getGPMeetSchedule(
         authToken: String,
         request: GetAllTSDetailsRequest
-    ): ResultWrapper<GetAllTSDetailsResponse> {
+    ): ResultWrapper<GetAllGPDetailsResponse> {
         return apiRepository.getGPMeetScheduleData(authToken, request)
     }
 

@@ -1,5 +1,6 @@
 package com.trucksup.field_officer.presenter.view.activity.businessAssociate
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -8,10 +9,12 @@ import android.os.Bundle
 import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -25,10 +28,14 @@ import com.trucksup.field_officer.databinding.BaPerformanceActivityBinding
 import com.trucksup.field_officer.databinding.DateFilterBinding
 import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.dialog.DialogBoxes
+import com.trucksup.field_officer.presenter.common.dialog.OnFilterValueInputListener
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.GetAllBADetailsResponse
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.ScheduleMeetingBARequest
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.vml.BAScheduleMeetingVM
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetAllTSDetailsRequest
+import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetAllTSDetailsResponse
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.ScheduleMeetTSRequest
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.vml.TSScheduleMeetingVM
 import com.trucksup.field_officer.presenter.view.adapter.BAPerformanceAdapter
@@ -44,6 +51,7 @@ class BAPerformanceActivity : BaseActivity() {
 
     private lateinit var binding: BaPerformanceActivityBinding
     private var mViewModel: BAScheduleMeetingVM? = null
+    private var getBadetails: java.util.ArrayList<GetAllBADetailsResponse.GetBAdetails> = arrayListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,8 +61,9 @@ class BAPerformanceActivity : BaseActivity() {
 
         mViewModel = ViewModelProvider(this)[BAScheduleMeetingVM::class.java]
 
+
+        getAllBADetails()
         setupObserver()
-        setRvList()
         setOnListeners()
     }
 
@@ -87,10 +96,89 @@ class BAPerformanceActivity : BaseActivity() {
                 }
             }
         }
+
+        mViewModel?.rresultGetBAScheduleMeetingDataLD?.observe(this) { responseModel ->                     // login function observe
+            if (responseModel.serverError != null) {
+                dismissProgressDialog()
+                val abx = AlertBoxDialog(this, responseModel.serverError.toString(), "m")
+                abx.show()
+            } else {
+                dismissProgressDialog()
+                if (responseModel.success != null) {
+                    getBadetails.clear()
+                    if (responseModel.success.statuscode==200) {
+                        getBADetailsDataSuccess(responseModel.success)
+                    }
+                    else
+                    {
+                        val abx = AlertBoxDialog(
+                            this@BAPerformanceActivity,
+                            responseModel.success.message,
+                            "finishActivity"
+                        )
+                        abx.show()
+
+                    }
+                }
+                else
+                {
+
+                }
+            }
+        }
+    }
+
+    private fun getBADetailsDataSuccess(baDetailsGetResponse: GetAllBADetailsResponse) {
+        if(baDetailsGetResponse.getBADetails != null &&
+            baDetailsGetResponse.getBADetails.size > 0){
+            binding.noData.visibility = View.GONE
+            println("Dsdksd=="+baDetailsGetResponse.getBADetails.size)
+            baDetailsGetResponse.getBADetails?.forEachIndexed { _, getBADetailsData ->
+                run {
+                    getBadetails.add(getBADetailsData)
+                }
+            }
+        }else{
+            binding.noData.visibility = View.VISIBLE
+        }
+
+
+
+        binding.rv.layoutManager = LinearLayoutManager(this)
+        val adapter = BAPerformanceAdapter(this@BAPerformanceActivity, getBadetails)
+
+        adapter.setOnItemClickListener(object : BAPerformanceAdapter.OnItemClickListener {
+            @RequiresApi(Build.VERSION_CODES.O)
+            override fun onItemClick(ownerName: String, selectedDate: String, selectedTime: String) {
+                dataSubmit(ownerName, selectedDate, selectedTime)
+            }
+        })
+        binding.rv.adapter = adapter
+
+        // Add search or filter input
+        binding.etSearchFillter.addTextChangedListener {
+            adapter.filter(it.toString())
+        }
+
+        //binding.tvTotalEnquiry.text = "${inquiryHistoryResponse?.leadsHistory?.size} Enquiries"
+        //setupViewPager()
+    }
+
+    private fun getAllBADetails() {
+        showProgressDialog(this,false)
+        val request = GetAllTSDetailsRequest(
+            PreferenceManager.getRequestNo().toInt(),
+            PreferenceManager.getPhoneNo(this),
+            PreferenceManager.getServerDateUtc(),
+            "Ghaziabad",
+            /*PreferenceManager.getUserData(this)?.city.toString(),*/
+            /*PreferenceManager.getPhoneNo(this)*/"8881236353"
+        )
+        mViewModel?.getAllBADetails(request)
     }
 
     private fun setRvList() {
-        val list = ArrayList<String>()
+        /*val list = ArrayList<String>()
         list.add("")
         list.add("")
         list.add("")
@@ -103,27 +191,24 @@ class BAPerformanceActivity : BaseActivity() {
                 //Toast.makeText(this@TSPerformanceActivity, "Clicked item at position $selectedTime", Toast.LENGTH_SHORT).show()
             }
         })
-        binding.rv.adapter = adapter
+        binding.rv.adapter = adapter*/
     }
 
-
-
-
     @RequiresApi(Build.VERSION_CODES.O)
-    fun dataSubmit(selectedDate: String, selectedTime : String) {
+    fun dataSubmit(ownerName: String, selectedDate: String, selectedTime : String) {
         val firstApiFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy")
         val date = LocalDate.parse("21-04-2025" , firstApiFormat)
         val request =
             ScheduleMeetingBARequest(
-                1,
-                "test",
+                PreferenceManager.getUserData(this)?.boUserid?.toInt() ?: 0,
+                ownerName,
                 "12.33",
                 "22.33",
-                "8527257606",
+                PreferenceManager.getPhoneNo(this),
                 PreferenceManager.getProfileType(this),
                 PreferenceManager.getServerDateUtc(),
-                576,
-                "8527257606",
+                PreferenceManager.getRequestNo().toInt(),
+                PreferenceManager.getPhoneNo(this),
                 selectedDate,
                 selectedTime,
             )
@@ -140,10 +225,22 @@ class BAPerformanceActivity : BaseActivity() {
 
         //filter
         binding.imgFilter.setOnClickListener {
-            DialogBoxes.setFilter(this@BAPerformanceActivity, "owner")
+            DialogBoxes.setFilters(this, "owner", object :
+                OnFilterValueInputListener {
+                override fun onInput(kycStatus: String, visitType: String) {
+                    setupObserver()
+                    binding.llCancel.visibility = View.VISIBLE
+                }
+            })
+            //DialogBoxes.setFilter(this@BAPerformanceActivity, "owner")
         }
         binding.ivBack.setOnClickListener {
             onBackPressed()
+        }
+
+        binding.llCancel.setOnClickListener{
+            setupObserver()
+            binding.llCancel.visibility = View.GONE
         }
     }
 
