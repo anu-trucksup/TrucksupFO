@@ -256,6 +256,10 @@ class FinanceHistoryActivity : BaseActivity() {
             }
         }
 
+        binding.txtActive.text="Active("+activehistoryList.size.toString()+")"
+        binding.txtCompleted.text="Completed("+completehistoryList.size.toString()+")"
+        binding.txtRejected.text="Rejected("+rejectedhistoryList.size.toString()+")"
+
         binding.tvTotalEnquiry.text = "${inquiryHistoryResponse?.inquiryHistory?.size} Enquiries"
         setupViewPager()
 

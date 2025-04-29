@@ -80,6 +80,7 @@ class MiscActivity : BaseActivity(), AddMiscInterface, TrucksFOImageController {
     private var inCompleteLeadsList = ArrayList<GetAllMiscLeadResponse.IncompletedLead>()
     private var completeAdap: CompleteLead? = null
     private var inCompleteAdap: IncompleteLead? = null
+    private var inCompleteLeadId:String?=""
 
     private var launcher: ActivityResultLauncher<Intent>? = null
 
@@ -150,6 +151,7 @@ class MiscActivity : BaseActivity(), AddMiscInterface, TrucksFOImageController {
         //date picker
         binding.imgCalender.setOnClickListener {
             val bottomSheet = DateRangeBottomSheet { start, end ->
+                binding.imgClear.visibility=View.VISIBLE
                 getMiscLeads(start, end)
 //                Toast.makeText(this, "Selected: $start → $end", Toast.LENGTH_SHORT).show()
             }
@@ -157,6 +159,13 @@ class MiscActivity : BaseActivity(), AddMiscInterface, TrucksFOImageController {
 //            dateFilterDialog()
         }
 
+        //clear filter
+        binding.imgClear.setOnClickListener {
+            binding.imgClear.visibility=View.GONE
+            getMiscLeads("", "")
+        }
+
+        //add Misc
         binding.btnAddMisc.setOnClickListener {
             bottomDialog?.dismiss()
             bottomDialog = null
@@ -434,6 +443,7 @@ class MiscActivity : BaseActivity(), AddMiscInterface, TrucksFOImageController {
         dialog: BottomSheetDialog,
         data: GetAllMiscLeadResponse.IncompletedLead?
     ) {
+        inCompleteLeadId=""
         bottomDialog = dialog
         addMiscLayoutBinding = null
         imageList.clear()
@@ -584,6 +594,9 @@ class MiscActivity : BaseActivity(), AddMiscInterface, TrucksFOImageController {
 
         //auto fill
         if (data != null) {
+
+            inCompleteLeadId=data.id.toString()
+
             if (data.category.lowercase() == "truck supplier") {
                 addMiscLayoutBinding?.categorySpinner?.setSelection(0)
                 addMiscLayoutBinding?.etTruckNo?.setText(data.truckNumber ?: "")
@@ -598,7 +611,7 @@ class MiscActivity : BaseActivity(), AddMiscInterface, TrucksFOImageController {
             //truck images
             if (data.truckImageList.isNullOrEmpty()) {
                 addMiscLayoutBinding?.rvImage?.visibility = View.GONE
-                addMiscLayoutBinding?.placeHolderImages?.visibility = View.VISIBLE
+                addMiscLayoutBinding?.placeHolderImages?.visibility = View.GONE
 //                var list = ArrayList<TrucksImageXML>()
 //                addMiscLayoutBinding?.rvImage?.apply {
 //                    layoutManager = LinearLayoutManager(this@MiscActivity, RecyclerView.HORIZONTAL, false)
@@ -860,7 +873,8 @@ class MiscActivity : BaseActivity(), AddMiscInterface, TrucksFOImageController {
                 requestedBy = PreferenceManager.getPhoneNo(this@MiscActivity),
                 truckNumber = addMiscLayoutBinding?.etTruckNo?.text.toString(),
                 trucksImageXML = imageList,
-                userId = PreferenceManager.getUserData(this)?.boUserid?.toInt() ?: 0
+                userId = PreferenceManager.getUserData(this)?.boUserid?.toInt() ?: 0,
+                miscId = inCompleteLeadId!!
             )
             mViewModel?.addMiscellaneous(PreferenceManager.getAuthToken(), request)
 

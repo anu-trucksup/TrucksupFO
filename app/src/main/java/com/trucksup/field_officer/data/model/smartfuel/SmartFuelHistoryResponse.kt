@@ -24,6 +24,10 @@ data class SmartFuelHistoryResponse(
         val cardStatusFlag: String,
         @SerializedName("customerName")
         val customerName: String,
+        @SerializedName("refNo")
+        val refNo: String,
+        @SerializedName("enquiryFrom")
+        val enquiryFrom: String,
         @SerializedName("customerRegisteredMobileNo")
         val customerRegisteredMobileNo: String,
         @SerializedName("id")

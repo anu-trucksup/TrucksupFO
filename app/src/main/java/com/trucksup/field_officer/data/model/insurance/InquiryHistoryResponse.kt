@@ -30,6 +30,8 @@ data class InquiryHistoryResponse(
         val mobileNumber: String,
         @SerializedName("name")
         val name: String,
+        @SerializedName("enquiryFrom")
+        val enquiryFrom: String,
         @SerializedName("refNo")
         val refNo: String,
         @SerializedName("requestId")

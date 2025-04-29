@@ -102,9 +102,23 @@
                 tools:text="Mobile No: 9876543215"
                 android:textColor="#4D4D4D"
                 android:textSize="@dimen/_9ssp"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/image"
-                app:layout_constraintTop_toBottomOf="@+id/tvName" />
+                app:layout_constraintTop_toBottomOf="@+id/tvName"
+                app:layout_constraintEnd_toStartOf="@+id/tvEnquiryFrom"
+                android:layout_marginEnd="@dimen/_5sdp"/>
+
+            <TextView
+                android:id="@+id/tvEnquiryFrom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:fontFamily="@font/bai_jamjuree_medium"
+                tools:text="BO Enquiry"
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_9ssp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/tvMobileNo"
+                app:layout_constraintTop_toTopOf="@+id/tvMobileNo" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardTrackStatus"

@@ -23,11 +23,17 @@ class SmartFuelHisAdap(var context: Context, var list: ArrayList<SmartFuelHistor
     }
 
     override fun onBindViewHolder(holder: SmartFuelHisAdap.ViewHolder, position: Int) {
-        //  holder.setIsRecyclable(false)
         holder.binding.cardSelfOther.visibility=View.GONE
+
         //name
         if (!list[position].customerName.isNullOrEmpty()) {
             holder.binding.tvName.text = list[position].customerName
+        }
+
+        //enquiry from
+        if (!list[position].enquiryFrom.isNullOrEmpty())
+        {
+            holder.binding.tvEnquiryFrom.text=list[position].enquiryFrom
         }
 
         //call status
@@ -52,10 +58,9 @@ class SmartFuelHisAdap(var context: Context, var list: ArrayList<SmartFuelHistor
         }
 
         //ref. id
-//        if (!list[position].refNo.isNullOrEmpty()) {
-//            holder.binding.refId.text =
-//                context.getString(R.string.ref_id) + " " + list[position].refNo
-//        }
+        if (!list[position].refNo.isNullOrEmpty()) {
+            holder.binding.refId.text = context.getString(R.string.ref_id) + " " + list[position].refNo
+        }
 
         //self or other
 //        if (list[position].inquiryBy.lowercase() == "self") {
