@@ -2,8 +2,10 @@ package com.trucksup.field_officer.presenter.view.activity.truckSupplier
 
 import android.app.AlertDialog
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
+import androidx.annotation.RequiresApi
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,6 +13,7 @@ import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.Ge
 import com.trucksup.field_officer.databinding.DateFilterBinding
 import com.trucksup.field_officer.databinding.TsPerformanceActivityBinding
 import com.trucksup.field_officer.presenter.common.AlertBoxDialog
+import com.trucksup.field_officer.presenter.common.Utils
 import com.trucksup.field_officer.presenter.common.dialog.DialogBoxes
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
@@ -23,9 +26,11 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class TSPerformanceActivity : BaseActivity() {
 
+    private lateinit var adapter: TSPerformanceAdapter
     private lateinit var binding: TsPerformanceActivityBinding
     private var mViewModel: TSScheduleMeetingVM? = null
-    private var getTsdetails: java.util.ArrayList<GetAllTSDetailsResponse.GetTsdetails> = arrayListOf()
+    private var getTsdetails: java.util.ArrayList<GetAllTSDetailsResponse.GetTsdetails> =
+        arrayListOf()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,9 +46,10 @@ class TSPerformanceActivity : BaseActivity() {
         setOnListeners()
     }
 
+
     private fun setupObserver() {
 
-        mViewModel?.resultsubmitTSScheduleMeetingLD?.observe(this@TSPerformanceActivity) { responseModel ->                     // login function observe
+        mViewModel?.resultScheduleMeetingTSLD?.observe(this@TSPerformanceActivity) { responseModel ->                     // login function observe
             if (responseModel.serverError != null) {
                 dismissProgressDialog()
 
@@ -56,21 +62,47 @@ class TSPerformanceActivity : BaseActivity() {
             } else {
                 dismissProgressDialog()
 
-                if (responseModel.success?.message != null) {
-                    val abx = AlertBoxDialog(
-                        this@TSPerformanceActivity,
-                        responseModel.success.message,
-                        "m"
-                    )
-                    abx.show()
-                   /* updateData(
-                        responseModel.success.message.toString(),
-                        responseModel.success.message1
-                    )*/
+                if (responseModel.success?.statuscode == 200) {
+                    if (responseModel.success?.message != null) {
+                        val abx = AlertBoxDialog(
+                            this@TSPerformanceActivity,
+                            responseModel.success.message,
+                            "m"
+                        )
+                        abx.show()
 
+                    }
                 } else {
+                    if (responseModel.success?.statuscode == 201) {
+                        if (responseModel.success.date != null && responseModel.success.time != null) {
+                            Utils.scheduleDialog(
+                                this, responseModel.success.date, responseModel.success.time,
+                                responseModel.success.message
+                            ){
+                                if(it){
+                                    adapter.dateFilterDialog( "Test")
+                                }
+                            }
+                        } else {
+                            val abx = AlertBoxDialog(
+                                this@TSPerformanceActivity,
+                                responseModel.success.message,
+                                "m"
+                            )
+                            abx.show()
+                        }
+
+                    } else {
+                        val abx = AlertBoxDialog(
+                            this@TSPerformanceActivity,
+                            responseModel.success?.message ?: "",
+                            "m"
+                        )
+                        abx.show()
+                    }
                 }
             }
+
         }
 
         mViewModel?.rresultGetTSScheduleMeetingDataLD?.observe(this) { responseModel ->                     // login function observe
@@ -81,11 +113,9 @@ class TSPerformanceActivity : BaseActivity() {
             } else {
                 dismissProgressDialog()
                 if (responseModel.success != null) {
-                    if (responseModel.success.statuscode==200) {
+                    if (responseModel.success.statuscode == 200) {
                         getTSDetailsDataSuccess(responseModel.success)
-                    }
-                    else
-                    {
+                    } else {
                         val abx = AlertBoxDialog(
                             this@TSPerformanceActivity,
                             responseModel.success.message,
@@ -94,9 +124,7 @@ class TSPerformanceActivity : BaseActivity() {
                         abx.show()
 
                     }
-                }
-                else
-                {
+                } else {
 
                 }
             }
@@ -112,10 +140,14 @@ class TSPerformanceActivity : BaseActivity() {
 
 
         binding.rv.layoutManager = LinearLayoutManager(this)
-        val adapter = TSPerformanceAdapter(this@TSPerformanceActivity, getTsdetails)
+        adapter = TSPerformanceAdapter(this@TSPerformanceActivity, getTsdetails)
 
         adapter.setOnItemClickListener(object : TSPerformanceAdapter.OnItemClickListener {
-            override fun onItemClick(ownerName: String, selectedDate: String, selectedTime: String) {
+            override fun onItemClick(
+                ownerName: String,
+                selectedDate: String,
+                selectedTime: String
+            ) {
                 dataSubmit(ownerName, selectedDate, selectedTime)
             }
         })
@@ -131,24 +163,22 @@ class TSPerformanceActivity : BaseActivity() {
     }
 
     private fun getAllTSDetails() {
-        showProgressDialog(this,false)
+        showProgressDialog(this, false)
         val request = GetAllTSDetailsRequest(
             PreferenceManager.getRequestNo().toInt(),
             PreferenceManager.getPhoneNo(this),
-            PreferenceManager.getServerDateUtc(),"Ghaziabad",
+            PreferenceManager.getServerDateUtc(), "Ghaziabad",
             /*PreferenceManager.getUserData(this)?.city.toString(),*/
             /*PreferenceManager.getPhoneNo(this)*/"8881236353"
         )
         mViewModel?.getAllTSDetails(request)
     }
 
-    fun dataSubmit(ownerName: String, selectedDate: String, selectedTime : String) {
+    fun dataSubmit(ownerName: String, selectedDate: String, selectedTime: String) {
         val request =
             ScheduleMeetTSRequest(
                 PreferenceManager.getUserData(this)?.boUserid?.toInt() ?: 0,
-                ownerName,
-                "12.33",
-                "22.33",
+                ownerName, latitude, longitude,
                 PreferenceManager.getPhoneNo(this),
                 PreferenceManager.getProfileType(this),
                 PreferenceManager.getServerDateUtc(),
@@ -157,8 +187,9 @@ class TSPerformanceActivity : BaseActivity() {
                 selectedDate,
                 selectedTime,
             )
+
         showProgressDialog(this, false)
-        request?.let { mViewModel?.SubmitTSScheduleMeetTSData(it) }
+        request.let { mViewModel?.scheduleMeetingTS(it) }
     }
 
     private fun setOnListeners() {
@@ -179,7 +210,8 @@ class TSPerformanceActivity : BaseActivity() {
 
     private fun dateFilterDialog() {
         val builder = AlertDialog.Builder(this@TSPerformanceActivity)
-        val binding = DateFilterBinding.inflate(LayoutInflater.from(this@TSPerformanceActivity))
+        val binding =
+            DateFilterBinding.inflate(LayoutInflater.from(this@TSPerformanceActivity))
         builder.setView(binding.root)
         val dialog: AlertDialog = builder.create()
         dialog.show()

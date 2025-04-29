@@ -722,7 +722,7 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
 
 
     ///////////////////////////////////////////////////////////////
-    fun onOffDuty() {
+    private fun onOffDuty() {
         if (dialog != null) {
             dialog?.dismiss()
             dialog = null
