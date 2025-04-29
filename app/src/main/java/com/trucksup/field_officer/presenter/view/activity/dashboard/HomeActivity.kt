@@ -85,7 +85,7 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+//        enableEdgeToEdge()
         adjustFontScale(getResources().configuration, 1.0f)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_home)
         setContentView(binding.root)

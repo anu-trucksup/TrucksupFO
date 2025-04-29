@@ -30,6 +30,12 @@ class FinanceHisAdap(var context: Context, var list: ArrayList<InquiryHistoryRes
             holder.binding.tvName.text = list[position].name
         }
 
+        //enquiry from
+        if (!list[position].enquiryFrom.isNullOrEmpty())
+        {
+            holder.binding.tvEnquiryFrom.text=list[position].enquiryFrom
+        }
+
         //call status
         if (!list[position].callStatus.isNullOrEmpty()) {
             holder.binding.tvClose.text = "(" + list[position].callStatus + ")"

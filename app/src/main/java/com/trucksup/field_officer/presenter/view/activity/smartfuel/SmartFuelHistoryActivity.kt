@@ -253,6 +253,10 @@ class SmartFuelHistoryActivity : BaseActivity() {
             }
         }
 
+        binding.txtActive.text="Current("+currentHistoryList.size.toString()+")"
+        binding.txtCompleted.text="Activated("+activatedHistoryList.size.toString()+")"
+        binding.txtRejected.text="Rejected("+rejectedHistoryList.size.toString()+")"
+
         binding.tvTotalEnquiry.text = "${inquiryHistoryResponse?.leadsHistory?.size} Enquiries"
         setupViewPager()
     }
