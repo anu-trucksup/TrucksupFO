@@ -25,8 +25,10 @@ import java.util.ArrayList
 class FinanceHistoryActivity : BaseActivity() {
 
     private var activehistoryList: ArrayList<InquiryHistoryResponse.InquiryHistory> = arrayListOf()
-    private var completehistoryList: ArrayList<InquiryHistoryResponse.InquiryHistory> = arrayListOf()
-    private var rejectedhistoryList: ArrayList<InquiryHistoryResponse.InquiryHistory> = arrayListOf()
+    private var completehistoryList: ArrayList<InquiryHistoryResponse.InquiryHistory> =
+        arrayListOf()
+    private var rejectedhistoryList: ArrayList<InquiryHistoryResponse.InquiryHistory> =
+        arrayListOf()
     private lateinit var fragment1: HistoryFnIsFragment
     private lateinit var fragment2: HistoryFnIsFragment
     private lateinit var fragment3: HistoryFnIsFragment
@@ -62,7 +64,7 @@ class FinanceHistoryActivity : BaseActivity() {
 
         //back button
         binding.btnBack.setOnClickListener {
-           onBackPressed()
+            onBackPressed()
         }
 
         //active button
@@ -83,10 +85,10 @@ class FinanceHistoryActivity : BaseActivity() {
 
     private fun setupViewPager() {
         try {
-           val adapter = FragmentAdapter(this)
-           fragment1 = HistoryFnIsFragment("active",activehistoryList)
-           fragment2 = HistoryFnIsFragment("complete",completehistoryList)
-           fragment3 = HistoryFnIsFragment("reject",rejectedhistoryList)
+            val adapter = FragmentAdapter(this)
+            fragment1 = HistoryFnIsFragment("active", activehistoryList)
+            fragment2 = HistoryFnIsFragment("complete", completehistoryList)
+            fragment3 = HistoryFnIsFragment("reject", rejectedhistoryList)
             adapter.addFragment(fragment1)
             adapter.addFragment(fragment2)
             adapter.addFragment(fragment3)
@@ -180,11 +182,11 @@ class FinanceHistoryActivity : BaseActivity() {
         if (historyType == "Finance") {
             val intent = Intent(this, FinanceActivity::class.java)
             startActivity(intent)
-            finish()
+//            finish()
         } else {
             val intent = Intent(this, InsuranceActivity::class.java)
             startActivity(intent)
-            finish()
+//            finish()
         }
 
     }
@@ -196,7 +198,7 @@ class FinanceHistoryActivity : BaseActivity() {
             requestedBy = PreferenceManager.getPhoneNo(this),
             requestDatetime = PreferenceManager.getServerDateUtc(),
             mobilenumber = PreferenceManager.getPhoneNo(this),
-            referralCode = PreferenceManager.getUserData(this)?.referralcode?:"",
+            referralCode = PreferenceManager.getUserData(this)?.referralcode ?: "",
             historyType = historyType!!
         )
         mViewModel?.inquiryHistory(request)
@@ -213,7 +215,18 @@ class FinanceHistoryActivity : BaseActivity() {
                 LoadingUtils.hideDialog()
 
                 if (responseModel.success != null) {
-                    inquiryHistorySuccess(responseModel.success)
+//                    if (responseModel.success.inquiryHistory.isNullOrEmpty()) {
+//                        if (historyType == "Insurance") {
+//                            val intent = Intent(this, InsuranceActivity::class.java)
+//                            startActivity(intent)
+//                            finish()
+//                        } else if (historyType == "Finance") {
+//                            val intent = Intent(this, FinanceActivity::class.java)
+//                            startActivity(intent)
+//                        }
+//                    } else {
+                        inquiryHistorySuccess(responseModel.success)
+//                    }
                 } else {
                 }
             }
@@ -223,43 +236,38 @@ class FinanceHistoryActivity : BaseActivity() {
     private fun inquiryHistorySuccess(inquiryHistoryResponse: InquiryHistoryResponse) {
         inquiryHistoryResponse?.inquiryHistory?.forEachIndexed { _, inquiryHistory ->
             run {
-                var enquiryFlag=0 //0=active,1=completed,2=rejected
+                var enquiryFlag = 0 //0=active,1=completed,2=rejected
                 inquiryHistory.historyDetails.forEachIndexed { _, historyDetails ->
                     run {
                         if (historyDetails.status.equals("Amount Disbursed")) {
 //                            completehistoryList.add(inquiryHistory)
-                            enquiryFlag=1
+                            enquiryFlag = 1
                             return@run
-                        }else  if (historyDetails.status.equals("Rejected")) {
+                        } else if (historyDetails.status.equals("Rejected")) {
 //                            rejectedhistoryList.add(inquiryHistory)
-                            enquiryFlag=2
+                            enquiryFlag = 2
                             return@run
-                        }else{
+                        } else {
 //                            activehistoryList.add(inquiryHistory)
-                            enquiryFlag=0
+                            enquiryFlag = 0
                         }
                     }
                 }
 
-                if (enquiryFlag==0)
-                {
+                if (enquiryFlag == 0) {
                     activehistoryList.add(inquiryHistory)
-                }
-                else if (enquiryFlag==1)
-                {
+                } else if (enquiryFlag == 1) {
                     completehistoryList.add(inquiryHistory)
-                }
-                else if (enquiryFlag==2)
-                {
+                } else if (enquiryFlag == 2) {
                     rejectedhistoryList.add(inquiryHistory)
                 }
 
             }
         }
 
-        binding.txtActive.text="Active("+activehistoryList.size.toString()+")"
-        binding.txtCompleted.text="Completed("+completehistoryList.size.toString()+")"
-        binding.txtRejected.text="Rejected("+rejectedhistoryList.size.toString()+")"
+        binding.txtActive.text = "Active(" + activehistoryList.size.toString() + ")"
+        binding.txtCompleted.text = "Completed(" + completehistoryList.size.toString() + ")"
+        binding.txtRejected.text = "Rejected(" + rejectedhistoryList.size.toString() + ")"
 
         binding.tvTotalEnquiry.text = "${inquiryHistoryResponse?.inquiryHistory?.size} Enquiries"
         setupViewPager()

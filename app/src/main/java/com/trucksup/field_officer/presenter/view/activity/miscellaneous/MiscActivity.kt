@@ -118,22 +118,36 @@ class MiscActivity : BaseActivity(), AddMiscInterface, TrucksFOImageController {
         }
 
         binding.d1.setOnClickListener {
-            if (binding.rvd1.visibility == View.GONE) {
-                binding.rvd1.visibility = View.VISIBLE
-                binding.imgD1.setImageDrawable(resources.getDrawable(R.drawable.drop_down_more))
-            } else {
+            if (inCompleteLeadsList.isNullOrEmpty())
+            {
                 binding.rvd1.visibility = View.GONE
                 binding.imgD1.setImageDrawable(resources.getDrawable(R.drawable.drop_down_less_icon))
+            }
+            else {
+                if (binding.rvd1.visibility == View.GONE) {
+                    binding.rvd1.visibility = View.VISIBLE
+                    binding.imgD1.setImageDrawable(resources.getDrawable(R.drawable.drop_down_more))
+                } else {
+                    binding.rvd1.visibility = View.GONE
+                    binding.imgD1.setImageDrawable(resources.getDrawable(R.drawable.drop_down_less_icon))
+                }
             }
         }
 
         binding.d2.setOnClickListener {
-            if (binding.rvd2.visibility == View.GONE) {
-                binding.rvd2.visibility = View.VISIBLE
-                binding.imgD2.setImageDrawable(resources.getDrawable(R.drawable.drop_down_more))
-            } else {
+            if (completeLeadsList.isNullOrEmpty())
+            {
                 binding.rvd2.visibility = View.GONE
                 binding.imgD2.setImageDrawable(resources.getDrawable(R.drawable.drop_down_less_icon))
+            }
+            else {
+                if (binding.rvd2.visibility == View.GONE) {
+                    binding.rvd2.visibility = View.VISIBLE
+                    binding.imgD2.setImageDrawable(resources.getDrawable(R.drawable.drop_down_more))
+                } else {
+                    binding.rvd2.visibility = View.GONE
+                    binding.imgD2.setImageDrawable(resources.getDrawable(R.drawable.drop_down_less_icon))
+                }
             }
         }
 
@@ -152,6 +166,7 @@ class MiscActivity : BaseActivity(), AddMiscInterface, TrucksFOImageController {
         binding.imgCalender.setOnClickListener {
             val bottomSheet = DateRangeBottomSheet { start, end ->
                 binding.imgClear.visibility=View.VISIBLE
+                binding.imgCalender.visibility=View.GONE
                 getMiscLeads(start, end)
 //                Toast.makeText(this, "Selected: $start → $end", Toast.LENGTH_SHORT).show()
             }
@@ -162,6 +177,7 @@ class MiscActivity : BaseActivity(), AddMiscInterface, TrucksFOImageController {
         //clear filter
         binding.imgClear.setOnClickListener {
             binding.imgClear.visibility=View.GONE
+            binding.imgCalender.visibility=View.VISIBLE
             getMiscLeads("", "")
         }
 
@@ -302,8 +318,19 @@ class MiscActivity : BaseActivity(), AddMiscInterface, TrucksFOImageController {
                         if (!inCompleteLeadsList.isNullOrEmpty()) {
                             setIncompleteLead(inCompleteLeadsList)
                         }
+                        else
+                        {
+                            binding.rvd1.visibility = View.GONE
+                            binding.imgD1.setImageDrawable(resources.getDrawable(R.drawable.drop_down_less_icon))
+                        }
+
                         if (!completeLeadsList.isNullOrEmpty()) {
                             setCompleteLead(completeLeadsList)
+                        }
+                        else
+                        {
+                            binding.rvd2.visibility = View.GONE
+                            binding.imgD2.setImageDrawable(resources.getDrawable(R.drawable.drop_down_less_icon))
                         }
 
                         binding.etSearch.addTextChangedListener(object : TextWatcher {

@@ -42,6 +42,7 @@ import com.trucksup.field_officer.presenter.view.activity.auth.logout.LogoutRequ
 import com.trucksup.field_officer.presenter.view.activity.commit.MyTodayCommitmentActivity
 import com.trucksup.field_officer.presenter.view.activity.dashboard.vml.DashBoardViewModel
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.FinanceActivity
+import com.trucksup.field_officer.presenter.view.activity.financeInsurance.FinanceHistoryActivity
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.InsuranceActivity
 import com.trucksup.field_officer.presenter.view.activity.todayFollowup.FollowUpActivity
 import com.trucksup.field_officer.presenter.view.activity.other.NewOnboardingSelection
@@ -49,6 +50,7 @@ import com.trucksup.field_officer.presenter.view.activity.other.model.NavItems
 import com.trucksup.field_officer.presenter.view.activity.profile.EditProfileActivity
 import com.trucksup.field_officer.presenter.view.activity.profile.MyEarningActivity
 import com.trucksup.field_officer.presenter.view.activity.smartfuel.AddSmartFuelActivity
+import com.trucksup.field_officer.presenter.view.activity.smartfuel.SmartFuelHistoryActivity
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.unassigned_ts_ba.activity.UnAssignedTSBAActivity
 import com.trucksup.field_officer.presenter.view.adapter.HomeFeaturesAdapter
 import com.trucksup.field_officer.presenter.view.adapter.ServicesMainAdapter
@@ -351,7 +353,7 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
         }
     }
 
-    override fun onItemClick(pos: Int) {
+    override fun onItemClick(pos: Int,dataCount:String) {
 
         when (pos) {
             0 -> {
@@ -359,18 +361,39 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
             }
 
             1 -> {
-                val intent = Intent(this, FinanceActivity::class.java)
-                startActivity(intent)
+                if (dataCount.isNullOrEmpty() || dataCount=="0"){
+                    val intent = Intent(this, FinanceActivity::class.java)
+                    startActivity(intent)
+                }
+                else
+                {
+                    val intent = Intent(this, FinanceHistoryActivity::class.java)
+                    intent.putExtra("HISTORY_TYPE", "Finance")
+                    startActivity(intent)
+                }
             }
 
             2 -> {
-                val intent = Intent(this, InsuranceActivity::class.java)
-                startActivity(intent)
+                if (dataCount.isNullOrEmpty() || dataCount=="0") {
+                    val intent = Intent(this, InsuranceActivity::class.java)
+                    startActivity(intent)
+                }
+                else {
+                    val intent = Intent(this, FinanceHistoryActivity::class.java)
+                    intent.putExtra("HISTORY_TYPE", "Insurance")
+                    startActivity(intent)
+                }
             }
 
             3 -> {
-                val intent = Intent(this, AddSmartFuelActivity::class.java)
-                startActivity(intent)
+                if (dataCount.isNullOrEmpty() || dataCount=="0") {
+                    val intent = Intent(this, AddSmartFuelActivity::class.java)
+                    startActivity(intent)
+                }
+                else {
+                    val intent = Intent(this, SmartFuelHistoryActivity::class.java)
+                    startActivity(intent)
+                }
             }
 
             else -> {

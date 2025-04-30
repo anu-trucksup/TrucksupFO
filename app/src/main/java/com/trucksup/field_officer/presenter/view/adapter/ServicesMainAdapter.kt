@@ -27,7 +27,7 @@ class ServicesMainAdapter(var context: Context?, var serviceList:ArrayList<HomeS
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.serviceImg.setImageResource(serviceList[position].serviceImage)
-        holder.binding.serviceName.text = serviceList[position].service
+        holder.binding.serviceName.text = serviceList[position].service?:""
         holder.binding.tvCount.text=serviceList[position].serviceCount?:"0"
 
         if (position == 5 || position == 4) {
@@ -37,7 +37,7 @@ class ServicesMainAdapter(var context: Context?, var serviceList:ArrayList<HomeS
         }
 
         holder.binding.root.setOnClickListener {
-            itemClickListener.onItemClick(position)
+            itemClickListener.onItemClick(position,serviceList[position].serviceCount?:"0")
         }
     }
 
@@ -48,5 +48,5 @@ class ServicesMainAdapter(var context: Context?, var serviceList:ArrayList<HomeS
 }
 
 interface OnItemClickListener {
-    fun onItemClick(position: Int)
+    fun onItemClick(position: Int,dataCount:String)
 }
