@@ -165,10 +165,16 @@ class GPScheduledFragment : Fragment() {
                 OnFilterValueInputListener {
                 override fun onInput(kycStatus: String, visitType: String) {
                     setupObserver(visitType, kycStatus)
-                    Toast.makeText(aContext as Activity, "KycStatus: $kycStatus, VisitType: $visitType", Toast.LENGTH_SHORT).show()
+                    binding.llCancel.visibility = View.VISIBLE
+
                 }
             })
             //DialogBoxes.setFilter(aContext!!, "owner", object : OnUserInputListener)
+        }
+
+        binding.llCancel.setOnClickListener{
+            setupObserver("","")
+            binding.llCancel.visibility = View.GONE
         }
     }
 

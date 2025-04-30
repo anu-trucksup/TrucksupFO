@@ -116,14 +116,14 @@ class GPCompletedFragment : Fragment() {
             getAllMeetupTSResponse.boVisitDetails.forEachIndexed { _, getTSDetailsData ->
                 run {
                     binding.rv.visibility = View.VISIBLE
-                    binding.l1.visibility = View.VISIBLE
+                    //binding.l1.visibility = View.VISIBLE
                     binding.noData.visibility = View.GONE
                     getAllGPMeetsList.add(getTSDetailsData)
                 }
             }
         } else {
             binding.rv.visibility = View.GONE
-            binding.l1.visibility = View.GONE
+            //binding.l1.visibility = View.GONE
             binding.noData.visibility = View.VISIBLE
         }
         binding.rv.layoutManager = LinearLayoutManager(aContext)
@@ -142,6 +142,7 @@ class GPCompletedFragment : Fragment() {
         binding.imgCalender.setOnClickListener {
             val bottomSheet = DateRangeBottomSheet { start, end ->
                 setupObserver(start, end)
+                binding.llCancel.visibility = View.VISIBLE
                 //Toast.makeText(context, "Selected: $start → $end", Toast.LENGTH_SHORT).show()
             }
             bottomSheet.show(requireActivity().supportFragmentManager, "DATE_BOTTOM_SHEET")
@@ -150,6 +151,11 @@ class GPCompletedFragment : Fragment() {
         //filter
         binding.imgFilter.setOnClickListener {
             DialogBoxes.setFilter(aContext!!,"owner")
+        }
+
+        binding.llCancel.setOnClickListener{
+            setupObserver("","")
+            binding.llCancel.visibility = View.GONE
         }
     }
 

@@ -79,7 +79,7 @@ class GPPerformanceActivity : BaseActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun setupObserver() {
 
-        mViewModel?.onScheduleMeetingGPResponseLD?.observe(this@GPPerformanceActivity) { responseModel ->                     // login function observe
+        /*mViewModel?.onScheduleMeetingGPResponseLD?.observe(this@GPPerformanceActivity) { responseModel ->                     // login function observe
             if (responseModel.serverError != null) {
                 dismissProgressDialog()
 
@@ -99,15 +99,15 @@ class GPPerformanceActivity : BaseActivity() {
                         "m"
                     )
                     abx.show()
-                    /* updateData(
+                    *//* updateData(
                          responseModel.success.message.toString(),
                          responseModel.success.message1
-                     )*/
+                     )*//*
 
                 } else {
                 }
             }
-        }
+        }*/
 
 
         mViewModel?.onScheduleMeetingGPResponseLD?.observe(this@GPPerformanceActivity) { responseModel ->                     // login function observe
@@ -243,15 +243,15 @@ class GPPerformanceActivity : BaseActivity() {
     fun dataSubmit(ownerName: String, selectedDate: String, selectedTime: String) {
         val request =
             ScheduleMeetingGPRequest(
-                1,
+                PreferenceManager.getUserData(this)?.boUserid?.toInt() ?: 0,
                 ownerName,
-                "12.33",
-                "22.33",
-                "8527257606",
+                latitude,
+                longitude,
+                PreferenceManager.getPhoneNo(this),
                 PreferenceManager.getProfileType(this),
                 PreferenceManager.getServerDateUtc(),
-                654,
-                "8527257606",
+                PreferenceManager.getRequestNo().toInt(),
+                PreferenceManager.getPhoneNo(this),
                 selectedDate,
                 selectedTime,
             )

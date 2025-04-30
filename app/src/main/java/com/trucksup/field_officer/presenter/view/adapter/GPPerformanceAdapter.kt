@@ -176,7 +176,7 @@ class GPPerformanceAdapter(var context: Context?, var list: ArrayList<GetAllGPDe
                     )
                 }
             }else{
-                listener?.onItemClick(selectedDate, selectedTime, ownerName)
+                listener?.onItemClick(ownerName, selectedDate, selectedTime)
                 dialog.dismiss()
             }
 

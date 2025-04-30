@@ -8,29 +8,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.trucksup.field_officer.databinding.DateFilterBinding
 import com.trucksup.field_officer.databinding.FragmentOwnerCompletedBinding
 import com.trucksup.field_officer.presenter.common.AlertBoxDialog
 import com.trucksup.field_officer.presenter.common.LoadingUtils
 import com.trucksup.field_officer.presenter.common.btmsheet.DateRangeBottomSheet
-import com.trucksup.field_officer.presenter.view.adapter.TSCompletedAdapter
 import com.trucksup.field_officer.presenter.common.dialog.DialogBoxes
-import com.trucksup.field_officer.presenter.common.dialog.ProgressDialogBox
-
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.BoVisitDetail
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.GetAllMeetUpBARequest
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.GetAllMeetupBAResponse
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.vml.BAFollowUpViewModel
 import com.trucksup.field_officer.presenter.view.adapter.BACompletedAdapter
-import com.trucksup.field_officer.presenter.view.adapter.BAScheduleFollowupAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -70,6 +64,7 @@ class BACompletedFragment() : Fragment() {
         binding.imgCalender.setOnClickListener {
             val bottomSheet = DateRangeBottomSheet { start, end ->
                 setupObserver(start, end)
+                binding.llCancel.visibility = View.VISIBLE
                 //Toast.makeText(context, "Selected: $start → $end", Toast.LENGTH_SHORT).show()
             }
             bottomSheet.show(requireActivity().supportFragmentManager, "DATE_BOTTOM_SHEET")
@@ -78,6 +73,11 @@ class BACompletedFragment() : Fragment() {
         //filter
         binding.imgFilter.setOnClickListener {
             DialogBoxes.setFilter(aContext!!, "owner")
+        }
+
+        binding.llCancel.setOnClickListener{
+            setupObserver("","")
+            binding.llCancel.visibility = View.GONE
         }
     }
 
@@ -133,14 +133,14 @@ class BACompletedFragment() : Fragment() {
             getAllMeetupBAResponse.boVisitDetails.forEachIndexed { _, getTSDetailsData ->
                 run {
                     binding.rv.visibility = View.VISIBLE
-                    binding.l1.visibility = View.VISIBLE
+                    //binding.l1.visibility = View.VISIBLE
                     binding.noData.visibility = View.GONE
                     getAllBAMeetsList.add(getTSDetailsData)
                 }
             }
         } else {
             binding.rv.visibility = View.GONE
-            binding.l1.visibility = View.GONE
+            //binding.l1.visibility = View.GONE
             binding.noData.visibility = View.VISIBLE
         }
         binding.rv.layoutManager = LinearLayoutManager(aContext)
