@@ -832,18 +832,9 @@ class HomeActivity : BaseActivity(), OnItemClickListener, LogoutManager {
             if (dutyStatus == false) {
                 dutyStatus = true
                 onDutyToggleChange()
-//                this.binding.OnSwitchBtn.isChecked = true
-//                this.binding.txtOnDuty.text = "On Duty"
-//                this.binding.txtOnDuty.setTextColor(resources.getColor(R.color.on_duty_color))
-//                this.binding.OnSwitchBtn.trackTintList = resources.getColorStateList(R.color.on_duty_color)
             } else {
                 dutyStatus = false
-                offDutyToggleChange()
-//                this.binding.OnSwitchBtn.isChecked = false
-//                this.binding.txtOnDuty.text = "Off Duty"
-//                this.binding.txtOnDuty.setTextColor(resources.getColor(R.color.red))
-//                this.binding.OnSwitchBtn.trackTintList = resources.getColorStateList(R.color.red)
-            }
+                offDutyToggleChange()  }
             apiDutyStatus = false
             dialog2?.dismiss()
         }
