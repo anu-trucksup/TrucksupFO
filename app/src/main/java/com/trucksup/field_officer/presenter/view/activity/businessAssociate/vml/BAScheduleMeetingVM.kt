@@ -15,6 +15,7 @@ import com.trucksup.field_officer.presenter.cityPicker.ApiClient
 import com.trucksup.field_officer.presenter.common.image_picker.TrucksFOImageController
 import com.trucksup.field_officer.presenter.utils.PreferenceManager
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.CompleteMeetingBARequest
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.GetAllBADetailsResponse
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.ScheduleMeetingBARequest
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.ScheduleMeetingResponse
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetAllTSDetailsResponse
@@ -41,9 +42,9 @@ class BAScheduleMeetingVM @Inject constructor(val apiUseCase: APIUseCase) : View
         MutableLiveData<ResponseModel<ScheduleMeetingResponse>>()
     val onScheduleMeetingBAResponseLD: LiveData<ResponseModel<ScheduleMeetingResponse>> = onScheduleMeetingBAResponse
 
-    private var resultGetBAScheduleMeetingData: MutableLiveData<ResponseModel<GetAllTSDetailsResponse>> =
-        MutableLiveData<ResponseModel<GetAllTSDetailsResponse>>()
-    val rresultGetBAScheduleMeetingDataLD: LiveData<ResponseModel<GetAllTSDetailsResponse>> = resultGetBAScheduleMeetingData
+    private var resultGetBAScheduleMeetingData: MutableLiveData<ResponseModel<GetAllBADetailsResponse>> =
+        MutableLiveData<ResponseModel<GetAllBADetailsResponse>>()
+    val rresultGetBAScheduleMeetingDataLD: LiveData<ResponseModel<GetAllBADetailsResponse>> = resultGetBAScheduleMeetingData
     //by me
 
     private var onCompleteMeetingBAResponse: MutableLiveData<ResponseModel<ScheduleMeetingResponse>> =
@@ -121,7 +122,7 @@ class BAScheduleMeetingVM @Inject constructor(val apiUseCase: APIUseCase) : View
         }
 
     }
-    fun getBAMeetScheduleData(request: GetAllTSDetailsRequest) {
+    fun getAllBADetails(request: GetAllTSDetailsRequest) {
         CoroutineScope(Dispatchers.IO).launch {
             when (val response = apiUseCase.getAllBADetails(
                 PreferenceManager.getAuthToken(),

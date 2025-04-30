@@ -44,6 +44,7 @@ import com.trucksup.field_officer.presenter.view.activity.auth.logout.LogoutResp
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.AddBrokerRequest
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.AddBrokerResponse
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.CompleteMeetingBARequest
+import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.GetAllBADetailsResponse
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.GetAllMeetUpBARequest
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.GetAllMeetupBAResponse
 import com.trucksup.field_officer.presenter.view.activity.businessAssociate.model.ScheduleMeetingBARequest
@@ -56,6 +57,7 @@ import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.L
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryData
 import com.trucksup.field_officer.presenter.view.activity.financeInsurance.vml.SubmitInsuranceInquiryRequest
 import com.trucksup.field_officer.presenter.view.activity.growthPartner.model.CompleteMeetingGPRequest
+import com.trucksup.field_officer.presenter.view.activity.growthPartner.model.GetAllGPDetailsResponse
 import com.trucksup.field_officer.presenter.view.activity.growthPartner.model.ScheduleMeetingGPRequest
 import com.trucksup.field_officer.presenter.view.activity.miscellaneous.model.AddMiscLeadRequest
 import com.trucksup.field_officer.presenter.view.activity.miscellaneous.model.AddMiscLeadsResponse
@@ -373,14 +375,14 @@ class APIRepositoryImpl constructor(private val apiService: ApiService) : APIRep
     override suspend fun getBAMeetScheduleData(
         authToken: String,
         request: GetAllTSDetailsRequest,
-    ): ResultWrapper<GetAllTSDetailsResponse> {
+    ): ResultWrapper<GetAllBADetailsResponse> {
         return safeApiCall(Dispatchers.IO) { apiService.getAllBADetails(authToken, request) }
     }
 
     override suspend fun getGPMeetScheduleData(
         authToken: String,
         request: GetAllTSDetailsRequest,
-    ): ResultWrapper<GetAllTSDetailsResponse> {
+    ): ResultWrapper<GetAllGPDetailsResponse> {
         return safeApiCall(Dispatchers.IO) {
             apiService.getAllGPDetails(authToken, request)
         }

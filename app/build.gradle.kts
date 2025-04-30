@@ -14,7 +14,7 @@ android {
 
     defaultConfig {
         applicationId = "com.trucksup.field_officer"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -93,7 +93,7 @@ dependencies {
     implementation(platform(libs.okhttp.bom))
     implementation(libs.okhttp)
     implementation(libs.okhttp3.logging.interceptor)
-    implementation (libs.adapter.rxjava2)
+    implementation(libs.adapter.rxjava2)
     // JSON Converter
     implementation(libs.converter.gson)
     implementation(libs.coil.compose.v222)
@@ -135,16 +135,20 @@ dependencies {
     // If you want to additionally use the CameraX View class
     implementation(libs.androidx.camera.view)
     //implementation (libs.play.services.mlkit.face.detection)
-    implementation (libs.gson)
+    implementation(libs.gson)
 
     // KTX for the Maps SDK for Android library
     implementation(libs.maps.ktx)
     // KTX for the Maps SDK for Android Utility Library
     implementation(libs.maps.utils.ktx)
     //Pdf reader
-    implementation (libs.mindevpdfviewer)
+    implementation(libs.mindevpdfviewer)
 
     //Auto Sms Reader
-    implementation (libs.play.services.auth)
-    implementation (libs.play.services.auth.api.phone)
+    implementation(libs.play.services.auth)
+    implementation(libs.play.services.auth.api.phone)
+
+    //place
+    implementation(libs.places) // Latest as of 2025
+
 }

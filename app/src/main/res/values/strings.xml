@@ -766,6 +766,7 @@
     <string name="misc_no_data_found">There’s no lead added by you. Kindly add a new
 lead by clicking on the “Add Misc” icon.</string>
     <string name="clear">Clear</string>
+    <string name="reschedule">Reschedule</string>
 
 
 </resources>

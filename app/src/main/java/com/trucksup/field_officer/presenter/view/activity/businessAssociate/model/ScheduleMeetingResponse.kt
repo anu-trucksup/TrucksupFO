@@ -5,5 +5,7 @@ data class ScheduleMeetingResponse(
     val requestId: Int,
     val requestedBy: String,
     val status: String,
+    val date: String,
+    val time: String,
     val statuscode: Int
 )
