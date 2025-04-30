@@ -647,6 +647,7 @@
     <string name="pan_details">Customer PAN Details <font color='#FF0000'>*</font></string>
     <string name="pan_number_s">PAN Number <font color='#FF0000'>*</font></string>
     <string name="add_details">Customer Address Details</string>
+    <string name="customer_address_details">Customer Address Details <font color='#FF0000'>*</font></string>
     <string name="cancelled_cheque_photo">Cancelled Cheque Photo</string>
     <string name="declaration_form">Declaration Form</string>
     <string name="declare_document">If vehicle is attached or purchased from someone else, kindly upload the declaration form.</string>
@@ -654,7 +655,7 @@
     <string name="current">Current</string>
     <string name="add_front_image">Address Front Photo <font color='#FF0000'>*</font></string>
     <string name="add_back_image">Address Back Photo <font color='#FF0000'>*</font></string>
-    <string name="select_address_proof">Select Address Proof</string>
+    <string name="select_address_proof">Select Address Proof <font color='#FF0000'>*</font></string>
     <string name="bank_details">Bank Details</string>
     <string name="vrc_front_image">Vehicle RC Front Image <font color='#FF0000'>*</font></string>
     <string name="vrc_back_image">Vehicle RC Back Image <font color='#FF0000'>*</font></string>

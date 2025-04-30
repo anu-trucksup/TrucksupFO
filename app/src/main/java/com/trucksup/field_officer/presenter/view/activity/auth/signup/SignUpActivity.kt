@@ -209,10 +209,12 @@ class SignUpActivity : BaseActivity(), View.OnClickListener, TrucksFOImageContro
     }
 
     private fun launchCamera() {
-        val intent = Intent(this, CameraActivity::class.java)
-        intent.putExtra("flipCamera", true)
-        intent.putExtra("cameraOpen", 0)
-        launcher?.launch(intent)
+        requestCameraAndGalleryPermissions {
+            val intent = Intent(this, CameraActivity::class.java)
+            intent.putExtra("flipCamera", true)
+            intent.putExtra("cameraOpen", 0)
+            launcher?.launch(intent)
+        }
     }
 
     fun uploadImage(file: File) {
@@ -228,7 +230,6 @@ class SignUpActivity : BaseActivity(), View.OnClickListener, TrucksFOImageContro
     }
 
     private fun setupObserver() {
-
         signupViewModel?.registerUserLD?.observe(this@SignUpActivity) { responseModel ->
             if (responseModel.serverError != null) {
                 dismissProgressDialog()
@@ -290,105 +291,105 @@ class SignUpActivity : BaseActivity(), View.OnClickListener, TrucksFOImageContro
         }
     }
 
-    fun getProfileImage(v: View) {
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.READ_EXTERNAL_STORAGE
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
-            ) != PackageManager.PERMISSION_GRANTED
-            && ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.CAMERA
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            Log.e("Click", "Click opn location ask  ")
-            checkLocationPermission()
-        } else {
-            /*val intent = Intent(this, CameraActivity::class.java)
-            startForResult?.launch(intent)*/
-        }
-    }
+//    fun getProfileImage(v: View) {
+//        if (ActivityCompat.checkSelfPermission(
+//                this,
+//                Manifest.permission.READ_EXTERNAL_STORAGE
+//            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+//                this,
+//                Manifest.permission.WRITE_EXTERNAL_STORAGE
+//            ) != PackageManager.PERMISSION_GRANTED
+//            && ActivityCompat.checkSelfPermission(
+//                this,
+//                Manifest.permission.CAMERA
+//            ) != PackageManager.PERMISSION_GRANTED
+//        ) {
+//            Log.e("Click", "Click opn location ask  ")
+//            checkLocationPermission()
+//        } else {
+//            /*val intent = Intent(this, CameraActivity::class.java)
+//            startForResult?.launch(intent)*/
+//        }
+//    }
+//
+//    private fun checkLocationPermission() {
+//
+//        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA)
+//            != PackageManager.PERMISSION_GRANTED
+//        ) {
+//
+//            // Should we show an explanation?
+//            if (ActivityCompat.shouldShowRequestPermissionRationale(
+//                    this,
+//                    android.Manifest.permission.CAMERA
+//                )
+//            ) {
+//
+//                // Show an explanation to the user *asynchronously* -- don't block
+//                // this thread waiting for the user's response! After the user
+//                // sees the explanation, try again to request the permission.
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+//                    ActivityCompat.requestPermissions(
+//                        this,
+//                        arrayOf(
+//                            android.Manifest.permission.CAMERA,
+//                            android.Manifest.permission.READ_MEDIA_IMAGES,
+//                            android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+//                        ),
+//                        1010
+//                    )
+//                } else {
+//                    ActivityCompat.requestPermissions(
+//                        this,
+//                        arrayOf(
+//                            android.Manifest.permission.CAMERA,
+//                            android.Manifest.permission.READ_EXTERNAL_STORAGE,
+//                            android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+//                        ),
+//                        1010
+//                    )
+//                }
+//
+//            } else {
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+//                    ActivityCompat.requestPermissions(
+//                        this,
+//                        arrayOf(
+//                            android.Manifest.permission.CAMERA,
+//                            android.Manifest.permission.READ_MEDIA_IMAGES,
+//                            android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+//                        ),
+//                        1010
+//                    )
+//                } else {
+//                    ActivityCompat.requestPermissions(
+//                        this,
+//                        arrayOf(
+//                            android.Manifest.permission.CAMERA,
+//                            android.Manifest.permission.READ_EXTERNAL_STORAGE,
+//                            android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+//                        ),
+//                        1010
+//                    )
+//                }
+//
+//            }
+//        }
+//
+//    }
 
-    private fun checkLocationPermission() {
-
-        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA)
-            != PackageManager.PERMISSION_GRANTED
-        ) {
-
-            // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(
-                    this,
-                    android.Manifest.permission.CAMERA
-                )
-            ) {
-
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    ActivityCompat.requestPermissions(
-                        this,
-                        arrayOf(
-                            android.Manifest.permission.CAMERA,
-                            android.Manifest.permission.READ_MEDIA_IMAGES,
-                            android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-                        ),
-                        1010
-                    )
-                } else {
-                    ActivityCompat.requestPermissions(
-                        this,
-                        arrayOf(
-                            android.Manifest.permission.CAMERA,
-                            android.Manifest.permission.READ_EXTERNAL_STORAGE,
-                            android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-                        ),
-                        1010
-                    )
-                }
-
-            } else {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    ActivityCompat.requestPermissions(
-                        this,
-                        arrayOf(
-                            android.Manifest.permission.CAMERA,
-                            android.Manifest.permission.READ_MEDIA_IMAGES,
-                            android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-                        ),
-                        1010
-                    )
-                } else {
-                    ActivityCompat.requestPermissions(
-                        this,
-                        arrayOf(
-                            android.Manifest.permission.CAMERA,
-                            android.Manifest.permission.READ_EXTERNAL_STORAGE,
-                            android.Manifest.permission.WRITE_EXTERNAL_STORAGE
-                        ),
-                        1010
-                    )
-                }
-
-            }
-        }
-
-    }
-
-    /*override fun getImage(value: String) {
-        LoadingUtils?.hideDialog()
-        Glide.with(this)
-            .load(MyResponse.imagePathUrl + value + "&Position=1")
-            .into(profileImage!!)
-        fileKey = value
-        profileImage?.setTag("y")
-    }
-
-    override fun imageError(error: String) {
-        LoadingUtils?.hideDialog()
-    }*/
+//    override fun getImage(value: String) {
+//        LoadingUtils?.hideDialog()
+//        Glide.with(this)
+//            .load(MyResponse.imagePathUrl + value + "&Position=1")
+//            .into(profileImage!!)
+//        fileKey = value
+//        profileImage?.setTag("y")
+//    }
+//
+//    override fun imageError(error: String) {
+//        LoadingUtils?.hideDialog()
+//    }
 
     private fun isValidName(phone: String): Boolean {
 
@@ -396,7 +397,6 @@ class SignUpActivity : BaseActivity(), View.OnClickListener, TrucksFOImageContro
         val m = p.matcher(phone)
         return (m.find() && m.group() == phone)
     }
-
 
     override fun getImage(valuekey: String, url: String) {
         dismissProgressDialog()
@@ -426,8 +426,7 @@ class SignUpActivity : BaseActivity(), View.OnClickListener, TrucksFOImageContro
         return passwordRegex.matches(password)
     }
 
-    private fun checkValidation()
-    {
+    private fun checkValidation() {
         if (isOnline(this)) {
             if (TextUtils.isEmpty(mSignUpBinding?.profileName?.text.toString().trim())) {
                 mSignUpBinding?.profileName?.error =

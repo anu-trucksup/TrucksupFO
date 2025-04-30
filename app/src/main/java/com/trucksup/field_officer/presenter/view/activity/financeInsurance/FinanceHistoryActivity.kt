@@ -83,7 +83,7 @@ class FinanceHistoryActivity : BaseActivity() {
 
     private fun setupViewPager() {
         try {
-            val adapter = FragmentAdapter(this)
+           val adapter = FragmentAdapter(this)
            fragment1 = HistoryFnIsFragment("active",activehistoryList)
            fragment2 = HistoryFnIsFragment("complete",completehistoryList)
            fragment3 = HistoryFnIsFragment("reject",rejectedhistoryList)
@@ -161,7 +161,7 @@ class FinanceHistoryActivity : BaseActivity() {
                         binding.tabRejected.setBackgroundDrawable(
                             ContextCompat.getDrawable(
                                 this@FinanceHistoryActivity,
-                                R.drawable.tab_unselected_background
+                                R.drawable.ba_tab_unselected_background
                             )
                         )
                         binding.txtActive.setTextColor(resources.getColor(R.color.blue))
@@ -171,7 +171,8 @@ class FinanceHistoryActivity : BaseActivity() {
                     }
                 }
             })
-        } catch (_: Exception) { }
+        } catch (_: Exception) {
+        }
 
     }
 

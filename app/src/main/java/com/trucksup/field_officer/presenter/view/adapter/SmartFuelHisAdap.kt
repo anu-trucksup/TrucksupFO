@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -23,7 +24,7 @@ class SmartFuelHisAdap(var context: Context, var list: ArrayList<SmartFuelHistor
     }
 
     override fun onBindViewHolder(holder: SmartFuelHisAdap.ViewHolder, position: Int) {
-        holder.binding.cardSelfOther.visibility=View.GONE
+//        holder.binding.cardSelfOther.visibility=View.GONE
 
         //name
         if (!list[position].customerName.isNullOrEmpty()) {
@@ -33,8 +34,9 @@ class SmartFuelHisAdap(var context: Context, var list: ArrayList<SmartFuelHistor
         //enquiry from
         if (!list[position].enquiryFrom.isNullOrEmpty())
         {
-            holder.binding.tvEnquiryFrom.text=list[position].enquiryFrom
+            holder.binding.tvEnquiryFrom.text=list[position].enquiryFrom+" Enquiry"
         }
+
 
         //call status
         if (!list[position].cardStatus.isNullOrEmpty()) {

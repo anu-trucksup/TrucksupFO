@@ -24,7 +24,7 @@ class FinanceHisAdap(var context: Context, var list: ArrayList<InquiryHistoryRes
 
     override fun onBindViewHolder(holder: FinanceHisAdap.ViewHolder, position: Int) {
        //  holder.setIsRecyclable(false)
-        holder.binding.cardSelfOther.visibility=View.GONE
+//        holder.binding.cardSelfOther.visibility=View.GONE
         //name
         if (!list[position].name.isNullOrEmpty()) {
             holder.binding.tvName.text = list[position].name
@@ -33,7 +33,7 @@ class FinanceHisAdap(var context: Context, var list: ArrayList<InquiryHistoryRes
         //enquiry from
         if (!list[position].enquiryFrom.isNullOrEmpty())
         {
-            holder.binding.tvEnquiryFrom.text=list[position].enquiryFrom
+            holder.binding.tvEnquiryFrom.text=list[position].enquiryFrom+" Enquiry"
         }
 
         //call status
@@ -75,7 +75,7 @@ class FinanceHisAdap(var context: Context, var list: ArrayList<InquiryHistoryRes
         //image
         try {
             Glide.with(context)
-                .load("" + list[position].profilePhoto + "&Position=1")
+                .load(list[position].profilePhoto)
                 .placeholder(R.mipmap.user_profile)
                 .error(R.mipmap.user_profile).into(holder.binding.image)
         } catch (_: Exception) {
