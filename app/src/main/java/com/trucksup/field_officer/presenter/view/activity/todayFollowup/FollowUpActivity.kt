@@ -83,13 +83,14 @@ class FollowUpActivity : BaseActivity() {
 
     private fun setItemList(followUpCounts: FollowUpResponse?) {
 
-        binding.tvTotalCount.text = followUpCounts?.meetsCounts?.total.toString()
-        binding.tvScheduledCount.text = followUpCounts?.todayFollowUpCounts?.scheduled.toString()
-        binding.tvCompletedCount.text = followUpCounts?.todayFollowUpCounts?.completed.toString()
-        binding.tvPlannedCount.text = followUpCounts?.todayFollowUpCounts?.plannedFollowUp.toString()
+        binding.tvTotalCount.text = followUpCounts?.meetsCounts?.total ?: "0"
+        binding.tvScheduledCount.text = followUpCounts?.todayFollowUpCounts?.scheduled ?: "0"
+        binding.tvCompletedCount.text = followUpCounts?.todayFollowUpCounts?.completed ?: "0"
+        binding.tvPlannedCount.text =
+            followUpCounts?.todayFollowUpCounts?.plannedFollowUp ?: "0"
         binding.rvSecondServices.apply {
             layoutManager = GridLayoutManager(this@FollowUpActivity, 3)
-            adapter = FollowupSelectionAdapter(this@FollowUpActivity,followUpCounts?.meetsCounts)
+            adapter = FollowupSelectionAdapter(this@FollowUpActivity, followUpCounts?.meetsCounts)
             hasFixedSize()
         }
     }
