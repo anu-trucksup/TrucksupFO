@@ -87,15 +87,6 @@ import retrofit2.http.Query
 
 interface ApiService {
 
-    //User Auth Module
-
-    @POST("JwtAuth/api/Auth/GenerateJWTtoken")
-    fun generateJWToken(
-        @Header("x-api-key") auth: String,
-        @Body request: GenerateJWTtokenRequest
-    ): Call<GenerateJWTtokenResponse>?
-
-
     @POST("BOAppApiGateway/apiateway/Login")
     @Headers("Accept: application/json")
     suspend fun loginUser(

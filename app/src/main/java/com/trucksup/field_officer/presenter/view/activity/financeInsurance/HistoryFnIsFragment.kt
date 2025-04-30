@@ -19,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class HistoryFnIsFragment(val status: String, private val historyList: ArrayList<InquiryHistoryResponse.InquiryHistory>) : Fragment() {
+class HistoryFnIsFragment(var status: String="", private var historyList: ArrayList<InquiryHistoryResponse.InquiryHistory>?=null) : Fragment() {
     private var aContext: Context? = null
     private lateinit var binding: FragmentHistoryInfnsBinding
 
@@ -70,7 +70,7 @@ class HistoryFnIsFragment(val status: String, private val historyList: ArrayList
         }
     }
 
-    fun updatedata(historyList: ArrayList<InquiryHistoryResponse.InquiryHistory>) {
+    fun updatedata(historyList: ArrayList<InquiryHistoryResponse.InquiryHistory>?) {
 
         if (historyList.isNullOrEmpty()) {
             binding.rv.visibility = View.GONE

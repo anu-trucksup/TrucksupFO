@@ -38,25 +38,25 @@
                 android:textColor="@color/white" />
         </RelativeLayout>
 
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:cardBackgroundColor="@color/white"
-            app:cardCornerRadius="@dimen/_12sdp"
-            app:cardElevation="@dimen/_4sdp">
+<!--        <com.google.android.material.card.MaterialCardView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            app:cardBackgroundColor="@color/white"-->
+<!--            app:cardCornerRadius="@dimen/_12sdp"-->
+<!--            app:cardElevation="@dimen/_4sdp">-->
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/_10sdp"
                 android:orientation="vertical"
+                android:background="@drawable/addload_bg"
                 android:paddingHorizontal="@dimen/_12sdp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/l1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
                     android:visibility="visible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -68,7 +68,7 @@
                         android:layout_marginEnd="@dimen/_5sdp"
                         android:background="@drawable/background1"
                         android:orientation="horizontal"
-                        app:layout_constraintEnd_toStartOf="@+id/imgFilter"
+                        app:layout_constraintEnd_toStartOf="@+id/imgCalender"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
@@ -97,15 +97,15 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/imgFilter"
+                        android:id="@+id/imgCalender"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginEnd="@dimen/_2sdp"
                         android:gravity="center"
                         android:orientation="vertical"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/imgCalender"
+                        app:layout_constraintEnd_toStartOf="@+id/imgClear"
                         app:layout_constraintTop_toTopOf="parent">
 
                         <com.google.android.material.card.MaterialCardView
@@ -122,7 +122,7 @@
                                 android:layout_height="@dimen/_15sdp"
                                 android:layout_margin="@dimen/_5sdp"
                                 android:scaleType="fitXY"
-                                android:src="@drawable/filter_icon"
+                                android:src="@drawable/calender_icon"
                                 app:tint="@color/black" />
 
                         </com.google.android.material.card.MaterialCardView>
@@ -132,19 +132,19 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/bai_jamjuree_medium"
                             android:lines="1"
-                            android:text="Filter"
+                            android:text="Calendar"
                             android:textColor="@color/blue"
                             android:textSize="@dimen/_9ssp" />
 
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/imgCalender"
+                        android:id="@+id/imgClear"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:orientation="vertical"
-                        android:visibility="visible"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
@@ -162,7 +162,7 @@
                                 android:layout_width="@dimen/_15sdp"
                                 android:layout_height="@dimen/_15sdp"
                                 android:layout_margin="@dimen/_5sdp"
-                                android:src="@drawable/calender_icon"
+                                android:src="@drawable/cut_icon"
                                 app:tint="@color/black" />
 
                         </com.google.android.material.card.MaterialCardView>
@@ -172,7 +172,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/bai_jamjuree_medium"
                             android:lines="1"
-                            android:text="Calendar"
+                            android:text="Clear"
                             android:textColor="@color/blue"
                             android:textSize="@dimen/_9ssp" />
 
@@ -411,7 +411,7 @@
                         android:layout_gravity="center"
                         android:orientation="vertical"
                         android:gravity="center"
-                        android:layout_marginTop="@dimen/_60sdp">
+                        android:layout_marginTop="@dimen/_80sdp">
 
                         <TextView
                             android:layout_width="match_parent"
@@ -470,7 +470,7 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </com.google.android.material.card.MaterialCardView>
+<!--        </com.google.android.material.card.MaterialCardView>-->
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
