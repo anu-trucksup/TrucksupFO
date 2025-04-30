@@ -18,11 +18,17 @@ class GPOnboardingActivity : BaseActivity() {
     private lateinit var binding: ActivityGpOnboardingBinding
     val categories = listOf("Select", "Business", "Individual")
     val itemsMap = mapOf(
-        "Business" to listOf("Select", "Store", "Dealership", "Distributor ", "Financial Service Firm"),
+        "Business" to listOf(
+            "Select",
+            "Store",
+            "Dealership",
+            "Distributor ",
+            "Financial Service Firm"
+        ),
         "Individual" to listOf("Select", "Sales Agent", "Installation Freelancer")
     )
-    var selectedCategory:String=""
-    var selectedSubCategory:String=""
+    var selectedCategory: String = ""
+    var selectedSubCategory: String = ""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,34 +43,50 @@ class GPOnboardingActivity : BaseActivity() {
         categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.partnerTypeSpinner.adapter = categoryAdapter
 
-        binding.partnerTypeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                selectedCategory = categories[position]
-                val items = itemsMap[selectedCategory] ?: emptyList()
-                val itemAdapter = ArrayAdapter(this@GPOnboardingActivity, android.R.layout.simple_spinner_item, items)
-                itemAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                binding.subPartnerTypeSpinner.adapter = itemAdapter
+        binding.partnerTypeSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    selectedCategory = categories[position]
+                    val items = itemsMap[selectedCategory] ?: emptyList()
+                    val itemAdapter = ArrayAdapter(
+                        this@GPOnboardingActivity,
+                        android.R.layout.simple_spinner_item,
+                        items
+                    )
+                    itemAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                    binding.subPartnerTypeSpinner.adapter = itemAdapter
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>) {
+                    // Optional: Handle case when nothing is selected
+                }
             }
 
-            override fun onNothingSelected(parent: AdapterView<*>) {
-                // Optional: Handle case when nothing is selected
-            }
-        }
+        binding.subPartnerTypeSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    selectedSubCategory = parent.getItemAtPosition(position).toString()
+                }
 
-        binding.subPartnerTypeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
-                selectedSubCategory = parent.getItemAtPosition(position).toString()
+                override fun onNothingSelected(parent: AdapterView<*>) {}
             }
-
-            override fun onNothingSelected(parent: AdapterView<*>) {}
-        }
         //test
 
-        binding.btnAdd.setOnClickListener(){
+        binding.btnAdd.setOnClickListener() {
             checkValidation()
         }
 
-        binding.ivBack.setOnClickListener(){
+        binding.ivBack.setOnClickListener() {
             onBackPressed()
         }
     }
@@ -76,22 +98,22 @@ class GPOnboardingActivity : BaseActivity() {
         } else if (binding.ETAccountHolderNumber.text.isEmpty()) {
             binding.ETAccountHolderNumber.requestFocus()
             binding.ETAccountHolderNumber.setError(getString(R.string.inputGPNumber))
-        }else if (binding.ETAccountHolderNumber.text.length < 10) {
+        } else if (binding.ETAccountHolderNumber.text.length < 10) {
             binding.ETAccountHolderNumber.requestFocus()
             binding.ETAccountHolderNumber.error = getString(R.string.enter_right_number_v)
-        }else if(selectedCategory.equals("Select")){
+        } else if (selectedCategory.equals("Select")) {
             LoggerMessage.onSNACK(
                 binding.partnerTypeSpinner,
                 getString(R.string.inputGPPartnerType),
                 this
             )
-        }else if(selectedSubCategory.equals("Select") || selectedSubCategory.isEmpty()){
+        } else if (selectedSubCategory.equals("Select") || selectedSubCategory.isEmpty()) {
             LoggerMessage.onSNACK(
                 binding.subPartnerTypeSpinner,
                 getString(R.string.inputGPName),
                 this
             )
-        }else{
+        } else {
             growth_continue()
         }
         /*else if (binding.ETPanNumberNOB.length() == 10) {
@@ -123,12 +145,32 @@ class GPOnboardingActivity : BaseActivity() {
     }
 
     fun growth_continue() {
-        val userData = GPOnboardingData(binding.ETAccountHolderName.text.toString(),
-            binding.ETAccountHolderNumber.text.toString(), selectedCategory,
-            selectedCategory,"","",""
-        ,"","","","","","",""
-        ,"","","", "",""
-        ,"","","","","") // only name filled
+        val userData = GPOnboardingData(
+            binding.ETAccountHolderName.text.toString(),
+            binding.ETAccountHolderNumber.text.toString(),
+            selectedCategory,
+            selectedCategory,
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+        ) // only name filled
 
         val gson = Gson()
         val jsonData = gson.toJson(userData)

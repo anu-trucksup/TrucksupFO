@@ -29,36 +29,35 @@ class GpOnboardingPreviewActivity : AppCompatActivity(), View.OnClickListener {
         val json = intent.getStringExtra("userDataJson")
         val gpOnboardingData = gson.fromJson(json, GPOnboardingData::class.java)
 
-        val finalData = gpOnboardingData
         //GP Basic Detail
-        binding.tvContactName.setText(finalData.ContactName)
-        binding.tvContactNumber.setText(finalData.ContactNumber)
-        binding.tvPartnerType.setText(finalData.PartnerType)
+        binding.tvContactName.setText(gpOnboardingData.ContactName)
+        binding.tvContactNumber.setText(gpOnboardingData.ContactNumber)
+        binding.tvPartnerType.setText(gpOnboardingData.PartnerType)
 
         //GP Personal Detail
-        binding.tvSalesCodeofBO.setText(finalData.SalesCodeofBO)
-        binding.tvMobileNumber.setText(finalData.GPMobileNumber)
-        binding.tvName.setText(finalData.GPName)
-        binding.tvBusinessName.setText(finalData.BusinessName)
-        binding.tvBusinessType.setText(finalData.BusinessType)
-        binding.tvPincode.setText(finalData.Pincode)
+        binding.tvSalesCodeofBO.setText(gpOnboardingData.SalesCodeofBO)
+        binding.tvMobileNumber.setText(gpOnboardingData.GPMobileNumber)
+        binding.tvName.setText(gpOnboardingData.GPName)
+        binding.tvBusinessName.setText(gpOnboardingData.BusinessName)
+        binding.tvBusinessType.setText(gpOnboardingData.BusinessType)
+        binding.tvPincode.setText(gpOnboardingData.Pincode)
 
         //GP KYC Detail
-        binding.tvKYCStatus.setText(finalData.KYCStatus)
+        binding.tvKYCStatus.setText(gpOnboardingData.KYCStatus)
         //GP Establishment
         try {
             Glide.with(this)
-                .load(finalData.EstablishmentPhotoURL)
+                .load(gpOnboardingData.EstablishmentPhotoURL)
                 .into(binding?.imgStorePhoto!!)
         } catch (e: Exception) {
         }
 
         //Bank Account Details
-        binding.tvAccountHolderName.setText(finalData.AccountHolderName)
-        binding.tvAccountNumber.setText(finalData.AccountNumber)
-        binding.tvBankName.setText(finalData.BankName)
-        binding.tvIFSCCode.setText(finalData.IFSCCode)
-        binding.tvPANNumber.setText(finalData.PANNumber)
+        binding.tvAccountHolderName.setText(gpOnboardingData.AccountHolderName)
+        binding.tvAccountNumber.setText(gpOnboardingData.AccountNumber)
+        binding.tvBankName.setText(gpOnboardingData.BankName)
+        binding.tvIFSCCode.setText(gpOnboardingData.IFSCCode)
+        binding.tvPANNumber.setText(gpOnboardingData.PANNumber)
 
 
         //binding.c.setText(finalData.City)

@@ -42,11 +42,11 @@ class FollowupSelectionAdapter(
         holder.binding.ivImage.setImageResource(imageList[position])
         holder.binding.tvName.text = serviceList[position]
         if (position == 0) {
-            holder.binding.tvCount.text = todayFollowUpCounts?.truckSupplier
+            holder.binding.tvCount.text = todayFollowUpCounts?.truckSupplier ?: "0"
         } else if (position == 1) {
-            holder.binding.tvCount.text = todayFollowUpCounts?.businessAssociate
+            holder.binding.tvCount.text = todayFollowUpCounts?.businessAssociate ?: "0"
         } else if (position == 2) {
-            holder.binding.tvCount.text = todayFollowUpCounts?.growthPartner
+            holder.binding.tvCount.text = todayFollowUpCounts?.growthPartner ?: "0"
         }
 
 
