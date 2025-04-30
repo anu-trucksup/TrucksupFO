@@ -77,7 +77,7 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        enableEdgeToEdge()
-        requestCameraAndGalleryPermissions {}
+//        requestCameraAndGalleryPermissions {}
         adjustFontScale(getResources().configuration, 1.0f);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_insurance_screen)
 //        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -780,8 +780,7 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
 
     }
 
-    private val pickMedia =
-        registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+    private val pickMedia = registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
             // Callback is invoked after the user selects a media item or closes the
             // photo picker.
             if (uri != null) {
@@ -972,7 +971,6 @@ class InsuranceActivity : BaseActivity(), InsuranceController, GetImage, TrucksF
             }
         }
     }
-
 
     private fun launchCamera(flipCamera: Boolean, cameraOpen: Int, focusView: Boolean) {
         val intent = Intent(this, CameraActivity::class.java)

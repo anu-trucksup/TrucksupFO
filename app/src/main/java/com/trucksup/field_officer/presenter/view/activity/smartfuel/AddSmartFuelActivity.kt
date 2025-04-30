@@ -486,23 +486,7 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
     }
 
     private fun getImage() {
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.READ_EXTERNAL_STORAGE
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
-            ) != PackageManager.PERMISSION_GRANTED
-            && ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.CAMERA
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            Log.e("Click", "Click opn location ask  ")
-            checkLocationPermission()
-
-
-        } else {
+        requestCameraAndGalleryPermissions {
             if (imageT == 3) {
                 var chooseFile = Intent(Intent.ACTION_GET_CONTENT)
                 chooseFile.setType("application/pdf");
@@ -513,6 +497,34 @@ class AddSmartFuelActivity : BaseActivity(), GetImage, TrucksFOImageController {
                 imagePickerDialog.show()
             }
         }
+
+//        if (ActivityCompat.checkSelfPermission(
+//                this,
+//                Manifest.permission.READ_EXTERNAL_STORAGE
+//            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+//                this,
+//                Manifest.permission.WRITE_EXTERNAL_STORAGE
+//            ) != PackageManager.PERMISSION_GRANTED
+//            && ActivityCompat.checkSelfPermission(
+//                this,
+//                Manifest.permission.CAMERA
+//            ) != PackageManager.PERMISSION_GRANTED
+//        ) {
+//            Log.e("Click", "Click opn location ask  ")
+//            checkLocationPermission()
+//
+//
+//        } else {
+//            if (imageT == 3) {
+//                var chooseFile = Intent(Intent.ACTION_GET_CONTENT)
+//                chooseFile.setType("application/pdf");
+//                chooseFile = Intent.createChooser(chooseFile, "Choose a file")
+//                activitypdfLauncher.launch(chooseFile)
+//            } else {
+//                val imagePickerDialog = ImagePickerDialog(this, this)
+//                imagePickerDialog.show()
+//            }
+//        }
     }
 
     private fun checkLocationPermission() {

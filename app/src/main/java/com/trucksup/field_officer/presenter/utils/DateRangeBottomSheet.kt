@@ -8,7 +8,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointBackward
-import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.trucksup.field_officer.R
 import com.trucksup.field_officer.databinding.DialogDateRangeBinding
@@ -33,13 +32,13 @@ class DateRangeBottomSheet(
         dialog.setContentView(binding.root)
 
         binding.startConst.setOnClickListener {
-            if (binding.tvStartDateValue.text.toString().isNullOrEmpty()) {
+            if (startMillis==null) {
                 dataSet()
             }
         }
 
         binding.endConst.setOnClickListener {
-            if (binding.tvEndDateValue.text.toString().isNullOrEmpty()) {
+            if (endMillis==null) {
                 dataSet()
             }
         }
