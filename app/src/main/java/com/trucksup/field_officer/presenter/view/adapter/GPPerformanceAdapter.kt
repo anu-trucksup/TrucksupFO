@@ -62,7 +62,7 @@ class GPPerformanceAdapter(var context: Context?, var list: ArrayList<GetAllGPDe
         }
 
         holder.binding.tvAddSchedule.setOnClickListener{
-            dateFilterDialog(position, list[position].ownerName)
+            dateFilterDialog(list[position].ownerName)
         }
 
 
@@ -111,7 +111,7 @@ class GPPerformanceAdapter(var context: Context?, var list: ArrayList<GetAllGPDe
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun dateFilterDialog(pos: Int, ownerName:String) {
+     fun dateFilterDialog(ownerName:String) {
         val builder = AlertDialog.Builder(context)
         val binding = DateFilterBinding.inflate(LayoutInflater.from(context))
         builder.setView(binding.root)
