@@ -1,18 +1,16 @@
 package com.trucksup.field_officer.presenter.view.activity.growthPartner
 
-import android.app.AlertDialog
 import android.content.Intent
-import android.icu.text.SimpleDateFormat
-import android.icu.util.Calendar
+import android.os.Build
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.trucksup.field_officer.databinding.AttendDialogLayoutBinding
 import com.trucksup.field_officer.databinding.GpPerformanceActivityBinding
 import com.trucksup.field_officer.presenter.common.AlertBoxDialog
+import com.trucksup.field_officer.presenter.common.Utils
 import com.trucksup.field_officer.presenter.common.dialog.DialogBoxes
 import com.trucksup.field_officer.presenter.common.dialog.OnFilterValueInputListener
 import com.trucksup.field_officer.presenter.common.parent.BaseActivity
@@ -23,17 +21,18 @@ import com.trucksup.field_officer.presenter.view.activity.growthPartner.vml.GPSc
 import com.trucksup.field_officer.presenter.view.activity.truckSupplier.model.GetAllTSDetailsRequest
 import com.trucksup.field_officer.presenter.view.adapter.GPPerformanceAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.Date
 
 @AndroidEntryPoint
 class GPPerformanceActivity : BaseActivity() {
 
+    private lateinit var adapter: GPPerformanceAdapter
     private lateinit var binding: GpPerformanceActivityBinding
     private var mViewModel: GPScheduleMeetingVM? = null
     private var getGpdetails: java.util.ArrayList<GetAllGPDetailsResponse.GetGPdetails> =
         arrayListOf()
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = GpPerformanceActivityBinding.inflate(layoutInflater)
@@ -77,6 +76,7 @@ class GPPerformanceActivity : BaseActivity() {
         mViewModel?.getGpdetails(request)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun setupObserver() {
 
         mViewModel?.onScheduleMeetingGPResponseLD?.observe(this@GPPerformanceActivity) { responseModel ->                     // login function observe
@@ -107,6 +107,63 @@ class GPPerformanceActivity : BaseActivity() {
                 } else {
                 }
             }
+        }
+
+
+        mViewModel?.onScheduleMeetingGPResponseLD?.observe(this@GPPerformanceActivity) { responseModel ->                     // login function observe
+            if (responseModel.serverError != null) {
+                dismissProgressDialog()
+
+                val abx = AlertBoxDialog(
+                    this@GPPerformanceActivity,
+                    responseModel.serverError.toString(),
+                    "m"
+                )
+                abx.show()
+            } else {
+                dismissProgressDialog()
+
+                if (responseModel.success?.statuscode == 200) {
+                    if (responseModel.success?.message != null) {
+                        val abx = AlertBoxDialog(
+                            this@GPPerformanceActivity,
+                            responseModel.success.message,
+                            "m"
+                        )
+                        abx.show()
+
+                    }
+                } else {
+                    if (responseModel.success?.statuscode == 201) {
+                        if (responseModel.success.date != null && responseModel.success.time != null) {
+                            Utils.scheduleDialog(
+                                this, responseModel.success.date, responseModel.success.time,
+                                responseModel.success.message
+                            ){
+                                if(it){
+                                    adapter.dateFilterDialog( "Test")
+                                }
+                            }
+                        } else {
+                            val abx = AlertBoxDialog(
+                                this@GPPerformanceActivity,
+                                responseModel.success.message,
+                                "m"
+                            )
+                            abx.show()
+                        }
+
+                    } else {
+                        val abx = AlertBoxDialog(
+                            this@GPPerformanceActivity,
+                            responseModel.success?.message ?: "",
+                            "m"
+                        )
+                        abx.show()
+                    }
+                }
+            }
+
         }
 
         mViewModel?.rresultGetGPScheduleMeetingDataLD?.observe(this) { responseModel ->                     // login function observe
@@ -162,7 +219,7 @@ class GPPerformanceActivity : BaseActivity() {
         println("Dsdksd==" + getGpdetails.size)
 
         binding.rv.layoutManager = LinearLayoutManager(this)
-        val adapter = GPPerformanceAdapter(this@GPPerformanceActivity, getGpdetails)
+        adapter = GPPerformanceAdapter(this@GPPerformanceActivity, getGpdetails)
 
         adapter.setOnItemClickListener(object : GPPerformanceAdapter.OnItemClickListener {
             override fun onItemClick(
@@ -170,8 +227,7 @@ class GPPerformanceActivity : BaseActivity() {
                 selectedDate: String,
                 selectedTime: String,
             ) {
-                //dataSubmit(ownerName, selectedDate, selectedTime)
-                rescheduleDialog()
+                dataSubmit(ownerName, selectedDate, selectedTime)
             }
         })
         binding.rv.adapter = adapter
@@ -203,6 +259,7 @@ class GPPerformanceActivity : BaseActivity() {
         request.let { mViewModel?.onScheduleMeetingGP(it) }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun setOnListeners() {
 
         binding.imgViewAll.setOnClickListener {
@@ -232,41 +289,5 @@ class GPPerformanceActivity : BaseActivity() {
             onBackPressed()
         }
     }
-
-    //test
-    private fun rescheduleDialog() {
-        var dialog: AlertDialog? = null
-        val builder = AlertDialog.Builder(this@GPPerformanceActivity)
-        val binding =
-            AttendDialogLayoutBinding.inflate(LayoutInflater.from(this@GPPerformanceActivity))
-        builder.setView(binding.root)
-        dialog = builder.create()
-        dialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
-        dialog?.setCancelable(false)
-
-        binding.message.setText("The meeting is already scheduled with the TS name.")
-        binding.confirm.setText("Reschedule")
-        val calendar = Calendar.getInstance()
-        val getCurrentDate = SimpleDateFormat("dd-MMM-yy")
-        val getCurrentTime = SimpleDateFormat("hh:mm a")
-        val currentDate = getCurrentDate.format(calendar.time)
-        val currentTime = getCurrentTime.format(Date()).toString()
-        val formattedTime = currentTime.replace("am", "AM").replace("pm", "PM");
-
-        binding.tvDate.setText("Date: " + currentDate)
-        binding.tvTime.setText("Time: " + formattedTime)
-
-        //ok button
-        binding.confirm.setOnClickListener {
-        }
-
-        //ok button
-        binding.cancle.setOnClickListener {
-
-        }
-
-        dialog?.show()
-    }
-    //test
 
 }
